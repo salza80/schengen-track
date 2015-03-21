@@ -1,9 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  country_code: MyString
+Australia:
+  name: Australia
+  country_code: AU
 
-two:
-  name: MyString
-  country_code: MyString
+Germany:
+  name: Germany
+  country_code: DE
+  schengen_start_date: 1/1/2009
+
+Croatia:
+  name: Croatia
+  country_code: CR
+  schengen_start_date: 1/1/2016

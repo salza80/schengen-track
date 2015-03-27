@@ -18,7 +18,7 @@ class CountryTest < ActiveSupport::TestCase
     assert_equal false, a.is_schengen
   end
 
-  test "should return true if schengen start_date is less that date passed in" do
+  test 'should return true if schengen start_date is less that date passed in' do
     a = countries(:Croatia)
     assert_equal true, a.is_schengen(Date.new(2017, 1, 1))
     assert_equal true, true

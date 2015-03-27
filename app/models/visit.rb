@@ -1,3 +1,4 @@
 class Visit < ActiveRecord::Base
-  belongs_to :Country
+  belongs_to :country
+  belongs_to :person
 end

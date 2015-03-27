@@ -3,6 +3,7 @@
 Australia:
   name: Australia
   country_code: AU
+  schengen_start_date: nil
 
 Germany:
   name: Germany

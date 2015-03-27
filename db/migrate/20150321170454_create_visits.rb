@@ -4,11 +4,11 @@ class CreateVisits < ActiveRecord::Migration
       t.date :entry_date
       t.date :exit_date
       t.integer :schengen_days
-      t.references :Country, index: true
-      t.References :Person
+      t.references :country, index: true
+      t.references :person
 
       t.timestamps null: false
     end
-    add_foreign_key :visits, :Countries
+    add_foreign_key :visits, :countries
   end
 end

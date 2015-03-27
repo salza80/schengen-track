@@ -1,3 +1,4 @@
 class Person < ActiveRecord::Base
-  belongs_to :country
+  belongs_to :nationality, class_name: 'Country'
+  has_many :visits
 end

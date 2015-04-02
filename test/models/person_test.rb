@@ -7,5 +7,4 @@ class PersonTest < ActiveSupport::TestCase
     assert a.invalid?
     assert_equal [:first_name, :last_name, :nationality], a.errors.keys
   end
-
 end

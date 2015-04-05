@@ -1,11 +1,13 @@
 %h1 Listing visits
 
-%table
+%table.table
   %thead
     %tr
       %th Entry date
       %th Exit date
       %th Country
+      %th Days
+      %th Shengen Zone
       %th
       %th
       %th
@@ -15,7 +17,13 @@
       %tr
         %td= visit.entry_date
         %td= visit.exit_date
-        %td= visit.country_id
+        %td= visit.country.name
+        %td= visit.no_days
+        %td 
+          -if visit.country.schengen? 
+            = "Y"
+          - else
+            = "N"
         %td= link_to 'Show', visit
         %td= link_to 'Edit', edit_visit_path(visit)
         %td= link_to 'Destroy', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }

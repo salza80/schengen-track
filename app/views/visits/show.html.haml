@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b [entry date:
+  = @visit.entry_date
+%p
+  %b Exit date:
+  = @visit.exit_date
+%p
+  %b Country:
+  = @visit.country_id
+
+= link_to 'Edit', edit_visit_path(@visit)
+\|
+= link_to 'Back', visits_path

@@ -22,7 +22,7 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 1, b.count
     assert_equal '2014-03-22'.to_date, b.first.entry_date
   end
-   test 'post_visits scope' do
+  test 'post_visits scope' do
     a = visits(:one)
     b = a.post_visits
     assert_equal 1, b.count

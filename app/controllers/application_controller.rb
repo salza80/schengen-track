@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_person
 
   def current_person
-    Person.first
+    if user_signed_in?
+      current_user.people.first
+    end
   end
 end

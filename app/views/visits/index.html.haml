@@ -1,4 +1,4 @@
-%h1 Listing visits
+%h1 Travel Record
 
 %table.table
   %thead
@@ -26,7 +26,7 @@
             = "N"
         %td= link_to 'Show', visit
         %td= link_to 'Edit', edit_visit_path(visit)
-        %td= link_to 'Destroy', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class VisitsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+  
   setup do
+    login
     @visit = visits(:one)
   end
 
@@ -21,7 +24,7 @@ class VisitsControllerTest < ActionController::TestCase
       post :create, visit: { entry_date: @visit.entry_date, country_id: @visit.country_id, exit_date: @visit.exit_date }
     end
 
-    assert_redirected_to visit_path(assigns(:visit))
+    assert_redirected_to visits_path
   end
 
   test 'should show visit' do
@@ -36,7 +39,7 @@ class VisitsControllerTest < ActionController::TestCase
 
   test 'should update visit' do
     patch :update, id: @visit, visit: { entry_date: @visit.entry_date, country_id: @visit.country_id, exit_date: @visit.exit_date }
-    assert_redirected_to visit_path(assigns(:visit))
+    assert_redirected_to visits_path
   end
 
   test 'should destroy visit' do

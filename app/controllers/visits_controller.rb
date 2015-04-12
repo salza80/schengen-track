@@ -1,10 +1,11 @@
 class VisitsController < ApplicationController
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /visits
   # GET /visits.json
   def index
-    @visits = Visit.all
+    @visits = current_person.visits.all
   end
 
   # GET /visits/1
@@ -29,7 +30,7 @@ class VisitsController < ApplicationController
     @visit.person = current_person
     respond_to do |format|
       if @visit.save
-        format.html { redirect_to @visit, notice: 'Visit was successfully created.' }
+        format.html { redirect_to visits_url, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class VisitsController < ApplicationController
   def update
     respond_to do |format|
       if @visit.update(visit_params)
-        format.html { redirect_to @visit, notice: 'Visit was successfully updated.' }
+        format.html { redirect_to visits_url, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class VisitsController < ApplicationController
   def destroy
     @visit.destroy
     respond_to do |format|
-      format.html { redirect_to visits_url, notice: 'Visit was successfully destroyed.' }
+      format.html { redirect_to visits_url, notice: 'Visit was successfully deleted.' }
       format.json { head :no_content }
     end
   end

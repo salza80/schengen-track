@@ -2,7 +2,14 @@ class Visit < ActiveRecord::Base
   belongs_to :country
   belongs_to :person
   validates :country, :person, :entry_date, presence: true
-  attr_accessor :running_total_days
+  validate :entry_date_must_be_less_than_exit
+ 
+  def entry_date_must_be_less_than_exit
+    if exit_date.present? && entry_date > exit_date
+      errors.add(:entry_date, 'should be earlier than the exit date')
+    end
+  end
+
 
   def no_days
     return nil if exit_date.nil?

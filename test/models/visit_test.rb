@@ -28,4 +28,12 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 1, b.count
     assert_equal '2014-03-27'.to_date, b.first.entry_date
   end
+
+  test 'entry_date should be greater than exit date' do
+    a = visits(:one)
+    assert a.valid?
+    a.entry_date = '2009-1-2'
+    a.exit_date = '2009-1-1'
+    assert a.invalid?
+  end
 end

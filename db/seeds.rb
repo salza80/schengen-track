@@ -8,6 +8,7 @@
 
 Country.delete_all
 Person.delete_all
+User.delete_all
 
 c = Country.create(country_code: 'AU', name: 'Australia')
 user = User.new(email:'smclean17@gmail.com', password:'password', password_confirmation: 'password')

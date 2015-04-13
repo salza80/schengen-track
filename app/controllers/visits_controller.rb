@@ -1,6 +1,6 @@
 class VisitsController < ApplicationController
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
 
   # GET /visits
   # GET /visits.json
@@ -66,7 +66,7 @@ class VisitsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visit
-      @visit = Visit.find(params[:id])
+      @visit = current_person.visits.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

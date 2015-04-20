@@ -15,13 +15,19 @@ class Visit < ActiveRecord::Base
   end
 
   def previous_visits
-    Visit.where("person_id = ? and entry_date <= ? and id <> ?", person_id, entry_date, id)
+    person.visits.where("entry_date <= ? and id <> ?", entry_date, id)
   end
   
   def post_visits
-    Visit.where("person_id = ? and entry_date >= ? and id <> ?", person_id, entry_date, id)
+    person.visits.where("entry_date >= ? and id <> ?", entry_date, id)
   end
 
+  def previous_180_days_visits
+    return Visit.none unless exit_date
+    r=person.visits.find_by_date((exit_date - 180.days), exit_date).select{ |v| v.id != id }
+    puts r.inspect
+    person.visits.find_by_date((exit_date - 180.days), exit_date).select{ |v| v.id != id }
+  end
 
   def self.find_by_date(start_date, end_date)
     return none if start_date.nil? && end_date.nil?

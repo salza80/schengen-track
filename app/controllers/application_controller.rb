@@ -34,6 +34,6 @@ class ApplicationController < ActionController::Base
     p = user.people.build(first_name: 'Guest', last_name: 'User')
     p.save(validate: false)
     user
-    
+ 
   end
 end

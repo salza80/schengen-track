@@ -57,5 +57,14 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 3, a.count
     a = person.visits.find_by_date(nil, '2014-03-26')
     assert_equal 2, a.count
+    a = person.visits.find_by_date(nil, nil)
+    assert_equal 0, a.count
+  end
+
+  test 'test get previous 180 days visits' do
+    a = visits(:two)
+    b = a.previous_180_days_visits
+    assert_equal 2, b.count
+
   end
 end

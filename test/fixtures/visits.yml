@@ -1,15 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  entry_date: 2014-03-10
+  exit_date: 2014-03-22
+  schengen_days: 
+  country: Germany
+  person: Sally
+
+two:
   entry_date: 2014-03-22
   exit_date: 2014-03-27
   schengen_days: 
   country: Australia
   person: Sally
 
-two:
+three:
   entry_date: 2014-03-27
   exit_date: 
   schengen_days: 
   country: Australia
   person: Sally
+

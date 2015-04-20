@@ -46,16 +46,16 @@ class VisitTest < ActiveSupport::TestCase
 
   test 'test date range should not overlap existing visits' do
     person = people(:Sally)
-    a = Visit.find_by_date(person, '2014-03-20', '2014-03-22')
+    a = person.visits.find_by_date('2014-03-20', '2014-03-22')
     assert_equal 2, a.count
-    a = Visit.find_by_date(person, '2010-03-09', nil)
+    a = person.visits.find_by_date('2010-03-09', nil)
   
     assert_equal 3, a.count
-    a = Visit.find_by_date(person, '2014-03-27', nil)
+    a = person.visits.find_by_date('2014-03-27', nil)
     assert_equal 2, a.count
-    a = Visit.find_by_date(person, nil, '2014-03-27')
+    a = person.visits.find_by_date(nil, '2014-03-27')
     assert_equal 3, a.count
-    a = Visit.find_by_date(person, nil, '2014-03-26')
+    a = person.visits.find_by_date(nil, '2014-03-26')
     assert_equal 2, a.count
   end
 end

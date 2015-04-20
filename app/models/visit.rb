@@ -23,16 +23,17 @@ class Visit < ActiveRecord::Base
   end
 
 
-  def self.find_by_date(start_date, end_date)
-    return nil if start_date.nil? && end_date.nil?
+  def self.find_by_date(person, start_date, end_date)
+    return none unless person
+    return none if start_date.nil? && end_date.nil?
     if start_date.nil?
-      where("entry_date <= ?", end_date)
+      joins(:person).where("people.id=? and entry_date <= ?", person.id, end_date)
     elsif end_date.nil?
-      where("(entry_date >= ? or exit_date >= :start_date) or exit_date is null", start_date: start_date)
+       joins(:person).where("people.id=:pid and ((entry_date >= ? or exit_date >= :start_date) or exit_date is null)",pid: person.id, start_date: start_date)
     else
-      r = where("(entry_date >= :start_date and entry_date <= :end_date)", { start_date: start_date, end_date: end_date })
-      r += where("(exit_date >= :start_date and exit_date <= :end_date)", { start_date: start_date, end_date: end_date })
-      r += where("(entry_date <= :start_date) and (exit_date >= :end_date OR exit_date is null)", { start_date: start_date, end_date: end_date })
+      r = joins(:person).where("people.id = :pid and ((entry_date >= :start_date and entry_date <= :end_date))", { pid: person.id, start_date: start_date, end_date: end_date })
+      r += joins(:person).where("people.id = :pid and ((exit_date >= :start_date and exit_date <= :end_date))", { pid: person.id, start_date: start_date, end_date: end_date })
+      r += joins(:person).where("people.id = :pid and ((entry_date <= :start_date) and (exit_date >= :end_date OR exit_date is null))", { pid: person.id, start_date: start_date, end_date: end_date })
       r.uniq(&:id)
     end
   end
@@ -51,7 +52,7 @@ class Visit < ActiveRecord::Base
     from = entry_date + 1.day if entry_date
     to = exit_date - 1.day if exit_date
 
-    overlap = Visit.find_by_date(from, to)
+    overlap = Visit.find_by_date(person, from, to)
     return nil unless overlap
     overlap = overlap.select{ |v| v.id != id }
     errors.add(:base, 'the entry and exit dates should not overlap with an existing visit.') if overlap.count > 0

@@ -5,3 +5,8 @@ Sally:
   last_name: Mclean
   nationality: Australia
   user: Sally
+Test1:
+  first_name: Test1
+  last_name: One
+  nationality: Australia
+  user: Test1

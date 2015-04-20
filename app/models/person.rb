@@ -13,5 +13,9 @@ class Person < ActiveRecord::Base
       visits << p.dup
     end
   end
+
+  def find_visits_by_date(start_date, end_date)
+    Visit.find_by_date(self, start_date, end_date)
+  end
  
 end

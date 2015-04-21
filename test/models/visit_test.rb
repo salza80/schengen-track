@@ -61,10 +61,26 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 0, a.count
   end
 
-  test 'test get previous 180 days visits' do
+  test 'test get previous 180 days visits including current' do
     a = visits(:two)
     b = a.previous_180_days_visits
-    assert_equal 2, b.count
-
+    assert_equal 3, b.count
   end
+
+  test 'test shengen days count' do
+    a = visits(:testvisit1)
+    assert_equal 60, a.schengen_day_count
+    a = visits(:testvisit2)
+    assert_equal 60, a.schengen_day_count
+    a = visits(:testvisit3)
+    assert_equal 90, a.schengen_day_count
+    a = visits(:testvisit4)
+    assert_equal 92, a.schengen_day_count
+    visits(:testvisit2).destroy
+    assert_equal 92, a.schengen_day_count
+    visits(:testvisit1).destroy
+    assert_equal 32, a.schengen_day_count
+  end
+
+
 end

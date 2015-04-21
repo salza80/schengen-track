@@ -21,9 +21,30 @@ three:
   country: Australia
   person: Sally
 
-testvist:
-  entry_date: 2014-03-10
-  exit_date: 2014-03-24
+testvisit3:
+  entry_date: 2014-04-01
+  exit_date: 2014-04-30
+  schengen_days: 
+  country: Germany
+  person: Test1
+
+testvisit1:
+  entry_date: 2014-01-1
+  exit_date: 2014-03-1
+  schengen_days: 
+  country: Germany
+  person: Test1
+
+testvisit2:
+  entry_date: 2014-03-01
+  exit_date: 2014-04-01
+  schengen_days: 
+  country: Australia
+  person: Test1
+
+testvisit4:
+  entry_date: 2014-04-30
+  exit_date: 2014-05-02
   schengen_days: 
   country: Germany
   person: Test1

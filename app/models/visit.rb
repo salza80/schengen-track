@@ -24,9 +24,7 @@ class Visit < ActiveRecord::Base
 
   def previous_180_days_visits
     return Visit.none unless exit_date
-    r=person.visits.find_by_date((exit_date - 180.days), exit_date).select{ |v| v.id != id }
-    puts r.inspect
-    person.visits.find_by_date((exit_date - 180.days), exit_date).select{ |v| v.id != id }
+    person.visits.find_by_date((exit_date - 180.days), exit_date)
   end
 
   def self.find_by_date(start_date, end_date)
@@ -41,6 +39,27 @@ class Visit < ActiveRecord::Base
       r += where("(entry_date <= :start_date) and (exit_date >= :end_date OR exit_date is null)", { start_date: start_date, end_date: end_date })
       r.uniq(&:id)
     end
+  end
+
+  def schengen_day_count
+    return nil unless exit_date
+    previous_visits = previous_180_days_visits.sort_by(&:entry_date)
+    return 0 unless previous_visits
+    begin_date = exit_date - 180.days
+    schen_day_count = 0
+    prev_exit_date = nil
+    previous_visits.each do |v|
+      if v.country.schengen?(v.entry_date) && v.exit_date <= exit_date
+        if v.entry_date < begin_date
+          schen_day_count += (v.exit_date - v.begin_date).to_i + 1
+        else 
+          schen_day_count += v.no_days
+        end
+        schen_day_count -= 1 if prev_exit_date == v.entry_date
+        prev_exit_date = v.exit_date
+      end
+    end
+    schen_day_count
   end
 
   private
@@ -60,7 +79,7 @@ class Visit < ActiveRecord::Base
 
     overlap = person.visits.find_by_date(from, to)
     return nil unless overlap
-    overlap = overlap.select{ |v| v.id != id }
+    overlap = overlap.select { |v| v.id != id }
     errors.add(:base, 'the entry and exit dates should not overlap with an existing visit.') if overlap.count > 0
 
   end

@@ -6,6 +6,7 @@ class Visit < ActiveRecord::Base
   validate :dates_must_not_overlap
   attr_accessor :no_schengen_callback
   after_save VisitCallbacks
+  after_update VisitCallbacks
   after_destroy VisitCallbacks
   before_save :schengen_days_update
   before_create :schengen_days_update
@@ -31,11 +32,6 @@ class Visit < ActiveRecord::Base
     post_visits.first
   end
 
-  def previous_180_days_visits
-    return Visit.none unless exit_date
-    person.visits.find_by_date((exit_date - 180.days), exit_date)
-  end
-
   def self.find_by_date(start_date, end_date)
     return none if start_date.nil? && end_date.nil?
     if start_date.nil?
@@ -43,6 +39,7 @@ class Visit < ActiveRecord::Base
     elsif end_date.nil?
       where("(entry_date >= ? or exit_date >= :start_date) or exit_date is null", start_date: start_date)
     else
+      return none if end_date < start_date
       r = where("(entry_date >= :start_date and entry_date <= :end_date)", { start_date: start_date, end_date: end_date } )
       r += where("(exit_date >= :start_date and exit_date <= :end_date)", { start_date: start_date, end_date: end_date } )
       r += where("(entry_date <= :start_date) and (exit_date >= :end_date OR exit_date is null)", { start_date: start_date, end_date: end_date } )
@@ -54,14 +51,12 @@ class Visit < ActiveRecord::Base
   self.schengen_days = calc_schengen_day_count
   end
 
-
+  def previous_180_days_visits
+    return Visit.none unless exit_date
+    person.visits.find_by_date((exit_date - 180.days), exit_date).select { |v| v.id != id }
+  end
 
   private
-  # def update_next
-  #   a = next_visit
-  #   puts a.save unless a
-  # end
-
   
 
   def calc_schengen_day_count
@@ -71,7 +66,7 @@ class Visit < ActiveRecord::Base
     begin_date = exit_date - 180.days
     schen_day_count = 0
     prev_exit_date = nil
-    previous_visits.each do |v|
+    (previous_visits << self).each do |v|
       if v.country.schengen?(v.entry_date) && v.exit_date <= exit_date
         if v.entry_date < begin_date
           schen_day_count += (v.exit_date - v.begin_date).to_i + 1

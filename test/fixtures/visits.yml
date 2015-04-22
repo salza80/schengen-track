@@ -55,3 +55,10 @@ testvisit5:
   schengen_days: 
   country: Germany
   person: Test1
+
+testsingle:
+  entry_date: 2015-04-1
+  exit_date: 2015-04-10
+  schengen_days: 
+  country: Germany
+  person: Test2

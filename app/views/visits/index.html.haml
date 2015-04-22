@@ -8,6 +8,7 @@
       %th Country
       %th Days
       %th Shengen Zone
+      %th Schengen Days Remaining
       %th
       %th
       %th
@@ -24,6 +25,7 @@
             = "Y"
           - else
             = "N"
+        %td= visit.schengen_days
         %td= link_to 'Show', visit
         %td= link_to 'Edit', edit_visit_path(visit)
         %td= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }

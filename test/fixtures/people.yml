@@ -10,3 +10,8 @@ Test1:
   last_name: One
   nationality: Australia
   user: Test1
+Test2:
+  first_name: Test2
+  last_name: Two
+  nationality: Australia
+  user: Test1

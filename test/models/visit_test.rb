@@ -43,14 +43,24 @@ class VisitTest < ActiveSupport::TestCase
     assert a.valid?
     a.exit_date = '2014-3-23'
     assert a.invalid?
+
+    a = visits(:two)
+    assert a.valid?
+    a.exit_date = '2014-03-23'
+    assert a.valid?
+
+    a = visits(:two)
+    assert a.valid?
+    a.exit_date = '2014-03-22'
+    assert a.valid?
+
   end
 
-  test 'test date range should not overlap existing visits' do
+  test 'test find by date range' do
     person = people(:Sally)
     a = person.visits.find_by_date('2014-03-20', '2014-03-22')
     assert_equal 2, a.count
     a = person.visits.find_by_date('2010-03-09', nil)
-  
     assert_equal 3, a.count
     a = person.visits.find_by_date('2014-03-27', nil)
     assert_equal 2, a.count
@@ -62,10 +72,10 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 0, a.count
   end
 
-  test 'test get previous 180 days visits including current' do
+  test 'test get previous 180 days visits excluding current' do
     a = visits(:two)
     b = a.previous_180_days_visits
-    assert_equal 3, b.count
+    assert_equal 2, b.count
   end
 
   test 'get next visit' do
@@ -92,10 +102,15 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 92, a.schengen_days
     visits(:testvisit1).destroy
     a = visits(:testvisit4)
-    # a = Visit.find_by(entry_date: '2014-04-30', person: people(:Test1))
     assert_equal 32, a.schengen_days
     a = visits(:testvisit5)
     assert_equal 10, a.schengen_days
  
+  end
+
+  test 'test schengen_days count single visit' do
+    a = visits(:testsingle)
+    a.save
+    assert_equal 10, a.schengen_days
   end
 end

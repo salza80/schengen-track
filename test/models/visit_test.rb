@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'pry'
 
 class VisitTest < ActiveSupport::TestCase
  
@@ -20,7 +21,7 @@ class VisitTest < ActiveSupport::TestCase
     a = visits(:three)
     b = a.previous_visits
     assert_equal 2, b.count
-    assert_equal '2014-03-22'.to_date, b.first.entry_date
+    assert_equal '2014-03-10'.to_date, b.first.entry_date
   end
   test 'post_visits scope' do
     a = visits(:two)
@@ -67,20 +68,34 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 3, b.count
   end
 
-  test 'test shengen days count' do
-    a = visits(:testvisit1)
-    assert_equal 60, a.schengen_day_count
-    a = visits(:testvisit2)
-    assert_equal 60, a.schengen_day_count
+  test 'get next visit' do
     a = visits(:testvisit3)
-    assert_equal 90, a.schengen_day_count
-    a = visits(:testvisit4)
-    assert_equal 92, a.schengen_day_count
-    visits(:testvisit2).destroy
-    assert_equal 92, a.schengen_day_count
-    visits(:testvisit1).destroy
-    assert_equal 32, a.schengen_day_count
+    n = a.next_visit
+    b = visits(:testvisit4)
+    assert_equal n.entry_date, b.entry_date
   end
 
+  test 'test shengen days count' do
+    a = visits(:testvisit1)
+    a.save
+    assert_equal 60, a.schengen_days
 
+    a = a.next_visit
+    assert_equal 60, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 90, a.schengen_days
+    a = a.next_visit
+    assert_equal 92, a.schengen_days
+    visits(:testvisit2).destroy
+    a = Visit.find_by(entry_date: '2014-04-30', person: people(:Test1))
+    assert_equal 92, a.schengen_days
+    visits(:testvisit1).destroy
+    a = visits(:testvisit4)
+    # a = Visit.find_by(entry_date: '2014-04-30', person: people(:Test1))
+    assert_equal 32, a.schengen_days
+    a = visits(:testvisit5)
+    assert_equal 10, a.schengen_days
+ 
+  end
 end

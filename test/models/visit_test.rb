@@ -30,6 +30,32 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal '2014-03-27'.to_date, b.first.entry_date
   end
 
+  test 'vist overlap' do
+    a = visits(:one)
+    b = visits(:two)
+    assert_not a.date_overlap?(b)
+
+    b.entry_date = '2014-03-21'
+    assert a.date_overlap?(b)
+
+    b.entry_date = '2014-03-22'
+    b.exit_date = '2014-03-22'
+    assert_not a.date_overlap?(b)
+
+    b.exit_date = '2014-03-23'
+    assert_not a.date_overlap?(b)
+
+    b.entry_date = '2013-03-22'
+    b.exit_date = '2015-03-22'
+    assert a.date_overlap?(b)
+
+    a = visits(:one)
+    b = visits(:two)
+    a.exit_date = nil
+    assert a.date_overlap?(b)
+    assert b.date_overlap?(a)
+  end
+
   test 'entry_date should be greater than exit date' do
     a = visits(:three)
     assert a.valid?

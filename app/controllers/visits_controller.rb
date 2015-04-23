@@ -5,7 +5,7 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    @visits = current_person.visits.all
+    @visits = current_person.visits.all.order(entry_date: :asc)
   end
 
   # GET /visits/1

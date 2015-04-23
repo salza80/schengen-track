@@ -25,7 +25,7 @@
             = "Y"
           - else
             = "N"
-        %td= visit.schengen_days
+        %td= visit.schengen_days_remaining
         %td= link_to 'Show', visit
         %td= link_to 'Edit', edit_visit_path(visit)
         %td= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }

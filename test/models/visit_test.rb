@@ -139,4 +139,19 @@ class VisitTest < ActiveSupport::TestCase
     a.save
     assert_equal 10, a.schengen_days
   end
+
+  test 'schengen_days remaining' do
+    a = visits(:testvisit1)
+    a.save
+    assert_equal 30, a.schengen_days_remaining
+  end
+
+  test 'schengen_overstay test' do
+    a = visits(:one)
+    a.save
+    assert_not a.schengen_overstay?
+    a = visits(:testvisit4)
+    a.save
+    assert a.schengen_overstay?
+  end
 end

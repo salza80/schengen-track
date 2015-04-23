@@ -13,11 +13,17 @@ class Visit < ActiveRecord::Base
   
   default_scope { order('entry_date ASC, exit_date ASC') }
 
- 
-
   def no_days
     return nil unless exit_date
     (exit_date - entry_date).to_i + 1
+  end
+
+  def schengen_days_remaining
+    90 - schengen_days
+  end
+
+  def schengen_overstay?
+    schengen_days_remaining < 0
   end
 
   def previous_visits
@@ -63,7 +69,6 @@ class Visit < ActiveRecord::Base
     return visit.entry_date < exit_date unless visit.exit_date
     return false if visit.exit_date < visit.entry_date
     return visit.exit_date > entry_date unless exit_date
-
     overlap = visit.entry_date >  entry_date && visit.entry_date < exit_date
     return true if overlap
     overlap = visit.exit_date > entry_date && visit.exit_date < exit_date
@@ -96,9 +101,8 @@ class Visit < ActiveRecord::Base
   # Custom Validation Methods
 
   def entry_date_must_be_less_than_exit
-    if exit_date.present? && entry_date > exit_date
-      errors.add(:entry_date, 'should be earlier than the exit date')
-    end
+    return unless exit_date.present? && entry_date > exit_date
+    errors.add(:entry_date, 'should be earlier than the exit date')
   end
 
   def dates_must_not_overlap

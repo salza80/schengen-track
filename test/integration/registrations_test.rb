@@ -9,8 +9,6 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       fill_in 'Last name', with: 'Signup'
       select 'Australia', from: 'Nationality'
       fill_in 'Email', with: 'test@testemail.com'
-      fill_in 'Email', with: 'test@testemail.com'
-      fill_in 'Email', with: 'test@testemail.com'
       fill_in 'Password', with: 'password'
       fill_in 'Password confirmation', with: 'password'
       click_button 'Sign up'

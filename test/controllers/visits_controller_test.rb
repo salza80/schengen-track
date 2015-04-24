@@ -21,10 +21,8 @@ class VisitsControllerTest < ActionController::TestCase
 
   test 'should create visit' do
     assert_difference('Visit.count') do
-      @newVisit = 
-      post :create, visit: { entry_date: (@visit.entry_date - 1.year), country_id: @visit.country_id, exit_date: (@visit.exit_date - 1.year) }
+      @newVisit = post :create, visit: { entry_date: (@visit.entry_date - 1.year), country_id: @visit.country_id, exit_date: (@visit.exit_date - 1.year) }
     end
-
     assert_redirected_to visits_path
   end
 

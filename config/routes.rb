@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   root 'visits#index'
 
   resources :visits
-
+  get 'my_details' =>  'people#edit'
+  put 'my_details' => 'people#update'
+  get 'person' => 'people#show'
   devise_for :users, controllers: { registrations: "users/registrations" }
 
   # Example of regular route:

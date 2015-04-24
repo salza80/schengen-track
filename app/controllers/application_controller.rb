@@ -31,7 +31,8 @@ class ApplicationController < ActionController::Base
     user.email = "guest_#{Time.now.to_i}#{rand(99)}@example.com"
     user.password = 'password'
     user.save(validate: false)
-    p = user.people.build(first_name: 'Guest', last_name: 'User')
+    c = Country.find_by(Country_code: 'AU')
+    p = user.people.build(first_name: 'Guest', last_name: 'User', nationality: c)
     p.save(validate: false)
     user
  

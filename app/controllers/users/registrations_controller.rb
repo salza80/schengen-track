@@ -4,19 +4,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    super
+    @user= User.new
+    @user.people << Person.new
+
   end
 
   # POST /resource
   def create
-    @user = User.new(sign_up_params)
+    @user = User.create(sign_up_params)
     @guest_user = current_user_or_guest_user
+    @user.people.first.copy_from(@guest_user.people.first)
     if @user.save    
-      n = Country.find_by(country_code: 'AU')
-      @p = Person.new(first_name: 'New', last_name: 'User', nationality: n)
-      @p.copy_from(@guest_user.people.first)
-      @p.user = @user
-      @p.save!
+      # n = Country.find_by(country_code: 'AU')
+      # @p = Person.new(first_name: 'New', last_name: 'User', nationality: n)
+      # @p.copy_from(@guest_user.people.first)
+      # @p.user = @user
+      # @p.save!
+
       sign_up('user', @user)
       redirect_to root_path
     else
@@ -52,7 +56,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # You can put the params you want to permit in the empty array.
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) << :attribute
+    devise_parameter_sanitizer.for(:sign_up) << [people_attributes: [ :first_name, :last_name, :nationality_id ] ]
   end
 
   # You can put the params you want to permit in the empty array.

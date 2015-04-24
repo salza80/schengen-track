@@ -19,7 +19,7 @@ class Visit < ActiveRecord::Base
   end
 
   def schengen_days_remaining
-    90 - schengen_days
+    90 - schengen_days if schengen_days
   end
 
   def schengen_overstay?

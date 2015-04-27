@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<record>
+		<continent_code>AS</continent_code>
+		<name>Asia</name>
+	</record>
+	<record>
+		<continent_code>EU</continent_code>
+		<name>Europe</name>
+	</record>
+	<record>
+		<continent_code>AF</continent_code>
+		<name>Africa</name>
+	</record>
+	<record>
+		<continent_code>NA</continent_code>
+		<name>North America</name>
+	</record>
+	<record>
+		<continent_code>OC</continent_code>
+		<name>Oceania</name>
+	</record>
+	<record>
+		<continent_code>SA</continent_code>
+		<name>South America</name>
+	</record>
+	<record>
+		<continent_code>AN</continent_code>
+		<name>Antarctica</name>
+	</record>
+</data-set>

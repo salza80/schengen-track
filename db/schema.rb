@@ -11,16 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413125936) do
+ActiveRecord::Schema.define(version: 20150427223405) do
+
+  create_table "continents", force: :cascade do |t|
+    t.string   "continent_code"
+    t.string   "name"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "continents", ["continent_code"], name: "index_continents_on_continent_code", unique: true
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
     t.string   "country_code"
     t.date     "schengen_start_date"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "continent_id"
+    t.boolean  "EU_memeber_state"
+    t.string   "visa_required"
+    t.boolean  "old_schengen_calc"
+    t.boolean  "additional_visa_waiver"
   end
 
+  add_index "countries", ["continent_id"], name: "index_countries_on_continent_id"
   add_index "countries", ["country_code"], name: "index_countries_on_country_code", unique: true
 
   create_table "people", force: :cascade do |t|

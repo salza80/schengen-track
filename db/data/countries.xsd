@@ -1,0 +1,22 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="data-set">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="record" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="country_code"/>
+              <xs:element type="xs:string" name="name"/>
+              <xs:element type="xs:string" name="continent_code"/>
+              <xs:element type="xs:date" name="schengen_start_date"/>
+              <xs:element type="xs:boolean" name="EU_memeber_state"/>
+              <xs:element type="xs:string" name="visa_required"/>
+              <xs:element type="xs:boolean" name="old_schengen_calc"/>
+              <xs:element type="xs:boolean" name="additional_visa_waiver"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -27,7 +27,7 @@ countries.xpath('//record').each do |c|
   Country.create(country_code: c.xpath('country_code').text,
                     name: c.xpath('name').text,
                    schengen_start_date: c.xpath('schengen_start_date').text,
-                   EU_memeber_state: c.xpath('EU_memeber_state').text,
+                   EU_member_state: c.xpath('EU_memeber_state').text,
                    visa_required: c.xpath('visa_required').text,
                    old_schengen_calc: c.xpath('old_schengen_calc').text,
                    additional_visa_waiver: c.xpath('additional_visa_waiver').text,

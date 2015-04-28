@@ -5,15 +5,27 @@ Australia:
   country_code: AU
   schengen_start_date: nil
   continent: Europe
+  EU_member_state: false
+  visa_required: A
+  old_schengen_calc: false
+  additional_visa_waiver: true
 
 Germany:
   name: Germany
   country_code: DE
   schengen_start_date: 1/1/2009
   continent: Europe
+  EU_member_state: true
+  visa_required: F
+  old_schengen_calc: false
+  additional_visa_waiver: false
 
 Croatia:
   name: Croatia
   country_code: CR
   schengen_start_date: 1/1/2016
   continent: Europe
+  EU_member_state: true
+  visa_required: F
+  old_schengen_calc: false
+  additional_visa_waiver: false

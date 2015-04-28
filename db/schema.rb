@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427223405) do
+ActiveRecord::Schema.define(version: 20150428124120) do
 
   create_table "continents", force: :cascade do |t|
     t.string   "continent_code"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150427223405) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "continent_id"
-    t.boolean  "EU_memeber_state"
+    t.boolean  "EU_member_state"
     t.string   "visa_required"
     t.boolean  "old_schengen_calc"
     t.boolean  "additional_visa_waiver"

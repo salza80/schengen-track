@@ -8,4 +8,6 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [:first_name, :last_name, :nationality], a.errors.keys
   end
 
+
+
 end

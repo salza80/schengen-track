@@ -2,23 +2,20 @@ class VisitCallbacks
 
   def self.after_save(visit)
     return if visit.no_schengen_callback
-    visit.post_visits.each do |v|
-      v.no_schengen_callback = true
-      v.save
-    end
+    calc = SchengenCalculator.new(visit)
+    calc.execute_after_save
+   
   end
 
   def self.after_destroy(visit)
-    visit.post_visits.each do |v|
-      v.save
-    end
+    calc = SchengenCalculator.new(visit)
+    calc.execute_after_destroy
   end
 
   def self.after_update(visit)
-    visit.post_visits.each do |v|
-      v.no_schengen_callback = true
-      v.save
-    end
+    return if visit.no_schengen_callback
+    calc = SchengenCalculator.new(visit)
+    calc.execute_after_save
   end
 end
 

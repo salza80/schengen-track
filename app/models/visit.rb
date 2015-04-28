@@ -8,8 +8,8 @@ class Visit < ActiveRecord::Base
   after_save VisitCallbacks
   after_update VisitCallbacks
   after_destroy VisitCallbacks
-  before_save :schengen_days_update
-  before_create :schengen_days_update
+  # before_save :schengen_days_update
+  # before_create :schengen_days_update
   
   default_scope { order('entry_date ASC, exit_date ASC') }
 
@@ -53,9 +53,9 @@ class Visit < ActiveRecord::Base
     end
   end
 
-  def schengen_days_update
-    self.schengen_days = calc_schengen_day_count
-  end
+  # def schengen_days_update
+  #   self.schengen_days = calc_schengen_day_count
+  # end
 
   def previous_180_days_visits
     return Visit.none unless exit_date
@@ -76,28 +76,10 @@ class Visit < ActiveRecord::Base
     visit.entry_date < entry_date && visit.exit_date > exit_date
   end
 
+
+
   private
-  
-  def calc_schengen_day_count
-    return nil unless exit_date
-    previous_visits = previous_180_days_visits.sort_by(&:entry_date)
-    return 0 unless previous_visits
-    begin_date = exit_date - 180.days
-    schen_day_count = 0
-    prev_exit_date = nil
-    (previous_visits << self).each do |v|
-      if v.country.schengen?(v.entry_date) && v.exit_date <= exit_date
-        if v.entry_date < begin_date
-          schen_day_count += (v.exit_date - begin_date).to_i + 1
-        else
-          schen_day_count += v.no_days
-        end
-        schen_day_count -= 1 if prev_exit_date == v.entry_date
-        prev_exit_date = v.exit_date
-      end
-    end
-    schen_day_count
-  end
+
   # Custom Validation Methods
 
   def entry_date_must_be_less_than_exit

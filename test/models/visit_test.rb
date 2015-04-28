@@ -165,7 +165,7 @@ class VisitTest < ActiveSupport::TestCase
 
     a = a.next_visit
     assert_equal 60, a.schengen_days
-    
+
     a = a.next_visit
     assert_equal 85, a.schengen_days
 
@@ -173,12 +173,6 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 90, a.schengen_days
 
     a = a.next_visit
-    assert_equal 90, a.schengen_days
+    assert_equal 1, a.schengen_days
   end
-
-
-
-
-
-
 end

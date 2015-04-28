@@ -15,3 +15,8 @@ Test2:
   last_name: Two
   nationality: Australia
   user: Test1
+OldCalcTest:
+  first_name: Old
+  last_name: Calc
+  nationality: Brazil
+  user: Test2

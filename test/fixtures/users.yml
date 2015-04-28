@@ -10,3 +10,6 @@ Sally:
 Test1:
   email: smclean17@hotmail.com
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+Test2:
+  email: smclean17@test.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>

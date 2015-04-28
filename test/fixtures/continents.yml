@@ -4,3 +4,6 @@ Oceania:
 Europe:
   name: Europe
   continent_code: EU
+SouthAmerica:
+  name: South America
+  continent_code: SA

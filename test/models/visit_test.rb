@@ -154,4 +154,31 @@ class VisitTest < ActiveSupport::TestCase
     a.save
     assert a.schengen_overstay?
   end
+
+  test 'test shengen days old calculation count' do
+    a = visits(:oldcalc1)
+    a.save
+    assert_equal 1, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 30, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 60, a.schengen_days
+    
+    a = a.next_visit
+    assert_equal 85, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 90, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 90, a.schengen_days
+  end
+
+
+
+
+
+
 end

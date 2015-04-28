@@ -88,8 +88,8 @@ class Visit < ActiveRecord::Base
     (previous_visits << self).each do |v|
       if v.country.schengen?(v.entry_date) && v.exit_date <= exit_date
         if v.entry_date < begin_date
-          schen_day_count += (v.exit_date - v.begin_date).to_i + 1
-        else +
+          schen_day_count += (v.exit_date - begin_date).to_i + 1
+        else
           schen_day_count += v.no_days
         end
         schen_day_count -= 1 if prev_exit_date == v.entry_date

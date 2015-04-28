@@ -62,3 +62,48 @@ testsingle:
   schengen_days: 
   country: Germany
   person: Test2
+
+
+oldcalc1:
+  entry_date: 2014-01-1
+  exit_date: 2014-01-1
+  schengen_days: 
+  country: Germany
+  person: OldCalcTest
+
+oldcalc2:
+  entry_date: 2014-04-1
+  exit_date: 2014-04-29
+  schengen_days: 
+  country: Germany
+  person: OldCalcTest
+
+oldcalc3:
+  entry_date: 2014-07-10
+  exit_date: 2014-09-07
+  schengen_days: 
+  country: Germany
+  person: OldCalcTest
+
+oldcalc4:
+  entry_date: 2014-09-25
+  exit_date: 2014-10-19
+  schengen_days: 
+  country: Germany
+  person: OldCalcTest
+
+oldcalc5:
+  entry_date: 2015-01-02
+  exit_date: 2015-01-06
+  schengen_days: 
+  country: Germany
+  person: OldCalcTest
+
+oldcalc6:
+  entry_date: 2015-01-08
+  exit_date: 2015-01-08
+  schengen_days: 
+  country: Germany
+  person: OldCalcTest
+
+

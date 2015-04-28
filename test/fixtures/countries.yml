@@ -29,3 +29,13 @@ Croatia:
   visa_required: F
   old_schengen_calc: false
   additional_visa_waiver: false
+
+Brazil:
+  name: Brazil
+  country_code: BR
+  schengen_start_date: nil
+  continent: SouthAmerica
+  EU_member_state: false
+  visa_required: A
+  old_schengen_calc: true
+  additional_visa_waiver: true 

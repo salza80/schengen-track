@@ -164,6 +164,9 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 30, a.schengen_days
 
     a = a.next_visit
+    assert_equal 30, a.schengen_days
+
+    a = a.next_visit
     assert_equal 60, a.schengen_days
 
     a = a.next_visit
@@ -174,5 +177,20 @@ class VisitTest < ActiveSupport::TestCase
 
     a = a.next_visit
     assert_equal 1, a.schengen_days
+  end
+
+  test 'test shengen days when user is from schengen country' do
+    a = visits(:oldcalc1)
+    a.save
+    assert_equal 1, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 30, a.schengen_days
+
+    germany = countries(:Germany)
+    a.person.nationality = germany
+    a.person.save
+    a.save
+    assert_equal 0, a.schengen_days
   end
 end

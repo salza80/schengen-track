@@ -5,7 +5,10 @@ class SchengenCalculator
   end
 
   def execute_after_save
-    return if @visit.person.nationality.visa_required == 'F'    
+    if @visit.person.nationality.visa_required == 'F'
+      zero_schengen
+      return
+    end
     if @visit.person.nationality.old_schengen_calc
       calculate_schengen_days_old
     else
@@ -14,13 +17,26 @@ class SchengenCalculator
   end
 
   def execute_after_destroy
-    return if @visit.person.nationality.visa_required == 'F'  
+    if @visit.person.nationality.visa_required == 'F'
+      zero_schengen
+      return
+    end
     if @visit.person.nationality.old_schengen_calc
       calculate_schengen_days_old
     else
       calculate_post_visits_new
     end
   end
+
+def zero_schengen 
+  @person.visits.all.each do |v| 
+    v.no_schengen_callback = true
+    v.schengen_days = 0 
+    v.save
+  end
+  @person.reload
+  @visit.reload
+end
 
 
 #Old schengen calculations for exception countries

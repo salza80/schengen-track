@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :visits
   get 'my_details' =>  'people#edit'
   put 'my_details' => 'people#update'
+  patch 'my_details' => 'people#update'
   get 'person' => 'people#show'
   devise_for :users, controllers: { registrations: "users/registrations" }
 

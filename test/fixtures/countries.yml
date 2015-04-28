@@ -4,13 +4,16 @@ Australia:
   name: Australia
   country_code: AU
   schengen_start_date: nil
+  continent: Europe
 
 Germany:
   name: Germany
   country_code: DE
   schengen_start_date: 1/1/2009
+  continent: Europe
 
 Croatia:
   name: Croatia
   country_code: CR
   schengen_start_date: 1/1/2016
+  continent: Europe

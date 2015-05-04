@@ -113,4 +113,61 @@ oldcalc7:
   country: Germany
   person: OldCalcTest
 
+visaSingleEntry1:
+  entry_date: 2010-01-01
+  exit_date: 2010-01-30
+  schengen_days: 
+  country: Germany
+  person: SchengenRequired
+
+visaSingleEntry2:
+  entry_date: 2010-02-01
+  exit_date: 2010-02-20
+  schengen_days: 
+  country: Australia
+  person: SchengenRequired
+
+visaSingleEntry3:
+  entry_date: 2010-03-01
+  exit_date: 2010-03-06
+  schengen_days: 
+  country: Germany
+  person: SchengenRequired
+
+visaTwoEntry1:
+  entry_date: 2012-01-01
+  exit_date: 2010-01-30
+  schengen_days: 
+  country: Germany
+  person: SchengenRequired
+
+visaSTwoEntry2:
+  entry_date: 2010-02-01
+  exit_date: 2010-02-20
+  schengen_days: 
+  country: Australia
+  person: SchengenRequired
+
+visaTwoEntry3:
+  entry_date: 2012-03-01
+  exit_date: 2010-03-06
+  schengen_days: 
+  country: Germany
+  person: SchengenRequired
+
+visaThreeEntry4:
+  entry_date: 2012-04-01
+  exit_date: 2010-04-10
+  schengen_days: 
+  country: Germany
+  person: SchengenRequired
+
+visaThreeEntry5:
+  entry_date: 2012-06-01
+  exit_date: 2010-06-10
+  schengen_days: 
+  country: Germany
+  person: SchengenRequired
+
+
 

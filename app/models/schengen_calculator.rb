@@ -4,29 +4,21 @@ class SchengenCalculator
     @person = visit.person
   end
 
-  def execute_after_save
+
+  def calculate_schengen
     if @visit.person.nationality.visa_required == 'F'
-      zero_schengen
-      return
-    end
-    if @visit.person.nationality.old_schengen_calc
-      calculate_schengen_days_old
-    else
-      calculate_schengen_days_new
-    end
+        zero_schengen
+        return
+      end
+      if @visit.person.nationality.old_schengen_calc
+        calculate_schengen_days_old
+      else
+        calculate_schengen_days_new
+      end
   end
 
-  def execute_after_destroy
-    if @visit.person.nationality.visa_required == 'F'
-      zero_schengen
-      return
-    end
-    if @visit.person.nationality.old_schengen_calc
-      calculate_schengen_days_old
-    else
-      calculate_post_visits_new
-    end
-  end
+
+private
 
 def zero_schengen 
   @person.visits.all.each do |v| 
@@ -37,7 +29,6 @@ def zero_schengen
   @person.reload
   @visit.reload
 end
-
 
 #Old schengen calculations for exception countries
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428124120) do
+ActiveRecord::Schema.define(version: 20150504173416) do
 
   create_table "continents", force: :cascade do |t|
     t.string   "continent_code"
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 20150428124120) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "visas", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "no_entries"
+    t.text     "visa_type"
+    t.integer  "person_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "visits", force: :cascade do |t|
     t.date     "entry_date"

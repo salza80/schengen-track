@@ -193,4 +193,44 @@ class VisitTest < ActiveSupport::TestCase
     a.save
     assert_equal 0, a.schengen_days
   end
+
+  test 'test single entry' do
+    a = visits(:visaSingleEntry1)
+    a.save
+    assert_equal 30, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 30, a.schengen_days
+
+    a = a.next_visit
+    assert_equal(-6, a.schengen_days)
+  end
+
+  test 'test two entry schengen visa' do
+    a = visits(:visaTwoEntry1)
+    a.save
+    assert_equal 30, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 30, a.schengen_days
+
+    a = a.next_visit
+    assert_equal 36, a.schengen_days
+
+    a = a.next_visit
+    assert_equal(-10, a.schengen_days)
+
+    a = a.next_visit
+    assert_equal(-20, a.schengen_days)
+
+    v = visa.new
+    v.start_date = '2012-06-01'
+    v.end_date = '2012-12-30'
+    v.type = 'S'
+    v.no_entries = 0
+    v.person = a.person
+    v.save
+    a.save
+    assert_equal(10, a.schengen_days)
+  end
 end

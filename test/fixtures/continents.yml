@@ -7,3 +7,6 @@ Europe:
 SouthAmerica:
   name: South America
   continent_code: SA
+Asia:
+  name: Asia
+  continent_code: AS

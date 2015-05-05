@@ -33,9 +33,23 @@ class VisaTest < ActiveSupport::TestCase
   test 'start date must be less than end date' do
     a = visas(:single)
     assert a.valid?
-    assert a.start_date, '2013-01-01'
-    assert a.end_date, '2012 -01-01'
+    a.start_date = '2013-01-01'
+    a.end_date = '2012-01-01'
     assert a.invalid?, 'start date is greater than end date'
+  end
+
+  test 'find visa for specified entry and exit dates' do
+    p = people(:VisaRequiredPerson)
+    visa = p.visas.find_schengen_visa(DateTime.new(2011,1,1), DateTime.new(2012,4,4))
+    assert_equal nil, visa
+    visa  =  p.visas.find_schengen_visa(DateTime.new(2010,1,1), DateTime.new(2010,4,4))
+ 
+    assert_equal DateTime.new(2010,1,1), visa.start_date
+    
+    visa = p.visas.find_schengen_visa(DateTime.new(2011,2,2), nil)
+
+    assert_equal DateTime.new(2011,1,1), visa.start_date
+    assert_equal 0, visa.no_entries
   end
 end
 

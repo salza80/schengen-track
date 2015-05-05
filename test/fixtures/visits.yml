@@ -118,56 +118,56 @@ visaSingleEntry1:
   exit_date: 2010-01-30
   schengen_days: 
   country: Germany
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
 visaSingleEntry2:
   entry_date: 2010-02-01
   exit_date: 2010-02-20
   schengen_days: 
   country: Australia
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
 visaSingleEntry3:
   entry_date: 2010-03-01
   exit_date: 2010-03-06
   schengen_days: 
   country: Germany
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
 visaTwoEntry1:
   entry_date: 2012-01-01
-  exit_date: 2010-01-30
+  exit_date: 2012-01-30
   schengen_days: 
   country: Germany
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
 visaSTwoEntry2:
-  entry_date: 2010-02-01
-  exit_date: 2010-02-20
+  entry_date: 2012-02-01
+  exit_date: 2012-02-20
   schengen_days: 
   country: Australia
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
 visaTwoEntry3:
   entry_date: 2012-03-01
-  exit_date: 2010-03-06
+  exit_date: 2012-03-06
   schengen_days: 
   country: Germany
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
-visaThreeEntry4:
+visaTwoEntry4:
   entry_date: 2012-04-01
-  exit_date: 2010-04-10
+  exit_date: 2012-04-10
   schengen_days: 
   country: Germany
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
-visaThreeEntry5:
+visaTwoEntry5:
   entry_date: 2012-06-01
-  exit_date: 2010-06-10
+  exit_date: 2012-06-10
   schengen_days: 
   country: Germany
-  person: SchengenRequired
+  person: VisaRequiredPerson
 
 
 

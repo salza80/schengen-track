@@ -121,11 +121,13 @@ class VisitTest < ActiveSupport::TestCase
 
     a = a.next_visit
     assert_equal 90, a.schengen_days
+    assert_equal 0, a.schengen_overstay_days
     a = a.next_visit
     assert_equal 92, a.schengen_days
     visits(:testvisit2).destroy
     a = Visit.find_by(entry_date: '2014-04-30', person: people(:Test1))
     assert_equal 92, a.schengen_days
+    assert_equal 2, a.schengen_overstay_days
     visits(:testvisit1).destroy
     a = visits(:testvisit4)
     assert_equal 32, a.schengen_days
@@ -162,9 +164,11 @@ class VisitTest < ActiveSupport::TestCase
 
     a = a.next_visit
     assert_equal 30, a.schengen_days
+    assert_equal 2, a.visa_entry_count
 
     a = a.next_visit
     assert_equal 30, a.schengen_days
+    assert_equal 2, a.visa_entry_count
 
     a = a.next_visit
     assert_equal 60, a.schengen_days
@@ -174,6 +178,7 @@ class VisitTest < ActiveSupport::TestCase
 
     a = a.next_visit
     assert_equal 90, a.schengen_days
+    assert_equal 0, a.visa_overstay_days
 
     a = a.next_visit
     assert_equal 1, a.schengen_days
@@ -203,7 +208,9 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 30, a.schengen_days
 
     a = a.next_visit
-    assert_equal(-6, a.schengen_days)
+    assert_equal(36, a.schengen_days)
+    assert_equal(6, a.schengen_overstay_days)
+    assert_equal(0, a.visa_overstay_days)
   end
 
   test 'test two entry schengen visa' do
@@ -218,12 +225,14 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 36, a.schengen_days
 
     a = a.next_visit
-    assert_equal(-10, a.schengen_days)
+    assert_equal(46, a.schengen_days)
+    assert_equal(10, a.visa_overstay_days)
 
     a = a.next_visit
-    assert_equal(-20, a.schengen_days)
+    assert_equal(10, a.schengen_days)
+    assert_equal(10, a.visa_overstay_days)
 
-    v = visa.new
+    v = Visa.new
     v.start_date = '2012-06-01'
     v.end_date = '2012-12-30'
     v.type = 'S'
@@ -232,5 +241,6 @@ class VisitTest < ActiveSupport::TestCase
     v.save
     a.save
     assert_equal(10, a.schengen_days)
+    assert_equal(0, a.visa_overstay_days)
   end
 end

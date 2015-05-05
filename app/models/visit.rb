@@ -19,12 +19,62 @@ class Visit < ActiveRecord::Base
   end
 
   def schengen_days_remaining
-    90 - schengen_days if schengen_days
+    return nil unless schengen_days
+    return 90 - schengen_days if schengen_days <= 90
+    0
   end
 
   def schengen_overstay?
-    schengen_days_remaining < 0
+    schengen_days > 90 if schengen_days
   end
+
+  def schengen_overstay_days
+    return nill unless schengen_days
+    if schengen_days > 90
+      schengen_days - 90
+    else
+      0
+    end
+  end
+
+  def visa_required?
+    return nil unless person
+    return person.nationality.visa_required = "V"
+  end
+
+  def get_schengen_visa
+    return nil unless visa_required?
+    visa = Visa.find_schengen_visa(entry_date, exit_date)
+    if visa.nil?
+      visa = Visa.find_schengen_visa(entry_date, nil)
+    end
+    visa
+  end
+
+  def visa_entry_count
+    if visa_required?
+      visa = get_schengen_visa
+      return 1 unless visa
+      previous_visits.where('entry_date > :visa_start_date and start_date < :visa_end_date').count + 1
+    else
+      prev = previous_visits
+      if prev
+        return prev.count + 1
+      else
+        1
+      end
+    end
+  end
+
+  def visa_overstay_days
+    return 0 unless visa_required?
+    visa = get_schengen_visa
+    return no_days unless visa
+    return 0 if exit_date.nil?
+    return 0 if exit_date <= visa.end_date
+    exit_date - visa.end_date
+  end
+
 
   def previous_visits
     person.visits.where('entry_date <= ? and id <> ?', entry_date, id)
@@ -43,7 +93,7 @@ class Visit < ActiveRecord::Base
     if start_date.nil?
       where('entry_date <= ?', end_date)
     elsif end_date.nil?
-      where('(entry_date >= ? or exit_date >= :start_date) or exit_date is null', start_date: start_date)
+      where('(entry_date >= :start_date or exit_date >= :start_date) or exit_date is null', start_date: start_date)
     else
       return none if end_date < start_date
       r = where('(entry_date >= :start_date and entry_date <= :end_date)', start_date: start_date, end_date: end_date)

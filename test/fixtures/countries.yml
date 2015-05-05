@@ -39,3 +39,13 @@ Brazil:
   visa_required: A
   old_schengen_calc: true
   additional_visa_waiver: true 
+
+India:
+  name: India
+  country_code: IN
+  schengen_start_date: nil
+  continent: Asia
+  EU_member_state: false
+  visa_required: V
+  old_schengen_calc: false
+  additional_visa_waiver: false 

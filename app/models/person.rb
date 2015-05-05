@@ -2,6 +2,7 @@ class Person < ActiveRecord::Base
   belongs_to :nationality, class_name: 'Country'
   belongs_to :user
   has_many :visits, dependent: :destroy
+  has_many :visas, dependent: :destroy
   validates :first_name, :last_name, :nationality, presence: true
 
   def full_name

@@ -24,6 +24,10 @@ class Visit < ActiveRecord::Base
     0
   end
 
+  def schengen?
+    country.schengen?(entry_date)
+  end
+
   def schengen_overstay?
     schengen_days > 90 if schengen_days
   end
@@ -39,10 +43,10 @@ class Visit < ActiveRecord::Base
 
   def visa_required?
     return nil unless person
-    return person.nationality.visa_required = "V"
+    return person.nationality.visa_required == "V"
   end
 
-  def get_schengen_visa
+  def schengen_visa
     return nil unless visa_required?
     visa = Visa.find_schengen_visa(entry_date, exit_date)
     if visa.nil?
@@ -53,26 +57,30 @@ class Visit < ActiveRecord::Base
 
   def visa_entry_count
     if visa_required?
-      visa = get_schengen_visa
-      return 1 unless visa
-      previous_visits.where('entry_date > :visa_start_date and start_date < :visa_end_date').count + 1
+      visa = schengen_visa
+      return nil unless visa
+      p = previous_schengen_visits.select { |v| v if v.entry_date >= visa.start_date && v.entry_date <= visa.end_date }
     else
-      prev = previous_visits
-      if prev
-        return prev.count + 1
-      else
-        1
-      end
+      p = previous_schengen_visits
     end
+    num = 0
+    num = p.count if p
+    num += 1 if schengen?
+    num
   end
 
   def visa_overstay_days
     return 0 unless visa_required?
-    visa = get_schengen_visa
+    visa = schengen_visa
     return no_days unless visa
     return 0 if exit_date.nil?
-    return 0 if exit_date <= visa.end_date
-    exit_date - visa.end_date
+    cnt = visa_entry_count
+    if visa.no_entries == 0 || visa.no_entries >= cnt
+      return 0 if exit_date <= visa.end_date
+      exit_date - visa.end_date
+    else
+      return no_days
+    end
   end
 
 
@@ -82,6 +90,10 @@ class Visit < ActiveRecord::Base
   
   def post_visits
     person.visits.where('entry_date >= ? and id <> ?', entry_date, id)
+  end
+
+  def previous_schengen_visits
+    previous_visits.select { |v|  v.schengen? }
   end
 
   def next_visit

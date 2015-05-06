@@ -29,10 +29,6 @@ def zero_schengen
   @person.visits.all.each do |v| 
     v.no_schengen_callback = true
     v.schengen_days = 0
-    v.over_stay_days = 0
-    v.visa_entry_count = 0
-    v.must_exit_date = nil
-    v.next_possible_entry_date = nil
     v.save
   end
   @person.reload
@@ -48,7 +44,7 @@ def calculate_schengen_days_old
   end_date = nil
   schengen_days_count = 0
   @person.visits.all.each do |v|
-    if v.country.schengen?(v.entry_date)
+    if v.schengen?
       if start_date.nil? || (v.entry_date > end_date)
         start_date = v.entry_date
         end_date = start_date + 180.days
@@ -91,7 +87,7 @@ end
     schen_day_count = 0
     prev_exit_date = nil
     (previous_visits << visit).each do |v|
-      if v.country.schengen?(v.entry_date) && v.exit_date <= visit.exit_date
+      if v.schengen? && v.exit_date <= visit.exit_date
         if v.entry_date < begin_date
           schen_day_count += (v.exit_date - begin_date).to_i + 1
         else

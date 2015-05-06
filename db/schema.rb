@@ -87,7 +87,6 @@ ActiveRecord::Schema.define(version: 20150504173416) do
     t.integer  "person_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.date     "next_possible_entry_day"
   end
 
   add_index "visits", ["country_id"], name: "index_visits_on_country_id"

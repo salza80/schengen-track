@@ -1,0 +1,16 @@
+%table.table
+  %thead
+    %tr
+      %th Start Date
+      %th End Date
+      %th No entries
+      %th
+      %th     
+  %tbody
+    - @visas.each do |visa|
+      %tr
+        %td= visa.start_date
+        %td= visa.end_date
+        %td= visa.no_entries
+        %td= link_to 'Edit', edit_visa_path(visa)
+        %td= link_to 'Delete', visa, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -6,6 +6,7 @@ class VisitsController < ApplicationController
   # GET /visits.json
   def index
     @visits = current_person.visits.all
+    @visas = current_person.visas.all if current_person.visa_required?
   end
 
   # GET /visits/1

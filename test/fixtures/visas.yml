@@ -4,6 +4,12 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+one:
+  start_date: 2013-1-1
+  end_date: 2013-12-30
+  no_entries: 0
+  person: VisaRequiredPerson
+  visa_type: S
 single:
   start_date: 2010-1-1
   end_date: 2010-12-30

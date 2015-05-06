@@ -2,13 +2,23 @@
 
 %table.table
   %thead
+    %tr.table-top-header
+      %th.center-heading{ colspan: "4" } Travel Details
+      %th.center-heading{ colspan: "3" } Schengen Details
+      -if current_person.visa_required?
+        %th.center-heading{ colspan: "2" } Visa Details
+      %th.center-heading{ colspan: "3" }
     %tr
       %th Entry date
       %th Exit date
       %th Country
       %th Days
       %th Shengen Zone
-      %th Schengen Days Remaining
+      %th Days Remaining
+      %th Overstay days
+      -if current_person.visa_required?
+        %th No Entrys
+        %th Visa Overstay
       %th
       %th
       %th
@@ -21,15 +31,36 @@
         %td= visit.country.name
         %td= visit.no_days
         %td 
-          -if visit.country.schengen? 
+          -if visit.schengen? 
             = "Y"
           - else
             = "N"
         %td= visit.schengen_days_remaining
+        %td{ class: ("danger" if visit.schengen_overstay?) }
+          = visit.schengen_overstay_days
+        -if current_person.visa_required?
+          %td{ class: ("danger" if visit.visa_entry_overstay?)}
+            -if visit.visa_exists?
+              = visit.visa_entry_count
+              of
+              = visit.visa_entries_allowed == 0 ? "Multi" : visit.visa_entries_allowed
+            -elsif visit.schengen? == false
+              N/A
+            -else
+              Visa Required!
+          %td{ class: ("danger" if visit.visa_overstay?) }
+            = visit.visa_overstay_days
         %td= link_to 'Show', visit
         %td= link_to 'Edit', edit_visit_path(visit)
         %td= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%br
+= link_to 'Add a new travel record', new_visit_path
 
 %br
+-if current_person.visa_required?
+  %h1 Schengen Visa List
+  = render 'visas/visalist'
+  %br
+  = link_to 'Add a new Visa', new_visa_path
 
-= link_to 'New Visit', new_visit_path
+

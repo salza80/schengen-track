@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'visits#index'
 
   resources :visits
+  resources :visas,  except: [:index, :show]
   get 'my_details' =>  'people#edit'
   put 'my_details' => 'people#update'
   patch 'my_details' => 'people#update'

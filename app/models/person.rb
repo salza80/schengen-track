@@ -14,5 +14,9 @@ class Person < ActiveRecord::Base
       visits << p.dup
     end
   end
+
+  def visa_required?
+    nationality.visa_required
+  end
  
 end

@@ -32,8 +32,32 @@ class Visit < ActiveRecord::Base
     schengen_days > 90 if schengen_days
   end
 
+  def visa_overstay?
+    visa_overstay_days > 0
+  end
+
+  def visa_entry_overstay?
+    return false unless visa_required?
+    return false unless schengen?
+    visa = schengen_visa
+    return true unless visa
+    return false if visa.no_entries == 0
+    visa_entry_count > visa.no_entries
+  end
+
+  def visa_exists?
+    return true if schengen_visa
+  end
+
+  def visa_entries_allowed
+    return 0 unless visa_required?
+    visa = schengen_visa
+    return nil unless visa
+    visa.no_entries
+  end
+
   def schengen_overstay_days
-    return nill unless schengen_days
+    return nil unless schengen_days
     if schengen_days > 90
       schengen_days - 90
     else
@@ -71,6 +95,7 @@ class Visit < ActiveRecord::Base
 
   def visa_overstay_days
     return 0 unless visa_required?
+    return 0 unless schengen?
     visa = schengen_visa
     return no_days unless visa
     return 0 if exit_date.nil?

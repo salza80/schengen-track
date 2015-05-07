@@ -5,9 +5,9 @@ class Visit < ActiveRecord::Base
   validate :entry_date_must_be_less_than_exit
   validate :dates_must_not_overlap
   attr_accessor :no_schengen_callback
-  after_save VisitCallbacks
-  after_update VisitCallbacks
-  after_destroy VisitCallbacks
+  after_save :update_visits
+  after_update :update_visits
+  after_destroy :update_visits
   # before_save :schengen_days_update
   # before_create :schengen_days_update
   
@@ -183,5 +183,11 @@ class Visit < ActiveRecord::Base
         return
       end
     end
+  end
+
+  def update_visits
+    return if no_schengen_callback
+    calc = SchengenCalculator.new(person, self)
+    calc.calculate_schengen
   end
 end

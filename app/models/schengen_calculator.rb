@@ -10,6 +10,7 @@ class SchengenCalculator
 
 
   def calculate_schengen
+    return if @person.visits.count == 0
     if @person.nationality.visa_required == 'F'
       zero_schengen
       return

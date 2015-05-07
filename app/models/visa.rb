@@ -3,6 +3,9 @@ class Visa < ActiveRecord::Base
   validates :start_date, :end_date, :person, :visa_type, :no_entries, presence: true
   validate :start_date_must_be_less_than_end
   validates :visa_type, inclusion: { in: %w(R S), message: "%{value} is not a valid visa type" }
+  after_save :update_visits
+  after_update :update_visits
+  after_destroy :update_visits
   default_scope { order('start_date ASC, end_date ASC') }
 
   def self.find_schengen
@@ -43,4 +46,10 @@ class Visa < ActiveRecord::Base
     return if end_date.nil? || start_date.nil?
     errors.add(:start_date, 'should be earlier than the end date') if end_date < start_date
   end
+
+  def update_visits
+    calc = SchengenCalculator.new(person)
+    calc.calculate_schengen
+  end
 end
+

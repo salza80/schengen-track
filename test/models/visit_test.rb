@@ -136,6 +136,18 @@ class VisitTest < ActiveSupport::TestCase
  
   end
 
+  test 'no_days_continuous' do
+    a = visits(:testvisit1)
+    assert_equal 60, a.no_days_continuous
+    a = a.next_visit
+    assert_equal 0, a.no_days_continuous
+    a = a.next_visit
+    assert_equal 30, a.no_days_continuous
+    a = a.next_visit
+    assert_equal 32, a.no_days_continuous
+  end
+
+
   test 'test schengen_days count single visit' do
     a = visits(:testsingle)
     a.save

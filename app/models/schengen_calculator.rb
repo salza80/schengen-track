@@ -101,6 +101,8 @@ end
     visit.schengen_days = schen_day_count
   end
 
+
+
   # def calculate_extra(visit)
   #   visa = Visa.find_schengen_visa(visit.entry_date, visa.exit_date)
   #   if visa

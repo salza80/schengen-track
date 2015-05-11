@@ -6,9 +6,8 @@ class Person < ActiveRecord::Base
   validates :first_name, :last_name, :nationality, presence: true
   after_save :update_visits
   after_update :update_visits
-  after_destroy :update_visits
   def full_name
-    (first_name + ' ' + last_name).strip
+    [first_name, last_name].join(' ').strip
   end
 
   def copy_from(person)
@@ -18,7 +17,7 @@ class Person < ActiveRecord::Base
   end
 
   def visa_required?
-    nationality.visa_required == "V"
+    nationality.visa_required == 'V'
   end
  
 

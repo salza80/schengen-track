@@ -140,9 +140,27 @@ class Visit < ActiveRecord::Base
     end
   end
 
-  # def schengen_days_update
-  #   self.schengen_days = calc_schengen_day_count
-  # end
+  def no_days_continuous
+    return  nil unless exit_date
+    return 0 unless schengen?
+    visits = (previous_visits.sort_by(&:entry_date) << self).reverse!
+    cont_days_cnt = 0
+    prev_entry_date = nil
+    visits.each do |v|
+      return cont_days_cnt unless v.schengen?
+      if prev_entry_date.nil?
+        cont_days_cnt += v.no_days
+      elsif v.exit_date == prev_entry_date
+        cont_days_cnt += v.no_days - 1
+      elsif (v.exit_date - 1.day) == prev_entry_date
+        cont_days_cnt += v.no_days
+      else
+        return cont_days_cnt
+      end
+      prev_entry_date = v.entry_date
+    end
+    cont_days_cnt
+  end
 
   def previous_180_days_visits
     return Visit.none unless exit_date

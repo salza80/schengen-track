@@ -12,6 +12,11 @@ class ActiveSupport::TestCase
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in  users(:Sally)
   end
+
+  def loginVR
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in  users(:VisaRequiredUser)
+  end
 end
 
 class ActionDispatch::IntegrationTest

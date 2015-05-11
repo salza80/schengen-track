@@ -24,4 +24,4 @@ VisaRequiredPerson:
   first_name: Visa
   last_name: Required
   nationality: India
-  user: Test2
+  user: VisaRequiredUser

@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class VisasControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
   setup do
+    loginVR
     @visa = visas(:one)
   end
 
@@ -18,10 +20,10 @@ class VisasControllerTest < ActionController::TestCase
 
   test "should create visa" do
     assert_difference('Visa.count') do
-      post :create, visa: { start_date: (@visa.start_date - 1.year), end_date: (@visa.end_date - 1.year), no_entries: 1  }
+      @newVisa = post :create, visa: { start_date: (@visa.start_date - 1.year), end_date: (@visa.end_date - 1.year), no_entries: 1  }
     end
 
-    assert_redirected_to visa_path(assigns(:visa))
+    assert_redirected_to visits_path
   end
 
   # test "should show visa" do

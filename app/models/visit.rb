@@ -46,17 +46,14 @@ class Visit < ActiveRecord::Base
   def no_days_continuous_in_schengen
     return  nil unless exit_date
     return 0 unless schengen?
-    visits = (previous_visits.sort_by(&:entry_date) << self).reverse!
-    cont_days_cnt = 0
+    visits = (previous_schengen_visits.sort_by(&:entry_date) << self).reverse!
+    cont_days_cnt = 0 
     prev_entry_date = nil
     visits.each do |v|
-      return cont_days_cnt unless v.schengen?
-      if prev_entry_date.nil?
+      if (v.exit_date - 1.day) == prev_entry_date || prev_entry_date.nil?
         cont_days_cnt += v.no_days
       elsif v.exit_date == prev_entry_date
         cont_days_cnt += v.no_days - 1
-      elsif (v.exit_date - 1.day) == prev_entry_date
-        cont_days_cnt += v.no_days
       else
         return cont_days_cnt
       end

@@ -31,29 +31,29 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'vist overlap' do
-    a = visits(:one)
+
     b = visits(:two)
-    assert_not a.date_overlap?(b)
+    assert_not b.date_overlap?
 
     b.entry_date = '2014-03-21'
-    assert a.date_overlap?(b)
+    assert b.date_overlap?
 
     b.entry_date = '2014-03-22'
     b.exit_date = '2014-03-22'
-    assert_not a.date_overlap?(b)
+    assert_not b.date_overlap?
 
     b.exit_date = '2014-03-23'
-    assert_not a.date_overlap?(b)
+    assert_not b.date_overlap?
 
     b.entry_date = '2013-03-22'
     b.exit_date = '2015-03-22'
-    assert a.date_overlap?(b)
+    assert b.date_overlap?
 
     a = visits(:one)
-    b = visits(:two)
+    assert_not a.date_overlap?
     a.exit_date = nil
-    assert a.date_overlap?(b)
-    assert b.date_overlap?(a)
+    assert a.date_overlap?
+
   end
 
   test 'entry_date should be greater than exit date' do
@@ -136,15 +136,15 @@ class VisitTest < ActiveSupport::TestCase
  
   end
 
-  test 'no_days_continuous' do
+  test 'no_days_continuous in schengen' do
     a = visits(:testvisit1)
-    assert_equal 60, a.no_days_continuous
+    assert_equal 60, a.no_days_continuous_in_schengen
     a = a.next_visit
-    assert_equal 0, a.no_days_continuous
+    assert_equal 0, a.no_days_continuous_in_schengen
     a = a.next_visit
-    assert_equal 30, a.no_days_continuous
+    assert_equal 30, a.no_days_continuous_in_schengen
     a = a.next_visit
-    assert_equal 32, a.no_days_continuous
+    assert_equal 32, a.no_days_continuous_in_schengen
   end
 
 

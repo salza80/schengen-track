@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(version: 20150504173416) do
     t.integer  "schengen_days"
     t.integer  "country_id"
     t.integer  "person_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "visits", ["country_id"], name: "index_visits_on_country_id"

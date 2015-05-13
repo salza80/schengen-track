@@ -20,7 +20,7 @@ class VisasControllerTest < ActionController::TestCase
 
   test "should create visa" do
     assert_difference('Visa.count') do
-      @newVisa = post :create, visa: { start_date: (@visa.start_date - 1.year), end_date: (@visa.end_date - 1.year), no_entries: 1  }
+      @newVisa = post :create, visa: { start_date: (@visa.start_date + 10.year), end_date: (@visa.end_date + 10.year), no_entries: 1  }
     end
 
     assert_redirected_to visits_path

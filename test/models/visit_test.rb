@@ -245,7 +245,7 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal(10, a.visa_overstay_days)
 
     v = Visa.new
-    v.start_date = '2012-06-01'
+    v.start_date = '2012-06-30'
     v.end_date = '2012-12-30'
     v.visa_type = 'S'
     v.no_entries = 0
@@ -255,4 +255,6 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal(10, a.schengen_days)
     assert_equal(0, a.visa_overstay_days)
   end
+
+
 end

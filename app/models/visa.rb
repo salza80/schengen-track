@@ -1,29 +1,30 @@
 class Visa < ActiveRecord::Base
   belongs_to :person
   validates :start_date, :end_date, :person, :visa_type, :no_entries, presence: true
-  validate :start_date_must_be_less_than_end
   validates :visa_type, inclusion: { in: %w(R S), message: "%{value} is not a valid visa type" }
+  validate :start_date_must_be_less_than_end
+  validate :dates_must_not_overlap
   after_save :update_visits
   after_update :update_visits
   after_destroy :update_visits
   default_scope { order('start_date ASC, end_date ASC') }
+  scope :schengen, -> { where(visa_type: 'S') }
+  scope :resicence, -> { where(visa_type: 'R') }
 
-  def self.find_schengen
-    where('visa_type = ?', 'S')
-  end
 
-  def self.find_residence
-    where('visa_type = ?', 'R')
-  end
-
-  def self.find_schengen_visa(entry_date, exit_date)
-    return none if entry_date.nil? && exit_date.nil?
-    return none if entry_date.nil?
-    if exit_date.nil?
-      find_schengen.where('(:entry_date >= start_date and :entry_date <= end_date)', entry_date: entry_date).last
+  def self.find_visa_by_date(vstart_date, vend_date)
+    return Visa.none if vstart_date.nil? && vend_date.nil?
+    return Visa.none if vstart_date.nil?
+    if vend_date.nil?
+      where('(:start_date >= start_date and :start_date <= end_date)', start_date: vstart_date)
     else
-      find_schengen.where('(:exit_date >= start_date and :exit_date <= end_date) AND (:entry_date >= start_date and :entry_date <= end_date)', entry_date: entry_date, exit_date: exit_date).last
+      where(' (:start_date >= start_date and :start_date <= end_date) OR (:end_date >= start_date and :end_date <= end_date) OR (:start_date < start_date AND :end_date > end_date)', start_date: vstart_date, end_date: vend_date)
     end
+  end
+
+  def self.find_schengen_visa(vstart_date, vend_date)
+    schengen.find_visa_by_date(vstart_date, vend_date).where('(:start_date >= start_date and :start_date <= end_date)', start_date: vstart_date).last
+    
   end
 
   def visa_desc
@@ -36,11 +37,22 @@ class Visa < ActiveRecord::Base
       return nil
     end
   end
-
+  
+  def date_overlap?
+    return false unless person
+    vis = person.visas.find_visa_by_date(start_date, end_date)
+    vis = vis.select { |v| v.visa_type == visa_type && v.id != id && v.end_date != start_date && v.start_date != end_date }
+    vis.count > 0
+  end
 
   private
 
   # Custom Validation Methods
+
+  def dates_must_not_overlap
+    return unless date_overlap?
+    errors.add(:base, 'the start and end dates should not overlap with an existing visas.')
+  end
 
   def start_date_must_be_less_than_end
     return if end_date.nil? || start_date.nil?

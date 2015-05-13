@@ -23,14 +23,17 @@ class VisaTest < ActiveSupport::TestCase
     assert a.visa_desc, 'Residence Visa/Permit'
   end
 
-  test 'schengen scope' do
-    a = Visa.find_schengen
 
-    b = Visa.find_residence
+   test 'date overlaping another schengen visa' do
+    a = visas(:single)
+    assert a.valid?
+    a.end_date = '2011-01-01'
+    assert a.valid?
+    a.end_date = '2011-01-02'
+    assert a.invalid?
   end
 
-
-  test 'start date must be less than end date' do
+ test 'start date must be less than end date' do
     a = visas(:single)
     assert a.valid?
     a.start_date = '2013-01-01'
@@ -41,7 +44,7 @@ class VisaTest < ActiveSupport::TestCase
   test 'find visa for specified entry and exit dates' do
     p = people(:VisaRequiredPerson)
     visa = p.visas.find_schengen_visa(DateTime.new(2011,1,1), DateTime.new(2012,4,4))
-    assert_equal nil, visa
+    assert_equal  DateTime.new(2011,1,1), visa.start_date
     visa  =  p.visas.find_schengen_visa(DateTime.new(2010,1,1), DateTime.new(2010,4,4))
  
     assert_equal DateTime.new(2010,1,1), visa.start_date
@@ -50,6 +53,21 @@ class VisaTest < ActiveSupport::TestCase
 
     assert_equal DateTime.new(2011,1,1), visa.start_date
     assert_equal 0, visa.no_entries
+  end
+
+
+  test 'test visa dates should not overlap' do
+    a = visas(:multi)
+    assert a.valid?
+    a.start_date = '2010-12-29'
+    assert a.invalid?
+    a.start_date = '2010-12-30'
+    assert a.valid?
+    a.end_date = '2012-1-2'
+    assert a.invalid?
+    a.visa_type = 'R'
+    assert a.valid?
+
   end
 end
 

@@ -9,11 +9,12 @@
       %a.navbar-brand{:href => "#"} Schengen Visa Calculator
       - if current_person
         %p.navbar-text
-          = current_person.full_name
+          = current_person.full_name + " - " + current_person.nationality.name
+          = link_to '(change)', my_details_path, class: 'text-info'
     #navbar.collapse.navbar-collapse.pull-right
       %ul.nav.nav-tabs
         %li
-          = link_to 'My Visits', visits_path, class: 'navbar-link'
+          = link_to 'Travel Record', visits_path, class: 'navbar-link'
         %li.dropdown{:role => "presentation"}
           %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             Settings

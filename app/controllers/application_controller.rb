@@ -31,10 +31,28 @@ class ApplicationController < ActionController::Base
     user.email = "guest_#{Time.now.to_i}#{rand(99)}@example.com"
     user.password = 'password'
     user.save(validate: false)
-    c = Country.find_by(Country_code: 'AU')
-    p = user.people.build(first_name: 'Guest', last_name: 'User', nationality: c)
+
+    # c = Country.find_by(Country_code: 'AU')
+    p = user.people.build(first_name: 'Guest', last_name: 'User', nationality: default_guest_country)
     p.save(validate: false)
     user
  
+  end
+
+  def default_guest_country
+    country = request.location.data[:country_name]
+    c = Country.find_by(name: country)
+    c || Country.find_by(Country_code: 'AU')
+
+  end
+
+  def extract_locale_from_accept_language_header
+    # code = request.env['HTTP_ACCEPT_LANGUAGE']
+    # puts code
+    # code ? code.scan(/^[a-z]{2}/).first.upcase : 'AU'
+    
+    
+
+
   end
 end

@@ -12,20 +12,19 @@ class Visit < ActiveRecord::Base
   default_scope { order('entry_date ASC, exit_date ASC') }
 
 
-#all
+  #all
 
- def visit_ok?
-  return true if person.visa_required == 'F'
-  return true unless schengen?
-  if person.visa_required?
-    schengen_overstay? || visa_date_overstay? || visa_entry_overstay?
-  else
-    schengen_overstay? || continuious_overstay?
-
+  def visit_check?
+    return true if person.visa_required == 'F'
+    return true unless schengen?
+    if person.visa_required?
+      visa_check? || schengen_check?
+    else
+      schengen_check?
+    end
   end
- end
 
-# Visits Methods
+  # Visits Methods
   def no_days
     return nil unless exit_date
     (exit_date - entry_date).to_i + 1
@@ -39,6 +38,10 @@ class Visit < ActiveRecord::Base
 
   def schengen?
     country.schengen?(entry_date)
+  end
+
+  def schengen_check?
+    schengen_overstay? || continuious_overstay?
   end
 
   def schengen_overstay?
@@ -104,6 +107,9 @@ class Visit < ActiveRecord::Base
 
   def visa_required?
     person.visa_required? && schengen?
+  end
+  def visa_check?
+     schengen_overstay? || visa_date_overstay? || visa_entry_overstay?
   end
 
   def visa_date_overstay?

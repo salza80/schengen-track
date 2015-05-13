@@ -18,13 +18,16 @@ class VisitsController < ApplicationController
   def new
     @visit = Visit.new
     @continent = Continent.all
-    @country_options =  Country.all.to_json(:only => [:id, :name, :continent_id])
+    @continent_default_id = Continent.find_by(continent_code: 'EU').id.to_s
+    @country_options = Country.all.to_json(:only => [:id, :name, :continent_id])
 
   end
 
   # GET /visits/1/edit
   def edit
-
+    @continent = Continent.all
+    @continent_default_id = @visit.country.continent.id.to_s
+    @country_options = Country.all.to_json(:only => [:id, :name, :continent_id])
   end
 
   # POST /visits

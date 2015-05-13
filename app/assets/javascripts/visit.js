@@ -1,5 +1,5 @@
 
-$( document ).ready(function() {
+$(document).on("ready page:load", function() {
   $("#Continent").change(function(){ 
     load_countries();
     });
@@ -26,7 +26,6 @@ function filter_by_selected_continent(obj){
     return false;
   }
 }
-
 
 function build_option(value, text) {
   return "<option value=" + value + ">" + text + "</option>"

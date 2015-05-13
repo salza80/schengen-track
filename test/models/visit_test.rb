@@ -101,7 +101,7 @@ class VisitTest < ActiveSupport::TestCase
   test 'test get previous 180 days visits excluding current' do
     a = visits(:two)
     b = a.previous_180_days_visits
-    assert_equal 2, b.count
+    assert_equal 1, b.count
   end
 
   test 'get next visit' do
@@ -145,6 +145,8 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 30, a.no_days_continuous_in_schengen
     a = a.next_visit
     assert_equal 32, a.no_days_continuous_in_schengen
+    a = a.next_visit
+    assert_equal 10, a.no_days_continuous_in_schengen
   end
 
 

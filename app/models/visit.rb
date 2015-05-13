@@ -8,11 +8,22 @@ class Visit < ActiveRecord::Base
   after_save :update_visits
   after_update :update_visits
   after_destroy :update_visits
-  # before_save :schengen_days_update
-  # before_create :schengen_days_update
   
   default_scope { order('entry_date ASC, exit_date ASC') }
 
+
+#all
+
+ def visit_ok?
+  return true if person.visa_required == 'F'
+  return true unless schengen?
+  if person.visa_required?
+    schengen_overstay? || visa_date_overstay? || visa_entry_overstay?
+  else
+    schengen_overstay? || continuious_overstay?
+
+  end
+ end
 
 # Visits Methods
   def no_days
@@ -36,11 +47,17 @@ class Visit < ActiveRecord::Base
 
   def schengen_overstay_days
     return nil unless schengen_days
-    if schengen_days > 90
-      schengen_days - 90
-    else
-      0
-    end
+    days = schengen_days
+    days > 90 ? days - 90 : 0
+  end
+
+  def continuious_overstay?
+    no_days_continuous_in_schengen > 90
+  end
+
+  def continuous_overstay_days
+    days = continuous_overstay_days
+    days > 90 ? days - 90 : 0
   end
 
   def no_days_continuous_in_schengen
@@ -79,8 +96,7 @@ class Visit < ActiveRecord::Base
   end
 
   def previous_180_days_visits
-    return Visit.none unless exit_date
-    person.visits.find_by_date((exit_date - 180.days), exit_date).select { |v| v != self }
+    person.visits.find_by_date((entry_date - 180.days), exit_date).select { |v| v.id != id && v.schengen? && v.entry_date <= entry_date}
   end
 
   #Methods applicable when VISA is required
@@ -90,8 +106,28 @@ class Visit < ActiveRecord::Base
     person.visa_required? && schengen?
   end
 
-  def visa_overstay?
-    visa_overstay_days > 0
+  def visa_date_overstay?
+    return false unless visa_required?
+    visa = schengen_visa
+    return true unless visa
+    exit_date >  visa.end_date
+  end
+
+  def visa_overstay_days
+    if visa_entry_overstay?
+      return no_days
+    elsif visa_date_overstay?
+      return visa_date_overstay_days
+    else
+      0
+    end
+  end
+
+  def visa_date_overstay_days
+    return nil unless exit_date
+    return 0 unless visa_date_overstay?  
+    visa = schengen_visa
+    exit_date <= visa.end_date ? 0 : exit_date - visa.end_date
   end
 
   def visa_exists?
@@ -128,14 +164,6 @@ class Visit < ActiveRecord::Base
     previous_schengen_visits.select { |v| v.schengen_visa == visa }
   end
 
-
-  def visa_overstay_days
-    return 0 unless visa_required?
-    return nil unless exit_date
-    return no_days if visa_entry_overstay?
-    visa = schengen_visa
-    exit_date <= visa.end_date ? 0 : exit_date - visa.end_date
-  end
 
 
 

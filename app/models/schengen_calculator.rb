@@ -10,12 +10,11 @@ class SchengenCalculator
 
 
   def calculate_schengen
-    return if @person.visits.count == 0
+    return unless @person
+    return if @person.visits.empty?
     if @person.nationality.visa_required == 'F'
       zero_schengen
-      return
-    end
-    if @person.nationality.old_schengen_calc
+    elsif @person.nationality.old_schengen_calc
       calculate_schengen_days_old
     else
       calculate_schengen_days_new
@@ -33,14 +32,11 @@ def zero_schengen
     v.save
   end
   @person.reload
-  @visit.reload unless @visit.destroyed?
 end
 
 #Old schengen calculations for exception countries
 
 def calculate_schengen_days_old
-  return unless @person
-  return if @person.visits.all.count == 0
   start_date = nil
   end_date = nil
   schengen_days_count = 0
@@ -65,14 +61,11 @@ def calculate_schengen_days_old
     v.no_schengen_callback = true
     v.save
   end
-  @visit.reload unless @visit.destroyed?
+
 end
-
-
 
 #New schengen calcuations for most countries
   def calculate_schengen_days_new
-    return false unless @visit
     @person.visits.all.each do |v|
       v.no_schengen_callback = true
       new_schengen_days_calc(v)

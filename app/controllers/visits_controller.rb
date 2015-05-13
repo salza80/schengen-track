@@ -17,6 +17,9 @@ class VisitsController < ApplicationController
   # GET /visits/new
   def new
     @visit = Visit.new
+    @continent = Continent.all
+    @country_options =  Country.all.to_json(:only => [:id, :name, :continent_id])
+
   end
 
   # GET /visits/1/edit

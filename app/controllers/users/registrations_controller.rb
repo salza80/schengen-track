@@ -4,9 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    @user= User.new
-    @user.people << Person.new
-
+    @user = User.new_with_session({}, session)
   end
 
   # POST /resource
@@ -15,12 +13,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @guest_user = current_user_or_guest_user
     @user.people.first.copy_from(@guest_user.people.first)
     if @user.save    
-      # n = Country.find_by(country_code: 'AU')
-      # @p = Person.new(first_name: 'New', last_name: 'User', nationality: n)
-      # @p.copy_from(@guest_user.people.first)
-      # @p.user = @user
-      # @p.save!
-
       sign_up('user', @user)
       redirect_to root_path
     else

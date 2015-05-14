@@ -16,3 +16,4 @@
 !/log/.keep
 /tmp
 public/assets/**
+config/initializers/dev_env_variables.rb

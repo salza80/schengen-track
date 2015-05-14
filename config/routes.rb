@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   put 'my_details' => 'people#update'
   patch 'my_details' => 'people#update'
   get 'person' => 'people#show'
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

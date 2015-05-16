@@ -20,7 +20,7 @@
     = select_tag "Continent", options_from_collection_for_select(@continent, "id", "name", @continent_default_id)
   .field
     = f.label :country_id
-    = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name)
+    = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, include_blank: true)
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
   .actions
     = f.submit 'Save'

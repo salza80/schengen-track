@@ -1,5 +1,6 @@
 class VisitsController < ApplicationController
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
+  before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
 
   # GET /visits
@@ -16,18 +17,13 @@ class VisitsController < ApplicationController
 
   # GET /visits/new
   def new
-    @visit = Visit.new
-    @continent = Continent.all
-    @continent_default_id = Continent.find_by(continent_code: 'EU').id.to_s
-    @country_options = Country.all.to_json(:only => [:id, :name, :continent_id])
+    @visit = Visit.with_default(current_person)
 
   end
 
   # GET /visits/1/edit
   def edit
-    @continent = Continent.all
     @continent_default_id = @visit.country.continent.id.to_s
-    @country_options = Country.all.to_json(:only => [:id, :name, :continent_id])
   end
 
   # POST /visits
@@ -39,6 +35,7 @@ class VisitsController < ApplicationController
         format.html { redirect_to visits_url, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
       else
+        @continent_default_id = @visit.country.continent.id.to_s
         format.html { render :new }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
       end
@@ -53,6 +50,7 @@ class VisitsController < ApplicationController
         format.html { redirect_to visits_url, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
       else
+        @continent_default_id = @visit.country.continent.id.to_s
         format.html { render :edit }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
       end
@@ -78,5 +76,11 @@ class VisitsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
       params.require(:visit).permit(:entry_date, :exit_date, :country_id)
+    end
+
+    def set_country_continent
+      @continent = Continent.all
+      @continent_default_id = Continent.find_by(continent_code: 'EU').id.to_s
+      @country_options = Country.all.to_json(:only => [:id, :name, :continent_id])
     end
 end

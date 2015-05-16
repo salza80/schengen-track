@@ -11,6 +11,18 @@ class Visit < ActiveRecord::Base
   
   default_scope { order('entry_date ASC, exit_date ASC') }
 
+  #initialise a new visit
+
+  def self.with_default(person)
+    # register_oauth_with_matching_email(auth)
+    visit = new do |v|
+      v.person = person
+      v.entry_date = person.visits.all.last.exit_date unless person.visits.empty?
+      v.exit_date  = v.entry_date + 1.day unless v.entry_date.nil?
+    end
+  end
+
+
 
   #all
 

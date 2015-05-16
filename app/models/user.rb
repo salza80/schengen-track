@@ -29,17 +29,21 @@ class User < ActiveRecord::Base
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
-        user.email = data['email'] if user.email.blank?
-        if user.people.empty?
+       if user.people.empty?
           p = Person.new
           user.people << p
         else
           p = user.people.first
         end
+      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
+        user.email = data['email'] if user.email.blank?
         p.first_name = data['first_name'] if p.first_name.blank?
         p.last_name = data['last_name'] if p.last_name.blank?
-         # p.last_name = Geocoder.search(data['location']['name']).first.country
+        p.last_name = data['last_name'] if p.last_name.blank?
+        #location must requested from facebook, and they must review the app. Implement later.
+        # puts session['devise.facebook_data']
+        # puts session['devise.facebook_data']['extra']['raw_info']
+        #p.last_name = Geocoder.search(data['location'].first.country
       end
     end
   end

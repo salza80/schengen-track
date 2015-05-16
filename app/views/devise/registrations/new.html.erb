@@ -14,7 +14,7 @@
     </div>
     <div class="field">
       <%= ff.label :nationality_id %><br>
-      <%= ff.collection_select(:nationality_id, Country.all, :id, :name)%>
+      <%= ff.collection_select(:nationality_id, Country.all, :id, :name, include_blank: true)%>
     </div>
 
    

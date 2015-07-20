@@ -1,6 +1,3 @@
-%script
-  != "var country = #{@country_options.html_safe};"
-
 = form_for @visit do |f|
   - if @visit.errors.any?
     #error_explanation
@@ -24,3 +21,6 @@
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
   .actions
     = f.submit 'Save'
+%script
+  != "var country = #{@country_options.html_safe};"
+  != "var CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id')"

@@ -9,7 +9,7 @@ App.Cascade = function(parentEle, childEle, childData, idName, valueName, linkNa
   this.valueName = valueName;
   this.linkName = linkName
   this.filter = filterFunction;
-  if (this.filter==undefined){ this.filter = this.defaultFilter};
+  if (this.filter==undefined){ this.filter = this.defaultFilter.bind(this)};
   $(this.parentEle).change(function(){
     var filteredData = ""
     filteredData = this.childData.filter(this.filter);

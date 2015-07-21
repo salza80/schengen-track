@@ -25,3 +25,8 @@ VisaRequiredPerson:
   last_name: Required
   nationality: India
   user: VisaRequiredUser
+BigVisits:
+  first_name: Big
+  last_name: Visits
+  nationality: Australia
+  user: Sally

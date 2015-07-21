@@ -50,9 +50,5 @@ class ApplicationController < ActionController::Base
     # code = request.env['HTTP_ACCEPT_LANGUAGE']
     # puts code
     # code ? code.scan(/^[a-z]{2}/).first.upcase : 'AU'
-    
-    
-
-
   end
 end

@@ -9,7 +9,7 @@ class Visa < ActiveRecord::Base
   after_destroy :update_visits
   default_scope { order('start_date ASC, end_date ASC') }
   scope :schengen, -> { where(visa_type: 'S') }
-  scope :resicence, -> { where(visa_type: 'R') }
+  scope :residence, -> { where(visa_type: 'R') }
 
 
   def self.find_visa_by_date(vstart_date, vend_date)

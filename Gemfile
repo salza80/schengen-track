@@ -54,5 +54,3 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
 end
-
-ruby '2.2.0'

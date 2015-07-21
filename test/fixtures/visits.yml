@@ -169,5 +169,41 @@ visaTwoEntry5:
   country: Germany
   person: VisaRequiredPerson
 
+bigvisit1:
+  entry_date: 2012-1-1
+  exit_date: 2013-1-1
+  schengen_days:
+  country: Germany
+  person: BigVisits
+bigvisit2:
+  entry_date: 2013-1-1
+  exit_date: 2014-1-1
+  schengen_days:
+  country: Germany
+  person: BigVisits
+bigvisit3:
+  entry_date: 2014-1-1
+  exit_date: 2016-1-1
+  schengen_days:
+  country: Germany
+  person: BigVisits
+bigvisit4:
+  entry_date: 2016-2-10
+  exit_date: 2016-2-12
+  schengen_days:
+  country: Germany
+  person: BigVisits
+bigvisit5:
+  entry_date: 2016-5-15
+  exit_date: 2016-5-17
+  schengen_days:
+  country: Germany
+  person: BigVisits
+bigvisit6:
+  entry_date: 2016-6-13
+  exit_date: 2016-6-13
+  schengen_days:
+  country: Germany
+  person: BigVisits
 
 

@@ -50,7 +50,7 @@ def calculate_schengen_days_old
         schengen_days_count += end_date - v.entry_date
         if schengen_days_count <= 90
           start_date = end_date + 1
-          end_date = start_date = 180.days
+          end_date = start_date + 180.days
           schengen_days_count = v.exit_date - start_date
         end
       else
@@ -71,13 +71,44 @@ end
       new_schengen_days_calc(v)
       v.save
     end
+    prev_overstay_exit_date = nil
+    prev_overstay_schengen_days = 0
+    
+    @person.visits.all.each do |v|
+      if prev_overstay_exit_date && (prev_overstay_exit_date + 91.days) >= v.entry_date
+        if v.schengen?
+          v.schengen_days = prev_overstay_schengen_days + v.no_days
+          v.schengen_days -= 1 if v.exit_date == prev_overstay_exit_date
+        else
+          v.schengen_days = prev_overstay_schengen_days
+        end
+        v.no_schengen_callback = true
+        v.save
+      elsif v.exit_date.nil? == false
+        if v.no_days > 180 && v.schengen?
+          v.schengen_days = v.no_days - 90
+          puts v.no_days
+          puts v.entry_date
+          v.no_schengen_callback = true
+          v.save
+        end
+      else
+        prev_overstay_exit_date = nil
+        prev_overstay_schengen_days = 0
+      end
+
+      if v.schengen_overstay? && v.schengen?
+        prev_overstay_exit_date = v.exit_date
+        prev_overstay_schengen_days = v.schengen_days
+      end
+    end
   end
 
 
   def new_schengen_days_calc(visit)
     return visit.schengen_days = nil unless visit.exit_date
     previous_visits = visit.previous_180_days_visits.sort_by(&:entry_date)
-    begin_date = visit.exit_date - 180.days
+    begin_date = visit.exit_date - 179.days
     schen_day_count = 0
     prev_exit_date = nil
     (previous_visits << visit).each do |v|

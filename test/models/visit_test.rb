@@ -30,7 +30,7 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal '2014-03-27'.to_date, b.first.entry_date
   end
 
-  test 'vist overlap' do
+  test 'visit overlap' do
 
     b = visits(:two)
     assert_not b.date_overlap?
@@ -240,11 +240,15 @@ class VisitTest < ActiveSupport::TestCase
 
     a = a.next_visit
     assert_equal(46, a.schengen_days)
-    assert_equal(10, a.visa_overstay_days)
+    assert_equal(0, a.visa_overstay_days)
+    assert_equal(true, a.visa_date_overstay?)
+    assert_equal(10, visa_date_overstay_days)
 
     a = a.next_visit
     assert_equal(10, a.schengen_days)
-    assert_equal(10, a.visa_overstay_days)
+    assert_equal(0, a.visa_overstay_days)
+    assert_equal(true, a.visa_date_overstay?)
+    assert_equal(10, visa_date_overstay_days)
 
     v = Visa.new
     v.start_date = '2012-06-30'
@@ -257,6 +261,28 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal(10, a.schengen_days)
     assert_equal(0, a.visa_overstay_days)
   end
+  test 'big visit schgenen_days' do
 
+    b = visits(:bigvisit1)
+    b.save
+    assert_equal 277, b.schengen_days
+
+    b =  b.next_visit
+    assert_equal 643, b.schengen_days
+
+    b = b.next_visit
+    assert_equal 1374, b.schengen_days
+
+    b = b.next_visit
+    assert_equal 1377, b.schengen_days
+
+    b = b.next_visit
+    assert_equal 4, b.schengen_days
+
+
+    b = b.next_visit
+    assert_equal 5, b.schengen_days
+
+  end
 
 end

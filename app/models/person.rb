@@ -17,7 +17,7 @@ class Person < ActiveRecord::Base
   end
 
   def visa_required?
-    nationality.visa_required == 'V'
+    nationality.visa_required == :V
   end
  
 

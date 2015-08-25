@@ -11,7 +11,7 @@ class Visit < ActiveRecord::Base
   
   default_scope { order('entry_date ASC, exit_date ASC') }
 
-  #initialise a new visit
+  # initialise a new visit
 
   def self.with_default(person)
     # register_oauth_with_matching_email(auth)
@@ -22,11 +22,11 @@ class Visit < ActiveRecord::Base
     end
   end
 
-  #checks if visit is OK
+  # checks if visit is OK
   def visit_check?
-    return true if person.visa_required == 'F'
+    return true if person.visa_required? == false
     return true unless schengen?
-    if person.visa_required?
+    if visa_required?
       visa_check? || schengen_check?
     else
       schengen_check?
@@ -45,7 +45,6 @@ class Visit < ActiveRecord::Base
     return 90 - schengen_days if schengen_days <= 90
     0
   end
-
 
   # Is visited country in schengen zone at time of this visit
   def schengen?
@@ -134,7 +133,7 @@ class Visit < ActiveRecord::Base
 
   # check all requirements are satisfied when a visa is required
   def visa_check?
-     schengen_overstay? || visa_date_overstay? || visa_entry_overstay?
+    schengen_overstay? || visa_date_overstay? || visa_entry_overstay?
   end
 
   # check if visa has been overstayed by date

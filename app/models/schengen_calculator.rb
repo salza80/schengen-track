@@ -86,15 +86,15 @@ end
         else
           v.schengen_days = prev_overstay_schengen_days
         end
-      elsif v.exit_date.nil? == false
-        if v.no_days > 180 && v.schengen?
-          v.schengen_days = v.no_days - 90
-        end
+      # elsif v.exit_date.nil? == false
+      #   if v.no_days > 180 && v.schengen?
+      #     v.schengen_days = v.no_days - 90
+      #   end
       else
         prev_overstay_exit_date = nil
         prev_overstay_schengen_days = 0
       end
-      if v.schengen_overstay? && v.schengen?
+      if v.visit_check? && v.schengen?
         prev_overstay_exit_date = v.exit_date
         prev_overstay_schengen_days = v.schengen_days
       end
@@ -104,6 +104,13 @@ end
 
   def new_schengen_days_calc(visit)
     return visit.schengen_days = nil unless visit.exit_date
+    # return visit.schengen_days = visit.no_days if visit.no_days > 180
+    if visit.no_days > 180
+      puts visit.inspect
+      puts visit.no_days
+      visit.schengen_days = visit.no_days
+      return
+    end
     previous_visits = visit.previous_180_days_visits.sort_by(&:entry_date)
     begin_date = visit.exit_date - 179.days
     schen_day_count = 0

@@ -39,9 +39,10 @@ class Visit < ActiveRecord::Base
     (exit_date - entry_date).to_i + 1
   end
 
-  # nuber of schengen days remaining (never negative)
+  # number of schengen days remaining (never negative)
   def schengen_days_remaining
     return nil unless schengen_days
+    return 0 if visa_required? && visa_exists? == false
     return 90 - schengen_days if schengen_days <= 90
     0
   end
@@ -158,14 +159,14 @@ class Visit < ActiveRecord::Base
   # number of days overstay if visa dates have been overstayed
   def visa_date_overstay_days
     return nil unless exit_date
-    return 0 unless visa_date_overstay?  
+    return 0 unless visa_date_overstay?
     visa = schengen_visa
     exit_date <= visa.end_date ? 0 : exit_date - visa.end_date
   end
 
   # check if a visa exists for this visit
   def visa_exists?
-    return true if schengen_visa
+    schengen_visa.nil? == false
   end
 
   # check if visa has been overstayed by number of entry limit

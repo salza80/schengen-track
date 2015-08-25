@@ -206,4 +206,11 @@ bigvisit6:
   country: Germany
   person: BigVisits
 
+noVisaVisit1:
+  entry_date: 2016-2-1
+  exit_date: 2016-2-7
+  schengen_days:
+  country: Germany
+  person: VisaRequiredPerson
+
 

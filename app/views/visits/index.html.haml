@@ -48,7 +48,7 @@
               N/A
             -else
               Visa Required!
-          %td{ class: ("danger" if visit.visa_overstay?) }
+          %td{ class: ("danger" if visit.visa_check?) }
             = visit.visa_overstay_days
         %td= link_to 'Show', visit
         %td= link_to 'Edit', edit_visit_path(visit)

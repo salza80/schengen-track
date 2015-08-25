@@ -15,7 +15,7 @@ App.Cascade = function(parentEle, childEle, childData, idName, valueName, linkNa
     filteredData = this.childData.filter(this.filter);
     this.loadSelect(this.childEle, filteredData);
   }.bind(this))
-  $(this.parentEle).change();
+  // $(this.parentEle).change();
 }
 App.Cascade.prototype.buildOption = function(value, text) {
   return "<option value=" + value + ">" + text + "</option>"

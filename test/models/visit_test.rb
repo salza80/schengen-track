@@ -285,4 +285,13 @@ class VisitTest < ActiveSupport::TestCase
 
   end
 
+  test 'no visa visit' do
+    n = visits(:noVisaVisit1)
+    n.save
+    assert_equal true, n.visa_required?
+    assert_equal false, n.visa_exists?
+    assert_equal 7, n.schengen_days
+    assert_equal 0, n.schengen_days_remaining
+  end
+
 end

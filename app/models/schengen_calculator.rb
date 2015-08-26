@@ -106,8 +106,6 @@ end
     return visit.schengen_days = nil unless visit.exit_date
     # return visit.schengen_days = visit.no_days if visit.no_days > 180
     if visit.no_days > 180
-      puts visit.inspect
-      puts visit.no_days
       visit.schengen_days = visit.no_days
       return
     end

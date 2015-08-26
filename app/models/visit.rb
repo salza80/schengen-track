@@ -186,6 +186,13 @@ class Visit < ActiveRecord::Base
     cnt
   end
 
+  # get number of entries allowed on current visa
+  def visa_entries_allowed
+    visa = schengen_visa
+    return nil unless visa
+    visa.no_entries
+  end
+
   # get the schengen visa for this visit
   def schengen_visa
     return nil unless person.visa_required?

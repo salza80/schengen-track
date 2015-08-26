@@ -156,13 +156,20 @@ visaTwoEntry3:
   person: VisaRequiredPerson
 
 visaTwoEntry4:
+  entry_date: 2012-03-07
+  exit_date: 2012-03-09
+  schengen_days: 
+  country: Germany
+  person: VisaRequiredPerson
+
+visaTwoEntry5:
   entry_date: 2012-04-01
   exit_date: 2012-04-10
   schengen_days: 
   country: Germany
   person: VisaRequiredPerson
 
-visaTwoEntry5:
+visaTwoEntry6:
   entry_date: 2012-11-01
   exit_date: 2012-11-10
   schengen_days: 

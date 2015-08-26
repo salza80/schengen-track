@@ -161,6 +161,7 @@ class Visit < ActiveRecord::Base
     return nil unless exit_date
     return 0 unless visa_date_overstay?
     visa = schengen_visa
+    return no_days unless visa
     exit_date <= visa.end_date ? 0 : exit_date - visa.end_date
   end
 
@@ -179,10 +180,20 @@ class Visit < ActiveRecord::Base
 
   # number of visits on current visa
   def visa_entry_count
-    p = previous_visits_on_current_visa
+    p = previous_visits_on_current_visa << self
     return nil unless p
-    cnt = p.count
-    cnt += 1 if schengen?
+    cnt = 0
+    prev_visit = nil
+    p.each do |v|
+      if v.schengen?
+        if prev_visit.nil? == false && prev_visit.schengen?
+          cnt += 1 if v.entry_date - prev_visit.exit_date > 1
+        else
+          cnt += 1
+        end
+      end
+      prev_visit = v
+    end
     cnt
   end
 
@@ -203,10 +214,10 @@ class Visit < ActiveRecord::Base
   
   #get all previous visits on the current visa
   def previous_visits_on_current_visa
-    return previous_schengen_visits unless person.visa_required?
+    return previous_visits unless person.visa_required?
     return Visit.none unless visa_exists?
     visa = schengen_visa
-    previous_schengen_visits.select { |v| v.schengen_visa == visa }
+    previous_visits.select { |v| v.schengen_visa == visa }
   end
 
  # Scopes

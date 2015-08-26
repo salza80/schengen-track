@@ -242,19 +242,18 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal(39, a.schengen_days)
     assert_equal(false, a.visa_entry_overstay?)
     assert_equal(0, a.visa_overstay_days)
-    assert_equal(0, visa_date_overstay_days)
+    assert_equal(0, a.visa_date_overstay_days)
 
     a = a.next_visit
     assert_equal(49, a.schengen_days)
-    assert_equal(0, a.visa_overstay_days)
+    assert_equal(10, a.visa_overstay_days)
     assert_equal(true, a.visa_entry_overstay?)
-    assert_equal(10, visa_date_overstay_days)
 
     a = a.next_visit
     assert_equal(10, a.schengen_days)
-    assert_equal(0, a.visa_overstay_days)
+    assert_equal(10, a.visa_overstay_days)
     assert_equal(true, a.visa_entry_overstay?)
-    assert_equal(10, visa_date_overstay_days)
+    assert_equal(10, a.visa_date_overstay_days)
 
     v = Visa.new
     v.start_date = '2012-06-30'

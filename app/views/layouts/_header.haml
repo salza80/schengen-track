@@ -1,20 +1,29 @@
 %nav.navbar.navbar-inverse.navbar-fixed-top
   .container
     .navbar-header
-      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.navbar-brand{:href => "#"} Schengen Visa Calculator
-      - if current_person
-        %p.navbar-text
-          = current_person.full_name + " - " + current_person.nationality.name
-          = link_to '(change)', my_details_path, class: 'text-info'
+      .row
+        .col-md-12
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "#"} Schengen Visa Calculator
+          - if current_person
+            %p.navbar-text
+              = current_person.full_name + " - " + current_person.nationality.name
+              = link_to '(change)', my_details_path, class: 'text-info'
+      .row
+        .col-md-12
+          %ul.nav.nav-tabs
+            %li
+              = link_to 'Schengen Calculator', visits_path, class: 'navbar-link'
+            %li 
+              = link_to 'About', visits_path, class: 'navbar-link'
     #navbar.collapse.navbar-collapse.pull-right
       %ul.nav.nav-tabs
-        %li
-          = link_to 'Travel Record', visits_path, class: 'navbar-link'
+        / %li
+        /   = link_to 'Travel Record', visits_path, class: 'navbar-link'
         %li.dropdown{:role => "presentation"}
           %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             Settings
@@ -31,3 +40,6 @@
         - else 
           %li
             = link_to 'Login', new_user_session_path, class: 'navbar-link'
+
+
+       

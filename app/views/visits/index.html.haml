@@ -55,9 +55,9 @@
           = visit.schengen_overstay_days
         %td
           -if visit.visit_check?
-            ="all ok"
+            %span.glyphicon.glyphicon-ok-sign{"aria-hidden" => "true"}
           -else
-            ="shit"
+            %span.glyphicon.glyphicon-remove-sign{"aria-hidden" => "true"}
         %td
           %ul
             %li= link_to 'Show', visit

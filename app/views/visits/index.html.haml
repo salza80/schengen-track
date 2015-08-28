@@ -3,23 +3,25 @@
 %table.table
   %thead
     %tr.table-top-header
-      %th.center-heading{ colspan: "4" } Travel Details
-      %th.center-heading{ colspan: "3" } Schengen Details
+      %th.center-heading{ colspan: "5" } Travel Details
       -if current_person.visa_required?
-        %th.center-heading{ colspan: "2" } Visa Details
-      %th.center-heading{ colspan: "3" }
+        %th.center-heading{ colspan: "3" } Visa Details
+      %th.center-heading{ colspan: "2" } Days in Schengen Area
+      %th.center-heading{ colspan: "2" }
     %tr
       %th Entry date
       %th Exit date
-      %th Country
+      %th Country 
+      %th 
+        Schengen
+        %br Area
       %th Days
-      %th Shengen Zone
-      %th Days Remaining
-      %th Overstay days
       -if current_person.visa_required?
-        %th No Entrys
-        %th Visa Overstay
-      %th
+        %th Exits?
+        %th No Entries
+        %th Days Overstay
+      %th Days Remaining
+      %th Days Overstay
       %th
       %th
       
@@ -29,16 +31,14 @@
         %td= visit.entry_date
         %td= visit.exit_date
         %td= visit.country.name
+        %td= visit.schengen? ? "Yes" : "No"
         %td= visit.no_days
-        %td 
-          -if visit.schengen? 
-            = "Y"
-          - else
-            = "N"
-        %td= visit.schengen_days_remaining
-        %td{ class: ("danger" if visit.schengen_overstay?) }
-          = visit.schengen_overstay_days
         -if current_person.visa_required?
+          %td{ class: ("danger" if visit.visa_exists? == false)}
+            -if visit.visa_exists?
+              ="Yes"
+            -else
+              ="No"
           %td{ class: ("danger" if visit.visa_entry_overstay?)}
             -if visit.visa_exists?
               = visit.visa_entry_count
@@ -48,11 +48,21 @@
               N/A
             -else
               Visa Required!
-          %td{ class: ("danger" if visit.visa_check?) }
+          %td{ class: ("danger" if visit.visa_overstay?) }
             = visit.visa_overstay_days
-        %td= link_to 'Show', visit
-        %td= link_to 'Edit', edit_visit_path(visit)
-        %td= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= visit.schengen_days_remaining
+        %td{ class: ("danger" if visit.schengen_overstay?) }
+          = visit.schengen_overstay_days
+        %td
+          -if visit.visit_check?
+            ="all ok"
+          -else
+            ="shit"
+        %td
+          %ul
+            %li= link_to 'Show', visit
+            %li= link_to 'Edit', edit_visit_path(visit)
+            %li= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
 %br
 = link_to 'Add a new travel record', new_visit_path
 

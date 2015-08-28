@@ -24,12 +24,10 @@ class Visit < ActiveRecord::Base
 
   # checks if visit is OK
   def visit_check?
-    return true if person.visa_required? == false
-    return true unless schengen?
     if visa_required?
-      visa_check? || schengen_check?
+      return visa_check?
     else
-      schengen_check?
+      return schengen_check?
     end
   end
 
@@ -54,12 +52,13 @@ class Visit < ActiveRecord::Base
 
   # Checks schengen 90 days requirement (and continuious 90 day limit for old schengen calc)
   def schengen_check?
-    schengen_overstay? || continuious_overstay?
+    schengen_overstay? == false && continuious_overstay? == false
   end
 
   # check if over 90 days
   def schengen_overstay?
-    schengen_days > 90 if schengen_days
+    return schengen_days > 90 if schengen_days
+    true
   end
 
   # number of days over the 90 day limit
@@ -134,7 +133,7 @@ class Visit < ActiveRecord::Base
 
   # check all requirements are satisfied when a visa is required
   def visa_check?
-    schengen_overstay? || visa_date_overstay? || visa_entry_overstay?
+    schengen_overstay? == false && visa_overstay? == false
   end
 
   # check if visa has been overstayed by date
@@ -143,6 +142,10 @@ class Visit < ActiveRecord::Base
     visa = schengen_visa
     return true unless visa
     exit_date >  visa.end_date
+  end
+  # check of the visa has been overstayed (either by date or number of entries)
+  def visa_overstay?
+    visa_date_overstay? || visa_entry_overstay?
   end
 
   # number of days overstay if has been overstayed by da

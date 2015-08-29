@@ -22,15 +22,27 @@
 //customises bootstrap variables
 $navbar-height:  70px;
 
-@nav-tabs-border-color: red;
-
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+}
 
 body {
   padding-top: 110px;
+  margin-bottom: 60px;
 }
 .starter-template {
   padding: 40px 15px;

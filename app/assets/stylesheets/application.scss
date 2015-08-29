@@ -18,10 +18,11 @@
 //colours
   $header-main:#222;
   $header-highlight: #337ab7;
-  $header-test: #9d9d9d;
+  $header-text: #9d9d9d;
 
 //customises bootstrap variables
 $navbar-height:  70px;
+$grid-float-breakpoint: 200px;
 
 
 @import "bootstrap-sprockets";
@@ -37,7 +38,7 @@ html {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
+  //Set the fixed height of the footer here
   height: 60px;
 }
 
@@ -59,6 +60,9 @@ body {
   border-style: solid;
 
 }
+.navbar-header{
+  white-space: nowrap;
+}
 .navbar-brand{
   padding-top: 20px;
   img{
@@ -67,14 +71,18 @@ body {
     width:35px;
   }
 }
+
 .site-title{
   margin-left:0px;
   font-size: 20px;
 }
 
+p.current-setting{
+  color: $header-text;
+}
+
 .site-nav{
   border-bottom: 0px;
-
   li>a.navbar-link{
     background-color: $header-highlight;
     color:$header-main;
@@ -90,10 +98,10 @@ body {
   a.log-in-link{
     background-color:  $header-highlight;
     color: $header-main;
-  }
-  &:hover{
+    &:hover{
       background-color: white;
       color: $header-highlight;
     }
+  }
 }
 

@@ -14,11 +14,23 @@
  *= require_self
  */
 
+ //variables
+//colours
+  $header-main:#222;
+  $header-highlight: #337ab7;
+
+//customises bootstrap variables
+$navbar-height:  70px;
+
+@nav-tabs-border-color: red;
+
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
 body {
-  padding-top: 50px;
+  padding-top: 110px;
 }
 .starter-template {
   padding: 40px 15px;
@@ -33,5 +45,30 @@ body {
   border: 1px;
   border-style: solid;
 
+}
+
+.site-nav{
+  border-bottom: 0px;
+
+  li>a.navbar-link{
+    background-color: $header-highlight;
+    color:$header-main;
+
+    &:hover{
+      background-color: white;
+      color: $header-highlight;
+    }
+  }
+
+}
+.nav-pills{
+  a.log-in-link{
+    background-color:  $header-highlight;
+    color: $header-main;
+  }
+  &:hover{
+      background-color: white;
+      color: $header-highlight;
+    }
 }
 

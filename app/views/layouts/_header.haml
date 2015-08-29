@@ -8,7 +8,10 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.navbar-brand{:href => "#"} Schengen Visa Calculator
+        %a.navbar-brand{:href => "#"} 
+          = image_tag("logo.svg", alt: "Schengen Visa Calculator", class: "pull-left")
+        %span.navbar-text.site-title
+          Schengen Visa Calculator
         - if current_person
           %p.navbar-text
             = current_person.full_name + " - " + current_person.nationality.name

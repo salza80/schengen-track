@@ -24,12 +24,12 @@
       .col-md-12
         #navbar.navbar-left
           %ul.nav.nav-tabs.site-nav
-            %li{:role => "presentation"}
-              %a.navbar-link{href: visits_path}
+            %li{:role => "presentation", :class => (active_if(controller: 'visits')) }
+              %a.navbar-link{href: visits_path }
                 %span.glyphicon.glyphicon-plane{":aria-hidden" => "true"}
                 %span.hidden-xs
                   Calculator
-            %li{:role => "presentation"}
+            %li{:role => "presentation", :class => (active_if(controller: 'about'))}
               %a.navbar-link{href: visits_path}
                 %span.glyphicon.glyphicon-info-sign{":aria-hidden" => "true"}
                 %span.hidden-xs

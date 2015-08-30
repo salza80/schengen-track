@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   put 'my_details' => 'people#update'
   patch 'my_details' => 'people#update'
   get 'person' => 'people#show'
+  get 'about' => 'about#about'
   devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
 
   # Example of regular route:

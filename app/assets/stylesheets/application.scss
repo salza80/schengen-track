@@ -111,3 +111,23 @@ p.current-setting{
   }
 }
 
+
+// about page
+
+nav.about-sidebar{
+  li a{
+    color: $header-text;
+  }
+
+  li:hover>a{
+    color: $header-highlight;
+  }
+  ul.about-sidenav{
+
+  }
+
+}
+
+
+
+

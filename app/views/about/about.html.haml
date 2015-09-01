@@ -1,18 +1,47 @@
 .row
-  .col-md-3
-    .menu
-      Menu
-  .col-md-9
+  .col-md-3{:role => "complementary"}
+    %nav.about-sidebar.hidden-print.hidden-xs.hidden-sm.affix-top
+      .title
+        = link_to "About Schengen Calculator", "#about"
+      %ul.nav.about-sidenav
+        %li
+          = link_to "Introduction", "#intro"
+        %li 
+          = link_to "What is the Schengen Area", "#what"
+        %li
+          = link_to "Travelling in the Schengen Area", "#travel"
+          %ul.nav
+            %li
+              = link_to "Visa Requirements", "#visa"
+            %li
+              = link_to "Length of Stay Calculation", "#length"
+              %ul.nav
+                %li
+                  = link_to "New definition as of 2013", "#new"
+                %li
+                  = link_to "Previous definition", "#previous"
+            %li
+              = link_to "Additional Visa Waiver agreements", "#Additional"
+        %li
+          = link_to "How to use the Schengen Calculator", "#how"
+          %ul.nav
+            %li
+              = link_to "Step by Step", "#steps"
+            %li
+              = link_to "limitations", "#limitations"
+            %li
+              = link_to "Field Name Definitions", "#definitions"                   
+  .col-md-9{:role => "main"}
     .about-section
-      %h1
+      %h1{:id => "about"}
         About Schengen Calculator
-      %h2
+      %h2{:id => "intro"}
         Introduction
       %p
         The Schengen Calculator calculates the length of stay you are allowed to travel in the Schengen Area on a short term Schengen visa. You can use it to keep track, or forecast all of your visits inside the Schengen Area so you know how many days you have remaining before you have to leave. 
       %p 
-        It is especially useful for planning travel in Europe that will likely exceed 90 days. By travelling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are travelling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countires are in the Schengen Area, and to calculate when are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
-      %h2
+        It is especially useful for planning travel in Europe that will likely exceed 90 days. By travelling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are travelling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countires are in the Schengen Area, and to calculate when you are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
+      %h2{:id => "what"}
         What is the Schengen Area
       %p
         The Schengen Area is an area consisting of 26 European countries without internal borders. Its citizens and many non-EU nationals, business people and tourists can freely circulate without being subjected to border checks. Since 1985, it has grown and today includes almost all EU States and a few associated non-EU countries.
@@ -23,9 +52,9 @@
       %p
         For futher information visit the 
         =link_to "European Commision Website", "http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/schengen/index_en.htm"
-      %h2
+      %h2{:id => "travel"}
         Travelling in the Schengen Area
-      %h3
+      %h3{:id => "visa"}
         Visa Requirements
       %p
         Depending on your nationality, you may need to apply for a Short Stay Schengen Visa before entering the Schengen area. The EU has a list of countries whose citizens must apply for a visa, and a list of countries that are exempt from this requirement. As at the 1st March 2015, the following countries are exempt from having to obtain a Schengen Visa prior to entry: 
@@ -35,31 +64,39 @@
         Please be aware that there are conditions on some of these countries. For example Citizens of Albania, Bosnia-Herzegovina, Former Yugoslav Republic of Macedonia, Moldova, Montenegro, Serbia are exempt from visa obligation only if the passport contains biometric data. 
       %p
         If you are from any other country (outside of the EU), you will need to apply for a Visa before you travel. The visa will specify the length of time it is valid, and the number of entries (of multi entry – unlimited) that are allowed. Please note that the “90 days in any 180 day period” still applies regardless of the Visa beginning and end dates. Use the Schengen calculator to enter your visa details, and to help calculate your allowed length of stay.
-      %h3
+      %h3{:id => "length"}
         Length of Stay Calculation
       %p
         The calculation for calculating the allowed length of stay of third party nationals was revised and came into effect on the 18th October 2013. There are however a few which must still use the old calculation, these are Antigua and Barbuda, The Bahamas, Barbados, Brazil, Saint Kitts and Nevis, Mauritius, and Seychelles. This Schengen calculator uses the old or new calculation depending on your nationality and date of travel, so nationals of these countries may still use the calculator.
-      %h4
+      %h4{:id => "new"}
         New definition as of 2013
       %p
-        “90 days in any 180-day period […]“. “The date of entry shall be considered as the first day of stay on the territory of the Member States and the date of exit shall be considered as the last day of stay on the territory of the Member States. Periods of stay authorised under a residence permit or a long-stay visa shall not be taken into account in the calculation of the duration of stay on the territory of the Member States.”
+        %blockquote
+          “90 days in any 180-day period […]“. “The date of entry shall be considered as the first day of stay on the territory of the Member States and the date of exit shall be considered as the last day of stay on the territory of the Member States. Periods of stay authorised under a residence permit or a long-stay visa shall not be taken into account in the calculation of the duration of stay on the territory of the Member States.”
+          %footer
+            %cite{:title => "European Commision"}
+              =link_to "European Commision", "http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm"
       %p
         The new definition simplifies the calculation, and is based on a “rolling” 180 days from the date of entry. This means on any given day, you need to look back to the previous 180 days, and you must not have stayed in the Schengen zone for more than 90 days in that period, including entry and exit dates.
       %p
         The new definition does not apply to the visa waiver agreements concluded between the EU and Antigua and Barbuda, The Bahamas, Barbados, Brazil, Saint Kitts and Nevis, Mauritius, and Seychelles where the old definition continues to apply.
       %p
         The Schengen calculator will use the appropriate calculation (old or new)s based on your nationality to determine the number of “Schengen days”, however if a previous visit you enter has already overstayed the 90 day limit, the “Schengen days” will continue to be applied outside of the 180 days and will only reset after you have been outside of the Schengen zone for more than 90 days. This however does not mean you would be able to re-enter at the time, as this would be determined by the authorities if you are caught overstaying and may mean being banned from re-entry for a period of time. Do not overstay the 90 days!
-      %h4
-        Old definition (still used for people of some nationalities)
+      %h4{:id => "previous"}
+        Previous definition (still used for people of some nationalities)
       %p
-        "3 months during a 6 months period following the date of first entry"
+        %blockquote
+          "3 months during a 6 months period following the date of first entry"
+          %footer
+            %cite{:title => "European Commision"}
+              =link_to "European Commision", "http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm"
       %p
         This calculation is now only used for people from Antigua and Barbuda, The Bahamas, Barbados, Brazil, Saint Kitts and Nevis, Mauritius, and Seychelles where the old definition of the Schengen calculation continues to apply.
       %p
         The old definition is different to a “rolling” 6 months, as it begins on the date of first entry, and then will reset 6 months after that date. Using this calculation can allow for longer stays that the new definition.  For example, if you entered for one day at the start of January, and then re-entered 3 months later for 3 months to end of June, after that the 6 months (from January), would reset allowing you to stay another 3 months, effectively allowing almost 6 months. However, you cannot stay more than 3 months continuous days, so you would have to exit and re-enter the Schengen Area. 
       %p
         The Schengen calculator takes this into account, so you can use the Schengen calculator to experiment with entry and exits dates to maximise your stay.
-      %h3
+      %h3{:id => "additional"}
         Additional Visa Waiver agreements
       %p
         Some countries have additional Visa waiver agreements with countries within the Schengen area allowing an additional 90 days in a 180 period stay; however this will be included in the 90 days for other Schengen countries. These additional agreements are often little known by travellers!
@@ -73,9 +110,9 @@
         for further information.
       %p
         Currently the Schengen calculator does not take into account Additional Visa Waiver agreements. Please follow up on this with your own research.
-      %h2
+      %h2{:id => "how"}
         How to use the Schengen Calculator
-      %h4
+      %h4{:id => "steps"}
         Step 1:
       %p
         Select your Nationality. You can change this at the top of the page in the header.
@@ -97,7 +134,7 @@
         Step 5: (optional)
       %p
         To save your travel record, Register and Log In. Your existing “Guest” data will be copied to your new account. You can register with the Schengen Calculator, or use Facebook to Login and Register.
-      %h3
+      %h3{:id => "limitations"}
         Limitations
       %h4
         Aditional Visa Waiver Agreements
@@ -107,58 +144,58 @@
         Countries outside of the Schengen Area
       %p
         The Schengen Calculator does not give any information on visa, entry requirements, or length of stay requirements for countries outside of the Schengen Area. These will be marked N/A – Not Applicable.
-      %h3
+      %h3{:id => "definitions"}
         Field Name Definitions
       %h4
         Visits/Travel Record
       %p  
-        %span
+        %strong
           Entry Date:
         The Day you Entry the Country
       %p
-        %span
+        %strong
           Exit Date:
         The Day you Exit the Country
       %p  
-        %span
+        %strong
           Country:
         The Country you are visiting
       %p  
-        %span
+        %strong
           Schengen Area:
           Yes = In the Schengen Area, No = Not in the Schengen Area
       %p  
-        %span
+        %strong
           Days Remaining:
         The number of days remaining of the 90 days allowed in the Schengen Zone
       %p  
-        %span
+        %strong
           Days Over Stay:
         Number of days OVER the 90 days allowed in the Schengen Area
       %p
-        %span
+        %strong
           Visa: 
         This relates only to a Single/Multi Short Stay Schengen Visa only people who require a Visa prior to entry.
       %p
-        %span
+        %strong
           No Entries: 
         Number of times you have entered / re-entered the Schengen Area. (not moving from on Schengen country to another is no considered a re-entry, however if there is more than one day between exiting a country Schengen Country and entering the next the calculator will assume you have exited the Schengen Area and will count it as a re-entry.
       %p
-        %span
+        %strong
           Visa Days Over Stay:
         The number of days in the Schengen Zone without permission on your visa. Either you have not entered a visa, you exited after the end date of the visa, or you entered the Schengen zone more times that was allowed on the Visa.
       %h4
         Short Stay Schengen Visa Record
       %p  
-        %span
+        %strong
           Start Date:
         The first day of the Visa Period
       %p  
-        %span
+        %strong
           End Date:
         The last day of the Visa Period
       %p  
-        %span
+        %strong
           No Entries:
         The number of entries allowed on the Visa. If it is  Multi Entry visa enter 0.
 

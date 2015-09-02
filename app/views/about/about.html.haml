@@ -1,8 +1,8 @@
 .row
   .col-md-3{:role => "complementary"}
-    %nav.about-sidebar.hidden-print.hidden-xs.hidden-sm.affix-top
+    %nav.about-sidebar.hidden-print.hidden-xs.hidden-sm{:data => {"spy": "affix", "offset-top": "10", "offset-bottom": "50"}}
       .title
-        = link_to "About Schengen Calculator", "#about"
+        About Schengen Calculator
       %ul.nav.about-sidenav
         %li
           = link_to "Introduction", "#intro"
@@ -21,14 +21,14 @@
                 %li
                   = link_to "Previous definition", "#previous"
             %li
-              = link_to "Additional Visa Waiver agreements", "#Additional"
+              = link_to "Additional Visa Waiver agreements", "#additional"
         %li
           = link_to "How to use the Schengen Calculator", "#how"
           %ul.nav
             %li
               = link_to "Step by Step", "#steps"
             %li
-              = link_to "limitations", "#limitations"
+              = link_to "Limitations", "#limitations"
             %li
               = link_to "Field Name Definitions", "#definitions"                   
   .col-md-9{:role => "main"}
@@ -198,5 +198,8 @@
         %strong
           No Entries:
         The number of entries allowed on the Visa. If it is  Multi Entry visa enter 0.
+%script
+  != "$('body').scrollspy({ target: '.about-sidebar', offset: 130 })"
+  != "$('.about-sidebar li a').click(function(event) {event.preventDefault(); $( $(this).attr('href') )[0].scrollIntoView(); scrollBy(0, -120); });"
 
 

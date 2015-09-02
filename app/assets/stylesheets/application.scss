@@ -115,14 +115,32 @@ p.current-setting{
 // about page
 
 nav.about-sidebar{
-  li a{
+  .title{
     color: $header-text;
-  }
-
-  li:hover>a{
-    color: $header-highlight;
+    font-weight: bold;
   }
   ul.about-sidenav{
+    li a {
+      color: $header-text;
+      padding-left: 10px;
+    }
+    li.active>a{
+      color: $header-highlight;
+    }
+    a:hover{
+      color: $header-highlight;
+    }
+    
+
+    li>ul>li>a{
+      color: $header-text;
+      padding-left: 20px;
+      font-size: 12px;
+    }
+    li>ul>li>ul>li>a{
+      padding-left: 30px;
+      font-size: 11px;
+    }
 
   }
 

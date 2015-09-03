@@ -116,12 +116,13 @@ p.current-setting{
 
 nav.about-sidebar{
   .title{
-    color: $header-text;
+    color: $header-main;
     font-weight: bold;
+    margin-top: 20px;
   }
   ul.about-sidenav{
     li a {
-      color: $header-text;
+      color: $header-main;
       padding-left: 10px;
     }
     li.active>a{
@@ -133,7 +134,7 @@ nav.about-sidebar{
     
 
     li>ul>li>a{
-      color: $header-text;
+      color: $header-main;
       padding-left: 20px;
       font-size: 12px;
     }
@@ -143,7 +144,9 @@ nav.about-sidebar{
     }
 
   }
-
+}
+.about-section{
+ 
 }
 
 // form edit date control

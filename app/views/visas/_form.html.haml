@@ -7,16 +7,16 @@
           %li= msg
   .field.form-group
     = f.label :start_date, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.date_select :start_date
+    .col-sm-10.date-form-group
+      = f.date_select :start_date, {}, {:class => "form-control"}
   .field.form-group
     = f.label :end_date, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.date_select :end_date, class: "form-control"
+    .col-sm-10.date-form-group
+      = f.date_select :end_date, {}, {:class => "form-control"}
   .field.form-group
     = f.label :no_entries, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.number_field :no_entries, class: "form-input"
+      = f.number_field :no_entries, class: "form-control"
       (enter 0 for multi/unlimited entries)
   .actions
     .form-group

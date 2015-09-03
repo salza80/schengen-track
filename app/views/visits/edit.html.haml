@@ -1,7 +1,8 @@
-%h1 Editing visit
-
-= render 'form'
-
-= link_to 'Show', @visit
-\|
-= link_to 'Back', visits_path
+.panel.panel-default
+  .panel-heading
+    %h3{:class => "panel-title"}
+      Edit a Travel Record
+  .panel-body
+    = render 'form'
+  .panel-footer
+    = link_to 'Back', visits_path

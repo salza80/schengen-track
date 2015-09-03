@@ -7,20 +7,20 @@
           %li= msg
   .field.form-group
     = f.label :entry_date, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.date_select :entry_date
+    .col-sm-10.date-form-group
+      = f.date_select :entry_date, {}, {:class => "form-control"}
   .field.form-group
     = f.label :exit_date, class: "col-sm-2 control-label"
-    .col-sm-10
-      .input-group
-        = f.date_select :exit_date, {}, {:class => "form-control"}
+    .col-sm-10.date-form-group
+      = f.date_select :exit_date, {}, {:class => "form-control"}
   .field.form-group
     = f.label "Continent", class: "col-sm-2 control-label"
     .col-sm-10
       = select_tag "Continent", options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "form-control"
   .field.form-group
     = f.label :country_id, class: "col-sm-2 control-label"
-    = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, include_blank: true)
+    .col-sm-10
+      = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { :include_blank => true},{:class => "form-control"})
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
   .actions
     .form-group

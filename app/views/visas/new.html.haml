@@ -1,5 +1,8 @@
-%h1 New visa
-
-= render 'form'
-
-= link_to 'Back', visits_path
+.panel.panel-default
+  .panel-heading
+    %h3{:class => "panel-title"}
+      Add a Visa
+  .panel-body
+    = render 'form'
+  .panel-footer
+    = link_to 'Back', visits_path

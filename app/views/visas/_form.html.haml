@@ -1,21 +1,24 @@
-= form_for @visa do |f|
+= form_for @visa, :html => {:class => "form-horizontal"} do |f|
   - if @visa.errors.any?
     #error_explanation
       %h2= "#{pluralize(@visa.errors.count, "error")} prohibited this visa from being saved:"
       %ul
         - @visa.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :start_date
-    = f.date_select :start_date
-  .field
-    = f.label :end_date
-    = f.date_select :end_date
-  .field
-    = f.label :no_entries
-    = f.number_field :no_entries
-    (enter 0 for multi/unlimited entries)
+  .field.form-group
+    = f.label :start_date, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.date_select :start_date
+  .field.form-group
+    = f.label :end_date, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.date_select :end_date, class: "form-control"
+  .field.form-group
+    = f.label :no_entries, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :no_entries, class: "form-input"
+      (enter 0 for multi/unlimited entries)
   .actions
-    = f.submit 'Save'
-
-
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit 'Save', class: "btn btn-primary"

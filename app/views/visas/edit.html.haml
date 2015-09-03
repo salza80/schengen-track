@@ -1,5 +1,8 @@
-%h1 Editing visa
-
-= render 'form'
-
-= link_to 'Back', visits_path
+.panel.panel-default
+  .panel-heading
+    %h3{:class => "panel-title"}
+      Edit a Visa
+  .panel-body
+    = render 'form'
+  .panel-footer
+    = link_to 'Back', visits_path

@@ -1,45 +1,63 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-heading">
+      <div class="row">
+        <div class="col-xs-5">
+          Sign Up
+        </div>
+        <div class="col-xs-7">     
+          <%= image_tag("facebook_icon.png", alt: "Facebook")%>
+          <%= link_to "Sign in with Facebook", omniauth_authorize_path(resource_name, "facebook") %><br />
+        </div>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "form-horizontal"}) do |f| %>
+      <%= devise_error_messages! %>
 
-  <%= f.fields_for :people do |ff| %>
-    <div class="field">
-      <%= ff.label :first_name %><br>
-      <%= ff.text_field :first_name %>
-    </div>
-    <div class="field">
-      <%= ff.label :last_name %><br>
-      <%= ff.text_field :last_name %>
-    </div>
-    <div class="field">
-      <%= ff.label :nationality_id %><br>
-      <%= ff.collection_select(:nationality_id, Country.all, :id, :name, include_blank: true)%>
-    </div>
+      <%= f.fields_for :people do |ff| %>
+        <div class="field form-group">
+          <%= ff.label :first_name, class: "col-sm-2 control-label" %>
+          <%= ff.text_field :first_name, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= ff.label :last_name, class: "col-sm-2 control-label" %>
+          <%= ff.text_field :last_name, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= ff.label :nationality_id, class: "col-sm-2 control-label" %>
+          <%= ff.collection_select(:nationality_id, Country.all, :id, :name, { :include_blank => true},{:class => "form-control"})%>
+        </div>
 
-   
+       
+        <% end %>
+      <div class="field form-group">
+        <%= f.label :email, class: "col-sm-2 control-label" %>
+        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :password, class: "col-sm-2 control-label" %>
+        <% if @validatable %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :password_confirmation, class: "col-sm-2 control-label" %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign up" %>
+      </div>
     <% end %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @validatable %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="panel-footer">
+    <%= render "devise/shared/links" %>
   </div>
+</div>.
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

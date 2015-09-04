@@ -8,7 +8,7 @@
         </div>
         <div class="col-xs-7">     
           <%= image_tag("facebook_icon.png", alt: "Facebook")%>
-          <%= link_to "Sign in with Facebook", omniauth_authorize_path(resource_name, "facebook") %><br />
+          <%= link_to "Sign up with Facebook", omniauth_authorize_path(resource_name, "facebook") %><br />
         </div>
     </h3>
   </div>
@@ -19,39 +19,52 @@
       <%= f.fields_for :people do |ff| %>
         <div class="field form-group">
           <%= ff.label :first_name, class: "col-sm-2 control-label" %>
-          <%= ff.text_field :first_name, class: "form-control" %>
+          <div class="col-sm-10">
+            <%= ff.text_field :first_name, class: "form-control" %>
+          </div>
         </div>
         <div class="field form-group">
           <%= ff.label :last_name, class: "col-sm-2 control-label" %>
-          <%= ff.text_field :last_name, class: "form-control" %>
+          <div class="col-sm-10">
+            <%= ff.text_field :last_name, class: "form-control" %>
+          </div>
         </div>
         <div class="field form-group">
           <%= ff.label :nationality_id, class: "col-sm-2 control-label" %>
-          <%= ff.collection_select(:nationality_id, Country.all, :id, :name, { :include_blank => true},{:class => "form-control"})%>
-        </div>
-
-       
+          <div class="col-sm-10">
+            <%= ff.collection_select(:nationality_id, Country.all, :id, :name, { :include_blank => true},{:class => "form-control"})%>
+          </div>
+        </div> 
         <% end %>
       <div class="field form-group">
         <%= f.label :email, class: "col-sm-2 control-label" %>
-        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        <div class="col-sm-10">
+            <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
       </div>
 
       <div class="field form-group">
         <%= f.label :password, class: "col-sm-2 control-label" %>
-        <% if @validatable %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %>
-        <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
+        <div class="col-sm-10">
+          <% if @validatable %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control"%>
+        </div>
       </div>
 
       <div class="field form-group">
         <%= f.label :password_confirmation, class: "col-sm-2 control-label" %>
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+        <div class="col-sm-10">
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+        </div>
       </div>
-
       <div class="actions">
-        <%= f.submit "Sign up" %>
+        <div class="form-group">
+          <div class ="col-sm-offset-2 col-sm-10">
+            <%= f.submit "Sign up", class: "btn btn-primary" %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

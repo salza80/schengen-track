@@ -1,16 +1,15 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-heading">
-      <div class="row">
-        <div class="col-xs-5">
-          Sign Up
-        </div>
-        <div class="col-xs-7">     
-          <%= image_tag("facebook_icon.png", alt: "Facebook")%>
-          <%= link_to "Sign up with Facebook", omniauth_authorize_path(resource_name, "facebook") %><br />
-        </div>
-    </h3>
+    <div class="row">
+      <div class="col-xs-5">
+        <h3 class="panel-heading"> Sign Up </h3>
+      </div>
+      <div class="col-xs-7 panel-heading">     
+        <%= image_tag("facebook_icon.png", alt: "Facebook")%>
+        <%= link_to "Sign up with Facebook", omniauth_authorize_path(resource_name, "facebook") %><br />
+      </div>
+    </div>
   </div>
   <div class="panel-body">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "form-horizontal"}) do |f| %>
@@ -69,8 +68,9 @@
     <% end %>
   </div>
   <div class="panel-footer">
-    <%= render "devise/shared/links" %>
+    Already registered?  <%= link_to "Log in", new_session_path(resource_name) %><br />
+   <!--  <%= render "devise/shared/links" %> -->
   </div>
-</div>.
+</div>
 
 

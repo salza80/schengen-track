@@ -22,9 +22,7 @@
         %th Days Overstay
       %th Days Remaining
       %th Days Overstay
-      %th
-      %th
-      
+      %th      
   %tbody
     - @visits.each do |visit|
       %tr
@@ -54,13 +52,8 @@
         %td{ class: ("danger" if visit.schengen_overstay?) }
           = visit.schengen_overstay_days
         %td
-          -if visit.visit_check?
-            %span.glyphicon.glyphicon-ok-sign{"aria-hidden" => "true"}
-          -else
-            %span.glyphicon.glyphicon-remove-sign{"aria-hidden" => "true"}
-        %td
           %ul
-            %li= link_to 'Show', visit
+            / %li= link_to 'Show', visit
             %li= link_to 'Edit', edit_visit_path(visit)
             %li= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
 %br

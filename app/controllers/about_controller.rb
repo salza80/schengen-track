@@ -4,4 +4,8 @@ class AboutController < ApplicationController
   def about
   end
 
+  # GET /disclaimer/
+  def disclaimer
+  end
+
 end

@@ -1,4 +1,8 @@
-%h1 Editing person
-
-= render 'form'
-
+.panel.panel-default
+  .panel-heading
+    %h3{:class => "panel-title"}
+      Edit My Details
+  .panel-body
+    = render 'form'
+  .panel-footer
+    = link_to 'Back', visits_path

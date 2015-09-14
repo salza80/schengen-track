@@ -30,7 +30,10 @@
             %li
               = link_to "Limitations", "#limitations"
             %li
-              = link_to "Field Name Definitions", "#definitions"                   
+              = link_to "Field Name Definitions", "#definitions"
+        %li
+          = link_to 'Disclaimer', "#disclaimer"
+
   .col-md-9{:role => "main"}
     .about-section
       %h1{:id => "info"}
@@ -198,6 +201,12 @@
         %strong
           No Entries:
         The number of entries allowed on the Visa. If it is  Multi Entry visa enter 0.
+      %h1{:id => "disclaimer"}
+        Disclaimer
+      %p
+        Please read the 
+        = link_to 'Disclaimer', disclaimer_path
+        before using the Schengen Calculator.       
 %script
   != "$('body').scrollspy({ target: '.about-sidebar', offset: 130 })"
   != "$('.about-sidebar li a').click(function(event) {event.preventDefault(); $( $(this).attr('href') )[0].scrollIntoView(); scrollBy(0, -120); });"

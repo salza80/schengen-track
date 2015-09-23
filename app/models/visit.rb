@@ -81,10 +81,10 @@ class Visit < ActiveRecord::Base
 
   #calculate how many days continuious in schengen zone
   def no_days_continuous_in_schengen
-    return  nil unless exit_date
+    return  0 unless exit_date
     return 0 unless schengen?
     visits = (previous_schengen_visits.sort_by(&:entry_date) << self).reverse!
-    cont_days_cnt = 0 
+    cont_days_cnt = 0
     prev_entry_date = nil
     visits.each do |v|
       if (v.exit_date - 1.day) == prev_entry_date || prev_entry_date.nil?

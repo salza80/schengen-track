@@ -39,7 +39,7 @@ class PeopleControllerTest < ActionController::TestCase
   test "should update person" do
     login
     patch :update, person: { first_name: @person.first_name, last_name: @person.last_name, nationality_id: @person.nationality_id }
-    assert_redirected_to my_details_path
+    assert_redirected_to visits_path
   end
 
   # test "should destroy person" do

@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   def default_guest_country
     country = request.location.data[:country_name]
     c = Country.find_by(name: country)
-    c || Country.find_by(country_code: 'AU')
+    c || Country.find_by(country_code: 'US')
 
   end
 

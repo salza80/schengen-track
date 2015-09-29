@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Schengen visa / short stay calculator.  Free and easy to use. Uses both types of calculation as required based on your nationality, either rolling 90 days in every 180 days, or 3 months in every 6 month period. Just enter your nationality, travel dates and destination, and the schengen calculator does the rest" %>">
+     <meta name="keywords" content="Schengen,Calculator,Schengen Calculator,90 days in 180, Schengen Visa, Travel, Europe, Schengen Area, Schengen Zone">
     <title><%= content_for?(:title) ? 'Schengen Visa Calculator ' + content_for(:title) : 'Schengen Short-stay Tourist Visa Calculator ' + params[:controller].titleize %></title>
     <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag    'application',  media: 'all', 'data-turbolinks-track' => true %>

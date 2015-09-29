@@ -121,7 +121,7 @@ class Visit < ActiveRecord::Base
 
   # get previous visits in the last 180 days
   def previous_180_days_visits
-    person.visits.find_by_date((entry_date - 180.days), exit_date).select { |v| v.id != id && v.schengen? && v.entry_date <= entry_date}
+    person.visits.find_by_date((entry_date - 180.days), exit_date).select { |v| v.id != self.id && v.schengen? && v.entry_date <= entry_date }
   end
 
   # Methods applicable when VISA is required

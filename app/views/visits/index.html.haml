@@ -15,11 +15,14 @@
       %th 
         Schengen
         %br Area
-      %th Days
+      %th No. Days
       -if current_person.visa_required?
         %th Exits?
         %th No Entries
         %th Days Overstay
+      %th 
+        Schengen Days
+        %br Calculation
       %th Days Remaining
       %th Days Overstay
       %th      
@@ -48,7 +51,11 @@
               Visa Required!
           %td{ class: ("danger" if visit.visa_overstay?) }
             = visit.visa_overstay_days
-        %td= visit.schengen_days_remaining
+        %td
+          = visit.schengen_days
+          of 90 days
+        %td
+          = visit.schengen_days_remaining 
         %td{ class: ("danger" if visit.schengen_overstay?) }
           = visit.schengen_overstay_days
         %td

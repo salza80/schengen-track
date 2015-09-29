@@ -105,7 +105,7 @@ end
     return visit.schengen_days = nil unless visit.exit_date
     # return visit.schengen_days = visit.no_days if visit.no_days > 180
     if visit.no_days > 180
-      visit.schengen_days = visit.no_days
+      visit.schengen_days = visit.no_days if visit.schengen?
       return
     end
     previous_visits = visit.previous_180_days_visits.sort_by(&:entry_date)
@@ -113,15 +113,16 @@ end
     schen_day_count = 0
     prev_exit_date = nil
     (previous_visits << visit).each do |v|
+      next if v.exit_date<= begin_date
       if v.schengen? && v.exit_date <= visit.exit_date
-        if v.entry_date < begin_date
-          schen_day_count += (v.exit_date - begin_date).to_i + 1
+        if v.entry_date < begin_date && v.exit_date >= begin_date
+          schen_day_count += (v.exit_date - begin_date ).to_i + 1
         else
           schen_day_count += v.no_days
         end
         schen_day_count -= 1 if prev_exit_date == v.entry_date
-        prev_exit_date = v.exit_date
       end
+      prev_exit_date = v.exit_date
     end
     visit.schengen_days = schen_day_count
   end

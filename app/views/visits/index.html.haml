@@ -1,5 +1,4 @@
 %h1 Travel Record
-
 %table.table
   %thead
     %tr.table-top-header
@@ -64,13 +63,15 @@
             %li= link_to 'Edit', edit_visit_path(visit)
             %li= link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
 %br
-= link_to 'Add a new travel record', new_visit_path
-
+= link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
 %br
 -if current_person.visa_required?
   %h1 Schengen Visa List
   = render 'visas/visalist'
   %br
-  = link_to 'Add a new Visa', new_visa_path
+  = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary"
+%br
+  - if !user_signed_in?
+    = render 'registerPrompt'
 
 

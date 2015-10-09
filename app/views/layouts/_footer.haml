@@ -5,6 +5,14 @@
       Schengen Calculator
     %p
       =link_to 'Disclaimer', disclaimer_path
+%script{:type => "application/ld+json"}
+  :cdata
+    {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "url": "http://www.schengen-calculator.com",
+    "logo": "http://www.schengen-calculator.com/med.png"
+    }
 %script
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

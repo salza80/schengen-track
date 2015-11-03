@@ -1,0 +1,67 @@
+.responsive-table-container
+  %table.table.responsive-table
+    %thead
+      %tr.table-top-header
+        %th.center-heading{ colspan: "5", scope: "col" }Travel Details
+        -if current_person.visa_required?
+          %th.center-heading{ colspan: "3",  scope: "col" } Visa Details
+        %th.center-heading{ colspan: "2",  scope: "col"  } Days in Schengen Area
+        %th.center-heading{ colspan: "2" ,  scope: "col" }
+      %tr
+        %th{ scope: "col" } Dates
+        %th{ scope: "col" } Country 
+        %th{ scope: "col" } 
+          Schengen
+          %br Area
+        %th{ scope: "col" } No. Days
+        -if current_person.visa_required?
+          %th{ scope: "col" } Exits?
+          %th{ scope: "col" } No Entries
+          %th{ scope: "col" } Days Overstay
+        %th{ scope: "col" } 
+          Schengen Days
+          %br Calculation
+        %th{ scope: "col" } Days Remaining
+        %th{ scope: "col" } Days Over stay
+        %th{ scope: "col" }      
+    %tbody
+      - @visits.each do |visit|
+        %tr
+          %th{ scope: "row"}
+            = visit.entry_date
+            = " to "
+            = visit.exit_date
+          %th{ scope: "row"}
+            = visit.country.name
+          %td{"data-title": "Schengen Area"} 
+            = visit.schengen? ? "Yes" : "No"
+          %td{"data-title": "No Days"} 
+            = visit.no_days
+          -if current_person.visa_required?
+            %td{ "data-title": "Visa Exists", class: ("danger" if visit.visa_exists? == false)}
+              -if visit.visa_exists?
+                ="Yes"
+              -else
+                ="No"
+            %td{ "data-title": "Visa Entry Count", class: ("danger" if visit.visa_entry_overstay?)}
+              -if visit.visa_exists?
+                = visit.visa_entry_count
+                of
+                = visit.visa_entries_allowed == 0 ? "Multi" : visit.visa_entries_allowed
+              -elsif visit.schengen? == false
+                N/A
+              -else
+                Visa Required!
+            %td{ "data-title": "Visa Days Overstay", class: ("danger" if visit.visa_overstay?) }
+              = visit.visa_overstay_days
+          %td{ "data-title": "Schengen days" }
+            = visit.schengen_days
+            of 90 days
+          %td{ "data-title": "Days remaining" }
+            = visit.schengen_days_remaining 
+          %td{ "data-title": "Schengen Days Overstay", class: ("danger" if visit.schengen_overstay?) }
+            = visit.schengen_overstay_days
+          %td{ "data-title": "Modify" }
+            = link_to 'Edit', edit_visit_path(visit)
+            = " / "
+            = link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }

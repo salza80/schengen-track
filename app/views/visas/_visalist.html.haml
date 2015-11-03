@@ -1,16 +1,20 @@
-%table.table
-  %thead
-    %tr
-      %th Start Date
-      %th End Date
-      %th No entries
-      %th
-      %th     
-  %tbody
-    - @visas.each do |visa|
+.responsive-table-container
+  %table.table.responsive-table
+    %thead
       %tr
-        %td= visa.start_date
-        %td= visa.end_date
-        %td= visa.no_entries
-        %td= link_to 'Edit', edit_visa_path(visa)
-        %td= link_to 'Delete', visa, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %th{ scope: "col"} Dates
+        %th{ scope: "col"} No entries
+        %th{ scope: "col"}      
+    %tbody
+      - @visas.each do |visa|
+        %tr
+          %th{ scope: "row"} 
+            = visa.start_date 
+            = " to "
+            = visa.end_date
+          %td{"data-title": "No Entries"} 
+            = visa.no_entries
+          %td{"data-title": "No Entries"} 
+            = link_to 'Edit', edit_visa_path(visa)
+            = " / "
+            = link_to 'Delete', visa, :method => :delete, :data => { :confirm => 'Are you sure?' }

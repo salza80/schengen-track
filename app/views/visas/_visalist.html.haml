@@ -8,13 +8,15 @@
     %tbody
       - @visas.each do |visa|
         %tr
-          %th{ scope: "row"} 
-            = visa.start_date 
+          %th{ scope: "row"}
+            %span.no-wrap 
+              = visa.start_date 
             = " to "
-            = visa.end_date
+            %span.no-wrap
+              = visa.end_date
           %td{"data-title": "No Entries"} 
             = visa.no_entries
-          %td{"data-title": "No Entries"} 
+          %td{"data-title": "Modify"} 
             = link_to 'Edit', edit_visa_path(visa)
             = " / "
             = link_to 'Delete', visa, :method => :delete, :data => { :confirm => 'Are you sure?' }

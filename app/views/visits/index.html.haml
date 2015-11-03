@@ -1,10 +1,11 @@
 .fb-like{class: "pull-right", "data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true"}
-%h1 Travel Record
+%h2 Travel Record
 = render 'visitlist'
+%br
 = link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
 %br
 -if current_person.visa_required?
-  %h1 Schengen Visa List
+  %h2 Schengen Visa List
   = render 'visas/visalist'
   %br
   = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary"

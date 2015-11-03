@@ -22,20 +22,22 @@
           Schengen Days
           %br Calculation
         %th{ scope: "col" } Days Remaining
-        %th{ scope: "col" } Days Over stay
+        %th{ scope: "col" } Days Overstay
         %th{ scope: "col" }      
     %tbody
       - @visits.each do |visit|
         %tr
           %th{ scope: "row"}
-            = visit.entry_date
+            %span.no-wrap
+              = visit.entry_date
             = " to "
-            = visit.exit_date
+            %span.no-wrap
+              = visit.exit_date
           %th{ scope: "row"}
             = visit.country.name
           %td{"data-title": "Schengen Area"} 
             = visit.schengen? ? "Yes" : "No"
-          %td{"data-title": "No Days"} 
+          %td{ "data-title": "No Days"} 
             = visit.no_days
           -if current_person.visa_required?
             %td{ "data-title": "Visa Exists", class: ("danger" if visit.visa_exists? == false)}

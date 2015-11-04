@@ -49,3 +49,12 @@ India:
   visa_required: V
   old_schengen_calc: false
   additional_visa_waiver: false 
+USA:
+  name: United States of America
+  country_code: US
+  schengen_start_date: nil
+  continent: America
+  EU_member_state: false
+  visa_required: A
+  old_schengen_calc: false
+  additional_visa_waiver: false

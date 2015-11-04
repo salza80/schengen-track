@@ -32,11 +32,10 @@ class ApplicationController < ActionController::Base
     user.password = 'password'
     user.save(validate: false)
 
-    # c = Country.find_by(Country_code: 'AU')
     p = user.people.build(first_name: 'Guest', last_name: 'User', nationality: default_guest_country)
     p.save(validate: false)
+    user.reload
     user
- 
   end
 
   def default_guest_country

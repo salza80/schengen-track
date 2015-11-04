@@ -10,3 +10,6 @@ SouthAmerica:
 Asia:
   name: Asia
   continent_code: AS
+NorthAmerica:
+  Name: North America
+  continent_code: NA

@@ -210,8 +210,8 @@ class Visit < ActiveRecord::Base
   # get the schengen visa for this visit
   def schengen_visa
     return nil unless person.visa_required?
-    visa = Visa.find_schengen_visa(entry_date, exit_date)
-    visa = Visa.find_schengen_visa(entry_date, nil) unless visa
+    visa = person.visas.find_schengen_visa(entry_date, exit_date)
+    visa = person.visas.find_schengen_visa(entry_date, nil) unless visa
     visa
   end
   

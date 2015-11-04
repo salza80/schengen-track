@@ -9,6 +9,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AX</country_code>
@@ -19,6 +20,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AL</country_code>
@@ -29,6 +31,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>DZ</country_code>
@@ -39,6 +42,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AS</country_code>
@@ -49,6 +53,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AD</country_code>
@@ -59,6 +64,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AO</country_code>
@@ -69,6 +75,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AI</country_code>
@@ -79,6 +86,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AQ</country_code>
@@ -89,6 +97,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AG</country_code>
@@ -99,6 +108,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AR</country_code>
@@ -109,6 +119,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AM</country_code>
@@ -119,6 +130,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AW</country_code>
@@ -129,6 +141,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AU</country_code>
@@ -139,6 +152,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AT</country_code>
@@ -149,6 +163,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>AZ</country_code>
@@ -159,6 +174,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BS</country_code>
@@ -169,6 +185,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BH</country_code>
@@ -179,6 +196,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BD</country_code>
@@ -189,6 +207,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BB</country_code>
@@ -199,6 +218,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BY</country_code>
@@ -209,6 +229,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BE</country_code>
@@ -219,6 +240,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BZ</country_code>
@@ -229,6 +251,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BJ</country_code>
@@ -239,6 +262,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BM</country_code>
@@ -249,6 +273,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BT</country_code>
@@ -259,6 +284,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BO</country_code>
@@ -269,6 +295,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BQ</country_code>
@@ -279,6 +306,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BA</country_code>
@@ -289,6 +317,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BW</country_code>
@@ -299,6 +328,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BV</country_code>
@@ -309,6 +339,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BR</country_code>
@@ -319,6 +350,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IO</country_code>
@@ -329,6 +361,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>VG</country_code>
@@ -339,6 +372,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BN</country_code>
@@ -349,6 +383,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BG</country_code>
@@ -359,6 +394,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BF</country_code>
@@ -369,6 +405,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BI</country_code>
@@ -379,6 +416,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KH</country_code>
@@ -389,6 +427,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CM</country_code>
@@ -399,6 +438,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CA</country_code>
@@ -409,6 +449,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CV</country_code>
@@ -419,6 +460,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KY</country_code>
@@ -429,6 +471,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CF</country_code>
@@ -439,6 +482,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TD</country_code>
@@ -449,6 +493,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CL</country_code>
@@ -459,6 +504,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CN</country_code>
@@ -469,6 +515,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CX</country_code>
@@ -479,6 +526,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CC</country_code>
@@ -489,6 +537,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CO</country_code>
@@ -499,6 +548,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KM</country_code>
@@ -509,6 +559,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CK</country_code>
@@ -519,6 +570,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CR</country_code>
@@ -529,6 +581,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>HR</country_code>
@@ -539,6 +592,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CU</country_code>
@@ -549,6 +603,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CW</country_code>
@@ -559,6 +614,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CY</country_code>
@@ -569,6 +625,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CZ</country_code>
@@ -579,6 +636,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CD</country_code>
@@ -589,6 +647,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>DK</country_code>
@@ -599,6 +658,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>DJ</country_code>
@@ -609,6 +669,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>DM</country_code>
@@ -619,6 +680,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>DO</country_code>
@@ -629,6 +691,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TL</country_code>
@@ -639,6 +702,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>EC</country_code>
@@ -649,6 +713,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>EG</country_code>
@@ -659,6 +724,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SV</country_code>
@@ -669,6 +735,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GQ</country_code>
@@ -679,6 +746,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ER</country_code>
@@ -689,6 +757,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>EE</country_code>
@@ -699,6 +768,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ET</country_code>
@@ -709,6 +779,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>FK</country_code>
@@ -719,6 +790,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>FO</country_code>
@@ -729,6 +801,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>FJ</country_code>
@@ -739,6 +812,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>FI</country_code>
@@ -749,6 +823,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>FR</country_code>
@@ -759,6 +834,19 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886274" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="fr"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>GF</country_code>
@@ -769,6 +857,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PF</country_code>
@@ -779,6 +868,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TF</country_code>
@@ -789,6 +879,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GA</country_code>
@@ -799,6 +890,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GM</country_code>
@@ -809,6 +901,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GE</country_code>
@@ -819,6 +912,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>DE</country_code>
@@ -829,6 +923,19 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886257" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-lang="en" data-currency="EUR" data-cc1="de"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>GH</country_code>
@@ -839,6 +946,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GI</country_code>
@@ -849,6 +957,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GR</country_code>
@@ -859,6 +968,19 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886279" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="gr"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>GL</country_code>
@@ -869,6 +991,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GD</country_code>
@@ -879,6 +1002,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GP</country_code>
@@ -889,6 +1013,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GU</country_code>
@@ -899,6 +1024,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GT</country_code>
@@ -909,6 +1035,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GG</country_code>
@@ -919,6 +1046,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GN</country_code>
@@ -929,6 +1057,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GW</country_code>
@@ -939,6 +1068,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GY</country_code>
@@ -949,6 +1079,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>HT</country_code>
@@ -959,6 +1090,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>HM</country_code>
@@ -969,6 +1101,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>HN</country_code>
@@ -979,6 +1112,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>HK</country_code>
@@ -989,6 +1123,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>HU</country_code>
@@ -999,6 +1134,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IS</country_code>
@@ -1009,6 +1145,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IN</country_code>
@@ -1019,6 +1156,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ID</country_code>
@@ -1029,6 +1167,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IR</country_code>
@@ -1039,6 +1178,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IQ</country_code>
@@ -1049,6 +1189,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IE</country_code>
@@ -1059,6 +1200,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IM</country_code>
@@ -1069,6 +1211,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IL</country_code>
@@ -1079,6 +1222,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>IT</country_code>
@@ -1089,6 +1233,19 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886283" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="it"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>CI</country_code>
@@ -1099,6 +1256,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>JM</country_code>
@@ -1109,6 +1267,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>JP</country_code>
@@ -1119,6 +1278,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>JE</country_code>
@@ -1129,6 +1289,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>JO</country_code>
@@ -1139,6 +1300,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KZ</country_code>
@@ -1149,6 +1311,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KE</country_code>
@@ -1159,6 +1322,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KI</country_code>
@@ -1169,6 +1333,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>XK</country_code>
@@ -1179,6 +1344,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KW</country_code>
@@ -1189,6 +1355,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KG</country_code>
@@ -1199,6 +1366,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LA</country_code>
@@ -1209,6 +1377,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LV</country_code>
@@ -1219,6 +1388,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LB</country_code>
@@ -1229,6 +1399,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LS</country_code>
@@ -1239,6 +1410,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LR</country_code>
@@ -1249,6 +1421,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LY</country_code>
@@ -1259,6 +1432,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LI</country_code>
@@ -1269,6 +1443,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LT</country_code>
@@ -1279,6 +1454,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LU</country_code>
@@ -1289,6 +1465,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MO</country_code>
@@ -1299,6 +1476,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MK</country_code>
@@ -1309,6 +1487,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MG</country_code>
@@ -1319,6 +1498,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MW</country_code>
@@ -1329,6 +1509,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MY</country_code>
@@ -1339,6 +1520,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MV</country_code>
@@ -1349,6 +1531,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ML</country_code>
@@ -1359,6 +1542,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MT</country_code>
@@ -1369,6 +1553,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MH</country_code>
@@ -1379,6 +1564,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MQ</country_code>
@@ -1389,6 +1575,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MR</country_code>
@@ -1399,6 +1586,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MU</country_code>
@@ -1409,6 +1597,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>YT</country_code>
@@ -1419,6 +1608,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MX</country_code>
@@ -1429,6 +1619,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>FM</country_code>
@@ -1439,6 +1630,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MD</country_code>
@@ -1449,6 +1641,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MC</country_code>
@@ -1459,6 +1652,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MN</country_code>
@@ -1469,6 +1663,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ME</country_code>
@@ -1479,6 +1674,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MS</country_code>
@@ -1489,6 +1685,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MA</country_code>
@@ -1499,6 +1696,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MZ</country_code>
@@ -1509,6 +1707,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MM</country_code>
@@ -1519,6 +1718,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NA</country_code>
@@ -1529,6 +1729,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NR</country_code>
@@ -1539,6 +1740,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NP</country_code>
@@ -1549,6 +1751,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NL</country_code>
@@ -1559,6 +1762,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NC</country_code>
@@ -1569,6 +1773,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NZ</country_code>
@@ -1579,6 +1784,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NI</country_code>
@@ -1589,6 +1795,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NE</country_code>
@@ -1599,6 +1806,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NG</country_code>
@@ -1609,6 +1817,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NU</country_code>
@@ -1619,6 +1828,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NF</country_code>
@@ -1629,6 +1839,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KP</country_code>
@@ -1639,6 +1850,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MP</country_code>
@@ -1649,6 +1861,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>NO</country_code>
@@ -1659,6 +1872,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>OM</country_code>
@@ -1669,6 +1883,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PK</country_code>
@@ -1679,6 +1894,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PW</country_code>
@@ -1689,6 +1905,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PS</country_code>
@@ -1699,6 +1916,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PA</country_code>
@@ -1709,6 +1927,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PG</country_code>
@@ -1719,6 +1938,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PY</country_code>
@@ -1729,6 +1949,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PE</country_code>
@@ -1739,6 +1960,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PH</country_code>
@@ -1749,6 +1971,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PN</country_code>
@@ -1759,6 +1982,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PL</country_code>
@@ -1769,6 +1993,19 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886277" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="pl"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>PT</country_code>
@@ -1779,6 +2016,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PR</country_code>
@@ -1789,6 +2027,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>QA</country_code>
@@ -1799,6 +2038,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CG</country_code>
@@ -1809,6 +2049,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>RE</country_code>
@@ -1819,6 +2060,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>RO</country_code>
@@ -1829,6 +2071,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>RU</country_code>
@@ -1839,6 +2082,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>RW</country_code>
@@ -1849,6 +2093,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>BL</country_code>
@@ -1859,6 +2104,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SH</country_code>
@@ -1869,6 +2115,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KN</country_code>
@@ -1879,6 +2126,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>LC</country_code>
@@ -1889,6 +2137,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>MF</country_code>
@@ -1899,6 +2148,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>PM</country_code>
@@ -1909,6 +2159,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>VC</country_code>
@@ -1919,6 +2170,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>WS</country_code>
@@ -1929,6 +2181,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SM</country_code>
@@ -1939,6 +2192,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ST</country_code>
@@ -1949,6 +2203,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SA</country_code>
@@ -1959,6 +2214,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SN</country_code>
@@ -1969,6 +2225,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>RS</country_code>
@@ -1979,6 +2236,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SC</country_code>
@@ -1989,6 +2247,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SL</country_code>
@@ -1999,6 +2258,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SG</country_code>
@@ -2009,6 +2269,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SX</country_code>
@@ -2019,6 +2280,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SK</country_code>
@@ -2029,6 +2291,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SI</country_code>
@@ -2039,6 +2302,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SB</country_code>
@@ -2049,6 +2313,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SO</country_code>
@@ -2059,6 +2324,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ZA</country_code>
@@ -2069,6 +2335,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GS</country_code>
@@ -2079,6 +2346,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>KR</country_code>
@@ -2089,6 +2357,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SS</country_code>
@@ -2099,6 +2368,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ES</country_code>
@@ -2109,6 +2379,19 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886284" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="es"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>LK</country_code>
@@ -2119,6 +2402,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SD</country_code>
@@ -2129,6 +2413,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SR</country_code>
@@ -2139,6 +2424,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SJ</country_code>
@@ -2149,6 +2435,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SZ</country_code>
@@ -2159,6 +2446,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SE</country_code>
@@ -2169,6 +2457,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>CH</country_code>
@@ -2179,6 +2468,7 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>SY</country_code>
@@ -2189,6 +2479,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TW</country_code>
@@ -2199,6 +2490,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TJ</country_code>
@@ -2209,6 +2501,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TZ</country_code>
@@ -2219,6 +2512,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TH</country_code>
@@ -2229,6 +2523,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TG</country_code>
@@ -2239,6 +2534,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TK</country_code>
@@ -2249,6 +2545,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TO</country_code>
@@ -2259,6 +2556,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TT</country_code>
@@ -2269,6 +2567,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TN</country_code>
@@ -2279,6 +2578,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TR</country_code>
@@ -2289,6 +2589,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TM</country_code>
@@ -2299,6 +2600,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TC</country_code>
@@ -2309,6 +2611,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>TV</country_code>
@@ -2319,6 +2622,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>VI</country_code>
@@ -2329,6 +2633,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>UG</country_code>
@@ -2339,6 +2644,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>UA</country_code>
@@ -2349,6 +2655,19 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886281" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="ua"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>AE</country_code>
@@ -2359,6 +2678,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>GB</country_code>
@@ -2369,6 +2689,19 @@
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886282" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="gb"&gt;
+    &lt;!-- Anything inside will go away once widget is loaded. --&gt;
+    &lt;a href="//www.booking.com?aid=886202"&gt;Booking.com&lt;/a&gt;
+&lt;/ins&gt;
+&lt;script type="text/javascript"&gt;
+    (function(d, sc, u) {
+      var s = d.createElement(sc), p = d.getElementsByTagName(sc)[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = u + '?v=' + (+new Date());
+      p.parentNode.insertBefore(s,p);
+      })(document, 'script', '//aff.bstatic.com/static/affiliate_base/js/flexiproduct.js');
+&lt;/script&gt;</affiliate_booking_html>
 	</record>
 	<record>
 		<country_code>US</country_code>
@@ -2379,6 +2712,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>UM</country_code>
@@ -2389,6 +2723,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>UY</country_code>
@@ -2399,6 +2734,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>UZ</country_code>
@@ -2409,6 +2745,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>VU</country_code>
@@ -2419,6 +2756,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>VA</country_code>
@@ -2429,6 +2767,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>VE</country_code>
@@ -2439,6 +2778,7 @@
 		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>VN</country_code>
@@ -2449,6 +2789,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>WF</country_code>
@@ -2459,6 +2800,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>EH</country_code>
@@ -2469,6 +2811,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>YE</country_code>
@@ -2479,6 +2822,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ZM</country_code>
@@ -2489,6 +2833,7 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 	<record>
 		<country_code>ZW</country_code>
@@ -2499,5 +2844,6 @@
 		<visa_required>V</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
+		<affiliate_booking_html/>
 	</record>
 </data-set>

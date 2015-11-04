@@ -13,6 +13,7 @@
               <xs:element type="xs:string" name="visa_required"/>
               <xs:element type="xs:boolean" name="old_schengen_calc"/>
               <xs:element type="xs:boolean" name="additional_visa_waiver"/>
+              <xs:element typle="xs:text" name="affiliate_booking_html"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

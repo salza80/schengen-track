@@ -8,6 +8,10 @@ class Country < ActiveRecord::Base
                          :old_schengen_calc,
                          in: [true, false]
 
+  def self.with_booking_affiliate
+    where('affiliate_booking_html > ""')
+  end
+
   def schengen?(use_date = Time.now)
     return false if schengen_start_date.nil?
     schengen_start_date <= use_date

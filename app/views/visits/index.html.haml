@@ -4,6 +4,9 @@
 %br
 = link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
 %br
+-if @advertise_country
+  = raw @advertise_country.affiliate_booking_html 
+%br
 -if current_person.visa_required?
   %h2 Schengen Visa List
   = render 'visas/visalist'

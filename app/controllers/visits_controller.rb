@@ -8,8 +8,13 @@ class VisitsController < ApplicationController
   def index
     @visits = current_person.visits.all
     @visas = current_person.visas.all if current_person.visa_required?
+    
+    @visits.each do |visit|
+      if visit.country && !visit.country.affiliate_booking_html.nil?
+        @advertise_country = visit.country
+      end
+    end
   end
-
   # GET /visits/1
   # GET /visits/1.json
   def show

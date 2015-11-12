@@ -29,6 +29,10 @@ class VisitsController < ApplicationController
   # GET /visits/1/edit
   def edit
     @continent_default_id = @visit.country.continent.id.to_s
+    if @visit.country && !@visit.country.affiliate_booking_html.nil?
+      @advertise_country = @visit.country
+    end
+
   end
 
   # POST /visits

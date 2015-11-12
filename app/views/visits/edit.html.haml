@@ -6,3 +6,7 @@
     = render 'form'
   .panel-footer
     = link_to 'Back', visits_path
+  .row
+    .col-sm-12
+      -if @advertise_country
+        = raw @advertise_country.affiliate_booking_html

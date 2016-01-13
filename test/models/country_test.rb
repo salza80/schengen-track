@@ -15,6 +15,7 @@ class CountryTest < ActiveSupport::TestCase
 
   test 'should return false if schengen start_date is in the future' do
     a = countries(:Croatia)
+    a.schengen_start_date = '1/1/2030'
     assert_equal false, a.schengen?
   end
 

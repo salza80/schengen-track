@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104140755) do
+ActiveRecord::Schema.define(version: 20160113185041) do
 
   create_table "continents", force: :cascade do |t|
     t.string   "continent_code"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20151104140755) do
     t.boolean  "old_schengen_calc"
     t.boolean  "additional_visa_waiver"
     t.text     "affiliate_booking_html"
+    t.string   "nationality"
   end
 
   add_index "countries", ["continent_id"], name: "index_countries_on_continent_id"

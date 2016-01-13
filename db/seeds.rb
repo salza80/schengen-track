@@ -26,7 +26,8 @@ countries = Nokogiri::XML(f)
 countries.xpath('//record').each do |c|
   cont = Continent.find_by(continent_code: c.xpath('continent_code').text)
   Country.create(country_code: c.xpath('country_code').text,
-                    name: c.xpath('name').text,
+                   name: c.xpath('name').text,
+                   nationality: c.xpath('nationality').text,
                    schengen_start_date: c.xpath('schengen_start_date').text,
                    EU_member_state: c.xpath('EU_memeber_state').text,
                    visa_required: c.xpath('visa_required').text,

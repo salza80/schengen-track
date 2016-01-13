@@ -2,6 +2,7 @@
 
 Australia:
   name: Australia
+  nationality: Australian
   country_code: AU
   schengen_start_date: nil
   continent: Europe
@@ -12,6 +13,7 @@ Australia:
 
 Germany:
   name: Germany
+  nationality: German
   country_code: DE
   schengen_start_date: 1/1/2009
   continent: Europe
@@ -22,6 +24,7 @@ Germany:
 
 Croatia:
   name: Croatia
+  nationality: Croation
   country_code: CR
   schengen_start_date: 1/1/2016
   continent: Europe
@@ -33,6 +36,7 @@ Croatia:
 Brazil:
   name: Brazil
   country_code: BR
+  nationality: Brazilian
   schengen_start_date: nil
   continent: SouthAmerica
   EU_member_state: false
@@ -42,6 +46,7 @@ Brazil:
 
 India:
   name: India
+  nationality: Indian
   country_code: IN
   schengen_start_date: nil
   continent: Asia
@@ -51,6 +56,7 @@ India:
   additional_visa_waiver: false 
 USA:
   name: United States of America
+  nationality: American
   country_code: US
   schengen_start_date: nil
   continent: America

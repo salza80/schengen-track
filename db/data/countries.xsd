@@ -7,6 +7,7 @@
             <xs:sequence>
               <xs:element type="xs:string" name="country_code"/>
               <xs:element type="xs:string" name="name"/>
+              <xs:element type="xs:string" name="nationality"/>
               <xs:element type="xs:string" name="continent_code"/>
               <xs:element type="xs:date" name="schengen_start_date"/>
               <xs:element type="xs:boolean" name="EU_memeber_state"/>

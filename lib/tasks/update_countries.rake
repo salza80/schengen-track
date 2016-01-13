@@ -26,6 +26,7 @@ task update_countries: :environment do
     )
     
     country.name =  c.xpath('name').text
+    country.nationality = c.xpath('nationality').text
     country.schengen_start_date = c.xpath('schengen_start_date').text
     country.EU_member_state = c.xpath('EU_memeber_state').text
     country.visa_required = c.xpath('visa_required').text

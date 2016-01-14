@@ -29,6 +29,11 @@
                   = link_to "Previous definition", "#previous"
             %li
               = link_to "Additional Visa Waiver agreements", "#additional"
+            %li
+              - if @country.nil?
+                = link_to "Schengen requrements for my nationality", "#nationality"
+              - else
+                =link_to "Schengen requirements for " + @country.nationality_plural, "#nationality"
         %li
           = link_to "How to use the Schengen Calculator", "#how"
           %ul.nav
@@ -122,6 +127,20 @@
         for further information.
       %p
         Currently the Schengen calculator does not take into account Additional Visa Waiver agreements. Please follow up on this with your own research.
+      %a.nationality_anchor{:id => "nationality"}
+      - if @country.nil?
+        %h2
+          Schengen Requirements for my Nationality
+        %h3
+          Select your nationality to view your schengen requirements
+        %p
+          = collection_select(:person, :nationality_id, Country.outside_schengen, :nationality, :name, {include_blank: 'Select country'}, {:class => "form-control", :onChange => "app.goToNationality(this.value,'nationality')"})
+      - else
+        = render "nationality"
+      %h4 
+        Select another nationality to view country specific schengen requirements
+      %p
+        = collection_select(:person, :nationality_id, Country.outside_schengen, :nationality, :name, {include_blank: 'Select country'}, {:class => "form-control", :onChange => "app.goToNationality(this.value, 'nationality')"})
       %h2{:id => "how"}
         How to use the Schengen Calculator
       %h4{:id => "steps"}

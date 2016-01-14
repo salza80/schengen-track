@@ -24,7 +24,7 @@ class Country < ActiveRecord::Base
   def nationality_plural
     ending = nationality.last(3)
 
-    if ending == 'ese' || ending == 'ese' || 'nch' || ending == 'iss'
+    if ending == 'ese' || ending == 'ese' || ending == 'nch' || ending == 'iss'
       nationality
     else
       nationality.pluralize

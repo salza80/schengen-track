@@ -1,0 +1,20 @@
+.row
+  .col-md-12{:role => "main"}
+    .about-section
+      %h1
+        Schengen Tourist Entry Requirements and length of stay calculation rules for 
+        = @country.name
+      %h2 
+        Do 
+        = @country.nationality_plural
+        need to apply for a Schengen Touist Visa before entry?
+
+      %h2
+        Which Calculation do
+         = @country.nationality_plural 
+        need to use when calculating length of stay allowed?
+
+      %h2
+        Does 
+         = @country.name
+         have any Additional Visa Waiver agreements

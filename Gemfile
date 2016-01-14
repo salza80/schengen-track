@@ -35,7 +35,7 @@ gem 'puma'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-  gem 'bourbon'
+gem 'bourbon'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

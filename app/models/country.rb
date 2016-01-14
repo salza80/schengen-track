@@ -2,7 +2,8 @@ class Country < ActiveRecord::Base
   has_many :people
   has_many :visits
   belongs_to :continent
-  validates :country_code, :name, :continent, :visa_required,  presence: true
+  validates :country_code, :name, :continent, :visa_required,
+            :nationality,  presence: true
   validates_inclusion_of :EU_member_state,
                          :additional_visa_waiver,
                          :old_schengen_calc,
@@ -10,6 +11,24 @@ class Country < ActiveRecord::Base
 
   def self.with_booking_affiliate
     where('affiliate_booking_html > ""')
+  end
+
+  def self.find_by_nationality(nationality)
+    where('lower(nationality) = :n', n: nationality.downcase)
+  end
+
+  def self.outside_schengen
+    where('visa_required <> "F"')
+  end
+
+  def nationality_plural
+    ending = nationality.last(3)
+
+    if ending == 'ese' || ending == 'ese' || 'nch' || ending == 'iss'
+      nationality
+    else
+      nationality.pluralize
+    end
   end
 
   def schengen?(use_date = Time.now)

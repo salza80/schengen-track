@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   patch 'my_details' => 'people#update'
   get 'person' => 'people#show'
   get 'about' => 'about#about'
+  get 'about/:nationality' => 'about#nationality'
   get 'disclaimer'  => 'about#discliamer'
   devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
 

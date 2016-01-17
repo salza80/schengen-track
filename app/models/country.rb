@@ -14,7 +14,10 @@ class Country < ActiveRecord::Base
   end
 
   def self.find_by_nationality(nationality)
-    where('lower(nationality) = :n', n: nationality.downcase)
+    where('lower(nationality) = :n OR lower(nationality) = :ns OR lower(name) = :nc',
+          n: nationality.downcase,
+          ns: nationality.downcase.singularize,
+          nc: nationality.downcase)
   end
 
   def self.outside_schengen
@@ -24,7 +27,7 @@ class Country < ActiveRecord::Base
   def nationality_plural
     ending = nationality.last(3)
 
-    if ending == 'ese' || ending == 'ese' || ending == 'nch' || ending == 'iss'
+    if ending == 'ese' || ending == 'nch' || ending == 'iss'
       nationality
     else
       nationality.pluralize

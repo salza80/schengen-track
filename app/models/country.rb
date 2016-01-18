@@ -2,8 +2,7 @@ class Country < ActiveRecord::Base
   has_many :people
   has_many :visits
   belongs_to :continent
-  validates :country_code, :name, :continent, :visa_required,
-            :nationality,  presence: true
+  validates :country_code, :name, :continent, :visa_required, presence: true
   validates_inclusion_of :EU_member_state,
                          :additional_visa_waiver,
                          :old_schengen_calc,

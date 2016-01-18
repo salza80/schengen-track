@@ -1,5 +1,6 @@
 
-- title " for " +  @country.nationality_plural 
+- if @country.nil? == false
+  - title " for " +  @country.nationality_plural 
 .row
   .col-sm-10
     %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}

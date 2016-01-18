@@ -14,7 +14,7 @@ class Country < ActiveRecord::Base
   end
 
   def self.find_by_nationality(nationality)
-    where('lower(nationality) = :n OR lower(nationality) = :ns OR lower(name) = :nc',
+    where('replace(lower(nationality),\' \', \'_\') = :n OR replace(lower(nationality),\' \', \'_\') = :ns OR replace(lower(name),\' \', \'_\') = :nc',
           n: nationality.downcase,
           ns: nationality.downcase.singularize,
           nc: nationality.downcase)
@@ -27,7 +27,7 @@ class Country < ActiveRecord::Base
   def nationality_plural
     ending = nationality.last(3)
 
-    if ending == 'ese' || ending == 'nch' || ending == 'iss'
+    if ending == 'ese' || ending == 'nch' || ending == 'iss' || ending == 'ish'
       nationality
     else
       nationality.pluralize

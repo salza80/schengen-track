@@ -1,3 +1,5 @@
+
+- title " for " +  @country.nationality_plural 
 .row
   .col-sm-10
     %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
@@ -130,17 +132,17 @@
       %a.nationality_anchor{:id => "nationality"}
       - if @country.nil?
         %h2
-          Schengen Requirements for my Nationality
+          Schengen / Europe tourist travel entry and length of stay requirements for my nationality
         %h3
           Select your nationality to view your schengen requirements
         %p
           = collection_select(:person, :nationality_id, Country.outside_schengen, :nationality, :name, {include_blank: 'Select country'}, {:class => "form-control", :onChange => "app.goToNationality(this.value,'nationality')"})
       - else
         = render "nationality"
-      %h4 
-        Select another nationality to view country specific schengen requirements
-      %p
-        = collection_select(:person, :nationality_id, Country.outside_schengen, :nationality, :name, {include_blank: 'Select country'}, {:class => "form-control", :onChange => "app.goToNationality(this.value, 'nationality')"})
+        %h4 
+          Select another nationality to view country specific schengen requirements
+        %p
+          = collection_select(:person, :nationality_id, Country.outside_schengen, :nationality, :name, {include_blank: 'Select country'}, {:class => "form-control", :onChange => "app.goToNationality(this.value, 'nationality')"})
       %h2{:id => "how"}
         How to use the Schengen Calculator
       %h4{:id => "steps"}

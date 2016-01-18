@@ -20,7 +20,7 @@ class Country < ActiveRecord::Base
   end
 
   def self.outside_schengen
-    where('visa_required <> "F"')
+    where('visa_required <> :free', free: 'F')
   end
 
   def nationality_plural

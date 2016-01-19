@@ -12,7 +12,7 @@
           = image_tag("logo.svg", alt: "Schengen Visa Calculator", class: "pull-left")
         %span.navbar-text.site-title
           Schengen Visa Calculator
-        .navbar-text.fb-like{class: "pull-right", "data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true"}
+          .fb-like.hidden-xs{class: "pull-right", "data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true"}
       .navbar.navbar-right
         %ul.nav.nav-pills
           - if user_signed_in?
@@ -25,12 +25,12 @@
       .col-md-12
         #navbar.navbar-left
           %ul.nav.nav-tabs.site-nav
-            %li{:role => "presentation", :class => (active_if(controller: 'visits')) }
+            %li{role: "presentation", class: (active_if(controller: 'visits')) }
               %a.navbar-link{href: visits_path }
                 %span.glyphicon.glyphicon-plane{":aria-hidden" => "true"}
                 %span.hidden-xs
                   Calculator
-            %li{:role => "presentation", :class => (active_if(controller: 'about'))}
+            %li{role: "presentation", class: (active_if(controller: 'about'))}
               %a.navbar-link{href: about_path}
                 %span.glyphicon.glyphicon-info-sign{":aria-hidden" => "true"}
                 %span.hidden-xs

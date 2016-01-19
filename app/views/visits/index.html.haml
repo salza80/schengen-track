@@ -34,9 +34,12 @@
 %br
   - if !user_signed_in?
     = render 'registerPrompt'
+.row
+  .col-md-12.text-center
+    .fb-like.visible-xs-block{"data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
 .ad-block
   %a{ :href => "https://www.shopify.com/?ref=sally-mclean-it-consulting" }
-    = image_tag "shopify_banner.jpg", { border: 0, class: "img-responsive" }
+  = image_tag "shopify_banner.jpg", { border: 0, class: "img-responsive" }
 %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
 
 

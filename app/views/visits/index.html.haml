@@ -12,13 +12,13 @@
   = render 'visitlist'
 -else
   %p
-    Start using the Schengen Calculator by adding you previous and up comming travel plans. 
+    Start using the Schengen Calculator by adding your previous and up comming travel plans. 
   %p
-    Don't forget to also select your Nationality which is currently set to 
+    Don't forget to also select your nationality, which is currently set to 
     = current_person.nationality.name
-    \. If this is not correct 
+    \. If this is not correct,
     = link_to 'change it now here', my_details_path
-    , or later in the top right corner of the page.
+    , or later by following the link in the top right corner of this page.
   %p
     For further information, read the 
     = link_to 'About page', about_path

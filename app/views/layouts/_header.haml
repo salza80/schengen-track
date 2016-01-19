@@ -12,7 +12,7 @@
           = image_tag("logo.svg", alt: "Schengen Visa Calculator", class: "pull-left")
         %span.navbar-text.site-title
           Schengen Visa Calculator
-          .fb-like.hidden-xs{class: "pull-right", "data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true"}
+        .navbar-text.fb-like.hidden-xs{class: "pull-right", "data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
       .navbar.navbar-right
         %ul.nav.nav-pills
           - if user_signed_in?

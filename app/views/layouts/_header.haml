@@ -12,6 +12,7 @@
           = image_tag("logo.svg", alt: "Schengen Visa Calculator", class: "pull-left")
         %span.navbar-text.site-title
           Schengen Visa Calculator
+        .navbar-text.fb-like{class: "pull-right", "data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true"}
       .navbar.navbar-right
         %ul.nav.nav-pills
           - if user_signed_in?

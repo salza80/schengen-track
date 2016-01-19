@@ -1,11 +1,6 @@
 .fb-like{class: "pull-right", "data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true"}
--if @advertise_country
-  = raw @advertise_country.affiliate_booking_html
-%h2 Travel Record
-= render 'visitlist'
-%br
-= link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
-%br
+/ -if @advertise_country
+/   = raw @advertise_country.affiliate_booking_html
 .row
   .col-sm-10
     %script{:async => "", :src => "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
@@ -13,6 +8,10 @@
     %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
     :javascript
       (adsbygoogle = window.adsbygoogle || []).push({});
+%h2 Travel Record
+= render 'visitlist'
+%br
+= link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
 %br
 -if current_person.visa_required?
   %h2 Schengen Visa List
@@ -22,5 +21,7 @@
 %br
   - if !user_signed_in?
     = render 'registerPrompt'
+%a{ :href => "https://www.shopify.com/?ref=sally-mclean-it-consulting" }
+  = image_tag "shopify_banner.jpg", { border: 0, class: "img-responsive" }
 
 

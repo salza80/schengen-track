@@ -7,3 +7,6 @@ app.goToNationality = function(nationality, anchor){
   }
   window.location = url
 }
+
+
+

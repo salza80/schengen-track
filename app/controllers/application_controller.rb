@@ -10,7 +10,16 @@ class ApplicationController < ActionController::Base
   end
 
   def amazon
-    a = Amazon::Ecs.item_search('france england germany', {})
+    visits = current_person.visits.find_by_date(Date.today, Date.new(3000,1,1))
+    search = ''
+    unless visits.nil?
+      visits.each do |visit|
+        search = search + visit.country.name
+      end
+    end
+    search = search + ' europe'
+    puts search
+    a = Amazon::Ecs.item_search(search, {})
     a unless a.has_error?
   end
 

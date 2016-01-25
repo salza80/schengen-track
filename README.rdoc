@@ -1,28 +1,41 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+= Personal Project
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+== System Dependencies
+* Database (development): SQLite
+* Database (production): PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
+* Ruby version 2.2.0, source: https://www.ruby-lang.org/en/documentation/installation/
+
+
+== Application setup
+* Set required Environment Variables
+* Install all components
+* run command <tt>`bundle install`</tt>
+* Database setup
+  * run command <tt>`./bin/rake db:create`</tt>
+  * run command <tt>`./bin/rake db:migrate`</tt>
+  * run command <tt>`./bin/rake db:seed`</tt>
+
+=After updating seed countries data
+ * run command <tt>`./bin/rake db:update_countries`</tt>
+
+=To clean up guest user accounts
+ * run command <tt>`./bin/rake db:guest_cleanup`</tt>
+
+
+== How to run application and tests (test framework `MiniTest`)
+* command to  run applicaiton <tt>`rails server`</tt>
+* command to run tests <tt>`.bin/rake test`</tt>
+
+== Important Information
+
+== Deployment Instructions
+* Hosted on Heroku
+* git push heroku master
+
+
+
+

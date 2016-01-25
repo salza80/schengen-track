@@ -1,5 +1,15 @@
 .row
   .col-sm-12
-    - amazon.items.each do |item|
-      %p
-        = item.get_element('ItemAttributes').get('Title')
+    %h3
+      Recommended Travel Books
+  .col-sm-12.amazon
+    - if amazon
+      - amazon.items.each do |item|
+        .amazon-item
+          %a{ href: item.get("DetailPageURL") }
+            .a-image
+              %img{ src: item.get_hash("MediumImage")['URL'], alt: item.get_element('ItemAttributes').get_unescaped('Title'), border: 0 }
+            .a-area
+              = item.get_element('ItemAttributes').get_unescaped('Title')
+            .a-area
+              = item.get_element('OfferSummary').get_element("LowestNewPrice").get_unescaped('FormattedPrice')

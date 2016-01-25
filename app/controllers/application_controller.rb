@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def amazon
     a = Amazon::Ecs.item_search('france england germany', {})
-    a
+    a unless a.has_error?
   end
 
   def current_user_or_guest_user

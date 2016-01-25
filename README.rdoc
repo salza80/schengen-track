@@ -19,11 +19,11 @@
   * run command <tt>`./bin/rake db:migrate`</tt>
   * run command <tt>`./bin/rake db:seed`</tt>
 
-=After updating seed countries data
- * run command <tt>`./bin/rake db:update_countries`</tt>
+= After updating seed countries data
+* run command <tt>`./bin/rake db:update_countries`</tt>
 
-=To clean up guest user accounts
- * run command <tt>`./bin/rake db:guest_cleanup`</tt>
+= To clean up guest user accounts
+* run command <tt>`./bin/rake db:guest_cleanup`</tt>
 
 
 == How to run application and tests (test framework `MiniTest`)

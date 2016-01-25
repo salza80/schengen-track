@@ -28,6 +28,7 @@ gem 'nokogiri'
 gem 'geocoder'
 gem 'omniauth-facebook'
 gem 'puma'
+gem 'amazon-ecs'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

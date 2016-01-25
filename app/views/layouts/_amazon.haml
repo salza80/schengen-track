@@ -1,0 +1,5 @@
+.row
+  .col-sm-12
+    - amazon.items.each do |item|
+      %p
+        = item.get_element('ItemAttributes').get('Title')

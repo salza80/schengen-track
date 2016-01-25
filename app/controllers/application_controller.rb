@@ -3,12 +3,16 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_person
+  helper_method :current_person, :amazon
 
   def current_person
     current_user_or_guest_user.people.first
   end
 
+  def amazon
+    a = Amazon::Ecs.item_search('france england germany', {})
+    a
+  end
 
   def current_user_or_guest_user
     current_user || guest_user

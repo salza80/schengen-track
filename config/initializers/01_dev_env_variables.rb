@@ -1,0 +1,9 @@
+unless Rails.env.production?
+  ENV['FACEBOOK_ID'] = '1666942223529342'
+  ENV['FACEBOOK_SECRET'] = '5a95d16f65ec92dea1fb6242e5157379'
+
+  ENV['AWS_ACCESS_KEY_ID'] = 'AKIAJOO3AZMIY7XJBSEA'
+  ENV['AWS_SECRET_KEY'] = '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'
+  ENV['AWS_ASSOCIATE_TAG'] = 'schenecalcul-20'
+
+end

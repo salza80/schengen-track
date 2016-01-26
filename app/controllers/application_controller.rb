@@ -1,3 +1,5 @@
+
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -10,17 +12,16 @@ class ApplicationController < ActionController::Base
   end
 
   def amazon
-    visits = current_person.visits.find_by_date(Date.today, Date.new(3000,1,1))
+    visits = current_person.visits.find_by_date(Date.today, Date.new(3000, 1, 1))
     search = ''
     unless visits.nil?
       visits.each do |visit|
-        search = search + visit.country.name
+        search += ' ' + visit.country.name
       end
     end
-    search = search + ' europe'
-    puts search
-    a = Amazon::Ecs.item_search(search, {})
-    a unless a.has_error?
+    search += ' europe'
+    s = Aws::BookQuery.new(current_person.nationality.country_code)
+    s.query(search)
   end
 
   def current_user_or_guest_user

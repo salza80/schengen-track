@@ -8,7 +8,7 @@ Amazon::Ecs.configure do |options|
   options[:AWS_secret_key] =  ENV['AWS_SECRET_KEY']
   options[:associate_tag] = ENV['AWS_ASSOCIATE_TAG']
   options[:Condition] = 'New'
-  options[:BrowseNode] = '27'
+  # options[:BrowseNode] = '27'
   options[:response_group] = 'Medium'
   options[:sort] = 'salesrank'
 end

@@ -16,10 +16,10 @@ class ApplicationController < ActionController::Base
     search = ''
     unless visits.nil?
       visits.each do |visit|
-        search += ' ' + visit.country.name
+        search += visit.country.name + ' '
       end
     end
-    search += ' europe'
+    search += 'europe'
     s = Aws::BookQuery.new(current_person.nationality.country_code)
     s.query(search)
   end

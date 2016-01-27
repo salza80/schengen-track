@@ -25,11 +25,12 @@ module Aws
       options[:Country] = @country_code
       options[:BrowseNode] = COUNTRIES[@country_code][:browse_node]
       search += ' travel' if  COUNTRIES[@country_code][:browse_node].nil?
-
-
-      resp = Amazon::Ecs.item_search(search, options)
-      puts resp.get_element('Request').inspect
-
+      begin
+        resp = Amazon::Ecs.item_search(search, options)
+      rescue => e
+        Rails.logger.debug 'Amazon search failed for country code: ' + @country_code.to_s + ' cause: ' +   e.to_s
+        return nil
+      end
       return nil if resp.has_error?
       resp
     end

@@ -25,6 +25,7 @@ module Aws
       options[:Country] = @country_code
       options[:BrowseNode] = COUNTRIES[@country_code][:browse_node]
       search += ' travel' if  COUNTRIES[@country_code][:browse_node].nil?
+      return nil if  Rails.env == 'test'
       begin
         resp = Amazon::Ecs.item_search(search, options)
       rescue => e

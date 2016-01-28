@@ -1,7 +1,6 @@
 module Aws
   class BookQuery
 
- 
     COUNTRIES = {
       us: { tracking_code: 'schenecalcul-20', browse_node: '27' },
       uk: { tracking_code: 'schengcalcul-21', browse_node: '83' },
@@ -16,7 +15,6 @@ module Aws
       else
         @country_code = :us
       end
-
     end
 
     def query(search)
@@ -34,13 +32,10 @@ module Aws
         return nil
       end
       return nil if resp.has_error?
-      puts resp.first_item
       BookQueryReponse.new(resp.items)
     end
 
     private
-
-
 
     def country_valid?(country_code)
       COUNTRIES.each do |key, _value|
@@ -62,8 +57,6 @@ module Aws
         end
         @items = array_resp
       end
-
-  
     end
 
     class BookItem

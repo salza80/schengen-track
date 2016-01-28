@@ -5,12 +5,11 @@
   .col-sm-12.amazon
     - if amazon
       - amazon.items.each do |item|
-      - next unless item.get_element('OfferSummary')
         .amazon-item
-          %a{ href: item.get("DetailPageURL") }
+          %a{ href: item.page_url }
             .a-image
-              %img{ src: item.get_hash("MediumImage")['URL'], alt: item.get_element('ItemAttributes').get_unescaped('Title'), border: 0 }
+              %img{ src: item.image_url, alt: item.title, border: 0 }
             .a-area
-              = item.get_element('ItemAttributes').get_unescaped('Title')
+              = item.title
             .a-area
-              = item.get_element('OfferSummary').get_element('LowestNewPrice').get_unescaped('FormattedPrice')
+              = item.price

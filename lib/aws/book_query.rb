@@ -35,14 +35,88 @@ module Aws
       end
       return nil if resp.has_error?
       puts resp.first_item
-      resp
+      BookQueryReponse.new(resp.items)
     end
+
+    private
+
+
 
     def country_valid?(country_code)
       COUNTRIES.each do |key, _value|
         return true if key == country_code.to_sym
       end
       false
+    end
+
+    class BookQueryReponse
+      attr_reader :items
+      
+      def initialize(resp_items)
+        array_resp = []
+        resp_items.each do |item|
+          item = BookItem.new(item)
+          if item.valid?
+            array_resp << item
+          end
+        end
+        @items = array_resp
+      end
+
+  
+    end
+
+    class BookItem
+      attr_reader :title, :price, :image_url, :page_url
+
+      def initialize(resp_item)
+        @page_url = parse_page_url(resp_item)
+        @image_url = parse_image_url(resp_item)
+        @title = parse_title(resp_item)
+        @price = parse_price(resp_item)
+      end
+
+      def valid?
+        if @page_url && @image_url && @title && @price
+          true
+        else
+          false
+        end
+      end
+
+      private
+
+      def parse_page_url(resp_item)
+        begin
+          resp_item.get("DetailPageURL") 
+        rescue
+          nil
+        end
+      end
+
+      def parse_image_url(resp_item)
+        begin
+          resp_item.get_hash('MediumImage')['URL']
+        rescue
+          nil
+        end
+      end
+
+      def parse_title(resp_item)
+        begin
+          resp_item.get_element('ItemAttributes').get_unescaped('Title')
+        rescue
+          nil
+        end
+      end
+
+      def parse_price(resp_item)
+        begin
+          resp_item.get_element('OfferSummary').get_element('LowestNewPrice').get_unescaped('FormattedPrice')
+        rescue
+          nil
+        end
+      end
     end
   end
 end

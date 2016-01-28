@@ -4,7 +4,7 @@ module Aws
  
     COUNTRIES = {
       us: { tracking_code: 'schenecalcul-20', browse_node: '27' },
-      uk: { tracking_code: 'schengcalcul-21', browse_node: nil }
+      uk: { tracking_code: 'schengcalcul-21', browse_node: '83' }
     }
 
     def initialize(country_code)
@@ -21,8 +21,8 @@ module Aws
     def query(search)
       options = {}
       options[:search_index] = 'Books'
-      options[:associate_tag] = COUNTRIES[@country_code][:tracking_code]
-      options[:Country] = @country_code
+      # options[:associate_tag] = COUNTRIES[@country_code][:tracking_code]
+      options[:country] = @country_code
       options[:BrowseNode] = COUNTRIES[@country_code][:browse_node]
       search += ' travel' if  COUNTRIES[@country_code][:browse_node].nil?
       return nil if  Rails.env == 'test'

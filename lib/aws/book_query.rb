@@ -34,6 +34,7 @@ module Aws
         return nil
       end
       return nil if resp.has_error?
+      puts resp.first_item
       resp
     end
 

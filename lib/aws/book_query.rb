@@ -4,7 +4,8 @@ module Aws
  
     COUNTRIES = {
       us: { tracking_code: 'schenecalcul-20', browse_node: '27' },
-      uk: { tracking_code: 'schengcalcul-21', browse_node: '83' }
+      uk: { tracking_code: 'schengcalcul-21', browse_node: '83' },
+      ca: { tracking_code: 'schengcalcul-20', browse_node: nil }
     }
 
     def initialize(country_code)

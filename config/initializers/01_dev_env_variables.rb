@@ -4,6 +4,4 @@ unless Rails.env.production?
 
   ENV['AWS_ACCESS_KEY_ID'] = 'AKIAJOO3AZMIY7XJBSEA'
   ENV['AWS_SECRET_KEY'] = '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'
-  ENV['AWS_ASSOCIATE_TAG'] = 'schenecalcul-20'
-
 end

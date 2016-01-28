@@ -8,6 +8,7 @@ Amazon::Ecs.configure do |options|
 
   options[:associate_tag] = {
     us: 'schenecalcul-20',
-    uk: 'schengcalcul-21'
+    uk: 'schengcalcul-21',
+    ca: 'schengcalcul-20'
   }
 end

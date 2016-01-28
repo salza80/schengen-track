@@ -62,15 +62,22 @@ body {
   border-style: solid;
 
 }
-.navbar-header{
-  white-space: nowrap;
-}
-.navbar-brand{
-  padding-top: 20px;
-  img{
-    color: $header-highlight;
-    height: 35px;
-    width:35px;
+
+nav {
+  .container-fluid {
+    margin-left: 20px;
+    margin-right: 25px;
+  }
+  .navbar-header{
+    white-space: nowrap;
+  }
+  .navbar-brand{
+    padding-top: 20px;
+    img{
+      color: $header-highlight;
+      height: 35px;
+      width:35px;
+    }
   }
 }
 
@@ -168,6 +175,11 @@ nav.about-sidebar{
   margin-bottom: 10px;
 }
 
+.amazon {
+  .amazon-item{
+    margin-bottom: 10px;
+  }
+}
 
 
 

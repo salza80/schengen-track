@@ -1,0 +1,15 @@
+.row
+  .col-sm-12
+    %h3
+      Recommended Travel Books
+  .col-sm-12.amazon
+    - if amazon
+      - amazon.items.each do |item|
+        .amazon-item
+          %a{ href: item.page_url }
+            .a-image
+              %img{ src: item.image_url, alt: item.title, border: 0 }
+            .a-area
+              = item.title
+            .a-area
+              = item.price

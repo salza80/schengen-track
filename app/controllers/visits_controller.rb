@@ -31,8 +31,7 @@ class VisitsController < ApplicationController
     @continent_default_id = @visit.country.continent.id.to_s
     if @visit.country && !@visit.country.affiliate_booking_html.nil?
       @advertise_country = @visit.country
-    end
-
+    end   
   end
 
   # POST /visits

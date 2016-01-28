@@ -1,14 +1,28 @@
+
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_person
+  helper_method :current_person, :amazon
 
   def current_person
     current_user_or_guest_user.people.first
   end
 
+  def amazon
+    visits = current_person.visits.find_by_date(Date.today, Date.new(3000, 1, 1))
+    search = ''
+    unless visits.nil?
+      visits.each do |visit|
+        search += visit.country.name + ' '
+      end
+    end
+    search += 'europe'
+    s = Aws::BookQuery.new(current_person.nationality.country_code)
+    s.query(search)
+  end
 
   def current_user_or_guest_user
     current_user || guest_user

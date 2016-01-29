@@ -6,9 +6,9 @@ Amazon::Ecs.configure do |options|
   options[:response_group] = 'Medium'
   options[:sort] = 'salesrank'
 
-  options[:associate_tag] = {
-    us: 'schenecalcul-20',
-    uk: 'schengcalcul-21',
-    ca: 'schengcalcul-20'
-  }
+  # options[:associate_tag] = {
+  #   us: 'schenecalcul-20',
+  #   uk: 'schengcalcul-21',
+  #   ca: 'schengcalcul-20'
+  # }
 end

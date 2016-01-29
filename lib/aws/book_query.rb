@@ -20,7 +20,7 @@ module Aws
     def query(search)
       options = {}
       options[:search_index] = 'Books'
-      # options[:associate_tag] = COUNTRIES[@country_code][:tracking_code]
+      options[:associate_tag] = COUNTRIES[@country_code][:tracking_code]
       options[:country] = @country_code
       options[:BrowseNode] = COUNTRIES[@country_code][:browse_node]
       search += ' travel' if  COUNTRIES[@country_code][:browse_node].nil?

@@ -143,6 +143,8 @@
           Select another nationality to view country specific schengen requirements
         %p
           = collection_select(:person, :nationality_id, Country.outside_schengen, :nationality, :name, {include_blank: 'Select country'}, {:class => "form-control", :onChange => "app.goToNationality(this.value, 'nationality')"})
+      .text-center
+        = link_to 'Go to Schengen Calculator to get started', visits_path, class: "btn btn-primary"
       .ad-block
         %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
       %h2{:id => "how"}
@@ -186,11 +188,11 @@
       %p  
         %strong
           Entry Date:
-        The Day you Entry the Country
+        The day you enter the Country
       %p
         %strong
           Exit Date:
-        The Day you Exit the Country
+        The day you exit the Country
       %p  
         %strong
           Country:
@@ -198,23 +200,23 @@
       %p  
         %strong
           Schengen Area:
-        Yes = In the Schengen Area No = Not in the Schengen Area
+        Yes = Is in the Schengen Area; No = Is not in the Schengen Area
       %p  
         %strong
           Days Remaining:
-        The number of days remaining of the 90 days allowed in the Schengen Zone
+        The number of days remaining of the 90 days allowed in the Schengen Zone as at the exit date of the visit.
       %p  
         %strong
           Days Over Stay:
-        Number of days OVER the 90 days allowed in the Schengen Area
+        Number of days OVER the 90 days your allowed stay in the Schengen Area. Please revise your travel plans!
       %p
         %strong
           Visa: 
-        This relates only to a Single/Multi Short Stay Schengen Visa only people who require a Visa prior to entry.
+        This relates only to a Single/Multi Short Stay Schengen Visa people who require a Visa prior to entry. If you are exempt from this requirement the Visa options will not appear. Rememeber to select your Nationality in the top right hand corner of the page!
       %p
         %strong
           No Entries: 
-        Number of times you have entered / re-entered the Schengen Area. (not moving from on Schengen country to another is no considered a re-entry, however if there is more than one day between exiting a country Schengen Country and entering the next the calculator will assume you have exited the Schengen Area and will count it as a re-entry.
+        Number of times you have entered / re-entered the Schengen Area. (moving from one Schengen country to another is not considered a re-entry, however if there is more than one day between exiting a country Schengen Country and entering the next, the calculator will assume you have exited the Schengen Area and will count it as a re-entry.
       %p
         %strong
           Visa Days Over Stay:

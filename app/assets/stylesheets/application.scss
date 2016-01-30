@@ -62,6 +62,9 @@ body {
   border-style: solid;
 
 }
+.current-setting{
+  margin-bottom: 0px;
+}
 
 nav {
   .container-fluid {
@@ -81,14 +84,26 @@ nav {
   }
 }
 
+@media (max-width: 479px) { 
+  .site-title{
+    margin-left:0px;
+    font-size: 15px;
+  }
+ }
+
+ @media (min-width: 480px) { 
+  .site-title{
+    margin-left:0px;
+    font-size: 20px;
+  }
+ }
+
+
 .panel-title{
   font-size: 24px;
 }
 
-.site-title{
-  margin-left:0px;
-  font-size: 20px;
-}
+
 
 p.current-setting{
   color: $header-text;

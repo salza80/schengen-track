@@ -1,4 +1,4 @@
-
+require 'aws/book_query'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.

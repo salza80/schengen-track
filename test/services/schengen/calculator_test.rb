@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'pry'
 
-class VisitTest < ActiveSupport::TestCase
+class CalculatorTest < ActiveSupport::TestCase
 
 
   test 'test shengen days count' do

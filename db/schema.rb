@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113185041) do
+ActiveRecord::Schema.define(version: 20160201002610) do
 
   create_table "continents", force: :cascade do |t|
     t.string   "continent_code"
@@ -88,9 +88,8 @@ ActiveRecord::Schema.define(version: 20160113185041) do
     t.date     "exit_date"
     t.integer  "country_id"
     t.integer  "person_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "schengen_days"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "visits", ["country_id"], name: "index_visits_on_country_id"

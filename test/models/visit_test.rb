@@ -23,12 +23,6 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 2, b.count
     assert_equal '2014-03-10'.to_date, b.first.entry_date
   end
-  test 'post_visits scope' do
-    a = visits(:two)
-    b = a.post_visits
-    assert_equal 1, b.count
-    assert_equal '2014-03-27'.to_date, b.first.entry_date
-  end
 
   test 'visit overlap' do
 
@@ -104,11 +98,5 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 1, b.count
   end
 
-  test 'get next visit' do
-    a = visits(:testvisit3)
-    n = a.next_visit
-    b = visits(:testvisit4)
-    assert_equal n.entry_date, b.entry_date
-  end
   
 end

@@ -18,13 +18,6 @@ class Visit < ActiveRecord::Base
     end
   end
 
-  # checks if visit is OK
-  def visit_check?
-    if visa_required?
-      return visa_check?
-    end
-  end
-
   # Visits calculated fields
   def no_days
     return nil unless exit_date
@@ -41,19 +34,9 @@ class Visit < ActiveRecord::Base
     person.visits.where('entry_date <= ? and id <> ?', entry_date, id)
   end
   
-  # get all post visits
-  def post_visits
-    person.visits.where('entry_date >= ? and id <> ?', entry_date, id)
-  end
-
   # get all previous visits in the schengen zone only
   def previous_schengen_visits
     previous_visits.select(&:schengen?)
-  end
-
-  # get the next visit
-  def next_visit
-    post_visits.first
   end
 
   # get previous visits in the last 180 days
@@ -74,7 +57,6 @@ class Visit < ActiveRecord::Base
     schengen_visa.nil? == false
   end
 
-  
   # get number of entries allowed on current visa
   def visa_entries_allowed
     visa = schengen_visa
@@ -96,6 +78,41 @@ class Visit < ActiveRecord::Base
     return Visit.none unless visa_exists?
     visa = schengen_visa
     previous_visits.select { |v| v.schengen_visa == visa }
+  end
+
+ # number of days overstay if visa dates have been overstayed
+  def visa_date_overstay_days
+    return nil unless exit_date
+    return 0 unless visa_date_overstay?
+    visa = schengen_visa
+    return no_days unless visa
+    exit_date <= visa.end_date ? 0 : exit_date - visa.end_date
+  end
+  # check if visa has been overstayed by number of entry limit
+  def visa_entry_overstay?
+    return false unless person.visa_required? && schengen?
+    return true unless visa_exists?
+    visa = schengen_visa
+    visa.no_entries != 0 && visa_entry_count > visa.no_entries
+  end
+
+  # number of visits on current visa
+  def visa_entry_count
+    p = previous_visits_on_current_visa << self
+    return nil unless p
+    cnt = 0
+    prev_visit = nil
+    p.each do |v|
+      if v.schengen?
+        if prev_visit.nil? == false && prev_visit.schengen?
+          cnt += 1 if v.entry_date - prev_visit.exit_date > 1
+        else
+          cnt += 1
+        end
+      end
+      prev_visit = v
+    end
+    cnt
   end
 
  # Scopes

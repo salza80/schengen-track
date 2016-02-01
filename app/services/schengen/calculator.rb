@@ -1,31 +1,27 @@
 require 'delegate'
 
 module Schengen
+  # calculates schengen days and continious days in schengen area
   class Calculator
 
+    attr_reader :visits
     def initialize(person)
       @person = person
-      @visits = @person.visits.to_a.collect {|v| SchengenDecorator.new(v) }
+      @visits = @person.visits.to_a.collect { |v| SchengenDecorator.new(v) }
       calculate
     end
 
     def calculate
       return unless @person
       return if @visits.empty?
+      no_days_continuous_in_schengen
       if @person.nationality.visa_required == 'F'
         zero_schengen
+      elsif @person.nationality.old_schengen_calc
+        calculate_schengen_days_old
       else
-        no_days_continuous_in_schengen
-        if @person.nationality.old_schengen_calc
-          calculate_schengen_days_old
-        else
-          calculate_schengen_days_new
-        end
+        calculate_schengen_days_new
       end
-    end
-
-    def visits
-      @visits
     end
 
     def find_visit(id)
@@ -39,7 +35,7 @@ module Schengen
 
     # schengen not applicable
     def zero_schengen
-      @visits.each do |v| 
+      @visits.each do |v|
         v.schengen_days = 0
       end
     end
@@ -79,17 +75,14 @@ module Schengen
       prev_overstay_schengen_days = 0
       
       @visits.each do |v|
-        if prev_overstay_exit_date && (prev_overstay_exit_date + 180.days) >= v.entry_date
+        if prev_overstay_exit_date &&
+           (prev_overstay_exit_date + 180.days) >= v.entry_date
           if v.schengen?
             v.schengen_days = prev_overstay_schengen_days + v.no_days
             v.schengen_days -= 1 if v.entry_date == prev_overstay_exit_date
           else
             v.schengen_days = prev_overstay_schengen_days
           end
-        # elsif v.exit_date.nil? == false
-        #   if v.no_days > 180 && v.schengen?
-        #     v.schengen_days = v.no_days - 90
-        #   end
         else
           prev_overstay_exit_date = nil
           prev_overstay_schengen_days = 0
@@ -113,10 +106,10 @@ module Schengen
       schen_day_count = 0
       prev_exit_date = nil
       (previous_visits << visit).each do |v|
-        next if v.exit_date<= begin_date
+        next if v.exit_date <= begin_date
         if v.schengen? && v.exit_date <= visit.exit_date
           if v.entry_date < begin_date && v.exit_date >= begin_date
-            schen_day_count += (v.exit_date - begin_date ).to_i + 1
+            schen_day_count += (v.exit_date - begin_date).to_i + 1
           else
             schen_day_count += v.no_days
           end
@@ -129,7 +122,6 @@ module Schengen
 
       #calculate how many days continuious in schengen zone
     def no_days_continuous_in_schengen
-
       no_days_cnt = 0
       prev_exit_date = nil
       @visits.each do |v|

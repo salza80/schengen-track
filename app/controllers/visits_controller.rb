@@ -8,9 +8,7 @@ class VisitsController < ApplicationController
   def index
     calc = Schengen::Calculator.new(current_person)
     @visits = calc.visits
-    @visits[0].schengen_days
     @visas = current_person.visas.all if current_person.visa_required?
-    
     @visits.each do |visit|
       if visit.country && !visit.country.affiliate_booking_html.nil?
         @advertise_country = visit.country

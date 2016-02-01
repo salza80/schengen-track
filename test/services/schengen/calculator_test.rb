@@ -7,7 +7,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'test shengen days count' do
     person = people(:Test1)
     as =  Schengen::Calculator.new(person)
-    as.calculate()
     a =as.find_visit(visits(:testvisit1).id)
 
     assert_equal 60, a.schengen_days
@@ -36,7 +35,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'no_days_continuous in schengen' do
     person = people(:Test1)
     as =  Schengen::Calculator.new(person)
-    as.calculate
     a = as.find_visit(visits(:testvisit1).id)
     assert_equal 60, a.no_days_continuous_in_schengen
     a = as.find_visit(visits(:testvisit2).id)
@@ -53,7 +51,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'test schengen_days count single visit' do
     person = people(:Test2)
     as =  Schengen::Calculator.new(person)
-    as.calculate()
     a = as.visits[0] 
     assert_equal 10, a.schengen_days
   end
@@ -61,7 +58,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'schengen_days remaining' do
     person = people(:Test1)
     as =  Schengen::Calculator.new(person)
-    as.calculate()
     a = as.find_visit(visits(:testvisit1).id)
     assert_equal 30, a.schengen_days_remaining
   end
@@ -69,13 +65,11 @@ class VisitTest < ActiveSupport::TestCase
   test 'schengen_overstay test' do
     person = people(:Sally)
     as =  Schengen::Calculator.new(person)
-    as.calculate()
     a = as.find_visit(visits(:one).id)
     assert_not a.schengen_overstay?
 
     person = people(:Test1)
     as =  Schengen::Calculator.new(person)
-    as.calculate()
     a = as.find_visit(visits(:testvisit4).id)
     assert a.schengen_overstay?
   end
@@ -83,7 +77,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'test shengen days old calculation count' do
     person = people(:OldCalcTest)
     as =  Schengen::Calculator.new(person)
-    as.calculate()
     a = as.find_visit(visits(:oldcalc1).id)
     assert_equal 1, a.schengen_days
 
@@ -112,7 +105,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'test shengen days when user is from schengen country' do
     person = people(:OldCalcTest)
     as = Schengen::Calculator.new(person)
-    as.calculate
     a = as.find_visit(visits(:oldcalc1).id)
     assert_equal 1, a.schengen_days
 
@@ -121,7 +113,6 @@ class VisitTest < ActiveSupport::TestCase
 
     person = people(:EUPerson)
     as = Schengen::Calculator.new(person)
-    as.calculate
     a = as.find_visit(visits(:testeu1).id)
     assert_equal 0, a.schengen_days
   end
@@ -129,7 +120,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'test single entry' do
     person = people(:VisaRequiredPerson)
     as = Schengen::Calculator.new(person)
-    as.calculate
 
     a = as.find_visit(visits(:visaSingleEntry1).id)
     assert_equal 30, a.schengen_days
@@ -146,7 +136,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'test two entry schengen visa' do
     person = people(:VisaRequiredPerson)
     as = Schengen::Calculator.new(person)
-    as.calculate
     
     a = as.find_visit(visits(:visaTwoEntry1).id)
     assert_equal 30, a.schengen_days
@@ -190,7 +179,6 @@ class VisitTest < ActiveSupport::TestCase
     
     person = people(:BigVisits)
     as = Schengen::Calculator.new(person)
-    as.calculate
 
     a = as.find_visit(visits(:bigvisit1).id)
     assert_equal 367, a.schengen_days
@@ -216,7 +204,6 @@ class VisitTest < ActiveSupport::TestCase
   test 'no visa visit' do
     person = people(:VisaRequiredPerson)
     as = Schengen::Calculator.new(person)
-    as.calculate
 
     a = as.find_visit(visits(:noVisaVisit1).id)
     assert_equal true, a.visa_required?

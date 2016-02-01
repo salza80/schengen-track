@@ -6,7 +6,9 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    @visits = Schengen::Calculator.new(current_person).visits
+    calc = Schengen::Calculator.new(current_person)
+    @visits = calc.visits
+    @visits[0].schengen_days
     @visas = current_person.visas.all if current_person.visa_required?
     
     @visits.each do |visit|

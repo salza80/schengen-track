@@ -3,14 +3,11 @@ require 'delegate'
 module Schengen
   class Calculator
 
-    attr_accessor :visits
-
     def initialize(person)
       @person = person
       @visits = @person.visits.to_a.collect {|v| v =  SchengenDecorator.new(v) }
+      calculate
     end
-
- 
 
     def calculate
       return unless @person
@@ -24,6 +21,10 @@ module Schengen
       end
     end
 
+    def visits
+      @visits
+    end
+
     def find_visit(id)
       @visits.each do |visit|
         return visit if visit.id == id
@@ -32,8 +33,6 @@ module Schengen
     end
 
     private
-
-    
 
     def zero_schengen
       @visits.each do |v| 
@@ -149,6 +148,8 @@ module Schengen
     end
 
   class SchengenDecorator < SimpleDelegator
+
+    attr_accessor :schengen_days
 
     def visit_check?
       if visa_required?

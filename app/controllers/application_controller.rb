@@ -12,13 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def amazon
-    visits = current_person.visits.find_by_date(Date.today, Date.new(3000, 1, 1))
+    visits = current_person.visits.find_by_date(Date.today + 1.month, Date.new(3000, 1, 1))
     search = ''
-    unless visits.nil?
-      visits.each do |visit|
-        search += visit.country.name + ' '
-      end
+    unless visits.empty?
+      search = visits.first.country.name +  ' '
     end
+
     search += 'europe'
     s = Aws::BookQuery.new(current_person.nationality.country_code)
     s.query(search)

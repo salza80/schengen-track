@@ -30,3 +30,9 @@ BigVisits:
   last_name: Visits
   nationality: Australia
   user: Sally
+EUPerson:
+  first_name: From
+  last_name: EU
+  nationality: Germany
+  user: Sally
+

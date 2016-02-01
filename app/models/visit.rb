@@ -136,10 +136,4 @@ class Visit < ActiveRecord::Base
     return unless date_overlap?
     errors.add(:base, 'the entry and exit dates should not overlap with an existing travel dates.')
   end
-
-  def update_visits
-    return if no_schengen_callback
-    calc = SchengenCalculator.new(person, self)
-    calc.calculate_schengen
-  end
 end

@@ -4,8 +4,6 @@ class Person < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   has_many :visas, dependent: :destroy
   validates :first_name, :last_name, :nationality, presence: true
-  after_save :update_visits
-  after_update :update_visits
   def full_name
     [first_name, last_name].join(' ').strip
   end
@@ -18,13 +16,5 @@ class Person < ActiveRecord::Base
 
   def visa_required?
     nationality.visa_required == 'V'
-  end
- 
-
-  private
-
-  def update_visits
-    calc = SchengenCalculator.new(self)
-    calc.calculate_schengen
   end
 end

@@ -44,6 +44,13 @@ html {
   background-color: $footer-background;
 }
 
+.facebook-buttons {
+  > div{
+    margin-left: 4px;
+    display: inline-block;
+  }
+}
+
 body {
   padding-top: 120px;
   margin-bottom: 60px;

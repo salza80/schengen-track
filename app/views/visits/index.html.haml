@@ -33,7 +33,11 @@
     = render 'registerPrompt'
 .row
   .col-md-12.text-center
-    .fb-like.visible-xs-block{"data-action" => "like", "data-href" => "http://www.schengen-calculator.com", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "false"}
+    .facebook-buttons
+      .lke
+        .fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
+      .share
+        .fb-share-button.visible-xs-block{ "data-href": "http://www.schengen-calculator.com", "data-layout": "button" }
 / .ad-block
 /   %a{ :href => "https://www.shopify.com/?ref=sally-mclean-it-consulting" }
 /     = image_tag "shopify_banner.jpg", { border: 0, class: "img-responsive" }

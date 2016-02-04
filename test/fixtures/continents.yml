@@ -11,5 +11,5 @@ Asia:
   name: Asia
   continent_code: AS
 NorthAmerica:
-  Name: North America
+  name: North America
   continent_code: NA

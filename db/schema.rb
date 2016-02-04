@@ -86,11 +86,11 @@ ActiveRecord::Schema.define(version: 20160113185041) do
   create_table "visits", force: :cascade do |t|
     t.date     "entry_date"
     t.date     "exit_date"
-    t.integer  "schengen_days"
     t.integer  "country_id"
     t.integer  "person_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "schengen_days"
   end
 
   add_index "visits", ["country_id"], name: "index_visits_on_country_id"

@@ -16,8 +16,8 @@ namespace :db do
     ActiveRecord::Base.transaction do
       begin
         
-        # delete all guest users over 1 month old
-        todeletall = User.includes(:people).where("updated_at <= :onemonth AND guest=:istrue", { onemonth: Time.now - 1.day, istrue: true }).entries 
+        # delete all guest users over 2 months old
+        todeletall = User.includes(:people).where("updated_at <= :onemonth AND guest=:istrue", { onemonth: Time.now - 2.months, istrue: true }).entries 
 
         # only delete if containts no visit
         todeletall.each do |u|
@@ -27,8 +27,8 @@ namespace :db do
         end
 
 
-        # delete all guest users over 2 days old and without visits
-        todeletesome = User.includes(:people => :visits ).where("updated_at <= :twodays AND guest=:istrue", { twodays: Time.now - 2.days, istrue: true })
+        # delete all guest users over 2 weeks old and without visits
+        todeletesome = User.includes(:people => :visits ).where("updated_at <= :twodays AND guest=:istrue", { twodays: Time.now - 2.weeks, istrue: true })
 
         #only delete if containts no visits
         todeletesome.each do |u|
@@ -45,12 +45,11 @@ namespace :db do
             u.destroy!
           end
         end
-        raise ActiveRecord::Rollback
+        # raise ActiveRecord::Rollback
       rescue => e
         Rails.logger.warn 'An error occured in guest cleanup ' + e.message
         puts 'an error occured!'
         puts e.message
-
       end
     end
     

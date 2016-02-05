@@ -19,13 +19,11 @@ namespace :db do
         # delete all guest users over 2 months old
         todeletall = User.includes(:people).where("updated_at <= :onemonth AND guest=:istrue", { onemonth: Time.now - 2.months, istrue: true }).entries 
 
-        # only delete if containts no visit
         todeletall.each do |u|
-          Rails.logger.info 'deleting user ' + u.id.to_s + ' ' + u.people.first.first_name + ' ' + u.people.first.last_name
-          puts 'deleting user ' + u.id.to_s + ' ' + u.people.first.first_name + ' ' + u.people.first.last_name 
+          Rails.logger.info 'deleting user ' + u.id.to_s
+          puts 'deleting user ' + u.id.to_s
           u.destroy!
         end
-
 
         # delete all guest users over 2 weeks old and without visits
         todeletesome = User.includes(:people => :visits ).where("updated_at <= :twodays AND guest=:istrue", { twodays: Time.now - 2.weeks, istrue: true })
@@ -36,12 +34,11 @@ namespace :db do
           u.people.each do |p|
             if p.visits.count > 0
               del = false
-              Rails.logger.info 'Do not delete user #{u.id} - #{u.people.first.first_name} #{u.people.first.last_name} with #{p.visits.count} visits recorded'
             end
           end
           if del
-            Rails.logger.info 'deleting user ' + u.id.to_s + ' ' + u.people.first.first_name + ' ' + u.people.first.last_name
-            puts 'deleting user ' + u.id.to_s + ' ' + u.people.first.first_name + ' ' + u.people.first.last_name
+            Rails.logger.info 'deleting user ' + u.id.to_s
+            puts 'deleting user ' + u.id.to_s
             u.destroy!
           end
         end

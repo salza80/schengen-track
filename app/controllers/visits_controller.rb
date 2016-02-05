@@ -6,9 +6,9 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    @visits = current_person.visits.all
+    calc = Schengen::Calculator.new(current_person)
+    @visits = calc.visits
     @visas = current_person.visas.all if current_person.visa_required?
-    
     @visits.each do |visit|
       if visit.country && !visit.country.affiliate_booking_html.nil?
         @advertise_country = visit.country
@@ -23,7 +23,6 @@ class VisitsController < ApplicationController
   # GET /visits/new
   def new
     @visit = Visit.with_default(current_person)
-
   end
 
   # GET /visits/1/edit

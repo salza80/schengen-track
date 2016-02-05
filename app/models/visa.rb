@@ -4,9 +4,6 @@ class Visa < ActiveRecord::Base
   validates :visa_type, inclusion: { in: %w(R S), message: "%{value} is not a valid visa type" }
   validate :start_date_must_be_less_than_end
   validate :dates_must_not_overlap
-  after_save :update_visits
-  after_update :update_visits
-  after_destroy :update_visits
   default_scope { order('start_date ASC, end_date ASC') }
   scope :schengen, -> { where(visa_type: 'S') }
   scope :residence, -> { where(visa_type: 'R') }
@@ -57,11 +54,6 @@ class Visa < ActiveRecord::Base
   def start_date_must_be_less_than_end
     return if end_date.nil? || start_date.nil?
     errors.add(:start_date, 'should be earlier than the end date') if end_date < start_date
-  end
-
-  def update_visits
-    calc = SchengenCalculator.new(person)
-    calc.calculate_schengen
   end
 end
 

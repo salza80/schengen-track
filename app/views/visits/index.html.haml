@@ -1,9 +1,5 @@
 / -if @advertise_country
 /   = raw @advertise_country.affiliate_booking_html
-.row
-  .col-md-12.text-center
-    .ad-block
-      %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
 %h1 Travel Record
 -if @visits.count > 0
   = render 'visitlist'
@@ -22,6 +18,9 @@
     \.
 %br
 = link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
+.row
+  .col-lg-10.col-md-12
+    %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
 %br
 -if current_person.visa_required?
   %h2 Schengen Visa List

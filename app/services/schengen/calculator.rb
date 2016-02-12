@@ -14,7 +14,7 @@ module Schengen
     def calculate
       return unless @person
       return if @visits.empty?
-      no_days_continuous_in_schengen
+      calc_no_days_continuous_in_schengen
       if @person.nationality.visa_required == 'F'
         zero_schengen
       elsif @person.nationality.old_schengen_calc
@@ -120,23 +120,49 @@ module Schengen
       visit.schengen_days = schen_day_count
     end
 
-      #calculate how many days continuious in schengen zone
-    def no_days_continuous_in_schengen
-      no_days_cnt = 0
-      prev_exit_date = nil
+    # # calculate how many days continuious in schengen zone
+    # def calc_no_days_continuous_in_schengen
+    #   no_days_cnt = 0
+    #   prev_exit_date = nil
+    #   @visits.each do |v|
+    #     if v.schengen? == false
+    #       no_days_cnt = 0
+    #     elsif  (v.entry_date - 1.day) == prev_exit_date || prev_exit_date.nil?
+    #       no_days_cnt += v.no_days
+    #     elsif  prev_exit_date == v.entry_date
+    #       no_days_cnt += v.no_days - 1
+    #     else
+    #       no_days_cnt = v.no_days
+    #     end
+    #     v.no_days_continuous_in_schengen = no_days_cnt
+    #     prev_exit_date = v.exit_date if v.schengen?
+    #   end
+    # end
+
+     # calculate how many days continuious in schengen zone
+    def calc_no_days_continuous_in_schengen
+      prev_entry = nil
+      prev_visit = nil
       @visits.each do |v|
         if v.schengen? == false
-          no_days_cnt = 0
-        elsif  (v.entry_date - 1.day) == prev_exit_date || prev_exit_date.nil?
-          no_days_cnt += v.no_days
-        elsif  prev_exit_date == v.entry_date
-          no_days_cnt += v.no_days - 1
+          v.no_days_continuous_in_schengen = 0
+          prev_entry = nil
+        elsif prev_entry.nil?
+          v.no_days_continuous_in_schengen = v.no_days
+          prev_entry = v
+        elsif v.entry_date - prev_visit.exit_date >= 1
+          v.no_days_continuous_in_schengen = v.no_days
+          prev_entry = v
         else
-          no_days_cnt = v.no_days
+          v.no_days_continuous_in_schengen = calc_num_days(prev_entry.entry_date, v.exit_date)
         end
-        v.no_days_continuous_in_schengen = no_days_cnt
-        prev_exit_date = v.exit_date if v.schengen?
+        prev_visit = v if v.schengen?
       end
+    end
+
+    def calc_num_days(start_date, end_date)
+      0 if start_date.nil? || end_date.nil?
+      (end_date - start_date).to_i + 1
     end
   end
 end

@@ -1,9 +1,8 @@
 / -if @advertise_country
 /   = raw @advertise_country.affiliate_booking_html
 %h1 Travel Record
--if @visits.count > 0
-  = render 'visitlist'
--else
+= render 'visitlist'
+-if @visits.count ==0
   %p
     Start using the Schengen Calculator by adding your previous and up comming travel plans. 
   %p

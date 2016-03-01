@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.people.first.copy_from(@guest_user.people.first)
     if @user.save    
       sign_up('user', @user)
-      redirect_to root_path
+      redirect_to visits_path
     else
       render :new
     end

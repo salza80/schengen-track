@@ -2,27 +2,27 @@
   .container-fluid
     .row
       .col-md-12
-      .navbar-header
-        / %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
-        /   %span.sr-only Toggle navigation
-        /   %span.icon-bar
-        /   %span.icon-bar
-        /   %span.icon-bar
-        %a.navbar-brand{:href => "#"} 
-          = image_tag("logo.svg", alt: "Schengen Visa Calculator", class: "pull-left")
-        %span.navbar-text.site-title
-          Schengen Visa Calculator
-        .navbar-text.facebook-buttons
-          .fb-like.hidden-xs{class: "pull-right", "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
-          .fb-share-button.hidden-xs{ class: "pull-right", "data-href": "http://www.schengen-calculator.com", "data-layout": "button" }
-      .navbar.navbar-right
-        %ul.nav.nav-pills
+        .navbar-header
+          / %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+          /   %span.sr-only Toggle navigation
+          /   %span.icon-bar
+          /   %span.icon-bar
+          /   %span.icon-bar
+          %a.navbar-brand{:href => "#"} 
+            = image_tag("logo.svg", alt: "Schengen Visa Calculator", class: "pull-left")
+          %span.navbar-text.site-title
+            Schengen 
+            %span.hidden-xs 
+              Visa 
+            Calculator
+          .navbar-text.facebook-buttons
+            .fb-like.hidden-xs{class: "pull-right", "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
+            .fb-share-button.hidden-xs{ class: "pull-right", "data-href": "http://www.schengen-calculator.com", "data-layout": "button" }
+        .navbar.navbar-right
           - if user_signed_in?
-            %li
-              = link_to 'Log out', destroy_user_session_path,  method: :delete,  class: 'navbar-link log-in-link'
+            = link_to 'Log out', destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
           - else 
-            %li
-              = link_to 'Login', new_user_session_path, class: 'navbar-link log-in-link'
+            = link_to 'Login', new_user_session_path, class: 'btn btn-primary log-in-link'
     .row
       .col-md-12
         #navbar.navbar-left

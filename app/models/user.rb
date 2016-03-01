@@ -39,11 +39,10 @@ class User < ActiveRecord::Base
         user.email = data['email'] if user.email.blank?
         p.first_name = data['first_name'] if p.first_name.blank?
         p.last_name = data['last_name'] if p.last_name.blank?
-        p.last_name = data['last_name'] if p.last_name.blank?
         #location must requested from facebook, and they must review the app. Implement later.
         # puts session['devise.facebook_data']
         # puts session['devise.facebook_data']['extra']['raw_info']
-        #p.last_name = Geocoder.search(data['location'].first.country
+        #p.nationality = Geocoder.search(data['location'].first.country
       end
     end
   end

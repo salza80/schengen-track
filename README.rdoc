@@ -1,7 +1,7 @@
 == README
 
 = Personal Project
-
+Live site can be found here: http://www.schengen-calculator.com
 
 
 == System Dependencies

@@ -39,6 +39,3 @@ namespace :db do
     f.close
   end
 end
-
-
-

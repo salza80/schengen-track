@@ -1,7 +1,11 @@
 .row
   .col-sm-12
+    %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4817228212", :style => "display:block"}
+.row
+  .col-sm-12
     %h3
       Recommended Travel Books
+.row
   .col-sm-12.amazon
     - if amazon
       - amazon.items.each do |item|
@@ -13,3 +17,5 @@
               = item.title
             .a-area
               = item.price
+:javascript
+  (adsbygoogle = window.adsbygoogle || []).push({});

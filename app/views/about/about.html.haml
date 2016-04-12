@@ -1,10 +1,10 @@
 
 - if @country.nil? == false
   - title " for " +  @country.nationality_plural 
-.row
-  .col-sm-10
-    / Schengen
-    %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "7291202216", :style => "display:block"}
+/ .row
+/   .col-sm-10
+/     / Schengen
+/     %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "7291202216", :style => "display:block"}
 .row
   .col-md-3{:role => "complementary"}
     %nav.about-sidebar.hidden-print.hidden-xs.hidden-sm{:data => {"spy": "affix", "offset-top": "10", "offset-bottom": "50"}}
@@ -58,6 +58,8 @@
         It is especially useful for planning travel in Europe that will likely exceed 90 days. By travelling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are travelling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countires are in the Schengen Area, and to calculate when you are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
       .text-center
         = link_to 'Get Started Now', visits_path, class: "btn btn-primary"
+      .ad-block
+        %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "7291202216", :style => "display:block"}
       %h2{:id => "what"}
         What is the Schengen Area
       %p
@@ -85,8 +87,8 @@
         Length of Stay Calculation
       %p
         The calculation for calculating the allowed length of stay of third party nationals was revised and came into effect on the 18th October 2013. There are however a few which must still use the old calculation, these are Antigua and Barbuda, The Bahamas, Barbados, Brazil, Saint Kitts and Nevis, Mauritius, and Seychelles. This Schengen calculator uses the old or new calculation depending on your nationality and date of travel, so nationals of these countries may still use the calculator.
-      .ad-block
-        %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "8767935410", :style => "display:block"}
+      / .ad-block
+      /   %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "8767935410", :style => "display:block"}
       %h4{:id => "new"}
         New definition as of 2013
       %p

@@ -1,0 +1,18 @@
+.row
+  .col-sm-12
+    %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4817228212", :style => "display:block"}
+.row
+  .col-sm-12
+    %h3
+      =link_to "Agoda", "http://www.agoda.com?cid=1750660_60248", target: "_blank", rel:"nofollow"
+      is the most convienent way to book accomodation, and always the best prices!
+      
+.row
+  .col-sm-12.amazon
+    :javascript
+      agoda_ad_client = "1750660_60248";
+      agoda_ad_width = 300;
+      agoda_ad_height = 600;
+    %script{:src => "//banner.agoda.com/js/show_ads.js", :type => "text/javascript"}
+:javascript
+  (adsbygoogle = window.adsbygoogle || []).push({});

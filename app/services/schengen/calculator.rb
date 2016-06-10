@@ -52,12 +52,13 @@ module Schengen
             end_date = start_date + 180.days
             schengen_days_count = v.no_days
           elsif v.entry_date <= end_date && v.exit_date > end_date
-            schengen_days_count += end_date - v.entry_date
+            schengen_days_count += (end_date - v.entry_date).to_i
             if schengen_days_count <= 90
               start_date = end_date + 1
               end_date = start_date + 180.days
-              schengen_days_count = v.exit_date - start_date
+              schengen_days_count = (v.exit_date - start_date).to_i
             end
+            puts schengen_days_count
           else
             schengen_days_count += v.no_days
           end
@@ -102,7 +103,7 @@ module Schengen
         return
       end
       previous_visits = visit.previous_180_days_visits.sort_by(&:entry_date)
-      begin_date = visit.exit_date - 179.days
+      begin_date = (visit.exit_date - 179.days)
       schen_day_count = 0
       prev_exit_date = nil
       (previous_visits << visit).each do |v|

@@ -31,6 +31,7 @@ module Schengen
         begin_date = @visits.first.entry_date
         end_date = @visits.last.exit_date + 180.days
         schengen_days_in_last_180 = 0
+        count_180_day = 0
         v = 0
         # return if end_date - begin_date > 500
         i = 0
@@ -49,12 +50,22 @@ module Schengen
             end
           end
           @calculated_days[sd.the_date]=sd
-          schengen_days_in_last_180=calc_schengen_day_count(sd,i,schengen_days_in_last_180)
+
+          if @person.nationality.visa_required == 'F'
+            puts "none"
+          elsif @person.nationality.old_schengen_calc
+            schengen_days_in_last_180, count_180_day = calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
+            # puts sd.the_date.to_s + "   " + sd.schengen_days_count.to_s + "   of   " + count_180_day.to_s
+          else
+            schengen_days_in_last_180=calc_schengen_day_new_count(sd,i,schengen_days_in_last_180)
+          end
+
+
           i+=1
         end
       end
 
-      def calc_schengen_day_count(sd,i,schengen_days_in_last_180)
+       def calc_schengen_day_new_count(sd,i,schengen_days_in_last_180)
           schengen_days_in_last_180 += sd.schengen_day_int
           if i >= 179
             schengen_days_in_last_180 -= calculated_days[i-179].schengen_day_int
@@ -62,6 +73,25 @@ module Schengen
           sd.schengen_days_count = schengen_days_in_last_180
           schengen_days_in_last_180
       end
+
+      def calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
+          if (count_180_day > 0 || sd.is_schengen?)
+            count_180_day +=1
+          end
+          if count_180_day > 180
+            if sd.is_schengen?
+              schengen_days_in_last_180 += sd.schengen_day_int
+            else
+              count_180_day = 0
+              schengen_days_in_last_180 = sd.schengen_day_int
+            end
+          else
+            schengen_days_in_last_180 += sd.schengen_day_int
+          end
+          sd.schengen_days_count = schengen_days_in_last_180
+          [schengen_days_in_last_180,count_180_day]
+      end
+
 
       def total_schengen_days
         calculated_days.reduce(0){|sum,sd| sum += sd.schengen_day_int   }
@@ -103,12 +133,12 @@ module Schengen
 
         end
 
-        def schengen_day?
+        def is_schengen?
           (entered_country && entered_country.schengen?) || (stayed_country && stayed_country.schengen?) || (exited_country && exited_country.schengen?)
         end
 
         def schengen_day_int 
-          schengen_day? ? 1 : 0
+          is_schengen? ? 1 : 0
         end
 
         def overstay?

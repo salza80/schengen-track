@@ -25,16 +25,20 @@ class CalculatorTest < ActiveSupport::TestCase
 
     assert_equal 0, as.calculated_days.last.schengen_days_count
 
-    # assert_equal 60, a.schengen_days
-
-    # a = as.find_visit(visits(:testvisit2).id)
-    # assert_equal 60, a.schengen_days
-
-    # a = as.find_visit(visits(:testvisit3).id)
-    # assert_equal 90, a.schengen_days
-    # assert_equal 0, a.schengen_overstay_days
-    # a = as.find_visit(visits(:testvisit4).id)
-    # assert_equal 92, a.schengen_days
     
   end
+
+
+   test 'test shengen days old calculation day count' do
+    person = people(:OldCalcTest)
+    as =  Schengen::Days::Calculator.new(person)
+   
+    assert_equal 1, as.calculated_days.first.schengen_days_count
+
+    assert_equal 30,  as.find_by_date(Date.new(2014,4,29)).schengen_days_count
+    assert_equal 30,  as.find_by_date(Date.new(2014,5,5)).schengen_days_count
+    assert_equal 85,  as.find_by_date(Date.new(2014,10,19)).schengen_days_count
+    assert_equal 1,  as.find_by_date(Date.new(2015,1,8)).schengen_days_count
+  end
+
 end

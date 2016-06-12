@@ -82,23 +82,21 @@ module Schengen
 
       def calc_schengen_day_new_count(sd,i)
         return sd.schengen_day_int if i == 0
-        prev_count = calculated_days[i-1].schengen_days_count
-        prev_cont_count = calculated_days[i-1].continuous_days_count
-        count = prev_count + sd.schengen_day_int
-        sd.continuous_days_count
-        if i >= 179 
-          if prev_count <= 90
-            count -= calculated_days[i-179].schengen_day_int
+        prev_sd =  calculated_days[i-1]
+        count = prev_sd.schengen_days_count + sd.schengen_day_int
+        return count unless i >=179
+        if !prev_sd.overstay?
+          count -= calculated_days[i-179].schengen_day_int
+        else
+          if sd.schengen?
+            sd.overstay_waiting = 0
           else
-            if !sd.schengen?
-              count =count  - calculated_days[i-179].schengen_day_int
-              # if prev_count <180
-              #   count -= calculated_days[i-(179 + 90)].schengen_day_int
-              # else
-              #   count -= calculated_days[i-(prev_count + 90)].schengen_day_int
-              # end
-              # # count -= calculated_days[i-179].schengen_day_int
-            end
+            sd.overstay_waiting = prev_sd.overstay_waiting + 1
+          end
+
+          if sd.overstay_waiting == 180
+            count=0
+            sd.overstay_waiting=0
           end
         end
         count
@@ -140,15 +138,16 @@ module Schengen
     end
 
     class SchengenDay
-        attr_accessor :the_date, :entered_country, :stayed_country, :exited_country ,  :schengen_days_count, :continuous_days_count, :notes
+        attr_accessor :the_date, :entered_country, :stayed_country, :exited_country,  :schengen_days_count, :continuous_days_count, :overstay_waiting , :notes
 
         def initialize(date)
           @the_date = date
+          @overstay_waiting=0;
 
         end
 
         def overstay?
-
+          schengen_days_count > 90
         end
 
         def schengen?

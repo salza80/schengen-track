@@ -5,7 +5,7 @@ module Schengen
   class Calculator
 
     attr_reader :visits
-    def initialize(person, method="calc")
+    def initialize(person, method="days")
       @person = person
       @visits = @person.visits.to_a.collect { |v| SchengenDecorator.new(v) }
       if method=="calc"
@@ -46,7 +46,7 @@ module Schengen
       end
     end
 
-     def calculate_by_days
+    def calculate_by_days
       return unless @person
       return if @visits.empty?
        if @person.nationality.visa_required == 'F'

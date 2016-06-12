@@ -194,4 +194,20 @@ testeu1:
   country: Germany
   person: EUPerson
 
+mini1:
+  entry_date:  2015-01-1
+  exit_date: 2015-01-5
+  country: Germany
+  person: MiniTest
+mini2:
+  entry_date:  2015-01-5
+  exit_date: 2015-01-5
+  country: Germany
+  person: MiniTest
+mini3:
+  entry_date:  2015-01-5
+  exit_date: 2015-01-6
+  country: Germany
+  person: MiniTest
+
 

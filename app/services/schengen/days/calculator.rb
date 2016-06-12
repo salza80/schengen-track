@@ -9,7 +9,6 @@ module Schengen
         @visits = @person.visits.to_a
         @calculated_days={}
         generate_days
-        # calc_schengen_days
       end
 
       def find_visit(id)
@@ -20,7 +19,13 @@ module Schengen
       end
 
       def find_by_date(date)
-        @calculated_days[date]
+       a = @calculated_days[date]
+      if a
+        return a
+      else
+        puts @calculated_days.inspect
+        puts date
+      end
       end
 
       def total_schengen_days
@@ -31,20 +36,31 @@ module Schengen
         @calculated_days.values
       end
 
+      def too_many_days?
+        end_date - begin_date > 3000
+      end
+
       private
+
+      def begin_date
+        @visits.first.entry_date
+      end
+
+      def end_date
+        @visits.last.exit_date + 180.days
+      end
+
+
 
       def generate_days
         return unless @person
         @calculated_days = {}
         return if @visits.empty?
-
-        begin_date = @visits.first.entry_date
-        end_date = @visits.last.exit_date + 180.days
-        schengen_days_in_last_180 = 0
+        return if too_many_days?
         count_180_day = 0
+        schengen_days_in_last_180=0
 
-        v = 0
-        # return if end_date - begin_date > 500
+        v = 0    
         i = 0
         begin_date.upto(end_date) do | date |
           visit =  @visits[v]
@@ -66,7 +82,6 @@ module Schengen
             puts "none"
           elsif @person.nationality.old_schengen_calc
             schengen_days_in_last_180, count_180_day = calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
-            # puts sd.the_date.to_s + "   " + sd.schengen_days_count.to_s + "   of   " + count_180_day.to_s
           else
             sd.schengen_days_count=calc_schengen_day_new_count(sd,i)
           end
@@ -144,6 +159,10 @@ module Schengen
           @the_date = date
           @overstay_waiting=0;
 
+        end
+
+        def country_desc
+          stayed_country.name if stayed_country
         end
 
         def overstay?

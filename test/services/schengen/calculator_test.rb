@@ -211,4 +211,17 @@ class CalculatorTest < ActiveSupport::TestCase
     assert_equal 7, a.schengen_days
     assert_equal 0, a.schengen_days_remaining
   end
+
+   test 'enter exit on same day' do
+    person = people(:MiniTest)
+    as = Schengen::Calculator.new(person)
+
+    a = as.find_visit(visits(:mini1).id)
+    assert_equal 5, a.schengen_days
+    a = as.find_visit(visits(:mini2).id)
+    assert_equal 5, a.schengen_days
+    a = as.find_visit(visits(:mini3).id)
+    assert_equal 6, a.schengen_days
+
+  end
 end

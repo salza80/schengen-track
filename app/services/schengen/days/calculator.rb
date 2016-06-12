@@ -7,9 +7,9 @@ module Schengen
       def initialize(person)
         @person = person
         @visits = @person.visits.to_a
-        @calculated_days=[]
+        @calculated_days={}
         generate_days
-        calc_schengen_days
+        # calc_schengen_days
       end
 
       def find_visit(id)
@@ -20,22 +20,26 @@ module Schengen
       end
 
       def find_by_date(date)
-        @calculated_days.each do |day|
-          return day if day.the_date == date
-        end
+        @calculated_days[date]
       end
 
       def generate_days
         return unless @person
-        @calculated_days = []
+        @calculated_days = {}
         return if @visits.empty?
+
         begin_date = @visits.first.entry_date
         end_date = @visits.last.exit_date + 180.days
+        schengen_days_in_last_180 = 0
         v = 0
         # return if end_date - begin_date > 500
+        i = 0
         begin_date.upto(end_date) do | date |
           visit =  @visits[v]
+
           sd = SchengenDay.new(date)
+
+          #set the country/s
           unless visit.nil?
             set_country(sd,visit)
             if date == visit.exit_date
@@ -44,22 +48,19 @@ module Schengen
              set_country(sd, visit)
             end
           end
-          @calculated_days<<sd
+          @calculated_days[sd.the_date]=sd
+          schengen_days_in_last_180=calc_schengen_day_count(sd,i,schengen_days_in_last_180)
+          i+=1
         end
       end
 
-      def calc_schengen_days
-        schengen_days_in_last_180 = 0
-
-        @calculated_days.each_index  do | i |
-          schengen_days_in_last_180 += @calculated_days[i].schengen_day_int
+      def calc_schengen_day_count(sd,i,schengen_days_in_last_180)
+          schengen_days_in_last_180 += sd.schengen_day_int
           if i >= 179
-            schengen_days_in_last_180 -= @calculated_days[i-179].schengen_day_int
+            schengen_days_in_last_180 -= calculated_days[i-179].schengen_day_int
           end
-          @calculated_days[i].schengen_days_count = schengen_days_in_last_180
-
-          # puts @calculated_days[i].the_date.to_s + " " + @calculated_days[i].schengen_days_count.to_s
-        end
+          sd.schengen_days_count = schengen_days_in_last_180
+          schengen_days_in_last_180
       end
 
       def total_schengen_days
@@ -67,7 +68,7 @@ module Schengen
       end
 
       def calculated_days
-        @calculated_days
+        @calculated_days.values
       end
 
 
@@ -108,6 +109,10 @@ module Schengen
 
         def schengen_day_int 
           schengen_day? ? 1 : 0
+        end
+
+        def overstay?
+          schengen_days_count > 90
         end
 
     end

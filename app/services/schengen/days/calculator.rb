@@ -53,7 +53,7 @@ module Schengen
 
         @calculated_days.each_index  do | i |
           schengen_days_in_last_180 += @calculated_days[i].schengen_day_int
-          if i > 179
+          if i >= 179
             schengen_days_in_last_180 -= @calculated_days[i-179].schengen_day_int
           end
           @calculated_days[i].schengen_days_count = schengen_days_in_last_180

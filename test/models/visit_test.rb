@@ -13,10 +13,10 @@ class VisitTest < ActiveSupport::TestCase
     a =  visits(:two)
     assert_equal 6, a.no_days
   end
-  test 'no_days nil if exit date not specified' do
-    a =  visits(:three)
-    assert_equal nil, a.no_days
-  end
+  # test 'no_days nil if exit date not specified' do
+  #   a =  visits(:three)
+  #   assert_equal nil, a.no_days
+  # end
   test 'previous_visits scope' do
     a = visits(:three)
     b = a.previous_visits

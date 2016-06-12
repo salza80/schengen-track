@@ -14,7 +14,7 @@ two:
 
 three:
   entry_date: 2014-03-27
-  exit_date:  
+  exit_date:  2014-03-28
   country: Australia
   person: Sally
 
@@ -26,7 +26,7 @@ testvisit3:
 
 testvisit1:
   entry_date: 2014-01-1
-  exit_date: 2014-03-1 
+  exit_date: 2014-03-1
   country: Germany
   person: Test1
 

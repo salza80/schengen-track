@@ -29,7 +29,7 @@ module Schengen
       end
 
       def total_schengen_days
-        calculated_days.reduce(0){|sum,sd| sum += sd.schengen_day_int   }
+        calculated_days.reduce(0){|sum,sd| sum += sd.schengen_day_int }
       end
 
       def calculated_days
@@ -141,11 +141,11 @@ module Schengen
         return if visit.nil?
         t = true
         if schengen_day.the_date == visit.entry_date
-           schengen_day.entered_country = visit.country if schengen_day.entered_country.nil?
+           schengen_day.entered_country = visit.country if schengen_day.entered_country.nil? || !schengen_day.entered_country.schengen?
            t=false
         end
         if schengen_day.the_date == visit.exit_date
-           schengen_day.exited_country = visit.country if schengen_day.exited_country.nil? || !schengen_day.exited_country.schengen?
+           schengen_day.exited_country = visit.country if schengen_day.exited_country.nil? 
            t=false
         end
         if t && schengen_day.the_date.between?(visit.entry_date, visit.exit_date)
@@ -185,12 +185,15 @@ module Schengen
 
 
 
-        def schengen_days_for_visit
+        def schengen_days_for_visit(v)
+          if v.entry_date == v.exit_date
+            return schengen_days_count
+          end
           return schengen_days_count if !from_non_to_schengen?
           return schengen_days_count - 1
         end
 
-        def continuous_days_for_visit
+        def continuous_days_for_visit(v)
           return continuous_days_count if !from_non_to_schengen?
           0
         end

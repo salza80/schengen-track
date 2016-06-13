@@ -55,8 +55,8 @@ module Schengen
           @day_calc = Schengen::Days::Calculator.new(@person)
           @visits.each do |v|
             last_day = @day_calc.find_by_date(v.exit_date)
-            v.schengen_days = last_day.schengen_days_for_visit
-            v.no_days_continuous_in_schengen = last_day.continuous_days_for_visit
+            v.schengen_days = last_day.schengen_days_for_visit(v)
+            v.no_days_continuous_in_schengen = last_day.continuous_days_for_visit(v)
           end
         end
     end
@@ -126,18 +126,19 @@ module Schengen
       previous_visits = visit.previous_180_days_visits.sort_by(&:entry_date)
       begin_date = (visit.exit_date - 179.days)
       schen_day_count = 0
-      prev_exit_date = nil
+      prev_visit = nil
       (previous_visits << visit).each do |v|
         next if v.exit_date <= begin_date
+        next if v.exit_date == v.entry_date && prev_visit && prev_visit.exit_date==v.entry_date && prev_visit.schengen?
         if v.schengen? && v.exit_date <= visit.exit_date
           if v.entry_date < begin_date && v.exit_date >= begin_date
             schen_day_count += (v.exit_date - begin_date).to_i + 1
           else
             schen_day_count += v.no_days
           end
-          schen_day_count -= 1 if prev_exit_date == v.entry_date
+          schen_day_count -= 1 if prev_visit && prev_visit.exit_date == v.entry_date
         end
-        prev_exit_date = v.exit_date
+        prev_visit = v
       end
       visit.schengen_days = schen_day_count
     end

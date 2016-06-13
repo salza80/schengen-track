@@ -223,5 +223,14 @@ class CalculatorTest < ActiveSupport::TestCase
     a = as.find_visit(visits(:mini3).id)
     assert_equal 6, a.schengen_days
 
+    a = as.find_visit(visits(:mini4).id)
+    assert_equal 6, a.schengen_days
+
+    a = as.find_visit(visits(:mini5).id)
+    assert_equal 7, a.schengen_days
+
+    a = as.find_visit(visits(:mini6).id)
+    assert_equal 7, a.schengen_days
+
   end
 end

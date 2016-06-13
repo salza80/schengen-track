@@ -209,5 +209,20 @@ mini3:
   exit_date: 2015-01-6
   country: Germany
   person: MiniTest
+mini4:
+  entry_date:  2015-01-10
+  exit_date: 2015-01-30
+  country: Australia
+  person: MiniTest
+mini5:
+  entry_date:  2015-01-30
+  exit_date: 2015-01-30
+  country: Germany
+  person: MiniTest
+mini6:
+  entry_date:  2015-01-30
+  exit_date: 2015-02-20
+  country: Australia
+  person: MiniTest
 
 

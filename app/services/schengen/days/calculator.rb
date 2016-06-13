@@ -70,12 +70,14 @@ module Schengen
           #set the country/s
           unless visit.nil?
             set_country(sd,visit)
-            if date == visit.exit_date
-              v +=1
-              visit = @visits[v]
-             set_country(sd, visit)
+            loop do
+              break if visit.nil? || date < visit.exit_date
+                v +=1
+                visit = @visits[v]
+               set_country(sd, visit)
             end
           end
+
           @calculated_days[sd.the_date]=sd
           sd.continuous_days_count = calc_continuous_days_count(sd, i)
           if @person.nationality.visa_required == 'F'
@@ -139,11 +141,11 @@ module Schengen
         return if visit.nil?
         t = true
         if schengen_day.the_date == visit.entry_date
-           schengen_day.entered_country = visit.country 
+           schengen_day.entered_country = visit.country if schengen_day.entered_country.nil?
            t=false
         end
         if schengen_day.the_date == visit.exit_date
-           schengen_day.exited_country = visit.country
+           schengen_day.exited_country = visit.country if schengen_day.exited_country.nil? || !schengen_day.exited_country.schengen?
            t=false
         end
         if t && schengen_day.the_date.between?(visit.entry_date, visit.exit_date)

@@ -186,14 +186,13 @@ module Schengen
 
 
         def schengen_days_for_visit(v)
-          if v.entry_date == v.exit_date
-            return schengen_days_count
-          end
+          return schengen_days_count  if v.entry_date == v.exit_date
           return schengen_days_count if !from_non_to_schengen?
           return schengen_days_count - 1
         end
 
         def continuous_days_for_visit(v)
+          return continuous_days_count  if v.entry_date == v.exit_date
           return continuous_days_count if !from_non_to_schengen?
           0
         end

@@ -1,0 +1,21 @@
+%h1 Schengen Days Calculation by Days
+
+%table.table
+  %thead
+    %tr.table-top-header
+      %th{ scope: "col" } Date
+      %th{ scope: "col" } Country 
+      %th{ scope: "col" } 
+        Schengen
+        %br Area
+      %tr
+        Schengen Days
+        %br Calculation
+  %tbody
+    - @days.each do |day|
+      %tr
+        %th{ scope: "row"}
+          %span.no-wrap
+            = day.the_date
+        %th{ scope: "row"}
+          = day.stay_country.name

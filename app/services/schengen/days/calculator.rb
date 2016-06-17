@@ -37,7 +37,7 @@ module Schengen
       end
 
       def too_many_days?
-        end_date - begin_date > 3000
+        end_date - begin_date > 5000
       end
 
       private
@@ -49,13 +49,6 @@ module Schengen
       def end_date
         @visits.last.exit_date + 360.days
       end
-
-      def calc_type
-
-
-      end
-
-
 
       def generate_days
         return unless @person
@@ -170,6 +163,11 @@ module Schengen
 
         end
 
+        def remaining_wait
+          return nil if overstay_waiting == 0
+          179 - overstay_waiting
+        end
+
         def country_desc
           stayed_country.name if stayed_country
         end
@@ -194,6 +192,14 @@ module Schengen
         def overstay?
           # return false unless schengen?
           schengen_days_count > 90
+        end
+
+        def warning?
+          !remaining_wait.nil?
+        end
+
+        def danger?
+          (overstay? && schengen?)
         end
 
         def country_name

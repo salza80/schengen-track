@@ -16,7 +16,10 @@
     = link_to 'About page', about_path
     \.
 %br
+
 = link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
+-if (!(current_person.visa_required? || current_person.nationality.old_schengen_calc) && @visits.count>0)
+  =link_to "View Schengen Days Calculation Details", days_path
 .row
   .col-lg-10.col-md-12
     .ad-block-limit

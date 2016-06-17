@@ -1,39 +1,42 @@
-%h1 Schengen Days Calculation by Days
 
-%table.table
-  %thead
-    %tr.table-top-header
-      %th{scope: "row"} Day
-      %th{ scope: "col" } Date
-      %th{ scope: "col" } Country 
-      %th{ scope: "col" } 
-      %th{ scope: "col" } Schengen?
-      %th{ scope: "col" } Schengen Days
-      %th{ scope: "col"} Overstay Days
-      %th{ scope: "col"} Overstay Waiting Period
-  %tbody
-    - @days.each_with_index do |day, index|
-      %tr{:class=>("danger" if day.overstay?)}
-        %th{ scope: "row"}
-          = index + 1
-        %th{ scope: "row"}
-          %span.no-wrap
-            = day.the_date
-        %th{ scope: "row"}
-          = day.country_name
-        %th{ scope: "row"}
-          -if day.entered_schengen?
-            Entered Schengen Zone
-          -if day.exited_schengen?
-            Exited Schengen Zone
-        %th{ scope: "row"}
-          -if day.schengen?
-            = "Yes"
-          -else
-            ="No"
+%h1 Schengen Days Calculation by Days
+<small>* the Schengen Calculator warns on re-entry for 180 days after an "overstay" of the allowed days. This is not the law!, you need to check with the appropriate authorities if this may affect you. You may be banned from re-entry for years if caught overstaying the schengen tourist visa rules. Please use this as a guide only. </small>
+.responsive-table-container
+  %table.table.responsive-table
+    %thead
+      %tr.table-top-header
+        %th{scope: "row"} Day
+        %th{ scope: "col" } Date
+        %th{ scope: "col" } Country 
+        %th{ scope: "col" } Schengen Area
+        %th{ scope: "col" } Schengen?
+        %th{ scope: "col" } Schengen Days
+        %th{ scope: "col"} Overstay Days
+        %th{ scope: "col"} Overstay Re-Enter Wait (days) *
+    %tbody
+      - @days.each_with_index do |day, index|
+        %tr{:class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"}
           %th{ scope: "row"}
-            = day.schengen_days_count
+            = index + 1
           %th{ scope: "row"}
-            = day.overstay_days
-          %th{ scope: "row"}
-            =day.overstay_waiting
+            %span.no-wrap
+              = day.the_date
+          %th{"data-title": "Country"} 
+            = day.country_name
+          %th{"data-title": "Schengen"} 
+            -if day.entered_schengen?
+              Entered Schengen Zone
+            -if day.exited_schengen?
+              Exited Schengen Zone
+          %th{"data-title": "Schengen?"} 
+            -if day.schengen?
+              = "Yes"
+            -else
+              ="No"
+            %th{"data-title": "Schengen Days"} 
+              = day.schengen_days_count
+            %th{"data-title": "Overstay Days"} 
+              = day.overstay_days
+            %th{"data-title": "Overstay Wait Days"} 
+              =day.remaining_wait
+

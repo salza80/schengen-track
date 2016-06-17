@@ -14,7 +14,7 @@ two:
 
 three:
   entry_date: 2014-03-27
-  exit_date:  
+  exit_date:  2014-03-28
   country: Australia
   person: Sally
 
@@ -26,7 +26,7 @@ testvisit3:
 
 testvisit1:
   entry_date: 2014-01-1
-  exit_date: 2014-03-1 
+  exit_date: 2014-03-1
   country: Germany
   person: Test1
 
@@ -96,6 +96,12 @@ oldcalc7:
   exit_date: 2015-01-08 
   country: Germany
   person: OldCalcTest
+
+noVisaVisit1:
+  entry_date: 2016-2-2
+  exit_date: 2016-2-8
+  country: Germany
+  person: VisaRequiredPerson
 
 visaSingleEntry1:
   entry_date: 2010-01-01
@@ -182,16 +188,41 @@ bigvisit6:
   country: Germany
   person: BigVisits
 
-noVisaVisit1:
-  entry_date: 2016-2-1
-  exit_date: 2016-2-7
-  country: Germany
-  person: VisaRequiredPerson
-
 testeu1:
   entry_date: 2015-04-1
   exit_date: 2015-04-10 
   country: Germany
   person: EUPerson
+
+mini1:
+  entry_date:  2015-01-1
+  exit_date: 2015-01-5
+  country: Germany
+  person: MiniTest
+mini2:
+  entry_date:  2015-01-5
+  exit_date: 2015-01-5
+  country: Germany
+  person: MiniTest
+mini3:
+  entry_date:  2015-01-5
+  exit_date: 2015-01-6
+  country: Germany
+  person: MiniTest
+mini4:
+  entry_date:  2015-01-10
+  exit_date: 2015-01-30
+  country: Australia
+  person: MiniTest
+mini5:
+  entry_date:  2015-01-30
+  exit_date: 2015-01-30
+  country: Germany
+  person: MiniTest
+mini6:
+  entry_date:  2015-01-30
+  exit_date: 2015-02-20
+  country: Australia
+  person: MiniTest
 
 

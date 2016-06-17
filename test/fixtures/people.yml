@@ -35,4 +35,9 @@ EUPerson:
   last_name: EU
   nationality: Germany
   user: Sally
+MiniTest:
+  first_name: Mini
+  last_name: Test
+  nationality: Australia
+  user: Sally
 

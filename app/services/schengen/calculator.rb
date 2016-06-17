@@ -5,10 +5,14 @@ module Schengen
   class Calculator
 
     attr_reader :visits
-    def initialize(person)
+    def initialize(person, method="days")
       @person = person
       @visits = @person.visits.to_a.collect { |v| SchengenDecorator.new(v) }
-      calculate
+      if method=="calc"
+        calculate
+      else
+        calculate_by_days
+      end
     end
 
     def calculate
@@ -24,6 +28,8 @@ module Schengen
       end
     end
 
+
+
     def find_visit(id)
       @visits.each do |visit|
         return visit if visit.id == id
@@ -38,6 +44,21 @@ module Schengen
       @visits.each do |v|
         v.schengen_days = 0
       end
+    end
+
+    def calculate_by_days
+      return unless @person
+      return if @visits.empty?
+       if @person.nationality.visa_required == 'F'
+         zero_schengen
+        else
+          @day_calc = Schengen::Days::Calculator.new(@person)
+          @visits.each do |v|
+            last_day = @day_calc.find_by_date(v.exit_date)
+            v.schengen_days = last_day.schengen_days_for_visit(v)
+            v.no_days_continuous_in_schengen = last_day.continuous_days_for_visit(v)
+          end
+        end
     end
 
     # Old schengen calculations for exception countrie
@@ -105,18 +126,19 @@ module Schengen
       previous_visits = visit.previous_180_days_visits.sort_by(&:entry_date)
       begin_date = (visit.exit_date - 179.days)
       schen_day_count = 0
-      prev_exit_date = nil
+      prev_visit = nil
       (previous_visits << visit).each do |v|
         next if v.exit_date <= begin_date
+        next if v.exit_date == v.entry_date && prev_visit && prev_visit.exit_date==v.entry_date && prev_visit.schengen?
         if v.schengen? && v.exit_date <= visit.exit_date
           if v.entry_date < begin_date && v.exit_date >= begin_date
             schen_day_count += (v.exit_date - begin_date).to_i + 1
           else
             schen_day_count += v.no_days
           end
-          schen_day_count -= 1 if prev_exit_date == v.entry_date
+          schen_day_count -= 1 if prev_visit && prev_visit.exit_date == v.entry_date
         end
-        prev_exit_date = v.exit_date
+        prev_visit = v
       end
       visit.schengen_days = schen_day_count
     end
@@ -144,7 +166,7 @@ module Schengen
     def calc_no_days_continuous_in_schengen
       prev_entry = nil
       prev_visit = nil
-      @visits.each do |v|
+      @visits.each do |v| 
         if v.schengen? == false
           v.no_days_continuous_in_schengen = 0
           prev_entry = nil

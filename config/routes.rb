@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :visits
   resources :visas,  except: [:index, :show]
+  resources :days, only:[:index]
   get 'my_details' =>  'people#edit'
   put 'my_details' => 'people#update'
   patch 'my_details' => 'people#update'

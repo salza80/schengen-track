@@ -8,7 +8,6 @@ class CalculatorTest < ActiveSupport::TestCase
     person = people(:Test1)
     as =  Schengen::Days::Calculator.new(person)
 
-    assert_equal 645, as.calculated_days.count
     
     assert_equal 102, as.total_schengen_days
  
@@ -24,8 +23,6 @@ class CalculatorTest < ActiveSupport::TestCase
     assert_equal 92, as.find_by_date(Date.new(2014,5,2)).schengen_days_count
 
     assert_equal 0, as.calculated_days.last.schengen_days_count
-
-    
   end
 
 
@@ -51,7 +48,6 @@ class CalculatorTest < ActiveSupport::TestCase
     assert_equal 30, as.find_by_date(Date.new(2014,4,30)).continuous_days_count
     assert_equal 32, as.find_by_date(Date.new(2014,5,2)).continuous_days_count
     assert_equal 10, as.find_by_date(Date.new(2014,4,10)).continuous_days_count
-
   end
 
 end

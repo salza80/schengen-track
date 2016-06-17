@@ -106,9 +106,10 @@ module Schengen
         return sd.schengen_day_int if i == 0
         prev_sd =  calculated_days[i-1]
         count = prev_sd.schengen_days_count + sd.schengen_day_int
-        return count unless i >=179
         if !prev_sd.overstay?
-          count -= calculated_days[i-179].schengen_day_int
+          if i > 179
+            count -= calculated_days[i-179].schengen_day_int
+          end
         else
           if sd.schengen?
             sd.overstay_waiting = 0

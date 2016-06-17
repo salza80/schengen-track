@@ -47,7 +47,12 @@ module Schengen
       end
 
       def end_date
-        @visits.last.exit_date + 180.days
+        @visits.last.exit_date + 360.days
+      end
+
+      def calc_type
+
+
       end
 
 
@@ -168,7 +173,12 @@ module Schengen
         end
 
         def overstay?
-          schengen_days_count > 90
+          overstay_days > 90
+        end
+
+        def overstay_days
+          return 0 if schengen_days_count <=90
+          schengen_days_count - 90
         end
 
         def schengen?
@@ -180,7 +190,20 @@ module Schengen
         end
 
         def overstay?
+          # return false unless schengen?
           schengen_days_count > 90
+        end
+
+        def country_name
+          return stayed_country.name if stayed_country
+          name = ""
+          if exited_country
+            name += "Exited: " +  exited_country.name + " "
+          end
+          if entered_country
+            name += "Entered: " + entered_country.name
+          end
+          name
         end
 
 
@@ -197,8 +220,25 @@ module Schengen
           0
         end
 
-        private
+       
 
+        def entered_schengen?
+          return false unless entered_country
+          return false unless entered_country.schengen?(the_date)
+          return false if exited_country == entered_country
+          return true unless exited_country
+          return !exited_country.schengen?
+        end
+
+        def exited_schengen?
+          return false unless exited_country
+          return false unless exited_country.schengen?(the_date)
+          return false if exited_country == entered_country
+          return true unless entered_country
+          return !entered_country.schengen?(the_date)
+        end
+
+        private
         def from_non_to_schengen?
           return false if stayed_country
           return false unless entered_country && exited_country

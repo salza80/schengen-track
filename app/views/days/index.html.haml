@@ -3,19 +3,37 @@
 %table.table
   %thead
     %tr.table-top-header
+      %th{scope: "row"} Day
       %th{ scope: "col" } Date
       %th{ scope: "col" } Country 
       %th{ scope: "col" } 
-        Schengen
-        %br Area
-      %tr
-        Schengen Days
-        %br Calculation
+      %th{ scope: "col" } Schengen?
+      %th{ scope: "col" } Schengen Days
+      %th{ scope: "col"} Overstay Days
+      %th{ scope: "col"} Overstay Waiting Period
   %tbody
-    - @days.each do |day|
-      %tr
+    - @days.each_with_index do |day, index|
+      %tr{:class=>("danger" if day.overstay?)}
+        %th{ scope: "row"}
+          = index + 1
         %th{ scope: "row"}
           %span.no-wrap
             = day.the_date
         %th{ scope: "row"}
-          = day.stay_country.name
+          = day.country_name
+        %th{ scope: "row"}
+          -if day.entered_schengen?
+            Entered Schengen Zone
+          -if day.exited_schengen?
+            Exited Schengen Zone
+        %th{ scope: "row"}
+          -if day.schengen?
+            = "Yes"
+          -else
+            ="No"
+          %th{ scope: "row"}
+            = day.schengen_days_count
+          %th{ scope: "row"}
+            = day.overstay_days
+          %th{ scope: "row"}
+            =day.overstay_waiting

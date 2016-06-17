@@ -23,6 +23,10 @@ class Country < ActiveRecord::Base
     where('visa_required <> :free', free: 'F')
   end
 
+  def self.order_by_name
+    order(:name)
+  end
+
   def nationality_plural
     ending = nationality.last(3)
 

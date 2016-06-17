@@ -88,6 +88,6 @@ class VisitsController < ApplicationController
     def set_country_continent
       @continent = Continent.all
       @continent_default_id = Continent.find_by(continent_code: 'EU').id.to_s
-      @country_options = Country.all.to_json(:only => [:id, :name, :continent_id])
+      @country_options = Country.all.order_by_name.to_json(:only => [:id, :name, :continent_id])
     end
 end

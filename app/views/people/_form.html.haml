@@ -16,7 +16,7 @@
   .field.form-group
     = f.label :nationality_id, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.collection_select(:nationality_id, Country.all, :id, :name,{}, {:class => "form-control"})
+      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name,{}, {:class => "form-control"})
   .actions
     .form-group
       .col-sm-offset-2.col-sm-10

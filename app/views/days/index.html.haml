@@ -5,7 +5,7 @@
   %table.table.responsive-table
     %thead
       %tr.table-top-header
-        %th{scope: "row"} Day
+        %th{ scope: "col"} Day
         %th{ scope: "col" } Date
         %th{ scope: "col" } Country 
         %th{ scope: "col" } Schengen Area
@@ -15,28 +15,34 @@
         %th{ scope: "col"} Overstay Re-Enter Wait (days) *
     %tbody
       - @days.each_with_index do |day, index|
-        %tr{:class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"}
+        %tr
           %th{ scope: "row"}
             = index + 1
           %th{ scope: "row"}
             %span.no-wrap
               = day.the_date
-          %th{"data-title": "Country"} 
+          %th{ scope: "row"} 
             = day.country_name
-          %th{"data-title": "Schengen"} 
+          %td{ scope: "row"} 
             -if day.entered_schengen?
               Entered Schengen Zone
             -if day.exited_schengen?
               Exited Schengen Zone
-          %th{"data-title": "Schengen?"} 
+          %td{"data-title": "Schengen?"}
             -if day.schengen?
               = "Yes"
             -else
               ="No"
-            %th{"data-title": "Schengen Days"} 
-              = day.schengen_days_count
-            %th{"data-title": "Overstay Days"} 
-              = day.overstay_days
-            %th{"data-title": "Overstay Wait Days"} 
+          %td{"data-title": "Schengen Days", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+            = day.schengen_days_count
+            - if day.remaining_wait
+              *
+          %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+            = day.overstay_days
+          %td{"data-title": "Overstay Wait Days", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+            - if day.remaining_wait
               =day.remaining_wait
+              *
+            -else
+              N/A
 

@@ -62,7 +62,6 @@ module Schengen
         i = 0
         begin_date.upto(end_date) do | date |
           visit =  @visits[v]
-
           sd = SchengenDay.new(date)
 
           #set the country/s
@@ -86,6 +85,7 @@ module Schengen
             sd.schengen_days_count=calc_schengen_day_new_count(sd,i)
           end
           i+=1
+          break if visit.nil? && sd.schengen_days_count ==0
         end
       end
 

@@ -97,6 +97,12 @@ oldcalc7:
   country: Germany
   person: OldCalcTest
 
+noVisaVisit1:
+  entry_date: 2016-2-2
+  exit_date: 2016-2-8
+  country: Germany
+  person: VisaRequiredPerson
+
 visaSingleEntry1:
   entry_date: 2010-01-01
   exit_date: 2010-01-30 
@@ -181,12 +187,6 @@ bigvisit6:
   exit_date: 2016-6-13
   country: Germany
   person: BigVisits
-
-noVisaVisit1:
-  entry_date: 2016-2-1
-  exit_date: 2016-2-7
-  country: Germany
-  person: VisaRequiredPerson
 
 testeu1:
   entry_date: 2015-04-1

@@ -166,7 +166,7 @@ module Schengen
     def calc_no_days_continuous_in_schengen
       prev_entry = nil
       prev_visit = nil
-      @visits.each do |v|
+      @visits.each do |v| 
         if v.schengen? == false
           v.no_days_continuous_in_schengen = 0
           prev_entry = nil

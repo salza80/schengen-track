@@ -204,10 +204,10 @@ class CalculatorTest < ActiveSupport::TestCase
   test 'no visa visit' do
     person = people(:VisaRequiredPerson)
     as = Schengen::Calculator.new(person)
-
     a = as.find_visit(visits(:noVisaVisit1).id)
     assert_equal true, a.visa_required?
     assert_equal false, a.visa_exists?
+    
     assert_equal 7, a.schengen_days
     assert_equal 0, a.schengen_days_remaining
   end

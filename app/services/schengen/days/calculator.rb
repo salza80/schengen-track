@@ -24,7 +24,7 @@ module Schengen
         return a
       else
         puts @calculated_days.inspect
-        puts date
+
       end
       end
 
@@ -103,11 +103,12 @@ module Schengen
       end
 
       def calc_schengen_day_new_count(sd,i)
+        # byebug
         return sd.schengen_day_int if i == 0
         prev_sd =  calculated_days[i-1]
         count = prev_sd.schengen_days_count + sd.schengen_day_int
         if !prev_sd.overstay?
-          if i > 179
+          if i >= 179
             count -= calculated_days[i-179].schengen_day_int
           end
         else
@@ -117,7 +118,7 @@ module Schengen
             sd.overstay_waiting = prev_sd.overstay_waiting + 1
           end
 
-          if sd.overstay_waiting == 180
+          if sd.overstay_waiting > 180
             count=0
             sd.overstay_waiting=0
           end

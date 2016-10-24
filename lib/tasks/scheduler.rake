@@ -15,8 +15,8 @@ namespace :db do
 
     ActiveRecord::Base.transaction do
       begin 
-        # delete all guest users over 1 months old
-        todeletall = User.includes(:people).where("updated_at <= :onemonth AND guest=:istrue", { onemonth: Time.now - 1.months, istrue: true }).entries 
+        # delete all guest users over 20 days old
+        todeletall = User.includes(:people).where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 20.days, istrue: true }).entries 
 
         todeletall.each do |u|
           Rails.logger.info 'deleting user ' + u.id.to_s
@@ -24,8 +24,8 @@ namespace :db do
           u.destroy!
         end
 
-        # delete all guest users over 1 weeks old and without visits
-        todeletesome = User.includes(:people => :visits ).where("updated_at <= :twodays AND guest=:istrue", { twodays: Time.now - 1.weeks, istrue: true })
+        # delete all guest users over 4 days old and without visits
+        todeletesome = User.includes(:people => :visits ).where("updated_at <= :fourdays AND guest=:istrue", { fourdays: Time.now - 4.days, istrue: true })
 
         #only delete if containts no visits
         todeletesome.each do |u|

@@ -2,6 +2,7 @@ require 'delegate'
 
 module Schengen
   # calculates schengen days and continious days in schengen area
+  require 'csv'
   class Calculator
 
     attr_reader :visits
@@ -25,6 +26,57 @@ module Schengen
         calculate_schengen_days_old
       else
         calculate_schengen_days_new
+      end
+    end
+
+    def to_csv
+      puts "here"
+      CSV.generate(headers: :first_row) do |csv|
+
+        header = []
+        header << "Entry Date"
+        header << "Exit Date"
+        header << "Country"
+        header << "In Shengen Area"
+        header << "No Days"
+        if @person.visa_required?
+          header << "Visa Exists"
+          header << "No. Entries"
+          header << "Visa Overstay"
+        end
+        header << "Schengen Days Calculation"
+        header << "Schengen Days Remaining"
+        header << "Schengen Days Overstay"
+        csv << header
+        @visits.each do |visit|
+          row = []
+          row << visit.entry_date
+          row << visit.exit_date
+          row << visit.country.name
+          row << visit.schengen? ? "Yes" : "No"
+          row << visit.no_days
+          if @person.visa_required?
+            if visit.schengen? == false
+              row << "NA"
+            elsif visit.visa_exists?
+              row << "Yes"
+            else
+             row << "No"
+            end
+            if visit.visa_exists?
+               row << visit.visa_entry_count.to_s + " of " +  (visit.visa_entries_allowed == 0 ? "Multi" : visit.visa_entries_allowed.to_s)
+            elsif visit.schengen? == false
+               row << "N/A"
+            else
+              row << "Visa Required!"
+            end
+            row << visit.visa_overstay_days
+          end
+          row << visit.schengen_days.to_s + "  of 90 days"
+          row << visit.schengen_days_remaining
+          row << visit.schengen_overstay_days
+          csv << row
+        end
       end
     end
 

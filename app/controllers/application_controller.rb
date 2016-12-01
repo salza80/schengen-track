@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_person, :amazon
 
   def current_person
-    current_user_or_guest_user.people.first
+    cp = current_user_or_guest_user.people.first
   end
 
   def amazon

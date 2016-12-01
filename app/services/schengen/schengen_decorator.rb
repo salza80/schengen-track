@@ -4,6 +4,8 @@ module Schengen
     attr_accessor :schengen_days
     attr_accessor :no_days_continuous_in_schengen
 
+
+
     def visit_check?
       if visa_required?
         return visa_check?

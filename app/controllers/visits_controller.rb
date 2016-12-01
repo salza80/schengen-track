@@ -9,10 +9,15 @@ class VisitsController < ApplicationController
     calc = Schengen::Calculator.new(current_person)
     @visits = calc.visits
     @visas = current_person.visas.all if current_person.visa_required?
-    @visits.each do |visit|
-      if visit.country && !visit.country.affiliate_booking_html.nil?
-        @advertise_country = visit.country
+    respond_to do |format|
+      format.html do
+        @visits.each do |visit|
+          if visit.country && !visit.country.affiliate_booking_html.nil?
+            @advertise_country = visit.country
+          end
+        end
       end
+      format.csv { send_data calc.to_csv}
     end
   end
   # GET /visits/1

@@ -38,4 +38,18 @@ namespace :db do
     end
     f.close
   end
+
+  desc 'Insert missing people records'
+  task fix_people: :environment do
+    nationality = Country.find_by(country_code: "US")
+    User.includes(:people).where(people: {user_id: nil}).each do |user|
+      p = Person.new
+      p.first_name = user.email
+      puts user.email
+      p.last_name = "last name"
+      p.nationality = nationality
+      user.people << p 
+      user.save!
+    end
+  end
 end

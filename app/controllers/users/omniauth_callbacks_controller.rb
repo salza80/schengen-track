@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should also create an action method in this controller like this:
   def facebook
     auth = request.env["omniauth.auth"]
-    @user = User.from_omniauth(auth)
+    @user = User.from_omniauth(auth, current_user_or_guest_user)
 
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated

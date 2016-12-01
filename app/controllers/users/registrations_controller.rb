@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.create(sign_up_params)
     @guest_user = current_user_or_guest_user
-    @user.people.first.copy_from(@guest_user.people.first)
+    @user.people << Person.copy_from(@guest_user.people.first)
     if @user.save    
       sign_up('user', @user)
       redirect_to visits_path

@@ -104,11 +104,8 @@ namespace :db do
         end
 
          User.select("users.id, users.email").joins(:people).group("users.id").having("count(people.id) > ?", 1)
-         User.includes(:people).where(people: {user_id: nil}).count 
+         User.includes(:people).where(people: {user_id: nil})
 
-         raise ActiveRecord::Rollback
-         User.select("users.id, users.email").joins(:people).group("users.id").having("count(people.id) > ?", 1)
-         User.includes(:people).where(people: {user_id: nil}).count 
       end
     end
   end

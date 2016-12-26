@@ -75,7 +75,7 @@ namespace :db do
       if visits[0] != 0
         puts "delete all but first person"
       else
-        maxid = a.each_with_index.max[1]
+        maxid = visits.each_with_index.max[1]
         puts "keep indesx " + maxid.to_s 
         peopleIDs.each_with_index do |id, index|
           unless index==maxid

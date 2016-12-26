@@ -71,26 +71,24 @@ namespace :db do
         puts p.last_name
         puts p.visits.count
       end
-
+      maxid=0
       if visits[0] != 0
         puts "delete all but first person"
       else
         maxid = visits.each_with_index.max[1]
-        puts "keep indesx " + maxid.to_s 
-        peopleIDs.each_with_index do |id, index|
-          unless index==maxid
-            puts "delted personid " + id.to_s
-          end
+      end
+      puts "keep indesx " + maxid.to_s 
+      peopleIDs.each_with_index do |id, index|
+        unless index==maxid
+          puts "delted personid " + id.to_s
         end
       end
-
-      unless firstname=""
+      unless firstname==""
           puts "update with firstname " + firstname
       end
-      unless lastname =""
+      unless lastname ==""
           puts "update with lastname " + lastname
       end
     end
-
   end
 end

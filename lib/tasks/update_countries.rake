@@ -52,4 +52,17 @@ namespace :db do
       user.save!
     end
   end
+
+  desc 'fix multiple people'
+  task fix_multi_people: :environment do
+    User.select("users.email").joins(:people).group("users.id").having("count(people.id) > ?", 1).each do |u|
+      puts "user" + u.email
+      u.people.each do |p|
+        puts p.first_name
+        puts p.last_name
+        puts p.visits.count
+      end
+    end
+
+  end
 end

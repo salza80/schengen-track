@@ -62,8 +62,8 @@ namespace :db do
       peopleIDs=[]
 
       u.people.each_with_index do |p, i|
-        firstname=p.firstname unless p.firstname=="Guest"
-        lastname=p.lastname unless p.lastname=="User"
+        firstname=p.first_name unless p.first_name=="Guest"
+        lastname=p.last_name unless p.last_name=="User"
         peopleIDs <<p.id
         puts "index" + i.to_s
         visits<<p.visits.count
@@ -84,10 +84,10 @@ namespace :db do
         end
       end
 
-      unless firstname
+      unless firstname=""
           puts "update with firstname " + firstname
       end
-      unless lastname 
+      unless lastname =""
           puts "update with lastname " + lastname
       end
     end

@@ -57,11 +57,38 @@ namespace :db do
   task fix_multi_people: :environment do
     User.select("users.id, users.email").joins(:people).group("users.id").having("count(people.id) > ?", 1).each do |u|
       puts "user" + u.email
+      firstname="", lastname=""
+      visits=[]
+      peopleIDs=[]
+
       u.people.each_with_index do |p, i|
-        puts i
+        firstname=p.firstname unless p.firstname=="Guest"
+        lastname=p.lastname unless p.lastname=="User"
+        peopleIDs <<p.id
+        puts "index" + i.to_s
+        visits<<p.visits.count
         puts p.first_name
         puts p.last_name
         puts p.visits.count
+      end
+
+      if visits[0] != 0
+        puts "delete all but first person"
+      else
+        maxid = a.each_with_index.max[1]
+        puts "keep indesx " + maxid.to_s 
+        peopleIDs.each_with_index do |id, index|
+          unless index==maxid
+            puts "delted personid " + id.to_s
+          end
+        end
+      end
+
+      unless firstname
+          puts "update with firstname " + firstname
+      end
+      unless lastname 
+          puts "update with lastname " + lastname
       end
     end
 

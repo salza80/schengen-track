@@ -14,6 +14,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.people << Person.copy_from(@guest_user.people.first)
     if @user.save    
       sign_up('user', @user)
+      tracker = Staccato.tracker('UA-67599800-1', @user.id)
+      tracker.event(category: 'users', action: 'signup', label: 'email', value: 1)
       redirect_to visits_path
     else
       render :new

@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
       end
       user.people << p
       user.save
+      tracker = Staccato.tracker('UA-67599800-1', user.id)
+      tracker.event(category: 'users', action: 'signup', label: 'facebook', value: 1)
     end
     user
   end

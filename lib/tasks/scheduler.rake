@@ -1,5 +1,5 @@
 namespace :db do
-  desc 'Remove guest accounts more than a 2 days.'
+  desc 'Remove guest accounts.'
   task guest_cleanup: :environment do
     Rails.logger.info 'begin guest cleanup ' + Time.now.to_s
     Rails.logger.info 'Number of user accounts: ' + User.count.to_s
@@ -15,8 +15,8 @@ namespace :db do
 
     ActiveRecord::Base.transaction do
       begin 
-        # delete all guest users over 20 days old
-        todeletall = User.includes(:people).where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 20.days, istrue: true }).entries 
+        # delete all guest users over 10 days old
+        todeletall = User.includes(:people).where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 10.days, istrue: true }).entries 
 
         todeletall.each do |u|
           Rails.logger.info 'deleting user ' + u.id.to_s
@@ -24,8 +24,8 @@ namespace :db do
           u.destroy!
         end
 
-        # delete all guest users over 4 days old and without visits
-        todeletesome = User.includes(:people => :visits ).where("updated_at <= :fourdays AND guest=:istrue", { fourdays: Time.now - 4.days, istrue: true })
+        # delete all guest users over 1 day old and without visits
+        todeletesome = User.includes(:people => :visits ).where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 1.days, istrue: true })
 
         #only delete if containts no visits
         todeletesome.each do |u|
@@ -41,7 +41,6 @@ namespace :db do
             u.destroy!
           end
         end
-        # raise ActiveRecord::Rollback
       rescue => e
         Rails.logger.warn 'An error occured in guest cleanup ' + e.message
         puts 'an error occured!'

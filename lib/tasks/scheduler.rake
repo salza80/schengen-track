@@ -15,8 +15,8 @@ namespace :db do
 
     ActiveRecord::Base.transaction do
       begin 
-        # delete all guest users over 10 days old
-        todeletall = User.includes(:people).where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 10.days, istrue: true }).entries 
+        # delete all guest users over 7 days old
+        todeletall = User.includes(:people).where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 7.days, istrue: true }).entries 
 
         todeletall.each do |u|
           Rails.logger.info 'deleting user ' + u.id.to_s

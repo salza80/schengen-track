@@ -52,4 +52,61 @@ namespace :db do
       user.save!
     end
   end
+
+  desc 'fix multiple people'
+  task fix_multi_people: :environment do
+    Rails.logger.level = Logger::DEBUG
+    ActiveRecord::Base.transaction do
+
+      begin
+
+        User.select("users.id, users.email").joins(:people).group("users.id").having("count(people.id) > ?", 1).each do |u|
+          puts "user" + u.email
+          firstname="", lastname=""
+          visits=[]
+          peopleIDs=[]
+
+          u.people.each_with_index do |p, i|
+            firstname=p.first_name unless p.first_name=="Guest"
+            lastname=p.last_name unless p.last_name=="User"
+            peopleIDs <<p.id
+            puts "index" + i.to_s
+            visits<<p.visits.count
+            puts p.first_name
+            puts p.last_name
+            puts p.visits.count
+          end
+          maxid=0
+          if visits[0] != 0
+            puts "delete all but first person"
+          else
+            maxid = visits.each_with_index.max[1]
+          end
+          puts "keep indesx " + maxid.to_s 
+          peopleIDs.each_with_index do |id, index|
+            unless index==maxid
+              puts "delted personid " + id.to_s
+              Person.find(id).destroy
+            end
+          end
+
+          unless firstname==""
+             puts "update with firstname " + firstname
+              u.people.first.first_name=firstname
+              u.save
+             
+          end
+          unless lastname ==""
+              puts "update with lastname " + lastname
+              u.people.first.last_name=lastname
+              u.save
+          end
+        end
+
+         User.select("users.id, users.email").joins(:people).group("users.id").having("count(people.id) > ?", 1)
+         User.includes(:people).where(people: {user_id: nil})
+
+      end
+    end
+  end
 end

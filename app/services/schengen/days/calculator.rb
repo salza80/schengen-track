@@ -19,13 +19,13 @@ module Schengen
       end
 
       def find_by_date(date)
-       a = @calculated_days[date]
-      if a
-        return a
-      else
-        puts @calculated_days.inspect
+         a = @calculated_days[date]
+        if a
+          return a
+        else
+          puts @calculated_days.inspect
 
-      end
+        end
       end
 
       def total_schengen_days
@@ -66,12 +66,12 @@ module Schengen
 
           #set the country/s
           unless visit.nil?
-            set_country(sd,visit)
+            sd.set_country(visit)
             loop do
               break if visit.nil? || date < visit.exit_date
                 v +=1
                 visit = @visits[v]
-               set_country(sd, visit)
+                sd.set_country(visit)
             end
           end
 
@@ -137,21 +137,7 @@ module Schengen
         [schengen_days_in_last_180,count_180_day]
       end
 
-      def set_country(schengen_day, visit)
-        return if visit.nil?
-        t = true
-        if schengen_day.the_date == visit.entry_date
-           schengen_day.entered_country = visit.country if schengen_day.entered_country.nil? || !schengen_day.entered_country.schengen?
-           t=false
-        end
-        if schengen_day.the_date == visit.exit_date
-           schengen_day.exited_country = visit.country if schengen_day.exited_country.nil? 
-           t=false
-        end
-        if t && schengen_day.the_date.between?(visit.entry_date, visit.exit_date)
-           schengen_day.stayed_country = visit.country
-        end
-      end
+      
     end
 
     class SchengenDay
@@ -163,6 +149,21 @@ module Schengen
 
         end
 
+        def set_country(visit)
+          return if visit.nil?
+          t = true
+          if @the_date == visit.entry_date
+             @entered_country = visit.country if entered_country.nil? || !entered_country.schengen?
+             t=false
+          end
+          if @the_date == visit.exit_date
+             @exited_country = visit.country if exited_country.nil? 
+             t=false
+          end
+          if t && @the_date.between?(visit.entry_date, visit.exit_date)
+             @stayed_country = visit.country
+          end
+        end
         def remaining_wait
           return nil if overstay_waiting == 0
           179 - overstay_waiting

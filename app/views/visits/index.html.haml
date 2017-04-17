@@ -3,11 +3,11 @@
 %h1 Travel Record
 .row
   .col-md-6
-    -if (!(current_person.visa_required? || current_person.nationality.old_schengen_calc) && @visits.count>0)
+    -if (!(current_person.visa_required?) && @visits.count>0)
       =link_to "View Schengen Days Calculation Details", days_path
   .col-md-6
     -if @visits.count>0
-      =link_to "Export to CSV", visits_path(format: "csv")
+      =link_to "Export to CSV", visits_path(format: "csv")  
 
 
 = render 'visitlist'

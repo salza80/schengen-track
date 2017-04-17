@@ -6,7 +6,7 @@ class DaysController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    if current_person.visa_required? || current_person.nationality.old_schengen_calc
+    if current_person.visa_required? 
       redirect_to visits_url
     else
       days_calc = Schengen::Days::Calculator.new(current_person)

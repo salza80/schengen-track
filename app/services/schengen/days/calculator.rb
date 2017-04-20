@@ -44,6 +44,8 @@ module Schengen
         end_date - begin_date > 5000
       end
 
+
+
       private
 
       def begin_date
@@ -91,7 +93,7 @@ module Schengen
           i+=1
           break if visit.nil? && sd.schengen_days_count ==0
         end
-       
+       calc_max_remaining_days
       end
 
       def calc_continuous_days_count(sd, i)
@@ -124,6 +126,27 @@ module Schengen
         count
       end
 
+
+      def calc_max_remaining_days
+        #logic not right yet
+        prev = nil
+        @calculated_days.sort.reverse.each do |aday|
+          day = aday[1]
+          if prev 
+            if prev.schengen_days_count != day.schengen_days_count && prev.max_remaining_days > 0
+              day.max_remaining_days= prev.max_remaining_days - 1
+            elsif prev.max_remaining_days <90
+               day.max_remaining_days= prev.max_remaining_days + 1
+            else
+              day.max_remaining_days= prev.max_remaining_days 
+            end
+          else
+            day.max_remaining_days =  90 - day.schengen_days_count
+          end
+          prev = day
+        end
+      end
+
       def calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
         if (count_180_day > 0 || sd.schengen?)
           count_180_day +=1
@@ -140,13 +163,11 @@ module Schengen
         end
         sd.schengen_days_count = schengen_days_in_last_180
         [schengen_days_in_last_180,count_180_day]
-      end
-
-      
+      end      
     end
 
     class SchengenDay
-        attr_accessor :the_date, :entered_country, :stayed_country, :exited_country,  :schengen_days_count, :continuous_days_count, :overstay_waiting , :notes
+        attr_accessor :the_date, :entered_country, :stayed_country, :exited_country,  :schengen_days_count, :continuous_days_count, :overstay_waiting, :max_remaining_days, :notes
 
         def initialize(date)
           @the_date = date

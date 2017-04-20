@@ -11,6 +11,7 @@
         %th{ scope: "col" } Schengen Area
         %th{ scope: "col" } Schengen?
         %th{ scope: "col" } Schengen Days
+        %th{ scope: "col" } Max Remaining Days
         -if @overstay
           %th{ scope: "col"} Overstay Days
           %th{ scope: "col"} Overstay Re-Enter Wait (days) *
@@ -38,6 +39,8 @@
             = day.schengen_days_count
             - if day.remaining_wait
               *
+          %td{"data-title": "Max Days Remaining", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+            = day.max_remaining_days
           -if @overstay
             %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
               = day.overstay_days

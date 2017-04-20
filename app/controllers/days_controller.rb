@@ -11,6 +11,7 @@ class DaysController < ApplicationController
     else
       days_calc = Schengen::Days::Calculator.new(current_person)
       @days = days_calc.calculated_days
+      @overstay = days_calc.schengen_overstay?
     end
   end
 

@@ -67,11 +67,13 @@ class CalculatorTest < ActiveSupport::TestCase
     as =  Schengen::Calculator.new(person)
     a = as.find_visit(visits(:one).id)
     assert_not a.schengen_overstay?
+    assert_not as.schengen_overstay?
 
     person = people(:Test1)
     as =  Schengen::Calculator.new(person)
     a = as.find_visit(visits(:testvisit4).id)
     assert a.schengen_overstay?
+    assert as.schengen_overstay?
   end
 
   test 'test shengen days old calculation count' do

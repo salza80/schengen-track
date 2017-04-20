@@ -1,6 +1,6 @@
-
-%h1 Schengen Days Calculation by Days
-<small>* the Schengen Calculator warns on re-entry for 180 days after an "overstay" of the allowed days. This is not the law!, you need to check with the appropriate authorities if this may affect you. You may be banned from re-entry for years if caught overstaying the schengen tourist visa rules. Please use this as a guide only. </small>
+-if @overstay
+  %h1 Schengen Days Calculation by Days
+  <small>* the Schengen Calculator warns on re-entry for 180 days after an "overstay" of the allowed days. This is not the law!, you need to check with the appropriate authorities if this may affect you. You may be banned from re-entry for years if caught overstaying the schengen tourist visa rules. Please use this as a guide only. </small>
 .responsive-table-container
   %table.table.responsive-table
     %thead
@@ -11,8 +11,9 @@
         %th{ scope: "col" } Schengen Area
         %th{ scope: "col" } Schengen?
         %th{ scope: "col" } Schengen Days
-        %th{ scope: "col"} Overstay Days
-        %th{ scope: "col"} Overstay Re-Enter Wait (days) *
+        -if @overstay
+          %th{ scope: "col"} Overstay Days
+          %th{ scope: "col"} Overstay Re-Enter Wait (days) *
     %tbody
       - @days.each_with_index do |day, index|
         %tr
@@ -37,12 +38,13 @@
             = day.schengen_days_count
             - if day.remaining_wait
               *
-          %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-            = day.overstay_days
-          %td{"data-title": "Overstay Wait Days", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-            - if day.remaining_wait
-              =day.remaining_wait
-              *
-            -else
-              N/A
+          -if @overstay
+            %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+              = day.overstay_days
+            %td{"data-title": "Overstay Wait Days", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+              - if day.remaining_wait
+                =day.remaining_wait
+                *
+              -else
+                N/A
 

@@ -22,10 +22,14 @@ module Schengen
          a = @calculated_days[date]
         if a
           return a
-        else
-          puts @calculated_days.inspect
-
         end
+      end
+
+      def schengen_overstay?
+        @calculated_days.each_value do |day|
+          return true if day.overstay?
+        end
+        false
       end
 
       def total_schengen_days
@@ -87,6 +91,7 @@ module Schengen
           i+=1
           break if visit.nil? && sd.schengen_days_count ==0
         end
+       
       end
 
       def calc_continuous_days_count(sd, i)

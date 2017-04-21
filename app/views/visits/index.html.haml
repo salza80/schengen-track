@@ -25,6 +25,10 @@
     = link_to 'About page', about_path
     \.
 %br
+-if @next_entry_date_90
+  %p.alert.alert-info
+    The earliest date you can re-enter the schengen zone for a full 90 days is: 
+    =@next_entry_date_90.strftime("%B %d, %Y")
 
 = link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
 
@@ -48,9 +52,6 @@
         .fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
       .share
         .fb-share-button.visible-xs-block{ "data-href": "http://www.schengen-calculator.com", "data-layout": "button" }
-/ .ad-block
-/   %a{ :href => "https://www.shopify.com/?ref=sally-mclean-it-consulting" }
-/     = image_tag "shopify_banner.jpg", { border: 0, class: "img-responsive" }
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
 

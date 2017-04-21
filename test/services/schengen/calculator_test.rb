@@ -19,6 +19,8 @@ class CalculatorTest < ActiveSupport::TestCase
     assert_equal 0, a.schengen_overstay_days
     a = as.find_visit(visits(:testvisit4).id)
     assert_equal 92, a.schengen_days
+
+
     
     # visits(:testvisit2).destroy
     # a = Visit.find_by(entry_date: '2014-04-30', person: people(:Test1))
@@ -234,5 +236,14 @@ class CalculatorTest < ActiveSupport::TestCase
     a = as.find_visit(visits(:mini6).id)
     assert_equal 7, a.schengen_days
 
+  end
+
+
+  test 'test max remaining days' do
+    person = people(:MaxRemaining)
+    as =  Schengen::Calculator.new(person)
+
+    assert_equal Date.new(2017,9,8), as.next_entry_date_90
+ 
   end
 end

@@ -225,4 +225,22 @@ mini6:
   country: Australia
   person: MiniTest
 
+maxremaining1:
+  entry_date: 2017-01-1
+  exit_date: 2017-01-5
+  country: Germany
+  person: MaxRemaining
+
+maxremaining2:
+  entry_date: 2017-03-01
+  exit_date: 2017-03-10 
+  country: Australia
+  person: MaxRemaining
+
+maxremaining3:
+  entry_date: 2017-06-01
+  exit_date: 2017-06-10 
+  country: Germany
+  person: MaxRemaining
+
 

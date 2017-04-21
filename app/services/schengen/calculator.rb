@@ -76,6 +76,11 @@ module Schengen
       @day_calc.schengen_overstay?
     end
 
+    def next_entry_date_90
+      return nil unless @day_calc
+      @day_calc.next_entry_date_90
+    end
+
     private
 
     # schengen not applicable

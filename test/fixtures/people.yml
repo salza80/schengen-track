@@ -40,4 +40,9 @@ MiniTest:
   last_name: Test
   nationality: Australia
   user: Sally
+MaxRemaining:
+  first_name: max
+  last_name: remaining
+  nationality: Australia
+  user: Sally
 

@@ -9,9 +9,8 @@
         %th{ scope: "col" } Date
         %th{ scope: "col" } Country 
         %th{ scope: "col" } Schengen Area
-        %th{ scope: "col" } Schengen?
-        %th{ scope: "col" } Schengen Days
-        %th{ scope: "col" } Max Remaining Days
+        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} Schengen Days Calculation
+        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day." } Max Remaining Days
         -if @overstay
           %th{ scope: "col"} Overstay Days
           %th{ scope: "col"} Overstay Re-Enter Wait (days) *
@@ -27,14 +26,11 @@
             = day.country_name
           %td{ scope: "row"} 
             -if day.entered_schengen?
-              Entered Schengen Zone
-            -if day.exited_schengen?
-              Exited Schengen Zone
-          %td{"data-title": "Schengen?"}
-            -if day.schengen?
-              = "Yes"
-            -else
-              ="No"
+              Entered Schengen Area
+            -elsif day.exited_schengen?
+              Exited Schengen Area
+            -elsif day.schengen?
+              Schengen Area
           %td{"data-title": "Schengen Days", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
             = day.schengen_days_count
             - if day.remaining_wait

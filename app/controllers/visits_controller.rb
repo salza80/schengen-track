@@ -9,6 +9,7 @@ class VisitsController < ApplicationController
     calc = Schengen::Calculator.new(current_person)
     @visits = calc.visits
     @visas = current_person.visas.all if current_person.visa_required?
+    @next_entry_date_90 = calc.next_entry_date_90
     respond_to do |format|
       format.html do
         @visits.each do |visit|
@@ -62,7 +63,6 @@ class VisitsController < ApplicationController
         format.html { redirect_to visits_url, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
       else
-        @continent_default_id = @visit.country.continent.id.to_s
         format.html { render :edit }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
       end

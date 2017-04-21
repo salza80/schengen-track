@@ -2,7 +2,7 @@
   %table.table.responsive-table
     %thead
       %tr.table-top-header
-        %th.center-heading{ colspan: "4", scope: "col" }Travel Details
+        %th.center-heading{ colspan: "4", scope: "col" } Travel Details
         -if current_person.visa_required?
           %th.center-heading{ colspan: "3",  scope: "col" } Visa Details
         %th.center-heading{ colspan: "3",  scope: "col"  } Days in Schengen Area
@@ -10,19 +10,19 @@
       %tr
         %th{ scope: "col" } Dates
         %th{ scope: "col" } Country 
-        %th{ scope: "col" } 
+        %th{ scope: "col" , "data-toggle":"tooltip",title:"Indicates if the country of this visit is included in the Schengen Area." } 
           Schengen
           %br Area
-        %th{ scope: "col" } No. Days
+        %th{ scope: "col" , "data-toggle":"tooltip",title:"The number of days of this visit." } No. Days
         -if current_person.visa_required?
-          %th{ scope: "col" } Exits?
-          %th{ scope: "col" } No. Entries
-          %th{ scope: "col" } Days Overstay
-        %th{ scope: "col" } 
+          %th{ scope: "col", "data-toggle":"tooltip",title:"Indicates if a Visa for for the period of travel been entered."  } Exits?
+          %th{ scope: "col", "data-toggle":"tooltip",title:"The number entries allowed on this Visa"  } No. Entries
+          %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area not allowed by the Visa's Entered." } Days Overstay
+        %th{ scope: "col" , "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} 
           Schengen Days
           %br Calculation
         %th{ scope: "col" } Days Remaining
-        %th{ scope: "col" } Days Overstay
+        %th{ scope: "col", "data-toggle":"tooltip",title:"The number days in the Schengen Area over the allowed number of days"  } Days Overstay
         %th{ scope: "col" }      
     %tbody
       - @visits.each do |visit|

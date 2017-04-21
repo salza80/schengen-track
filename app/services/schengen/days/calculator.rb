@@ -3,7 +3,9 @@ require 'delegate'
 module Schengen
   module Days
     # calculates schengen days and continious days in schengen area
+   
     class Calculator
+      attr_reader :next_entry_date_90
       def initialize(person)
         @person = person
         @visits = @person.visits.to_a
@@ -130,21 +132,39 @@ module Schengen
       def calc_max_remaining_days
         #logic not right yet
         prev = nil
+        aTracker = Array.new(89,0)
+        iTotal = 0
         @calculated_days.sort.reverse.each do |aday|
           day = aday[1]
-          if prev 
-            if prev.schengen_days_count != day.schengen_days_count && prev.max_remaining_days > 0
-              day.max_remaining_days= prev.max_remaining_days - 1
-            elsif prev.max_remaining_days <90
-               day.max_remaining_days= prev.max_remaining_days + 1
-            else
-              day.max_remaining_days= prev.max_remaining_days 
-            end
-          else
+          unless prev
             day.max_remaining_days =  90 - day.schengen_days_count
+            prev = day
+            next
+          end
+
+          if day.schengen?
+            day.max_remaining_days =  90 - day.schengen_days_count + iTotal
+            if prev.schengen_days_count != day.schengen_days_count
+              day.max_remaining_days =  day.max_remaining_days + 1
+            end
+            return
+          end
+
+          if prev.schengen_days_count != day.schengen_days_count
+            aTracker.unshift(1)
+            iTotal = iTotal - aTracker.pop() + 1
+          else
+            aTracker.unshift(0)
+            iTotal = iTotal - aTracker.pop() 
+          end
+          day.max_remaining_days =  90 - day.schengen_days_count + iTotal
+
+          if prev.max_remaining_days ==90 && day.max_remaining_days == 89
+            @next_entry_date_90 = prev.the_date
           end
           prev = day
-        end
+        end 
+
       end
 
       def calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)

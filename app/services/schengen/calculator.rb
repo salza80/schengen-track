@@ -71,6 +71,11 @@ module Schengen
       nil
     end
 
+    def next_entry_day
+      return nil unless @visits.count > 0
+      @day_calc.find_by_date(@visits.last.exit_date)
+    end
+
     def schengen_overstay?
       return false unless @day_calc
       @day_calc.schengen_overstay?
@@ -80,6 +85,8 @@ module Schengen
       return nil unless @day_calc
       @day_calc.next_entry_date_90
     end
+
+
 
     private
 

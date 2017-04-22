@@ -3,13 +3,10 @@
 %h1 Travel Record
 .row
   .col-md-6
-    -if (!(current_person.visa_required?) && @visits.count>0)
-      =link_to "View Schengen Days Calculation Details", days_path
   .col-md-6
     -if @visits.count>0
-      =link_to "Export to CSV", visits_path(format: "csv")  
-
-
+      %strong
+        =link_to "Export to CSV", visits_path(format: "csv")
 = render 'visitlist'
 -if @visits.count ==0
   %p
@@ -25,12 +22,25 @@
     = link_to 'About page', about_path
     \.
 %br
+-if @next_entry_day
+  %p.alert.alert-info
+    If you re-enter the Schengen Area on the 
+    %strong
+      =@next_entry_day.the_date.strftime("%B %d, %Y")
+    you can stay for a maximum of 
+    %strong
+      =@next_entry_day.max_remaining_days
+    days
+
 -if @next_entry_date_90
   %p.alert.alert-info
-    The earliest date you can re-enter the schengen zone for a full 90 days is: 
-    =@next_entry_date_90.strftime("%B %d, %Y")
+    The earliest date you can re-enter the Schengen Area for a full 90 days is: 
+    %strong
+      =@next_entry_date_90.strftime("%B %d, %Y")
 
 = link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
+-if (!(current_person.visa_required?) && @visits.count>0)
+  =link_to "View Schengen Days Calculation Details", days_path, class: "btn btn-info"  
 
 .row
   .col-lg-10.col-md-12
@@ -41,7 +51,7 @@
   %h2 Schengen Visa List
   = render 'visas/visalist'
   %br
-  = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary"
+  = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary" 
 %br
   - if !user_signed_in?
     = render 'registerPrompt'

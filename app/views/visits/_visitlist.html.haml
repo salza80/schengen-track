@@ -5,7 +5,7 @@
         %th.center-heading{ colspan: "4", scope: "col" } Travel Details
         -if current_person.visa_required?
           %th.center-heading{ colspan: "3",  scope: "col" } Visa Details
-        %th.center-heading{ colspan: "3",  scope: "col"  } Days in Schengen Area
+        %th.center-heading{ colspan: "2",  scope: "col"  } Days in Schengen Area
         %th.center-heading{ scope: "col" }
       %tr
         %th{ scope: "col" } Dates
@@ -21,7 +21,6 @@
         %th{ scope: "col" , "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} 
           Schengen Days
           %br Calculation
-        %th{ scope: "col" } Days Remaining
         %th{ scope: "col", "data-toggle":"tooltip",title:"The number days in the Schengen Area over the allowed number of days"  } Days Overstay
         %th{ scope: "col" }      
     %tbody
@@ -61,8 +60,6 @@
           %td{ "data-title": "Schengen days" }
             = visit.schengen_days
             of 90 days
-          %td{ "data-title": "Days remaining" }
-            = visit.schengen_days_remaining 
           %td{ "data-title": "Schengen Days Overstay", class: ("danger" if visit.schengen_overstay?) }
             = visit.schengen_overstay_days
           %td{ "data-title": "Modify" }

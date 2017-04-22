@@ -40,15 +40,21 @@ module Schengen
 
       def calculated_days
         @calculated_days.values
-      end
+      end     
 
-      def too_many_days?
-        end_date - begin_date > 5000
+      def calc_type_desc
+        if @person.old_schengen_calc
+           "Old Calculation - 3 Month in and 6 Month Period"
+        else
+          "New Calculation - 90 days in last 180 days (rolling 180 days)"
+        end
       end
-
 
 
       private
+      def too_many_days?
+        end_date - begin_date > 5000
+      end
 
       def begin_date
         @visits.first.entry_date
@@ -128,8 +134,35 @@ module Schengen
         count
       end
 
-
       def calc_max_remaining_days
+        if @person.nationality.visa_required == 'F'
+           puts "none"
+          elsif @person.nationality.old_schengen_calc
+            calc_max_remaining_days_old
+          else
+            calc_max_remaining_days_new
+          end
+      end
+
+      def calc_max_remaining_days_old
+        #logic not right yet
+        prev = nil
+        @calculated_days.sort.reverse.each do |aday|
+          day = aday[1]
+          day.max_remaining_days =  90 - day.schengen_days_count
+         
+
+          if prev && prev.max_remaining_days ==90 && day.max_remaining_days < 89
+            @next_entry_date_90 = prev.the_date
+          end
+
+          return if day.schengen?
+          prev = day
+        end 
+      end
+
+
+      def calc_max_remaining_days_new
         #logic not right yet
         prev = nil
         aTracker = Array.new(89,0)

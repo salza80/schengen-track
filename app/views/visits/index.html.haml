@@ -22,21 +22,24 @@
     = link_to 'About page', about_path
     \.
 %br
--if @next_entry_day
-  %p.alert.alert-info
-    If you re-enter the Schengen Area on the 
-    %strong
-      =@next_entry_day.the_date.strftime("%B %d, %Y")
-    you can stay for a maximum of 
-    %strong
-      =@next_entry_day.max_remaining_days
-    days
+-unless current_person.visa_required?
+  -if @next_entry_day
+    %p.alert.alert-info
+      If you re-enter the Schengen Area on the 
+      %strong
+        =@next_entry_day.the_date.strftime("%B %d, %Y")
+      you can stay for
+      %strong
+        =pluralize(@next_entry_day.max_remaining_days, 'day') 
+      until
+      %strong
+        =(@next_entry_day.the_date + (@next_entry_day.max_remaining_days - 1 ).days).strftime("%B %d, %Y")
 
--if @next_entry_date_90
-  %p.alert.alert-info
-    The earliest date you can re-enter the Schengen Area for a full 90 days is: 
-    %strong
-      =@next_entry_date_90.strftime("%B %d, %Y")
+  -if @next_entry_date_90
+    %p.alert.alert-info
+      The earliest date you can re-enter the Schengen Area for a full 90 days is: 
+      %strong
+        =@next_entry_date_90.strftime("%B %d, %Y")
 
 = link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
 -if (!(current_person.visa_required?) && @visits.count>0)

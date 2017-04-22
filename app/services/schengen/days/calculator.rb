@@ -49,8 +49,6 @@ module Schengen
           "New Calculation - 90 days in last 180 days (rolling 180 days)"
         end
       end
-
-
       private
       def too_many_days?
         end_date - begin_date > 5000
@@ -176,10 +174,8 @@ module Schengen
           end
 
           if day.schengen?
+            iTotal = iTotal - aTracker.pop()
             day.max_remaining_days =  90 - day.schengen_days_count + iTotal
-            if prev.schengen_days_count != day.schengen_days_count
-              day.max_remaining_days =  day.max_remaining_days + 1
-            end
             return
           end
 

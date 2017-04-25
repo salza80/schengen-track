@@ -5,11 +5,12 @@ module Schengen
     # calculates schengen days and continious days in schengen area
    
     class Calculator
-      attr_reader :next_entry_date_90
+      attr_reader :next_entry_days
       def initialize(person)
         @person = person
         @visits = @person.visits.to_a
         @calculated_days={}
+        @next_entry_days=[]
         generate_days
       end
 
@@ -40,7 +41,7 @@ module Schengen
 
       def calculated_days
         @calculated_days.values
-      end     
+      end  
 
       def calc_type_desc
         if @person.old_schengen_calc
@@ -133,13 +134,13 @@ module Schengen
       end
 
       def calc_max_remaining_days
-        if @person.nationality.visa_required == 'F'
-           puts "none"
-          elsif @person.nationality.old_schengen_calc
-            calc_max_remaining_days_old
-          else
-            calc_max_remaining_days_new
-          end
+        return if @person.nationality.visa_required == 'F'
+ 
+        if @person.nationality.old_schengen_calc
+          calc_max_remaining_days_old
+        else
+          calc_max_remaining_days_new
+        end
       end
 
       def calc_max_remaining_days_old
@@ -148,23 +149,30 @@ module Schengen
         @calculated_days.sort.reverse.each do |aday|
           day = aday[1]
           day.max_remaining_days =  90 - day.schengen_days_count
+          unless prev
+            prev = day
+            next
+          end
          
-
-          if prev && prev.max_remaining_days ==90 && day.max_remaining_days < 89
-            @next_entry_date_90 = prev.the_date
+          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
+            @next_entry_days.unshift(prev)
           end
 
-          return if day.schengen?
+          if day.schengen?
+            if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days
+              @next_entry_days.unshift(prev)
+            end
+            return
+          end
           prev = day
         end 
       end
 
 
       def calc_max_remaining_days_new
-        #logic not right yet
         prev = nil
-        aTracker = Array.new(89,0)
-        iTotal = 0
+        #track of last 180 days change
+        aTracker = Array.new(90,0)
         @calculated_days.sort.reverse.each do |aday|
           day = aday[1]
           unless prev
@@ -173,25 +181,41 @@ module Schengen
             next
           end
 
-          if day.schengen?
-            iTotal = iTotal - aTracker.pop()
-            day.max_remaining_days =  90 - day.schengen_days_count + iTotal
-            return
-          end
-
           if prev.schengen_days_count != day.schengen_days_count
             aTracker.unshift(1)
-            iTotal = iTotal - aTracker.pop() + 1
           else
             aTracker.unshift(0)
-            iTotal = iTotal - aTracker.pop() 
           end
-          day.max_remaining_days =  90 - day.schengen_days_count + iTotal
+          aTracker.pop()
 
-          if prev.max_remaining_days ==90 && day.max_remaining_days == 89
-            @next_entry_date_90 = prev.the_date
+         
+          
+          if day.schengen_days_count==90
+            day.max_remaining_days=0
+          else
+            cnt = day.schengen_days_count
+            a=0
+            aTracker.each do |n|
+              cnt = cnt + 1 
+              cnt = cnt - n
+              a = a+1
+              break if cnt == 90
+            end
+            day.max_remaining_days =  a
+          end
+
+          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
+            @next_entry_days.unshift(prev)
+          end
+
+          if day.schengen?
+            if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days
+              @next_entry_days.unshift(prev)
+            end
+            return
           end
           prev = day
+
         end 
 
       end

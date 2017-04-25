@@ -9,8 +9,7 @@ class VisitsController < ApplicationController
     calc = Schengen::Calculator.new(current_person)
     @visits = calc.visits
     @visas = current_person.visas.all if current_person.visa_required?
-    @next_entry_date_90 = calc.next_entry_date_90
-    @next_entry_day = calc.next_entry_day
+    @next_entry_days = calc.next_entry_days
     respond_to do |format|
       format.html do
         @visits.each do |visit|

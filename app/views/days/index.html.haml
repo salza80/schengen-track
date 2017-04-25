@@ -10,7 +10,7 @@
         %th{ scope: "col" } Country 
         %th{ scope: "col" } Schengen Area
         %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} Schengen Days Calculation
-        / %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day." } Max Remaining Days
+        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day." } Max Remaining Days
         -if @overstay
           %th{ scope: "col"} Overstay Days
           %th{ scope: "col"} Overstay Re-Enter Wait (days) *
@@ -35,8 +35,8 @@
             = day.schengen_days_count
             - if day.remaining_wait
               *
-          / %td{"data-title": "Max Days Remaining", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-          /   = day.max_remaining_days
+          %td{"data-title": "Max Days Remaining", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+            = day.max_remaining_days
           -if @overstay
             %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
               = day.overstay_days

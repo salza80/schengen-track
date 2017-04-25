@@ -1,0 +1,12 @@
+-unless current_person.visa_required? || @next_entry_days.nil?
+  - @next_entry_days.each do |day|
+    %p.alert.alert-info
+      If you re-enter the Schengen Area on the 
+      %strong
+        =day.the_date.strftime("%B %d, %Y")
+      you can stay for
+      %strong
+        =pluralize(day.max_remaining_days, 'day') 
+      until
+      %strong
+        =(day.the_date + (day.max_remaining_days - 1 ).days).strftime("%B %d, %Y")

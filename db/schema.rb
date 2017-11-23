@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201002610) do
+ActiveRecord::Schema.define(version: 20171123010300) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "continents", force: :cascade do |t|
     t.string   "continent_code"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160201002610) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "continents", ["continent_code"], name: "index_continents_on_continent_code", unique: true
+  add_index "continents", ["continent_code"], name: "index_continents_on_continent_code", unique: true, using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -37,20 +40,8 @@ ActiveRecord::Schema.define(version: 20160201002610) do
     t.string   "nationality"
   end
 
-  add_index "countries", ["continent_id"], name: "index_countries_on_continent_id"
-  add_index "countries", ["country_code"], name: "index_countries_on_country_code", unique: true
-
-  create_table "people", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.integer  "nationality_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "user_id"
-  end
-
-  add_index "people", ["nationality_id"], name: "index_people_on_nationality_id"
-  add_index "people", ["user_id"], name: "index_people_on_user_id"
+  add_index "countries", ["continent_id"], name: "index_countries_on_continent_id", using: :btree
+  add_index "countries", ["country_code"], name: "index_countries_on_country_code", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -68,31 +59,36 @@ ActiveRecord::Schema.define(version: 20160201002610) do
     t.boolean  "guest",                  default: false, null: false
     t.string   "provider"
     t.string   "uid"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "nationality_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["nationality_id"], name: "index_users_on_nationality_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "visas", force: :cascade do |t|
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "no_entries"
     t.text     "visa_type"
-    t.integer  "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   create_table "visits", force: :cascade do |t|
     t.date     "entry_date"
     t.date     "exit_date"
     t.integer  "country_id"
-    t.integer  "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
-  add_index "visits", ["country_id"], name: "index_visits_on_country_id"
-  add_index "visits", ["person_id"], name: "index_visits_on_person_id"
+  add_index "visits", ["country_id"], name: "index_visits_on_country_id", using: :btree
 
+  add_foreign_key "visas", "users"
+  add_foreign_key "visits", "users"
 end

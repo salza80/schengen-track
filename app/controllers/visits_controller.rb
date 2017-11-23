@@ -6,9 +6,9 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    calc = Schengen::Calculator.new(current_person)
+    calc = Schengen::Calculator.new(current_user_or_guest_user)
     @visits = calc.visits
-    @visas = current_person.visas.all if current_person.visa_required?
+    @visas = current_user_or_guest_user.visas.all if current_user_or_guest_user.visa_required?
     @next_entry_days = calc.next_entry_days
     respond_to do |format|
       format.html do
@@ -28,7 +28,7 @@ class VisitsController < ApplicationController
 
   # GET /visits/new
   def new
-    @visit = Visit.with_default(current_person)
+    @visit = Visit.with_default(current_user_or_guest_user)
   end
 
   # GET /visits/1/edit
@@ -42,7 +42,7 @@ class VisitsController < ApplicationController
   # POST /visits
   # POST /visits.json
   def create
-    @visit = current_person.visits.build(visit_params) 
+    @visit = current_user_or_guest_user.visits.build(visit_params) 
     respond_to do |format|
       if @visit.save
         format.html { redirect_to visits_url, notice: 'Visit was successfully created.' }
@@ -82,7 +82,7 @@ class VisitsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visit
-      @visit = current_person.visits.find(params[:id])
+      @visit = current_user_or_guest_user.visits.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -6,7 +6,7 @@ class VisitTest < ActiveSupport::TestCase
   test 'should have the necessary required validators' do
     a = Visit.new
     assert a.invalid?
-    assert_equal [:country, :person, :entry_date], a.errors.keys
+    assert_equal [:country, :user, :entry_date], a.errors.keys
   end
 
   test 'no_days including entry and exit date' do
@@ -77,18 +77,18 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'test find by date range' do
-    person = people(:Sally)
-    a = person.visits.find_by_date('2014-03-20', '2014-03-22')
+    user = users(:Sally)
+    a = user.visits.find_by_date('2014-03-20', '2014-03-22')
     assert_equal 2, a.count
-    a = person.visits.find_by_date('2010-03-09', nil)
+    a = user.visits.find_by_date('2010-03-09', nil)
     assert_equal 3, a.count
-    a = person.visits.find_by_date('2014-03-27', nil)
+    a = user.visits.find_by_date('2014-03-27', nil)
     assert_equal 2, a.count
-    a = person.visits.find_by_date(nil, '2014-03-27')
+    a = user.visits.find_by_date(nil, '2014-03-27')
     assert_equal 3, a.count
-    a = person.visits.find_by_date(nil, '2014-03-26')
+    a = user.visits.find_by_date(nil, '2014-03-26')
     assert_equal 2, a.count
-    a = person.visits.find_by_date(nil, nil)
+    a = user.visits.find_by_date(nil, nil)
     assert_equal 0, a.count
   end
 

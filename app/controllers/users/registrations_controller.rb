@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.create(sign_up_params)
     @guest_user = current_user_or_guest_user
-    @user.people.first.copy_from(@guest_user.people.first)
+    @user.copy_from(@guest_user)
     if @user.save    
       sign_up('user', @user)
       tracker = Staccato.tracker('UA-67599800-1', @user.id)
@@ -50,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # You can put the params you want to permit in the empty array.
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) << [people_attributes: [ :first_name, :last_name, :nationality_id ] ]
+    devise_parameter_sanitizer.for(:sign_up) << [user_attributes: [ :first_name, :last_name, :nationality_id ] ]
   end
 
   # You can put the params you want to permit in the empty array.

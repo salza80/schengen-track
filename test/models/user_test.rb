@@ -5,3 +5,4 @@ class UserTest < ActiveSupport::TestCase
   #   assert true
   # end
 end
+

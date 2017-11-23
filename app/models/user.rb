@@ -1,12 +1,33 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :people, dependent: :destroy
-  accepts_nested_attributes_for :people
-  
+  belongs_to :nationality, class_name: 'Country'
+  has_many :visits, dependent: :destroy
+  has_many :visas, dependent: :destroy
+  validates :first_name, :last_name, :nationality, presence: true
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook]
+
+  def full_name
+    [first_name, last_name].join(' ').strip
+  end
+
+  def nationality
+    super || Country.find_by(country_code: "US")
+  end
+
+  def visa_required?
+    nationality.visa_required == 'V'
+  end
+
+  #used on omniauth signup
+  def copy_from(user)
+    user.visits.each do |v|
+      self.visits << v.dup
+    end
+  end
 
   def self.from_omniauth(auth, guest_user)
     user = User.find_by(provider: auth.provider, uid: auth.uid)
@@ -18,13 +39,17 @@ class User < ActiveRecord::Base
         user.uid = auth.uid
         user.email = auth.info.email
         user.password = Devise.friendly_token[0, 20]
+        user.first_name = guest_user.first_name || "New"
+        user.last_name = guest_user.last_name || "User"
+        user.nationality = guest_user.nationality
+        guest_user.visits.each do |v|
+          user.visits << v.dup
+        end
       end
-      p = Person.copy_from(guest_user.people.first)
       if data =auth['extra']['raw_info']
-        p.first_name =  data['first_name']
-        p.last_name = data['last_name'] 
+        user.first_name =  data['first_name']
+        user.last_name = data['last_name'] 
       end
-      user.people << p
       user.save
       user.reload
       tracker = Staccato.tracker('UA-67599800-1', user.id)
@@ -44,16 +69,11 @@ class User < ActiveRecord::Base
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if user.people.empty? 
-        p = Person.new
-        user.people << p
-        else
-          p = user.people.first
-      end
+      
       if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
         user.email = data['email'] if user.email.blank?
-        p.first_name = data['first_name'] if p.first_name.blank?
-        p.last_name = data['last_name'] if p.last_name.blank?
+        user.first_name = data['first_name'] if user.first_name.blank?
+        user.last_name = data['last_name'] if user.last_name.blank?
         #location must requested from facebook, and they must review the app. Implement later.
         # puts session['devise.facebook_data']
         # puts session['devise.facebook_data']['extra']['raw_info']

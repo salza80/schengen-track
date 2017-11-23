@@ -9,7 +9,6 @@ require 'nokogiri'
 
 # Continent.delete_all
 # Country.delete_all
-# Person.delete_all
 # User.delete_all
 
 f = File.open(File.join(Rails.root, 'db/data', 'continent.xml'))
@@ -40,7 +39,11 @@ end
 f.close
 
 c = Country.find_by(country_code: 'AU')
-user = User.new(email:'smclean17@gmail.com', password:'password', password_confirmation: 'password')
+user = User.new(email:'smclean17@gmail.com', password:'password', password_confirmation: 'password', first_name:'Sally', last_name:'Mclean', nationality: c)
 user.save!
-p = Person.create(first_name:'Sally', last_name:'Mclean', nationality: c, user: user)
+de = Country.find_by(country_code: 'DE')
+cz = Country.find_by(country_code: 'CZ')
+Visit.create(entry_date: '2013/1/1', exit_date: '2013/2/1', country: de, user: user)
+Visit.create(entry_date: '2013/4/2', exit_date: '2013/5/2', country: cz, user: user)
+
 

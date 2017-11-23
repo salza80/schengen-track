@@ -37,12 +37,9 @@
                 %span.glyphicon.glyphicon-info-sign{":aria-hidden" => "true"}
                 %span.hidden-xs
                   About
-        - if current_person
+        - if current_user_or_guest_user
           %p.current-setting.pull-right
-            = current_person.full_name  
+            = current_user_or_guest_user.full_name  
             %br
-            = current_person.nationality.name
+            = current_user_or_guest_user.nationality.name
             = link_to '(change)', my_details_path
-
-
-       

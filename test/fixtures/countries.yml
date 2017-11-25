@@ -4,7 +4,7 @@ Australia:
   name: Australia
   nationality: Australian
   country_code: AU
-  schengen_start_date: nil
+  schengen_start_date: NULL
   continent: Europe
   EU_member_state: false
   visa_required: A
@@ -37,7 +37,7 @@ Brazil:
   name: Brazil
   country_code: BR
   nationality: Brazilian
-  schengen_start_date: nil
+  schengen_start_date: NULL
   continent: SouthAmerica
   EU_member_state: false
   visa_required: A
@@ -48,7 +48,7 @@ India:
   name: India
   nationality: Indian
   country_code: IN
-  schengen_start_date: nil
+  schengen_start_date: NULL
   continent: Asia
   EU_member_state: false
   visa_required: V
@@ -58,7 +58,7 @@ USA:
   name: United States of America
   nationality: American
   country_code: US
-  schengen_start_date: nil
+  schengen_start_date: NULL
   continent: America
   EU_member_state: false
   visa_required: A

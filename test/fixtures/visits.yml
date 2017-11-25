@@ -4,243 +4,243 @@ one:
   entry_date: 2014-03-10
   exit_date: 2014-03-22 
   country: Germany
-  person: Sally
+  user: Sally
 
 two:
   entry_date: 2014-03-22
   exit_date: 2014-03-27 
   country: Australia
-  person: Sally
+  user: Sally
 
 three:
   entry_date: 2014-03-27
   exit_date:  2014-03-28
   country: Australia
-  person: Sally
+  user: Sally
 
 testvisit3:
   entry_date: 2014-04-01
   exit_date: 2014-04-30 
   country: Germany
-  person: Test1
+  user: Test1
 
 testvisit1:
   entry_date: 2014-01-1
   exit_date: 2014-03-1
   country: Germany
-  person: Test1
+  user: Test1
 
 testvisit2:
   entry_date: 2014-03-01
   exit_date: 2014-04-01 
   country: Australia
-  person: Test1
+  user: Test1
 
 testvisit4:
   entry_date: 2014-04-30
   exit_date: 2014-05-02 
   country: Germany
-  person: Test1
+  user: Test1
 
 testvisit5:
   entry_date: 2015-04-1
   exit_date: 2015-04-10 
   country: Germany
-  person: Test1
+  user: Test1
 
 testsingle:
   entry_date: 2015-04-1
   exit_date: 2015-04-10 
   country: Germany
-  person: Test2
+  user: Test2
 
 
 oldcalc1:
   entry_date: 2014-01-1
   exit_date: 2014-01-1 
   country: Germany
-  person: OldCalcTest
+  user: OldCalcTest
 
 oldcalc2:
   entry_date: 2014-04-1
   exit_date: 2014-04-29 
   country: Germany
-  person: OldCalcTest
+  user: OldCalcTest
 
 oldcalc3:
   entry_date: 2014-05-1
   exit_date: 2014-05-05 
   country: Australia
-  person: OldCalcTest
+  user: OldCalcTest
 
 oldcalc4:
   entry_date: 2014-07-10
   exit_date: 2014-09-07 
   country: Germany
-  person: OldCalcTest
+  user: OldCalcTest
 
 oldcalc5:
   entry_date: 2014-09-25
   exit_date: 2014-10-19 
   country: Germany
-  person: OldCalcTest
+  user: OldCalcTest
 
 oldcalc6:
   entry_date: 2015-01-02
   exit_date: 2015-01-06 
   country: Germany
-  person: OldCalcTest
+  user: OldCalcTest
 
 oldcalc7:
   entry_date: 2015-01-08
   exit_date: 2015-01-08 
   country: Germany
-  person: OldCalcTest
+  user: OldCalcTest
 
 noVisaVisit1:
   entry_date: 2016-2-2
   exit_date: 2016-2-8
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaSingleEntry1:
   entry_date: 2010-01-01
   exit_date: 2010-01-30 
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaSingleEntry2:
   entry_date: 2010-02-01
   exit_date: 2010-02-20 
   country: Australia
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaSingleEntry3:
   entry_date: 2010-03-01
   exit_date: 2010-03-06 
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaTwoEntry1:
   entry_date: 2012-01-01
   exit_date: 2012-01-30 
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaTwoEntry2:
   entry_date: 2012-02-01
   exit_date: 2012-02-20 
   country: Australia
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaTwoEntry3:
   entry_date: 2012-03-01
   exit_date: 2012-03-06 
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaTwoEntry4:
   entry_date: 2012-03-07
   exit_date: 2012-03-09 
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaTwoEntry5:
   entry_date: 2012-04-01
   exit_date: 2012-04-10 
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 visaTwoEntry6:
   entry_date: 2012-11-01
   exit_date: 2012-11-10 
   country: Germany
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
 
 bigvisit1:
   entry_date: 2012-1-1
   exit_date: 2013-1-1
   country: Germany
-  person: BigVisits
+  user: BigVisits
 bigvisit2:
   entry_date: 2013-1-1
   exit_date: 2014-1-1
   country: Germany
-  person: BigVisits
+  user: BigVisits
 bigvisit3:
   entry_date: 2014-1-1
   exit_date: 2016-1-1
   country: Germany
-  person: BigVisits
+  user: BigVisits
 bigvisit4:
   entry_date: 2016-2-10
   exit_date: 2016-2-12
   country: Germany
-  person: BigVisits
+  user: BigVisits
 bigvisit5:
   entry_date: 2016-5-15
   exit_date: 2016-5-17
   country: Germany
-  person: BigVisits
+  user: BigVisits
 bigvisit6:
   entry_date: 2016-6-13
   exit_date: 2016-6-13
   country: Germany
-  person: BigVisits
+  user: BigVisits
 
 testeu1:
   entry_date: 2015-04-1
   exit_date: 2015-04-10 
   country: Germany
-  person: EUPerson
+  user: EUPerson
 
 mini1:
   entry_date:  2015-01-1
   exit_date: 2015-01-5
   country: Germany
-  person: MiniTest
+  user: MiniTest
 mini2:
   entry_date:  2015-01-5
   exit_date: 2015-01-5
   country: Germany
-  person: MiniTest
+  user: MiniTest
 mini3:
   entry_date:  2015-01-5
   exit_date: 2015-01-6
   country: Germany
-  person: MiniTest
+  user: MiniTest
 mini4:
   entry_date:  2015-01-10
   exit_date: 2015-01-30
   country: Australia
-  person: MiniTest
+  user: MiniTest
 mini5:
   entry_date:  2015-01-30
   exit_date: 2015-01-30
   country: Germany
-  person: MiniTest
+  user: MiniTest
 mini6:
   entry_date:  2015-01-30
   exit_date: 2015-02-20
   country: Australia
-  person: MiniTest
+  user: MiniTest
 
 maxremaining1:
   entry_date: 2017-01-1
   exit_date: 2017-01-5
   country: Germany
-  person: MaxRemaining
+  user: MaxRemaining
 
 maxremaining2:
   entry_date: 2017-03-01
   exit_date: 2017-03-10 
   country: Australia
-  person: MaxRemaining
+  user: MaxRemaining
 
 maxremaining3:
   entry_date: 2017-06-01
   exit_date: 2017-06-10 
   country: Germany
-  person: MaxRemaining
+  user: MaxRemaining
 
 

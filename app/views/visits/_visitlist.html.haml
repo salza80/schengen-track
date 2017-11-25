@@ -3,7 +3,7 @@
     %thead
       %tr.table-top-header
         %th.center-heading{ colspan: "4", scope: "col" } Travel Details
-        -if current_person.visa_required?
+        -if current_user_or_guest_user.visa_required?
           %th.center-heading{ colspan: "3",  scope: "col" } Visa Details
         %th.center-heading{ colspan: "2",  scope: "col"  } Days in Schengen Area
         %th.center-heading{ scope: "col" }
@@ -14,7 +14,7 @@
           Schengen
           %br Area
         %th{ scope: "col" , "data-toggle":"tooltip",title:"The number of days of this visit." } No. Days
-        -if current_person.visa_required?
+        -if current_user_or_guest_user.visa_required?
           %th{ scope: "col", "data-toggle":"tooltip",title:"Indicates if a Visa for for the period of travel been entered."  } Exits?
           %th{ scope: "col", "data-toggle":"tooltip",title:"The number entries allowed on this Visa"  } No. Entries
           %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area not allowed by the Visa's Entered." } Days Overstay
@@ -38,7 +38,7 @@
             = visit.schengen? ? "Yes" : "No"
           %td{ "data-title": "No. Days"} 
             = visit.no_days
-          -if current_person.visa_required?
+          -if current_user_or_guest_user.visa_required?
             %td{ "data-title": "Visa Exists", class: ("danger" if visit.visa_exists? == false && visit.schengen?)}
               -if visit.schengen? == false
                 = "NA"

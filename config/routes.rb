@@ -9,10 +9,10 @@ Rails.application.routes.draw do
   resources :visits
   resources :visas,  except: [:index, :show]
   resources :days, only:[:index]
-  get 'my_details' =>  'people#edit'
-  put 'my_details' => 'people#update'
-  patch 'my_details' => 'people#update'
-  get 'person' => 'people#show'
+  get 'my_details' =>  'users#edit'
+  put 'my_details' => 'users#update'
+  patch 'my_details' => 'users#update'
+  get 'user' => 'users#show'
   get 'about' => 'about#about'
   get 'about/:nationality' => 'about#about'
   get 'disclaimer'  => 'about#discliamer'

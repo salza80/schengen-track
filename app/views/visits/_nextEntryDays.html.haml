@@ -1,4 +1,4 @@
--unless current_person.visa_required? || @next_entry_days.nil?
+-unless current_user_or_guest_user.visa_required? || @next_entry_days.nil?
   - @next_entry_days.each do |day|
     %p.alert.alert-info
       If you re-enter the Schengen Area on the 

@@ -8,25 +8,25 @@ one:
   start_date: 2013-1-1
   end_date: 2013-12-30
   no_entries: 0
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
   visa_type: S
 single:
   start_date: 2010-1-1
   end_date: 2010-12-30
   no_entries: 1
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
   visa_type: S
 
 multi:
   start_date: 2011-1-1
   end_date: 2011-12-25
   no_entries: 0
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
   visa_type: S
 
 two:
   start_date: 2012-1-1
   end_date: 2012-6-30
   no_entries: 2
-  person: VisaRequiredPerson
+  user: VisaRequiredUser
   visa_type: S

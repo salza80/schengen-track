@@ -1,5 +1,5 @@
 class Country < ActiveRecord::Base
-  has_many :people
+  has_many :users
   has_many :visits
   belongs_to :continent
   validates :country_code, :name, :continent, :visa_required, presence: true

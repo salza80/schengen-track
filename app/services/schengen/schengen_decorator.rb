@@ -88,7 +88,7 @@ module Schengen
     end
     # check if visa has been overstayed by number of entry limit
     def visa_entry_overstay?
-      return false unless person.visa_required? && schengen?
+      return false unless user.visa_required? && schengen?
       return true unless visa_exists?
       visa = schengen_visa
       visa.no_entries != 0 && visa_entry_count > visa.no_entries

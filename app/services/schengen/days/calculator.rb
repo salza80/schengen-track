@@ -6,9 +6,9 @@ module Schengen
    
     class Calculator
       attr_reader :next_entry_days
-      def initialize(person)
-        @person = person
-        @visits = @person.visits.to_a
+      def initialize(user)
+        @user = user
+        @visits = @user.visits.to_a
         @calculated_days={}
         @next_entry_days=[]
         generate_days
@@ -44,7 +44,7 @@ module Schengen
       end  
 
       def calc_type_desc
-        if @person.old_schengen_calc
+        if @user.old_schengen_calc
            "Old Calculation - 3 Month in and 6 Month Period"
         else
           "New Calculation - 90 days in last 180 days (rolling 180 days)"
@@ -64,7 +64,7 @@ module Schengen
       end
 
       def generate_days
-        return unless @person
+        return unless @user
         @calculated_days = {}
         return if @visits.empty?
         return if too_many_days?
@@ -90,9 +90,9 @@ module Schengen
 
           @calculated_days[sd.the_date]=sd
           sd.continuous_days_count = calc_continuous_days_count(sd, i)
-          if @person.nationality.visa_required == 'F'
+          if @user.nationality.visa_required == 'F'
             puts "none"
-          elsif @person.nationality.old_schengen_calc
+          elsif @user.nationality.old_schengen_calc
             schengen_days_in_last_180, count_180_day = calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
           else
             sd.schengen_days_count=calc_schengen_day_new_count(sd,i)
@@ -134,9 +134,9 @@ module Schengen
       end
 
       def calc_max_remaining_days
-        return if @person.nationality.visa_required == 'F'
+        return if @user.nationality.visa_required == 'F'
  
-        if @person.nationality.old_schengen_calc
+        if @user.nationality.old_schengen_calc
           calc_max_remaining_days_old
         else
           calc_max_remaining_days_new

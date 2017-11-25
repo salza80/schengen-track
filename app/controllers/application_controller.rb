@@ -5,21 +5,17 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_person, :current_user_or_guest_user, :amazon
-
-  def current_person
-    cp = current_user_or_guest_user.people.first
-  end
+  helper_method :current_user_or_guest_user, :amazon
 
   def amazon
-    visits = current_person.visits.find_by_date(Date.today + 1.month, Date.new(3000, 1, 1))
+    visits = current_user_or_guest_user.visits.find_by_date(Date.today + 1.month, Date.new(3000, 1, 1))
     search = ''
     unless visits.empty?
       search = visits.first.country.name +  ' '
     end
 
     search += 'europe'
-    s = Aws::BookQuery.new(current_person.nationality.country_code)
+    s = Aws::BookQuery.new(current_user_or_guest_user.nationality.country_code)
     s.query(search)
   end
 
@@ -43,10 +39,10 @@ class ApplicationController < ActionController::Base
     user.guest = true
     user.email = "guest_#{Time.now.to_i}#{rand(99)}@example.com"
     user.password = 'password'
+    user.first_name = 'Guest'
+    user.last_name = 'User'
+    user.nationality = default_guest_country
     user.save(validate: false)
-
-    p = user.people.build(first_name: 'Guest', last_name: 'User', nationality: default_guest_country)
-    p.save(validate: false)
     user.reload
     user
   end

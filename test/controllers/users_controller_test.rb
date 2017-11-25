@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class PeopleControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   setup do
-    @person = people(:Sally)
+    @user = users(:Sally)
   end
 
   # test "should get index" do
@@ -38,7 +38,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   test "should update person" do
     login
-    patch :update, person: { first_name: @person.first_name, last_name: @person.last_name, nationality_id: @person.nationality_id }
+    patch :update, user: { first_name: @user.first_name, last_name: @user.last_name, nationality_id: @user.nationality_id }
     assert_redirected_to visits_path
   end
 

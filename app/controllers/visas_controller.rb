@@ -4,7 +4,7 @@ class VisasController < ApplicationController
   # GET /visas
   # GET /visas.json
   def index
-    @visas = current_person.visas.all
+    @visas = current_user_or_guest_user.visas.all
   end
 
   # GET /visas/1
@@ -24,7 +24,7 @@ class VisasController < ApplicationController
   # POST /visas
   # POST /visas.json
   def create
-    @visa = current_person.visas.build(visa_params)
+    @visa = current_user_or_guest_user.visas.build(visa_params)
     @visa.visa_type = 'S'
     respond_to do |format|
       if @visa.save
@@ -64,7 +64,7 @@ class VisasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visa
-      @visa = current_person.visas.find(params[:id])
+      @visa = current_user_or_guest_user.visas.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

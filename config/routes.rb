@@ -1,22 +1,9 @@
 Rails.application.routes.draw do
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'about#about'
-
-  resources :visits
-  resources :visas,  except: [:index, :show]
-  resources :days, only:[:index]
-  get 'my_details' =>  'users#edit'
-  put 'my_details' => 'users#update'
-  patch 'my_details' => 'users#update'
-  get 'user' => 'users#show'
-  get 'about' => 'about#about'
-  get 'about/:nationality' => 'about#about'
-  get 'disclaimer'  => 'about#discliamer'
-  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
+  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -25,6 +12,7 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
 
   # Example resource route with options:
   #   resources :products do
@@ -65,4 +53,19 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  root 'about#about'
+
+  resources :visits
+  resources :visas,  except: [:index, :show]
+  resources :days, only:[:index]
+  get 'my_details' =>  'users#edit'
+  put 'my_details' => 'users#update'
+  patch 'my_details' => 'users#update'
+  get 'user' => 'users#show'
+  get 'about' => 'about#about'
+  get 'about/:nationality' => 'about#about'
+  get 'disclaimer'  => 'about#discliamer'
+  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
+
 end

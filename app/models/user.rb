@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth, guest_user)
+    puts auth
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     return user if user
     user = register_oauth_with_matching_email(auth)
@@ -42,11 +43,11 @@ class User < ActiveRecord::Base
         user.first_name = guest_user.first_name || "New"
         user.last_name = guest_user.last_name || "User"
         user.nationality = guest_user.nationality
-        guest_user.visits.each do |v|
-          user.visits << v.dup
-        end
       end
-      if data =auth['extra']['raw_info']
+      guest_user.visits.each do |v|
+        user.visits << v.dup
+      end
+      if data = auth['extra']['raw_info']
         user.first_name =  data['first_name']
         user.last_name = data['last_name'] 
       end
@@ -59,6 +60,7 @@ class User < ActiveRecord::Base
   end
 
   def self.register_oauth_with_matching_email(auth)
+    return nil unless auth.info.email
     user = find_by(email: auth.info.email)
     return nil unless user
     user.uid = auth.uid

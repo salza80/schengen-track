@@ -1,6 +1,6 @@
 Amazon::Ecs.configure do |options|
-  options[:AWS_access_key_id] = ENV['AWS_ACCESS_KEY_ID']
-  options[:AWS_secret_key] =  ENV['AWS_SECRET_KEY']
+  options[:AWS_access_key_id] = Rails.application.secrets.aws_access_key_id
+  options[:AWS_secret_key] =  Rails.application.secrets.aws_secret_key
   # options[:associate_tag] = ENV['AWS_ASSOCIATE_TAG']
   options[:Condition] = 'New'
   options[:response_group] = 'Medium'

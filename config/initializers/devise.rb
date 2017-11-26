@@ -259,11 +259,9 @@ Devise.setup do |config|
   config.secret_key = Rails.application.secrets.secret_key_base if Rails.env.production?
 
   config.omniauth :facebook,
-    ENV['FACEBOOK_ID'],
-    ENV['FACEBOOK_SECRET'],
+    Rails.application.secrets.facebook_id,
+    Rails.application.secrets.facebook_secret,
     scope: 'email',
     info_fields: 'email,first_name,last_name',
     token_params: { parse: :json }
-  
-
 end

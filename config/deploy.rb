@@ -66,7 +66,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :keep_releases, 5
 set :migration_role, :app
 ## Linked Files & Directories (Default None):
-append :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+append :linked_dirs,  'bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system'
 append :linked_files, 'config/database.yml', 'config/secrets.yml'
 
 namespace :puma do

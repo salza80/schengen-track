@@ -45,7 +45,15 @@ group :production do
   
   gem 'rails_12factor'
 end
-gem 'web-console', '~> 2.0', group: :development
+
+group :development do
+    gem 'web-console', '~> 2.0'
+    gem 'capistrano',         require: false
+    gem 'capistrano-rvm',     require: false
+    gem 'capistrano-rails',   require: false
+    gem 'capistrano-bundler', require: false
+    gem 'capistrano3-puma',   require: false
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20171123010300) do
 
   add_index "visits", ["country_id"], name: "index_visits_on_country_id", using: :btree
 
+  add_foreign_key "countries", "continents"
   add_foreign_key "visas", "users"
+  add_foreign_key "visits", "countries"
   add_foreign_key "visits", "users"
 end

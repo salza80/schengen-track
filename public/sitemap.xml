@@ -28,8 +28,6 @@
   <loc>http://www.schengen-calculator.com/users/sign_up</loc>
   <priority>0.30</priority>
 </url>
-
-
 <url>
   <loc>http://www.schengen-calculator.com/about/Andorra</loc>
   <priority>0.80</priority>
@@ -808,14 +806,6 @@
 </url>
 <url> 
   <loc>http://www.schengen-calculator.com/about/Gabonese</loc>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>http://www.schengen-calculator.com/about/United_Kingdom</loc>
-  <priority>0.80</priority>
-</url>
-<url> 
-  <loc>http://www.schengen-calculator.com/about/British</loc>
   <priority>0.80</priority>
 </url>
 <url> 

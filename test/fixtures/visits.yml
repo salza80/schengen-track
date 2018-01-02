@@ -256,7 +256,7 @@ bugfix2:
 bugfix3:
   entry_date: 2017-04-26
   exit_date: 2017-04-30
-  country: Croatia
+  country: Brazil
   user: bugfix
 bugfix4:
   entry_date: 2017-04-30
@@ -270,7 +270,7 @@ bugfix5:
   user: bugfix
 bugfix6:
   entry_date: 2017-10-01
-  exit_date: 2017-11-12
+  exit_date: 2017-10-26
   country: Germany
   user: bugfix
 

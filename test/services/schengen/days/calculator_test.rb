@@ -30,7 +30,7 @@ class CalculatorTest < ActiveSupport::TestCase
     as =  Schengen::Days::Calculator.new(user)
 
     assert_equal 80, as.find_by_date(Date.new(2017,6,10)).max_remaining_days
-    assert_equal Date.new(2017,9,8), as.next_entry_days.last.the_date
+    assert_equal Date.new(2017,9,9), as.next_entry_days.last.the_date
     assert_equal 90, as.calculated_days.last.max_remaining_days
   end
 

@@ -242,14 +242,14 @@ class CalculatorTest < ActiveSupport::TestCase
   test 'test max remaining days' do
     user = users(:MaxRemaining)
     as =  Schengen::Calculator.new(user)
-    assert_equal Date.new(2017,9,8), as.next_entry_days.last.the_date
+    assert_equal Date.new(2017,9,9), as.next_entry_days.last.the_date
  
   end
 
   test 'test (bugfix) shengen days count' do
     user = users(:bugfix)
     as =  Schengen::Calculator.new(user)
-    a =as.visits.last
+    a = as.visits.last
 
     assert_equal 91, a.schengen_days
 

@@ -60,5 +60,4 @@ class CalculatorTest < ActiveSupport::TestCase
 
 
   end
-
 end

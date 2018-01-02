@@ -243,4 +243,35 @@ maxremaining3:
   country: Germany
   user: MaxRemaining
 
+bugfix1:
+  entry_date: 2017-03-03
+  exit_date: 2017-03-16
+  country: Germany
+  user: bugfix
+bugfix2:
+  entry_date: 2017-04-23
+  exit_date: 2017-04-26
+  country: Germany
+  user: bugfix
+bugfix3:
+  entry_date: 2017-04-26
+  exit_date: 2017-04-30
+  country: Brazil
+  user: bugfix
+bugfix4:
+  entry_date: 2017-04-30
+  exit_date: 2017-05-18
+  country: Germany
+  user: bugfix
+bugfix5:
+  entry_date: 2017-06-12
+  exit_date: 2017-07-27
+  country: Germany
+  user: bugfix
+bugfix6:
+  entry_date: 2017-10-01
+  exit_date: 2017-10-26
+  country: Germany
+  user: bugfix
+
 

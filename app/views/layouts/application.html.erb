@@ -11,14 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="msvalidate.01" content="78EB2E60264CB939006FF5C07C8F2404" />
     <meta http-equiv="content-language" content="en">
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Free Schengen/short stay calculator for travel in Europe. Enter your nationality, travel dates and destination, and the schengen calculator does the rest." %>" />
-     <meta name="keywords" content="Schengen,Calculator,Schengen Calculator,90 days in 180, Schengen Visa, Travel, Europe, Schengen Area, Schengen Zone">
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Free Schengen/Europe 90/180 day calculator. Enter your nationality, travel dates and destination, and the schengen calculator does the rest." %>" />
+    <meta name="keywords" content="Schengen, Schengen Calculator,90 days in 180, 90 day rule, 180 day calculator, 90 day calculator, Schengen Visa, Travel, Europe Visa, Schengen Area, Schengen Zone">
     <meta property="og:url"           content="http://www.schengen-calculator.com" />
     <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="<%= content_for?(:title) ? 'Free Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Short-stay Tourist Visa Calculator ' + params[:controller].titleize %>" />
-    <meta property="og:description"   content="<%= content_for?(:description) ? yield(:description) : "Free Schengen/short stay calculator for travel in Europe. Enter your nationality, travel dates and destination, and the schengen calculator does the rest." %>" />
+    <meta property="og:title"         content="<%= content_for?(:title) ? 'Free Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Europe Tourist Visa Calculator' %>" />
+    <meta property="og:description"   content="<%= content_for?(:description) ? yield(:description) : "Free Schengen/Europe Visa 90/180 day calculator. Enter your nationality, travel dates and destination, and the schengen calculator does the rest." %>" />
     <meta property="og:image"         content="http://www.schengen-calculator.com/med.png" />
-    <title><%= content_for?(:title) ? 'Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Short-stay Tourist Visa Calculator ' + params[:controller].titleize %>
+    <title><%= content_for?(:title) ? 'Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Short-stay Tourist Visa Calculator' %>
     </title>
     <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag    'application',  media: 'all', 'data-turbolinks-track' => true %>

@@ -38,6 +38,7 @@ gem 'pg', '0.20'
 # gem 'unicorn'
 
 gem 'bourbon'
+gem 'autoprefixer-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

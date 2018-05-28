@@ -8,7 +8,7 @@
         enable_page_level_ads: true
       });
     </script>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="msvalidate.01" content="78EB2E60264CB939006FF5C07C8F2404" />
     <meta http-equiv="content-language" content="en">
@@ -25,11 +25,29 @@
     <title><%= content_for?(:title) ? 'Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Short-stay Tourist Visa Calculator' %>
     </title>
     <%= favicon_link_tag 'favicon.ico' %>
-    <%= stylesheet_link_tag    'application',  media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'application',  media: 'all' %>
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
-  <body data-no-turbolink>
+  <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId            : '1666941640196067',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v3.0'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
     <%= render 'layouts/header' %>
     <div class="container-fluid">
       <div class="row">

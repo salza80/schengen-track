@@ -1,6 +1,5 @@
-var app = app || {};
-
-app.goToNationality = function(nationality, anchor){
+var App = App || {};
+App.goToNationality = function(nationality, anchor){
   var url = "/about/" + nationality
   if (anchor > ""){
     url = url + "#" + anchor

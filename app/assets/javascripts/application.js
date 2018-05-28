@@ -16,5 +16,4 @@
 //= require bootstrap
 //= require google_adsense
 //= require analytics_tracker
-//= require fb
 //= require_tree .

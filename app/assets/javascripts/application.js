@@ -14,6 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require google_adsense
 //= require analytics_tracker
 //= require_tree .

@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.10.0"
+lock "~> 3.11.0"
 
 server '159.203.182.130', port: 22, roles: [:web, :app, :db], primary: true
 set :application, "schengen-track"

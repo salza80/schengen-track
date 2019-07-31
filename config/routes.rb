@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   get 'about' => 'about#about'
   get 'about/:nationality' => 'about#about'
   get 'disclaimer'  => 'about#discliamer'
+  get 'privacy'  => 'about#privacy'
   devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
 
 end

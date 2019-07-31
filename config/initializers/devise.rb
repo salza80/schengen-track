@@ -261,7 +261,7 @@ Devise.setup do |config|
   config.omniauth :facebook,
     Rails.application.secrets.facebook_id,
     Rails.application.secrets.facebook_secret,
-    callback_url: 'https://www.schengen-calculator.com/users/auth/facebook/callback',
+    callback_url: 'https://schengen-calculator.com/users/auth/facebook/callback',
     scope: 'email',
     info_fields: 'email,first_name,last_name',
     token_params: { parse: :json }

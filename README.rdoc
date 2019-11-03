@@ -11,7 +11,7 @@ Live site can be found here: http://www.schengen-calculator.com
 == System Dependencies
 * Database (development): SQLite
 * Database (production): PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
-* Ruby version 2.3.6, source: https://www.ruby-lang.org/en/documentation/installation/
+* Ruby version 2.4.9, source: https://www.ruby-lang.org/en/documentation/installation/
 
 
 == Application setup

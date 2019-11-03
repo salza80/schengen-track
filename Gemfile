@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.9'
+gem 'rails', '4.2.11'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -22,7 +22,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails', '~> 0.8.2'
 gem 'bootstrap-sass', '~> 3.3.3'
-gem 'devise'
+gem "devise", ">= 4.7.1"
 gem 'nokogiri'
 gem 'geocoder'
 gem 'omniauth-facebook'
@@ -65,4 +65,4 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
 end
-ruby '2.3.6'
+ruby '2.4.9'

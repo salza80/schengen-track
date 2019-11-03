@@ -30,6 +30,7 @@ gem 'puma'
 gem 'amazon-ecs'
 gem 'staccato'
 gem 'pg', '0.20'
+gem 'mini_racer'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

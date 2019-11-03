@@ -21,7 +21,7 @@
 
   ga('create', 'UA-67599800-1', 'auto');
   ga('set', 'userId', #{current_user_or_guest_user.id}); 
-  / ga('create', 'UA-67599800-1', { 'userId': #{current_user.id} })
+  -# ga('create', 'UA-67599800-1', { 'userId': #{current_user.id} })
   ga('send', 'pageview');
 
 

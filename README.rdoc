@@ -26,8 +26,10 @@ Live site can be found here: http://www.schengen-calculator.com
 = After updating seed countries data
 * run command <tt>`./bin/rake db:update_countries`</tt>
 
-= To clean up guest user accounts
+= To clean up guest user accounts up to last week
 * run command <tt>`./bin/rake db:guest_cleanup`</tt>
+* Optionally pass in a "to date" to delete guest accounts last modified up to that date
+* run command <tt>`./bin/rake db:guest_cleanup["2010-10-01"]`</tt>
 
 
 == How to run application and tests (test framework `MiniTest`)

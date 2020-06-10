@@ -15,7 +15,9 @@ namespace :db do
     ActiveRecord::Base.transaction do
       begin 
         # delete all guest users over 7 days old
-        guestsDelete = User.includes(:visits, :visas).where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 7.days, istrue: true }).destroy_all
+        guestsDelete = User.where("updated_at <= :limit AND guest=:istrue", { limit: Time.now - 7.days, istrue: true }).select(:id).find_in_batches(batch_size: 100) do | ids |
+          User.includes(:visits, :visas).where(id: ids).destroy_all
+        end
         puts 'end guest cleanup'
         puts 'Number of user accounts: ' + User.count.to_s
         puts 'Number of Visits:' + Visit.count.to_s

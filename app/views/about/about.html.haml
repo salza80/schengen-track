@@ -13,6 +13,8 @@
       %ul.nav.about-sidenav
         %li
           = link_to "Introduction", "#intro"
+        %li
+          = link_to "UK Citizens  / BREXIT", "#brexit"
         %li 
           = link_to "What is the Schengen Area", "#what"
         %li
@@ -48,18 +50,27 @@
 
   .col-md-9{:role => "main"}
     .about-section
-      %h1{:id => "info"}
+      %h1{:id => "intro"}
         About Schengen Calculator
       %h2
         Introduction
       %p
         The Schengen Calculator calculates the length of stay you are allowed to travel in the Schengen Area on a short term Schengen visa. You can use it to keep track, or forecast all of your visits inside the Schengen Area so you know how many days you have remaining before you have to leave. 
-      %p 
-        It is especially useful for planning travel in Europe that will likely exceed 90 days. By travelling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are travelling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countires are in the Schengen Area, and to calculate when you are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
       .text-center
         = link_to 'Get Started Now', visits_path, class: "btn btn-primary"
+      %br
+      %p
+        It is especially useful for planning travel in Europe that will likely exceed 90 days. By travelling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are travelling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countires are in the Schengen Area, and to calculate when you are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
       .ad-block
         %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "7291202216", :style => "display:block"}
+      %h2{:id => "brexit"}
+        UK Citizens  / BREXIT
+      %h3
+        New rules from 1st January 2021
+      %p
+        UK Citizen's can use the schengen calculator for calculating the 90 days in any 180-day period for tourist visits to the EU from the 1st January 2021.
+        For more infomation on how the Brexit changes affect you, please see the official UK government website:
+        = link_to  "gov.uk - Visit Europe from 1 January 2021", "https://www.gov.uk/visit-europe-1-january-2021", target: :_blank
       %h2{:id => "what"}
         What is the Schengen Area
       %p
@@ -242,7 +253,11 @@
       %p
         Please read the 
         = link_to 'Disclaimer', disclaimer_path
-        before using the Schengen Calculator.       
+        before using the Schengen Calculator.
+
+      %h3{:id => "updated"}
+      %p
+        Last Updated: Feb 07, 2021
 :javascript
   $('body').scrollspy({ target: '.about-sidebar', offset: 130 })
   $('.about-sidebar li a').click(function(event) {event.preventDefault(); $( $(this).attr('href') )[0].scrollIntoView(); scrollBy(0, -120); });

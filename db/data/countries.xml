@@ -955,7 +955,7 @@
 		<continent_code>EU</continent_code>
 		<schengen_start_date/>
 		<EU_memeber_state>true</EU_memeber_state>
-		<visa_required>F</visa_required>
+		<visa_required>A</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886282" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="gb"&gt;

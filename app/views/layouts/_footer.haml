@@ -24,5 +24,14 @@
   -# ga('create', 'UA-67599800-1', { 'userId': #{current_user.id} })
   ga('send', 'pageview');
 
+  / Google tag (gtag.js)
+%script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=G-E9CCZDHLJF"}
+:javascript
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E9CCZDHLJF');
+
 
 

@@ -1,5 +1,9 @@
 name: Deploy
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - deployChange
+  page_build:
 jobs:
   deploy:
     # https://github.com/devcontainers/ci/issues/192

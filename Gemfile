@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.11'
+gem 'rails', '>= 5.0.0.rc2', '< 5.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -31,6 +31,7 @@ gem 'amazon-ecs'
 gem 'staccato'
 gem 'pg', '0.20'
 gem 'mini_racer'
+gem 'listen'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -65,4 +66,4 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
 end
-ruby '2.4.9'
+ruby '2.7.2'

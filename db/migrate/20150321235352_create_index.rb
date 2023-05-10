@@ -1,6 +1,5 @@
-class CreateIndex < ActiveRecord::Migration
+class CreateIndex < ActiveRecord::Migration[5.1]
   def change
-    add_index :visits, :person_id
     add_foreign_key :visits, :people
   end
 end

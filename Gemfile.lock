@@ -143,6 +143,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.6)
     jwt (2.7.0)
+    lamby (4.1.1)
+      rack
     libv8-node (16.10.0.0)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -332,6 +334,7 @@ DEPENDENCIES
   haml-rails (~> 1.0.0)
   jbuilder (~> 2.0)
   jquery-rails
+  lamby
   listen
   mini_racer
   nokogiri

@@ -32,6 +32,7 @@ gem 'staccato'
 gem 'pg'
 gem 'mini_racer'
 gem 'listen'
+gem 'lamby'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

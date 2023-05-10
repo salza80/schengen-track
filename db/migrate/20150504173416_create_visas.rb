@@ -1,4 +1,4 @@
-class CreateVisas < ActiveRecord::Migration
+class CreateVisas < ActiveRecord::Migration[5.1]
   def change
     create_table :visas do |t|
       t.date :start_date

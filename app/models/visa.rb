@@ -1,4 +1,4 @@
-class Visa < ActiveRecord::Base
+class Visa < ApplicationRecord
   belongs_to :user
   validates :start_date, :end_date, :user, :visa_type, :no_entries, presence: true
   validates :visa_type, inclusion: { in: %w(R S), message: "%{value} is not a valid visa type" }

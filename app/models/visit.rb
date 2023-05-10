@@ -1,4 +1,4 @@
-class Visit < ActiveRecord::Base
+class Visit < ApplicationRecord
   belongs_to :country
   belongs_to :user
   validates :country, :user, :entry_date, presence: true

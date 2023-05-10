@@ -5,7 +5,7 @@ class VisaTest < ActiveSupport::TestCase
   test 'should have the necessary required validators' do
     a = Visa.new
     assert a.invalid?
-    assert_equal [:start_date, :end_date, :user, :visa_type, :no_entries], a.errors.keys
+    assert_equal [:user, :start_date, :end_date, :visa_type, :no_entries], a.errors.keys
   end
 
 

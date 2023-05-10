@@ -4,8 +4,6 @@ module Schengen
     attr_accessor :schengen_days
     attr_accessor :no_days_continuous_in_schengen
 
-
-
     def visit_check?
       if visa_required?
         return visa_check?
@@ -96,7 +94,7 @@ module Schengen
 
     # number of visits on current visa
     def visa_entry_count
-      p = previous_visits_on_current_visa << self
+      p = previous_visits_on_current_visa.to_a << self
       return nil unless p
       cnt = 0
       prev_visit = nil

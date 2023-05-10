@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 5.0.0.rc2', '< 5.1'
+gem 'rails', '>= 5.2.0.rc2', '< 5.3'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -22,14 +22,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails', '~> 1.0.0'
 gem 'bootstrap-sass', '~> 3.4.1'
-gem "devise", ">= 4.7.1"
+gem "devise", ">= 4.9.2"
 gem 'nokogiri'
 gem 'geocoder'
 gem 'omniauth-facebook'
 gem 'puma'
 gem 'amazon-ecs'
 gem 'staccato'
-gem 'pg', '0.20'
+gem 'pg'
 gem 'mini_racer'
 gem 'listen'
 # Use ActiveModel has_secure_password
@@ -59,6 +59,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rails-controller-testing'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

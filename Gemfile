@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 6.0.1.rc2', '< 6.2'
+gem 'rails', '>= 7.0.0.rc2', '< 8.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.1'
@@ -18,7 +18,7 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
 gem 'haml-rails', '~> 2.0.0'
 gem 'bootstrap-sass', '~> 3.4.1'
@@ -34,6 +34,7 @@ gem 'mini_racer'
 gem 'listen'
 gem 'lamby'
 gem "webpacker"
+gem "sprockets-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -51,7 +52,7 @@ group :production do
 end
 
 group :development do
-    gem 'web-console'
+    gem 'web-console', '~> 4.2'
     gem 'capistrano',         require: false
     gem 'capistrano-rvm',     require: false
     gem 'capistrano-rails',   require: false
@@ -69,4 +70,4 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
 end
-ruby '2.7.2'
+ruby '3.1.4'

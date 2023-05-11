@@ -30,12 +30,12 @@ jobs:
           registry: ghcr.io
           username: "${{ github.repository_owner }}"
           password: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Deploy
+      - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
+          imageName: ghcr.io/example/example-devcontainer
+          cacheFrom: ghcr.io/example/example-devcontainer
           push: always
-          imageName: ghcr.io/rails-lambda/{% include "_cctmp/dash_name.txt" %}-devcontainer
-          cacheFrom: ghcr.io/rails-lambda/{% include "_cctmp/dash_name.txt" %}-devcontainer
           env: |
             CI
             AWS_ACCESS_KEY_ID

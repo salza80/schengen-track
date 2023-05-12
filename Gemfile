@@ -32,7 +32,6 @@ gem 'staccato'
 gem 'pg'
 gem 'mini_racer'
 gem 'listen'
-gem 'lamby'
 gem "webpacker"
 gem "sprockets-rails"
 # Use ActiveModel has_secure_password

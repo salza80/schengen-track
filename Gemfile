@@ -18,7 +18,7 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', group: :doc
+# gem 'sdoc', group: :doc
 
 gem 'haml-rails', '~> 2.0.0'
 gem 'bootstrap-sass', '~> 3.4.1'
@@ -26,11 +26,11 @@ gem "devise", ">= 4.9.2"
 gem 'nokogiri'
 gem 'geocoder'
 gem 'omniauth-facebook'
-gem 'puma'
+gem 'puma', "=6.2.2"
 gem 'amazon-ecs'
 gem 'staccato'
 gem 'pg'
-gem 'mini_racer'
+# gem 'mini_racer' testing deploy with this disabled
 gem 'listen'
 gem "webpacker"
 gem "sprockets-rails"
@@ -50,15 +50,15 @@ group :production do
   gem 'rails_12factor'
 end
 
-group :development do
-    gem 'web-console', '~> 4.2'
-    gem 'capistrano',         require: false
-    gem 'capistrano-rvm',     require: false
-    gem 'capistrano-rails',   require: false
-    gem 'capistrano-bundler', require: false
-    gem 'capistrano3-puma',   require: false
-    gem 'capistrano-rake',    require: false
-end
+# group :development do
+#     gem 'web-console', '~> 4.2'
+#     gem 'capistrano',         require: false
+#     gem 'capistrano-rvm',     require: false
+#     gem 'capistrano-rails',   require: false
+#     gem 'capistrano-bundler', require: false
+#     gem 'capistrano3-puma',   require: false
+#     gem 'capistrano-rake',    require: false
+# end
 
 group :development, :test do
   gem 'rails-controller-testing'
@@ -69,4 +69,4 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
 end
-ruby '3.1.4'
+ruby '3.0.6'

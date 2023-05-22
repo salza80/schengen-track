@@ -21,6 +21,7 @@ export class CdkPipelineStack extends Stack {
          // Install dependencies, build and run cdk synth
          installCommands: ['npm i -g npm@latest'],
          commands: [
+           'cd cdk',
            'npm ci',
            'npm run build',
            'npx cdk synth'
@@ -29,5 +30,16 @@ export class CdkPipelineStack extends Stack {
     });
 
     // This is where we add the application stages
+
+    // deploy beanstalk app
+    // For environment with all default values:
+    // const deploy = new CdkEBStage(this, 'Pre-Prod');
+
+    // For environment with custom AutoScaling group configuration
+    const deploy = new CdkEBStage(this, 'Pre-Prod', { 
+        minSize : "1",
+        maxSize : "1"
+    });
+    const deployStage = pipeline.addStage(deploy); 
   }
 }

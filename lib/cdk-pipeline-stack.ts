@@ -25,8 +25,7 @@ export class CdkPipelineStack extends Stack {
            'npm ci',
            'npm run build',
            'npx cdk synth'
-         ],
-         primaryOutputDirectory: 'cdk.out',
+         ]
        }),
     });
 
@@ -37,7 +36,7 @@ export class CdkPipelineStack extends Stack {
     // const deploy = new CdkEBStage(this, 'Pre-Prod');
 
     // For environment with custom AutoScaling group configuration
-    const deploy = new CdkEBStage(this, 'Pre-Prod', { 
+    const deploy = new CdkEBStage(this, 'test', { 
         minSize : "1",
         maxSize : "1"
     });

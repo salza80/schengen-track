@@ -62,29 +62,61 @@ export class EBApplnStack extends cdk.Stack {
         ]
     });
 
+    const rdsNamespace = "aws:rds:dbinstance";
+
     // Example of some options which can be configured
-    const optionSettingProperties: elasticbeanstalk.CfnEnvironment.OptionSettingProperty[] = [
-        {
-            namespace: 'aws:autoscaling:launchconfiguration',
-            optionName: 'IamInstanceProfile',
-            value: myProfileName,
-        },
-        {
-            namespace: 'aws:autoscaling:asg',
-            optionName: 'MinSize',
-            value: props?.maxSize ?? '1',
-        },
-        {
-            namespace: 'aws:autoscaling:asg',
-            optionName: 'MaxSize',
-            value: props?.maxSize ?? '1',
-        },
-        {
-            namespace: 'aws:ec2:instances',
-            optionName: 'InstanceTypes',
-            value: props?.instanceTypes ?? 't2.micro',
-        },
-    ];
+    const optionSettingProperties = [
+            {
+                namespace: 'aws:autoscaling:launchconfiguration',
+                optionName: 'IamInstanceProfile',
+                value: myProfileName,
+            },
+            {
+                namespace: 'aws:autoscaling:asg',
+                optionName: 'MinSize',
+                value: props?.maxSize ?? '1',
+            },
+            {
+                namespace: 'aws:autoscaling:asg',
+                optionName: 'MaxSize',
+                value: props?.maxSize ?? '1',
+            },
+            {
+                namespace: 'aws:ec2:instances',
+                optionName: 'InstanceTypes',
+                value: props?.instanceTypes ?? 't2.micro',
+            },
+            {
+                namespace: rdsNamespace,
+                optionName: 'DBEngine',
+                value: 'postgres',
+            },
+            {
+                namespace: rdsNamespace,
+                optionName: 'DBEngineVersion',
+                value: '14.6',
+            },
+            {
+                namespace: rdsNamespace,
+                optionName: 'DBUser',
+                value: 'appUser',
+            },
+            {
+                namespace: rdsNamespace,
+                optionName: 'DBPassword',
+                value: 'test123',
+            },
+            {
+                namespace: rdsNamespace,
+                optionName: 'DBDeletionPolicy',
+                value: 'Delete',
+            },
+           {
+                namespace: rdsNamespace,
+                optionName: 'DBInstanceClass',
+                value: 'db.t3.micro',
+            },
+        ];
 
     // Create an Elastic Beanstalk environment to run the application
     const elbEnv = new elasticbeanstalk.CfnEnvironment(this, 'Environment', {

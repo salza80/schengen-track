@@ -87,6 +87,11 @@ export class EBApplnStack extends cdk.Stack {
                 value: props?.instanceTypes ?? 't2.micro',
             },
             {
+                namespace: 'aws:ec2:instances',
+                optionName: 'EnableSpot',
+                value: 'true',
+            },
+            {
                 namespace: rdsNamespace,
                 optionName: 'DBEngine',
                 value: 'postgres',

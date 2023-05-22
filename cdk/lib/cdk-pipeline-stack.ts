@@ -1,6 +1,7 @@
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
 import {  Stack, StackProps } from 'aws-cdk-lib';
+import { CdkEBStage } from './eb-stage';
 
 /**
  * The stack that defines the application pipeline

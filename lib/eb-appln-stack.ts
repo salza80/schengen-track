@@ -25,7 +25,7 @@ export class EBApplnStack extends cdk.Stack {
     // });
         // Construct an S3 asset Zip from directory up.
     const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip', {
-      path: `${__dirname}/../../src`,
+      path: `${__dirname}/../src`,
     });
 
     const appName = 'cdkSchengTrack';

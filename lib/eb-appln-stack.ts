@@ -127,6 +127,11 @@ export class EBApplnStack extends cdk.Stack {
                 optionName: 'DBInstanceClass',
                 value: 'db.t3.micro',
             },
+            {
+                namespace: 'aws:elasticbeanstalk:application:environment',
+                optionName: 'SECRET_KEY_BASE',
+                value: 'Replace'
+            },
         ];
 
     // Create an Elastic Beanstalk environment to run the application

@@ -100,12 +100,12 @@ export class EBApplnStack extends cdk.Stack {
             {
                 namespace: 'aws:ec2:instances',
                 optionName: 'EnableSpot',
-                value: 'true',
+                value: true,
             },
             {
                 namespace: rdsNamespace,
                 optionName: 'HasCoupledDatabase',
-                value: 'true',
+                value: true,
             },
             {
                 namespace: rdsNamespace,
@@ -138,9 +138,6 @@ export class EBApplnStack extends cdk.Stack {
                 value: 'db.t3.micro',
             },
         ];
-
-
-    
 
     // Create an Elastic Beanstalk environment to run the application
     const elbEnv = new elasticbeanstalk.CfnEnvironment(this, 'Environment', {

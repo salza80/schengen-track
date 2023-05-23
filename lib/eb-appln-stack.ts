@@ -125,7 +125,7 @@ export class EBApplnStack extends cdk.Stack {
             {
                 namespace: rdsNamespace,
                 optionName: 'DBPassword',
-                value: 'test123',
+                value: 'Test1234*',
             },
             {
                 namespace: rdsNamespace,

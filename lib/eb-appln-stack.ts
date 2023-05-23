@@ -137,6 +137,11 @@ export class EBApplnStack extends cdk.Stack {
                 optionName: 'DBInstanceClass',
                 value: 'db.t3.micro',
             },
+            {
+                namespace: rdsNamespace,
+                optionName: 'DBAllocatedStorage',
+                value: '20',
+            },
         ];
 
     // Create an Elastic Beanstalk environment to run the application

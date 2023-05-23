@@ -24,9 +24,8 @@ export class CdkPipelineStack extends Stack {
          commands: [
            'npm ci',
            'npm run build',
-           'npx cdk synth'
-         ],
-         primaryOutputDirectory: '',
+           'npx cdk synth --verbose'
+         ]
        }),
     });
 

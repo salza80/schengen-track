@@ -100,12 +100,12 @@ export class EBApplnStack extends cdk.Stack {
             {
                 namespace: 'aws:ec2:instances',
                 optionName: 'EnableSpot',
-                value: true,
+                value: 'true',
             },
             {
                 namespace: rdsNamespace,
                 optionName: 'HasCoupledDatabase',
-                value: true,
+                value: 'true',
             },
             {
                 namespace: rdsNamespace,

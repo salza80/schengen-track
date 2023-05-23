@@ -4,6 +4,8 @@ import { Construct } from 'constructs';
 import * as elasticbeanstalk from 'aws-cdk-lib/aws-elasticbeanstalk';
 import * as s3assets from 'aws-cdk-lib/aws-s3-assets';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as targets from 'aws-cdk-lib/aws-route53-targets';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 
 export interface EBEnvProps extends cdk.StackProps {
     // Autoscaling group configuration
@@ -28,6 +30,9 @@ export class EBApplnStack extends cdk.Stack {
     // const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip', {
     //   path: `${__dirname}/../src`,
     // });
+
+    const certificateArn = 'arn:aws:acm:eu-central-1:360298971790:certificate/f3900bfd-15ff-44a3-a1c1-56eee654c19e';
+    const sslCertificate = acm.Certificate.fromCertificateArn(this, 'MySSLCertificate', certificateArn);
 
     const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip', {
         path: `${__dirname}/../app.zip`,
@@ -142,16 +147,47 @@ export class EBApplnStack extends cdk.Stack {
                 optionName: 'DBAllocatedStorage',
                 value: '10',
             },
+            {
+                namespace: 'aws:elb:listener',
+                optionName: 'ListenerPort',
+                value: '443',
+            },
+            {
+                namespace: 'aws:elb:listener',
+                optionName: 'ListenerProtocol',
+                value: 'HTTPS',
+            },
+            {
+                namespace: 'aws:elb:listener',
+                optionName: 'InstanceProtocol',
+                value: 'HTTP',
+            },
+            {
+                namespace: 'aws:elb:listener',
+                optionName: 'InstancePort',
+                value: '80',
+            },
+            {
+                namespace: 'aws:elasticbeanstalk:application',
+                optionName: 'ApplicationHealthcheck URL',
+                value: 'HTTPS:433',
+            },
+            {
+              namespace: 'aws:elb:listener:443',
+              optionName: 'SSLCertificateId',
+              value: certificateArn,
+            }
         ];
 
-    // Create an Elastic Beanstalk environment to run the application
-    const elbEnv = new elasticbeanstalk.CfnEnvironment(this, 'Environment', {
-        environmentName: props?.envName ?? "MyWebAppEnvironment",
-        applicationName: app.applicationName || appName,
-        solutionStackName: '64bit Amazon Linux 2 v3.6.7 running Ruby 3.0',
-        optionSettings: optionSettingProperties,
-        versionLabel: appVersionProps.ref,
-    });
+        const envName = props?.envName ?? "MyWebAppEnvironment"
+        // Create an Elastic Beanstalk environment to run the application
+        const elbEnv = new elasticbeanstalk.CfnEnvironment(this, 'Environment', {
+            environmentName: envName,
+            applicationName: app.applicationName || appName,
+            solutionStackName: '64bit Amazon Linux 2 v3.6.7 running Ruby 3.0',
+            optionSettings: optionSettingProperties,
+            versionLabel: appVersionProps.ref,
+        });
 
   }
 }

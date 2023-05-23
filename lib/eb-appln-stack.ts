@@ -124,6 +124,11 @@ export class EBApplnStack extends cdk.Stack {
             },
             {
                 namespace: rdsNamespace,
+                optionName: 'DBPassword',
+                value: 'Testing1234*',
+            },
+            {
+                namespace: rdsNamespace,
                 optionName: 'DBDeletionPolicy',
                 value: 'Delete',
             },

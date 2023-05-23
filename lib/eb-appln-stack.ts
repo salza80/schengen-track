@@ -25,13 +25,14 @@ export class EBApplnStack extends cdk.Stack {
     // });
 
     // Construct an S3 asset Zip from directory up.
+    // const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip', {
+    //   path: `${__dirname}/../src`,
+    // });
+
     const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip', {
-      path.join(__dirname, '../sample-asset-directory')
+        path: `${__dirname}/../app.zip`,
     });
 
-    const asset = new assets.Asset(this, 'SampleAsset', {
-      path: path.join(__dirname, 'sample-asset-directory'),
-    })
 
     const appName = 'cdkSchengTrack';
     const app = new elasticbeanstalk.CfnApplication(this, 'Application', {

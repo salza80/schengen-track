@@ -169,8 +169,8 @@ export class EBApplnStack extends cdk.Stack {
             },
             {
                 namespace: 'aws:elasticbeanstalk:application',
-                optionName: 'ApplicationHealthcheck URL',
-                value: 'HTTPS:433',
+                optionName: 'ApplicationHealthcheckURL',
+                value: 'HTTPS:443/',
             },
             {
               namespace: 'aws:elb:listener:443',

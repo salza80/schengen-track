@@ -167,11 +167,11 @@ export class EBApplnStack extends cdk.Stack {
                 optionName: 'InstancePort',
                 value: '80',
             },
-            {
-                namespace: 'aws:elasticbeanstalk:application',
-                optionName: 'ApplicationHealthcheckURL',
-                value: 'HTTPS:443/',
-            },
+            // {
+            //     namespace: 'aws:elasticbeanstalk:application',
+            //     optionName: 'ApplicationHealthcheckURL',
+            //     value: 'HTTPS:443/',
+            // },
             {
               namespace: 'aws:elb:listener:443',
               optionName: 'SSLCertificateId',

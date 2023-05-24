@@ -75,7 +75,7 @@ export class EBApplnStack extends cdk.Stack {
 
     const rdsNamespace = "aws:rds:dbinstance";
 
-    // Example of some options which can be configured
+    // Elastic beanstalk configeration
     const optionSettingProperties = [
             {
                 namespace: 'aws:autoscaling:launchconfiguration',

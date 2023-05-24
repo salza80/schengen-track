@@ -13,6 +13,7 @@ export interface EBEnvProps extends cdk.StackProps {
   maxSize?: string;
   instanceTypes?: string;
   envName?: string;
+  envVariables?: { name: string, value: string }[];
 }
 
 export class EBApplnStack extends cdk.Stack {
@@ -98,11 +99,6 @@ export class EBApplnStack extends cdk.Stack {
                 value: props?.instanceTypes ?? 't2.micro',
             },
             {
-                namespace: 'aws:elasticbeanstalk:application:environment',
-                optionName: 'SECRET_KEY_BASE',
-                value: 'Replace'
-            },
-            {
                 namespace: 'aws:ec2:instances',
                 optionName: 'EnableSpot',
                 value: 'true',
@@ -178,6 +174,18 @@ export class EBApplnStack extends cdk.Stack {
             //   value: certificateArn,
             // }
         ];
+        let l = props?.envVariables?.length || 0;
+        for (var i = 0; i < l; i++) {
+            var config = props?.envVariables?.[i];
+            if (!config) { continue; }
+            optionSettingProperties.push(
+                {
+                    namespace: 'aws:elasticbeanstalk:application:environment',
+                    optionName: config.name,
+                    value: config.value 
+                }
+            )
+        }
 
         const envName = props?.envName ?? "MyWebAppEnvironment"
         // Create an Elastic Beanstalk environment to run the application

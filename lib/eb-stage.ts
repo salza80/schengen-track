@@ -10,11 +10,12 @@ export class CdkEBStage extends Stage {
   constructor(scope: Construct, id: string, props?: EBEnvProps) {
     super(scope, id, props);
 
-    const service = new EBApplnStack(this, 'WebService', {
+    const service = new EBApplnStack(this, 'BeanstalkEnv', {
         minSize : props?.minSize, 
         maxSize : props?.maxSize,
         instanceTypes : props?.instanceTypes,
-        envName : props?.envName
+        envName : props?.envName,
+        envVariables: props?.envVariables || []
     } );
 
   }

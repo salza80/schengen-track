@@ -35,10 +35,16 @@ export class CdkPipelineStack extends Stack {
     // For environment with all default values:
     // const deploy = new CdkEBStage(this, 'Pre-Prod');
 
+    const envVariables = [{
+      name: 'SECRET_KEY_BASE',
+      value: process.env.SECRET_KEY_BASE ?? ''
+    }];
+
     // For environment with custom AutoScaling group configuration
-    const deploy = new CdkEBStage(this, 'Prod', { 
+    const deploy = new CdkEBStage(this, 'Prod2', { 
         minSize : "1",
-        maxSize : "1"
+        maxSize : "1",
+        envVariables
     });
     const deployStage = pipeline.addStage(deploy); 
   }

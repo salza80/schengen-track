@@ -148,12 +148,12 @@ export class EBApplnStack extends cdk.Stack {
                 value: '10',
             },
             {
-                namespace: 'aws:elb:listener',
+                namespace: 'aws:elb:listener:443',
                 optionName: 'ListenerPort',
                 value: '443',
             },
             {
-                namespace: 'aws:elb:listener',
+                namespace: 'aws:elb:listener:443',
                 optionName: 'ListenerProtocol',
                 value: 'HTTPS',
             },

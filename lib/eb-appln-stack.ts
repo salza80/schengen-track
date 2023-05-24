@@ -6,6 +6,7 @@ import * as s3assets from 'aws-cdk-lib/aws-s3-assets';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 
 export interface EBEnvProps extends cdk.StackProps {
     // Autoscaling group configuration
@@ -76,8 +77,19 @@ export class EBApplnStack extends cdk.Stack {
 
     const rdsNamespace = "aws:rds:dbinstance";
 
+    const secret = Secret.fromSecretAttributes(this, "schenTrackRailsSecrets", {
+      secretCompleteArn:
+        "arn:aws:secretsmanager:eu-central-1:360298971790:secret:prod/schengTrack/secrets-gU94YO"
+    });
+
+
     // Elastic beanstalk configeration
     const optionSettingProperties = [
+            {
+                namespace: 'aws:elasticbeanstalk:application:environment',
+                optionName: 'SecretKeyBase',
+                value: secret.secretValueFromJson('secret_key_base').unsafeUnwrap(),
+            },
             {
                 namespace: 'aws:autoscaling:launchconfiguration',
                 optionName: 'IamInstanceProfile',

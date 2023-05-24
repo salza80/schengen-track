@@ -3,9 +3,6 @@ import { Construct } from 'constructs';
 import {  Stack, StackProps } from 'aws-cdk-lib';
 import { CdkEBStage } from './eb-stage';
 
-/**
- * The stack that defines the application pipeline
- */
 export class CdkPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -35,16 +32,20 @@ export class CdkPipelineStack extends Stack {
     // For environment with all default values:
     // const deploy = new CdkEBStage(this, 'Pre-Prod');
 
-    const envVariables = [{
-      name: 'SECRET_KEY_BASE',
-      value: process.env.SECRET_KEY_BASE ?? ''
-    }];
+    // const secret = Secret.fromSecretAttributes(this, "schenTrackRailsSecrets", {
+    //   secretCompleteArn:
+    //     "arn:aws:secretsmanager:eu-central-1:360298971790:secret:prod/schengTrack/secrets-gU94YO"
+    // });
+
+    // const envVariables = [{
+    //   name: 'SECRET_KEY_BASE',
+    //   value: secret.secretValueFromJson('secret_key_base').unsafeUnwrap(),
+    // }];
 
     // For environment with custom AutoScaling group configuration
     const deploy = new CdkEBStage(this, 'Prod3', { 
         minSize : "1",
-        maxSize : "1",
-        envVariables
+        maxSize : "1"
     });
     const deployStage = pipeline.addStage(deploy); 
   }

@@ -155,10 +155,15 @@ export class EBApplnStack extends cdk.Stack {
                 optionName: 'DBAllocatedStorage',
                 value: '10',
             },
+            // {
+            //     namespace: 'aws:elb:listener:443',
+            //     optionName: 'ListenerPort',
+            //     value: '443',
+            // },
             {
-                namespace: 'aws:elb:listener:443',
-                optionName: 'ListenerPort',
-                value: '443',
+                namespace: 'aws:elb:listener',
+                optionName: 'ListenerEnabled',
+                value: 'false',
             },
             {
                 namespace: 'aws:elb:listener:443',
@@ -186,6 +191,8 @@ export class EBApplnStack extends cdk.Stack {
               value: certificateArn,
             }
         ];
+
+
         let l = props?.envVariables?.length || 0;
         for (var i = 0; i < l; i++) {
             var config = props?.envVariables?.[i];

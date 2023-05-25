@@ -7,7 +7,7 @@ import { EBEnvProps, EBApplnStack } from './eb-appln-stack';
  */
 export class CdkEBStage extends Stage {
       
-  constructor(scope: Construct, id: string, props?: EBEnvProps) {
+  constructor(scope: Construct, id: string, props: EBEnvProps) {
     super(scope, id, props);
 
     const service = new EBApplnStack(this, 'BeanstalkEnv', {
@@ -15,7 +15,9 @@ export class CdkEBStage extends Stage {
         maxSize : props?.maxSize,
         instanceTypes : props?.instanceTypes,
         envName : props?.envName,
-        envVariables: props?.envVariables || []
+        envVariables: props?.envVariables || [],
+        secretsArn: props.secretsArn,
+        certificateArn: props.certificateArn
     } );
 
   }

@@ -14,11 +14,16 @@ export interface EBEnvProps extends cdk.StackProps {
   maxSize?: string;
   instanceTypes?: string;
   envName?: string;
+  // secrets Arn for Rails and Database
+  secretsArn: string;
+  // ssl Certificate Arn for domain
+  certificateArn: string;
+  // additional rails env vars to set
   envVariables?: { name: string, value: string }[];
 }
 
 export class EBApplnStack extends cdk.Stack {
-   constructor(scope: Construct, id: string, props?: EBEnvProps) {
+   constructor(scope: Construct, id: string, props: EBEnvProps) {
     super(scope, id, props);
 
     // The code that defines your stack goes here
@@ -33,8 +38,7 @@ export class EBApplnStack extends cdk.Stack {
     //   path: `${__dirname}/../src`,
     // });
 
-    const certificateArn = 'arn:aws:acm:eu-central-1:360298971790:certificate/7432e75e-3fe7-44a8-89fd-0b66d04d2cec';
-    const sslCertificate = acm.Certificate.fromCertificateArn(this, 'MySSLCertificate', certificateArn);
+    //const sslCertificate = acm.Certificate.fromCertificateArn(this, 'MySSLCertificate', props.certificateArn);
 
     const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip', {
         path: `${__dirname}/../app.zip`,
@@ -75,20 +79,48 @@ export class EBApplnStack extends cdk.Stack {
         ]
     });
 
-    const rdsNamespace = "aws:rds:dbinstance";
-
+    
+    // get secrets
     const secret = Secret.fromSecretAttributes(this, "schenTrackRailsSecrets", {
-      secretCompleteArn:
-        "arn:aws:secretsmanager:eu-central-1:360298971790:secret:prod/schengTrack/secrets-gU94YO"
+      secretCompleteArn: props.secretsArn
     });
 
+    const secretKeyBase = secret.secretValueFromJson('secret_key_base').unsafeUnwrap()
+    const facebookId = secret.secretValueFromJson('facebook_id').unsafeUnwrap()
+    const facebookSecret = secret.secretValueFromJson('facebook_secret').unsafeUnwrap()
+    const sendgridUsername = secret.secretValueFromJson('sendgrid_password').unsafeUnwrap()
+    const sendgridPassord = secret.secretValueFromJson('sendgrid_username').unsafeUnwrap()
+    const dbPassword = secret.secretValueFromJson('db_password').unsafeUnwrap()
 
     // Elastic beanstalk configeration
+
+    const rdsNamespace = "aws:rds:dbinstance";
+
     const optionSettingProperties = [
             {
                 namespace: 'aws:elasticbeanstalk:application:environment',
-                optionName: 'SecretKeyBase',
-                value: secret.secretValueFromJson('secret_key_base').unsafeUnwrap(),
+                optionName: 'SECRET_KEY_BASE',
+                value: secretKeyBase,
+            },
+            {
+                namespace: 'aws:elasticbeanstalk:application:environment',
+                optionName: 'FACEBOOK_ID',
+                value: facebookId,
+            },
+            {
+                namespace: 'aws:elasticbeanstalk:application:environment',
+                optionName: 'FACEBOOK_SECRET',
+                value: facebookSecret,
+            },
+            {
+                namespace: 'aws:elasticbeanstalk:application:environment',
+                optionName: 'SENDGRID_USERNAME',
+                value: sendgridUsername,
+            },
+            {
+                namespace: 'aws:elasticbeanstalk:application:environment',
+                optionName: 'SENDGRID_PASSWORD',
+                value: sendgridPassord,
             },
             {
                 namespace: 'aws:autoscaling:launchconfiguration',
@@ -138,7 +170,7 @@ export class EBApplnStack extends cdk.Stack {
             {
                 namespace: rdsNamespace,
                 optionName: 'DBPassword',
-                value: 'Testing1234*',
+                value: dbPassword,
             },
             {
                 namespace: rdsNamespace,
@@ -188,7 +220,7 @@ export class EBApplnStack extends cdk.Stack {
             {
               namespace: 'aws:elb:listener:443',
               optionName: 'SSLCertificateId',
-              value: certificateArn,
+              value: props.certificateArn,
             }
         ];
 

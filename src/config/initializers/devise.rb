@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'resetpassword@schengen-calculator.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -311,5 +311,19 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 
-  config.omniauth :facebook, 'xxx', 'xxx', callback_url: 'http://localhost:3000/auth/facebook/callback'
+  # config.omniauth :facebook, 'xxx', 'xxx', callback_url: 'http://localhost:3000/auth/facebook/callback'
+
+  config.secret_key = Rails.application.secrets.secret_key_base if Rails.env.production?  
+
+  config.omniauth :facebook,
+    Rails.application.secrets.facebook_id,
+    Rails.application.secrets.facebook_secret,
+    callback_url: Rails.env.production? ? 'https://schengen-calculator.com/users/auth/facebook/callback' : 'http://localhost:3000/users/auth/facebook/callback',
+    scope: 'email',
+    info_fields: 'email,first_name,last_name',
+    token_params: { parse: :json },
+    client_options: {
+      site: 'https://graph.facebook.com/v4.0',
+      authorize_url: "https://www.facebook.com/v4.0/dialog/oauth"
+    }
 end

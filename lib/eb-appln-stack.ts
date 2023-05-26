@@ -88,8 +88,8 @@ export class EBApplnStack extends cdk.Stack {
     const secretKeyBase = secret.secretValueFromJson('secret_key_base').unsafeUnwrap()
     const facebookId = secret.secretValueFromJson('facebook_id').unsafeUnwrap()
     const facebookSecret = secret.secretValueFromJson('facebook_secret').unsafeUnwrap()
-    const sendgridUsername = secret.secretValueFromJson('sendgrid_password').unsafeUnwrap()
-    const sendgridPassord = secret.secretValueFromJson('sendgrid_username').unsafeUnwrap()
+    const smtpUsername = secret.secretValueFromJson('smtp_password').unsafeUnwrap()
+    const smtpPassord = secret.secretValueFromJson('smtpgrid_username').unsafeUnwrap()
     const dbPassword = secret.secretValueFromJson('db_password').unsafeUnwrap()
 
     // Elastic beanstalk configeration
@@ -114,13 +114,13 @@ export class EBApplnStack extends cdk.Stack {
             },
             {
                 namespace: 'aws:elasticbeanstalk:application:environment',
-                optionName: 'SENDGRID_USERNAME',
-                value: sendgridUsername,
+                optionName: 'SMTP_USERNAME',
+                value: smtpUsername,
             },
             {
                 namespace: 'aws:elasticbeanstalk:application:environment',
-                optionName: 'SENDGRID_PASSWORD',
-                value: sendgridPassord,
+                optionName: 'SMTP_PASSWORD',
+                value: smtpPassord,
             },
             {
                 namespace: 'aws:autoscaling:launchconfiguration',

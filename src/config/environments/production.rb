@@ -90,4 +90,17 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = { :host => 'www.schengen-calculator.com/', :protocol => 'https' }
+  config.action_controller.default_url_options= {:protocol => 'https'}
+
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'email-smtp.eu-central-1.amazonaws.com',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => Rails.application.secrets.smtp_username,
+    :password       => Rails.application.secrets.smtp_password,
+    :domain         => 'test1.schengen-calculator.com',
+    :enable_starttls_auto => true
+  }
 end

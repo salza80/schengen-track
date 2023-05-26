@@ -59,6 +59,6 @@ export class CdkPipelineStack extends Stack {
         certificateArn : "arn:aws:acm:eu-central-1:360298971790:certificate/7432e75e-3fe7-44a8-89fd-0b66d04d2cec",
     });
     const deployStage = pipeline.addStage(deploy);
-    const deployStage = pipeline.addStage(deploy2);
+    const deployStage2 = pipeline.addStage(deploy2);
   }
 }

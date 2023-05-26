@@ -46,19 +46,11 @@ export class CdkPipelineStack extends Stack {
     const deploy = new CdkEBStage(this, 'Prod4', { 
         minSize : "1",
         maxSize : "1",
-        envName : "Prod4",
+        envName : "Prod5",
         secretsArn : "arn:aws:secretsmanager:eu-central-1:360298971790:secret:prod/schengTrack/secrets-gU94YO",
         certificateArn : "arn:aws:acm:eu-central-1:360298971790:certificate/7432e75e-3fe7-44a8-89fd-0b66d04d2cec",
     });
 
-    const deploy2 = new CdkEBStage(this, 'ProdTest', { 
-        minSize : "1",
-        maxSize : "1",
-        envName : "ProdTest",
-        secretsArn : "arn:aws:secretsmanager:eu-central-1:360298971790:secret:prod/schengTrack/secrets-gU94YO",
-        certificateArn : "arn:aws:acm:eu-central-1:360298971790:certificate/7432e75e-3fe7-44a8-89fd-0b66d04d2cec",
-    });
-    const deployStage2 = pipeline.addStage(deploy2);
     const deployStage = pipeline.addStage(deploy);
 
   }

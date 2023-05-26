@@ -28,25 +28,12 @@ export class CdkPipelineStack extends Stack {
 
     // This is where we add the application stages
 
-    // deploy beanstalk app
-    // For environment with all default values:
-    // const deploy = new CdkEBStage(this, 'Pre-Prod');
-
-    // const secret = Secret.fromSecretAttributes(this, "schenTrackRailsSecrets", {
-    //   secretCompleteArn:
-    //     "arn:aws:secretsmanager:eu-central-1:360298971790:secret:prod/schengTrack/secrets-gU94YO"
-    // });
-
-    // const envVariables = [{
-    //   name: 'SECRET_KEY_BASE',
-    //   value: secret.secretValueFromJson('secret_key_base').unsafeUnwrap(),
-    // }];
-
     // For environment with custom AutoScaling group configuration
     const deploy = new CdkEBStage(this, 'Prod4', { 
         minSize : "1",
         maxSize : "1",
         envName : "Prod4",
+        dbDeletionPolicy: 'Delete',
         secretsArn : "arn:aws:secretsmanager:eu-central-1:360298971790:secret:prod/schengTrack/secrets-gU94YO",
         certificateArn : "arn:aws:acm:eu-central-1:360298971790:certificate/7432e75e-3fe7-44a8-89fd-0b66d04d2cec",
     });

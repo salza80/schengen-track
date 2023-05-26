@@ -13,6 +13,8 @@ export interface EBEnvProps extends cdk.StackProps {
   minSize?: string;
   maxSize?: string;
   instanceTypes?: string;
+  dbInstanceType?: string;
+  dbDeletionPolicy?: string; // Create Snapshot, Retain, or Delete
   envName?: string;
   // secrets Arn for Rails and Database
   secretsArn: string;
@@ -28,17 +30,10 @@ export class EBApplnStack extends cdk.Stack {
 
     // The code that defines your stack goes here
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
-
     // Construct an S3 asset Zip from directory up.
     // const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip', {
     //   path: `${__dirname}/../src`,
     // });
-
-    //const sslCertificate = acm.Certificate.fromCertificateArn(this, 'MySSLCertificate', props.certificateArn);
 
     const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip2', {
         path: `${__dirname}/../app.zip`,
@@ -79,7 +74,6 @@ export class EBApplnStack extends cdk.Stack {
         ]
     });
 
-    
     // get secrets
     const secret = Secret.fromSecretAttributes(this, "schenTrackRailsSecrets", {
       secretCompleteArn: props.secretsArn
@@ -175,23 +169,18 @@ export class EBApplnStack extends cdk.Stack {
             {
                 namespace: rdsNamespace,
                 optionName: 'DBDeletionPolicy',
-                value: 'Delete',
+                value: props?.dbDeletionPolicy || 'Delete',
             },
            {
                 namespace: rdsNamespace,
                 optionName: 'DBInstanceClass',
-                value: 'db.t3.micro',
+                value: props?.dbInstanceType || 'db.t3.micro',
             },
             {
                 namespace: rdsNamespace,
                 optionName: 'DBAllocatedStorage',
                 value: '10',
             },
-            // {
-            //     namespace: 'aws:elb:listener:443',
-            //     optionName: 'ListenerPort',
-            //     value: '443',
-            // },
             {
                 namespace: 'aws:elb:listener',
                 optionName: 'ListenerEnabled',

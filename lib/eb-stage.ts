@@ -14,6 +14,8 @@ export class CdkEBStage extends Stage {
         minSize : props?.minSize, 
         maxSize : props?.maxSize,
         instanceTypes : props?.instanceTypes,
+        dbInstanceType: props?.dbInstanceType,
+        dbDeletionPolicy: props?.dbDeletionPolicy,
         envName : props?.envName,
         envVariables: props?.envVariables || [],
         secretsArn: props.secretsArn,

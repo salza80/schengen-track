@@ -89,7 +89,7 @@ export class EBApplnStack extends cdk.Stack {
     const facebookId = secret.secretValueFromJson('facebook_id').unsafeUnwrap()
     const facebookSecret = secret.secretValueFromJson('facebook_secret').unsafeUnwrap()
     const smtpUsername = secret.secretValueFromJson('smtp_password').unsafeUnwrap()
-    const smtpPassord = secret.secretValueFromJson('smtpgrid_username').unsafeUnwrap()
+    const smtpPassord = secret.secretValueFromJson('smtp_username').unsafeUnwrap()
     const dbPassword = secret.secretValueFromJson('db_password').unsafeUnwrap()
 
     // Elastic beanstalk configeration

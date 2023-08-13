@@ -36,8 +36,7 @@ class User
   # end
 
   def visa_required?
-    Country.find("8c5039fc-21ff-4893-9b8c-77758a7b66cb")
-    # nationality.visa_required == 'V'
+    nationality.visa_required == 'V'
   end
 
   #used on omniauth signup

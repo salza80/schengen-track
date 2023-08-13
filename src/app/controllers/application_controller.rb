@@ -27,7 +27,6 @@ class ApplicationController < ActionController::Base
 
   def guest_user
     user = nil
-    puts session[:guest_user_id]
     begin
       if session[:guest_user_id]
       user = User.find(session[:guest_user_id])

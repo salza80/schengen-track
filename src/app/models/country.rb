@@ -2,7 +2,7 @@ class Country
   include Dynamoid::Document
   belongs_to :continent
   field :name, :string
-  range :country_code, :string
+  field :country_code, :string
   field :schengen_start_date, :datetime, store_as_string: true
   field :EU_member_state, :boolean
   field :visa_required, :string
@@ -29,7 +29,7 @@ class Country
   end
 
   def self.outside_schengen
-    where('visa_required <> :free', free: 'F')
+    where('visa_required.ne': 'F')
   end
 
   def self.order_by_name

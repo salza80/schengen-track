@@ -1,21 +1,12 @@
-class Country
-  include Dynamoid::Document
+class Country < ApplicationRecord
+  has_many :users
+  has_many :visits
   belongs_to :continent
-  field :name, :string
-  range :country_code, :string
-  field :schengen_start_date, :datetime, store_as_string: true
-  field :EU_member_state, :boolean
-  field :visa_required, :string
-  field :old_schengen_calc, :boolean
-  field :additional_visa_waiver, :boolean
-  field :affiliate_booking_html, :string
-  field :nationality, :string
-  validates :country_code, :name, :continent, presence: true
+  validates :country_code, :name, :continent, :visa_required, presence: true
   validates_inclusion_of :EU_member_state,
                          :additional_visa_waiver,
                          :old_schengen_calc,
                          in: [true, false]
-
 
   def self.with_booking_affiliate
     where('affiliate_booking_html > ""')

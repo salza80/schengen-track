@@ -6,6 +6,12 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
+    # testContinent = TestContinent.create(name: "Oceana", continent_code: "AC")
+    # testContinent.save
+    # testCountry = TestCountry.create(name: "Australia", country_code: "AU")
+    # testCountry.test_continent = testContinent
+    # testCountry.save
+    #   # testCountry.save
     calc = Schengen::Calculator.new(current_user_or_guest_user)
     @visits = calc.visits
     @visas = current_user_or_guest_user.visas.all if current_user_or_guest_user.visa_required?

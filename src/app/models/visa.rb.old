@@ -1,16 +1,10 @@
-class Visa
-  include Dynamoid::Document
-  field :start_date, :date, store_as_string: true
-  field :end_date, :date, store_as_string: true
-  field :no_entries, :integer, default: 0
-  field :visa_type, :string
-
+class Visa < ApplicationRecord
   belongs_to :user
   validates :start_date, :end_date, :user, :visa_type, :no_entries, presence: true
   validates :visa_type, inclusion: { in: %w(R S), message: "%{value} is not a valid visa type" }
   validate :start_date_must_be_less_than_end
   validate :dates_must_not_overlap
-  # default_scope { order('start_date ASC, end_date ASC') }
+  default_scope { order('start_date ASC, end_date ASC') }
   scope :schengen, -> { where(visa_type: 'S') }
   scope :residence, -> { where(visa_type: 'R') }
 
@@ -62,3 +56,4 @@ class Visa
     errors.add(:start_date, 'should be earlier than the end date') if end_date < start_date
   end
 end
+

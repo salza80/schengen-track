@@ -1,17 +1,11 @@
-class Visit
-  include Dynamoid::Document
-  field :entry_date, :date, store_as_string: true
-  field :exit_date, :date, store_as_string: true
-  field :no_entries, :integer, default: 0
-  field :visa_type, :string
-
+class Visit < ApplicationRecord
   belongs_to :country
   belongs_to :user
   validates :country, :user, :entry_date, presence: true
   validate :entry_date_must_be_less_than_exit
-  # validate :dates_must_not_overlap
+  validate :dates_must_not_overlap
   
-  # default_scope { order('entry_date ASC, exit_date ASC') }
+  default_scope { order('entry_date ASC, exit_date ASC') }
 
   # initialise a new visit
 

@@ -1,43 +1,26 @@
-class User
-  include Dynamoid::Document
+class User < ApplicationRecord
   extend Devise::Models
-  has_many :countries
-  field :email, :string, default: ""
-  field :encrypted_password, :string, default: ""
-  field :reset_password_token, :stirng
-  field :reset_password_sent_at, :datetime, store_as_string: true
-  field :remember_created_at, :datetime
-  field :sign_in_count, :integer, default: 0
-  field :current_sign_in_at, :datetime, store_as_string: true
-  field :last_sign_in_at, :datetime, store_as_string: true
-  field :current_sign_in_ip, :string
-  field :guest, :boolean, default: false
-  field :provider, :string
-  field :uid, :string 
-  field :first_name, :string 
-  field :last_name, :string 
-  	
-  belongs_to :nationality, class_name: "Country"
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  belongs_to :nationality, class_name: 'Country'
   has_many :visits, dependent: :destroy
   has_many :visas, dependent: :destroy
   validates :first_name, :last_name, :nationality, presence: true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable,
+         :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook]
-         # :validatable
 
   def full_name
     [first_name, last_name].join(' ').strip
   end
 
-  # def nationality_plural
-  #   super || Country.where(country_code: "US").first
-  # end
+  def nationality
+    super || TestCountry.where(country_code: "US").first
+  end
 
   def visa_required?
-    Country.find("8c5039fc-21ff-4893-9b8c-77758a7b66cb")
-    # nationality.visa_required == 'V'
+    nationality.visa_required == 'V'
   end
 
   #used on omniauth signup
@@ -49,7 +32,7 @@ class User
 
   def self.from_omniauth(auth, guest_user)
     puts auth
-    user = User.where(provider: auth.provider, uid: auth.uid).first
+    user = User.find_by(provider: auth.provider, uid: auth.uid)
     return user if user
     user = register_oauth_with_matching_email(auth)
     unless user 
@@ -106,4 +89,3 @@ class User
     self.guest
   end
 end
-

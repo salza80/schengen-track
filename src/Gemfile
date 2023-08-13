@@ -30,6 +30,8 @@ gem 'puma', "=6.2.2"
 gem 'amazon-ecs'
 gem 'staccato'
 gem 'pg'
+gem 'dynamoid'
+gem 'dynamoid-devise'
 # gem 'mini_racer' testing deploy with this disabled
 gem 'listen'
 gem "webpacker"

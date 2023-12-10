@@ -88,7 +88,7 @@ export class EBApplnStack extends cdk.Stack {
 
     // Elastic beanstalk configeration
 
-    const rdsNamespace = "aws:rds:dbinstance";
+    // const rdsNamespace = "aws:rds:dbinstance";
 
     const optionSettingProperties = [
             {
@@ -139,48 +139,48 @@ export class EBApplnStack extends cdk.Stack {
             {
                 namespace: 'aws:ec2:instances',
                 optionName: 'EnableSpot',
-                value: 'true',
+                value: 'false',
             },
-            {
-                namespace: rdsNamespace,
-                optionName: 'HasCoupledDatabase',
-                value: 'true',
-            },
-            {
-                namespace: rdsNamespace,
-                optionName: 'DBEngine',
-                value: 'postgres',
-            },
-            {
-                namespace: rdsNamespace,
-                optionName: 'DBEngineVersion',
-                value: '14.6',
-            },
-            {
-                namespace: rdsNamespace,
-                optionName: 'DBUser',
-                value: 'appUser',
-            },
-            {
-                namespace: rdsNamespace,
-                optionName: 'DBPassword',
-                value: dbPassword,
-            },
-            {
-                namespace: rdsNamespace,
-                optionName: 'DBDeletionPolicy',
-                value: props?.dbDeletionPolicy || 'Delete',
-            },
-           {
-                namespace: rdsNamespace,
-                optionName: 'DBInstanceClass',
-                value: props?.dbInstanceType || 'db.t3.micro',
-            },
-            {
-                namespace: rdsNamespace,
-                optionName: 'DBAllocatedStorage',
-                value: '10',
-            },
+           //  {
+           //      namespace: rdsNamespace,
+           //      optionName: 'HasCoupledDatabase',
+           //      value: 'true',
+           //  },
+           //  {
+           //      namespace: rdsNamespace,
+           //      optionName: 'DBEngine',
+           //      value: 'postgres',
+           //  },
+           //  {
+           //      namespace: rdsNamespace,
+           //      optionName: 'DBEngineVersion',
+           //      value: '14.6',
+           //  },
+           //  {
+           //      namespace: rdsNamespace,
+           //      optionName: 'DBUser',
+           //      value: 'appUser',
+           //  },
+           //  {
+           //      namespace: rdsNamespace,
+           //      optionName: 'DBPassword',
+           //      value: dbPassword,
+           //  },
+           //  {
+           //      namespace: rdsNamespace,
+           //      optionName: 'DBDeletionPolicy',
+           //      value: props?.dbDeletionPolicy || 'Delete',
+           //  },
+           // {
+           //      namespace: rdsNamespace,
+           //      optionName: 'DBInstanceClass',
+           //      value: props?.dbInstanceType || 'db.t3.micro',
+           //  },
+           //  {
+           //      namespace: rdsNamespace,
+           //      optionName: 'DBAllocatedStorage',
+           //      value: '10',
+           //  },
             {
                 namespace: 'aws:elb:listener',
                 optionName: 'ListenerEnabled',

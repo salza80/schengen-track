@@ -36,7 +36,7 @@ export class EBApplnStack extends cdk.Stack {
     // });
 
     const webAppZipArchive = new s3assets.Asset(this, 'WebAppZip2', {
-        path: `${__dirname}/../app.zip`,
+        path: `${__dirname}/app.zip`,
     });
 
 

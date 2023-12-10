@@ -17,7 +17,7 @@ export class CdkPipelineStack extends Stack {
          input: CodePipelineSource.gitHub('salza80/schengen-track', 'cdkElasticDeploy'),
          
          // Install dependencies, build and run cdk synth
-         installCommands: ['npm i -g npm@latest'],
+         //installCommands: ['npm i -g npm@latest'],
          commands: [
            'cd deployment',
            'npm ci',

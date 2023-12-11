@@ -48,6 +48,7 @@ gem 'autoprefixer-rails'
 group :production do
   
   gem 'rails_12factor'
+  gem 'aws_lambda_ric'
 end
 
 # group :development do
@@ -69,4 +70,4 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
 end
-ruby '3.0.6'
+ruby '3.2.2'

@@ -72,6 +72,7 @@ GEM
       nokogiri (~> 1.10)
     autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
+    aws_lambda_ric (2.0.0)
     bcrypt (3.1.18)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
@@ -310,6 +311,7 @@ PLATFORMS
 DEPENDENCIES
   amazon-ecs
   autoprefixer-rails
+  aws_lambda_ric
   bootstrap-sass (~> 3.4.1)
   bourbon
   byebug
@@ -337,7 +339,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 3.0.6p216
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.4.12

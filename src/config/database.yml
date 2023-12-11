@@ -25,5 +25,7 @@ test:
 #   port: <%= ENV['RDS_PORT'] %>
 
 production:
+  adapter: postgresql
+  encoding: unicode
   url: <%= ENV['DB_URL'] %>
 

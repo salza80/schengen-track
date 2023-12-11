@@ -2,7 +2,10 @@
 FROM public.ecr.aws/docker/library/ruby:3.2.2-slim as builder
 WORKDIR /app
 
-RUN apt-get update -qq && apt-get upgrade -y -qq && apt-get install -y -qq build-essential libpq-dev
+RUN apt-get update -qq && apt-get upgrade -y -qq
+RUN apt-get install -y -qq build-essential libpq-dev
+
+
 
 RUN bundle config --global frozen 1
 

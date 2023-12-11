@@ -1,5 +1,6 @@
 # Builder stage
-FROM public.ecr.aws/docker/library/ruby:3.2.2-slim as builder
+#FROM public.ecr.aws/docker/library/ruby:3.2.2-slim as builder
+FROM ruby:3.2.2-slim as builder
 WORKDIR /app
 
 RUN apt-get update -qq && \

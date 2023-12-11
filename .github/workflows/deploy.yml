@@ -36,7 +36,8 @@ jobs:
       - name: Install CDK
         run: |
           npm install -g aws-cdk@latest
-
+      - name: list
+        run: ls
       - name: Install CDK Dependencies
         run: npm install
 

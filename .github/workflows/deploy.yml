@@ -29,17 +29,13 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
 
-      - name: Change Directory to Deployment
-        run: cd deployment
-
       - name: Install CDK
-        run: |
-          npm install -g aws-cdk@latest
+        run: npm install -g aws-cdk@latest
 
       - name: Install CDK Dependencies
-        run: |
-          npm install
+        run: npm install
+        working-directory: ./deployment
 
       - name: CDK Deploy
-        run: |
-          cdk deploy -c railsMasterKey="test"
+        run: cdk deploy -c railsMasterKey="test"
+        working-directory: ./deployment

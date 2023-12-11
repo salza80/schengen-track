@@ -40,4 +40,4 @@ jobs:
         run: npm install
 
       - name: CDK Deploy
-        run: npx cdk deploy
+        run: cdk deploy -c railsMasterKey="test"

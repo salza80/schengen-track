@@ -27,6 +27,8 @@ ENV NODE_VERSION v18.19.0
 RUN curl -o- https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y -qq nodejs
 
+RUN npm install -g npm@10.2.5
+
 RUN npm i -g yarn
 
 
@@ -47,5 +49,9 @@ ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_SERVE_STATIC_FILES="true" \
     RAILS_ENV="production" \
     BUNDLE_WITHOUT="development"
+
+RUN ls /usr/local/bundle/bin
+RUN ls /usr/local/bin
+RUN ls /ssr/local
 
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile

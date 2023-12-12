@@ -32,7 +32,7 @@ gem 'staccato'
 gem 'pg'
 # gem 'mini_racer' testing deploy with this disabled
 gem 'listen'
-gem "webpacker"
+gem "webpacker", '>= 6.0.0.rc.6'
 gem "sprockets-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

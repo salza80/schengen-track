@@ -54,4 +54,4 @@ ENV RAILS_LOG_TO_STDOUT="1" \
 #RUN ls /usr/local/bin
 #RUN ls /ssr/local
 
-#RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile

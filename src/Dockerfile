@@ -55,3 +55,4 @@ RUN ls /usr/local/bundle/bin
 #RUN ls /ssr/local
 
 RUN NODE_OPTIONS=--openssl-legacy-provider SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+

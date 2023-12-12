@@ -29,8 +29,8 @@ export class HttpApiConstruct extends Construct {
       ignoreMode: cdk.IgnoreMode.DOCKER,
 
       entrypoint: [
-      //  '/usr/local/bundle/bin/aws_lambda_ric',
-        '/usr/local/bin/aws_lambda_ric',
+        '/usr/local/bundle/bin/aws_lambda_ric',
+      //  '/usr/local/bin/aws_lambda_ric',
       ],
       cmd: [
         'lambda_http.handler',

@@ -25,6 +25,7 @@ export class HttpApiConstruct extends Construct {
     // Rails HTTP API container image with AWS Lambda Ruby Runtime Interface Client
     const apiContainerImage = lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../src'), {
       //platform: Platform.LINUX_ARM64,
+      platform: platform.LINUX_AMD64
       ignoreMode: cdk.IgnoreMode.DOCKER,
 
       entrypoint: [

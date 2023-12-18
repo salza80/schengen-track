@@ -58,7 +58,7 @@ export class HttpApiConstruct extends Construct {
     // Lambda function for Lambda proxy integration of AWS API Gateway HTTP API
     const apiFunction = new lambda.DockerImageFunction(this, 'ApiFunction', {
       //architecture: lambda.Architecture.ARM_64,
-      architecture: lambda.Architecture.AMD_64,
+      architecture: lambda.Architecture.X86_64,
       memorySize: 2048,
 
       code: apiContainerImage,

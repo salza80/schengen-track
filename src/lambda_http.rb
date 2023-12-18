@@ -23,7 +23,7 @@ def serve_static_file(path)
         {
           'statusCode' => status,
           'headers' => headers,
-          'body' => body,
+          'body' => body.join(''),
         }
       else
         [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]

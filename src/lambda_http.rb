@@ -37,7 +37,7 @@ def handler(event:, context:)
   http = requestContext.fetch('http')
   httpMethod = http.fetch('method')
   protocol = http['protocol'] || 'HTTP/1.1'
-  path = event.fetch('path')
+  path = event['path']
 
   # In input format 2.0, the path always contains a stage
   stage = requestContext['stage'] || '$default'

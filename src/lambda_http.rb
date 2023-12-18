@@ -7,28 +7,19 @@ $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
 def serve_static_file(path)
-  # Assuming your static files are in the 'public' directory
-  file_path = File.join(__dir__, 'public', path[1..-1])
-
-  if File.exist?(file_path)
-    content_type = Rack::Mime.mime_type(File.extname(file_path))
-    content = File.read(file_path)
-
-    return {
-      'statusCode' => 200,
-      'headers' => {
-        'Content-Type' => content_type,
-      },
-      'body' => content,
-    }
-  else
-    return {
-      'statusCode' => 404,
-      'body' => 'Not Found',
-    }
+  app = Rack::Builder.new do
+    use Rack::Static, root: 'public', urls: ['/assets']
+    run lambda { |env| [404, { 'Content-Type' => 'text/plain' }, ['Not Found']] }
   end
-end
 
+  status, headers, body = app.call('PATH_INFO' => path)
+
+  {
+    'statusCode' => status,
+    'headers' => headers,
+    'body' => body.join,
+  }
+end
 
 def handler(event:, context:)
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API

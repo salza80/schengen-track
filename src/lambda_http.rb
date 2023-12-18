@@ -9,10 +9,20 @@ RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 def serve_static_file(path)
   app = Rack::Builder.new do
     use Rack::Static, root: 'public', urls: ['/assets']
-    run lambda { |env| [404, { 'Content-Type' => 'text/plain' }, ['Not Found']] }
+    run lambda { |env|
+      if env['REQUEST_METHOD'] == 'GET'
+        Rack::Static.new(
+          lambda { |inner_env| [404, {}, ['Not Found']] },
+          root: 'public',
+          urls: ['/assets']
+        ).call(env)
+      else
+        [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]
+      end
+    }
   end
 
-  status, headers, body = app.call('PATH_INFO' => path)
+  status, headers, body = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
 
   {
     'statusCode' => status,

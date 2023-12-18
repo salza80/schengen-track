@@ -45,7 +45,7 @@ def handler(event:, context:)
     path.sub!(/\A\/#{stage}/, '')
   end
 
-  path = event.fetch['path']
+  path = event.fetch('path')
   # Check if the request is for a static file
   if path.start_with?('/assets/') || path.start_with?('/public/')
     # Serve static files directly

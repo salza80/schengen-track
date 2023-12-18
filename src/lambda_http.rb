@@ -6,6 +6,30 @@ $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
 
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
+def serve_static_file(path)
+  # Assuming your static files are in the 'public' directory
+  file_path = File.join(__dir__, 'public', path[1..-1])
+
+  if File.exist?(file_path)
+    content_type = Rack::Mime.mime_type(File.extname(file_path))
+    content = File.read(file_path)
+
+    return {
+      'statusCode' => 200,
+      'headers' => {
+        'Content-Type' => content_type,
+      },
+      'body' => content,
+    }
+  else
+    return {
+      'statusCode' => 404,
+      'body' => 'Not Found',
+    }
+  end
+end
+
+
 def handler(event:, context:)
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API
   # https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html#http-api-develop-integrations-lambda.proxy-format
@@ -19,6 +43,13 @@ def handler(event:, context:)
   stage = requestContext['stage'] || '$default'
   if stage != '$default'
     path.sub!(/\A\/#{stage}/, '')
+  end
+
+  path = event.fetch['path']
+  # Check if the request is for a static file
+  if path.start_with?('/assets/') || path.start_with?('/public/')
+    # Serve static files directly
+    return serve_static_file(path)
   end
 
   requestTimeEpoch = requestContext['timeEpoch']
@@ -91,21 +122,17 @@ def handler(event:, context:)
     #     responseBodyContent << item if item
     #   end
     # end
-    puts responseBody
     responseBodyContent = if responseBody.respond_to?(:each)
       if responseBody.respond_to?(:binmode)
         # If responseBody supports binmode, set it to binary mode
-        puts "binmode"
         responseBody.binmode
       end
     
       # If the content is binary, return it directly
       if responseBody.respond_to?(:read)
-        puts "read"
         responseBody.read
       else
         # If the content is not binary, concatenate as a string
-        puts "join"
         responseBody.each.to_a.join unless responseBodyContent.nil?
       end
     end    

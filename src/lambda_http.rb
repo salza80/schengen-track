@@ -37,7 +37,6 @@ def handler(event:, context:)
   http = requestContext.fetch('http')
   httpMethod = http.fetch('method')
   protocol = http['protocol'] || 'HTTP/1.1'
-  path = event['path']
 
   # In input format 2.0, the path always contains a stage
   stage = requestContext['stage'] || '$default'
@@ -45,7 +44,7 @@ def handler(event:, context:)
     path.sub!(/\A\/#{stage}/, '')
   end
 
-  path = event.fetch('path')
+  path = event['requestContext']['http']['path']
   # Check if the request is for a static file
   if path.start_with?('/assets/') || path.start_with?('/public/')
     # Serve static files directly

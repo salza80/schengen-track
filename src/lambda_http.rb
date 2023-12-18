@@ -91,20 +91,24 @@ def handler(event:, context:)
     #     responseBodyContent << item if item
     #   end
     # end
+    puts responseBody
     responseBodyContent = if responseBody.respond_to?(:each)
       if responseBody.respond_to?(:binmode)
         # If responseBody supports binmode, set it to binary mode
+        puts "binmode"
         responseBody.binmode
       end
-
+    
       # If the content is binary, return it directly
       if responseBody.respond_to?(:read)
+        puts "read"
         responseBody.read
       else
         # If the content is not binary, concatenate as a string
-        responseBody.each.to_a.join
+        puts concat
+        responseBody.each.to_a.join unless responseBodyContent.nil?
       end
-    end
+    end    
 
     if responseBody.respond_to?(:close)
       responseBody.close

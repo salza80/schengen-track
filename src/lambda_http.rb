@@ -105,7 +105,7 @@ def handler(event:, context:)
         responseBody.read
       else
         # If the content is not binary, concatenate as a string
-        puts concat
+        puts "join"
         responseBody.each.to_a.join unless responseBodyContent.nil?
       end
     end    

@@ -5,7 +5,6 @@ require 'base64'
 $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
 
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
-
 def serve_static_file(path)
   app = Rack::Builder.new do
     use Rack::Static, root: 'public', urls: ['/assets']
@@ -23,7 +22,7 @@ def serve_static_file(path)
         {
           'statusCode' => status,
           'headers' => headers,
-          'body' => body.join(''),  # Concatenate the body array into a single string
+          'body' => body.map(&:to_s).join(''),  # Convert each part to string and join
         }
       else
         [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]

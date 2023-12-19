@@ -30,9 +30,35 @@ def serve_static_file(path)
   {
     'statusCode' => response[0],
     'headers' => response[1],
-    'body' => content
+    'body' => content,
+    'isBase64Encoded' => is_binary_content?(content_type)
   }
+  response['isBase64Encoded'] = is_binary_content?(response[1])
 end
+
+# Function to determine if content type is binary
+def is_binary_content?(headers)
+  content_type = headers['Content-Type']
+  def is_binary_content?(content_type)
+    binary_mime_types = [
+      'application/octet-stream',
+      'application/pdf',
+      'application/zip',
+      'application/gzip',
+      'image/*',
+      'audio/*',
+      'video/*',
+      'application/x-binary',
+      'application/x-tar',
+      'application/x-rar-compressed'
+    ]
+  
+    binary_mime_types.any? do |pattern|
+      content_type.include?(pattern.sub('*', ''))
+    end
+  end
+end
+
 
 def handler(event:, context:)
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API

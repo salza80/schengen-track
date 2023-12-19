@@ -50,6 +50,7 @@ def is_binary_content?(headers)
     'application/pdf',
     'application/zip',
     'application/gzip',
+    'application/font*',
     'image/*',
     'audio/*',
     'video/*',

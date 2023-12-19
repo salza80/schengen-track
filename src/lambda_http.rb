@@ -16,9 +16,9 @@ def serve_static_file(path)
           root: 'public',
           urls: ['/assets']
         ).call(env)
-        puts body
         # Ensure the body is an array of strings
         body = body.each.to_a if body.respond_to?(:each)
+        puts body
 
         {
           'statusCode' => status,

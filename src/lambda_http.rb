@@ -22,7 +22,7 @@ def serve_static_file(path)
         {
           'statusCode' => status,
           'headers' => headers,
-          'body' => body.map(&:to_s).join(''),  # Convert each part to string and join
+          'body' => body.join(''),  # Convert each part to string and join
         }
       else
         [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]
@@ -38,9 +38,10 @@ def serve_static_file(path)
   {
     'statusCode' => response['statusCode'],
     'headers' => response['headers'],
-    'body' => content,
+    'body' => content.respond_to?(:each) ? content.join('') : content.to_s,
   }
 end
+
 
 
 def handler(event:, context:)

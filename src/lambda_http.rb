@@ -23,7 +23,7 @@ def serve_static_file(path)
         {
           'statusCode' => status,
           'headers' => headers,
-          'body' => body.join(''),
+          'body' => body.join(''),  # Concatenate the body array into a single string
         }
       else
         [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]
@@ -31,8 +31,18 @@ def serve_static_file(path)
     }
   end
 
-  app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
+  response = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
+
+  # Extract the actual file content from the response
+  content = response['body']
+
+  {
+    'statusCode' => response['statusCode'],
+    'headers' => response['headers'],
+    'body' => content,
+  }
 end
+
 
 def handler(event:, context:)
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API

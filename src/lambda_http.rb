@@ -23,10 +23,10 @@ def serve_static_file(path)
   end
 
   response = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
-  puts response
+  puts "Response: #{response.inspect}"
   content = ''
   response[2].each { |part| content << part }
-  puts content
+  puts content.inspect
 
   {
     'statusCode' => response[0],

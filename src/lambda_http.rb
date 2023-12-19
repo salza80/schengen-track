@@ -11,19 +11,11 @@ def serve_static_file(path)
     use Rack::Static, root: 'public', urls: ['/assets']
     run lambda { |env|
       if env['REQUEST_METHOD'] == 'GET'
-        status, headers, body = Rack::Static.new(
+        Rack::Static.new(
           lambda { |inner_env| [404, {}, ['Not Found']] },
           root: 'public',
           urls: ['/assets']
         ).call(env)
-        # Ensure the body is an array of strings
-        [status, headers, body]
-        # {
-        #   'statusCode' => status,
-        #   'headers' => headers,
-        #   'body' => body,  # Convert each part to string and join
-        # }
-
       else
         [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]
       end
@@ -31,14 +23,14 @@ def serve_static_file(path)
   end
 
   response = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
-  puts response.inspect
-  # Extract the actual file content from the response
-  content = response['body'] if response.key?('body')
+
+  content = ''
+  response[2].each { |part| content << part }
 
   {
     'statusCode' => response[0],
     'headers' => response[1],
-    'body' => response[2]
+    'body' => content
   }
 end
 

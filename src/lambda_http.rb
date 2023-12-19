@@ -31,9 +31,8 @@ def serve_static_file(path)
     'statusCode' => response[0],
     'headers' => response[1],
     'body' => content,
-    'isBase64Encoded' => is_binary_content?(content_type)
+    'isBase64Encoded' => is_binary_content?(response[1])
   }
-  response['isBase64Encoded'] = is_binary_content?(response[1])
 end
 
 # Function to determine if content type is binary

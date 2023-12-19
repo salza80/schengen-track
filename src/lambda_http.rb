@@ -28,11 +28,13 @@ def serve_static_file(path)
   response[2].each { |part| content << part }
   puts content.inspect
 
+  const isBase64 = is_binary_content?(response[1])
+  content = Base64.strict_encode64(content) if isBase64
   {
     'statusCode' => response[0],
     'headers' => response[1],
     'body' => content,
-    'isBase64Encoded' => is_binary_content?(response[1])
+    'isBase64Encoded' => isBase64
   }
 end
 

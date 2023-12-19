@@ -18,7 +18,6 @@ def serve_static_file(path)
         ).call(env)
         # Ensure the body is an array of strings
         body = body.each.to_a if body.respond_to?(:each)
-        puts body
 
         {
           'statusCode' => status,
@@ -32,9 +31,9 @@ def serve_static_file(path)
   end
 
   response = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
-
+  puts response.inspect
   # Extract the actual file content from the response
-  content = response['body']
+  content = response['body'] if response.key?('body')
 
   {
     'statusCode' => response['statusCode'],

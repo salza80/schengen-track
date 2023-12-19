@@ -17,13 +17,13 @@ def serve_static_file(path)
           urls: ['/assets']
         ).call(env)
         # Ensure the body is an array of strings
-        body = body.each.to_a if body.respond_to?(:each)
+        [status, headers, body]
+        # {
+        #   'statusCode' => status,
+        #   'headers' => headers,
+        #   'body' => body,  # Convert each part to string and join
+        # }
 
-        {
-          'statusCode' => status,
-          'headers' => headers,
-          'body' => body.join(''),  # Convert each part to string and join
-        }
       else
         [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]
       end
@@ -36,9 +36,9 @@ def serve_static_file(path)
   content = response['body'] if response.key?('body')
 
   {
-    'statusCode' => response['statusCode'],
-    'headers' => response['headers'],
-    'body' => content.respond_to?(:each) ? content.join('') : content.to_s,
+    'statusCode' => response[0],
+    'headers' => response[1],
+    'body' => response[2]
   }
 end
 

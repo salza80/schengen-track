@@ -5,6 +5,7 @@ require 'base64'
 $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
 
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
+
 def serve_static_file(path)
   app = Rack::Builder.new do
     use Rack::Static, root: 'public', urls: ['/assets']
@@ -15,7 +16,7 @@ def serve_static_file(path)
           root: 'public',
           urls: ['/assets']
         ).call(env)
-
+        puts body
         # Ensure the body is an array of strings
         body = body.each.to_a if body.respond_to?(:each)
 
@@ -41,8 +42,6 @@ def serve_static_file(path)
     'body' => content.respond_to?(:each) ? content.join('') : content.to_s,
   }
 end
-
-
 
 def handler(event:, context:)
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API

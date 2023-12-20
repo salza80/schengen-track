@@ -1,11 +1,8 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts << "d28yl5i6ifvaal.cloudfront.net"
-  config.hosts << "mspyv70dga.execute-api.eu-central-1.amazonaws.com"
-  config.hosts << "www.schengen-calculator.com"
-  config.hosts << "test.schengen-calculator.com"
-  config.hosts << "schengen-calculator.com"
+  config.action_controller.forgery_protection_origin_check = false
+  config.session_store :cookie_store, key: '_app_session'
   
 
 

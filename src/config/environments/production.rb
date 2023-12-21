@@ -3,7 +3,6 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   config.action_controller.forgery_protection_origin_check = false
   config.session_store :cookie_store, key: '_app_session'
-  config.action_controller.asset_host = 'https://d28yl5i6ifvaal.cloudfront.net'
 
   # Settings specified here will take precedence over those in config/application.rb.
 

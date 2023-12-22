@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :set_cloudfront_domain
 
   helper_method :current_user_or_guest_user, :amazon
 
@@ -25,7 +24,8 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_with_cloudfront_support(path)
-    if ENV['CLOUDFRONT_DOMAIN'].present?
+    @cloudfront_domain = ENV['CLOUDFRONT_DOMAIN']
+    if @cloudfront_domain.present?
       full_url = "https://#{@cloudfront_domain}#{path}"
       redirect_to full_url
     else
@@ -70,9 +70,4 @@ class ApplicationController < ActionController::Base
     # puts code
     # code ? code.scan(/^[a-z]{2}/).first.upcase : 'AU'
   end
-
-  def set_cloudfront_domain
-    @cloudfront_domain = ENV['CLOUDFRONT_DOMAIN']
-  end
-
 end

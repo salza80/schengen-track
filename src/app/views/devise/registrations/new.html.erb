@@ -6,7 +6,8 @@
       </div>
       <div class="col-xs-7 panel-heading">     
         <%= image_tag("facebook_icon.png", alt: "Facebook")%>
-        <%= link_to "Sign up with Facebook", omniauth_authorize_path(resource_name, "facebook") %><br />
+        <%= link_to "Log in with Facebook", user_facebook_omniauth_authorize_path %><br />
+        
       </div>
     </div>
   </div>

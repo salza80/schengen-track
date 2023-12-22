@@ -28,7 +28,7 @@ class VisasController < ApplicationController
     @visa.visa_type = 'S'
     respond_to do |format|
       if @visa.save
-        format.html { redirect_with_cloudfront_support visits_path, notice: 'Visa was successfully created.' }
+        format.html { redirect_to visits_path, notice: 'Visa was successfully created.' }
         format.json { render :show, status: :created, location: @visa }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class VisasController < ApplicationController
   def update
     respond_to do |format|
       if @visa.update(visa_params)
-        format.html { redirect_with_cloudfront_support visits_path, notice: 'Visa was successfully updated.' }
+        format.html { redirect_to visits_path, notice: 'Visa was successfully updated.' }
         format.json { render :show, status: :ok, location: @visa }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class VisasController < ApplicationController
   def destroy
     @visa.destroy
     respond_to do |format|
-      format.html { redirect_with_cloudfront_support visits_path, notice: 'Visa was successfully destroyed.' }
+      format.html { redirect_to visits_path, notice: 'Visa was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

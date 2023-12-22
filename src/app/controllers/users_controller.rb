@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_with_cloudfront_support visits_path, notice: 'Your details were successfully updated.' }
+        format.html { redirect_to visits_path, notice: 'Your details were successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }

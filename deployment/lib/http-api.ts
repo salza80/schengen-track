@@ -78,7 +78,7 @@ export class HttpApiConstruct extends Construct {
       apiName: 'RailsHttpApi',
       defaultIntegration: new apigwv2_integ.HttpLambdaIntegration('RailsHttpApiProxy', apiFunction, {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
-        parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("header.host", apigwv2.MappingValue.custom("test.schengen-calculator.com"))
+        parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("host", apigwv2.MappingValue.custom("test.schengen-calculator.com"))
       }),
     });
 

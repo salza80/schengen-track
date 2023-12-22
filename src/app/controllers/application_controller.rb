@@ -22,18 +22,7 @@ class ApplicationController < ActionController::Base
   def current_user_or_guest_user
     current_user || guest_user
   end
-
-  def redirect_with_cloudfront_support(path, *optional_params)
-    # cloudfront_domain = ENV['CLOUDFRONT_DOMAIN']
-    # puts cloudfront_domain
-    # if cloudfront_domain.present?
-    #   full_url = "https://#{cloudfront_domain}#{path}"
-    #   redirect_to full_url, { allow_other_host: true, *optional_params }
-    # else
-      redirect_to path, *optional_params
-    # end
-  end
-
+  
   private
 
   def guest_user

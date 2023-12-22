@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_cloudfront_domain
-    @cloudfront_domain = Rails.application.credentials.dig(:cloudfront, :domain)
+    @cloudfront_domain = ENV['CLOUDFRONT_DOMAIN']
   end
 
 end

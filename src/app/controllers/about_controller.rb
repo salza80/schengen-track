@@ -7,7 +7,6 @@ class AboutController < ApplicationController
     return if params[:nationality].nil?
     @country = Country.find_by_nationality(params[:nationality])
                .outside_schengen.first
-    expires_in 1.day, public: true
     fail ActionController::RoutingError, 'Page Not Found' if @country.nil?
   end
 

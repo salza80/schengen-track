@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_up('user', @user)
       tracker = Staccato.tracker('UA-67599800-1', @user.id)
       tracker.event(category: 'users', action: 'signup', label: 'email', value: 1)
-      redirect_to visits_path
+      redirect_with_cloudfront_support visits_path
     else
       render :new
     end

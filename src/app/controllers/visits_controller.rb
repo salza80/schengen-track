@@ -45,7 +45,7 @@ class VisitsController < ApplicationController
     @visit = current_user_or_guest_user.visits.build(visit_params) 
     respond_to do |format|
       if @visit.save
-        format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
+        format.html { redirect_with_cloudfront_support visits_path, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
       else
         @continent_default_id = @visit&.country&.continent&.id&.to_s || @continent_default_id
@@ -60,7 +60,7 @@ class VisitsController < ApplicationController
   def update
     respond_to do |format|
       if @visit.update(visit_params)
-        format.html { redirect_to visits_path, notice: 'Visit was successfully updated.' }
+        format.html { redirect_with_cloudfront_support visits_path, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
       else
         format.html { render :edit }
@@ -74,7 +74,7 @@ class VisitsController < ApplicationController
   def destroy
     @visit.destroy
     respond_to do |format|
-      format.html { redirect_to visits_path, notice: 'Visit was successfully deleted.' }
+      format.html { redirect_with_cloudfront_support visits_path, notice: 'Visit was successfully deleted.' }
       format.json { head :no_content }
     end
   end

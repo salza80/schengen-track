@@ -7,7 +7,7 @@ class DaysController < ApplicationController
   # GET /visits.json
   def index
     if current_user_or_guest_user.visa_required? 
-      redirect_to visits_url
+      redirect_with_cloudfront_support visits_path
     else
       days_calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
       @days = days_calc.calculated_days

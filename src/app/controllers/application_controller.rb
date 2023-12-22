@@ -23,13 +23,14 @@ class ApplicationController < ActionController::Base
     current_user || guest_user
   end
 
-  def redirect_with_cloudfront_support(path)
-    @cloudfront_domain = ENV['CLOUDFRONT_DOMAIN']
-    if @cloudfront_domain.present?
-      full_url = "https://#{@cloudfront_domain}#{path}"
-      redirect_to full_url
+  def redirect_with_cloudfront_support(path, *optional_params)
+    cloudfront_domain = ENV['CLOUDFRONT_DOMAIN']
+    puts cloudfront_domain
+    if cloudfront_domain.present?
+      full_url = "https://#{cloudfront_domain}#{path}"
+      redirect_to full_url, *optional_params
     else
-      redirect_to path
+      redirect_to path, *optional_params
     end
   end
 

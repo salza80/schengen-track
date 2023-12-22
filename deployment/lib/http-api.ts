@@ -67,12 +67,18 @@ export class HttpApiConstruct extends Construct {
       timeout: cdk.Duration.minutes(1),
       tracing: lambda.Tracing.ACTIVE,
     });
+    
+    // = {
+    //   headerName: 'Host',
+    //   values: ['test.schengen-calculator.com'], // Set this to your desired static string
+    // };
 
     // AWS API Gateway HTTP API using Rails as Lambda proxy integration
     const railsHttpApi = new apigwv2.HttpApi(this, 'Api', {
       apiName: 'RailsHttpApi',
       defaultIntegration: new apigwv2_integ.HttpLambdaIntegration('RailsHttpApiProxy', apiFunction, {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
+        parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("header.host", apigwv2.MappingValue.custom("test.schengen-calculator.com"))
       }),
     });
 

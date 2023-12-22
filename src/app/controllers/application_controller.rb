@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     puts cloudfront_domain
     if cloudfront_domain.present?
       full_url = "https://#{cloudfront_domain}#{path}"
-      redirect_to full_url, *optional_params
+      redirect_to full_url, allow_other_host: true, *optional_params
     else
       redirect_to path, *optional_params
     end

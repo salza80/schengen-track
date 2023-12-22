@@ -51,6 +51,8 @@ export class HttpApiConstruct extends Construct {
       FACEBOOK_SECRET: 'fbsecret',
       SMTP_USERNAME: 'username',
       SMTP_PASSWORD: 'password',
+      BREVO_LOGIN: 'login',
+      BREVO_PASSWROD: 'passowrd',
       TASK_PASSWORD: 'taskpassword',
       CLOUDFRONT_DOMAIN: 'test.schengen-calculator.com'
     };

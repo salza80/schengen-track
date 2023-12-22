@@ -23,10 +23,8 @@ def serve_static_file(path)
   end
 
   response = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
-  puts "Response: #{response.inspect}"
   content = ''
   response[2].each { |part| content << part }
-  puts content.inspect
 
   isBase64 = is_binary_content?(response[1])
   content = Base64.strict_encode64(content) if isBase64
@@ -66,6 +64,7 @@ end
 
 
 def handler(event:, context:)
+  ENV['CLOUDFRONT_DOMAIN'] = event['requestContext']['domainName']
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API
   # https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html#http-api-develop-integrations-lambda.proxy-format
   requestContext = event.fetch('requestContext')

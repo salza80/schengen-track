@@ -60,4 +60,20 @@ class ApplicationController < ActionController::Base
     # puts code
     # code ? code.scan(/^[a-z]{2}/).first.upcase : 'AU'
   end
+
+  def redirect_with_cloudfront_support(path)
+    if @cloudfront_domain.present?
+      full_url = "https://#{@cloudfront_domain}#{path}"
+      redirect_to full_url
+    else
+      redirect_to path
+    end
+  end
+
+  private
+
+  def set_cloudfront_domain
+    @cloudfront_domain = Rails.application.credentials.dig(:cloudfront, :domain)
+  end
+
 end

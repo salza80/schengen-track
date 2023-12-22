@@ -99,12 +99,12 @@ Rails.application.configure do
   config.action_controller.default_url_options= {:protocol => 'https'}
 
   ActionMailer::Base.smtp_settings = {
-    :address        => 'email-smtp.eu-central-1.amazonaws.com',
+    :address        => 'smtp-relay.brevo.com',
     :port           => '587',
     :authentication => :plain,
-    :user_name      => Rails.application.secrets.smtp_username,
-    :password       => Rails.application.secrets.smtp_password,
-    :domain         => 'test1.schengen-calculator.com',
+    :user_name      => Rails.application.secrets.brevo_login,
+    :password       => Rails.application.secrets.brevo_password,
+    :domain         => 'schengen-calculator.com',
     :enable_starttls_auto => true
   }
 end

@@ -6,6 +6,8 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
+    puts Rails.application.secrets.facebook_id
+
     calc = Schengen::Calculator.new(current_user_or_guest_user)
     @visits = calc.visits
     @visas = current_user_or_guest_user.visas.all if current_user_or_guest_user.visa_required?

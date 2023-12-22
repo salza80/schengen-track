@@ -64,7 +64,6 @@ end
 
 
 def handler(event:, context:)
-  ENV['CLOUDFRONT_DOMAIN'] = event['requestContext']['domainName']
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API
   # https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html#http-api-develop-integrations-lambda.proxy-format
   requestContext = event.fetch('requestContext')

@@ -51,8 +51,8 @@ export class HttpApiConstruct extends Construct {
       FACEBOOK_SECRET: 'fbsecret',
       SMTP_USERNAME: 'username',
       SMTP_PASSWORD: 'password',
-      TASK_PASSWORD: 'taskpassword'
-
+      TASK_PASSWORD: 'taskpassword',
+      CLOUDFRONT_DOMAIN: 'test.schengen-calculator.com'
     };
 
     // Lambda function for Lambda proxy integration of AWS API Gateway HTTP API

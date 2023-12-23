@@ -3,13 +3,14 @@ import { Construct } from 'constructs';
 import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
 import * as path from 'path';
+import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 
 export interface HttpApiConstructProps {
-  /** RAILS_MASTER_KEY */
-  railsMasterKey: string,
+
 }
 
 /**
@@ -39,22 +40,25 @@ export class HttpApiConstruct extends Construct {
       ],
     });
 
+    const paramPath = '/scheng/prod/';
+
+    const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
+      this, `${paramPath}${paramName}`); 
+
+
     // Environment variables for Rails REST API container
     const apiContainerEnvironment = {
       BOOTSNAP_CACHE_DIR: '/tmp/cache',
       RAILS_ENV: 'production',
-      RAILS_MASTER_KEY: props.railsMasterKey,
+      RAILS_MASTER_KEY: 'test',
       RAILS_LOG_TO_STDOUT: '1',
-      DB_URL: 'dbURLstring',
-      SECRET_KEY_BASE: props.railsMasterKey,
-      FACEBOOK_ID: 'fbid',
-      FACEBOOK_SECRET: 'fbsecret',
-      SMTP_USERNAME: 'username',
-      SMTP_PASSWORD: 'password',
-      BREVO_LOGIN: 'login',
-      BREVO_PASSWROD: 'passowrd',
-      TASK_PASSWORD: 'taskpassword',
-      CLOUDFRONT_DOMAIN: 'test.schengen-calculator.com'
+      DB_URL: getParam('db_url'),
+      SECRET_KEY_BASE: 'test',
+      FACEBOOK_ID: getParam('facebook_id'),
+      FACEBOOK_SECRET: getParam('facebook_secret'),
+      BREVO_LOGIN: getParam('brevo_login'),
+      BREVO_PASSWROD: getParam('brevo_password'),
+      TASK_PASSWORD: getParam('task_password')
     };
 
     // Lambda function for Lambda proxy integration of AWS API Gateway HTTP API

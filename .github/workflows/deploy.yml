@@ -37,5 +37,5 @@ jobs:
         working-directory: ./deployment
 
       - name: CDK Deploy
-        run: cdk deploy -c railsMasterKey="test"
+        run: cdk deploy
         working-directory: ./deployment

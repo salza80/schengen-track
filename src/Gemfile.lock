@@ -212,6 +212,9 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
+    omniauth-rails_csrf_protection (1.0.1)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     orm_adapter (0.5.0)
     pg (1.5.4)
     pry (0.14.2)
@@ -361,6 +364,7 @@ DEPENDENCIES
   listen
   nokogiri
   omniauth-facebook
+  omniauth-rails_csrf_protection
   pg
   pry
   puma (= 6.2.2)

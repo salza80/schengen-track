@@ -5,13 +5,12 @@ import { RailsLambdaStack } from '../lib/rails-lambda-stack';
 
 const app = new cdk.App();
 
-const railsMasterKey = app.node.tryGetContext('railsMasterKey') as string | undefined;
-if (railsMasterKey == undefined) {
-  throw new Error('railsMasterKey not specified in context');
-}
+// const railsMasterKey = app.node.tryGetContext('railsMasterKey') as string | undefined;
+// if (railsMasterKey == undefined) {
+//   throw new Error('railsMasterKey not specified in context');
+// }
 
 new RailsLambdaStack(app, 'RailsLambdaStack', {
-  railsMasterKey: railsMasterKey,
 
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,

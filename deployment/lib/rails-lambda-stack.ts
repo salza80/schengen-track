@@ -5,8 +5,6 @@ import { Construct } from 'constructs';
 import { HttpApiConstruct } from './http-api';
 
 export interface RailsLambdaStackProps extends cdk.StackProps {
-  /** RAILS_MASTER_KEY */
-  railsMasterKey: string,
 }
 
 export class RailsLambdaStack extends cdk.Stack {
@@ -17,8 +15,6 @@ export class RailsLambdaStack extends cdk.Stack {
     //   railsMasterKey: props.railsMasterKey,
     // });
 
-    new HttpApiConstruct(this, 'Http', {
-      railsMasterKey: props.railsMasterKey,
-    });
+    new HttpApiConstruct(this, 'Http', {});
   }
 }

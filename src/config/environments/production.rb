@@ -2,7 +2,6 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   config.action_controller.forgery_protection_origin_check = false
-  config.session_store :cookie_store, key: '_app_session'
 
   # Settings specified here will take precedence over those in config/application.rb.
 

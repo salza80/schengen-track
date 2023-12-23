@@ -57,7 +57,7 @@ export class HttpApiConstruct extends Construct {
       FACEBOOK_ID: getParam('facebook_id'),
       FACEBOOK_SECRET: getParam('facebook_secret'),
       BREVO_LOGIN: getParam('brevo_login'),
-      BREVO_PASSWROD: getParam('brevo_password'),
+      BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password')
     };
 

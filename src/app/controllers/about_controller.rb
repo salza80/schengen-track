@@ -4,7 +4,7 @@ class AboutController < ApplicationController
   # GET /about/:nationaity
   def about
     if current_user_or_guest_user.is_guest?
-      response.headers['Cache-Control'] = 'public, max-age=3600'
+      expires_in 1.month, public: true
     end
     @country = nil
     return if params[:nationality].nil?

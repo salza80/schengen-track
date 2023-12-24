@@ -8,7 +8,7 @@ RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
 def serve_static_file(path)
   app = Rack::Builder.new do
-    use Rack::Static, root: 'public', urls: ['/assets'], mime_types: { ".ico" => "image/x-icon" }
+    use Rack::Static, root: 'public', urls: [''], mime_types: { ".ico" => "image/x-icon" }
     run lambda { |env|
       if env['REQUEST_METHOD'] == 'GET'
         Rack::Static.new(

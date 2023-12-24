@@ -79,7 +79,7 @@ def handler(event:, context:)
 
   path = event['requestContext']['http']['path']
   # Check if the request is for a static file
-  if path.start_with?('/assets/') || path.start_with?('/public/')
+  if path.start_with?('/assets/') || path.start_with?('/public/') || File.extname(path) != ''
     # Serve static files directly
     return serve_static_file(path)
   end

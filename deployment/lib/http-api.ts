@@ -107,7 +107,7 @@ export class HttpApiConstruct extends Construct {
       customHeadersBehavior: { 
         customHeaders: [{
           header: 'Cache-Control',
-          value: 'no-cache, no-store, must-revalidate',
+          value: 'no-cache',
           override: true
         }]
       }

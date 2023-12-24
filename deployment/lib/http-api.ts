@@ -4,6 +4,10 @@ import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as certificate from 'aws-cdk-lib/aws_certificatemanager';
+
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
 import * as path from 'path';
@@ -81,6 +85,80 @@ export class HttpApiConstruct extends Construct {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
         parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("host", apigwv2.MappingValue.custom("test.schengen-calculator.com"))
       }),
+    });
+
+    const customDomain = 'test.schengen-calculator.com';
+    const sslCertificateArn = 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd';
+    const origin  = new origins.HttpOrigin(railsHttpApi.url!),
+    const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList('Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+    })
+
+    const customCacheCountryGuestKey = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
+      headerBehavior: cloudfront.CacheCookieBehavior.allowList('Origin'),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('cache_country_guest'),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+      enableAcceptEncodingBrotli: true,
+      enableAcceptEncodingGzip: true
+    })
+
+    const customNoBrowserCacheHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
+      customHeadersBehavior: { 
+        customHeaders: [{
+          header: 'Cache-Control',
+          value: 'no-cache, no-store, must-revalidate',
+          override: true
+        }]
+      }
+    });
+
+    new cloudfront.Distribution(this, 'schengen-calculator', {
+      certificate: certificate.sslCertificateArn(sslCertificateArn),
+      domainNames: [customDomain],
+      priceClass: cloudfront.PriceClass.PRICE_CLASS_200,
+      sslSupportMethod: cloudfront.SSLMethod.SNI,
+      defaultBehavior: {
+        origin: origin,
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+        originRequestPolicy: customOriginRequestPolicy
+      },
+      additionalBehaviors: {
+        "assets/*": {
+          origin: origin,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+        },
+        "/": {
+          origin: origin,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          cachePolicy: customCacheCountryGuestKey,
+          originRequestPolicy: customOriginRequestPolicy,
+          responseHeadersPolicy: customNoBrowserCacheHeaderResponsePolicy
+        },
+        "/about*": {
+          origin: origin,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          cachePolicy: customCacheCountryGuestKey,
+          originRequestPolicy: customOriginRequestPolicy,
+          responseHeadersPolicy: customNoBrowserCacheHeaderResponsePolicy
+        }
+        ,
+        "/*.*": {
+          origin: origin,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          cachePolicy: customCacheCountryGuestKey,
+          originRequestPolicy: customOriginRequestPolicy,
+          responseHeadersPolicy: customNoBrowserCacheHeaderResponsePolicy
+        }
+      }
     });
 
     new cdk.CfnOutput(this, 'HttpApiUrl', {

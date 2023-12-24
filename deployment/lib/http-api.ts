@@ -6,7 +6,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
-import * as certificate from 'aws-cdk-lib/aws_certificatemanager';
+import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
@@ -16,7 +16,6 @@ import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 export interface HttpApiConstructProps {
 
 }
-
 /**
  * CDK construct to create API Gateway HTTP API with Lambda proxy integration 2.0
  */
@@ -89,7 +88,7 @@ export class HttpApiConstruct extends Construct {
 
     const customDomain = 'test.schengen-calculator.com';
     const sslCertificateArn = 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd';
-    const origin  = new origins.HttpOrigin(railsHttpApi.url!),
+    const origin = new origins.HttpOrigin(railsHttpApi.url!);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList('Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),

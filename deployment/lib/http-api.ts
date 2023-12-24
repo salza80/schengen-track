@@ -87,7 +87,7 @@ export class HttpApiConstruct extends Construct {
       }),
     });
 
-    const customDomain = 'test.schengen-calculator.com';
+   // const customDomain = 'test.schengen-calculator.com';
     const sslCertificateArn = 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd';
     const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
@@ -116,7 +116,7 @@ export class HttpApiConstruct extends Construct {
 
     const cloudfrontDist = new cloudfront.Distribution(this, 'schengen-calculator', {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
-      domainNames: [customDomain],
+     // domainNames: [customDomain],
       priceClass: cloudfront.PriceClass.PRICE_CLASS_200,
       sslSupportMethod: cloudfront.SSLMethod.SNI,
       defaultBehavior: {

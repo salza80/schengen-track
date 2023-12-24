@@ -12,6 +12,7 @@ import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
 import * as path from 'path';
 import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import { Stack } from 'aws-cdk-lib';
 
 export interface HttpApiConstructProps {
 
@@ -88,7 +89,7 @@ export class HttpApiConstruct extends Construct {
 
     const customDomain = 'test.schengen-calculator.com';
     const sslCertificateArn = 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd';
-    const origin = new origins.HttpOrigin(railsHttpApi.apiEndpoint);
+    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList('Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),

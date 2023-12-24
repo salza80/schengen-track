@@ -96,9 +96,9 @@ export class HttpApiConstruct extends Construct {
     })
 
     const customCacheCountryGuestKey = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
-      headerBehavior: cloudfront.CacheCookieBehavior.allowList('Origin'),
-      cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('cache_country_guest'),
-      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+      headerBehavior: cloudfront.CacheHeaderBehavior.allowList('Origin'),
+      cookieBehavior: cloudfront.CacheCookieBehavior.allowList('cache_country_guest'),
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
       enableAcceptEncodingBrotli: true,
       enableAcceptEncodingGzip: true
     })

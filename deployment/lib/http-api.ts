@@ -114,7 +114,7 @@ export class HttpApiConstruct extends Construct {
     });
 
     new cloudfront.Distribution(this, 'schengen-calculator', {
-      certificate: certificate.sslCertificateArn(sslCertificateArn),
+      certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain],
       priceClass: cloudfront.PriceClass.PRICE_CLASS_200,
       sslSupportMethod: cloudfront.SSLMethod.SNI,

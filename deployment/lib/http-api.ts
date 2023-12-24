@@ -103,17 +103,17 @@ export class HttpApiConstruct extends Construct {
       enableAcceptEncodingGzip: true
     })
 
-    const customNoBrowserCacheHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
-      customHeadersBehavior: { 
+    const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
+      customHeadersBehavior: {
         customHeaders: [{
           header: 'Cache-Control',
-          value: 'no-cache',
+          value: 'no-cache, no-store, must-revalidate',
           override: true
         }]
       }
     });
 
-    new cloudfront.Distribution(this, 'schengen-calculator', {
+    const cloudfrontDist = new cloudfront.Distribution(this, 'schengen-calculator', {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain],
       priceClass: cloudfront.PriceClass.PRICE_CLASS_200,
@@ -138,7 +138,7 @@ export class HttpApiConstruct extends Construct {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: customCacheCountryGuestKey,
           originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserCacheHeaderResponsePolicy
+          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy
         },
         "/about*": {
           origin: origin,
@@ -146,7 +146,7 @@ export class HttpApiConstruct extends Construct {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: customCacheCountryGuestKey,
           originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserCacheHeaderResponsePolicy
+          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy
         }
         ,
         "/*.*": {
@@ -155,13 +155,13 @@ export class HttpApiConstruct extends Construct {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: customCacheCountryGuestKey,
           originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserCacheHeaderResponsePolicy
+          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy
         }
       }
     });
 
-    new cdk.CfnOutput(this, 'HttpApiUrl', {
-      value: railsHttpApi.url!,
+    new cdk.CfnOutput(this, 'CloudFrontUrl', {
+      value: cloudfrontDist.domainName!,
     });
   }
 }

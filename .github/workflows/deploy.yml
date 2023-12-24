@@ -1,4 +1,4 @@
-name: CDK Deploy
+name: schengtrackStageDeploy
 
 on:
   push:

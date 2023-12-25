@@ -81,7 +81,8 @@ def handler(event:, context:)
   # Check if the request is for a static file
   if path.start_with?('/assets/') || path.start_with?('/public/') || File.extname(path) != ''
     # Serve static files directly
-    return serve_static_file(path)
+    response = serve_static_file(path)
+    return response if response['statusCode'] != 404
   end
 
   requestTimeEpoch = requestContext['timeEpoch']

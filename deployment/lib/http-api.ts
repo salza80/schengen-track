@@ -150,7 +150,7 @@ export class HttpApiConstruct extends Construct {
           responseHeadersPolicy: customNoBrowserHeaderResponsePolicy
         }
         ,
-        "/*.*": {
+        "/robots.txt": {
           origin: origin,
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,

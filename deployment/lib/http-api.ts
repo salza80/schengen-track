@@ -105,7 +105,7 @@ export class HttpApiConstruct extends Construct {
     })
 
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
-      removeHeaders: ['_schengen_track_session'],
+      removeHeaders: ['Set-Cookie'],
       customHeadersBehavior: {
         customHeaders: [{
           header: 'Cache-Control',

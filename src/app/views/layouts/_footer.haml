@@ -1,11 +1,12 @@
-%footer.footer
+%footer.footer.footer-fixed-bottom
   .container.text-center
     %p
-      %span.glyphicon.glyphicon-copyright-mark{":aria-hidden" => "true"}
+      %span.fa.fa-copyright{"aria-hidden" => "true"}
       Schengen Calculator
-    %p
-      =link_to 'Disclaimer', disclaimer_path
-      =link_to 'Privacy Policy', privacy_path
+      |
+      = link_to 'Disclaimer', disclaimer_path, class: 'footer-link'
+      |
+      = link_to 'Privacy Policy', privacy_path, class: 'footer-link'
 %script{:type => "application/ld+json"}
   {
   "@context": "http://schema.org",

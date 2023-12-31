@@ -1,69 +1,75 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-8290979932488448",
-        enable_page_level_ads: true
-      });
-    </script>
+<html lang="en">
+<head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-8290979932488448",
+      enable_page_level_ads: true
+    });
+  </script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="msvalidate.01" content="78EB2E60264CB939006FF5C07C8F2404" />
-    <meta http-equiv="content-language" content="en">
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Free Schengen/Europe 90/180 day calculator. Enter your nationality, travel dates and destination, and the schengen calculator does the rest." %>" />
-    <meta name="keywords" content="Schengen, Schengen Calculator,90 days in 180, 90 day rule, 180 day calculator, 90 day calculator, Schengen Visa, Travel, Europe Visa, Schengen Area, Schengen Zone">
-    <meta property="og:url"           content="http://www.schengen-calculator.com" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="<%= content_for?(:title) ? 'Free Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Europe Tourist Visa Calculator' %>" />
-    <meta property="og:description"   content="<%= content_for?(:description) ? yield(:description) : "Free Schengen/Europe Visa 90/180 day calculator. Enter your nationality, travel dates and destination, and the schengen calculator does the rest." %>" />
-    <meta property="og:image"         content="https://www.schengen-calculator.com/med.png" />
-    <link rel="alternate" href="https://www.schengen-calculator.com" hreflang="en-us" />
-    <link rel="alternate" href="https://www.schengen-calculator.com" hreflang="en-gb" />
-    <link rel="alternate" href="https://www.schengen-calculator.com" hreflang="en-au" />
-    <title><%= content_for?(:title) ? 'Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Short-stay Tourist Visa Calculator' %>
-    </title>
-    <%= favicon_link_tag asset_path('favicon.ico') %>
-    <%= stylesheet_link_tag    'application',  media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId            : '1666941640196067',
-          autoLogAppEvents : true,
-          xfbml            : true,
-          version          : 'v3.0'
-        });
-      };
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="msvalidate.01" content="78EB2E60264CB939006FF5C07C8F2404">
+  <meta http-equiv="content-language" content="en">
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : 'Free Schengen/Europe 90/180 day calculator. Enter your nationality, travel dates and destination, and the schengen calculator does the rest.' %>" />
+  <meta name="keywords" content="Schengen, Schengen Calculator,90 days in 180, 90 day rule, 180 day calculator, 90 day calculator, Schengen Visa, Travel, Europe Visa, Schengen Area, Schengen Zone">
+  <meta property="og:url" content="http://www.schengen-calculator.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="<%= content_for?(:title) ? 'Free Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Europe Tourist Visa Calculator' %>" />
+  <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : 'Free Schengen/Europe Visa 90/180 day calculator. Enter your nationality, travel dates and destination, and the schengen calculator does the rest.' %>" />
+  <meta property="og:image" content="https://www.schengen-calculator.com/med.png" />
+  <link rel="alternate" href="https://www.schengen-calculator.com" hreflang="en-us" />
+  <link rel="alternate" href="https://www.schengen-calculator.com" hreflang="en-gb" />
+  <link rel="alternate" href="https://www.schengen-calculator.com" hreflang="en-au" />
+  <title><%= content_for?(:title) ? 'Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Short-stay Tourist Visa Calculator' %></title>
+  <%= favicon_link_tag asset_path('favicon.ico') %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "https://connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <%= render 'layouts/header' %>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-9">
-          <div class='notice'>
-            <%= render 'layouts/notice' %>
-          </div>
-          <%= yield %>
-        </div>
-        <div class="col-md-3">
-          <%= render 'layouts/agoda' %>
-        </div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '1666941640196067',
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: 'v3.0'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<%= render 'layouts/header' %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="notice">
+        <%= render 'layouts/notice' %>
       </div>
+      <%= yield %>
     </div>
-  </body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  <%= render 'layouts/footer' %>
+    <div class="col-md-3">
+      <%= render 'layouts/agoda' %>
+    </div>
+  </div>
+</div>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<%= render 'layouts/footer' %>
+
+</body>
 </html>

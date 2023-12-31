@@ -1,4 +1,6 @@
 - if flash[:notice]
-  #info.alert.alert-info{:role => "alert"}= flash[:notice]
+  .alert.alert-info{role: "alert", id: "info"}
+    = flash[:notice]
 - if flash[:alert]
-  #notice.alert.alert-warning{:role => "alert"}= flash[:alert]
+  .alert.alert-warning{role: "alert", id: "notice"}
+    = flash[:alert]

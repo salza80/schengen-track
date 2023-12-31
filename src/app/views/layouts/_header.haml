@@ -1,45 +1,37 @@
-%nav.navbar.navbar-inverse.navbar-fixed-top
-  .container-fluid
-    .row
-      .col-md-12
-        .navbar-header
-          / %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
-          /   %span.sr-only Toggle navigation
-          /   %span.icon-bar
-          /   %span.icon-bar
-          /   %span.icon-bar
-          %a.navbar-brand{:href => "#"} 
-            = image_tag("logo.svg", alt: "Schengen Visa Calculator", class: "pull-left")
-          %span.navbar-text.site-title
-            Schengen 
-            %span.hidden-xs 
-              Visa 
-            Calculator
-          .navbar-text.facebook-buttons
-            .fb-like.hidden-xs{class: "pull-right", "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
-            .fb-share-button.hidden-xs{ class: "pull-right", "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
-        .navbar.navbar-right
-          - if user_signed_in?
-            = link_to 'Log out', destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
-          - else 
-            = link_to 'Login', new_user_session_path, class: 'btn btn-primary log-in-link'
-    .row
-      .col-md-12
-        #navbar.navbar-left
-          %ul.nav.nav-tabs.site-nav
-            %li{role: "presentation", class: (active_if(controller: 'visits')) }
-              %a.navbar-link{href: visits_path }
-                %span.glyphicon.glyphicon-plane{":aria-hidden" => "true"}
-                %span.hidden-xs
-                  Calculator
-            %li{role: "presentation", class: (active_if(controller: 'about'))}
-              %a.navbar-link{href: about_path}
-                %span.glyphicon.glyphicon-info-sign{":aria-hidden" => "true"}
-                %span.hidden-xs
-                  About
-        - if current_user_or_guest_user
-          %p.current-setting.pull-right
-            = current_user_or_guest_user.full_name  
-            %br
-            = current_user_or_guest_user.nationality.name
-            = link_to '(change)', my_details_path
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+  -# %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navbar", "aria-controls" => "navbar", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
+  -#   %span.navbar-toggler-icon
+  %a.navbar-brand.mr-auto{:href => "#"} 
+    = image_tag("logo.svg", alt: "Schengen Calculator", class: "pull-left", style: "max-width:100%; max-height:100%;")
+    %span.navbar-text.site-title
+      Schengen 
+      %span.d-none.d-sm-inline
+        Visa 
+      Calculator
+    -# .navbar-text.facebook-buttons
+    -#   .fb-like..d-none.d-sm-inline{class: "pull-right", "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
+    -#   .fb-share-button.d-none.d-sm-inline{ class: "pull-right", "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
+
+    -# #navbar.navbar-left
+    -#   %ul.nav.nav-tabs.site-nav
+    -#     %li{role: "presentation", class: (active_if(controller: 'visits')) }
+    -#       %a.nav-link{href: visits_path }
+    -#         %span.glyphicon.glyphicon-plane{"aria-hidden": "true"}
+    -#         %span..d-none.d-sm-inline
+    -#           Calculator
+    -#     %li{role: "presentation", class: (active_if(controller: 'about'))}
+    -#       %a.nav-link{href: about_path}
+    -#         %span.glyphicon.glyphicon-info-sign{"aria-hidden": "true"}
+    -#         %span..d-none.d-sm-inline
+    -#           About
+  - if current_user_or_guest_user
+    %p.current-setting.navbar-text.px-2
+      = current_user_or_guest_user.full_name  
+      %br
+      = current_user_or_guest_user.nationality.name
+      = link_to '(change)', my_details_path, class: 'text-sm.text-muted'
+  .navbar-nav.px-2
+    - if user_signed_in?
+      = link_to 'Log out', destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
+    - else 
+      = link_to 'Login', new_user_session_path, class: 'btn btn-primary log-in-link'

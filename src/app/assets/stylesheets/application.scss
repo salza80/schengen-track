@@ -26,8 +26,9 @@ $navbar-height:  55px;
 $grid-float-breakpoint: 200px;
 
 
-@import "bootstrap-sprockets";
+// @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -36,11 +37,10 @@ html {
   min-height: 100%;
 }
 .footer {
-  position: absolute;
-  padding: 5px;
+  position: fixed;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  padding-top: 10px;
   background-color: $footer-background;
 }
 
@@ -78,28 +78,11 @@ body {
   margin-bottom: 0px;
 }
 
-nav {
-  .container-fluid {
-    margin-left: 20px;
-    margin-right: 25px;
-  }
-  .navbar-header{
-    white-space: nowrap;
-  }
-  .navbar-brand{
-    padding-top: 20px;
-    img{
-      color: $header-highlight;
-      height: 35px;
-      width:35px;
-    }
-  }
-}
 
 @media (max-width: 479px) { 
   .site-title{
     margin-left:0px;
-    font-size: 14px;
+    font-size: 16px;
   }
  }
 
@@ -183,9 +166,6 @@ nav.about-sidebar{
     }
 
   }
-}
-.about-section{
- 
 }
 
 // form edit date control

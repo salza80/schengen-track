@@ -18,6 +18,10 @@
 
 = render 'nextEntryDays'
 
+- if !user_signed_in?
+  %br
+  = render 'registerPrompt'
+
 .row.padding-md
   .col-md-6.align-bottom
     -if @visits.count>0
@@ -28,8 +32,8 @@
         =link_to "| View Calculation Details", days_path
   .col-md-6.text-right
     = link_to new_visit_path, class: "btn btn-info btn-md" do
-      %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
-      | Add Travel
+      %i.fa.fa-plus{"aria-hidden" => "true"}
+      Add Travel
 
 .row
   .col-md-12
@@ -46,9 +50,6 @@
   = render 'visas/visalist'
   %br
   = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary" 
-%br
-  - if !user_signed_in?
-    = render 'registerPrompt'
 .row
   .col-md-12.text-center
     .facebook-buttons

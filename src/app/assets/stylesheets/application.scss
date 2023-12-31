@@ -51,6 +51,11 @@ html {
   }
 }
 
+.padding-md {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 body {
   padding-top: 120px;
   margin-bottom: 60px;
@@ -101,6 +106,7 @@ nav {
  @media (min-width: 480px) { 
   .site-title{
     margin-left:0px;
+    color: red;
     font-size: 20px;
   }
  }

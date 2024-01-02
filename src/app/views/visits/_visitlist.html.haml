@@ -1,6 +1,8 @@
 .responsive-table-container
-  %table.table.responsive-table
-    %thead
+  %table.table.table-striped.table-bordered.table-hover.responsive-table
+    %caption
+      List of countries visited or that you have visited in the last 180 days, or are planning to visit in the future.
+    %thead.thead-dark
       %tr.table-top-header
         %th.center-heading{ colspan: "4", scope: "col" } Travel Details
         -if current_user_or_guest_user.visa_required?
@@ -28,25 +30,32 @@
         %tr
           %th{ scope: "row"}
             %span.no-wrap
-              = visit.entry_date
+              = visit.entry_date.strftime('%d-%b-%Y')
             = " to "
             %span.no-wrap
-              = visit.exit_date
+              = visit.exit_date.strftime('%d-%b-%Y')
+            %span.d-md-none
+              (
+              =visit.no_days
+              days)
           %th{ scope: "row"}
             = visit.country.name
-          %td{"data-title": "Schengen Area"} 
+            %span.d-md-none
+              = "(In Schengen Zone)" if visit.schengen?
+              = "(Outside Schengen Zone)" if !visit.schengen?
+          %td{"data-title": "Schengen Area", class: "d-none d-md-table-cell"} 
             = visit.schengen? ? "Yes" : "No"
-          %td{ "data-title": "No. Days"} 
+          %td{ "data-title": "No. Days", class: "d-none d-md-table-cell"} 
             = visit.no_days
           -if current_user_or_guest_user.visa_required?
-            %td{ "data-title": "Visa Exists", class: ("danger" if visit.visa_exists? == false && visit.schengen?)}
+            %td{ "data-title": "Visa Exists", class: ("table-danger" if visit.visa_exists? == false && visit.schengen?)}
               -if visit.schengen? == false
                 = "NA"
               -elsif visit.visa_exists?
                 ="Yes"
               -else
                 ="No"
-            %td{ "data-title": "Visa Entry Count", class: ("danger" if visit.visa_entry_overstay?)}
+            %td{ "data-title": "Visa Entry Count", class: ("table-danger" if visit.visa_entry_overstay?)}
               -if visit.visa_exists?
                 = visit.visa_entry_count
                 of
@@ -55,12 +64,12 @@
                 N/A
               -else
                 Visa Required!
-            %td{ "data-title": "Visa Days Overstay", class: ("danger" if visit.visa_overstay?) }
+            %td{ "data-title": "Visa Days Overstay", class: ("table-danger" if visit.visa_overstay?), class: ("d-none d-md-table-cell" if visit.visa_overstay? == 0) }
               = visit.visa_overstay_days
           %td{ "data-title": "Schengen days" }
             = visit.schengen_days
             of 90 days
-          %td{ "data-title": "Schengen Days Overstay", class: ("danger" if visit.schengen_overstay?) }
+          %td{ "data-title" => "Schengen Days Overstay", class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
             = visit.schengen_overstay_days
           %td{ "data-title": "Modify" }
             = link_to 'Edit', edit_visit_path(visit)

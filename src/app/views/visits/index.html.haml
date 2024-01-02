@@ -2,7 +2,6 @@
 /   = raw @advertise_country.affiliate_booking_html
 - if !user_signed_in?
   = render 'registerPrompt'
-%h1 Travel Record
 -if @visits.count ==0
   %p
     Start using the Schengen Calculator by adding your previous and up comming travel plans. 
@@ -18,16 +17,17 @@
     \.
 %br
 = render 'nextEntryDays'
-.row.padding-md
-  .col-md-6.align-bottom
+%h1 Travel Record
+.row.py-1
+  .col-md-6.d-flex.align-items-end
     -if @visits.count>0
-      %strong
-        =link_to "Export to CSV", visits_path(format: "csv")
+      =link_to "Export to CSV", visits_path(format: "csv")
+      %span.px-2
+        |
     -if (!(current_user_or_guest_user.visa_required?) && @visits.count>0)
-      %strong
-        =link_to "| View Calculation Details", days_path
+      =link_to "View Calculation Details", days_path
   .col-md-6.text-right
-    = link_to new_visit_path, class: "btn btn-info btn-md" do
+    = link_to new_visit_path, class: "btn btn-primary btn-md" do
       %i.fa.fa-plus{"aria-hidden" => "true"}
       Add Travel
 .row

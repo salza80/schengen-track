@@ -15,16 +15,16 @@
  */
 
  //variables
-//colours
+// //colours
   $header-main:#222;
   $header-highlight: #337ab7;
   $header-text: #9d9d9d;
-  $footer-background: #e1e5e8;
 
 //customises bootstrap variables
-$navbar-height:  55px;
-$grid-float-breakpoint: 200px;
+//$navbar-height:  55px;
+//$grid-float-breakpoint: 200px;
 
+@import "_variables.scss";
 
 // @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -41,7 +41,14 @@ html {
   bottom: 0;
   width: 100%;
   padding-top: 10px;
-  background-color: $footer-background;
+  color: white;
+  a {
+    color: white;
+  }
+}
+
+.table-danger {
+  color: $gray-900;
 }
 
 .facebook-buttons {
@@ -49,11 +56,6 @@ html {
     margin-left: 4px;
     display: inline-block;
   }
-}
-
-.padding-md {
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 body {

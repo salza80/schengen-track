@@ -1,6 +1,11 @@
 - if flash[:notice]
-  .alert.alert-info{role: "alert", id: "info"}
+  .alert.alert-info.alert-dismissible.fade.show{role: "alert", id: "info"}
     = flash[:notice]
+    %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
+      %span{"aria-hidden" => "true"} &times;
+
 - if flash[:alert]
-  .alert.alert-warning{role: "alert", id: "notice"}
+  .alert.alert-warning.alert-dismissible.fade.show{role: "alert", id: "notice"}
     = flash[:alert]
+    %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
+      %span{"aria-hidden" => "true"} &times;

@@ -7,6 +7,12 @@
       = link_to 'Disclaimer', disclaimer_path, class: 'footer-link'
       |
       = link_to 'Privacy Policy', privacy_path, class: 'footer-link'
+      |
+      %span.facebook-buttons
+        %span.like
+          %span.fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
+        %span.share
+          %span.fb-share-button.visible-xs-block{ "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
 %script{:type => "application/ld+json"}
   {
   "@context": "http://schema.org",

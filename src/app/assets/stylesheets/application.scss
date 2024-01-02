@@ -57,7 +57,7 @@ html {
 }
 
 body {
-  padding-top: 120px;
+  padding-top: 80px;
   margin-bottom: 60px;
 }
 .starter-template {
@@ -122,17 +122,6 @@ p.current-setting{
   }
 
 }
-.nav-pills{
-  a.log-in-link{
-    background-color:  $header-highlight;
-    color: $header-main;
-    &:hover{
-      background-color: white;
-      color: $header-highlight;
-    }
-  }
-}
-
 
 // about page
 
@@ -153,8 +142,6 @@ nav.about-sidebar{
     a:hover{
       color: $header-highlight;
     }
-    
-
     li>ul>li>a{
       color: $header-main;
       padding-left: 20px;
@@ -169,9 +156,9 @@ nav.about-sidebar{
 }
 
 // form edit date control
-.form-control{
-  width:auto;
-}
+// .form-control{
+//   width:100%;
+// }
 
 .date-form-group>select{
   width: auto;

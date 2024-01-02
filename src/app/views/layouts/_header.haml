@@ -1,37 +1,37 @@
-%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
-  -# %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navbar", "aria-controls" => "navbar", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
-  -#   %span.navbar-toggler-icon
-  %a.navbar-brand.mr-auto{:href => "#"} 
-    = image_tag("logo.svg", alt: "Schengen Calculator", class: "pull-left", style: "max-width:100%; max-height:100%;")
+%nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top.justify-content-start
+  %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navtabs", "aria-controls" => "navbar", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
+    %span.navbar-toggler-icon
+  %a.navbar-brand.px-3{:href => "#"}
+    = image_tag("logo.svg", alt: "Schengen Calculator")
     %span.navbar-text.site-title
       Schengen 
-      %span.d-none.d-sm-inline
+      %span.d-none.d-lg-inline
         Visa 
       Calculator
-    -# .navbar-text.facebook-buttons
-    -#   .fb-like..d-none.d-sm-inline{class: "pull-right", "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
-    -#   .fb-share-button.d-none.d-sm-inline{ class: "pull-right", "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
-
-    -# #navbar.navbar-left
-    -#   %ul.nav.nav-tabs.site-nav
-    -#     %li{role: "presentation", class: (active_if(controller: 'visits')) }
-    -#       %a.nav-link{href: visits_path }
-    -#         %span.glyphicon.glyphicon-plane{"aria-hidden": "true"}
-    -#         %span..d-none.d-sm-inline
-    -#           Calculator
-    -#     %li{role: "presentation", class: (active_if(controller: 'about'))}
-    -#       %a.nav-link{href: about_path}
-    -#         %span.glyphicon.glyphicon-info-sign{"aria-hidden": "true"}
-    -#         %span..d-none.d-sm-inline
-    -#           About
-  - if current_user_or_guest_user
-    %p.current-setting.navbar-text.px-2
-      = current_user_or_guest_user.full_name  
-      %br
-      = current_user_or_guest_user.nationality.name
-      = link_to '(change)', my_details_path, class: 'text-sm.text-muted'
-  .navbar-nav.px-2
-    - if user_signed_in?
-      = link_to 'Log out', destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
-    - else 
-      = link_to 'Login', new_user_session_path, class: 'btn btn-primary log-in-link'
+  .collapse.navbar-collapse.justify-content-start{id: "navtabs"}
+    %ul.navbar-nav.nav-tabs.mx-auto
+      %li.nav-item{role: "navigation", class: (active_if(controller: 'visits')) }
+        %a.nav-link{href: visits_path }
+          %span.fa.fa-plane{"aria-hidden": "true"}
+          %span
+            Calculator
+      %li.nav-item{role: "navigation", class: (active_if(controller: 'about'))}
+        %a.nav-link{href: about_path}
+          %span.fa.fa-info-circle{"aria-hidden": "true"}
+          %span
+            About
+    .navbar-nav
+      -# .facebook-buttons
+      -#   .fb-like{"data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
+      -#   .fb-share-button{ "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
+      - if current_user_or_guest_user
+        %p.current-setting.navbar-text.px-2
+          = current_user_or_guest_user.full_name  
+          %br
+          = current_user_or_guest_user.nationality.name
+          = link_to '(change)', my_details_path, class: 'text-sm.text-muted'
+    .form-inline
+      - if user_signed_in?
+        = link_to 'Log out', destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
+      - else 
+        = link_to 'Login', new_user_session_path, class: 'btn btn-primary'

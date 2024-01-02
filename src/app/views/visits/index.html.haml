@@ -1,5 +1,7 @@
 / -if @advertise_country
 /   = raw @advertise_country.affiliate_booking_html
+- if !user_signed_in?
+  = render 'registerPrompt'
 %h1 Travel Record
 -if @visits.count ==0
   %p
@@ -15,13 +17,7 @@
     = link_to 'About page', about_path
     \.
 %br
-
 = render 'nextEntryDays'
-
-- if !user_signed_in?
-  %br
-  = render 'registerPrompt'
-
 .row.padding-md
   .col-md-6.align-bottom
     -if @visits.count>0
@@ -34,29 +30,18 @@
     = link_to new_visit_path, class: "btn btn-info btn-md" do
       %i.fa.fa-plus{"aria-hidden" => "true"}
       Add Travel
-
 .row
   .col-md-12
     = render 'visitlist'
-
-
 .row
   .col-lg-10.col-md-12
     .ad-block-limit
       %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
-%br
 -if current_user_or_guest_user.visa_required?
   %h2 Schengen Visa List
   = render 'visas/visalist'
   %br
-  = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary" 
-.row
-  .col-md-12.text-center
-    .facebook-buttons
-      .lke
-        .fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
-      .share
-        .fb-share-button.visible-xs-block{ "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
+  = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary"
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
 

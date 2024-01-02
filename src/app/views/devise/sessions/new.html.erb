@@ -1,54 +1,53 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
+<div class="card">
+  <div class="card-header">
     <div class="row">
-      <div class="col-xs-5">
-        <h3 class="panel-heading"> Log In </h3>
+      <div class="col-md-5">
+        <h3 class="card-title">Log In</h3>
       </div>
-      <div class="col-xs-7 panel-heading">     
-        <%= image_tag("facebook_icon.png", alt: "Facebook")%>
-        <%= button_to "Log in with Facebook", user_facebook_omniauth_authorize_path, :class => "btn btn-link" %><br />
-      </div>
-    </div>
-  </div>
-  <div class="panel-body">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login', class: "form-horizontal" }) do |f| %>
-    <div class="field  form-group">
-      <%= f.label :email, class: "col-sm-2 control-label" %>
-      <div class="col-sm-10">
-        <%= f.email_field :email, autofocus: true , class: "form-control"%>
-      </div>
-    </div>
-
-    <div class="field  form-group">
-      <%= f.label :password, class: "col-sm-2 control-label" %>
-      <div class="col-sm-10">
-      <%= f.password_field :password, autocomplete: "off" , class: "form-control" %>
-      </div>
-    </div>
-
-    <% if devise_mapping.rememberable? -%>
-     <div class="field  form-group">
-       <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+      <div class="col-md-7">
+        <div class="d-flex align-items-center">
+          <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
+          <%= button_to "Log in with Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
         </div>
       </div>
     </div>
-    <% end -%>
-    <div class="actions">
-      <div class="form-group">
-        <div class ="col-sm-offset-2 col-sm-10">
+  </div>
+  <div class="card-body">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login', class: "form-horizontal" }) do |f| %>
+      <div class="form-group row">
+        <%= f.label :email, class: "col-sm-2 col-form-label" %>
+        <div class="col-sm-10">
+          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :password, class: "col-sm-2 col-form-label" %>
+        <div class="col-sm-10">
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        </div>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+        <div class="form-group row">
+          <div class="col-sm-offset-2 col-sm-10">
+            <div class="form-check">
+              <%= f.check_box :remember_me, class: "form-check-input" %>
+              <%= f.label :remember_me, class: "form-check-label" %>
+            </div>
+          </div>
+        </div>
+      <% end -%>
+      
+      <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
           <%= f.submit "Log in", class: "btn btn-primary" %>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
-  <% end %>
-  <div class="panel-footer">
-    <%= link_to "Not yet Registered?", new_registration_path(resource_name) %><br />
-    <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+  <div class="card-footer">
+    Not yet registered? <%= link_to "Register", new_registration_path(resource_name) %><br />
+    Forgot your password? <%= link_to "Reset Password", new_password_path(resource_name) %><br />
   </div>
 </div>
-
-

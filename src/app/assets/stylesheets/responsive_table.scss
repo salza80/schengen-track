@@ -163,12 +163,6 @@ $table-header-colour: $table-head-bg;
       &:last-of-type {
         margin-bottom: 0; 
       }
-      
-      // &:nth-of-type(even) {
-      //   @media (min-width: $bp-bart) {
-      //     background-color: rgba(94,93,82,.1);
-      //   }
-      // }
     }
     
     th[scope="row"] {
@@ -176,12 +170,7 @@ $table-header-colour: $table-head-bg;
       //color: white;
       
       @media (min-width: $bp-bart) {
-        //background-color: transparent;
-        //color: rgba(94,93,82,1);
         text-align: left;
-        //border-bottom: 1px;
-        //border-bottom-style: solid;
-       // border-bottom: 1px solid  rgba(29,150,178,1);
       }
     }
     

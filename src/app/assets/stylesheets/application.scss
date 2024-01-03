@@ -16,9 +16,9 @@
 
  //variables
 // //colours
-  $header-main:#222;
-  $header-highlight: #337ab7;
-  $header-text: #9d9d9d;
+  // $header-main:#222;
+  // $header-highlight: #337ab7;
+  // $header-text: #9d9d9d;
 
 //customises bootstrap variables
 //$navbar-height:  55px;
@@ -47,6 +47,20 @@ html {
   }
 }
 
+#navtabs {
+    .active {
+      .nav-link {
+        border-bottom-color: $primary;
+        font-weight: bold;
+      }
+    }
+    .nav-link{
+      &:hover {
+        border-color: $primary;
+      }
+    }
+}
+
 .table-danger {
   color: $gray-900;
 }
@@ -59,15 +73,10 @@ html {
 }
 
 body {
-  padding-top: 80px;
+  padding-top: 0px;
   margin-bottom: 60px;
 }
-.starter-template {
-  padding: 40px 15px;
-  text-align: center;
-}
 
-// text helpers
 .center-heading{
   text-align: center;
 }
@@ -77,75 +86,28 @@ body {
 
 }
 .current-setting{
-  margin-bottom: 0px;
+  margin: 0px;
+  min-width: 100px;
 }
-
-
-@media (max-width: 479px) { 
-  .site-title{
-    margin-left:0px;
-    font-size: 16px;
-  }
- }
-
- @media (min-width: 480px) { 
-  .site-title{
-    margin-left:0px;
-    color: red;
-    font-size: 20px;
-  }
- }
-
 
 .panel-title{
   font-size: 24px;
 }
 
-
-
-p.current-setting{
-  color: $header-text;
-}
-
-.site-nav{
-  border-bottom: 0px;
-  li>a.navbar-link{
-    background-color: $header-highlight;
-    color:$header-main;
-
-    &:hover{
-      background-color: white;
-      color: $header-highlight;
-    }
-  }
-  li.active>a{
-    background-color: white;
-    color: $header-highlight;
-  }
-
-}
-
 // about page
 
 nav.about-sidebar{
-  .title{
-    color: $header-main;
-    font-weight: bold;
-    margin-top: 20px;
-  }
   ul.about-sidenav{
     li a {
-      color: $header-main;
       padding-left: 10px;
     }
     li.active>a{
-      color: $header-highlight;
+      color: $white
     }
     a:hover{
-      color: $header-highlight;
+      color: $primary;
     }
     li>ul>li>a{
-      color: $header-main;
       padding-left: 20px;
       font-size: 12px;
     }
@@ -161,6 +123,7 @@ nav.about-sidebar{
 // .form-control{
 //   width:100%;
 // }
+
 
 .date-form-group>select{
   width: auto;

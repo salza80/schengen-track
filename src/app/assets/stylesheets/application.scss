@@ -41,10 +41,6 @@ html {
   bottom: 0;
   width: 100%;
   padding-top: 10px;
-  color: white;
-  a {
-    color: white;
-  }
 }
 
 #navtabs {
@@ -75,6 +71,9 @@ html {
 body {
   padding-top: 0px;
   margin-bottom: 60px;
+}
+.form-btn {
+  width: 150px;
 }
 .col-form-label {
   font-weight: bold;

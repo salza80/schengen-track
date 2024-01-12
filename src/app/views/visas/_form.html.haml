@@ -5,20 +5,23 @@
       %ul
         - @visa.errors.full_messages.each do |msg|
           %li= msg
-  .field.form-group
-    = f.label :start_date, class: "col-sm-2 control-label"
+  .form-group.row
+    .col-sm-2.my-auto
+      = f.label :start_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :start_date, {}, {:class => "form-control"}
-  .field.form-group
-    = f.label :end_date, class: "col-sm-2 control-label"
+      = f.date_select :start_date, {}, {:class => "form-control custom-select"}
+  .form-group.row
+    .col-sm-2.my-auto
+      = f.label :end_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :end_date, {}, {:class => "form-control"}
-  .field.form-group
-    = f.label :no_entries, class: "col-sm-2 control-label"
+      = f.date_select :end_date, {}, {:class => "form-control custom-select"}
+  .form-group.row
+    .col-sm-2.my-auto
+      = f.label :no_entries, class: "col-form-label"
     .col-sm-10
       = f.number_field :no_entries, class: "form-control"
       (enter 0 for multi/unlimited entries)
   .actions
-    .form-group
-      .col-sm-offset-2.col-sm-10
-        = f.submit 'Save', class: "btn btn-primary"
+    .form-group.row
+      .col-sm-12
+        = f.submit 'Save', class: "btn btn-primary form-button float-right"

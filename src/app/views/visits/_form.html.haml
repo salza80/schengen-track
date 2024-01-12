@@ -29,7 +29,7 @@
   .actions
     .form-group.row
       .col-sm-12
-        = f.submit 'Save', class: "btn btn-info float-right" do
+        = f.submit 'Save', class: "btn btn-primary form-btn float-right" do
           %span.glyphicon.glyphicon-save{"aria-hidden" => "true"}
 %script
   != "var country = #{@country_options.html_safe};"

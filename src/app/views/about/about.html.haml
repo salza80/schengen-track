@@ -12,41 +12,41 @@
         Contents
       %ul.nav.flex-column.about-sidenav
         %li
-          = link_to "Introduction", "#intro", {:class => "text-light"}
+          = link_to "Introduction", "#intro", {:class => "text-dark"}
         %li
-          = link_to "UK Citizens  / BREXIT", "#brexit", {:class => "text-light"}
+          = link_to "UK Citizens  / BREXIT", "#brexit", {:class => "text-dark"}
         %li 
-          = link_to "What is the Schengen Area", "#what", {:class => "text-light"}
+          = link_to "What is the Schengen Area", "#what", {:class => "text-dark"}
         %li
-          = link_to "Travelling in the Schengen Area", "#travel", {:class => "text-light"}
+          = link_to "Travelling in the Schengen Area", "#travel", {:class => "text-dark"}
           %ul.nav.flex-column
             %li
-              = link_to "Visa Requirements", "#visa", {:class => "text-light"}
+              = link_to "Visa Requirements", "#visa", {:class => "text-dark"}
             %li
-              = link_to "Length of Stay Calculation", "#length", {:class => "text-light"}
+              = link_to "Length of Stay Calculation", "#length", {:class => "text-dark"}
               %ul.nav.flex-column
                 %li
-                  = link_to "New definition as of 2013", "#new", {:class => "text-light"}
+                  = link_to "New definition as of 2013", "#new", {:class => "text-dark"}
                 %li
-                  = link_to "Previous definition", "#previous", {:class => "text-light"}
+                  = link_to "Previous definition", "#previous", {:class => "text-dark"}
             %li
-              = link_to "Additional Visa Waiver agreements", "#additional", {:class => "text-light"}
+              = link_to "Additional Visa Waiver agreements", "#additional", {:class => "text-dark"}
             %li
               - if @country.nil?
-                = link_to "Schengen requrements for my nationality", "#nationality", {:class => "text-light"}
+                = link_to "Schengen requrements for my nationality", "#nationality", {:class => "text-dark"}
               - else
-                =link_to "Schengen requirements for " + @country.nationality_plural, "#nationality", {:class => "text-light"}
+                =link_to "Schengen requirements for " + @country.nationality_plural, "#nationality", {:class => "text-dark"}
         %li
-          = link_to "How to use the Schengen Calculator", "#how", {:class => "text-light"}
+          = link_to "How to use the Schengen Calculator", "#how", {:class => "text-dark"}
           %ul.nav.flex-column
             %li
-              = link_to "Step by Step", "#steps", {:class => "text-light"}
+              = link_to "Step by Step", "#steps", {:class => "text-dark"}
             %li
-              = link_to "Limitations", "#limitations", {:class => "text-light"}
+              = link_to "Limitations", "#limitations", {:class => "text-dark"}
             %li
-              = link_to "Field Name Definitions", "#definitions", {:class => "text-light"}
+              = link_to "Field Name Definitions", "#definitions", {:class => "text-dark"}
         %li
-          = link_to 'Disclaimer', "#disclaimer", {:class => "text-light"}
+          = link_to 'Disclaimer', "#disclaimer", {:class => "text-dark"}
 
   .col-lg-8{:role => "main"}
     .about-section

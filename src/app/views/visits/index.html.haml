@@ -17,6 +17,17 @@
     \.
 %br
 = render 'nextEntryDays'
+-if current_user_or_guest_user.visa_required?
+  %h2 Schengen Visa List
+  .row.py-1
+    .col-md-12.text-right
+      = link_to new_visa_path, class: "btn btn-primary btn-md form-btn" do
+        %i.fa.fa-plus{"aria-hidden" => "true"}
+        Add Visa
+  .row
+    .col-md-12
+      = render 'visas/visalist'
+
 %h2 Travel Record
 .row.py-1
   .col-md-6.d-flex.align-items-end
@@ -27,7 +38,7 @@
     -if (!(current_user_or_guest_user.visa_required?) && @visits.count>0)
       =link_to "View Calculation Details", days_path
   .col-md-6.text-right
-    = link_to new_visit_path, class: "btn btn-primary btn-md" do
+    = link_to new_visit_path, class: "btn btn-primary btn-md form-btn" do
       %i.fa.fa-plus{"aria-hidden" => "true"}
       Add Travel
 .row
@@ -37,11 +48,7 @@
   .col-lg-10.col-md-12
     .ad-block-limit
       %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
--if current_user_or_guest_user.visa_required?
-  %h2 Schengen Visa List
-  = render 'visas/visalist'
-  %br
-  = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary"
+
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
 

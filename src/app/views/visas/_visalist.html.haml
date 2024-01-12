@@ -1,6 +1,6 @@
 .responsive-table-container
-  %table.table.responsive-table
-    %thead
+  %table.table.table-striped.table-bordered.table-hover.responsive-table
+    %thead.thead-dark
       %tr
         %th{ scope: "col"} Dates
         %th{ scope: "col"} No entries
@@ -10,10 +10,10 @@
         %tr
           %th{ scope: "row"}
             %span.no-wrap 
-              = visa.start_date 
+              = visa.start_date.strftime('%d-%b-%Y')
             = " to "
             %span.no-wrap
-              = visa.end_date
+              = visa.end_date.strftime('%d-%b-%Y')
           %td{"data-title": "No Entries"} 
             = visa.no_entries
           %td{"data-title": "Modify"} 

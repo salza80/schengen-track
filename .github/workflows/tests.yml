@@ -17,8 +17,6 @@ jobs:
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d
       - uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
-        with:
-          ruby-version: '3.1' # Not needed with a .ruby-version file
       - run: rails db:create
       - run: rails db:migrate
       - run: bundle install

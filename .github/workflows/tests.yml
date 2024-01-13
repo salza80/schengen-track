@@ -1,4 +1,4 @@
-name: schengtrackStageDeploy
+name: schengtrackStageTests
 
 on:
   push:
@@ -12,12 +12,24 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Source directory
+
+      - name: Change to Source directory
         run: cd src
+
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d
+        working-directory: src
+
       - uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+
       - run: rails db:create
+        working-directory: src
+
       - run: rails db:migrate
+        working-directory: src
+
       - run: bundle install
+        working-directory: src
+
       - run: bundle exec rake
+        working-directory: src

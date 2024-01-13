@@ -24,13 +24,13 @@ jobs:
         with:
           ruby-version: 3.2.1
 
+      - run: bundle install
+        working-directory: src
+
       - run: rails db:create
         working-directory: src
 
       - run: rails db:migrate
-        working-directory: src
-
-      - run: bundle install
         working-directory: src
 
       - run: bundle exec rake

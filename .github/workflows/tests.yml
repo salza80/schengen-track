@@ -6,7 +6,7 @@ on:
       - cdkLambdaDeployFinal
 
 jobs:
-  deploy:
+  tests:
     runs-on: ubuntu-latest
 
     steps:

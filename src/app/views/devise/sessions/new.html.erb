@@ -1,8 +1,8 @@
 <div class="card">
-  <div class="card-header">
-    <div class="row">
+  <div class="card-body">
+    <div class="row card-title">
       <div class="col-md-5">
-        <h3 class="card-title">Log In</h3>
+        <h3>Log In</h3>
       </div>
       <div class="col-md-7">
         <div class="d-flex float-right">
@@ -11,8 +11,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="card-body">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login', class: "form-horizontal" }) do |f| %>
       <div class="form-group row">
         <%= f.label :email, class: "col-sm-2 col-form-label" %>
@@ -39,7 +37,7 @@
           </div>
         </div>
       <% end -%>
-      
+
       <div class="form-group row">
         <div class="col-sm-12">
           <%= f.submit "Log in", class: "btn btn-primary form-btn float-right" %>

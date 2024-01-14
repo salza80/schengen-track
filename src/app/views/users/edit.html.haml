@@ -1,8 +1,7 @@
 .card
-  .card-header
-    %h3{ class: "card-heading"}
-      Edit My Details
   .card-body
+    %h3{ class: "card-title"}
+      Edit My Details
     = render 'form'
   .card-footer
     = link_to 'Back', visits_path

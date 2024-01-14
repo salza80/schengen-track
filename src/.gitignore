@@ -17,7 +17,7 @@
 /tmp
 public/assets/**
 config/initializers/01_dev_env_variables.rb
-# config/secrets.yml
+config/secrets.yml
 
 /public/packs
 /public/packs-test

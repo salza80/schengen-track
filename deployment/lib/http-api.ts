@@ -54,10 +54,10 @@ export class HttpApiConstruct extends Construct {
     const apiContainerEnvironment = {
       BOOTSNAP_CACHE_DIR: '/tmp/cache',
       RAILS_ENV: 'production',
-      RAILS_MASTER_KEY: 'test',
+      RAILS_MASTER_KEY: getParam('rails_master_key'),
       RAILS_LOG_TO_STDOUT: '1',
       DB_URL: getParam('db_url'),
-      SECRET_KEY_BASE: 'test',
+      SECRET_KEY_BASE: getParam('secret_key_base'),
       FACEBOOK_ID: getParam('facebook_id'),
       FACEBOOK_SECRET: getParam('facebook_secret'),
       BREVO_LOGIN: getParam('brevo_login'),

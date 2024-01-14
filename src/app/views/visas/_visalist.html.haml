@@ -1,10 +1,12 @@
 .responsive-table-container
   %table.table.table-striped.table-bordered.table-hover.responsive-table
+    %caption
+      List of Schengen Visas to use for calculation.
     %thead.thead-dark
       %tr
         %th{ scope: "col"} Dates
         %th{ scope: "col"} No entries
-        %th{ scope: "col"}      
+        %th{ scope: "col", class: 'modify-col' }      
     %tbody
       - @visas.each do |visa|
         %tr

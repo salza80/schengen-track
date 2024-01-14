@@ -1,14 +1,14 @@
 .responsive-table-container
   %table.table.table-striped.table-bordered.table-hover.responsive-table
     %caption
-      List of countries visited or that you have visited in the last 180 days, or are planning to visit in the future.
+      List of countries visited or that you have visited in the last 180 days, and are planning to visit in the future.
     %thead.thead-dark
       %tr.table-top-header
         %th.center-heading{ colspan: "4", scope: "col" } Travel Details
         -if current_user_or_guest_user.visa_required?
           %th.center-heading{ colspan: "3",  scope: "col" } Visa Details
         %th.center-heading{ colspan: "2",  scope: "col"  } Days in Schengen Area
-        %th.center-heading{ scope: "col" }
+        %th.center-heading{ scope: "col", class: "modify-col" }
       %tr
         %th{ scope: "col" } Dates
         %th{ scope: "col" } Country 

@@ -121,11 +121,10 @@ nav.about-sidebar{
   }
 }
 
-// form edit date control
-// .form-control{
-//   width:100%;
-// }
-
+// bootstrap fix padding for input form elements
+input.form-control {
+  padding: 1rem;
+}
 
 .date-form-group>select{
   width: auto;

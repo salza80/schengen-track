@@ -1,8 +1,9 @@
-.panel.panel-default
-  .panel-heading
-    %h3{:class => "panel-heading"}
+.card
+  .card-header
+    %h3{ class: "card-heading"}
       Edit My Details
-  .panel-body
+  .card-body
     = render 'form'
-  .panel-footer
+  .card-footer
     = link_to 'Back', visits_path
+

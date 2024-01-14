@@ -88,6 +88,16 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp-relay.brevo.com',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => Rails.application.secrets.brevo_login,
+    :password       => Rails.application.secrets.brevo_password,
+    :domain         => 'schengen-calculator.com',
+    :enable_starttls_auto => true
+  }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end

@@ -1,51 +1,14 @@
+%h3 Schengen Visa Calculation by Day
 -if @overstay
-  %h1 Schengen Days Calculation by Days
   <small>* the Schengen Calculator warns on re-entry for 180 days after an "overstay" of the allowed days. This is not the law!, you need to check with the appropriate authorities if this may affect you. You may be banned from re-entry for years if caught overstaying the schengen tourist visa rules. Please use this as a guide only. </small>
-.responsive-table-container
-  %table.table.responsive-table
-    %thead
-      %tr.table-top-header
-        %th{ scope: "col"} Day
-        %th{ scope: "col" } Date
-        %th{ scope: "col" } Country 
-        %th{ scope: "col" } Schengen Area
-        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} Schengen Days Calculation
-        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day." } Max Remaining Days
-        -if @overstay
-          %th{ scope: "col"} Overstay Days
-          %th{ scope: "col"} Overstay Re-Enter Wait (days) *
-    %tbody
-      - @days.each_with_index do |day, index|
-        %tr
-          %th{ scope: "row", "data-title": "Day"}
-            = index + 1
-          %th{ scope: "row"}
-            %span.no-wrap
-              = day.the_date
-          %th{ scope: "row"} 
-            = day.country_name || "-" 
-          %td{"data-title": "Schengen Area"}
-            -if day.entered_schengen?
-              Entered Schengen Area
-            -elsif day.exited_schengen?
-              Exited Schengen Area
-            -elsif day.schengen?
-              Schengen Area
-            - else
-              ="-"
-          %td{ "data-title": "Schengen Days","data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-            = day.schengen_days_count
-            - if day.remaining_wait
-              *
-          %td{ "data-title": "Max Days Remaining","data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-            = day.max_remaining_days || "-"
-          -if @overstay
-            %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-              = day.overstay_days 
-            %td{"data-title": "Overstay Wait Days", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-              - if day.remaining_wait
-                =day.remaining_wait
-                *
-              -else
-                N/A
+
+.row
+  .col-md-12.text-right
+    = link_to 'back', visits_path
+.row
+  .col-md-12
+    = render 'dayslist'
+.row
+  .col-md-12
+    = link_to 'back', visits_path
 

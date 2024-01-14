@@ -1,4 +1,11 @@
 - if flash[:notice]
-  #info.alert.alert-info{:role => "alert"}= flash[:notice]
+  .alert.alert-success.alert-dismissible.fade.show{role: "alert", id: "success"}
+    = flash[:notice]
+    %button.btn.btn-sm.py-0.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
+      %span{"aria-hidden" => "true"} &times;
+
 - if flash[:alert]
-  #notice.alert.alert-warning{:role => "alert"}= flash[:alert]
+  .alert.alert-warning.alert-dismissible.fade.show{role: "alert", id: "notice"}
+    = flash[:alert]
+    %button.btn.btn-sm.py-0.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
+      %span{"aria-hidden" => "true"} &times;

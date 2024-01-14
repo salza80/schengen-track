@@ -1,11 +1,18 @@
-%footer.footer
+%footer.footer.bg-light.footer-fixed-bottom
   .container.text-center
     %p
-      %span.glyphicon.glyphicon-copyright-mark{":aria-hidden" => "true"}
+      %span.fa.fa-copyright{"aria-hidden" => "true"}
       Schengen Calculator
-    %p
-      =link_to 'Disclaimer', disclaimer_path
-      =link_to 'Privacy Policy', privacy_path
+      |
+      = link_to 'Disclaimer', disclaimer_path
+      |
+      = link_to 'Privacy Policy', privacy_path
+      |
+      %span.facebook-buttons
+        %span.like
+          %span.fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
+        %span.share
+          %span.fb-share-button.visible-xs-block{ "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
 %script{:type => "application/ld+json"}
   {
   "@context": "http://schema.org",

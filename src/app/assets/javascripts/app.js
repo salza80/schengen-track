@@ -7,5 +7,11 @@ App.goToNationality = function(nationality, anchor){
   window.location = url
 }
 
+$(window).on('load', function() {
+  setTimeout(function() {
+    $('.alert-dismissible').fadeOut();
+  }, 3000);
+});
+
 
 

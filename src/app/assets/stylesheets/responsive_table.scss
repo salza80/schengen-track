@@ -1,4 +1,5 @@
 @import "bourbon";
+@import "_variables.scss";
 
 // Breakpoints
 $bp-maggie: 15em; 
@@ -6,7 +7,6 @@ $bp-lisa: 30em;
 $bp-bart: 48em;
 $bp-marge: 62em;
 $bp-homer: 75em;
-$table-header-colour: #337ab7;
 
 // Styles
 * {
@@ -23,14 +23,12 @@ $table-header-colour: #337ab7;
 
 .responsive-table-container {
   // margin: 5% 3%;
-  
+  width: 100%;
   @media (min-width: $bp-bart) {
-    // margin: 2%; 
+    // margin: 2%;
   }
   
   @media (min-width: $bp-homer) {
-    // margin: 2em auto;
-    max-width: $bp-homer;
   }
 }
 
@@ -67,11 +65,7 @@ $table-header-colour: #337ab7;
     }
     
     th {
-      background-color: $table-header-colour;
-      border: 1px solid rgba(29,150,178,1);
-      font-weight: normal;
       text-align: center;
-      color: white;
       
       &:first-of-type {
         text-align: left; 
@@ -149,34 +143,22 @@ $table-header-colour: #337ab7;
     
     tr {
       margin-bottom: 1em;
-      border: 2px solid rgba(29,150,178,1);
+      //border: 2px solid rgba(29,150,178,1);
       
       @media (min-width: $bp-bart) {
         // Undo display: block 
         display: table-row;
-        border-width: 1px;
+        //border-width: 1px;
       }
       
       &:last-of-type {
         margin-bottom: 0; 
       }
-      
-      // &:nth-of-type(even) {
-      //   @media (min-width: $bp-bart) {
-      //     background-color: rgba(94,93,82,.1);
-      //   }
-      // }
     }
     
     th[scope="row"] {
-      background-color: #337ab7;
-      color: white;
-      
       @media (min-width: $bp-bart) {
-        background-color: transparent;
-        color: rgba(94,93,82,1);
         text-align: left;
-        border-bottom: 1px solid  rgba(29,150,178,1);
       }
     }
     
@@ -184,7 +166,7 @@ $table-header-colour: #337ab7;
       text-align: right;
       
       @media (min-width: $bp-lisa) {
-        border-bottom: 1px solid  rgba(29,150,178,1);
+
       }
       
       @media (min-width: $bp-bart) {
@@ -200,7 +182,7 @@ $table-header-colour: #337ab7;
       content: attr(data-title);
       float: left;
       font-size: .8em;
-      color: rgba(94,93,82,.75);
+     // color: rgba(94,93,82,.75);
       
       @media (min-width: $bp-lisa) {
         font-size: .9em; 

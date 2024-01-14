@@ -1,10 +1,9 @@
-.panel.panel-default
-  .panel-heading
-    %h3{:class => "panel-title"}
+.card
+  .card-body
+    %h3{ class: "card-title"}
       Edit a Travel Record
-  .panel-body
     = render 'form'
-  .panel-footer
+  .card-footer
     = link_to 'Back', visits_path
   .row
     .col-sm-12

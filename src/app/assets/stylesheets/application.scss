@@ -14,16 +14,6 @@
  *= require_self
  */
 
- //variables
-// //colours
-  // $header-main:#222;
-  // $header-highlight: #337ab7;
-  // $header-text: #9d9d9d;
-
-//customises bootstrap variables
-//$navbar-height:  55px;
-//$grid-float-breakpoint: 200px;
-
 // import theme variables
 @import "_variables.scss";
 // import customisatons to theme
@@ -44,6 +34,12 @@ html {
   bottom: 0;
   width: 100%;
   padding-top: 10px;
+}
+
+.bg-md-header {       
+  @include media-breakpoint-down(sm) { 
+    background:$headerGreen;
+  }
 }
 
 #navtabs {
@@ -97,35 +93,6 @@ body {
 
 .panel-title{
   font-size: 24px;
-}
-
-// about page
-
-nav.about-sidebar{
-  ul.about-sidenav{
-    li { 
-      font-size: 1.1rem;
-      padding-top: .6em;
-      padding-bottom: .6em;
-    }
-    li {
-      padding-left: 12px;
-    }
-    li>ul {
-      li{
-        font-size: 1rem;
-        padding-top: .4em;
-        padding-bottom: .4em;
-      }
-      li>ul{
-        li{
-          font-size: 0.8rem;
-          padding-top: .3em;
-          padding-bottom: .3em;
-        }
-      }
-    }
-  }
 }
 
 .modify-col {

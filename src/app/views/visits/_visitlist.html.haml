@@ -28,7 +28,9 @@
     %tbody
       - @visits.each do |visit|
         %tr
-          %th{ scope: "row"}
+          %th{ scope: "row", class: 'bg-md-header'}
+            %span.d-md-none
+              = visit.country.name
             %span.no-wrap
               = visit.entry_date.strftime('%d-%b-%Y')
             = " to "
@@ -37,12 +39,12 @@
             %span.d-md-none
               (
               =visit.no_days
-              days)
-          %th{ scope: "row"}
+              days
+              = " in Schengen Zone" if visit.schengen?
+              = " outside Schengen Zone" if !visit.schengen?
+              )
+          %th{ scope: "col", class: "d-none d-md-table-cell"}
             = visit.country.name
-            %span.d-md-none
-              = "(In Schengen Zone)" if visit.schengen?
-              = "(Outside Schengen Zone)" if !visit.schengen?
           %td{"data-title": "Schengen Area", class: "d-none d-md-table-cell"} 
             = visit.schengen? ? "Yes" : "No"
           %td{ "data-title": "No. Days", class: "d-none d-md-table-cell"} 
@@ -66,7 +68,7 @@
                 Visa Required!
             %td{ "data-title": "Visa Days Overstay", class: ("table-danger" if visit.visa_overstay?), class: ("d-none d-md-table-cell" if visit.visa_overstay? == 0) }
               = visit.visa_overstay_days
-          %td{ "data-title": "Schengen days" }
+          %td{ "data-title": "Schengen days Used" }
             = visit.schengen_days
             of 90 days
           %td{ "data-title" => "Schengen Days Overstay", class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }

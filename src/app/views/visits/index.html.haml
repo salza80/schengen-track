@@ -1,7 +1,7 @@
 / -if @advertise_country
 /   = raw @advertise_country.affiliate_booking_html
-- if !user_signed_in?
-  = render 'registerPrompt'
+-# - if !user_signed_in?
+-#   = render 'registerPrompt'
 -if @visits.count ==0
   %p
     Start using the Schengen Calculator by adding your previous and up comming travel plans. 

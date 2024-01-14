@@ -8,3 +8,31 @@ a.nationality_anchor {
     top: -120px;
     visibility: hidden;
 }
+
+nav.about-sidebar{
+    ul.about-sidenav{
+      li { 
+        font-size: 1.1rem;
+        padding-top: .6em;
+        padding-bottom: .6em;
+      }
+      li {
+        padding-left: 12px;
+      }
+      li>ul {
+        li{
+          font-size: 1rem;
+          padding-top: .4em;
+          padding-bottom: .4em;
+        }
+        li>ul{
+          li{
+            font-size: 0.8rem;
+            padding-top: .3em;
+            padding-bottom: .3em;
+          }
+        }
+      }
+    }
+  }
+  

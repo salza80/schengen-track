@@ -9,17 +9,17 @@ Live site can be found here: http://www.schengen-calculator.com
 
 
 == System Dependencies
-* Database (development): SQLite
-* Database (production): PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
-* Ruby version 2.4.9, source: https://www.ruby-lang.org/en/documentation/installation/
+* Database: PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
+* Ruby version 3.2.2, source: https://www.ruby-lang.org/en/documentation/installation/
 
 
 == Application setup
 * Install RVM
-* Install Ruby 2.7.2 (on ubuntu 22 1. rvm install pkg openssl  2. rvm install 2.7 --with-openssl-dir=/usr/share/rvm/usr)
-* Instal Postgres
+* Install Ruby 3.2.2 (on ubuntu 22 1. rvm install pkg openssl  2. rvm install 3.2.2 --with-openssl-dir=/usr/share/rvm/usr)
+* Install docker, docker desktop ( for local development )
+in /src Folder
+* run docker-compose up (to run postgres container)
 * Set required Environment Variables
-* Install all components
 * run command <tt>`bundle install`</tt>
 * Database setup
   * run command <tt>`./bin/rake db:create`</tt>
@@ -39,11 +39,28 @@ Live site can be found here: http://www.schengen-calculator.com
 * command to  run applicaiton <tt>`rails server`</tt>
 * command to run tests <tt>`.bin/rake test`</tt>
 
-== Important Information
 
-== Deployment Instructions
-* Hosted on Heroku
-* git push heroku master
+== Deployment
+* Automatic deployment to AWS lambda via CDK and Github Actions on Push to branch
+* Deployment code is in /deployment directory
+
+To set up a new aws deployment:
+In aws create the nessessary application paramaters in AWS Paramater Store which are used on deployment to set the lambda environment varialbes:
+  RAILS_MASTER_KEY: getParam('rails_master_key'),
+  DB_URL: getParam('db_url'),
+  SECRET_KEY_BASE: getParam('secret_key_base'),
+  FACEBOOK_ID: getParam('facebook_id'),
+  FACEBOOK_SECRET: getParam('facebook_secret'),
+  BREVO_LOGIN: getParam('brevo_login'),
+  BREVO_PASSWORD: getParam('brevo_password'),
+  TASK_PASSWORD: getParam('task_password')
+
+The following secrets are required in github secrets. See aws documentation for setting up a deployment user role with least privileges.
+  AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY
+  AWS_DEFAULT_REGION
+
+
 
 
 

@@ -10,15 +10,30 @@ default: &default
 #   <<: *default
 #   database: scheng_development
 development:
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV['DB_URL'] %>
+  <<: *default
+  database: scheng_development
+  username: postgres
+  password: root
+  host: localhost
+  port: 5432
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
   database: scheng_test
+  username: postgres
+  password: root
+  host: localhost
+  port: 5432
+
+# production:
+#   <<: *default
+#   database: <%= ENV['RDS_DB_NAME'] %>
+#   username: <%= ENV['RDS_USERNAME'] %>
+#   password: <%= ENV['RDS_PASSWORD'] %>
+#   host: <%= ENV['RDS_HOSTNAME'] %>
+#   port: <%= ENV['RDS_PORT'] %>
 
 # production:
 #   <<: *default

@@ -1,9 +1,9 @@
-name: schengtrackStageDeploy
+name: Deploy
 
 on:
   push:
     branches:
-      - cdkLambdaDeployFinal
+      - staging
 
 jobs:
   deploy:

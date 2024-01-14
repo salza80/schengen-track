@@ -25,3 +25,5 @@ config/initializers/01_dev_env_variables.rb
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/config/master.key
+

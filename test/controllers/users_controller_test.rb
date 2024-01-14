@@ -38,7 +38,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should update person" do
     login
-    patch :update, user: { first_name: @user.first_name, last_name: @user.last_name, nationality_id: @user.nationality_id }
+    patch :update, params: { user: { first_name: @user.first_name, last_name: @user.last_name, nationality_id: @user.nationality_id }}
     assert_redirected_to visits_path
   end
 

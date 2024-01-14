@@ -1,4 +1,4 @@
-class CreateContinent < ActiveRecord::Migration
+class CreateContinent < ActiveRecord::Migration[5.1]
   def change
     create_table :continents do |t|
       t.string :continent_code

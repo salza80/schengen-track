@@ -1,4 +1,4 @@
-class Visit < ActiveRecord::Base
+class Visit < ApplicationRecord
   belongs_to :country
   belongs_to :user
   validates :country, :user, :entry_date, presence: true
@@ -98,7 +98,7 @@ class Visit < ActiveRecord::Base
 
   # number of visits on current visa
   def visa_entry_count
-    p = previous_visits_on_current_visa << self
+    p = previous_visits_on_current_visa.to_a << self
     return nil unless p
     cnt = 0
     prev_visit = nil

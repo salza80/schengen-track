@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.11'
+gem 'rails', '>= 7.0.0.rc2', '< 8.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -18,19 +18,22 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
-gem 'haml-rails', '~> 1.0.0'
+gem 'haml-rails', '~> 2.0.0'
 gem 'bootstrap-sass', '~> 3.4.1'
-gem "devise", ">= 4.7.1"
+gem "devise", ">= 4.9.2"
 gem 'nokogiri'
 gem 'geocoder'
 gem 'omniauth-facebook'
 gem 'puma'
 gem 'amazon-ecs'
 gem 'staccato'
-gem 'pg', '0.20'
+gem 'pg'
 gem 'mini_racer'
+gem 'listen'
+gem "webpacker"
+gem "sprockets-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -48,7 +51,7 @@ group :production do
 end
 
 group :development do
-    gem 'web-console', '~> 2.0'
+    gem 'web-console', '~> 4.2'
     gem 'capistrano',         require: false
     gem 'capistrano-rvm',     require: false
     gem 'capistrano-rails',   require: false
@@ -58,6 +61,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rails-controller-testing'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -65,4 +69,4 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
 end
-ruby '2.4.9'
+ruby '3.1.4'

@@ -1,4 +1,4 @@
-class DropPeople < ActiveRecord::Migration
+class DropPeople < ActiveRecord::Migration[5.1]
   def change
     remove_index :visits, :person_id
     remove_column :visits, :person_id, :integer

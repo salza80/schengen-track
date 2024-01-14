@@ -1,4 +1,4 @@
-class AlterCountries < ActiveRecord::Migration
+class AlterCountries < ActiveRecord::Migration[5.1]
   def change
     add_column :countries, :EU_memeber_state, :boolean
     add_column :countries, :visa_required, :string

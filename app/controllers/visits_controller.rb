@@ -48,7 +48,7 @@ class VisitsController < ApplicationController
         format.html { redirect_to visits_url, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
       else
-        @continent_default_id = @visit.country.continent.id.to_s
+        @continent_default_id = @visit&.country&.continent&.id&.to_s || @continent_default_id
         format.html { render :new }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
       end

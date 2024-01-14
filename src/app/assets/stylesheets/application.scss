@@ -100,24 +100,28 @@ body {
 
 nav.about-sidebar{
   ul.about-sidenav{
-    li a {
-      padding-left: 10px;
+    li { 
+      font-size: 1.1rem;
+      padding-top: .6em;
+      padding-bottom: .6em;
     }
-    li.active>a{
-      color: $white
+    li {
+      padding-left: 12px;
     }
-    a:hover{
-      color: $primary;
+    li>ul {
+      li{
+        font-size: 1rem;
+        padding-top: .4em;
+        padding-bottom: .4em;
+      }
+      li>ul{
+        li{
+          font-size: 0.8rem;
+          padding-top: .3em;
+          padding-bottom: .3em;
+        }
+      }
     }
-    li>ul>li>a{
-      padding-left: 20px;
-      font-size: 12px;
-    }
-    li>ul>li>ul>li>a{
-      padding-left: 30px;
-      font-size: 11px;
-    }
-
   }
 }
 

@@ -11,12 +11,12 @@
   .collapse.navbar-collapse.justify-content-start{id: "navtabs"}
     %ul.navbar-nav.nav-tabs.mx-auto.navbar-light
       %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'visits')) }
-        %a.nav-link{href: visits_path }
+        %a.nav-link.btn-lg{href: visits_path }
           %span.fa.fa-plane{"aria-hidden": "true"}
           %span
             Calculator
       %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'about'))}
-        %a.nav-link{href: about_path}
+        %a.nav-link.btn-lg{href: about_path}
           %span.fa.fa-info-circle{"aria-hidden": "true"}
           %span
             About

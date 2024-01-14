@@ -65,7 +65,7 @@ $input-padding-y-sm:             0 !default;
 $input-padding-x-sm:             0 !default;
 $input-padding-y-lg:             ($font-size-base * 1.25) !default;
 $input-padding-x-lg:             0 !default;
-$input-bg:                       transparent !default;
+$input-bg:                       $gray-100 !default;
 $input-disabled-bg:              transparent !default;
 $input-color:                    $gray-600 !default;
 $input-border-color:             transparent !default;

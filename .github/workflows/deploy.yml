@@ -36,6 +36,10 @@ jobs:
         run: npm install
         working-directory: ./deployment
 
+      - name: Copy secrets file
+        run: cp secrets.yml.example secrets.yml
+        working-directory: ./src/config
+      
       - name: CDK Deploy
         run: cdk deploy
         working-directory: ./deployment

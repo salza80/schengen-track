@@ -10,7 +10,7 @@
     %tbody
       - @visas.each do |visa|
         %tr
-          %th{ scope: "row"}
+          %th{ scope: "row", class: 'bg-md-header'}
             %span.no-wrap 
               = visa.start_date.strftime('%d-%b-%Y')
             = " to "

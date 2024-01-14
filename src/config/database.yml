@@ -6,6 +6,9 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
 #
+# development:
+#   <<: *default
+#   database: scheng_development
 development:
   <<: *default
   database: scheng_development
@@ -23,6 +26,14 @@ test:
   password: root
   host: localhost
   port: 5432
+
+# production:
+#   <<: *default
+#   database: <%= ENV['RDS_DB_NAME'] %>
+#   username: <%= ENV['RDS_USERNAME'] %>
+#   password: <%= ENV['RDS_PASSWORD'] %>
+#   host: <%= ENV['RDS_HOSTNAME'] %>
+#   port: <%= ENV['RDS_PORT'] %>
 
 # production:
 #   <<: *default

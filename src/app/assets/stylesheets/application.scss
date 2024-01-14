@@ -14,20 +14,14 @@
  *= require_self
  */
 
- //variables
-//colours
-  $header-main:#222;
-  $header-highlight: #337ab7;
-  $header-text: #9d9d9d;
-  $footer-background: #e1e5e8;
+// import theme variables
+@import "_variables.scss";
+// import customisatons to theme
+@import "_bootstrap_custom.scss";
 
-//customises bootstrap variables
-$navbar-height:  55px;
-$grid-float-breakpoint: 200px;
-
-
-@import "bootstrap-sprockets";
+// @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -36,12 +30,34 @@ html {
   min-height: 100%;
 }
 .footer {
-  position: absolute;
-  padding: 5px;
+  position: fixed;
   bottom: 0;
   width: 100%;
-  height: 60px;
-  background-color: $footer-background;
+  padding-top: 10px;
+}
+
+.bg-md-header {       
+  @include media-breakpoint-down(sm) { 
+    background:$headerGreen;
+  }
+}
+
+#navtabs {
+    .active {
+      .nav-link {
+        border-bottom-color: $primary;
+        font-weight: bold;
+      }
+    }
+    .nav-link{
+      &:hover {
+        border-color: $primary;
+      }
+    }
+}
+
+.table-danger {
+  color: $gray-900;
 }
 
 .facebook-buttons {
@@ -52,15 +68,16 @@ html {
 }
 
 body {
-  padding-top: 120px;
+  padding-top: 0px;
   margin-bottom: 60px;
 }
-.starter-template {
-  padding: 40px 15px;
-  text-align: center;
+.form-btn {
+  width: 150px;
+}
+.col-form-label {
+  font-weight: bold;
 }
 
-// text helpers
 .center-heading{
   text-align: center;
 }
@@ -70,121 +87,21 @@ body {
 
 }
 .current-setting{
-  margin-bottom: 0px;
+  margin: 0px;
+  min-width: 100px;
 }
-
-nav {
-  .container-fluid {
-    margin-left: 20px;
-    margin-right: 25px;
-  }
-  .navbar-header{
-    white-space: nowrap;
-  }
-  .navbar-brand{
-    padding-top: 20px;
-    img{
-      color: $header-highlight;
-      height: 35px;
-      width:35px;
-    }
-  }
-}
-
-@media (max-width: 479px) { 
-  .site-title{
-    margin-left:0px;
-    font-size: 14px;
-  }
- }
-
- @media (min-width: 480px) { 
-  .site-title{
-    margin-left:0px;
-    font-size: 20px;
-  }
- }
-
 
 .panel-title{
   font-size: 24px;
 }
 
-
-
-p.current-setting{
-  color: $header-text;
+.modify-col {
+  width: 100px;
 }
 
-.site-nav{
-  border-bottom: 0px;
-  li>a.navbar-link{
-    background-color: $header-highlight;
-    color:$header-main;
-
-    &:hover{
-      background-color: white;
-      color: $header-highlight;
-    }
-  }
-  li.active>a{
-    background-color: white;
-    color: $header-highlight;
-  }
-
-}
-.nav-pills{
-  a.log-in-link{
-    background-color:  $header-highlight;
-    color: $header-main;
-    &:hover{
-      background-color: white;
-      color: $header-highlight;
-    }
-  }
-}
-
-
-// about page
-
-nav.about-sidebar{
-  .title{
-    color: $header-main;
-    font-weight: bold;
-    margin-top: 20px;
-  }
-  ul.about-sidenav{
-    li a {
-      color: $header-main;
-      padding-left: 10px;
-    }
-    li.active>a{
-      color: $header-highlight;
-    }
-    a:hover{
-      color: $header-highlight;
-    }
-    
-
-    li>ul>li>a{
-      color: $header-main;
-      padding-left: 20px;
-      font-size: 12px;
-    }
-    li>ul>li>ul>li>a{
-      padding-left: 30px;
-      font-size: 11px;
-    }
-
-  }
-}
-.about-section{
- 
-}
-
-// form edit date control
-.form-control{
-  width:auto;
+// bootstrap fix padding for input form elements
+input.form-control {
+  padding: 1rem;
 }
 
 .date-form-group>select{

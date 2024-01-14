@@ -20,7 +20,7 @@ class VisasControllerTest < ActionController::TestCase
 
   test "should create visa" do
     assert_difference('Visa.count') do
-      @newVisa = post :create, visa: { start_date: (@visa.start_date + 10.year), end_date: (@visa.end_date + 10.year), no_entries: 1  }
+      @newVisa = post :create, params: { visa: { start_date: (@visa.start_date + 10.year), end_date: (@visa.end_date + 10.year), no_entries: 1  }}
     end
 
     assert_redirected_to visits_path
@@ -32,18 +32,18 @@ class VisasControllerTest < ActionController::TestCase
   # end
 
   test "should get edit" do
-    get :edit, id: @visa
+    get :edit, params: { id: @visa }
     assert_response :success
   end
 
   test "should update visa" do
-    patch :update, id: @visa, visa: { start_date: (@visa.start_date - 1.day), end_date: (@visa.end_date), no_entries: 1  }
+    patch :update, params: { id: @visa, visa: { start_date: (@visa.start_date - 1.day), end_date: (@visa.end_date), no_entries: 1  } }
     assert_redirected_to visits_path
   end
 
   test "should destroy visa" do
     assert_difference('Visa.count', -1) do
-      delete :destroy, id: @visa
+      delete :destroy, params: { id: @visa }
     end
 
     assert_redirected_to visits_path

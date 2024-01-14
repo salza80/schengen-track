@@ -1,4 +1,4 @@
-class AddPeopleFieldsToUser < ActiveRecord::Migration
+class AddPeopleFieldsToUser < ActiveRecord::Migration[5.1]
   def change
     # add new columns to user and visas and visits to remove people table
     add_column :users, :first_name, :string

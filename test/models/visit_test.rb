@@ -6,7 +6,7 @@ class VisitTest < ActiveSupport::TestCase
   test 'should have the necessary required validators' do
     a = Visit.new
     assert a.invalid?
-    assert_equal [:country, :user, :entry_date], a.errors.keys
+    assert_equal [:country, :user, :entry_date], a.errors.attribute_names
   end
 
   test 'no_days including entry and exit date' do

@@ -24,7 +24,10 @@
 //$navbar-height:  55px;
 //$grid-float-breakpoint: 200px;
 
+// import theme variables
 @import "_variables.scss";
+// import customisatons to theme
+@import "_bootstrap_custom.scss";
 
 // @import "bootstrap-sprockets";
 @import "bootstrap";

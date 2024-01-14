@@ -2,7 +2,7 @@
   %table.table.table-striped.table-bordered.table-hover.responsive-table
     %caption
       List of countries visited or that you have visited in the last 180 days, and are planning to visit in the future.
-    %thead.thead-dark
+    %thead.bg-header
       %tr.table-top-header
         %th.center-heading{ colspan: "4", scope: "col" } Travel Details
         -if current_user_or_guest_user.visa_required?

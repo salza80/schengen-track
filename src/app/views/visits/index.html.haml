@@ -1,13 +1,7 @@
 / -if @advertise_country
 /   = raw @advertise_country.affiliate_booking_html
-%h1 Travel Record
-.row
-  .col-md-6
-  .col-md-6
-    -if @visits.count>0
-      %strong
-        =link_to "Export to CSV", visits_path(format: "csv")
-= render 'visitlist'
+-# - if !user_signed_in?
+-#   = render 'registerPrompt'
 -if @visits.count ==0
   %p
     Start using the Schengen Calculator by adding your previous and up comming travel plans. 
@@ -23,31 +17,38 @@
     \.
 %br
 = render 'nextEntryDays'
+-if current_user_or_guest_user.visa_required?
+  %h2 Schengen Visa List
+  .row.py-1
+    .col-md-12.text-right
+      = link_to new_visa_path, class: "btn btn-primary btn-md form-btn" do
+        %i.fa.fa-plus{"aria-hidden" => "true"}
+        Add Visa
+  .row
+    .col-md-12
+      = render 'visas/visalist'
 
-= link_to 'Add a new travel record', new_visit_path, class: "btn btn-primary"
--if (!(current_user_or_guest_user.visa_required?) && @visits.count>0)
-  =link_to "View Schengen Days Calculation Details", days_path, class: "btn btn-info"  
-
+%h2 Travel Record
+.row.py-1
+  .col-md-6.d-flex.align-items-end
+    -if @visits.count>0
+      =link_to "Export to CSV", visits_path(format: "csv")
+      %span.px-2
+        |
+    -if (!(current_user_or_guest_user.visa_required?) && @visits.count>0)
+      =link_to "View Calculation Details", days_path
+  .col-md-6.text-right
+    = link_to new_visit_path, class: "btn btn-primary btn-md form-btn" do
+      %i.fa.fa-plus{"aria-hidden" => "true"}
+      Add Travel
+.row
+  .col-md-12
+    = render 'visitlist'
 .row
   .col-lg-10.col-md-12
     .ad-block-limit
       %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
-%br
--if current_user_or_guest_user.visa_required?
-  %h2 Schengen Visa List
-  = render 'visas/visalist'
-  %br
-  = link_to 'Add a new Visa', new_visa_path, class: "btn btn-primary" 
-%br
-  - if !user_signed_in?
-    = render 'registerPrompt'
-.row
-  .col-md-12.text-center
-    .facebook-buttons
-      .lke
-        .fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
-      .share
-        .fb-share-button.visible-xs-block{ "data-href": "https://www.schengen-calculator.com", "data-layout": "button" }
+
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
 

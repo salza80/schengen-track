@@ -15,6 +15,7 @@ class VisasController < ApplicationController
   # GET /visas/new
   def new
     @visa = Visa.new
+    @visa.no_entries = 0
   end
 
   # GET /visas/1/edit

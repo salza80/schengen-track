@@ -18,7 +18,6 @@ Live site can be found here: http://www.schengen-calculator.com
 * Install RVM
 * Install Ruby 2.7.2 (on ubuntu 22 1. rvm install pkg openssl  2. rvm install 2.7 --with-openssl-dir=/usr/share/rvm/usr)
 
-
 * Instal Postgres
 * Set required Environment Variables
 * Install all components

@@ -46,7 +46,10 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
+<<<<<<< HEAD:src/config/environments/production.rb
 
+=======
+>>>>>>> staging:config/environments/production.rb
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -94,8 +97,11 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { :host => 'www.schengen-calculator.com/', :protocol => 'https' }
-  config.action_controller.default_url_options= {:protocol => 'https'}
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
 
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp-relay.brevo.com',
@@ -106,4 +112,5 @@ Rails.application.configure do
     :domain         => 'schengen-calculator.com',
     :enable_starttls_auto => true
   }
+
 end

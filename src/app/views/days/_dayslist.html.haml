@@ -4,39 +4,37 @@
       List of days in Schengen Calculaton with visit and calculation details.
     %thead.bg-header
       %tr.table-top-header
-        %th{ scope: "col"} Day
         %th{ scope: "col" } Date
         %th{ scope: "col" } Country 
         %th{ scope: "col" } Schengen Area
-        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} Schengen Days Calculation
-        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day." } Max Remaining Days
+        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} Schengen Days Used
+        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days you can stay in the Schengen Area if you entered on this day." } Max Remaining Days
         -if @overstay
           %th{ scope: "col"} Overstay Days
           %th{ scope: "col"} Overstay Re-Enter Wait (days) *
     %tbody
       - @days.each_with_index do |day, index|
         %tr
-          %th{ scope: "row", "data-title": "Day"}
-            = index + 1
-          %th{ scope: "row"}
+          %th{ scope: "col", class: 'bg-md-header' }
             %span.no-wrap
               = day.the_date.strftime('%d-%b-%Y')
-          %th{ scope: "row"} 
-            = day.country_name || "-" 
-          %td{"data-title": "Schengen Area"}
-            -if day.entered_schengen?
-              Entered Schengen Area
-            -elsif day.exited_schengen?
-              Exited Schengen Area
-            -elsif day.schengen?
-              Schengen Area
+            %span.d-md-none
+              = "-"
+              = day.country_name
+              = " (in Schengen Area)" if day.schengen? && day.hasCountry?
+              = " (outside Schengen Area)" if !day.schengen? && day.hasCountry?
+          %th{ scope: "row", class: "d-none d-md-table-cell"}
+            = day.country_name
+          %td{"data-title": "Schengen Area", class: "d-none d-md-table-cell"}
+            -if day.schengen?
+              Yes
             - else
-              ="-"
-          %td{ "data-title": "Schengen Days","data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+              ="No"
+          %td{ "data-title": "Schengen Days Used","data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
             = day.schengen_days_count
             - if day.remaining_wait
               *
-          %td{ "data-title": "Max Days Remaining","data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+          %td{ "data-title": "Max Days Remaining","data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}
             = day.max_remaining_days || "-"
           -if @overstay
             %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 

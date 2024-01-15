@@ -245,7 +245,6 @@ module Schengen
         def initialize(date)
           @the_date = date
           @overstay_waiting=0;
-
         end
 
         def set_country(visit)
@@ -263,6 +262,10 @@ module Schengen
              @stayed_country = visit.country
           end
         end
+        def hasCountry?
+          @entered_country || @exited_country || @stayed_country
+        end
+
         def remaining_wait
           return nil if overstay_waiting == 0
           179 - overstay_waiting
@@ -304,17 +307,16 @@ module Schengen
 
         def country_name
           return stayed_country.name if stayed_country
-          name = ""
-          if exited_country
-            name += "Exited: " +  exited_country.name + " "
+          if exited_country && entered_country
+            if exited_country === entered_country
+              return "Entered and Exited: " + exited_country.name
+            end
+            return "Entered: " + entered_country.name + " Exited: " +  exited_country.name
           end
-          if entered_country
-            name += "Entered: " + entered_country.name
-          end
-          name
+          return exited_country.name if exited_country
+          return entered_country.name if entered_country
+          return "Outside Schengen"
         end
-
-
 
         def schengen_days_for_visit(v)
           return schengen_days_count  if v.entry_date == v.exit_date
@@ -327,8 +329,6 @@ module Schengen
           return continuous_days_count if !from_non_to_schengen?
           0
         end
-
-       
 
         def entered_schengen?
           return false unless entered_country

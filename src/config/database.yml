@@ -2,18 +2,15 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  username: postgres
+  password: root
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-#
-# development:
-#   <<: *default
-#   database: scheng_development
+
 development:
   <<: *default
   database: scheng_development
-  username: postgres
-  password: root
   host: localhost
   port: 5432
 # Warning: The database defined as "test" will be erased and
@@ -22,18 +19,8 @@ development:
 test:
   <<: *default
   database: scheng_test
-  username: postgres
-  password: root
   host: localhost
   port: 5432
-
-# production:
-#   <<: *default
-#   database: <%= ENV['RDS_DB_NAME'] %>
-#   username: <%= ENV['RDS_USERNAME'] %>
-#   password: <%= ENV['RDS_PASSWORD'] %>
-#   host: <%= ENV['RDS_HOSTNAME'] %>
-#   port: <%= ENV['RDS_PORT'] %>
 
 # production:
 #   <<: *default

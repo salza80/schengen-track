@@ -81,10 +81,6 @@ module Schengen
       @day_calc.schengen_overstay?
     end
 
-   
-
-
-
     private
 
     # schengen not applicable
@@ -97,16 +93,16 @@ module Schengen
     def calculate_by_days
       return unless @user
       return if @visits.empty?
-       if @user.nationality.visa_required == 'F'
-         zero_schengen
-        else
-          @day_calc = Schengen::Days::Calculator.new(@user)
-          @visits.each do |v|
-            last_day = @day_calc.find_by_date(v.exit_date)
-            v.schengen_days = last_day.schengen_days_for_visit(v)
-            v.no_days_continuous_in_schengen = last_day.continuous_days_for_visit(v)
-          end
+      if @user.nationality.visa_required == 'F'
+        zero_schengen
+      else
+        @day_calc = Schengen::Days::Calculator.new(@user)
+        @visits.each do |v|
+          last_day = @day_calc.find_by_date(v.exit_date)
+          v.schengen_days = last_day.schengen_days_for_visit(v)
+          v.no_days_continuous_in_schengen = last_day.continuous_days_for_visit(v)
         end
+      end
     end
 
   end

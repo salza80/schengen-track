@@ -16,7 +16,6 @@
 !/log/.keep
 /tmp
 public/assets/**
-config/initializers/01_dev_env_variables.rb
 config/secrets.yml
 
 /public/packs
@@ -25,5 +24,6 @@ config/secrets.yml
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.env
 /config/master.key
 

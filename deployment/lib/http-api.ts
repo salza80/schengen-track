@@ -35,9 +35,6 @@ export class HttpApiConstruct extends Construct {
 
       entrypoint: [
         '/usr/local/bundle/bin/aws_lambda_ric',
-      //  '/usr/local/bin/aws_lambda_ric',
-       // '/bin/aws_lambda_ric',
-
       ],
       cmd: [
         'lambda_http.handler',
@@ -60,6 +57,7 @@ export class HttpApiConstruct extends Construct {
       SECRET_KEY_BASE: getParam('secret_key_base'),
       FACEBOOK_ID: getParam('facebook_id'),
       FACEBOOK_SECRET: getParam('facebook_secret'),
+      FACEBOOK_CALLBACK_URL: getParam('facebook_callback_url'),
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password')

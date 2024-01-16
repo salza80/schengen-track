@@ -6,6 +6,7 @@ $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
 
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
+# allow static file to be served from lambda
 def serve_static_file(path)
   app = Rack::Builder.new do
     use Rack::Static, root: 'public', urls: [''], mime_types: { ".ico" => "image/x-icon" }

@@ -56,6 +56,10 @@ html {
     }
 }
 
+.justify-right{
+  justify-content: right;
+}
+
 .table-danger {
   color: $gray-900;
 }
@@ -72,7 +76,7 @@ body {
   margin-bottom: 60px;
 }
 .form-btn {
-  width: 150px;
+  min-width: 100px;
 }
 .col-form-label {
   font-weight: bold;

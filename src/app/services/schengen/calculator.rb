@@ -81,10 +81,6 @@ module Schengen
       @day_calc.schengen_overstay?
     end
 
-   
-
-
-
     private
 
     # schengen not applicable

@@ -47,7 +47,7 @@ export class HttpApiConstruct extends Construct {
   
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
-      this, `props.paramPath${paramName}`); 
+      this, `${props.paramPath}${paramName}`); 
 
 
     // Environment variables for Rails REST API container

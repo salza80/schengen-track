@@ -3,7 +3,10 @@ name: Deploy-Staging
 on:
   push:
     branches:
-      - preprod
+      - preprod 
+  pull_request:
+    branches:
+      - staging
 
 jobs:
   tests:

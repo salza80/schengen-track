@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy-Staging
 
 on:
   push:
@@ -71,7 +71,7 @@ jobs:
         working-directory: ./src/config
       
       - name: CDK Deploy
-        run: cdk deploy
+        run: cdk deploy --context environment=staging
         working-directory: ./deployment
       - name: Invalidate cloudfront cache
         run: aws cloudfront create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'

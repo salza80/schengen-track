@@ -43,9 +43,6 @@ export class HttpApiConstruct extends Construct {
       ],
     });
 
-    const environment = this.node.tryGetContext('environment');
-  
-
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
       this, `${props.paramPath}${paramName}`); 
 
@@ -116,7 +113,7 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator-${environment}`, {
+    const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain],
       priceClass: cloudfront.PriceClass.PRICE_CLASS_200,

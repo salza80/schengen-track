@@ -71,7 +71,7 @@ jobs:
         working-directory: ./src/config
       
       - name: CDK Deploy
-        run: cdk deploy SchengTrackProd
+        run: cdk deploy SchengTrackProd --require-approval never
         working-directory: ./deployment
     #   - name: Invalidate cloudfront cache
     #     run: aws cloudfront create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'

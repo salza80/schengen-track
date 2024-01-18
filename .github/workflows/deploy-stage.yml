@@ -71,6 +71,10 @@ jobs:
       - name: Copy secrets file
         run: cp secrets.yml.example secrets.yml
         working-directory: ./src/config
+
+      - name: Copy staging robots.txt file
+        run: cp robots.txt.staging ../public/robots.txt
+        working-directory: ./src/config
       
       - name: CDK Deploy
         run: cdk deploy RailsLambdaStack --require-approval never

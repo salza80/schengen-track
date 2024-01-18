@@ -23,6 +23,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.2'
+          cache: 'ruby'
 
       - run: bundle install
         working-directory: src
@@ -47,6 +48,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.19.0'
+          cache: 'npm'
 
       - name: Install AWS CLI
         run: |

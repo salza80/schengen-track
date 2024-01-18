@@ -29,7 +29,6 @@ jobs:
       # - run: bundle install
       #   working-directory: src
       - run: bundle exec ./vendor/bundle/bin/rails db:create
-        working-directory: src
 
       - run: rails db:migrate
         working-directory: src

@@ -26,12 +26,13 @@ jobs:
           bundler-cache: true
           working-directory: src
 
-      - name: Set BUNDLE_GEMFILE
-        run: echo "BUNDLE_GEMFILE=./src/Gemfile" >> $GITHUB_ENV
+      #- name: Set BUNDLE_GEMFILE
+        # run: echo "BUNDLE_GEMFILE=./src/Gemfile" >> $GITHUB_ENV
 
       # - run: bundle install
       #   working-directory: src
-      - run: rails db:create
+      - run: bundle exec ../vendor/bundle/bin/rails db:create
+        working-directory: src
 
       - run: rails db:migrate
         working-directory: src

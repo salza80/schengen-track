@@ -2,10 +2,7 @@ name: Deploy-Prod
 
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - staging
-    
+
 
 jobs:
   tests:

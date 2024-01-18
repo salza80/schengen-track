@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          ref: 'staging' # CHANGE AFTER PROD IS SWITCHED
+          ref: 'staging'
 
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d

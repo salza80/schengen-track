@@ -31,7 +31,7 @@ jobs:
       #   working-directory: src
 
 
-      - run: ./src/vendor/bundle/bin/rails db:create
+      - run: ./vendor/bundle/bin/rails db:create
         working-directory: src
 
       - run: rails db:migrate

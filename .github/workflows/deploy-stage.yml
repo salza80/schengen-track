@@ -54,7 +54,7 @@ jobs:
       - name: Install AWS CLI
         run: |
           sudo apt-get install -y python3-pip
-          pip3 install awscli
+          pip3 install awscliv2
 
       - name: Configure AWS Credentials
         run: |
@@ -76,6 +76,7 @@ jobs:
       - name: CDK Deploy
         run: cdk deploy RailsLambdaStack --require-approval never
         working-directory: ./deployment
+
       - name: Invalidate cloudfront cache
         run: aws cloudfront wait create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'
         working-directory: ./deployment

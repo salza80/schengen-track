@@ -31,7 +31,7 @@ jobs:
       #   working-directory: src
 
 
-      - run: ${{ github.workspace }}/vendor/bundle/bin/rails db:create
+      - run: ${{ github.workspace }}/.vendor/bundle/bin/rails db:create
         working-directory: src
 
       - run: rails db:migrate

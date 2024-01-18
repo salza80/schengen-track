@@ -14,9 +14,10 @@ Live site can be found here: http://www.schengen-calculator.com
 
 
 == Application setup
+To develop locally, rails can be setup normally in the /src folder
 * Install RVM
 * Install Ruby 3.2.2 (on ubuntu 22 1. rvm install pkg openssl  2. rvm install 3.2.2 --with-openssl-dir=/usr/share/rvm/usr)
-* Install docker, docker desktop ( for local development )
+* Install docker, docker desktop
 in /src Folder
 * run docker-compose up (to run postgres container)
 * Set required Environment Variables
@@ -36,16 +37,17 @@ in /src Folder
 
 
 == How to run application and tests (test framework `MiniTest`)
+* run docker-compose up
 * command to  run applicaiton <tt>`rails server`</tt>
 * command to run tests <tt>`.bin/rake test`</tt>
 
 
 == Deployment
-* Automatic deployment to AWS lambda via CDK and Github Actions on Push to branch
-* Deployment code is in /deployment directory
+* Automatic deployment to AWS lambda / cloudfront via CDK and Github Actions
+* CDK Deployment code is in /deployment directory
 
 To set up a new aws deployment:
-In aws create the nessessary application paramaters in AWS Paramater Store which are used on deployment to set the lambda environment varialbes:
+In aws create the nessessary application paramaters in AWS Paramater Store which are used on deployment to set the lambda environment Variables:
   RAILS_MASTER_KEY: getParam('rails_master_key'),
   DB_URL: getParam('db_url'),
   SECRET_KEY_BASE: getParam('secret_key_base'),
@@ -56,6 +58,7 @@ In aws create the nessessary application paramaters in AWS Paramater Store which
   TASK_PASSWORD: getParam('task_password')
 
 The following secrets are required in github secrets. See aws documentation for setting up a deployment user role with least privileges.
+One approach: Attempt deploy with no permissions, then add permissions that fail until deploy passes.
   AWS_ACCESS_KEY_ID
   AWS_SECRET_ACCESS_KEY
   AWS_DEFAULT_REGION

@@ -1,0 +1,76 @@
+name: Deploy-Staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Change to Source directory
+        run: cd src
+
+      - name: Start containers
+        run: docker-compose -f "docker-compose.yml" up -d
+        working-directory: src
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
+
+      - run: bundle install
+        working-directory: src
+
+      - run: rails db:create
+        working-directory: src
+
+      - run: rails db:migrate
+        working-directory: src
+
+      - run: bundle exec rake
+        working-directory: src
+  deploy:
+    runs-on: ubuntu-latest
+    needs: tests
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.19.0'
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get install -y python3-pip
+          pip3 install awscli
+
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Install CDK
+        run: npm install -g aws-cdk@latest
+
+      - name: Install CDK Dependencies
+        run: npm install
+        working-directory: ./deployment
+
+      - name: Copy secrets file
+        run: cp secrets.yml.example secrets.yml
+        working-directory: ./src/config
+      
+      - name: CDK Deploy
+        run: cdk deploy SchengTrackProd --require-approval never
+        working-directory: ./deployment
+      - name: Invalidate cloudfront cache
+        run: aws cloudfront create-invalidation --distribution-id=E1KF4KLAR0V084 --paths='/*'
+        working-directory: ./deployment

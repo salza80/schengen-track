@@ -30,8 +30,8 @@ jobs:
       # - run: bundle install
       #   working-directory: src
 
-      - run: rails help
-      - run: rails db:create
+
+      - run: ./src/vendor/bundle/bin/rails db:create
         working-directory: src
 
       - run: rails db:migrate

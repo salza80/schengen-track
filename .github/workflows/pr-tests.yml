@@ -30,6 +30,7 @@ jobs:
       #   working-directory: src
 
       - run: rails db:create
+        working-directory: src
 
       - run: rails db:migrate
         working-directory: src

@@ -77,7 +77,7 @@ jobs:
         run: cdk deploy RailsLambdaStack --require-approval never
         working-directory: ./deployment
       - name: Invalidate cloudfront cache
-        run: aws cloudfront create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'
+        run: aws cloudfront wait create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'
         working-directory: ./deployment
 
       - name: Recache main urls

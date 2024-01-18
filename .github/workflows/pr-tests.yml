@@ -30,13 +30,11 @@ jobs:
 
       # - run: bundle install
       #   working-directory: src
-
-
-      - run: rails db:create
+      - run: bundle exec rails db:create
         working-directory: src
 
-      - run: rails db:migrate
+      - run: bundle exec rails db:migrate
         working-directory: src
 
-      - run: bundle exec rake
+      - run: bundle exec bundle exec rake
         working-directory: src

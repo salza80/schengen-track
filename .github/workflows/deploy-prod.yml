@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          ref: 'staging' # CHANGE AFTER PROD IS SWITCHED
 
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d
@@ -20,17 +18,16 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.2'
+          bundler-cache: true
+          working-directory: src
 
-      - run: bundle install
+      - run: bundle exec rails db:create
         working-directory: src
 
-      - run: rails db:create
+      - run: bundle exec rails db:migrate
         working-directory: src
 
-      - run: rails db:migrate
-        working-directory: src
-
-      - run: bundle exec rake
+      - run: bundle exec bundle exec rake
         working-directory: src
   deploy:
     runs-on: ubuntu-latest

@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - preprod 
-  pull_request:
-    branches:
-      - staging
 
 jobs:
   tests:

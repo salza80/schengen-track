@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - staging
+  pull_request:
+    branches:
+      - staging
 
 jobs:
   tests:
@@ -76,3 +79,7 @@ jobs:
       - name: Invalidate cloudfront cache
         run: aws cloudfront create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'
         working-directory: ./deployment
+
+      - name: Recache main urls
+        run: ./recache.sh urls-staging.txt
+        working-directory: ./deployment/scripts

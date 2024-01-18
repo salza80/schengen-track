@@ -76,16 +76,18 @@ export class HttpApiConstruct extends Construct {
       tracing: lambda.Tracing.ACTIVE,
     });
 
+    const customDomain = props.domain;
+
     // AWS API Gateway HTTP API using Rails as Lambda proxy integration
+    // overwrite host header with domain, as it will come from cloudfront and rails requires it for security xss checks.
     const railsHttpApi = new apigwv2.HttpApi(this, 'Api', {
       apiName: 'RailsHttpApi',
       defaultIntegration: new apigwv2_integ.HttpLambdaIntegration('RailsHttpApiProxy', apiFunction, {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
-        parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("host", apigwv2.MappingValue.custom(props.domain))
+        parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("host", apigwv2.MappingValue.custom(customDomain))
       }),
     });
 
-    const customDomain = props.domain;
     const sslCertificateArn = props.sslArn;
     const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
@@ -102,6 +104,7 @@ export class HttpApiConstruct extends Construct {
       enableAcceptEncodingGzip: true
     })
 
+    //stop browser caching files that are cached in cloudfront to ensure invalidation works
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
       removeHeaders: ['Set-Cookie'],
       customHeadersBehavior: {

@@ -11,11 +11,13 @@ import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
 import * as path from 'path';
-import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+// import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 import { Stack } from 'aws-cdk-lib';
 
 export interface HttpApiConstructProps {
-
+  domain: string,
+  sslArn: string,
+  paramPath: string
 }
 /**
  * CDK construct to create API Gateway HTTP API with Lambda proxy integration 2.0
@@ -41,10 +43,8 @@ export class HttpApiConstruct extends Construct {
       ],
     });
 
-    const paramPath = '/scheng/prod/';
-
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
-      this, `${paramPath}${paramName}`); 
+      this, `${props.paramPath}${paramName}`); 
 
 
     // Environment variables for Rails REST API container
@@ -81,12 +81,12 @@ export class HttpApiConstruct extends Construct {
       apiName: 'RailsHttpApi',
       defaultIntegration: new apigwv2_integ.HttpLambdaIntegration('RailsHttpApiProxy', apiFunction, {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
-        parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("host", apigwv2.MappingValue.custom("test.schengen-calculator.com"))
+        parameterMapping: new apigwv2.ParameterMapping().overwriteHeader("host", apigwv2.MappingValue.custom(props.domain))
       }),
     });
 
-    const customDomain = 'test.schengen-calculator.com';
-    const sslCertificateArn = 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd';
+    const customDomain = props.domain;
+    const sslCertificateArn = props.sslArn;
     const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList('Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'),
@@ -113,7 +113,7 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    const cloudfrontDist = new cloudfront.Distribution(this, 'schengen-calculator', {
+    const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain],
       priceClass: cloudfront.PriceClass.PRICE_CLASS_200,

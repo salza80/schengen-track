@@ -1,1 +1,0 @@
-ALTER ROLE postgres SUPERUSER;

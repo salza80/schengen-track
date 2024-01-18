@@ -3,4 +3,3 @@ test.schengen-calculator.com/about
 test.schengen-calculator.com/visits
 test.schengen-calculator.com/about/British
 test.schengen-calculator.com/about/American
-test.schengen-calculator.com/about/test

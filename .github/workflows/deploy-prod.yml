@@ -74,3 +74,8 @@ jobs:
       - name: Invalidate cloudfront cache
         run: aws cloudfront create-invalidation --distribution-id=E1KF4KLAR0V084 --paths='/*'
         working-directory: ./deployment
+
+      - name: Recache main urls
+        run: ./recache.sh urls-prod.txt
+        working-directory: ./deployment/scripts
+

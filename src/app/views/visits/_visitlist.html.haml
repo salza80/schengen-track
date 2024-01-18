@@ -50,14 +50,14 @@
           %td{ "data-title": "No. Days", class: "d-none d-md-table-cell"} 
             = visit.no_days
           -if current_user_or_guest_user.visa_required?
-            %td{ "data-title": "Visa Exists", class: ("table-danger" if visit.visa_exists? == false && visit.schengen?)}
+            %td{ "data-title": "Visa Exists", class: (!visit.visa_exists? && visit.schengen? ? "table-danger" :  "d-none d-md-table-cell")}
               -if visit.schengen? == false
                 = "NA"
               -elsif visit.visa_exists?
                 ="Yes"
               -else
                 ="No"
-            %td{ "data-title": "Visa Entry Count", class: ("table-danger" if visit.visa_entry_overstay?)}
+            %td{ "data-title" => "Visa Entry Count", class: ("table-danger" if visit.visa_entry_overstay?).to_s + (" d-none d-md-table-cell" if !visit.visa_entry_overstay? && visit.visa_entries_allowed == 0).to_s }
               -if visit.visa_exists?
                 = visit.visa_entry_count
                 of
@@ -66,7 +66,7 @@
                 N/A
               -else
                 Visa Required!
-            %td{ "data-title": "Visa Days Overstay", class: ("table-danger" if visit.visa_overstay?), class: ("d-none d-md-table-cell" if visit.visa_overstay? == 0) }
+            %td{ "data-title": "Visa Days Overstay", class: (visit.visa_exists? == false && visit.schengen? ? "table-danger" : "d-none d-md-table-cell") }
               = visit.visa_overstay_days
           %td{ "data-title": "Schengen days Used" }
             = visit.schengen_days

@@ -3,7 +3,6 @@ name: Deploy-Prod
 on:
   workflow_dispatch:
 
-
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -11,6 +10,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: 'staging' # CHANGE AFTER PROD IS SWITCHED
 
       - name: Change to Source directory
         run: cd src
@@ -50,7 +51,7 @@ jobs:
       - name: Install AWS CLI
         run: |
           sudo apt-get install -y python3-pip
-          pip3 install awscli
+          pip3 install awscliv2
 
       - name: Configure AWS Credentials
         run: |
@@ -72,6 +73,17 @@ jobs:
       - name: CDK Deploy
         run: cdk deploy SchengTrackProd --require-approval never
         working-directory: ./deployment
-      - name: Invalidate cloudfront cache
-        run: aws cloudfront create-invalidation --distribution-id=E1KF4KLAR0V084 --paths='/*'
-        working-directory: ./deployment
+
+      - name: Perform CloudFront Invalidation
+        id: cloudfront_invalidation
+        run: |
+          invalidation_id=$(aws cloudfront create-invalidation --distribution-id E1KF4KLAR0V084 --paths '/*' --query Invalidation.Id --output text)
+          echo "invalidationId=${invalidation_id}" >> $GITHUB_OUTPUT
+      
+      - name: Wait for CloudFront Invalidation
+        run: aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id "${{ steps.cloudfront_invalidation.outputs.invalidationId }}"
+
+      - name: Recache main urls
+        run: ./recache.sh urls-prod.txt
+        working-directory: ./deployment/scripts
+

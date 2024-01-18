@@ -4,12 +4,6 @@ import * as cdk from 'aws-cdk-lib';
 import { RailsLambdaStack } from '../lib/rails-lambda-stack';
 
 const app = new cdk.App();
-
-// const railsMasterKey = app.node.tryGetContext('railsMasterKey') as string | undefined;
-// if (railsMasterKey == undefined) {
-//   throw new Error('railsMasterKey not specified in context');
-// }
-
 const region = 'eu-central-1';
 const account = '360298971790';
 

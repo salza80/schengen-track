@@ -80,20 +80,11 @@ jobs:
       - name: Perform CloudFront Invalidation
         id: cloudfront_invalidation
         run: |
-          invalidation_result=$(aws cloudfront create-invalidation --distribution-id E1KF4KLAR0V084 --paths '/*')
-          invalidation_id=$(echo $invalidation_result | jq -r '.Invalidation.Id')
-          echo "InvalidationId=$invalidation_id" >> $GITHUB_ENV
-
+          invalidation_id=$(aws cloudfront create-invalidation --distribution-id E1KF4KLAR0V084 --paths '/*' --query Invalidation.Id --output text)
+          echo "::set-output name=invalidationId::$invalidation_id"
+      
       - name: Wait for CloudFront Invalidation
-        run: |
-          invalidation_id=$InvalidationId
-          aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id "$invalidation_id"
-        env:
-          InvalidationId: ${{ steps.cloudfront_invalidation.outputs.InvalidationId }}
-
-      # - name: Invalidate cloudfront cache
-      #   run: aws cloudfront wait create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'
-      #   working-directory: ./deployment
+        run: aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id "${{ steps.cloudfront_invalidation.outputs.invalidationId }}"
 
       - name: Recache main urls
         run: ./recache.sh urls-staging.txt

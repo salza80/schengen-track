@@ -26,7 +26,6 @@ jobs:
         with:
           ruby-version: '3.2.2'
           bundler-cache: true
-          working-directory: src
 
       # - run: bundle install
       #   working-directory: src

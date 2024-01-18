@@ -9,6 +9,7 @@ jobs:
   tests:
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
         BUNDLE_GEMFILE: ${{ github.workspace }}/src/Gemfile
+        BUNDLE_PATH: ${{ github.workspace }}/src
     runs-on: ubuntu-latest
 
     steps:
@@ -31,7 +32,7 @@ jobs:
       #   working-directory: src
 
 
-      - run: ${{ github.workspace }}/.vendor/bundle/bin/rails db:create
+      - run: rails db:create
         working-directory: src
 
       - run: rails db:migrate

@@ -2,9 +2,6 @@ name: Deploy-Prod
 
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - staging
 
 jobs:
   tests:
@@ -14,7 +11,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          ref: 'staging'
+          ref: 'staging' # CHANGE AFTER PROD IS SWITCHED
 
       - name: Change to Source directory
         run: cd src

@@ -13,9 +13,6 @@ jobs:
         with:
           ref: 'staging' # CHANGE AFTER PROD IS SWITCHED
 
-      - name: Change to Source directory
-        run: cd src
-
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d
         working-directory: src

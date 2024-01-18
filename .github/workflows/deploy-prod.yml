@@ -2,6 +2,9 @@ name: Deploy-Prod
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - staging
 
 jobs:
   tests:
@@ -72,9 +75,14 @@ jobs:
         run: cdk deploy SchengTrackProd --require-approval never
         working-directory: ./deployment
 
-      - name: Invalidate cloudfront cache
-        run: aws cloudfront create-invalidation --distribution-id=E1KF4KLAR0V084 --paths='/*'
-        working-directory: ./deployment
+      - name: Perform CloudFront Invalidation
+        id: cloudfront_invalidation
+        run: |
+          invalidation_id=$(aws cloudfront create-invalidation --distribution-id E1KF4KLAR0V084 --paths '/*' --query Invalidation.Id --output text)
+          echo "invalidationId=${invalidation_id}" >> $GITHUB_OUTPUT
+      
+      - name: Wait for CloudFront Invalidation
+        run: aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id "${{ steps.cloudfront_invalidation.outputs.invalidationId }}"
 
       - name: Recache main urls
         run: ./recache.sh urls-prod.txt

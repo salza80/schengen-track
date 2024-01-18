@@ -1,7 +1,8 @@
-name: Deploy-Staging
+name: Deploy-Prod
 
 on:
   workflow_dispatch:
+
 
 jobs:
   tests:

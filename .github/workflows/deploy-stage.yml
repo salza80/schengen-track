@@ -86,8 +86,10 @@ jobs:
 
       - name: Wait for CloudFront Invalidation
         run: |
-          invalidation_id=$(cat $GITHUB_ENV | grep InvalidationId | cut -d'=' -f2)
-          aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id $invalidation_id
+          invalidation_id=$InvalidationId
+          aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id "$invalidation_id"
+        env:
+          InvalidationId: ${{ steps.cloudfront_invalidation.outputs.InvalidationId }}
 
       # - name: Invalidate cloudfront cache
       #   run: aws cloudfront wait create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'

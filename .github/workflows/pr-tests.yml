@@ -7,17 +7,11 @@ on:
 
 jobs:
   tests:
-    env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
-        BUNDLE_GEMFILE: ${{ github.workspace }}/src/Gemfile
-        BUNDLE_PATH: ${{ github.workspace }}/src
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Change to Source directory
-        run: cd src
 
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d
@@ -27,9 +21,8 @@ jobs:
         with:
           ruby-version: '3.2.2'
           bundler-cache: true
+          working-directory: src
 
-      # - run: bundle install
-      #   working-directory: src
       - run: bundle exec rails db:create
         working-directory: src
 

@@ -1,9 +1,7 @@
 name: Deploy-Staging
 
 on:
-  push:
-    branches:
-      - preprod 
+  workflow_dispatch:
 
 jobs:
   tests:

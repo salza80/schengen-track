@@ -23,10 +23,11 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.2'
-          cache: 'ruby'
+          bundler-cache: true
+          working-directory: src
 
-      - run: bundle install
-        working-directory: src
+      # - run: bundle install
+      #   working-directory: src
 
       - run: rails db:create
         working-directory: src

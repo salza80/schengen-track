@@ -77,9 +77,21 @@ jobs:
         run: cdk deploy RailsLambdaStack --require-approval never
         working-directory: ./deployment
 
-      - name: Invalidate cloudfront cache
-        run: aws cloudfront wait create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'
-        working-directory: ./deployment
+      - name: Perform CloudFront Invalidation
+        id: cloudfront_invalidation
+        run: |
+          invalidation_result=$(aws cloudfront create-invalidation --distribution-id E1KF4KLAR0V084 --paths '/*')
+          invalidation_id=$(echo $invalidation_result | jq -r '.Invalidation.Id')
+          echo "InvalidationId=$invalidation_id" >> $GITHUB_ENV
+
+      - name: Wait for CloudFront Invalidation
+        run: |
+          invalidation_id=$(cat $GITHUB_ENV | grep InvalidationId | cut -d'=' -f2)
+          aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id $invalidation_id
+
+      # - name: Invalidate cloudfront cache
+      #   run: aws cloudfront wait create-invalidation --distribution-id=E2J7FXI85QUSUM --paths='/*'
+      #   working-directory: ./deployment
 
       - name: Recache main urls
         run: ./recache.sh urls-staging.txt

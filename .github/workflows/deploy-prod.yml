@@ -49,7 +49,7 @@ jobs:
       - name: Install AWS CLI
         run: |
           sudo apt-get install -y python3-pip
-          pip3 install awscli
+          pip3 install awscliv2
 
       - name: Configure AWS Credentials
         run: |
@@ -71,8 +71,9 @@ jobs:
       - name: CDK Deploy
         run: cdk deploy SchengTrackProd --require-approval never
         working-directory: ./deployment
+
       - name: Invalidate cloudfront cache
-        run: aws cloudfront wait create-invalidation --distribution-id=E1KF4KLAR0V084 --paths='/*'
+        run: aws cloudfront create-invalidation --distribution-id=E1KF4KLAR0V084 --paths='/*'
         working-directory: ./deployment
 
       - name: Recache main urls

@@ -26,8 +26,8 @@ jobs:
           bundler-cache: true
           working-directory: src
 
-      # - run: bundle install
-      #   working-directory: src
+      - run: bundle install
+        working-directory: src
 
       - run: rails db:create
         working-directory: src

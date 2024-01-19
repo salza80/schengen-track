@@ -91,7 +91,6 @@ module Schengen
           @calculated_days[sd.the_date]=sd
           sd.continuous_days_count = calc_continuous_days_count(sd, i)
           if @user.nationality.visa_required == 'F'
-            puts "none"
           elsif @user.nationality.old_schengen_calc
             schengen_days_in_last_180, count_180_day = calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
           else
@@ -293,7 +292,7 @@ module Schengen
         end
 
         def overstay?
-          # return false unless schengen?
+          return false if schengen_days_count.nil?
           schengen_days_count > 90
         end
 

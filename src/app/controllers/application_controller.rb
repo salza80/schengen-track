@@ -70,7 +70,6 @@ class ApplicationController < ActionController::Base
   private
 
   def set_cache_cookie
-    puts "here"
     guest_value = current_user_or_guest_user.is_guest? ? 'true' : SecureRandom.hex(16)
     cookies[:cache_country_guest] = {
       value: current_user_or_guest_user.nationality.country_code + "_" + guest_value,

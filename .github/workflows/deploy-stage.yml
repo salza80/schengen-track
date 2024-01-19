@@ -3,7 +3,7 @@ name: Deploy-Staging
 on:
   push:
     branches:
-      - staging
+      - master
 
 jobs:
   tests:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          ref: 'staging'
+          ref: 'master'
 
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d

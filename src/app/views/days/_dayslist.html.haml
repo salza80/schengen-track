@@ -31,7 +31,7 @@
             - else
               ="No"
           %td{ "data-title": "Schengen Days Used","data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
-            = day.schengen_days_count
+            = day.schengen_days_count || "-"
             - if day.remaining_wait
               *
           %td{ "data-title": "Max Days Remaining","data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}

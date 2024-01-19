@@ -43,6 +43,8 @@ export class HttpApiConstruct extends Construct {
       ],
     });
 
+    const customDomain = props.domain;
+
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
       this, `${props.paramPath}${paramName}`); 
 
@@ -60,7 +62,8 @@ export class HttpApiConstruct extends Construct {
       FACEBOOK_CALLBACK_URL: getParam('facebook_callback_url'),
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD: getParam('brevo_password'),
-      TASK_PASSWORD: getParam('task_password')
+      TASK_PASSWORD: getParam('task_password'),
+      DOMAIN: customDomain
     };
 
     // Lambda function for Lambda proxy integration of AWS API Gateway HTTP API
@@ -75,8 +78,6 @@ export class HttpApiConstruct extends Construct {
       timeout: cdk.Duration.minutes(1),
       tracing: lambda.Tracing.ACTIVE,
     });
-
-    const customDomain = props.domain;
 
     // AWS API Gateway HTTP API using Rails as Lambda proxy integration
     // overwrite host header with domain, as it will come from cloudfront and rails requires it for security xss checks.

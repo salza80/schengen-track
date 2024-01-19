@@ -2,7 +2,7 @@ require 'aws/book_query'
 require 'securerandom'
 
 class ApplicationController < ActionController::Base
-  before_action :set_cache_cookie
+  before_action :set_cache_cookie, unless: :task_controller?
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
   end
   
   private
+
+  def task_controller?
+    controller_name == 'tasks'
+  end
 
   def guest_user
     user = User.find_by_id(session[:guest_user_id])
@@ -66,6 +70,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_cache_cookie
+    puts "here"
     guest_value = current_user_or_guest_user.is_guest? ? 'true' : SecureRandom.hex(16)
     cookies[:cache_country_guest] = {
       value: current_user_or_guest_user.nationality.country_code + "_" + guest_value,

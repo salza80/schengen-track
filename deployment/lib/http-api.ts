@@ -123,13 +123,6 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    // lambda edge functin to rewrite altDomain to domain
-    const lambdaFunction = new lambda.Function(this, 'RewriteURLLambdaFunction', {
-      runtime: lambda.Runtime.NODEJS_18_X,
-      handler: 'rewriteUrl.handler',
-      code: lambda.Code.fromAsset('./rewriteUrl.ts'),
-    });
-
     const functionAssociations = [
       {
         function: cfRewriteUrlFunction,

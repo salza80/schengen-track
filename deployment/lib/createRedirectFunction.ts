@@ -4,14 +4,14 @@ export function createRedirectFunction(altDomain: string, targetDomain: string):
     function handler(event) {
       var request = event.request;
       var headers = request.headers;
-      var host = request.headers.host.value;
+      var host = headers.host.value;
 
       // Check if the request is coming from altDomain
       if (host === '${altDomain}') {
         // Redirect to targetDomain
         return {
-          statusCode: 302,
-          statusDescription: 'Found',
+          statusCode: 301,
+          statusDescription: 'Permanantly Moved',
           headers: 
           { "location": { "value": 'https://${targetDomain}' }}
         };

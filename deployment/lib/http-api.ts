@@ -48,7 +48,7 @@ export class HttpApiConstruct extends Construct {
     const customDomain = props.domain;
     const altDomain = props.altDomain;
     const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
-      code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain)),
+      code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain))
     });
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(

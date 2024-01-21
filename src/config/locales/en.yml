@@ -30,4 +30,36 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  blog:
+    extendedTravel:
+      title: "Unlocking Extended European Adventures: How to Travel Around Europe for More Than 90 Days Without Overstaying Your Schengen Tourist Visa?"
+      introduction: "Introduction"
+      introContent: >
+        Embarking on a European odyssey is a dream for many, but the 90-day limit within the Schengen Area often leaves travelers yearning for more. Fear not, fellow explorer, as we unveil the secrets to legally extend your European journey beyond the typical 90-day span. Let me guide you through strategic planning and introduce you to countries outside the Schengen Area that can maximize your time in Europe.
+      understandingTitle: "Understanding the Schengen Area and the 90/180 Rule"
+      understandingContent: >
+        The Schengen Area comprises 27 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Zone cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay.
+      nearbyTitle: "Nearby Countries Outside the Schengen Area"
+      nearbyContent: >
+        Before diving into your travel plans, familiarize yourself with easily accessible countries outside the Schengen Zone. These nations play a crucial role in extending your European adventure.
+      countries:
+        - name: "Ireland"
+          description: "A captivating destination with rich history and stunning landscapes."
+        - name: "United Kingdom"
+          description: "Explore England, Scotland, Wales, and Northern Ireland for a diverse cultural experience."
+        - name: "Montenegro"
+          description: "Known for its picturesque coastline and historic cities."
+        - name: "Belarus"
+          description: "A country with a unique blend of history, architecture, and natural beauty."
+        - name: "Morocco"
+          description: "Offering a taste of North Africa, Morocco is known for its vibrant markets, historic cities, and diverse landscapes."
+      accessibilityTitle: "Enhancing Accessibility"
+      accessibilityContent: >
+        These non-Schengen countries are not only exciting additions to your itinerary but also highly accessible from Europe. Whether it's a short flight, an overnight train, or a ferry ride, these destinations are well-connected, making them convenient stops in your extended European adventure.
+      maximizingTitle: "Maximizing Your European Stay"
+      understanding90Title: "Understanding the 90/180 Rule"
+      repeatPatternTitle: "Repeat the Pattern"
+      conclusionTitle: "Conclusion"
+      conclusionContent: >
+        Armed with strategic planning and a clear understanding of Schengen regulations, you can transform your European dream into a lasting reality. Immerse yourself in the rich tapestry of Europe's diversity while staying within the legal limits of your Schengen tourist visa. Ready to embark on your extended European adventure? Share your thoughts, experiences, or any additional tips in the comments below. Safe travels and here's to making your European dream a reality!
+

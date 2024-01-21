@@ -7,6 +7,7 @@ import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
+import { createRedirectFunction } from './createRedirectFunction';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
@@ -16,6 +17,7 @@ import { Stack } from 'aws-cdk-lib';
 
 export interface HttpApiConstructProps {
   domain: string,
+  altDomain: string,
   sslArn: string,
   paramPath: string
 }
@@ -42,8 +44,12 @@ export class HttpApiConstruct extends Construct {
         'lambda_http.handler',
       ],
     });
-
+  
     const customDomain = props.domain;
+    const altDomain = props.altDomain;
+    const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
+      code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain))
+    });
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
       this, `${props.paramPath}${paramName}`); 
@@ -117,9 +123,15 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
+    const functionAssociations = [
+      {
+        function: cfRewriteUrlFunction,
+        eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+      },
+    ];
     const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
-      domainNames: [customDomain],
+      domainNames: [customDomain, altDomain],
       priceClass: cloudfront.PriceClass.PRICE_CLASS_200,
       sslSupportMethod: cloudfront.SSLMethod.SNI,
       defaultBehavior: {
@@ -127,7 +139,8 @@ export class HttpApiConstruct extends Construct {
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
-        originRequestPolicy: customOriginRequestPolicy
+        originRequestPolicy: customOriginRequestPolicy,
+        functionAssociations
       },
       additionalBehaviors: {
         "assets/*": {
@@ -135,6 +148,7 @@ export class HttpApiConstruct extends Construct {
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+          functionAssociations
         },
         "/": {
           origin: origin,
@@ -142,7 +156,8 @@ export class HttpApiConstruct extends Construct {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: customCacheCountryGuestKey,
           originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy
+          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
+          functionAssociations
         },
         "/about*": {
           origin: origin,
@@ -150,7 +165,8 @@ export class HttpApiConstruct extends Construct {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: customCacheCountryGuestKey,
           originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy
+          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
+          functionAssociations
         }
         ,
         "/robots.txt": {
@@ -159,7 +175,8 @@ export class HttpApiConstruct extends Construct {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: customCacheCountryGuestKey,
           originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy
+          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
+          functionAssociations
         }
       }
     });

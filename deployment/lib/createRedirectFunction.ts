@@ -10,7 +10,7 @@ export function createRedirectFunction(altDomain: string, targetDomain: string):
       if (host === '${altDomain}') {
         // Redirect to targetDomain
         return {
-          status: 302,
+          statusCode: 302,
           statusDescription: 'Found',
           headers: 
           { "location": { "value": 'https://${targetDomain}' }}

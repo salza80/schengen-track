@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   patch 'my_details' => 'users#update'
   get 'user' => 'users#show'
   get 'about' => 'about#about'
-  get '/blogs/:slug', to: 'blogs#show', as: :blog
-  get '/blogs', to: 'blogs#index', as: :blogs
+  get '/blog/:slug', to: 'blogs#show', as: :blog
+  # get '/blog', to: 'blogs#index', as: :blogs
   get 'about/:nationality' => 'about#about'
   get 'disclaimer'  => 'about#discliamer'
   get 'privacy'  => 'about#privacy'

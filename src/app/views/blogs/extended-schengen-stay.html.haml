@@ -1,5 +1,6 @@
 %h1.mb-4= t('blog.extendedTravel.title')
-
+%section
+= image_tag("switzerland.jpg", class: "banner-image")
 %section
 %p.lead= t('blog.extendedTravel.introduction')
 %p.lead= t('blog.extendedTravel.introContent')
@@ -7,7 +8,7 @@
 %section
 %h2= t('blog.extendedTravel.understandingTitle')
 %p= t('blog.extendedTravel.understandingContent')
-
+%p= t('blog.extendedTravel.understanding90Content')
 %section
 %h2= t('blog.extendedTravel.nearbyTitle')
 %p= t('blog.extendedTravel.nearbyContent')
@@ -16,23 +17,27 @@
     %li
       %strong= country[:name]
       = country[:description]
-
-%section
-%h2= t('blog.extendedTravel.accessibilityTitle')
 %p= t('blog.extendedTravel.accessibilityContent')
+%p
+  = image_tag("schengen_area_eu_countries.webp", class: "img-fluid", alt: "schengen area country map")
 
 %section
   %h2= t('blog.extendedTravel.maximizingTitle')
   %p
     = t('blog.extendedTravel.maximizingContent')
-    %br/
-    = t('blog.extendedTravel.maximizingContentContinued')
-%section
-  %h2= t('blog.extendedTravel.understanding90Title')
-  %p= t('blog.extendedTravel.understanding90Content')
+    %br
+    = t('blog.extendedTravel.maximizingContentContinued').html_safe
 
 %section
   %p= t('blog.extendedTravel.repeatPatternContent')
+
+%section
+  %p= t('blog.extendedTravel.schengenButtonIntro')
+  %p
+    = link_to t('blog.extendedTravel.schengenButtonTitle'), visits_path
+  %p
+    = t('blog.extendedTravel.schengenAboutIntro')
+    = link_to t('blog.extendedTravel.schengenAboutLink'), about_path
 
 %section
   %h2= t('blog.extendedTravel.conclusionTitle')

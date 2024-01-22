@@ -165,6 +165,7 @@ export class HttpApiConstruct extends Construct {
         "assets/*": publicAssetsCacheBehavior,
         "/": publicCacheByCountryGuestBehavior,
         "/about*": publicCacheByCountryGuestBehavior,
+        "/blog*": publicCacheByCountryGuestBehavior,
         "/robots.txt": publicAssetsCacheBehavior,
         "/sitemap.xml": publicAssetsCacheBehavior,
         "/favicon.ico": publicAssetsCacheBehavior,

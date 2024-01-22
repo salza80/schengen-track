@@ -127,5 +127,11 @@ input.form-control {
   }
 }
 
-
-
+.banner-image {
+  width:100%;
+  height: 150px; 
+  object-fit: cover;
+  object-position: 25% 55%;
+  margin-bottom: 1em;
+  margin-top: 1em; 
+}

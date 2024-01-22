@@ -1,5 +1,9 @@
 test.schengen-calculator.com
 test.schengen-calculator.com/about
-test.schengen-calculator.com/visits
 test.schengen-calculator.com/about/British
 test.schengen-calculator.com/about/American
+test.schengen-calculator.com/sitemap.xml
+test.schengen-calculator.com/favicon.ico
+test.schengen-calculator.com/robots.txt
+test.schengen-calculator.com/ads.txt
+test.schengen-calculator.com/med.png

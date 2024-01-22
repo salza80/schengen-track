@@ -1,5 +1,9 @@
 schengen-calculator.com
 schengen-calculator.com/about
-schengen-calculator.com/visits
 schengen-calculator.com/about/British
 schengen-calculator.com/about/American
+schengen-calculator.com/sitemap.xml
+schengen-calculator.com/favicon.ico
+schengen-calculator.com/robots.txt
+schengen-calculator.com/ads.txt
+schengen-calculator.com/med.png

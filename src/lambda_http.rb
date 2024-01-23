@@ -43,7 +43,6 @@ def is_binary_content?(headers)
 
   # Return true if Content-Type header is not present
   return true if content_type.nil?
-  puts content_type;
 
   binary_mime_types = [
     'application/octet-stream',
@@ -54,12 +53,11 @@ def is_binary_content?(headers)
     'image/*',
     'audio/*',
     'video/*',
+    'text/plain',
     'application/x-binary',
     'application/x-tar',
     'application/x-rar-compressed'
   ]
-   # Exclude 'image/webp' from binary content types
-  return false if content_type == 'image/webp'
 
   binary_mime_types.any? do |pattern|
     content_type.include?(pattern.sub('*', ''))

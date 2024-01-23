@@ -7,3 +7,5 @@ test.schengen-calculator.com/favicon.ico
 test.schengen-calculator.com/robots.txt
 test.schengen-calculator.com/ads.txt
 test.schengen-calculator.com/med.png
+test.schengen-calculator.com/blog/extended-schengen-stay
+

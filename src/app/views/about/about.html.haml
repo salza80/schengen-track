@@ -64,9 +64,9 @@
       %h2#brexit.mb-4
         = t('about.uk_citizens')
       %h3.mb-4
-        = t('about.new_rules_from', date: "1st January 2021")
+        = t('about.new_rules_from', date: l(Time.new(2021, 1, 1), format: :mid))
       %p.mb-4
-        = t('about.uk_citizens_can_use')
+        = t('about.uk_citizens_can_use', date: l(Time.new(2021, 1, 1), format: :mid))
         = link_to t('about.more_information_link'), "https://www.gov.uk/visit-europe-1-january-2021", target: :_blank
       %h2#what.mb-4
         = t('about.what_is_schengen')
@@ -100,6 +100,7 @@
           = t('about.90_days_definition_blockquote')
           %footer.blockquote-footer
             %cite{title: "European Commission"}
+              =t('about.european_commission_link')
       %p.mb-4
         = t('about.calculation_description.first_paragraph')
       %p.mb-4

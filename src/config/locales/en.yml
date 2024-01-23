@@ -13,11 +13,11 @@ en:
       It is especially useful for planning travel in Europe that will likely exceed 90 days. By traveling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are traveling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countries are in the Schengen Area, and to calculate when you are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
     uk_citizens: "UK Citizens / BREXIT"
     new_rules_from: "New rules from %{date}"
-    uk_citizens_can_use: "UK Citizen's can use the Schengen calculator for calculating the 90 days in any 180-day period for tourist visits to the EU from %{date}."
-    more_information_link: "gov.uk - Visit Europe from 1 January 2021"
+    uk_citizens_can_use: "As of %{date}, UK citizens can utilize the Schengen calculator to determine the 90 days allowed in any 180-day period for tourist visits to the EU."
+    more_information_link: "More Information: gov.uk - Visit Europe from 1 January 2021"
     what_is_schengen: "What is the Schengen Area"
     schengen_area_description: |
-      The Schengen Area is an area consisting of 27 European countries without internal borders. Its citizens and many non-EU nationals, business people and tourists can freely circulate without being subjected to border checks. Since 1985, it has grown and today includes almost all EU States and a few associated non-EU countries.
+      The Schengen Area comprises 27 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
     countries_in_schengen: |
       The countries in the Schengen area include are: Austria, Belgium, Czech Republic, Croatia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Slovakia, Slovenia, Spain, Sweden, Switzerland.
     abolished_internal_borders: |
@@ -65,7 +65,7 @@ en:
       step_3:
         title: "Step 3:"
         description_1: "Add your travel record (past and future). You need to include at least any travel inside of the Schengen Area you have done for the last 180 days."
-        description_2: "It is best of you enter all your movements between countries, Schengen and Non-Schengen Countries, and even travel from one Schengen Country to another as you may not be aware that some countries are or are not a part of the Schengen Agreement. The entry date is the day you arrive, and the exit date is the day you leave. Do not worry if the exit date overlaps with the entry date of your next visit, the calculator will not double count days when calculating your length of stay inside the Schengen Area."
+        description_2: "It is best if you enter all your movements between countries, Schengen and Non-Schengen Countries, and even travel from one Schengen Country to another as you may not be aware that some countries are or are not a part of the Schengen Agreement. The entry date is the day you arrive, and the exit date is the day you leave. Do not worry if the exit date overlaps with the entry date of your next visit, the calculator will not double count days when calculating your length of stay inside the Schengen Area."
       step_4:
         title: "Step 4:"
         description: "Review the information regarding the validity of the travel and the remaining time you can stay in the Schengen area. Use the Calculator to do some what-if scenarios by changing your intended travel record."
@@ -94,7 +94,7 @@ en:
         schengen_area: "Schengen Area:"
         schengen_area_description: "Yes = Is in the Schengen Area; No = Is not in the Schengen Area"
         days_remaining: "Days Remaining:"
-        days_remaining_description: "The number of days remaining of the 90 days allowed in the Schengen Zone as at the exit date of the visit."
+        days_remaining_description: "The number of days remaining of the 90 days allowed in the Schengen Area as at the exit date of the visit."
         days_over_stay: "Days Over Stay:"
         days_over_stay_description: "Number of days OVER the 90 days your allowed stay in the Schengen Area. Please revise your travel plans!"
         visa: "Visa:"
@@ -102,7 +102,7 @@ en:
         no_entries: "No Entries:"
         no_entries_description: "Number of times you have entered / re-entered the Schengen Area. (moving from one Schengen country to another is not considered a re-entry, however if there is more than one day between exiting a country Schengen Country and entering the next, the calculator will assume you have exited the Schengen Area and will count it as a re-entry."
         visa_days_over_stay: "Visa Days Over Stay:"
-        visa_days_over_stay_description: "The number of days in the Schengen Zone without permission on your visa. Either you have not entered a visa, you exited after the end date of the visa, or you entered the Schengen zone more times that was allowed on the Visa."
+        visa_days_over_stay_description: "The number of days in the Schengen Area without permission on your visa. Either you have not entered a visa, you exited after the end date of the visa, or you entered the Schengen Area more times that was allowed on the Visa."
       short_stay_schengen_visa_record:
         title: "Short Stay Schengen Visa Record"
         start_date: "Start Date:"
@@ -123,12 +123,12 @@ en:
       title: "How Can You Unlock Extended European Adventures and Travel Around Europe for More Than 90 Days Without Overstaying Your Schengen Tourist Visa?"
       introduction: "Embarking on a European odyssey is a dream for many, but the 90-day limit within the Schengen Area often leaves travelers yearning for more. Fear not, fellow explorer, as we unveil the secrets to legally extend your European journey beyond the typical 90-day span. Before diving into strategic planning, it's crucial to familiarize yourself with countries outside the Schengen Area. Here, we'll list some key nations, such as Ireland, the United Kingdom, Montenegro, Belarus, and Morocco, that can become pivotal in maximizing your time in Europe."
       introContent: "Understanding the Schengen Area and the 90/180 Rule:
-      The Schengen Area comprises 27 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Zone cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay."
+      The Schengen Area comprises 27 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Area cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay."
       understandingTitle: "Understanding the Schengen Area and the 90/180 Rule:"
-      understandingContent: "The Schengen Area comprises 27 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Zone cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay."
-      understanding90Content: "Keep in mind that the 90 in 180-day rule operates on a rolling basis. To illustrate, suppose you enter the Schengen Zone on January 1st and stay until March 30th, utilizing your full 90 days. If you re-enter on June 1st, you have another 90 days at your disposal. The key is to make sure that, on any given day within the area, you haven't exceeded 90 days in the last 180 days. It's a continuous calculation that you can understand to optimise your stay without violating the rule."      
+      understandingContent: "The Schengen Area comprises 27 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Area cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay."
+      understanding90Content: "Keep in mind that the 90 in 180-day rule operates on a rolling basis. To illustrate, suppose you enter the Schengen Area on January 1st and stay until March 30th, utilizing your full 90 days. If you re-enter on June 1st, you have another 90 days at your disposal. The key is to make sure that, on any given day within the area, you haven't exceeded 90 days in the last 180 days. It's a continuous calculation that you can understand to optimise your stay without violating the rule."      
       nearbyTitle: "Nearby Countries Outside the Schengen Area"
-      nearbyContent: "Before diving into your travel plans, familiarize yourself with easily accessible countries outside the Schengen Zone. These nations play a crucial role in extending your European adventure. Some key examples include:"
+      nearbyContent: "Before diving into your travel plans, familiarize yourself with easily accessible countries outside the Schengen Area. These nations play a crucial role in extending your European adventure. Some key examples include:"
       countries:
         - name: "Ireland"
           description: "A captivating destination with rich history and stunning landscapes."
@@ -150,7 +150,7 @@ en:
 
         <p> <strong>Schengen Encore Explore and Exit:</strong> Return to the Schengen Area for another segment of your journey. Explore countries like France or Italy, ensuring you exit the Schengen Area before your 90-day limit."
       repeatPatternTitle: "Repeat the Pattern"
-      repeatPatternContent: "Continue this pattern throughout your travels, strategically weaving in and out of the Schengen Zone. Optimize your time in non-Schengen countries like Montenegro, Belarus, and Morocco to extend your European sojourn."
+      repeatPatternContent: "Continue this pattern throughout your travels, strategically weaving in and out of the Schengen Area. Optimize your time in non-Schengen countries like Montenegro, Belarus, and Morocco to extend your European sojourn."
       schengenButtonIntro: "You can use the Schengen Calculator to both plan and keep track of your travels on the road. Just enter the dates you enter, and exit each country, and it does the rest, calculating your total days in the Schengen Area, how many remaining days, and at what date you can re-enter and for how long to extend your stay. Happy planning and stay secure knowing you are not overstaying your visa."
       schengenButtonTitle: "Get started with the Schengen Calculator"
       schengenAboutIntro: "To read more about the Calculator and get more information on the Schengen Area see the "

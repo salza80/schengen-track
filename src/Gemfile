@@ -33,7 +33,7 @@ gem "sprockets-rails"
 gem "omniauth-rails_csrf_protection"
 gem 'bourbon'
 gem 'autoprefixer-rails'
-gem 'canonical-rails', github: 'jumph4x/canonical-rails'
+gem 'canonical-rails'
 
 group :production do
   gem 'rails_12factor'

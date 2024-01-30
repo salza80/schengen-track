@@ -1,8 +1,8 @@
 == README
 
-= Personal Project
+= Schengen Calculator
 
-Small personal project to help track the 90/180 day schengen visa rule for travellers in Europe. 
+Caclulator to help track the 90/180 day schengen visa rule for travellers in Europe. 
 I had created similar functionality in Excel spreadsheet for my personal use when i was travelling in Europe, and thought it would be helpful for others to put online.
 
 Live site can be found here: http://www.schengen-calculator.com

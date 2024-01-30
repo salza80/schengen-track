@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/jumph4x/canonical-rails.git
+  revision: 31aac4a84a1a1972fd157419f7f2e354e8b2d55d
+  specs:
+    canonical-rails (0.2.15)
+      actionview (>= 4.1, <= 7.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -357,6 +364,7 @@ DEPENDENCIES
   bootstrap (= 4.2.1)
   bourbon
   byebug
+  canonical-rails!
   capybara
   devise (>= 4.9.2)
   font-awesome-sass (~> 6.5.1)

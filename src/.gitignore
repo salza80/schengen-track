@@ -27,3 +27,6 @@ yarn-debug.log*
 .env
 /config/master.key
 
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -26,8 +26,10 @@
   <title><%= content_for?(:title) ? 'Schengen / Europe Short-stay Tourist Visa Calculator ' + content_for(:title) : 'Schengen / Short-stay Tourist Visa Calculator' %></title>
   <%= favicon_link_tag asset_path('favicon.ico') %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', defer: true %>
+  <%= javascript_include_tag 'custom' %>
   <%= csrf_meta_tags %>
+    <%= javascript_importmap_tags %>
 </head>
 <body>
 

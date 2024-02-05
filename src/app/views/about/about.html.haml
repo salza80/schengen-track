@@ -120,13 +120,13 @@
         %h3.mb-4
           = t('about.nationality_section.subheading')
         %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality')"})
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "window.App.goToNationality(this.value,'nationality')"})
       - else
         = render "nationality"
         %h4.mb-4
           = t('about.nationality_section.select_another_prompt')
         %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value, 'nationality')"})
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "window.App.goToNationality(this.value, 'nationality')"})
       .text-center.mb-4
         = link_to t('about.button_text'), visits_path, class: "btn btn-primary"
       .ad-block.mb-4

@@ -101,3 +101,7 @@ es:
     country: "País"
     disclaimer: "Descargo de responsabilidad"
     privacy_policy: "Política de Privacidad"
+  default_description: "Calculadora gratuita de 90/180 días de Schengen/Europa. Ingrese su nacionalidad, fechas de viaje y destino, y la calculadora de Schengen hará el resto."
+  keywords: "Schengen, Calculadora Schengen, 90 días en 180, regla de los 90 días, calculadora de 180 días, calculadora de 90 días, Visa Schengen, Viaje, Visa de Europa, Área Schengen, Zona Schengen"
+  title_with_content: "Calculadora gratuita de Visa de Turista de Corta Estancia de Schengen / Europa %{content}"
+  default_title: "Calculadora de Visa de Turista de Corta Estancia de Schengen / Europa"

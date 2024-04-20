@@ -9,11 +9,11 @@
     Don't forget to also select your nationality, which is currently set to 
     = current_user_or_guest_user.nationality.name
     \. If this is not correct,
-    = link_to 'change it now here', my_details_path
+    = link_to 'change it now here', my_details_path(locale: I18n.locale)
     , or later by following the link in the top right corner of this page.
   %p
     For further information, read the 
-    = link_to 'About page', about_path
+    = link_to 'About page', about_path(locale: I18n.locale)
     \.
 %br
 = render 'nextEntryDays'
@@ -21,7 +21,7 @@
   %h2 Schengen Visa List
   .row.py-1
     .col-md-12.text-right
-      = link_to new_visa_path, class: "btn btn-primary btn-md form-btn" do
+      = link_to new_visa_path(locale: I18n.locale), class: "btn btn-primary btn-md form-btn" do
         %i.fa.fa-plus{"aria-hidden" => "true"}
         Add Visa
   .row
@@ -32,13 +32,13 @@
 .row.py-1
   .col-md-6.d-flex.align-items-end
     -if @visits.count>0
-      =link_to "Export to CSV", visits_path(format: "csv")
+      =link_to "Export to CSV", visits_path(locale: I18n.locale, format: "csv")
       %span.px-2
         |
     -if (!(current_user_or_guest_user.visa_required?) && @visits.count>0)
-      =link_to "View Calculation Details", days_path
+      =link_to "View Calculation Details", days_path(locale: I18n.locale)
   .col-md-6.text-right
-    = link_to new_visit_path, class: "btn btn-primary btn-md form-btn" do
+    = link_to new_visit_path(locale: I18n.locale), class: "btn btn-primary btn-md form-btn" do
       %i.fa.fa-plus{"aria-hidden" => "true"}
       Add Travel
 .row

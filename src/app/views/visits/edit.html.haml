@@ -4,7 +4,7 @@
       Edit a Travel Record
     = render 'form'
   .card-footer
-    = link_to 'Back', visits_path
+    = link_to 'Back', visits_path(locale: I18n.locale)
   .row
     .col-sm-12
       -if @advertise_country

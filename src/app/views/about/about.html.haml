@@ -129,12 +129,12 @@
         %p.mb-4
           = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value, 'nationality')"})
       .text-center.mb-4
-        = link_to t('about.about.button_text'), visits_path, class: "btn btn-primary"
+        = link_to t('about.about.button_text'), visits_path(locale: I18n.locale), class: "btn btn-primary"
       .ad-block.mb-4
         %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
       %p.mb-4
         = t('about.about.blog_link_intro')
-        = link_to t('blog.extendedTravel.title'), blog_path(slug: 'extended-schengen-stay')
+        = link_to t('blog.extendedTravel.title'), blog_path(locale: I18n.locale, slug: 'extended-schengen-stay')
 
       %h2#how.mb-4
         = t('about.about.how_to_use.title')
@@ -227,7 +227,7 @@
       %h2#disclaimer.mb-4
         = t('about.about.disclaimer.title')
       %p.mb-4
-        = t('about.about.disclaimer.description', link: link_to(t('about.about.disclaimer.link_text'), disclaimer_path)).html_safe
+        = t('about.about.disclaimer.description', link: link_to(t('about.about.disclaimer.link_text'), disclaimer_(locale: I18n.locale))).html_safe
       %h3#updated.mb-4
         = t('about.about.last_updated.title')
       %p.mb-4

@@ -19,6 +19,6 @@
           %td{"data-title": "No Entries"} 
             = visa.no_entries
           %td{"data-title": "Modify"} 
-            = link_to 'Edit', edit_visa_path(visa)
+            = link_to 'Edit', edit_visa_path(locale: I18n.locale, id: visa.id)
             = " / "
             = link_to 'Delete', visa, :method => :delete, :data => { :confirm => 'Are you sure?' }

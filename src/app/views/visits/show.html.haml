@@ -10,6 +10,6 @@
   %b Country:
   = @visit.country_id
 
-= link_to 'Edit', edit_visit_path(@visit)
+= link_to 'Edit', edit_visit_path(locale: I18n.locale, id: @visit.id)
 \|
-= link_to 'Back', visits_path
+= link_to 'Back', visits_path(locale: I18n.locale)

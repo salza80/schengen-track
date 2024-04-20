@@ -5,11 +5,11 @@ Max remaining days - Is the maximum amount of time you can stay in the schengen 
 
 .row
   .col-md-12.text-right
-    = link_to 'back', visits_path
+    = link_to 'back', visits_path(locale: I18n.locale)
 .row
   .col-md-12
     = render 'dayslist'
 .row
   .col-md-12
-    = link_to 'back', visits_path
+    = link_to 'back', visits_path(locale: I18n.locale)
 

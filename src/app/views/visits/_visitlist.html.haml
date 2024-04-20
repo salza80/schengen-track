@@ -74,6 +74,6 @@
           %td{ "data-title" => "Schengen Days Overstay", class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
             = visit.schengen_overstay_days
           %td{ "data-title": "Modify" }
-            = link_to 'Edit', edit_visit_path(visit)
+            = link_to 'Edit', edit_visit_path(locale: I18n.locale, id: visit.id)
             = " / "
             = link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }

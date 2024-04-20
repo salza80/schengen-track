@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  scope "(:locale)", locale: /en|de/ do
+  scope "(:locale)", locale: /en|de/, defaults: { locale: I18n.default_locale } do
     root 'about#about'
 
     resources :visits

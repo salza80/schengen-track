@@ -8,3 +8,14 @@ schengen-calculator.com/robots.txt
 schengen-calculator.com/ads.txt
 schengen-calculator.com/med.png
 schengen-calculator.com/blog/extended-schengen-stay
+schengen-calculator.com/en
+schengen-calculator.com/en/about
+schengen-calculator.com/en/about/British
+schengen-calculator.com/en/about/American
+schengen-calculator.com/en/blog/extended-schengen-stay
+schengen-calculator.com/de
+schengen-calculator.com/de/about
+schengen-calculator.com/de/about/British
+schengen-calculator.com/de/about/American
+schengen-calculator.com/de/blog/extended-schengen-stay
+

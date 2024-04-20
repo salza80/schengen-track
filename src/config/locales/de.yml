@@ -56,3 +56,29 @@ de:
     - :day
     - :month
     - :year
+  errors:
+    prohibited_saving_visa: "%{count} Fehler verhinderten das Speichern dieses Visums:"
+  common:
+    schengen_calculator: "Schengen-Rechner"
+    schengen: "Schengen"
+    visa: "Visum"
+    calculator: "Rechner"
+    about: "Über uns"
+    log_out: "Abmelden"
+    login: "Anmelden"
+    edit_my_details: "Meine Angaben bearbeiten"
+    back: "Zurück"
+    multi_unlimited_entries: "(0 eingeben für mehrere/unbegrenzte Einträge)"
+    save: "Speichern"
+    to: "bis"
+    edit: "Bearbeiten"
+    delete: "Löschen"
+    continent: "Kontinent"
+    no_days: "Anzahl der Tage"
+    yes: "Ja"
+    no: "Nein"
+    na: "N/A"
+    of: "von"
+    country: "Land"
+    disclaimer: "Haftungsausschluss"
+    privacy_policy: "Datenschutzbestimmungen"

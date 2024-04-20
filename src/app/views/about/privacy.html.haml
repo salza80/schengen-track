@@ -7,8 +7,13 @@
       %h3= t('about.privacy.what_we_do_title')
       %p= t('about.privacy.personally_identifiable_info_content')
       %ul
-        - t('about.privacy.list_items').each do |item|
-          %li= item
+        - items = t('about.privacy.list_items', default: nil)
+        - if items.nil? || items.empty?
+          %li No items found
+        - else
+          - items.each do |item|
+            %li= item
+
       %p= t('about.privacy.other_info_content')
       %h3= t('about.privacy.cookies_title')
       %p= t('about.privacy.cookies_content')
@@ -17,8 +22,12 @@
       %h3= t('about.privacy.privacy_responsibilities_title')
       %p= t('about.privacy.privacy_responsibilities_content')
       %ul
-        - t('about.privacy.responsibilities_list').each do |responsibility|
-          %li= responsibility
+        - responsibilities = t('about.privacy.responsibilities_list', default: nil)
+        - if responsibilities.nil? || responsibilities.empty?
+          %li No responsibilities found
+        - else
+          - responsibilities.each do |responsibility|
+            %li= responsibility
       %h3= t('about.privacy.eu_notice_title')
       %p= t('about.privacy.eu_notice_content')
       %h3= t('about.privacy.children_info_title')

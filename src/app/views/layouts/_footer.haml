@@ -2,11 +2,11 @@
   .container.text-center
     %p
       %span.fa.fa-copyright{"aria-hidden" => "true"}
-      Schengen Calculator
+      = t('common.schengen_calculator')
       |
-      = link_to 'Disclaimer', disclaimer_path
+      = link_to t('common.disclaimer'), disclaimer_path(locale: I18n.locale)
       |
-      = link_to 'Privacy Policy', privacy_path
+      = link_to t('common.privacy_policy'), privacy_path(locale: I18n.locale)
       |
       %span.facebook-buttons
         -# %span.like

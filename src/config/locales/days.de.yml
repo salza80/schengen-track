@@ -1,0 +1,17 @@
+de:
+  days:
+    table_caption: "Liste der Tage in der Schengen-Berechnung mit Besuchs- und Berechnungsdetails."
+    table_headers:
+      date: "Datum"
+      country: "Land"
+      schengen_area: "Schengen-Raum"
+      schengen_days_used_tooltip: "Die Anzahl der Tage im Schengen-Raum in den letzten 180 Tagen."
+      max_remaining_days_tooltip: "Die Anzahl der Tage, die Sie im Schengen-Raum verbringen können, wenn Sie an diesem Tag einreisen."
+      overstay_days: "Überziehen Tage"
+      overstay_wait_tooltip: "Wartezeit für die erneute Einreise nach Überziehung (Tage)"
+    schengen_yes: "Ja"
+    schengen_no: "Nein"
+    overstay_na: "N/A"
+    schengen_visa_calculation_by_day: "Schengen-Visaberechnung pro Tag"
+    max_remaining_days: "Maximale verbleibende Tage - Ist die maximale Aufenthaltsdauer im Schengen-Raum, wenn Sie an diesem Tag erneut einreisen."
+    overstay_warning: "* Der Schengen-Rechner warnt vor der Wiedereinreise für 180 Tage nach einem 'Überziehen' der erlaubten Tage. Dies ist nicht das Gesetz! Sie müssen bei den zuständigen Behörden nachfragen, ob dies auf Sie zutrifft. Wenn Sie beim Überschreiten der Regeln für das Schengen-Touristenvisum erwischt werden, können Sie möglicherweise jahrelang von der Wiedereinreise ausgeschlossen werden. Bitte verwenden Sie dies nur als Richtlinie."

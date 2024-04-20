@@ -2,17 +2,19 @@
   .container.text-center
     %p
       %span.fa.fa-copyright{"aria-hidden" => "true"}
-      Schengen Calculator
+      = t('common.schengen_calculator')
       |
-      = link_to 'Disclaimer', disclaimer_path
+      = link_to t('common.disclaimer'), disclaimer_path(locale: I18n.locale)
       |
-      = link_to 'Privacy Policy', privacy_path
+      = link_to t('common.privacy_policy'), privacy_path(locale: I18n.locale)
       |
       %span.facebook-buttons
         -# %span.like
         -#   %span.fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
         %span.share
           %span.fb-share-button.visible-xs-block{ "data-href": "https://schengen-calculator.com", "data-layout": "button" }
+      |
+      = language_selector
 %script{:type => "application/ld+json"}
   {
   "@context": "http://schema.org",

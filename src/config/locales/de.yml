@@ -1,0 +1,95 @@
+de:
+  #form helpers
+  helpers:
+    label:
+      user:
+        first_name: "Vorname"
+        last_name: "Nachname"
+        nationality: "Nationalität"
+        email: "E-Mail"
+        password: "Passwort"
+        password_confirmation: "Passwort Bestätigung"
+  time:
+    formats:
+      long: "%e. %B %Y"
+      mid: "%e. %B %Y"
+      default: "%e. %B %Y"
+  date:
+    abbr_day_names:
+    - So
+    - Mo
+    - Di
+    - Mi
+    - Do
+    - Fr
+    - Sa
+    abbr_month_names:
+    - Jan
+    - Feb
+    - Mär
+    - Apr
+    - Mai
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Okt
+    - Nov
+    - Dez
+    day_names:
+    - Sonntag
+    - Montag
+    - Dienstag
+    - Mittwoch
+    - Donnerstag
+    - Freitag
+    - Samstag
+    formats:
+      default: "%d.%m.%Y"
+      long: "%e. %B %Y"
+      short: "%e. %b"
+    month_names:
+    - 
+    - Januar
+    - Februar
+    - März
+    - April
+    - Mai
+    - Juni
+    - Juli
+    - August
+    - September
+    - Oktober
+    - November
+    - Dezember
+    order:
+    - :day
+    - :month
+    - :year
+  errors:
+    prohibited_saving_visa: "%{count} Fehler verhinderten das Speichern dieses Visums:"
+  common:
+    schengen_calculator: "Schengen-Rechner"
+    schengen: "Schengen"
+    visa: "Visum"
+    calculator: "Rechner"
+    about: "Über uns"
+    about_page: "Über Seite"
+    log_out: "Abmelden"
+    login: "Anmelden"
+    edit_my_details: "Meine Angaben bearbeiten"
+    back: "Zurück"
+    multi_unlimited_entries: "(0 eingeben für mehrere/unbegrenzte Einträge)"
+    save: "Speichern"
+    to: "bis"
+    edit: "Bearbeiten"
+    delete: "Löschen"
+    continent: "Kontinent"
+    no_days: "Anzahl der Tage"
+    yes: "Ja"
+    no: "Nein"
+    na: "N/A"
+    of: "von"
+    country: "Land"
+    disclaimer: "Haftungsausschluss"
+    privacy_policy: "Datenschutzbestimmungen"

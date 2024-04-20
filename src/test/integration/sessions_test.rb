@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SessionsTest < ActionDispatch::IntegrationTest
   test 'Existing user logs in and out' do
-    visit new_user_session_url
+    visit new_user_session_url(locale: :en)
     assert has_no_content? 'Sally Mclean'
     within('form#login') do
       fill_in 'Email', with: 'smclean17@gmail.com'

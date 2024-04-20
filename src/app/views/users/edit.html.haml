@@ -1,8 +1,7 @@
 .card
   .card-body
     %h3{ class: "card-title"}
-      Edit My Details
+      = t('common.edit_my_details')
     = render 'form'
   .card-footer
-    = link_to 'Back', visits_path
-
+    = link_to t('common.back'), visits_path(locale: I18n.locale)

@@ -1,24 +1,23 @@
 .responsive-table-container
   %table.table.table-striped.table-bordered.table-hover.responsive-table
-    %caption
-      List of Schengen Visas to use for calculation.
+    %caption= t('visas.list_caption')
     %thead.bg-header
       %tr
-        %th{ scope: "col"} Dates
-        %th{ scope: "col"} No entries
-        %th{ scope: "col", class: 'modify-col' }      
+        %th{ scope: "col"}= t('visas.columns.dates')
+        %th{ scope: "col"}= t('visas.columns.no_entries')
+        %th{ scope: "col", class: 'modify-col' }= t('visas.columns.modify')
     %tbody
       - @visas.each do |visa|
         %tr
           %th{ scope: "row", class: 'bg-md-header'}
             %span.no-wrap 
-              = visa.start_date.strftime('%d-%b-%Y')
-            = " to "
+              = visa.start_date.strftime(t('date.formats.default'))
+            = " #{t('visas.to')} "
             %span.no-wrap
-              = visa.end_date.strftime('%d-%b-%Y')
-          %td{"data-title": "No Entries"} 
+              = visa.end_date.strftime(t('date.formats.default'))
+          %td{"data-title": t('visas.columns.no_entries')} 
             = visa.no_entries
-          %td{"data-title": "Modify"} 
-            = link_to 'Edit', edit_visa_path(visa)
+          %td{"data-title": t('visas.columns.modify')} 
+            = link_to t('common.edit'), edit_visa_path(locale: I18n.locale, id: visa.id)
             = " / "
-            = link_to 'Delete', visa, :method => :delete, :data => { :confirm => 'Are you sure?' }
+            = link_to t('common.delete'), visa, :method => :delete, :data => { :confirm => t('visas.delete_confirmation') }

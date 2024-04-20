@@ -1,33 +1,33 @@
 %nav.navbar.navbar-expand-sm.navbar-light.bg-light.sticky-top.justify-content-start
   %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navtabs", "aria-controls" => "navbar", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
     %span.navbar-toggler-icon
-  %a.navbar-brand.px-3.px-sm-0{:href => visits_path}
-    = image_tag("logo.svg", alt: "Schengen Calculator")
+  %a.navbar-brand.px-3.px-sm-0{:href => visits_path(I18n.locale)}
+    = image_tag("logo.svg", alt: t('common.schengen_calculator'))
     %span.navbar-text.site-title
-      Schengen 
+      = t('common.schengen')
       %span.d-none.d-lg-inline
-        Visa 
-      Calculator
+        = t('common.visa')
+      = t('common.calculator')
   .collapse.navbar-collapse{id: "navtabs"}
     %ul.navbar-nav.nav-tabs.mx-auto.navbar-light
       %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'visits')) }
-        %a.nav-link.btn-lg{href: visits_path }
+        %a.nav-link.btn-lg{href: visits_path(I18n.locale) }
           %span.fa.fa-plane{"aria-hidden": "true"}
           %span
-            Calculator
+            = t('common.calculator')
       %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'about'))}
-        %a.nav-link.btn-lg{href: about_path}
+        %a.nav-link.btn-lg{href: about_path(locale: I18n.locale)}
           %span.fa.fa-info-circle{"aria-hidden": "true"}
           %span
-            About
+            = t('common.about')
   .navbar-nav
     - if current_user_or_guest_user
       %p.current-setting.navbar-text.pr-2
         = current_user_or_guest_user.full_name
         %br
-        = link_to current_user_or_guest_user.nationality.name, my_details_path
+        = link_to current_user_or_guest_user.nationality.name, my_details_path(locale: I18n.locale)
   .form-inline.ml-auto
     - if user_signed_in?
-      = link_to 'Log out', destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
+      = link_to t('common.log_out'), destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
     - else 
-      = link_to 'Login', new_user_session_path, class: 'btn btn-primary'
+      = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary'

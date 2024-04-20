@@ -8,229 +8,230 @@
   .col-lg-4{:role => "complementary"}
     %nav.about-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}}
       %h4.title
-        Contents
+        = t('about.about.contents_title')
       %ul.nav.flex-column.about-sidenav
         %li
-          = link_to t('about.introduction'), "#intro", {:class => "text-dark"}
+          = link_to t('about.about.introduction'), "#intro", {:class => "text-dark"}
         %li
-          = link_to t('about.uk_citizens'), "#brexit", {:class => "text-dark"}
+          = link_to t('about.about.uk_citizens'), "#brexit", {:class => "text-dark"}
         %li 
-          = link_to "What is the Schengen Area", "#what", {:class => "text-dark"}
+          = link_to t('about.about.schengen_area_link'), "#what", {:class => "text-dark"}
         %li
-          = link_to "Travelling in the Schengen Area", "#travel", {:class => "text-dark"}
+          = link_to t('about.about.travelling_link'), "#travel", {:class => "text-dark"}
           %ul.nav.flex-column
             %li
-              = link_to "Visa Requirements", "#visa", {:class => "text-dark"}
+              = link_to t('about.about.visa_requirements_link'), "#visa", {:class => "text-dark"}
             %li
-              = link_to "Length of Stay Calculation", "#length", {:class => "text-dark"}
+              = link_to t('about.about.length_of_stay_link'), "#length", {:class => "text-dark"}
               %ul.nav.flex-column
                 %li
-                  = link_to "New definition as of 2013", "#new", {:class => "text-dark"}
+                  = link_to t('about.about.new_definition_link'), "#new", {:class => "text-dark"}
                 %li
-                  = link_to "Previous definition", "#previous", {:class => "text-dark"}
+                  = link_to t('about.about.previous_definition_link'), "#previous", {:class => "text-dark"}
             %li
-              = link_to "Additional Visa Waiver agreements", "#additional", {:class => "text-dark"}
+              = link_to t('about.about.additional_visa_waiver_link'), "#additional", {:class => "text-dark"}
             %li
               - if @country.nil?
-                = link_to "Schengen requrements for my nationality", "#nationality", {:class => "text-dark"}
+                = link_to t('about.about.nationality_requirements_link'), "#nationality", {:class => "text-dark"}
               - else
-                =link_to "Schengen requirements for " + @country.nationality_plural, "#nationality", {:class => "text-dark"}
+                = link_to "Schengen requirements for " + @country.nationality_plural, "#nationality", {:class => "text-dark"}
         %li
-          = link_to "How to use the Schengen Calculator", "#how", {:class => "text-dark"}
+          = link_to t('about.about.how_to_use_link'), "#how", {:class => "text-dark"}
           %ul.nav.flex-column
             %li
-              = link_to "Step by Step", "#steps", {:class => "text-dark"}
+              = link_to t('about.about.step_by_step_link'), "#steps", {:class => "text-dark"}
             %li
-              = link_to "Limitations", "#limitations", {:class => "text-dark"}
+              = link_to t('about.about.limitations_link'), "#limitations", {:class => "text-dark"}
             %li
-              = link_to "Field Name Definitions", "#definitions", {:class => "text-dark"}
+              = link_to t('about.about.field_definitions_link'), "#definitions", {:class => "text-dark"}
         %li
-          = link_to 'Disclaimer', "#disclaimer", {:class => "text-dark"}
+          = link_to t('about.about.disclaimer_link'), "#disclaimer", {:class => "text-dark"}
+
   .col-lg-8{role: "main"}
     .about-section
       %h1#intro.mb-4
-        = t('about.title')
+        = t('about.about.title')
       %h2.mb-4
-        = t('about.introduction')
+        = t('about.about.introduction')
       %p.mb-4
-        = t('about.calculator_description')
+        = t('about.about.calculator_description')
       .text-center.mb-4
-        = link_to t('about.get_started'), visits_path, class: "btn btn-primary"
+        = link_to t('about.about.get_started'), visits_path, class: "btn btn-primary"
       %br
       %p.mb-4
-        = t('about.useful_for_planning')
+        = t('about.about.useful_for_planning')
       .ad-block
         %ins.adsbygoogle{data: {ad_client: "ca-pub-8290979932488448", ad_format: "auto", ad_slot: "7291202216"}, style: "display:block"}
       %h2#brexit.mb-4
-        = t('about.uk_citizens')
+        = t('about.about.uk_citizens')
       %h3.mb-4
-        = t('about.new_rules_from', date: l(Time.new(2021, 1, 1), format: :mid))
+        = t('about.about.new_rules_from', date: l(Time.new(2021, 1, 1), format: :mid))
       %p.mb-4
-        = t('about.uk_citizens_can_use', date: l(Time.new(2021, 1, 1), format: :mid))
-        = link_to t('about.more_information_link'), "https://www.gov.uk/visit-europe-1-january-2021", target: :_blank
+        = t('about.about.uk_citizens_can_use', date: l(Time.new(2021, 1, 1), format: :mid))
+        = link_to t('about.about.more_information_link'), "https://www.gov.uk/visit-europe-1-january-2021", target: :_blank
       %h2#what.mb-4
-        = t('about.what_is_schengen')
+        = t('about.about.what_is_schengen')
       %p.mb-4
-        = t('about.schengen_area_description')
+        = t('about.about.schengen_area_description')
       %p.mb-4
-        = t('about.countries_in_schengen')
+        = t('about.about.countries_in_schengen')
       %p.mb-4
-        = t('about.abolished_internal_borders')
-        = link_to t('about.european_commission_website_link'), "http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/schengen/index_en.htm"
+        = t('about.about.abolished_internal_borders')
+        = link_to t('about.about.european_commission_website_link'), "http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/schengen/index_en.htm"
       %h2#travel.mb-4
-        = t('about.travelling_in_schengen')
+        = t('about.about.travelling_in_schengen')
       %h3#visa.mb-4
-        = t('about.visa_requirements')
+        = t('about.about.visa_requirements')
       %p.mb-4
-        = t('about.nationality_dependent_visa_requirement')
+        = t('about.about.nationality_dependent_visa_requirement')
       %p.mb-4
-        = t('about.exempt_countries_list')
+        = t('about.about.exempt_countries_list')
       %p.mb-4
-        = t('about.exempt_countries_conditions')
+        = t('about.about.exempt_countries_conditions')
       %p.mb-4
-        = t('about.non_eu_visa_requirement')
+        = t('about.about.non_eu_visa_requirement')
       %h3#length.mb-4
-        = t('about.length_of_stay_calculation')
+        = t('about.about.length_of_stay_calculation')
       %p.mb-4
-        = t('about.length_calculation_revision', date: l(Time.new(2013, 10, 18), format: :mid))
+        = t('about.about.length_calculation_revision', date: l(Time.new(2013, 10, 18), format: :mid))
       %h4#new.mb-4
-        = t('about.new_definition_as_of_2013')
+        = t('about.about.new_definition_as_of_2013')
       %p.mb-4
         %blockquote.blockquote
-          = t('about.90_days_definition_blockquote')
+          = t('about.about.90_days_definition_blockquote')
           %footer.blockquote-footer
             %cite{title: "European Commission"}
-              =t('about.european_commission_link')
+              =t('about.about.european_commission_link')
       %p.mb-4
-        = t('about.calculation_description.first_paragraph')
+        = t('about.about.calculation_description.first_paragraph')
       %p.mb-4
-        = t('about.calculation_description.second_paragraph')
+        = t('about.about.calculation_description.second_paragraph')
       %p.mb-4
-        = t('about.calculation_description.third_paragraph')
+        = t('about.about.calculation_description.third_paragraph')
       %h3#additional.mb-4
-        = t('about.additional_requirements.heading')
+        = t('about.about.additional_requirements.heading')
       %p.mb-4
-        = t('about.additional_requirements.first_paragraph')
+        = t('about.about.additional_requirements.first_paragraph')
       %p.mb-4
-        = t('about.additional_requirements.second_paragraph')
+        = t('about.about.additional_requirements.second_paragraph')
       %a.nationality_anchor#nationality.mb-4
       - if @country.nil?
         %h2.mb-4
-          = t('about.nationality_section.heading')
+          = t('about.about.nationality_section.heading')
         %h3.mb-4
-          = t('about.nationality_section.subheading')
+          = t('about.about.nationality_section.subheading')
         %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality')"})
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality')"})
       - else
         = render "nationality"
         %h4.mb-4
-          = t('about.nationality_section.select_another_prompt')
+          = t('about.about.nationality_section.select_another_prompt')
         %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value, 'nationality')"})
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value, 'nationality')"})
       .text-center.mb-4
-        = link_to t('about.button_text'), visits_path, class: "btn btn-primary"
+        = link_to t('about.about.button_text'), visits_path(locale: I18n.locale), class: "btn btn-primary"
       .ad-block.mb-4
         %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
       %p.mb-4
-        = t('about.blog_link_intro')
-        = link_to t('blog.extendedTravel.title'), blog_path('extended-schengen-stay')
+        = t('about.about.blog_link_intro')
+        = link_to t('blog.extendedTravel.title'), blog_path(locale: I18n.locale, slug: 'extended-schengen-stay')
 
       %h2#how.mb-4
-        = t('about.how_to_use.title')
+        = t('about.about.how_to_use.title')
       %h4#steps.mb-4
-        = t('about.how_to_use.step_1.title')
+        = t('about.about.how_to_use.step_1.title')
       %p.mb-4
-        = t('about.how_to_use.step_1.description')
+        = t('about.about.how_to_use.step_1.description')
       %h4.mb-4
-        = t('about.how_to_use.step_2.title')
+        = t('about.about.how_to_use.step_2.title')
       %p.mb-4
-        = t('about.how_to_use.step_2.description')
+        = t('about.about.how_to_use.step_2.description')
       %h4.mb-4
-        = t('about.how_to_use.step_3.title')
+        = t('about.about.how_to_use.step_3.title')
       %p.mb-4
-        = t('about.how_to_use.step_3.description_1')
+        = t('about.about.how_to_use.step_3.description_1')
         %br
-        = t('about.how_to_use.step_3.description_2')
+        = t('about.about.how_to_use.step_3.description_2')
       %h4.mb-4
-        = t('about.how_to_use.step_4.title')
+        = t('about.about.how_to_use.step_4.title')
       %p.mb-4
-        = t('about.how_to_use.step_4.description')
+        = t('about.about.how_to_use.step_4.description')
       %h4.mb-4
-        = t('about.how_to_use.step_5.title', optional: true)
+        = t('about.about.how_to_use.step_5.title', optional: true)
       %p.mb-4
-        = t('about.how_to_use.step_5.description', optional: true)
+        = t('about.about.how_to_use.step_5.description', optional: true)
       %h3#limitations.mb-4
-        = t('about.limitations.title')
+        = t('about.about.limitations.title')
       %h4.mb-4
-        = t('about.limitations.additional_visa_waiver.title')
+        = t('about.about.limitations.additional_visa_waiver.title')
       %p.mb-4
-        = t('about.limitations.additional_visa_waiver.description')
+        = t('about.about.limitations.additional_visa_waiver.description')
       %h4.mb-4
-        = t('about.limitations.countries_outside_schengen.title')
+        = t('about.about.limitations.countries_outside_schengen.title')
       %p.mb-4
-        = t('about.limitations.countries_outside_schengen.description')
+        = t('about.about.limitations.countries_outside_schengen.description')
       %h3#definitions.mb-4
-        = t('about.definitions.title')
+        = t('about.about.definitions.title')
       %h4.mb-4
-        = t('about.definitions.visits_travel_record.title')
+        = t('about.about.definitions.visits_travel_record.title')
       %p.mb-4  
         %strong
-          = t('about.definitions.visits_travel_record.entry_date')
-        = t('about.definitions.visits_travel_record.entry_date_description')
+          = t('about.about.definitions.visits_travel_record.entry_date')
+        = t('about.about.definitions.visits_travel_record.entry_date_description')
       %p.mb-4
         %strong
-          = t('about.definitions.visits_travel_record.exit_date')
-        = t('about.definitions.visits_travel_record.exit_date_description')
+          = t('about.about.definitions.visits_travel_record.exit_date')
+        = t('about.about.definitions.visits_travel_record.exit_date_description')
       %p.mb-4  
         %strong
-          = t('about.definitions.visits_travel_record.country')
-        = t('about.definitions.visits_travel_record.country_description')
+          = t('about.about.definitions.visits_travel_record.country')
+        = t('about.about.definitions.visits_travel_record.country_description')
       %p.mb-4  
         %strong
-          = t('about.definitions.visits_travel_record.schengen_area')
-        = t('about.definitions.visits_travel_record.schengen_area_description')
+          = t('about.about.definitions.visits_travel_record.schengen_area')
+        = t('about.about.definitions.visits_travel_record.schengen_area_description')
       %p.mb-4  
         %strong
-          = t('about.definitions.visits_travel_record.days_remaining')
-        = t('about.definitions.visits_travel_record.days_remaining_description')
+          = t('about.about.definitions.visits_travel_record.days_remaining')
+        = t('about.about.definitions.visits_travel_record.days_remaining_description')
       %p.mb-4  
         %strong
-          = t('about.definitions.visits_travel_record.days_over_stay')
-        = t('about.definitions.visits_travel_record.days_over_stay_description')
+          = t('about.about.definitions.visits_travel_record.days_over_stay')
+        = t('about.about.definitions.visits_travel_record.days_over_stay_description')
       %p.mb-4
         %strong
-          = t('about.definitions.visits_travel_record.visa')
-        = t('about.definitions.visits_travel_record.visa_description')
+          = t('about.about.definitions.visits_travel_record.visa')
+        = t('about.about.definitions.visits_travel_record.visa_description')
       %p.mb-4
         %strong
-          = t('about.definitions.visits_travel_record.no_entries')
-        = t('about.definitions.visits_travel_record.no_entries_description')
+          = t('about.about.definitions.visits_travel_record.no_entries')
+        = t('about.about.definitions.visits_travel_record.no_entries_description')
       %p.mb-4
         %strong
-          = t('about.definitions.visits_travel_record.visa_days_over_stay')
-        = t('about.definitions.visits_travel_record.visa_days_over_stay_description')
+          = t('about.about.definitions.visits_travel_record.visa_days_over_stay')
+        = t('about.about.definitions.visits_travel_record.visa_days_over_stay_description')
       %h4.mb-4
-        = t('about.definitions.short_stay_schengen_visa_record.title')
+        = t('about.about.definitions.short_stay_schengen_visa_record.title')
       %p.mb-4  
         %strong
-          = t('about.definitions.short_stay_schengen_visa_record.start_date')
-        = t('about.definitions.short_stay_schengen_visa_record.start_date_description')
+          = t('about.about.definitions.short_stay_schengen_visa_record.start_date')
+        = t('about.about.definitions.short_stay_schengen_visa_record.start_date_description')
       %p.mb-4  
         %strong
-          = t('about.definitions.short_stay_schengen_visa_record.end_date')
-        = t('about.definitions.short_stay_schengen_visa_record.end_date_description')
+          = t('about.about.definitions.short_stay_schengen_visa_record.end_date')
+        = t('about.about.definitions.short_stay_schengen_visa_record.end_date_description')
       %p.mb-4  
         %strong
-          = t('about.definitions.short_stay_schengen_visa_record.no_entries')
-        = t('about.definitions.short_stay_schengen_visa_record.no_entries_description')
+          = t('about.about.definitions.short_stay_schengen_visa_record.no_entries')
+        = t('about.about.definitions.short_stay_schengen_visa_record.no_entries_description')
       %h2#disclaimer.mb-4
-        = t('about.disclaimer.title')
+        = t('about.about.disclaimer.title')
       %p.mb-4
-        = t('about.disclaimer.description', link: link_to(t('about.disclaimer.link_text'), disclaimer_path)).html_safe
+        = t('about.about.disclaimer.description', link: link_to(t('about.about.disclaimer.link_text'), disclaimer_path(locale: I18n.locale))).html_safe
       %h3#updated.mb-4
-        = t('about.last_updated.title')
+        = t('about.about.last_updated.title')
       %p.mb-4
-        = t('about.last_updated.description', date: l(Time.new(2024, 1, 23), format: :mid))
+        = t('about.about.last_updated.description', date: l(Time.new(2024, 1, 23), format: :mid))
 :javascript
   $('body').scrollspy({ target: '.about-sidebar', offset: 130 })
   $('.about-sidebar li a').click(function(event) {event.preventDefault(); $( $(this).attr('href') )[0].scrollIntoView(); scrollBy(0, -120); });

@@ -1,7 +1,7 @@
-= form_for @visa, :html => {:class => "form-horizontal"} do |f|
+= form_for @visa, html: { class: "form-horizontal" } do |f|
   - if @visa.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@visa.errors.count, "error")} prohibited this visa from being saved:"
+      %h2= t('errors.prohibited_saving_visa', count: @visa.errors.count)
       %ul
         - @visa.errors.full_messages.each do |msg|
           %li= msg
@@ -9,19 +9,19 @@
     .col-sm-2.my-auto
       = f.label :start_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :start_date, {}, {:class => "form-control custom-select"}
+      = f.date_select :start_date, {}, { class: "form-control custom-select" }
   .form-group.row
     .col-sm-2.my-auto
       = f.label :end_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :end_date, {}, {:class => "form-control custom-select"}
+      = f.date_select :end_date, {}, { class: "form-control custom-select" }
   .form-group.row
     .col-sm-2.my-auto
       = f.label :no_entries, class: "col-form-label"
     .col-sm-10
       = f.number_field :no_entries, class: "form-control"
-      (enter 0 for multi/unlimited entries)
+      = t('common.multi_unlimited_entries')
   .actions
     .form-group.row
       .col-sm-12
-        = f.submit 'Save', class: "btn btn-primary form-btn float-right"
+        = f.submit t('common.save'), class: "btn btn-primary form-btn float-right"

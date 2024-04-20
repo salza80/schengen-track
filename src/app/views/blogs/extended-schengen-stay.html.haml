@@ -35,10 +35,10 @@
 %section
   %p= t('blog.extendedTravel.schengenButtonIntro')
   %p
-    = link_to t('blog.extendedTravel.schengenButtonTitle'), visits_path
+    = link_to t('blog.extendedTravel.schengenButtonTitle'), visits_path(locale: I18n.locale)
   %p
     = t('blog.extendedTravel.schengenAboutIntro')
-    = link_to t('blog.extendedTravel.schengenAboutLink'), about_path
+    = link_to t('blog.extendedTravel.schengenAboutLink'), about_path(locale: I18n.locale)
 
 %section
   %h2= t('blog.extendedTravel.conclusionTitle')

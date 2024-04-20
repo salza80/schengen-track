@@ -1,17 +1,17 @@
+
 .responsive-table-container
   %table.table.table-striped.table-bordered.table-hover.responsive-table
-    %caption
-      List of days in Schengen Calculaton with visit and calculation details.
+    %caption= t('days.table_caption')
     %thead.bg-header
       %tr.table-top-header
-        %th{ scope: "col" } Date
-        %th{ scope: "col" } Country 
-        %th{ scope: "col" } Schengen Area
-        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} Schengen Days Used
-        %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days you can stay in the Schengen Area if you entered on this day." } Max Remaining Days
+        %th{ scope: "col" }= t('days.table_headers.date')
+        %th{ scope: "col" }= t('days.table_headers.country')
+        %th{ scope: "col" }= t('days.table_headers.schengen_area')
+        %th{ scope: "col", "data-toggle":"tooltip", title: t('days.table_headers.schengen_days_used_tooltip') }= t('days.table_headers.schengen_days_used')
+        %th{ scope: "col", "data-toggle":"tooltip", title: t('days.table_headers.max_remaining_days_tooltip') }= t('days.table_headers.max_remaining_days')
         -if @overstay
-          %th{ scope: "col"} Overstay Days
-          %th{ scope: "col"} Overstay Re-Enter Wait (days) *
+          %th{ scope: "col" }= t('days.table_headers.overstay_days')
+          %th{ scope: "col", "data-toggle":"tooltip", title: t('days.table_headers.overstay_wait_tooltip') }= t('days.table_headers.overstay_wait')
     %tbody
       - @days.each_with_index do |day, index|
         %tr
@@ -21,27 +21,27 @@
             %span.d-md-none
               = "-"
               = day.country_name
-              = " (in Schengen Area)" if day.schengen? && day.hasCountry?
-              = " (outside Schengen Area)" if !day.schengen? && day.hasCountry?
+              = " (#{t('days.schengen_yes')})" if day.schengen? && day.hasCountry?
+              = " (#{t('days.schengen_no')})" if !day.schengen? && day.hasCountry?
           %th{ scope: "row", class: "d-none d-md-table-cell"}
             = day.country_name
-          %td{"data-title": "Schengen Area", class: "d-none d-md-table-cell"}
+          %td{"data-title": "#{t('days.table_headers.schengen_area')}", class: "d-none d-md-table-cell"}
             -if day.schengen?
-              Yes
+              = t('days.schengen_yes')
             - else
-              ="No"
-          %td{ "data-title": "Schengen Days Used","data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+              = t('days.schengen_no')
+          %td{ "data-title": "#{t('days.table_headers.schengen_days_used_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'warning' if day.warning?}"}
             = day.schengen_days_count || "-"
             - if day.remaining_wait
               *
-          %td{ "data-title": "Max Days Remaining","data-toggle":"tooltip",title:"The number of days you can stay continuously in the Schengen Area if you entered on this day.", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}
+          %td{ "data-title": "#{t('days.table_headers.max_remaining_days_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'warning' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}
             = day.max_remaining_days || "-"
           -if @overstay
-            %td{"data-title": "Overstay Days",  :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+            %td{"data-title": "#{t('days.table_headers.overstay_days')}", class: "#{'danger' if day.danger?} #{'warning' if day.warning?}"}
               = day.overstay_days 
-            %td{"data-title": "Overstay Wait Days", :class=>"#{'danger' if day.danger?} #{'warning' if day.warning?}"} 
+            %td{"data-title": "#{t('days.table_headers.overstay_wait_tooltip')}", class: "#{'danger' if day.danger?} #{'warning' if day.warning?}"}
               - if day.remaining_wait
-                =day.remaining_wait
+                = day.remaining_wait
                 *
               -else
-                N/A
+                = t('days.overstay_na')

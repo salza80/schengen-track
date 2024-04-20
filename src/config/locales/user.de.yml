@@ -1,0 +1,19 @@
+de:
+  log_in_page:
+    title: "Anmelden"
+    log_in_with_facebook: "Mit Facebook anmelden"
+    remember_me_label: "Erinnere dich an mich"
+    log_in_button: "Anmelden"
+    not_registered: "Noch nicht registriert?"
+    register_link: "Registrieren"
+    forgot_password: "Passwort vergessen?"
+    reset_password_link: "Passwort zurücksetzen"
+  sign_up_page:
+    title: "Registrieren"
+    sign_up_with_facebook: "Mit Facebook anmelden"
+    sign_up_button: "Registrieren"
+    already_registered: "Bereits registriert?"
+    log_in_link: "Einloggen"
+  new_password_page:
+    reset: "Zurücksetzen senden"
+

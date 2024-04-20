@@ -2,12 +2,12 @@
   <div class="card-body">
     <div class="row card-title">
       <div class="col-md-5">
-        <h3>Sign Up</h3>
+        <h3><%= t('sign_up_page.title') %></h3>
       </div>
       <div class="col-md-7">
         <div class="d-flex float-right">
           <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
-          <%= button_to "Log in with Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
+          <%= button_to t('log_in_page.log_in_with_facebook'), user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
         </div>
       </div>
     </div>
@@ -59,12 +59,12 @@
 
       <div class="form-group">
         <div class="col-sm-12">
-          <%= f.submit "Sign up", class: "btn btn-primary form-btn float-right" %>
+          <%= f.submit t('sign_up_page.sign_up_button'), class: "btn btn-primary form-btn float-right" %>
         </div>
       </div>
     <% end %>
   </div>
   <div class="card-footer">
-    Already registered? <%= link_to "Log in", new_session_path(resource_name) %><br />
+    <%= t('sign_up_page.already_registered') %> <%= link_to t('sign_up_page.log_in_link'), new_user_session_path(locale: I18n.locale) %><br />
   </div>
 </div>

@@ -1,57 +1,23 @@
-%h3
-  Schengen / Europe tourist travel entry and length of stay requirements for  
-  = @country.nationality_plural
-%h4
-  Do 
-  = @country.nationality_plural
-  need to apply for a Schengen Touist Visa before entry?
-%p
+%h3= t('about.nationality.tourist_travel_requirements_title', nationality_plural: @country.nationality_plural)
+%h4= t('about.nationality.schengen_visa_requirement_title', nationality_plural: @country.nationality_plural)
+%p.mb-4
   - if @country.visa_required == "F"
-    No. People from 
-    =@country.name
-    have freedom of movement withing the EU.
+    = t('about.nationality.visa_not_required', country: @country.name)
   - elsif @country.visa_required == "V"
-    Yes. People from 
-    = @country.name 
-    must apply for a short-stay schengen visa before entering the Schengen Area.
+    = t('about.nationality.visa_required', country: @country.name)
   - else
-    No. People from
-    = @country.name
-    are exempt from having to obtain a Schengen Visa prior to entry.
+    = t('about.nationality.visa_exempt', country: @country.name)
 
-%h4
-  Which Calculation do
-  = @country.nationality_plural 
-  need to use when calculating length of stay allowed?
-%p
-- if @country.old_schengen_calc
-  People from @country.name must use the OLD schengen calculation when working out how long they can stay in the schengen zone. 
-  This is defined as:
-  %blockquote
-    "3 months during a 6 months period following the date of first entry"
-    %footer
-      %cite{:title => "European Commision"}
-        =link_to "European Commision", "http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm"
--else
-  People from
-  =@country.name
-  must use the NEW schengen calculation when working out how long they can stay in the schengen zone.
-  This is defined as:
-  %blockquote
-    “90 days in any 180-day period […]“. “The date of entry shall be considered as the first day of stay on the territory of the Member States and the date of exit shall be considered as the last day of stay on the territory of the Member States. Periods of stay authorised under a residence permit or a long-stay visa shall not be taken into account in the calculation of the duration of stay on the territory of the Member States.”
-    %footer
-      %cite{:title => "European Commision"}
-        =link_to "European Commision", "http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm"
-%h4
-  Does 
-  = @country.name
-  have any Additional Visa Waiver agreements?
-%p
-- if @country.additional_visa_waiver
-  = @country.name
-  does have additional visa waiver agreements with some schengen countries. These agreements may allow you to stay the schengen area for longer than 90 days. You should exercise caution if you plan to do this, and seek advice before you travel. Note the Schengen Calculator does not take additional visa waiver agreements into account in its calculations. 
-- else
-  No. 
-  = @country.name
-  does not have any additional visa waiver agreements with countries in the schengen area.
+%h4= t('about.nationality.length_of_stay_calculation_title', nationality_plural: @country.nationality_plural)
+%p.mb-4
+  - if @country.old_schengen_calc
+    = raw(t('about.nationality.old_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
+  - else
+    = raw(t('about.nationality.new_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
 
+%h4= t('about.nationality.additional_visa_waiver_title', country: @country.name)
+%p.mb-4
+  - if @country.additional_visa_waiver
+    = t('about.nationality.additional_visa_waiver_description', country: @country.name)
+  - else
+    = t('about.nationality.no_additional_visa_waiver_description', country: @country.name)

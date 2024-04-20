@@ -53,4 +53,30 @@
     <loc>https://schengen-calculator.com/de/users/sign_up</loc>
     <priority>0.20</priority>
   </url>
+
+  <!-- Spanish URLs -->
+  <url>
+    <loc>https://schengen-calculator.com/es/</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/visits</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/disclaimer</loc>
+    <priority>0.10</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/users/sign_up</loc>
+    <priority>0.20</priority>
+  </url>
 </urlset>

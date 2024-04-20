@@ -18,3 +18,8 @@ test.schengen-calculator.com/de/about
 test.schengen-calculator.com/de/about/British
 test.schengen-calculator.com/de/about/American
 test.schengen-calculator.com/de/blog/extended-schengen-stay
+test.schengen-calculator.com/es
+test.schengen-calculator.com/es/about
+test.schengen-calculator.com/es/about/British
+test.schengen-calculator.com/es/about/American
+test.schengen-calculator.com/es/blog/extended-schengen-stay

@@ -1,0 +1,18 @@
+es:
+  log_in_page:
+    title: "Iniciar sesión"
+    log_in_with_facebook: "Iniciar sesión con Facebook"
+    remember_me_label: "Recordarme"
+    log_in_button: "Iniciar sesión"
+    not_registered: "¿Todavía no estás registrado?"
+    register_link: "Registrarse"
+    forgot_password: "¿Olvidaste tu contraseña?"
+    reset_password_link: "Restablecer contraseña"
+  sign_up_page:
+    title: "Registrarse"
+    sign_up_with_facebook: "Iniciar sesión con Facebook"
+    sign_up_button: "Registrarse"
+    already_registered: "¿Ya estás registrado?"
+    log_in_link: "Iniciar sesión"
+  new_password_page:
+    reset: "Enviar restablecimiento"

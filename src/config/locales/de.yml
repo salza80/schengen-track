@@ -1,0 +1,146 @@
+de:
+  time:
+    formats:
+      long: "%e. %B %Y"
+      mid: "%e. %B %Y"
+  about:
+    title: "Über den Schengen-Rechner"
+    introduction: "Einleitung"
+    calculator_description: |
+      Der Schengen-Rechner berechnet die Aufenthaltsdauer, die Sie mit einem kurzfristigen Schengen-Visum im Schengen-Raum reisen dürfen. Sie können ihn nutzen, um Ihre Besuche im Schengen-Raum zu verfolgen oder vorherzusagen, damit Sie wissen, wie viele Tage Ihnen noch bleiben, bevor Sie abreisen müssen.
+    get_started: "Jetzt loslegen"
+    useful_for_planning: |
+      Er ist besonders nützlich für die Planung von Reisen in Europa, die wahrscheinlich 90 Tage überschreiten werden. Indem Sie Ihre Reisen strategisch zwischen dem Schengen-Raum und Nicht-Schengen-Ländern planen, können Sie Ihre Reise verlängern. Wenn Sie oft zwischen Ländern reisen, kann es schwierig sein, zu verfolgen, wie lange Sie sich im Schengen-Raum aufgehalten haben, sich daran zu erinnern, welche Länder zum Schengen-Raum gehören, und zu berechnen, wann Sie nach einem Aufenthalt außerhalb wieder einreisen können. Geben Sie einfach Ihre Nationalität, Ihre früheren Reisen und geplanten Reisen in den Rechner ein, und er erledigt den Rest.
+    uk_citizens: "UK-Bürger / BREXIT"
+    new_rules_from: "Neue Regeln ab %{date}"
+    uk_citizens_can_use: "Ab dem %{date} können britische Staatsangehörige den Schengen-Rechner nutzen, um die erlaubten 90 Tage in einem Zeitraum von 180 Tagen für Touristenbesuche in der EU zu ermitteln."
+    more_information_link: "Weitere Informationen: gov.uk - Besuch in Europa ab 1. Januar 2021"
+    what_is_schengen: "Was ist der Schengen-Raum"
+    schengen_area_description: |
+      Der Schengen-Raum umfasst 27 europäische Länder ohne innere Grenzen. Bürger sowie viele Nicht-EU-Bürger, Geschäftsleute und Touristen können frei zirkulieren, ohne Grenzkontrollen zu durchlaufen. Seit 1985 hat er sich auf fast alle EU-Staaten und einige assoziierte Nicht-EU-Länder ausgedehnt.
+    countries_in_schengen: |
+      Die Länder im Schengen-Raum sind: Österreich, Belgien, Tschechische Republik, Kroatien, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Slowakei, Slowenien, Spanien, Schweden, Schweiz.
+    abolished_internal_borders: |
+      Obwohl sie ihre inneren Grenzen abgeschafft haben, haben die Schengen-Staaten eine gemeinsame Vereinbarung über die Außengrenzen auf der Grundlage der Schengen-Regeln. Dies macht es für Touristen sehr bequem, zwischen den Ländern des Schengen-Raums zu reisen. Es ist jedoch wichtig, die Regeln dafür zu verstehen, welches Visum vor der Einreise erforderlich ist (falls überhaupt) und wie lange Sie bleiben dürfen.
+    european_commission_website_link: "Website der Europäischen Kommission"
+    travelling_in_schengen: "Reisen im Schengen-Raum"
+    visa_requirements: "Visumanforderungen"
+    nationality_dependent_visa_requirement: |
+      Je nach Ihrer Staatsangehörigkeit müssen Sie möglicherweise ein Schengen-Visum für Kurzaufenthalte beantragen, bevor Sie in den Schengen-Raum einreisen. Die EU hat eine Liste der Länder, deren Bürger ein Visum beantragen müssen, und eine Liste der Länder, die von dieser Anforderung befreit sind. Ab dem 1. März 2015 sind die folgenden Länder von der Visumpflicht befreit:
+    exempt_countries_list: |
+      Albanien, Andorra, Antigua und Barbuda, Argentinien, Australien, Bahamas, Barbados, Bosnien und Herzegowina, Brasilien, Brunei, Kanada, Chile, Costa Rica, Kroatien, El Salvador, Ehemalige jugoslawische Republik Mazedonien (EJRM), Guatemala, Honduras, Hongkong, Israel, Japan, Malaysia, Macau, Mauritius, Mexiko, Monaco, Montenegro, Neuseeland, Nicaragua, Nördliche Marianen, Panama, Paraguay, St. Kitts und Nevis, Serbien, Seychellen, Singapur, Südkorea, Taiwan, Vereinigte Staaten, Uruguay und Venezuela.
+    exempt_countries_conditions: |
+      Bitte beachten Sie, dass für einige dieser Länder Bedingungen gelten. Zum Beispiel sind Bürger von Albanien, Bosnien und Herzegowina, Ehemalige jugoslawische Republik Mazedonien, Moldawien, Montenegro, Serbien von der Visumpflicht befreit, wenn der Reisepass biometrische Daten enthält.
+    non_eu_visa_requirement: |
+      Wenn Sie aus einem anderen Land (außerhalb der EU) stammen, müssen Sie ein Visum beantragen, bevor Sie reisen. Das Visum gibt an, wie lange es gültig ist, und die Anzahl der Einreisen (mehrfache Einreise - unbegrenzt), die erlaubt sind. Bitte beachten Sie, dass die "90 Tage innerhalb von 180 Tagen" unabhängig von den Anfangs- und Enddaten des Visums gilt. Verwenden Sie den Schengen-Rechner, um Ihre Visadetails einzugeben und Ihre erlaubte Aufenthaltsdauer zu berechnen.
+    length_of_stay_calculation: "Berechnung der Aufenthaltsdauer"
+    length_calculation_revision: "Die Berechnung zur Ermittlung der erlaubten Aufenthaltsdauer von Staatsangehörigen dritter Länder wurde überarbeitet und trat am %{date} in Kraft. Es gibt jedoch einige, die weiterhin die alte Berechnungsmethode verwenden müssen, darunter Antigua und Barbuda, die Bahamas, Barbados, Brasilien, St. Kitts und Nevis, Mauritius und Seychellen. Dieser Schengen-Rechner verwendet je nach Ihrer Staatsangehörigkeit und Reisedatum die alte oder neue Berechnungsmethode, sodass Staatsangehörige dieser Länder den Rechner weiterhin nutzen können."
+    new_definition_as_of_2013: "Neue Definition seit 2013"
+    90_days_definition_blockquote: |
+      "90 Tage innerhalb von 180 Tagen [...]". "Das Einreisedatum gilt als erster Aufenthaltstag auf dem Gebiet der Mitgliedstaaten, und das Ausreisedatum gilt als letzter Aufenthaltstag auf dem Gebiet der Mitgliedstaaten. Zeiträume, die mit einer Aufenthaltserlaubnis oder einem Langzeitvisum genehmigt wurden, werden bei der Berechnung der Aufenthaltsdauer auf dem Gebiet der Mitgliedstaaten nicht berücksichtigt."
+    european_commission_link: "Europäische Kommission"
+    calculation_description:
+      first_paragraph: "Diese Berechnung wird jetzt nur noch für Personen aus Antigua und Barbuda, den Bahamas, Barbados, Brasilien, St. Kitts und Nevis, Mauritius und den Seychellen angewendet, bei denen weiterhin die alte Definition der Schengen-Berechnung gilt."
+      second_paragraph: "Die alte Definition unterscheidet sich von einem „rollenden“ Zeitraum von 6 Monaten, da sie am Tag der ersten Einreise beginnt und dann 6 Monate nach diesem Datum zurückgesetzt wird. Mit dieser Berechnung können längere Aufenthalte als mit der neuen Definition ermöglicht werden. Wenn Sie zum Beispiel Anfang Januar für einen Tag eingereist sind und dann 3 Monate später für 3 Monate bis Ende Juni wieder eingereist sind, würde sich danach die 6-monatige Frist (ab Januar) zurücksetzen und Ihnen erlauben, weitere 3 Monate zu bleiben, was effektiv fast 6 Monate entspricht. Sie können jedoch nicht länger als 3 Monate am Stück bleiben, sodass Sie den Schengen-Raum verlassen und wieder betreten müssen."
+      third_paragraph: "Der Schengen-Rechner berücksichtigt dies, sodass Sie den Schengen-Rechner verwenden können, um mit Ein- und Ausreisedaten zu experimentieren und Ihren Aufenthalt zu maximieren."
+    additional_requirements:
+      heading: "Zusätzliche Visa-Verzichtsvereinbarungen"
+      first_paragraph: "Einige Länder haben zusätzliche Visa-Verzichtsvereinbarungen mit Ländern im Schengen-Raum, die einen zusätzlichen Aufenthalt von 90 Tagen in einem Zeitraum von 180 Tagen ermöglichen; diese werden jedoch in den 90 Tagen für andere Schengen-Länder berücksichtigt. Diese zusätzlichen Vereinbarungen sind oft wenig bekannt bei Reisenden!"
+      second_paragraph: "Derzeit berücksichtigt der Schengen-Rechner keine zusätzlichen Visa-Verzichtsvereinbarungen. Bitte informieren Sie sich selbst darüber."
+    nationality_section:
+      heading: "Schengen-/Europa-Touristenreise- und Aufenthaltsdaueranforderungen für meine Staatsangehörigkeit"
+      subheading: "Wählen Sie Ihre Staatsangehörigkeit, um Ihre Schengen-Anforderungen anzuzeigen"
+      select_prompt: "Land auswählen"
+      select_another_prompt: "Ein anderes Land auswählen"
+    button_text: "Zum Schengen-Rechner gehen, um loszulegen"
+    blog_link_intro: "Für etwas Inspiration zur Verwendung des Rechners für eine ausgedehnte Reise in Europa:"
+    how_to_use:
+      title: "So verwenden Sie den Schengen-Rechner"
+      step_1:
+        title: "Schritt 1:"
+        description: "Wählen Sie Ihre Nationalität aus. Sie können dies oben auf der Seite im Header ändern."
+      step_2:
+        title: "Schritt 2:"
+        description: "Geben Sie bei Bedarf die Details Ihres kurzfristigen Schengen-Visums ein. Dies erscheint unter dem Reisebericht nur, wenn es erforderlich ist."
+      step_3:
+        title: "Schritt 3:"
+        description_1: "Fügen Sie Ihren Reisebericht hinzu (Vergangenheit und Zukunft). Sie müssen mindestens alle Reisen im Schengen-Raum der letzten 180 Tage angeben."
+        description_2: "Es ist am besten, wenn Sie alle Ihre Bewegungen zwischen Ländern, Schengen- und Nicht-Schengen-Ländern sowie Reisen von einem Schengen-Land in ein anderes eingeben, da Sie möglicherweise nicht wissen, welche Länder Teil des Schengen-Abkommens sind oder nicht. Das Einreisedatum ist der Tag Ihrer Ankunft, und das Ausreisedatum ist der Tag Ihrer Abreise. Machen Sie sich keine Sorgen, wenn sich das Ausreisedatum mit dem Einreisedatum Ihres nächsten Besuchs überschneidet, der Rechner wird die Tage nicht doppelt zählen, wenn er Ihre Aufenthaltsdauer im Schengen-Raum berechnet."
+      step_4:
+        title: "Schritt 4:"
+        description: "Überprüfen Sie die Informationen zur Gültigkeit der Reise und zur verbleibenden Zeit, die Sie im Schengen-Raum bleiben können. Verwenden Sie den Rechner, um Szenarien zu testen, indem Sie Ihren geplanten Reisebericht ändern."
+      step_5:
+        title: "Schritt 5: (optional)"
+        description: "Um Ihren Reisebericht zu speichern, registrieren Sie sich und melden Sie sich an. Ihre bestehenden „Gast“-Daten werden in Ihr neues Konto kopiert. Sie können sich beim Schengen-Rechner registrieren oder mit Facebook einloggen und registrieren."
+        optional: true
+    limitations:
+      title: "Einschränkungen"
+      additional_visa_waiver:
+        title: "Zusätzliche Visa-Verzichtsvereinbarungen"
+        description: "Der Schengen-Rechner berücksichtigt keine zusätzlichen Visa-Verzichtsvereinbarungen, die möglicherweise existieren."
+      countries_outside_schengen:
+        title: "Länder außerhalb des Schengen-Raums"
+        description: "Der Schengen-Rechner gibt keine Informationen zu Visum, Einreisebestimmungen oder Aufenthaltsdaueranforderungen für Länder außerhalb des Schengen-Raums an. Diese werden als N/A - Nicht anwendbar markiert."
+    definitions:
+      title: "Definitionen der Feldnamen"
+      visits_travel_record:
+        title: "Besuche/Reisebericht"
+        entry_date: "Einreisedatum:"
+        entry_date_description: "Der Tag Ihrer Einreise in das Land"
+        exit_date: "Ausreisedatum:"
+        exit_date_description: "Der Tag Ihrer Ausreise aus dem Land"
+        country: "Land:"
+        country_description: "Das Land, das Sie besuchen"
+        schengen_area: "Schengen-Raum:"
+        schengen_area_description: "Ja = Ist im Schengen-Raum; Nein = Ist nicht im Schengen-Raum"
+        days_remaining: "Verbleibende Tage:"
+        days_remaining_description: "Die Anzahl der Tage, die Ihnen nach dem Ausreisedatum des Besuchs noch von den 90 Tagen im Schengen-Raum verbleiben."
+        days_over_stay: "Überzogene Tage:"
+        days_over_stay_description: "Anzahl der Tage, die über den 90 Tagen Ihres erlaubten Aufenthalts im Schengen-Raum liegen. Überprüfen Sie bitte Ihre Reisepläne!"
+        visa: "Visum:"
+        visa_description: "Dies bezieht sich nur auf ein Einzel-/Mehrfach-Schengen-Visum für Kurzaufenthalte, das Personen, die ein Visum vor der Einreise benötigen, beantragen müssen. Wenn Sie von dieser Anforderung befreit sind, werden die Visumsoptionen nicht angezeigt. Denken Sie daran, Ihre Nationalität in der rechten oberen Ecke der Seite auszuwählen!"
+        no_entries: "Keine Einträge:"
+        no_entries_description: "Anzahl der Male, die Sie in den Schengen-Raum eingereist sind / wieder eingereist sind. (Eine Reise von einem Schengen-Land in ein anderes wird nicht als erneute Einreise betrachtet. Wenn jedoch mehr als ein Tag zwischen dem Verlassen eines Schengen-Landes und dem Betreten des nächsten liegt, geht der Rechner davon aus, dass Sie den Schengen-Raum verlassen haben, und zählt es als erneute Einreise."
+        visa_days_over_stay: "Visumtage überzogen:"
+        visa_days_over_stay_description: "Die Anzahl der Tage im Schengen-Raum ohne Genehmigung auf Ihrem Visum. Entweder haben Sie kein Visum eingegeben, Sie sind nach dem Enddatum des Visums ausgereist oder Sie sind öfter in den Schengen-Raum eingereist, als auf dem Visum erlaubt war."
+      short_stay_schengen_visa_record:
+        title: "Aufzeichnung des kurzfristigen Schengen-Visums"
+        start_date: "Startdatum:"
+        start_date_description: "Der erste Tag des Visumzeitraums"
+        end_date: "Enddatum:"
+        end_date_description: "Der letzte Tag des Visumzeitraums"
+        no_entries: "Keine Einträge:"
+        no_entries_description: "Die Anzahl der Einreisen, die mit dem Visum erlaubt sind. Wenn es sich um ein Mehrfacheinreisevisum handelt, geben Sie 0 ein."
+    disclaimer:
+      title: "Haftungsausschluss"
+      description: "Bitte lesen Sie den %{link} bevor Sie den Schengen-Rechner verwenden."
+      link_text: "Haftungsausschluss"
+    last_updated:
+      title: "Zuletzt aktualisiert"
+      description: "Zuletzt aktualisiert am: %{date}"
+  blog:
+    extendedTravel:
+      title: "Wie können Sie ausgedehnte Europareisen unternehmen und mehr als 90 Tage in Europa bleiben?"
+      author: "Von %{name}"
+      intro: "Möchten Sie länger als 90 Tage in Europa bleiben? Wir erklären, wie Sie es legal tun können, mit einer Mischung aus kurz- und langfristigen Aufenthalten, klugem Grenzmanagement und Reisen in Nicht-Schengen-Länder."
+      read_more: "Mehr lesen"
+  headlines:
+    title: "Schlagzeilen"
+    intro: "Neuigkeiten und Entwicklungen zum Thema Schengen-Visum und Reisen in Europa"
+  navigation:
+    about: "Über"
+    home: "Startseite"
+    blog: "Blog"
+    contact: "Kontakt"
+    language: "Sprache"
+  footer:
+    copyright: "© %{year} Alle Rechte vorbehalten."
+    disclaimer: "Haftungsausschluss"
+    privacy_policy: "Datenschutz"
+    about_us: "Über uns"
+    contact_us: "Kontakt"
+    language: "Sprache"
+    select_language: "Sprache auswählen"
+  languages:
+    english: "Englisch"
+    german: "Deutsch"

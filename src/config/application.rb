@@ -11,6 +11,7 @@ module SchengenTrack
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
+    config.i18n.available_locales = [:en, :de]
 
     # Configuration for the application, engines, and railties goes here.
     #

@@ -1,34 +1,43 @@
 .responsive-table-container
   %table.table.table-striped.table-bordered.table-hover.responsive-table
     %caption
-      List of countries visited or that you have visited in the last 180 days, and are planning to visit in the future.
+      = t('visits.list_caption')
     %thead.bg-header
       %tr.table-top-header
-        %th.center-heading{ colspan: "4", scope: "col" } Travel Details
-        -if current_user_or_guest_user.visa_required?
-          %th.center-heading{ colspan: "3",  scope: "col" } Visa Details
-        %th.center-heading{ colspan: "2",  scope: "col"  } Days in Schengen Area
+        %th.center-heading{ colspan: "4", scope: "col" } 
+          = t('visits.travel_details')
+        - if current_user_or_guest_user.visa_required?
+          %th.center-heading{ colspan: "3", scope: "col" }
+            = t('visits.visa_details')
+        %th.center-heading{ colspan: "2", scope: "col" }
+          = t('visits.schengen_days')
         %th.center-heading{ scope: "col", class: "modify-col" }
+          = t('visits.modify')
       %tr
-        %th{ scope: "col" } Dates
-        %th{ scope: "col" } Country 
-        %th{ scope: "col" , "data-toggle":"tooltip",title:"Indicates if the country of this visit is included in the Schengen Area." } 
-          Schengen
-          %br Area
-        %th{ scope: "col" , "data-toggle":"tooltip",title:"The number of days of this visit." } No. Days
-        -if current_user_or_guest_user.visa_required?
-          %th{ scope: "col", "data-toggle":"tooltip",title:"Indicates if a Visa for for the period of travel been entered."  } Exits?
-          %th{ scope: "col", "data-toggle":"tooltip",title:"The number entries allowed on this Visa"  } No. Entries
-          %th{ scope: "col", "data-toggle":"tooltip",title:"The number of days inside the Schengen Area not allowed by the Visa's Entered." } Days Overstay
-        %th{ scope: "col" , "data-toggle":"tooltip",title:"The number of days inside the Schengen Area in the previous 180 days."} 
-          Schengen Days
-          %br Calculation
-        %th{ scope: "col", "data-toggle":"tooltip",title:"The number days in the Schengen Area over the allowed number of days"  } Days Overstay
-        %th{ scope: "col" }      
+        %th{ scope: "col" } 
+          = t('visits.dates')
+        %th{ scope: "col" } 
+          = t('visits.country')
+        %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_area_tooltip') } 
+          = t('visits.schengen_area')
+        %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_days_tooltip') } 
+          = t('visits.no_days')
+        - if current_user_or_guest_user.visa_required?
+          %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.exits_tooltip') }
+            = t('visits.exits')
+          %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_entries_tooltip') }
+            = t('visits.no_entries')
+          %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
+            = t('visits.days_overstay')
+        %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_days_calculation_tooltip') }
+          = t('visits.schengen_days_calculation')
+        %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
+          = t('visits.days_overstay')
+        %th{ scope: "col", "data-toggle": "tooltip" }
     %tbody
       - @visits.each do |visit|
         %tr
-          %th{ scope: "row", class: 'bg-md-header'}
+          %th{ scope: "row", class: 'bg-md-header' }
             %span.d-md-none
               = visit.country.name
             %span.no-wrap
@@ -38,42 +47,39 @@
               = visit.exit_date.strftime('%d-%b-%Y')
             %span.d-md-none
               (
-              =visit.no_days
-              days
-              = " in Schengen Zone" if visit.schengen?
-              = " outside Schengen Zone" if !visit.schengen?
+              = visit.no_days
+              = t('visits.day_plural', count: visit.no_days)
+              = t('visits.days_in_schengen_zone') if visit.schengen?
+              = t('visits.days_outside_schengen_zone') if !visit.schengen?
               )
-          %th{ scope: "col", class: "d-none d-md-table-cell"}
+          %th{ scope: "col", class: "d-none d-md-table-cell" }
             = visit.country.name
-          %td{"data-title": "Schengen Area", class: "d-none d-md-table-cell"} 
-            = visit.schengen? ? "Yes" : "No"
-          %td{ "data-title": "No. Days", class: "d-none d-md-table-cell"} 
+          %td{ "data-title": t('visits.schengen_area'), class: "d-none d-md-table-cell" } 
+            = visit.schengen? ? t('common.yes') : t('common.no')
+          %td{ "data-title": t('common.no_days'), class: "d-none d-md-table-cell" } 
             = visit.no_days
-          -if current_user_or_guest_user.visa_required?
-            %td{ "data-title": "Visa Exists", class: (!visit.visa_exists? && visit.schengen? ? "table-danger" :  "d-none d-md-table-cell")}
-              -if visit.schengen? == false
-                = "NA"
-              -elsif visit.visa_exists?
-                ="Yes"
-              -else
-                ="No"
-            %td{ "data-title" => "Visa Entry Count", class: ("table-danger" if visit.visa_entry_overstay?).to_s + (" d-none d-md-table-cell" if !visit.visa_entry_overstay? && visit.visa_entries_allowed == 0).to_s }
-              -if visit.visa_exists?
-                = visit.visa_entry_count
-                of
-                = visit.visa_entries_allowed == 0 ? "Multi" : visit.visa_entries_allowed
-              -elsif visit.schengen? == false
-                N/A
-              -else
-                Visa Required!
-            %td{ "data-title": "Visa Days Overstay", class: (visit.visa_exists? == false && visit.schengen? ? "table-danger" : "d-none d-md-table-cell") }
+          - if current_user_or_guest_user.visa_required?
+            %td{ "data-title": t('visits.visa_exists'), class: (!visit.visa_exists? && visit.schengen? ? "table-danger" : "d-none d-md-table-cell") }
+              - if visit.schengen? == false
+                = t('common.na')
+              - elsif visit.visa_exists?
+                = t('common.yes')
+              - else
+                = t('common.no')
+            %td{ "data-title": t('visits.visa_entry_count'), class: ("table-danger" if visit.visa_entry_overstay?).to_s + (" d-none d-md-table-cell" if !visit.visa_entry_overstay? && visit.visa_entries_allowed == 0).to_s }
+              - if visit.visa_exists?
+                = "#{visit.visa_entry_count} #{t('common.of')} #{visit.visa_entries_allowed == 0 ? t('visits.multi') : visit.visa_entries_allowed}"
+              - elsif visit.schengen? == false
+                = t('common.na')
+              - else
+                = t('visits.visa_required')
+            %td{ "data-title": t('visits.visa_days_overstay'), class: (visit.visa_exists? == false && visit.schengen? ? "table-danger" : "d-none d-md-table-cell") }
               = visit.visa_overstay_days
-          %td{ "data-title": "Schengen days Used" }
-            = visit.schengen_days
-            of 90 days
-          %td{ "data-title" => "Schengen Days Overstay", class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
+          %td{ "data-title": t('visits.schengen_days') }
+            = "#{visit.schengen_days} #{t('common.of')} 90 #{t('visits.days')}"
+          %td{ "data-title": t('visits.schengen_days_overstay'), class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
             = visit.schengen_overstay_days
-          %td{ "data-title": "Modify" }
-            = link_to 'Edit', edit_visit_path(locale: I18n.locale, id: visit.id)
+          %td{ "data-title": t('visits.modify') }
+            = link_to t('visits.edit'), edit_visit_path(locale: I18n.locale, id: visit.id)
             = " / "
-            = link_to 'Delete', visit, :method => :delete, :data => { :confirm => 'Are you sure?' }
+            = link_to t('visits.delete'), visit, method: :delete, data: { confirm: t('visits.delete_confirm') }

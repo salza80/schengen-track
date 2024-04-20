@@ -17,9 +17,9 @@
       = f.date_select :exit_date, {}, { class: "form-control custom-select" }
   .form-group.row
     .col-sm-2.my-auto
-      = f.label "Continent", class: "col-form-label"
+      = f.label t('common.continent'), class: "col-form-label"
     .col-sm-10
-      = select_tag "Continent", options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select"
+      = select_tag t('common.continent'), options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select"
   .form-group.row
     .col-sm-2.my-auto
       = f.label :country_id, class: "col-form-label"

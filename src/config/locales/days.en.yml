@@ -12,3 +12,7 @@ en:
     schengen_yes: "Yes"
     schengen_no: "No"
     overstay_na: "N/A"
+    schengen_visa_calculation_by_day: "Schengen Visa Calculation by Day"
+    max_remaining_days: "Max remaining days - Is the maximum amount of time you can stay in the Schengen area if you re-enter on this day."
+    overstay_warning: "* the Schengen Calculator warns on re-entry for 180 days after an 'overstay' of the allowed days. This is not the law!, you need to check with the appropriate authorities if this may affect you. You may be banned from re-entry for years if caught overstaying the Schengen tourist visa rules. Please use this as a guide only."
+

@@ -1,15 +1,18 @@
-%h3 Schengen Visa Calculation by Day
-Max remaining days - Is the maximum amount of time you can stay in the schengen area if you re-enter on this day.
--if @overstay
-  <small>* the Schengen Calculator warns on re-entry for 180 days after an "overstay" of the allowed days. This is not the law!, you need to check with the appropriate authorities if this may affect you. You may be banned from re-entry for years if caught overstaying the schengen tourist visa rules. Please use this as a guide only. </small>
+%h3= t('days.schengen_visa_calculation_by_day')
+%p
+  = t('days.max_remaining_days')
+  - if @overstay
+    %small
+      = t('days.overstay_warning')
 
 .row
   .col-md-12.text-right
-    = link_to 'back', visits_path(locale: I18n.locale)
+    = link_to t('common.back'), visits_path(locale: I18n.locale)
+
 .row
   .col-md-12
     = render 'dayslist'
+
 .row
   .col-md-12
-    = link_to 'back', visits_path(locale: I18n.locale)
-
+    = link_to t('common.back'), visits_path(locale: I18n.locale)

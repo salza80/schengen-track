@@ -227,7 +227,7 @@
       %h2#disclaimer.mb-4
         = t('about.about.disclaimer.title')
       %p.mb-4
-        = t('about.about.disclaimer.description', link: link_to(t('about.about.disclaimer.link_text'), disclaimer_(locale: I18n.locale))).html_safe
+        = t('about.about.disclaimer.description', link: link_to(t('about.about.disclaimer.link_text'), disclaimer_path(locale: I18n.locale))).html_safe
       %h3#updated.mb-4
         = t('about.about.last_updated.title')
       %p.mb-4

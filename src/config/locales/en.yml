@@ -3,3 +3,20 @@ en:
     formats:
       long: "%B %e, %Y"
       mid: "%e %B %Y"
+  errors:
+    prohibited_saving_visa: "%{count} error prohibited this visa from being saved:"
+  common:
+    schengen_calculator: "Schengen Calculator"
+    schengen: "Schengen"
+    visa: "Visa"
+    calculator: "Calculator"
+    about: "About"
+    log_out: "Log out"
+    login: "Login"
+    edit_my_details: "Edit My Details"
+    back: "Back"
+    multi_unlimited_entries: "(enter 0 for multi/unlimited entries)"
+    save: "Save"
+
+
+

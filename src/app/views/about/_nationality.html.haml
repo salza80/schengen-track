@@ -1,23 +1,23 @@
-%h3= t('about.tourist_travel_requirements_title', nationality_plural: @country.nationality_plural)
-%h4= t('about.schengen_visa_requirement_title', nationality_plural: @country.nationality_plural)
+%h3= t('about.nationality.tourist_travel_requirements_title', nationality_plural: @country.nationality_plural)
+%h4= t('about.nationality.schengen_visa_requirement_title', nationality_plural: @country.nationality_plural)
 %p.mb-4
   - if @country.visa_required == "F"
-    = t('about.visa_not_required', country: @country.name)
+    = t('about.nationality.visa_not_required', country: @country.name)
   - elsif @country.visa_required == "V"
-    = t('about.visa_required', country: @country.name)
+    = t('about.nationality.visa_required', country: @country.name)
   - else
-    = t('about.visa_exempt', country: @country.name)
+    = t('about.nationality.visa_exempt', country: @country.name)
 
-%h4= t('about.length_of_stay_calculation_title', nationality_plural: @country.nationality_plural)
+%h4= t('about.nationality.length_of_stay_calculation_title', nationality_plural: @country.nationality_plural)
 %p.mb-4
   - if @country.old_schengen_calc
-    = raw(t('about.old_calculation_description', country: @country.name, european_commision_link: link_to(t('about.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
+    = raw(t('about.nationality.old_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
   - else
-    = raw(t('about.new_calculation_description', country: @country.name, european_commision_link: link_to(t('about.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
+    = raw(t('about.nationality.new_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
 
-%h4= t('about.additional_visa_waiver_title', country: @country.name)
+%h4= t('about.nationality.additional_visa_waiver_title', country: @country.name)
 %p.mb-4
   - if @country.additional_visa_waiver
-    = t('about.additional_visa_waiver_description', country: @country.name)
+    = t('about.nationality.additional_visa_waiver_description', country: @country.name)
   - else
-    = t('about.no_additional_visa_waiver_description', country: @country.name)
+    = t('about.nationality.no_additional_visa_waiver_description', country: @country.name)

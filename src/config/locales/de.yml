@@ -1,4 +1,14 @@
 de:
+  #form helpers
+  helpers:
+    label:
+      user:
+        first_name: "Vorname"
+        last_name: "Nachname"
+        nationality: "Nationalität"
+        email: "E-Mail"
+        password: "Passwort"
+        password_confirmation: "Passwort Bestätigung"
   time:
     formats:
       long: "%e. %B %Y"
@@ -64,6 +74,7 @@ de:
     visa: "Visum"
     calculator: "Rechner"
     about: "Über uns"
+    about_page: "Über Seite"
     log_out: "Abmelden"
     login: "Anmelden"
     edit_my_details: "Meine Angaben bearbeiten"

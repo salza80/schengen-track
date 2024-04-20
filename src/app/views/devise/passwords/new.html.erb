@@ -2,16 +2,18 @@
   <div class="card-body">
     <div class="row card-title">
       <div class="col-md-5">
-        <h3>Forgot your password?</h3>
+        <h3>
+         <%=t('log_in_page.forgot_password') %>
+        </h3>
       </div>
       <div class="col-md-7">
         <div class="d-flex float-right">
           <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
-          <%= link_to "Log in with Facebook", omniauth_authorize_path(resource_name, "facebook", method: :post), class: "btn btn-link" %><br />
+          <%= button_to t('log_in_page.log_in_with_facebook'), user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
         </div>
       </div>
     </div>
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form-horizontal" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: user_password_path(locale: I18n.locale), html: { method: :post, class: "form-horizontal" }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
       <div class="form-group row">
         <%= f.label :email, class: "col-sm-2 col-form-label" %>
@@ -21,13 +23,13 @@
       </div>
       <div class="form-group">
         <div class="col-sm-12">
-          <%= f.submit "Send Reset", class: "btn btn-primary form-btn float-right" %>
+          <%= f.submit t("new_password_page.reset"), class: "btn btn-primary form-btn float-right" %>
         </div>
       </div>
     <% end %>
   </div>
   <div class="card-footer">
-    Not yet registered? <%= link_to "Register", new_registration_path(resource_name) %><br />
-    Already registered? <%= link_to "Log in", new_session_path(resource_name) %><br />
+    <%= t('log_in_page.not_registered') %> <%= link_to t('log_in_page.register_link'), new_user_registration_path(locale: I18n.locale) %><br />
+    <%= t('sign_up_page.already_registered') %> <%= link_to t('sign_up_page.log_in_link'), new_user_session_path(locale: I18n.locale) %><br />
   </div>
 </div>

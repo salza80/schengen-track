@@ -1,4 +1,13 @@
 en:
+  helpers:
+    label:
+      user:
+        first_name: "First Name"
+        last_name: "Last Name"
+        Nationality: "Nationality"
+        email: "Email"
+        password: "Password"
+        password_confirmatio: "Password Confirmation"
   time:
     formats:
       long: "%B %e, %Y"
@@ -11,6 +20,7 @@ en:
     visa: "Visa"
     calculator: "Calculator"
     about: "About"
+    about_page: "About page"
     log_out: "Log out"
     login: "Login"
     edit_my_details: "Edit My Details"

@@ -2,25 +2,25 @@
   <div class="card-body">
     <div class="row card-title">
       <div class="col-md-5">
-        <h3>Log In</h3>
+        <h3><%= t('log_in_page.title') %></h3>
       </div>
       <div class="col-md-7">
         <div class="d-flex float-right">
           <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
-          <%= button_to "Log in with Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
+          <%= button_to t('log_in_page.log_in_with_facebook'), user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
         </div>
       </div>
     </div>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login', class: "form-horizontal" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: user_session_path(locale: I18n.locale), html: { id: 'login', class: "form-horizontal" }) do |f| %>
       <div class="form-group row">
-        <%= f.label :email, class: "col-sm-2 col-form-label" %>
+        <%= f.label t('log_in_page.email_label'), class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.email_field :email, autofocus: true, class: "form-control" %>
         </div>
       </div>
 
       <div class="form-group row">
-        <%= f.label :password, class: "col-sm-2 col-form-label" %>
+        <%= f.label t('log_in_page.password_label'), class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
         </div>
@@ -28,11 +28,10 @@
 
       <% if devise_mapping.rememberable? -%>
         <div class="form-group row">
-          <%= f.label :remember_me, class: "form-check-label col-form-label col-sm-2" %>
+          <%= f.label t('log_in_page.remember_me_label'), class: "form-check-label col-form-label col-sm-2" %>
           <div class="col-sm-10">
             <div class="form-check">
               <%= f.check_box :remember_me, class: "form-check-input" %>
-             
             </div>
           </div>
         </div>
@@ -40,13 +39,13 @@
 
       <div class="form-group row">
         <div class="col-sm-12">
-          <%= f.submit "Log in", class: "btn btn-primary form-btn float-right" %>
+          <%= f.submit t('log_in_page.log_in_button'), class: "btn btn-primary form-btn float-right" %>
         </div>
       </div>
     <% end %>
   </div>
   <div class="card-footer">
-    Not yet registered? <%= link_to "Register", new_registration_path(resource_name) %><br />
-    Forgot your password? <%= link_to "Reset Password", new_password_path(resource_name) %><br />
+    <%= t('log_in_page.not_registered') %> <%= link_to t('log_in_page.register_link'), new_user_registration_path(locale: I18n.locale) %><br />
+    <%= t('log_in_page.forgot_password') %> <%= link_to t('log_in_page.reset_password_link'), new_user_password_path(locale: I18n.locale) %><br />
   </div>
 </div>

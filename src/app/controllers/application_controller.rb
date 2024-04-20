@@ -5,16 +5,31 @@ class ApplicationController < ActionController::Base
   before_action :set_cache_cookie, unless: :task_controller?
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  #protect_from_forgery with: :exception
-  skip_before_action :verify_authenticity_token
+  protect_from_forgery with: :exception
+  # skip_before_action :verify_authenticity_token
 
   helper_method :current_user_or_guest_user, :amazon
-  around_action :switch_locale
+  # around_action :switch_locale
 
-  def switch_locale(&action)
-    locale = params[:locale] || I18n.default_locale
-    I18n.with_locale(locale, &action)
+  before_action :set_locale_from_params
+
+  def default_url_options
+    { locale: I18n.locale }
   end
+  private
+
+  def set_locale_from_params
+    puts params[:locale]
+    I18n.locale = params[:locale] || I18n.default_locale
+    puts I18n.locale
+  end
+  # def switch_locale(&action)
+  #   puts "here"
+  #   puts &action
+  #   puts params[:locale]
+  #   locale = params[:locale] || I18n.default_locale
+  #   I18n.with_locale(locale, &action)
+  # end
 
   def amazon
     visits = current_user_or_guest_user.visits.find_by_date(Date.today + 1.month, Date.new(3000, 1, 1))

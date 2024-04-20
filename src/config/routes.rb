@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  scope "(:locale)", locale: /en|de/, defaults: { locale: I18n.default_locale } do
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     root 'about#about'
 
     resources :visits
@@ -22,7 +22,9 @@ Rails.application.routes.draw do
     get 'create' => 'tasks#create'
     get 'seed' => 'tasks#seed'
     get 'update_countries' => 'tasks#update_countries'
-  end
 
-  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
+    devise_for :users, skip: :omniauth_callbacks, controllers: {registrations: 'users/registrations'}
+
+  end
+  devise_for :users, only: :omniauth_callbacks, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
 end

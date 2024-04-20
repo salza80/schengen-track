@@ -13,6 +13,9 @@ module SchengenTrack
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
     config.i18n.available_locales = [:en, :de]
 
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+      html_tag
+    }
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

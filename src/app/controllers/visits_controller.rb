@@ -45,8 +45,6 @@ class VisitsController < ApplicationController
   # POST /visits.json
   def create
     @visit = current_user_or_guest_user.visits.build(visit_params) 
-    puts "heres"
-    puts I18n.locale
     respond_to do |format|
       if @visit.save
         format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }

@@ -2,8 +2,6 @@ de:
   log_in_page:
     title: "Anmelden"
     log_in_with_facebook: "Mit Facebook anmelden"
-    email_label: "E-Mail"
-    password_label: "Passwort"
     remember_me_label: "Erinnere dich an mich"
     log_in_button: "Anmelden"
     not_registered: "Noch nicht registriert?"

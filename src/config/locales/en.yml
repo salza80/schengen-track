@@ -2,8 +2,8 @@ en:
   helpers:
     label:
       user:
-        first_name: "First Name"
-        last_name: "Last Name"
+        first_name: "First name"
+        last_name: "Last name"
         Nationality: "Nationality"
         email: "Email"
         password: "Password"
@@ -22,7 +22,7 @@ en:
     about: "About"
     about_page: "About page"
     log_out: "Log out"
-    login: "Login"
+    login: "Log in"
     edit_my_details: "Edit My Details"
     back: "Back"
     multi_unlimited_entries: "(enter 0 for multi/unlimited entries)"

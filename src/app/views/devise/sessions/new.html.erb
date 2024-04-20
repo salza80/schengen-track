@@ -11,16 +11,16 @@
         </div>
       </div>
     </div>
-    <%= form_for(resource, as: resource_name, url: user_session_path(locale: I18n.locale), html: { id: 'login', class: "form-horizontal" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login', class: "form-horizontal" }) do |f| %>
       <div class="form-group row">
-        <%= f.label t('log_in_page.email_label'), class: "col-sm-2 col-form-label" %>
+        <%= f.label :email, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.email_field :email, autofocus: true, class: "form-control" %>
         </div>
       </div>
 
       <div class="form-group row">
-        <%= f.label t('log_in_page.password_label'), class: "col-sm-2 col-form-label" %>
+        <%= f.label :password, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
         </div>

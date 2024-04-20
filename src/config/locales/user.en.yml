@@ -2,8 +2,6 @@ en:
   log_in_page:
     title: "Log In"
     log_in_with_facebook: "Log in with Facebook"
-    email_label: "Email"
-    password_label: "Password"
     remember_me_label: "Remember me"
     log_in_button: "Log in"
     not_registered: "Not yet registered?"

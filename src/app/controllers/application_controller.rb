@@ -19,14 +19,9 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale_from_params
-    puts params[:locale]
     I18n.locale = params[:locale] || I18n.default_locale
-    puts I18n.locale
   end
   # def switch_locale(&action)
-  #   puts "here"
-  #   puts &action
-  #   puts params[:locale]
   #   locale = params[:locale] || I18n.default_locale
   #   I18n.with_locale(locale, &action)
   # end

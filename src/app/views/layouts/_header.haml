@@ -16,7 +16,7 @@
           %span
             = t('common.calculator')
       %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'about'))}
-        %a.nav-link.btn-lg{href: about_path}
+        %a.nav-link.btn-lg{href: about_path(locale: I18n.locale)}
           %span.fa.fa-info-circle{"aria-hidden": "true"}
           %span
             = t('common.about')
@@ -25,9 +25,9 @@
       %p.current-setting.navbar-text.pr-2
         = current_user_or_guest_user.full_name
         %br
-        = link_to current_user_or_guest_user.nationality.name, my_details_path
+        = link_to current_user_or_guest_user.nationality.name, my_details_path(locale: I18n.locale)
   .form-inline.ml-auto
     - if user_signed_in?
       = link_to t('common.log_out'), destroy_user_session_path,  method: :delete,  class: 'btn btn-primary log-in-link'
     - else 
-      = link_to t('common.login'), new_user_session_path, class: 'btn btn-primary'
+      = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary'

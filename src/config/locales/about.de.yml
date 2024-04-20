@@ -130,9 +130,74 @@ de:
         title: "Zuletzt aktualisiert"
         description: "Zuletzt aktualisiert: %{date}"
     nationality:
-      tourist_travel_requirements_title: "Touristische Reise- und Aufenthaltsanforderungen für den Schengen- / Europaraum für %{nationality_plural}"
-      schengen_visa_requirement_title: "Müssen %{nationality_plural} einen Schengen-Touristenvisum beantragen, bevor sie einreisen?"
-      visa_not_required: "Nein. Menschen aus %{country} haben innerhalb der EU Reisefreiheit."
-      visa_required: "Ja. Menschen aus %{country} müssen vor der Einreise in den Schengen-Raum ein Kurzaufenthaltsvisum für Schengen beantragen."
-      visa_exempt: "Nein. Menschen aus %{country} sind von der Verpflichtung befreit, vor der Einreise in den Schengen-Raum ein Kurzaufenthaltsvisum für Schengen zu beantragen."
-      exemption_details: "Bürger aus %{country} sind von der Visumpflicht für kurze Aufenthalte im Schengen-Raum befreit."
+      tourist_travel_requirements_title: "Schengen / Europäische Touristenreise Einreise- und Aufenthaltsbestimmungen für %{nationality_plural}"
+      schengen_visa_requirement_title: "Müssen %{nationality_plural} vor der Einreise ein Schengen-Touristenvisum beantragen?"
+      visa_not_required: "Nein. Personen aus %{country} haben innerhalb der EU Freizügigkeit."
+      visa_required: "Ja. Personen aus %{country} müssen vor der Einreise in den Schengen-Raum ein Schengen-Visum für Kurzaufenthalte beantragen."
+      visa_exempt: "Nein. Personen aus %{country} sind von der Pflicht befreit, vor der Einreise ein Schengen-Visum zu erhalten."
+      length_of_stay_calculation_title: "Welche Berechnung müssen %{nationality_plural} verwenden, um die erlaubte Aufenthaltsdauer zu berechnen?"
+      old_calculation_description: |
+        Personen aus %{country} müssen die ALTE Schengen-Berechnung verwenden, wenn sie die Aufenthaltsdauer in der Schengen-Zone berechnen.
+        Diese ist definiert als:
+        "3 Monate innerhalb eines Zeitraums von 6 Monaten nach dem Datum der ersten Einreise"
+        Weitere Informationen finden Sie unter %{european_commision_link}.
+      new_calculation_description: |
+        Personen aus %{country} müssen die NEUE Schengen-Berechnung verwenden, wenn sie die Aufenthaltsdauer in der Schengen-Zone berechnen.
+        Diese ist definiert als:
+        "90 Tage innerhalb eines Zeitraums von 180 Tagen […]. Das Einreisedatum gilt als erster Tag des Aufenthalts auf dem Gebiet der Mitgliedstaaten und das Ausreisedatum gilt als letzter Tag des Aufenthalts auf dem Gebiet der Mitgliedstaaten. Aufenthaltszeiträume, die aufgrund eines Aufenthaltstitels oder eines Visums für langfristige Aufenthalte genehmigt wurden, werden bei der Berechnung der Aufenthaltsdauer auf dem Gebiet der Mitgliedstaaten nicht berücksichtigt."
+        Weitere Informationen finden Sie unter %{european_commision_link}.
+      european_commision_link: "Europäische Kommission"
+      additional_visa_waiver_title: "Hat %{country} zusätzliche Visa-Waiver-Vereinbarungen?"
+      additional_visa_waiver_description: |
+        %{country} hat zusätzliche Visa-Waiver-Vereinbarungen mit einigen Schengen-Ländern. Diese Vereinbarungen können es Ihnen ermöglichen, länger als 90 Tage im Schengen-Raum zu bleiben. Wenn Sie dies planen, sollten Sie Vorsicht walten lassen und vor Reiseantritt Rat einholen. Beachten Sie, dass der Schengen-Rechner zusätzliche Visa-Waiver-Vereinbarungen nicht in seine Berechnungen einbezieht.
+      no_additional_visa_waiver_description: "Nein. %{country} hat keine zusätzlichen Visa-Waiver-Vereinbarungen mit Ländern im Schengen-Raum."
+    disclaimer:
+      disclaimer_title: "Haftungsausschluss für Website / Schengen-Rechner"
+      disclaimer_content_1: |
+        Die auf dieser Website enthaltenen Informationen und die vom Schengen-Rechner bereitgestellten Informationen dienen nur zu allgemeinen Informationszwecken. Obwohl wir uns bemühen, die Informationen aktuell und korrekt zu halten und die Visa-Berechnungen korrekt durchzuführen, übernehmen wir keine Garantie für die Vollständigkeit, Richtigkeit, Zuverlässigkeit, Eignung oder Verfügbarkeit in Bezug auf die Website oder die Informationen, Produkte, Dienstleistungen oder Grafiken, die auf der Website für einen bestimmten Zweck enthalten sind. Jegliches Vertrauen, das Sie in solche Informationen setzen, geschieht daher ausschließlich auf eigenes Risiko.
+      disclaimer_content_2: |
+        In keinem Fall haften wir für Verluste oder Schäden, einschließlich, aber nicht beschränkt auf, indirekte oder Folgeschäden oder Schäden oder Verluste, die sich aus dem Verlust von Daten oder Gewinnen ergeben, die sich aus oder in Zusammenhang mit der Nutzung dieser Website ergeben.
+      disclaimer_content_3: |
+        Durch diese Website haben Sie die Möglichkeit, zu anderen Websites zu gelangen, die nicht unter der Kontrolle des Schengen-Rechners stehen. Wir haben keine Kontrolle über die Art, den Inhalt und die Verfügbarkeit dieser Websites. Die Aufnahme von Links bedeutet nicht, dass wir die damit verbundenen Websites befürworten.
+    privacy:
+      privacy_policy_title: "Datenschutzrichtlinie"
+      introduction_title: "Einleitung"
+      introduction_content: >
+        Der Schengen-Rechner (wir" oder "uns") legt Wert auf die Privatsphäre seiner Besucher. Diese Datenschutzrichtlinie ist ab dem Datum wirksam; sie fasst zusammen, welche Informationen wir von einem registrierten Benutzer oder einem anderen Besucher ("Sie") sammeln könnten, und was wir damit tun und nicht tun werden.
+        Bitte beachten Sie, dass diese Datenschutzrichtlinie nicht die Erfassung und Verwendung von Informationen durch Unternehmen regelt, die der Schengen-Rechner nicht kontrolliert, noch von Personen, die nicht von Schengen-Rechner beschäftigt oder verwaltet werden. Wenn Sie eine von uns erwähnte oder verlinkte Website besuchen, sollten Sie deren Datenschutzrichtlinie überprüfen, bevor Sie der Website Informationen zur Verfügung stellen.
+      what_we_do_title: "Was wir mit Ihren personenbezogenen Daten machen"
+      personally_identifiable_info_content: >
+        Es liegt immer bei Ihnen, ob Sie uns personenbezogene Daten mitteilen möchten, obwohl wir uns das Recht vorbehalten, Sie nicht als Benutzer zu registrieren oder Ihnen Produkte oder Dienstleistungen anzubieten, wenn Sie dies nicht tun. "Personenbezogene Daten" sind Informationen, mit denen Sie als Einzelperson identifiziert werden können, wie z. B.:
+      list_title: "Zum Beispiel können diese Folgendes umfassen:"
+      list_items:
+        - "Ihr Name, Ihre E-Mail-Adresse, Ihre Telefonnummer"
+        - "Ihre Schengen-Rechner-Benutzerkennung und Ihr Passwort"
+      other_info_title: "Andere Informationen, die wir sammeln"
+      other_info_content: >
+        Wir können auch andere Informationen sammeln, die nicht leicht verwendet werden können, um Sie zu identifizieren, wie z. B. (zum Beispiel) den Domainnamen und die IP-Adresse Ihres Computers. Wir können diese Informationen, einzeln oder in der Summe, für die technische Verwaltung unserer Website(s); Forschung und Entwicklung; Kunden- und Kontoverwaltung; und um uns bei der genaueren Ausrichtung unserer Marketingbemühungen zu helfen.
+      cookies_title: "Cookies"
+      cookies_content: >
+        Der Schengen-Rechner verwendet "Cookies", um personenbezogene Daten auf Ihrem Computer zu speichern. Wir können auch Informationen, die auf Ihrem Computer in Cookies gespeichert sind, mit personenbezogenen Daten über bestimmte Personen verknüpfen, die auf unseren Servern gespeichert sind. Wenn Sie Ihren Webbrowser (zum Beispiel Internet Explorer oder Firefox) so einrichten, dass Cookies nicht zugelassen sind, können Sie möglicherweise einige oder alle Funktionen unserer Website(s) nicht nutzen.
+      external_storage_title: "Externe Datenspeicherorte"
+      external_storage_content: >
+        Wir können Ihre Daten auf Servern speichern, die von Drittanbieter-Hosting-Anbietern bereitgestellt werden, mit denen wir Verträge abgeschlossen haben.
+      privacy_responsibilities_title: "Ihre Datenschutzverantwortung"
+      privacy_responsibilities_content: >
+        Um Ihre Privatsphäre zu schützen, sollten Sie:
+      responsibilities_list:
+        - "Ihre Benutzerkennung oder Ihr Passwort nicht an andere weitergeben"
+        - "sich von der Schengen-Rechner-Website abmelden, wenn Sie fertig sind"
+        - "übliche Vorsichtsmaßnahmen treffen, um sich gegen 'Malware' (Viren, Trojaner, Bots, etc.) zu schützen, zum Beispiel durch Installation und Aktualisierung geeigneter Antivirensoftware"
+      eu_notice_title: "Hinweis an Benutzer der Europäischen Union"
+      eu_notice_content: >
+        Die Geschäftsaktivitäten des Schengen-Rechners befinden sich hauptsächlich in den Vereinigten Staaten. Wenn Sie uns Informationen zur Verfügung stellen, werden die Informationen aus der Europäischen Union (EU) in die Vereinigten Staaten übertragen. Indem Sie uns personenbezogene Informationen zur Verfügung stellen, erklären Sie sich mit deren Speicherung und Verwendung gemäß dieser Datenschutzrichtlinie einverstanden.
+      children_info_title: "Informationen, die von Kindern gesammelt werden"
+      children_info_content: >
+        Sie müssen mindestens 13 Jahre alt sein, um die Website(n) und Dienst(e) des Schengen-Rechners zu nutzen. Der Schengen-Rechner sammelt keine Informationen von Kindern unter 13 Jahren. (Siehe das US-amerikanische Children’s Online Privacy Protection Act.)
+      changes_policy_title: "Änderungen dieser Datenschutzrichtlinie"
+      changes_policy_content: >
+        Wir behalten uns das Recht vor, diese Datenschutzrichtlinie zu ändern, wenn dies aufgrund rechtlicher Anforderungen oder Änderungen unserer Geschäftspraktiken erforderlich oder angemessen ist. Wenn Sie uns Ihre E-Mail-Adresse zur Verfügung gestellt haben, werden wir versuchen, Sie per E-Mail an diese Adresse über jede wesentliche Änderung in Bezug darauf zu informieren, wie wir personenbezogene Daten verwenden werden.
+      questions_comments_title: "Fragen oder Kommentare?"
+      questions_comments_content: >
+        Wenn Sie Fragen oder Kommentare zur Datenschutzrichtlinie des Schengen-Rechners haben, senden Sie eine E-Mail an support@companysname.com oder kontaktieren Sie uns über eine der im Impressum auf der Website des Unternehmens beschriebenen Möglichkeiten.
+        Vielen Dank, dass Sie den Schengen-Rechner gewählt haben!

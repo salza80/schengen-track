@@ -167,6 +167,7 @@ export class HttpApiConstruct extends Construct {
         "/en": publicCacheByCountryGuestBehavior,
         "/de": publicCacheByCountryGuestBehavior,
         "/es": publicCacheByCountryGuestBehavior,
+        "/tr": publicCacheByCountryGuestBehavior,
         "/about*": publicCacheByCountryGuestBehavior,
         "/*/about*": publicCacheByCountryGuestBehavior,
         "/blog*": publicCacheByCountryGuestBehavior,

@@ -1,0 +1,17 @@
+tr:
+  days:
+    table_caption: "Ziyaret ve hesaplama ayrıntılarını içeren Schengen Hesaplamasındaki günlerin listesi."
+    table_headers:
+      date: "Tarih"
+      country: "Ülke"
+      schengen_area: "Schengen Alanı"
+      schengen_days_used_tooltip: "Önceki 180 gün içinde Schengen Alanı'nda geçirilen gün sayısı."
+      max_remaining_days_tooltip: "Bu günde yeniden girdiğinizde Schengen Alanı'nda kalabileceğiniz gün sayısı."
+      overstay_days: "Kaçak Günler"
+      overstay_wait_tooltip: "Kaçak Giriş Bekleme Süresi (gün)"
+    schengen_yes: "Evet"
+    schengen_no: "Hayır"
+    overstay_na: "Uygun Değil"
+    schengen_visa_calculation_by_day: "Güne Göre Schengen Vizesi Hesaplama"
+    max_remaining_days: "Maksimum kalan günler - Bu günde yeniden girdiğinizde Schengen alanında kalabileceğiniz maksimum süre."
+    overstay_warning: "* Schengen Hesaplayıcı, izin verilen günlerin üzerinde kalmanızın ardından 180 gün boyunca 'kaçak' girişlerde uyarır. Bu yasal bir zorunluluk değildir! Bu durumun sizi nasıl etkileyebileceğini ilgili makamlarla kontrol etmeniz gerekir. Schengen turist vizesi kurallarını aşmanız durumunda yıllarca yeniden giriş yapmanız yasaklanabilir. Lütfen bunu yalnızca bir rehber olarak kullanın."

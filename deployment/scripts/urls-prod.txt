@@ -23,5 +23,10 @@ schengen-calculator.com/es/about
 schengen-calculator.com/es/about/British
 schengen-calculator.com/es/about/American
 schengen-calculator.com/es/blog/extended-schengen-stay
+schengen-calculator.com/tr
+schengen-calculator.com/tr/about
+schengen-calculator.com/tr/about/British
+schengen-calculator.com/tr/about/American
+schengen-calculator.com/tr/blog/extended-schengen-stay
 
 

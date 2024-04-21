@@ -30,7 +30,7 @@
   
   <!-- German URLs -->
   <url>
-    <loc>https://schengen-calculator.com/de/</loc>
+    <loc>https://schengen-calculator.com/de</loc>
     <priority>1.00</priority>
   </url>
   <url>
@@ -56,7 +56,7 @@
 
   <!-- Spanish URLs -->
   <url>
-    <loc>https://schengen-calculator.com/es/</loc>
+    <loc>https://schengen-calculator.com/es</loc>
     <priority>1.00</priority>
   </url>
   <url>
@@ -77,6 +77,32 @@
   </url>
   <url>
     <loc>https://schengen-calculator.com/es/users/sign_up</loc>
+    <priority>0.20</priority>
+  </url>
+
+  <!-- Turkish URLs -->
+  <url>
+    <loc>https://schengen-calculator.com/tr</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/visits</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/disclaimer</loc>
+    <priority>0.10</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/users/sign_up</loc>
     <priority>0.20</priority>
   </url>
 </urlset>

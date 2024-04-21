@@ -1,0 +1,18 @@
+tr:
+  log_in_page:
+    title: "Giriş Yap"
+    log_in_with_facebook: "Facebook ile Giriş Yap"
+    remember_me_label: "Beni Hatırla"
+    log_in_button: "Giriş Yap"
+    not_registered: "Henüz kayıtlı değil misiniz?"
+    register_link: "Kayıt Ol"
+    forgot_password: "Şifrenizi mi unuttunuz?"
+    reset_password_link: "Şifre Sıfırlama"
+  sign_up_page:
+    title: "Kayıt Ol"
+    sign_up_with_facebook: "Facebook ile Giriş Yap"
+    sign_up_button: "Kayıt Ol"
+    already_registered: "Zaten kayıtlı mısınız?"
+    log_in_link: "Giriş Yap"
+  new_password_page:
+    reset: "Sıfırlamayı Gönder"

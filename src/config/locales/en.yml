@@ -8,6 +8,15 @@ en:
         email: "Email"
         password: "Password"
         password_confirmatio: "Password Confirmation"
+      visit:
+        entry_date: "Entry date"
+        exit_date: "Exit date"
+        continent: "Continent"
+        country: "Country"
+      visa:
+        start_date: "Start date"
+        end_date: "End date"
+        no_entries: "Number of entries"
   time:
     formats:
       long: "%B %e, %Y"
@@ -39,6 +48,11 @@ en:
     country: "Country"
     disclaimer: "Disclaimer"
     privacy_policy: "Privacy Policy"
+  default_description: "Free Schengen/Europe 90/180 day calculator. Enter your nationality, travel dates and destination, and the Schengen calculator does the rest."
+  keywords: "Schengen, Schengen Calculator,90 days in 180, 90 day rule, 180 day calculator, 90 day calculator, Schengen Visa, Travel, Europe Visa, Schengen Area, Schengen Zone"
+  title_with_content: "Free Schengen / Europe Short-stay Tourist Visa Calculator %{content}"
+  default_title: "Schengen / Europe Short-stay Tourist Visa Calculator"
+
 
 
 

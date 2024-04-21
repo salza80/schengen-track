@@ -15,9 +15,9 @@
   %h2= t('visits.schengen_visa_list')
   .row.py-1
     .col-md-12.text-right
-      = link_to t('visits.add_visa'), new_visa_path(locale: I18n.locale), class: "btn btn-primary btn-md form-btn" do
+      = link_to new_visa_path(locale: I18n.locale), class: "btn btn-primary btn-md form-btn" do
         %i.fa.fa-plus{"aria-hidden" => "true"}
-        = t('visits.add_visa')
+        =t('visits.add_visa')
   .row
     .col-md-12
       = render 'visas/visalist'

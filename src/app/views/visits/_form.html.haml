@@ -1,4 +1,4 @@
-= form_for @visit, scope: :article, html: { class: "form-horizontal" } do |f|
+= form_for @visit, html: { class: "form-horizontal" } do |f|
   - if @visit.errors.any?
     #error_explanation
       %h2= "#{pluralize(@visit.errors.count, "error")} prohibited this visit from being saved:"
@@ -22,7 +22,7 @@
       = select_tag t('common.continent'), options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select"
   .form-group.row
     .col-sm-2.my-auto
-      = f.label :country_id, class: "col-form-label"
+      = f.label :country, class: "col-form-label"
     .col-sm-10
       = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select")
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")

@@ -40,3 +40,9 @@ de:
     entry_date: "Einreisedatum"
     exit_date: "Ausreisedatum"
     edit_title: "Reiseaufzeichnung bearbeiten"
+    schengen_area: "Schengen-Gebiet"
+    no_days: "Nr. Tage"
+    no_entries: "Nr. Einträge"
+    exits: "Ausgänge"
+
+

@@ -40,3 +40,7 @@ es:
     entry_date: "Fecha de Entrada"
     exit_date: "Fecha de Salida"
     edit_title: "Editar un Registro de Viaje"
+    schengen_area: "Área Schengen"
+    no_days: "Núm. Días"
+    no_entries: "Núm. Entradas"
+    exits: "Salidas"

@@ -40,3 +40,7 @@ tr:
     entry_date: "Giriş tarihi"
     exit_date: "Çıkış tarihi"
     edit_title: "Bir Seyahat Kaydını Düzenle"
+    schengen_area: "Schengen Bölgesi"
+    no_days: "Gün No."
+    no_entries: "Giriş No."
+    exits: "Çıkışlar"

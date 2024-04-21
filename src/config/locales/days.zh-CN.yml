@@ -1,0 +1,17 @@
+zh-CN:
+  days:
+    table_caption: "申根计算中的日期列表，包含访问和计算细节。"
+    table_headers:
+      date: "日期"
+      country: "国家"
+      schengen_area: "申根区"
+      schengen_days_used_tooltip: "在过去180天内在申根区内的天数。"
+      max_remaining_days_tooltip: "如果您在此日期进入，您可以在申根区停留的最多天数。"
+      overstay_days: "逾期停留天数"
+      overstay_wait_tooltip: "逾期重新入境等待时间（天）"
+    schengen_yes: "是"
+    schengen_no: "否"
+    overstay_na: "不适用"
+    schengen_visa_calculation_by_day: "按天计算申根签证"
+    max_remaining_days: "最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。"
+    overstay_warning: "*申根计算器在超出允许天数后的180天内重新入境时发出警告。这不是法律！如果可能影响您，您需要与相关部门核实。如果被发现违反申根旅游签证规则，您可能会被禁止多年重新入境。请仅将此用作参考。"

@@ -105,4 +105,25 @@
     <loc>https://schengen-calculator.com/tr/users/sign_up</loc>
     <priority>0.20</priority>
   </url>
+    <!-- Simplified Chinese URLs -->
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/visits</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/users/sign_up</loc>
+    <priority>0.20</priority>
+  </url>
 </urlset>

@@ -20,8 +20,9 @@
   <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : t('default_description') %>" />
   <meta property="og:image" content="https://schengen-calculator.com/med.png" />
   <%= canonical_tag -%>
+  <link rel="alternate" href="https://schengen-calculator.com" hreflang="en-us" />
   <% I18n.available_locales.each do |locale| %>
-    <link rel="alternate" href="https://schengen-calculator.com" hreflang="<%= locale.to_s %>" />
+    <link rel="alternate" href="https://schengen-calculator.com/<%= locale.to_s %>" hreflang="<%= locale.to_s %>" />
   <% end %>
   <title><%= content_for?(:title) ? t('.title_with_content', content: yield(:title)) : t('default_title') %></title>
   <%= favicon_link_tag asset_path('favicon.ico') %>

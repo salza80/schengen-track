@@ -2,6 +2,8 @@ schengen-calculator.com
 schengen-calculator.com/about
 schengen-calculator.com/about/British
 schengen-calculator.com/about/American
+schengen-calculator.com/about/Turkish
+schengen-calculator.com/about/Chinese
 schengen-calculator.com/sitemap.xml
 schengen-calculator.com/favicon.ico
 schengen-calculator.com/robots.txt
@@ -12,6 +14,8 @@ schengen-calculator.com/en
 schengen-calculator.com/en/about
 schengen-calculator.com/en/about/British
 schengen-calculator.com/en/about/American
+schengen-calculator.com/en/about/Turkish
+schengen-calculator.com/en/about/Chinese
 schengen-calculator.com/en/blog/extended-schengen-stay
 schengen-calculator.com/de
 schengen-calculator.com/de/about
@@ -22,11 +26,20 @@ schengen-calculator.com/es
 schengen-calculator.com/es/about
 schengen-calculator.com/es/about/British
 schengen-calculator.com/es/about/American
+schengen-calculator.com/es/about/Brazilian
+schengen-calculator.com/es/about/American
 schengen-calculator.com/es/blog/extended-schengen-stay
 schengen-calculator.com/tr
 schengen-calculator.com/tr/about
 schengen-calculator.com/tr/about/British
 schengen-calculator.com/tr/about/American
+schengen-calculator.com/tr/about/Turkish
 schengen-calculator.com/tr/blog/extended-schengen-stay
+schengen-calculator.com/zh-CN
+schengen-calculator.com/zh-CN/about
+schengen-calculator.com/zh-CN/about/British
+schengen-calculator.com/zh-CN/about/American
+schengen-calculator.com/zh-CN/about/Chinese
+schengen-calculator.com/zh-CN/blog/extended-schengen-stay
 
 

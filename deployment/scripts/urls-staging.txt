@@ -26,5 +26,12 @@ test.schengen-calculator.com/es/blog/extended-schengen-stay
 test.schengen-calculator.com/tr
 test.schengen-calculator.com/tr/about
 test.schengen-calculator.com/tr/about/British
+test.schengen-calculator.com/tr/about/Turkish
 test.schengen-calculator.com/tr/about/American
 test.schengen-calculator.com/tr/blog/extended-schengen-stay
+test.schengen-calculator.com/zh-CN
+test.schengen-calculator.com/zh-CN/about
+test.schengen-calculator.com/zh-CN/about/Chinese
+test.schengen-calculator.com/zh-CN/about/American
+test.schengen-calculator.com/tr/blog/extended-schengen-stay
+

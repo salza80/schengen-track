@@ -34,16 +34,16 @@
   <% elsif request.path.starts_with?('/en/') %>
     <% canonical_tag = 'https://' + request.host_with_port + request.path.sub('/en/', '/') %>
     <% alternate_path2 = 'https://' + request.host_with_port + request.path %>
-  <% elsif request.path =~ /^\/[a-z]{2}(-[A-Z]{2})?\/?$/ %>
+  <% elsif request.path =~ /^\/[a-z]{2}(-[A-Z]{2})?\/?.*$/ %>
     <% canonical_tag = 'https://' + request.host_with_port + request.path %>
-    <% alternate_path_other_lang = 'https://' + request.host_with_port + request.path %>
+    <% alternate_path_other_lang = canonical_tag %>
       <% if canonical_tag.end_with?('/about') %>
         <% alternate_path2 = canonical_tag %>
         <% canonical_tag = canonical_tag.sub(/\/about\z/, '') %>
       <% end %>
   <% end %>
 
-  <link rel="canonical" href="<%= canonical_tag %>" />
+  <link rel="canonical" href="<%= canonical_tag %>" hreflang="<%= locale.to_s %>" />
   <% if alternate_path.present? %>
     <link rel="alternate" href="<%= alternate_path %>" hreflang="<%= locale.to_s %>"/>
   <% end %>

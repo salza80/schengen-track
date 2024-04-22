@@ -1,0 +1,19 @@
+en:
+  log_in_page:
+    title: "Log In"
+    log_in_with_facebook: "Log in with Facebook"
+    remember_me_label: "Remember me"
+    log_in_button: "Log in"
+    not_registered: "Not yet registered?"
+    register_link: "Register"
+    forgot_password: "Forgot your password?"
+    reset_password_link: "Reset Password"
+  sign_up_page:
+    title: "Sign Up"
+    sign_up_with_facebook: "Log in with Facebook"
+    sign_up_button: "Sign up"
+    already_registered: "Already registered?"
+    log_in_link: "Log in"
+  new_password_page:
+    reset: "Send Reset"
+

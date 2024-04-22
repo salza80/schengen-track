@@ -1,0 +1,107 @@
+zh-CN:
+  helpers:
+    label:
+      user:
+        first_name: "名字"
+        last_name: "姓氏"
+        Nationality: "国籍"
+        email: "邮箱"
+        password: "密码"
+        password_confirmatio: "确认密码"
+      visit:
+        entry_date: "入境日期"
+        exit_date: "出境日期"
+        continent: "大陆"
+        country: "国家"
+      visa:
+        start_date: "开始日期"
+        end_date: "结束日期"
+        no_entries: "入境次数"
+  time:
+    formats:
+      long: "%Y年%B%e日"
+      mid: "%Y年%B%e日"
+      default: "%Y年%B%e日"
+  date:
+    abbr_day_names:
+    - 周日
+    - 周一
+    - 周二
+    - 周三
+    - 周四
+    - 周五
+    - 周六
+    abbr_month_names:
+    - 一月
+    - 二月
+    - 三月
+    - 四月
+    - 五月
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
+    day_names:
+    - 星期日
+    - 星期一
+    - 星期二
+    - 星期三
+    - 星期四
+    - 星期五
+    - 星期六
+    formats:
+      default: "%Y年%m月%d日"
+      long: "%Y年%B%d日"
+      short: "%m月%d日"
+    month_names:
+    - 
+    - 一月
+    - 二月
+    - 三月
+    - 四月
+    - 五月
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
+    order:
+    - :day
+    - :month
+    - :year
+  errors:
+    prohibited_saving_visa: "%{count}个错误导致无法保存此签证："
+  common:
+    schengen_calculator: "申根签证计算器"
+    schengen: "申根"
+    visa: "签证"
+    calculator: "计算器"
+    about: "关于"
+    about_page: "关于页面"
+    log_out: "登出"
+    login: "登录"
+    edit_my_details: "编辑我的详细信息"
+    back: "返回"
+    multi_unlimited_entries: "(输入0表示多次/无限次入境)"
+    save: "保存"
+    to: "至"
+    edit: "编辑"
+    delete: "删除"
+    continent: "大陆"
+    no_days: "无日"
+    yes: "是"
+    no: "否"
+    na: "不适用"
+    of: "的"
+    country: "国家"
+    disclaimer: "免责声明"
+    privacy_policy: "隐私政策"
+  default_description: "免费的申根/欧洲90/180天计算器。输入您的国籍、旅行日期和目的地，申根计算器会为您完成其余工作。"
+  keywords: "申根, 申根签证计算器, 180天内90天, 90天规则, 180天计算器, 90天计算器, 申根签证, 旅行, 欧洲签证, 申根区, 申根区域"
+  title_with_content: "免费申根/欧洲短期旅游签证计算器 %{content}"
+  default_title: "申根/欧洲短期旅游签证计算器"

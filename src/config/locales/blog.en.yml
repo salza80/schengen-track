@@ -1,0 +1,38 @@
+en:
+  blog:
+    extendedTravel:
+      title: "How Can You Unlock Extended European Adventures and Travel Around Europe for More Than 90 Days Without Overstaying Your Schengen Tourist Visa?"
+      introduction: "Embarking on a European odyssey is a dream for many, but the 90-day limit within the Schengen Area often leaves travelers yearning for more. Fear not, fellow explorer, as we unveil the secrets to legally extend your European journey beyond the typical 90-day span. Before diving into strategic planning, it's crucial to familiarize yourself with countries outside the Schengen Area. Here, we'll list some key nations, such as Ireland, the United Kingdom, Montenegro, Belarus, and Morocco, that can become pivotal in maximizing your time in Europe."
+      introContent: "Understanding the Schengen Area and the 90/180 Rule:
+      The Schengen Area comprises 27 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Area cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay."
+      understandingTitle: "Understanding the Schengen Area and the 90/180 Rule:"
+      understandingContent: "The Schengen Area comprises 27 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Area cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay."
+      understanding90Content: "Keep in mind that the 90 in 180-day rule operates on a rolling basis. To illustrate, suppose you enter the Schengen Area on January 1st and stay until March 30th, utilizing your full 90 days. If you re-enter on June 1st, you have another 90 days at your disposal. The key is to make sure that, on any given day within the area, you haven't exceeded 90 days in the last 180 days. It's a continuous calculation that you can understand to optimise your stay without violating the rule."      
+      nearbyTitle: "Nearby Countries Outside the Schengen Area"
+      nearbyContent: "Before diving into your travel plans, familiarize yourself with easily accessible countries outside the Schengen Area. These nations play a crucial role in extending your European adventure. Some key examples include:"
+      countries:
+        - name: "Ireland"
+          description: "A captivating destination with rich history and stunning landscapes."
+        - name: "United Kingdom"
+          description: "Explore England, Scotland, Wales, and Northern Ireland for a diverse cultural experience."
+        - name: "Montenegro"
+          description: "Known for its picturesque coastline and historic cities."
+        - name: "Belarus"
+          description: "A country with a unique blend of history, architecture, and natural beauty."
+        - name: "Morocco"
+          description: "Offering a taste of North Africa, Morocco is known for its vibrant markets, historic cities, and diverse landscapes."
+      accessibilityContent: "These non-Schengen countries are not only exciting additions to your itinerary but also highly accessible from Europe. Whether it's a short flight, overnight train, or a ferry ride, these destinations are well-connected, making them convenient stops in your extended European adventure."
+      maximizingTitle: "Maximizing Your European Stay"
+      maximizingContent: "Now that you're acquainted with non-Schengen countries, strategic planning becomes essential:"
+      maximizingContentContinued: |
+       <p> <strong>Commence in a Schengen Hub:</strong> Begin your journey in a Schengen country of your choice, such as Paris, Italy, or Spain. Spend the initial weeks immersing yourself in the local culture and surroundings.</p>
+        <p> <strong>Non-Schengen Interlude:</strong> Take a detour to a non-Schengen country, leveraging your knowledge of destinations like Ireland or the UK for a substantial portion of your trip.</p>
+        <p> <strong>Schengen Encore Explore and Exit:</strong> Return to the Schengen Area for another segment of your journey. Explore countries like France or Italy, ensuring you exit the Schengen Area before your 90-day limit."
+      repeatPatternTitle: "Repeat the Pattern"
+      repeatPatternContent: "Continue this pattern throughout your travels, strategically weaving in and out of the Schengen Area. Optimize your time in non-Schengen countries like Montenegro, Belarus, and Morocco to extend your European sojourn."
+      schengenButtonIntro: "You can use the Schengen Calculator to both plan and keep track of your travels on the road. Just enter the dates you enter, and exit each country, and it does the rest, calculating your total days in the Schengen Area, how many remaining days, and at what date you can re-enter and for how long to extend your stay. Happy planning and stay secure knowing you are not overstaying your visa."
+      schengenButtonTitle: "Get started with the Schengen Calculator"
+      schengenAboutIntro: "To read more about the Calculator and get more information on the Schengen Area see the "
+      schengenAboutLink: "about Schengen Calculator page"
+      conclusionTitle: "Conclusion"
+      conclusionContent: "Armed with strategic planning and a clear understanding of Schengen regulations, you can transform your European dream into a lasting reality. Immerse yourself in the rich tapestry of Europe's diversity while staying within the legal limits of your Schengen tourist visa. Here's to an extended adventure filled with unforgettable moments!"

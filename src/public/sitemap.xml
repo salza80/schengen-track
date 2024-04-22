@@ -1,27 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://sitemaps.org/schemas/sitemap/0.9
-            http://sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>http://schengen-calculator.com/</loc>
+    <loc>https://schengen-calculator.com/</loc>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>http://schengen-calculator.com/visits</loc>
-    <priority>0.40</priority>
+    <loc>https://schengen-calculator.com/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
   </url>
   <url>
-    <loc>http://schengen-calculator.com/users/sign_in</loc>
-    <priority>0.30</priority>
+    <loc>https://schengen-calculator.com/visits</loc>
+    <priority>0.20</priority>
   </url>
   <url>
-    <loc>http://schengen-calculator.com/disclaimer</loc>
+    <loc>https://schengen-calculator.com/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/disclaimer</loc>
     <priority>0.10</priority>
   </url>
   <url>
-    <loc>http://schengen-calculator.com/users/sign_up</loc>
-    <priority>0.30</priority>
+    <loc>https://schengen-calculator.com/users/sign_up</loc>
+    <priority>0.20</priority>
+  </url>
+  
+  <!-- German URLs -->
+  <url>
+    <loc>https://schengen-calculator.com/de</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/de/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/de/visits</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/de/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/de/disclaimer</loc>
+    <priority>0.10</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/de/users/sign_up</loc>
+    <priority>0.20</priority>
+  </url>
+
+  <!-- Spanish URLs -->
+  <url>
+    <loc>https://schengen-calculator.com/es</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/visits</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/disclaimer</loc>
+    <priority>0.10</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/users/sign_up</loc>
+    <priority>0.20</priority>
+  </url>
+
+  <!-- Turkish URLs -->
+  <url>
+    <loc>https://schengen-calculator.com/tr</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/visits</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/disclaimer</loc>
+    <priority>0.10</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/users/sign_up</loc>
+    <priority>0.20</priority>
+  </url>
+    <!-- Simplified Chinese URLs -->
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/visits</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/users/sign_in</loc>
+    <priority>0.20</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/zh-CN/users/sign_up</loc>
+    <priority>0.20</priority>
   </url>
 </urlset>

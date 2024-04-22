@@ -53,6 +53,7 @@ def is_binary_content?(headers)
     'image/*',
     'audio/*',
     'video/*',
+    'text/plain',
     'application/x-binary',
     'application/x-tar',
     'application/x-rar-compressed'

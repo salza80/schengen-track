@@ -1,0 +1,9 @@
+en:
+  visas:
+    list_caption: "List of Schengen Visas to use for calculation."
+    columns:
+      dates: "Dates"
+      no_entries: "No Entries"
+      modify: "Modify"
+      delete_confirmation: "Are you sure?"
+    to: "to"

@@ -1,15 +1,15 @@
 %p#notice= notice
 
 %p
-  %b Entry date:
+  %b= t('visit.entry_date') + ':'
   = @visit.entry_date
 %p
-  %b Exit date:
+  %b= t('visit.exit_date') + ':'
   = @visit.exit_date
 %p
-  %b Country:
+  %b= t('common.country') + ':'
   = @visit.country_id
 
-= link_to 'Edit', edit_visit_path(@visit)
+= link_to t('common.edit'), edit_visit_path(locale: I18n.locale, id: @visit.id)
 \|
-= link_to 'Back', visits_path
+= link_to t('common.back'), visits_path(locale: I18n.locale)

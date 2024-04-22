@@ -1,0 +1,9 @@
+tr:
+  visas:
+    list_caption: "Hesaplama için kullanılacak Schengen Vizelerinin Listesi."
+    columns:
+      dates: "Tarihler"
+      no_entries: "Giriş Yok"
+      modify: "Düzenle"
+      delete_confirmation: "Emin misiniz?"
+    to: "il"

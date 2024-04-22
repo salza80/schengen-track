@@ -13,7 +13,7 @@ export function createRedirectFunction(altDomain: string, targetDomain: string):
           statusCode: 301,
           statusDescription: 'Permanantly Moved',
           headers: 
-          { "location": { "value": 'https://${targetDomain}' }}
+          { "location": { "value": 'https://${targetDomain}' + request.uri }}
         };
       }
 

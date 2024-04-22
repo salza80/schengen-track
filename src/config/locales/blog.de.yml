@@ -1,0 +1,40 @@
+de:
+  blog:
+    extendedTravel:
+      title: "Wie können Sie verlängerte europäische Abenteuer erleben und mehr als 90 Tage ohne Verstoß gegen Ihr Schengen-Touristenvisum durch Europa reisen?"
+      introduction: "Eine Europareise ist für viele ein Traum, aber die 90-Tage-Grenze im Schengen-Raum lässt Reisende oft nach mehr sehnen. Keine Sorge, liebe Entdecker, wir enthüllen die Geheimnisse, um Ihre europäische Reise rechtlich über die typischen 90 Tage hinaus zu verlängern. Bevor Sie sich in die strategische Planung stürzen, ist es wichtig, sich mit Ländern außerhalb des Schengen-Raums vertraut zu machen. Hier listen wir einige wichtige Nationen wie Irland, das Vereinigte Königreich, Montenegro, Belarus und Marokko auf, die entscheidend sein können, um Ihre Zeit in Europa zu maximieren."
+      introContent: "Verständnis des Schengen-Raums und der 90/180-Regel:
+      Der Schengen-Raum umfasst 27 europäische Länder und bietet ein nahtloses Reiseerlebnis ohne innere Grenzen. Die 90/180-Regel besagt jedoch, dass Ihr Aufenthalt im Schengen-Raum innerhalb eines Zeitraums von 180 Tagen insgesamt 90 Tage nicht überschreiten darf. Diese Regel gilt fortlaufend, was bedeutet, dass jeder Tag zu Ihrem Gesamtaufenthalt zählt."
+      understandingTitle: "Verständnis des Schengen-Raums und der 90/180-Regel:"
+      understandingContent: "Der Schengen-Raum umfasst 27 europäische Länder und bietet ein nahtloses Reiseerlebnis ohne innere Grenzen. Die 90/180-Regel besagt jedoch, dass Ihr Aufenthalt im Schengen-Raum innerhalb eines Zeitraums von 180 Tagen insgesamt 90 Tage nicht überschreiten darf. Diese Regel gilt fortlaufend, was bedeutet, dass jeder Tag zu Ihrem Gesamtaufenthalt zählt."
+      understanding90Content: "Beachten Sie, dass die 90-in-180-Tage-Regel fortlaufend gilt. Um dies zu verdeutlichen: Angenommen, Sie betreten den Schengen-Raum am 1. Januar und bleiben bis zum 30. März, wobei Sie Ihre vollen 90 Tage nutzen. Wenn Sie am 1. Juni erneut einreisen, stehen Ihnen weitere 90 Tage zur Verfügung. Der Schlüssel ist sicherzustellen, dass Sie an jedem beliebigen Tag im Gebiet in den letzten 180 Tagen nicht mehr als 90 Tage verbracht haben. Es handelt sich um eine kontinuierliche Berechnung, die Sie verstehen können, um Ihren Aufenthalt zu optimieren, ohne gegen die Regel zu verstoßen."
+      nearbyTitle: "Benachbarte Länder außerhalb des Schengen-Raums"
+      nearbyContent: "Bevor Sie Ihre Reisepläne vertiefen, machen Sie sich mit leicht zugänglichen Ländern außerhalb des Schengen-Raums vertraut. Diese Nationen spielen eine entscheidende Rolle bei der Verlängerung Ihres europäischen Abenteuers. Einige wichtige Beispiele sind:"
+      countries:
+        - name: "Irland"
+          description: "Ein faszinierendes Reiseziel mit reicher Geschichte und atemberaubenden Landschaften."
+        - name: "Vereinigtes Königreich"
+          description: "Erkunden Sie England, Schottland, Wales und Nordirland für eine vielfältige kulturelle Erfahrung."
+        - name: "Montenegro"
+          description: "Bekannt für seine malerische Küste und historischen Städte."
+        - name: "Belarus"
+          description: "Ein Land mit einer einzigartigen Mischung aus Geschichte, Architektur und natürlicher Schönheit."
+        - name: "Marokko"
+          description: "Marokko bietet einen Einblick in Nordafrika und ist bekannt für seine lebhaften Märkte, historischen Städte und vielfältigen Landschaften."
+      accessibilityContent: "Diese Nicht-Schengen-Länder sind nicht nur aufregende Ergänzungen Ihrer Reiseroute, sondern auch sehr gut von Europa aus erreichbar. Ob per Kurzflug, Nachtzug oder Fährfahrt, diese Ziele sind gut verbunden und machen sie zu praktischen Zwischenstopps auf Ihrer verlängerten Europareise."
+      maximizingTitle: "Maximierung Ihres Europaaufenthalts"
+      maximizingContent: "Nachdem Sie sich mit Nicht-Schengen-Ländern vertraut gemacht haben, wird strategische Planung entscheidend:"
+      maximizingContentContinued: |
+       <p> <strong>Beginnen Sie in einem Schengen-Hub:</strong> Starten Sie Ihre Reise in einem Schengen-Land Ihrer Wahl, wie Paris, Italien oder Spanien. Verbringen Sie die ersten Wochen damit, sich in die lokale Kultur und Umgebung einzuleben.</p>
+
+        <p> <strong>Nicht-Schengen-Abstecher:</strong> Machen Sie einen Abstecher in ein Nicht-Schengen-Land und nutzen Sie Ihr Wissen über Ziele wie Irland oder das Vereinigte Königreich für einen beträchtlichen Teil Ihrer Reise.</p>
+
+        <p> <strong>Schengen-Erlebnis und Ausreise:</strong> Kehren Sie für einen weiteren Abschnitt Ihrer Reise in den Schengen-Raum zurück. Entdecken Sie Länder wie Frankreich oder Italien und verlassen Sie den Schengen-Raum vor Ablauf Ihrer 90-Tage-Frist."
+      repeatPatternTitle: "Wiederholen Sie das Muster"
+      repeatPatternContent: "Führen Sie dieses Muster während Ihrer Reisen fort, indem Sie strategisch in und aus dem Schengen-Raum ein- und ausreisen. Optimieren Sie Ihre Zeit in Nicht-Schengen-Ländern wie Montenegro, Belarus und Marokko, um Ihre europäische Reise zu verlängern."
+      schengenButtonIntro: "Sie können den Schengen-Rechner verwenden, um Ihre Reisen unterwegs zu planen und zu verfolgen. Geben Sie einfach die Daten ein, an denen Sie jedes Land betreten und verlassen, und er erledigt den Rest, berechnet Ihre Gesamtzahl der Tage im Schengen-Raum, wie viele verbleibende Tage Sie haben, und an welchem Datum Sie erneut einreisen können und wie lange Sie Ihren Aufenthalt verlängern können. Frohes Planen und bleiben Sie sicher, wenn Sie wissen, dass Sie Ihr Visum nicht überschreiten."
+      schengenButtonTitle: "Starten Sie mit dem Schengen-Rechner"
+      schengenAboutIntro: "Um mehr über den Rechner zu erfahren und weitere Informationen zum Schengen-Raum zu erhalten, lesen Sie die "
+      schengenAboutLink: "Über die Seite des Schengen-Rechners"
+      conclusionTitle: "Fazit"
+      conclusionContent: "Mit strategischer Planung und einem klaren Verständnis der Schengen-Vorschriften können Sie Ihren europäischen Traum in eine dauerhafte Realität verwandeln. Tauchen Sie ein in das reiche Geflecht der europäischen Vielfalt, während Sie innerhalb der gesetzlichen Grenzen Ihres Schengen-Touristenvisums bleiben. Hier ist ein erweitertes Abenteuer voller unvergesslicher Momente!"

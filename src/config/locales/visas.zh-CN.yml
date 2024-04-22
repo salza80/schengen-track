@@ -1,0 +1,9 @@
+zh-CN:
+  visas:
+    list_caption: "用于计算的申根签证列表。"
+    columns:
+      dates: "日期"
+      no_entries: "无条目"
+      modify: "修改"
+      delete_confirmation: "您确定吗？"
+    to: "至"

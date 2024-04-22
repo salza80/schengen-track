@@ -129,10 +129,29 @@ export class HttpApiConstruct extends Construct {
         eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
       },
     ];
+
+    const publicCacheByCountryGuestBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: customCacheCountryGuestKey,
+      originRequestPolicy: customOriginRequestPolicy,
+      responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
+      functionAssociations
+    };
+
+    const publicAssetsCacheBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+      functionAssociations
+    };
+
     const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain, altDomain],
-      priceClass: cloudfront.PriceClass.PRICE_CLASS_200,
+      priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
       sslSupportMethod: cloudfront.SSLMethod.SNI,
       defaultBehavior: {
         origin: origin,
@@ -143,41 +162,22 @@ export class HttpApiConstruct extends Construct {
         functionAssociations
       },
       additionalBehaviors: {
-        "assets/*": {
-          origin: origin,
-          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
-          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
-          functionAssociations
-        },
-        "/": {
-          origin: origin,
-          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
-          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          cachePolicy: customCacheCountryGuestKey,
-          originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
-          functionAssociations
-        },
-        "/about*": {
-          origin: origin,
-          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
-          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          cachePolicy: customCacheCountryGuestKey,
-          originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
-          functionAssociations
-        }
-        ,
-        "/robots.txt": {
-          origin: origin,
-          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
-          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          cachePolicy: customCacheCountryGuestKey,
-          originRequestPolicy: customOriginRequestPolicy,
-          responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
-          functionAssociations
-        }
+        "assets/*": publicAssetsCacheBehavior,
+        "/": publicCacheByCountryGuestBehavior,
+        "/en": publicCacheByCountryGuestBehavior,
+        "/de": publicCacheByCountryGuestBehavior,
+        "/es": publicCacheByCountryGuestBehavior,
+        "/tr": publicCacheByCountryGuestBehavior,
+        "/zh-CN": publicCacheByCountryGuestBehavior,
+        "/about*": publicCacheByCountryGuestBehavior,
+        "/*/about*": publicCacheByCountryGuestBehavior,
+        "/blog*": publicCacheByCountryGuestBehavior,
+        "/*/blog*": publicCacheByCountryGuestBehavior,
+        "/robots.txt": publicAssetsCacheBehavior,
+        "/sitemap.xml": publicAssetsCacheBehavior,
+        "/favicon.ico": publicAssetsCacheBehavior,
+        "/med.png": publicAssetsCacheBehavior,
+        "/ads.txt": publicAssetsCacheBehavior
       }
     });
 

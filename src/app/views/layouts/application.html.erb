@@ -19,11 +19,75 @@
   <meta property="og:title" content="<%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %>" />
   <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : t('default_description') %>" />
   <meta property="og:image" content="https://schengen-calculator.com/med.png" />
-  <%= canonical_tag -%>
-  <link rel="alternate" href="https://schengen-calculator.com" hreflang="en-us" />
-  <% I18n.available_locales.each do |locale| %>
-    <link rel="alternate" href="https://schengen-calculator.com/<%= locale.to_s %>" hreflang="<%= locale.to_s %>" />
+
+
+  <% canonical_tag = 'https://' + request.host_with_port + request.path %>
+  <% alternate_path = '' %>
+  <% alternate_path2 = '' %>
+  <% alternate_path3 = '' %>
+  <% alternate_path_other_lang = '' %>
+  <% if request.path == '/en' || request.path == '/' || request.path == '/en/about' || request.path == '/about'  %>
+    <% canonical_tag = 'https://' + request.host_with_port + '/' %>
+    <% alternate_path = 'https://' + request.host_with_port + '/about' %>
+    <% alternate_path2 = 'https://' + request.host_with_port + '/en/about' %>
+    <% alternate_path3 = 'https://' + request.host_with_port + '/en' %>
+  <% elsif request.path.starts_with?('/en/') %>
+    <% canonical_tag = 'https://' + request.host_with_port + request.path.sub('/en/', '/') %>
+    <% alternate_path2 = 'https://' + request.host_with_port + request.path %>
+  <% elsif request.path =~ /^\/[a-z]{2}\// %>
+    <% canonical_tag = 'https://' + request.host_with_port + request.path %>
+      <% if canonical_tag.end_with?('/about') %>
+      <% alternate_path2 = canonical_tag %>
+      <% canonical_tag = canonical_tag.sub(/\/about\z/, '') %>
+      <% alternate_path_other_lang = canonical_tag %>
+    <% end %>
   <% end %>
+
+  <link rel="canonical" href="<%= canonical_tag %>" />
+  <% if alternate_path.present? %>
+    <link rel="alternate" href="<%= alternate_path %>" hreflang="<%= locale.to_s %>"/>
+  <% end %>
+  <% if alternate_path2.present? %>
+    <link rel="alternate" href="<%= alternate_path2 %>" hreflang="<%= locale.to_s %>"/>
+  <% end %>
+  <% if alternate_path3.present? %>
+    <link rel="alternate" href="<%= alternate_path3 %>" hreflang="<%= locale.to_s %>"/>
+  <% end %>
+
+  <% I18n.available_locales.each do |locale| %>
+    <% if locale != I18n.locale %>
+     
+   
+
+      <% if alternate_path3.present? %>
+        <% path_only = URI.parse(alternate_path3).path %>
+        <% new_path = path_only.sub(/^\/[a-z]{2,}(-[A-Z]{2})?\/?/, "/#{locale}/") %>
+        <% alternate_href_locale = alternate_path3.sub(path_only, new_path) %>
+      
+        <link rel="alternate" href="<%= alternate_href_locale %>" hreflang="<%= locale.to_s %>" />
+      <% end %>
+
+      <% if alternate_path_other_lang.present? %>
+        <% path_only = URI.parse(alternate_path_other_lang).path %>
+        <% new_path = path_only.sub(/^\/[a-z]{2,}(-[A-Z]{2})?\/?/, "/#{locale}/") %>
+        <% alternate_href_locale = alternate_path_other_lang.sub(path_only, new_path) %>
+      
+        <link rel="alternate" href="<%= alternate_href_locale %>" hreflang="<%= locale.to_s %>" />
+      <% end %>
+    
+      <% if alternate_path2.present? %>
+        <% path_only = URI.parse(alternate_path2).path %>
+        <% new_path = path_only.sub(/^\/[a-z]{2,}(-[A-Z]{2})?\/?/, "/#{locale}/") %>
+        <% alternate_href_locale = alternate_path2.sub(path_only, new_path) %>
+      
+        <link rel="alternate" href="<%= alternate_href_locale %>" hreflang="<%= locale.to_s %>" />
+      <% end %>
+    <% end %>
+  <% end %>
+  
+
+
+
   <title><%= content_for?(:title) ? t('.title_with_content', content: yield(:title)) : t('default_title') %></title>
   <%= favicon_link_tag asset_path('favicon.ico') %>
   <%= stylesheet_link_tag 'application', media: 'all' %>

@@ -22,6 +22,7 @@
 
 
   <% canonical_tag = 'https://' + request.host_with_port + request.path %>
+  <% locales_pattern = I18n.available_locales.map(&:to_s).join('|') %>
   <% alternate_path = '' %>
   <% alternate_path2 = '' %>
   <% alternate_path3 = '' %>
@@ -34,13 +35,19 @@
   <% elsif request.path.starts_with?('/en/') %>
     <% canonical_tag = 'https://' + request.host_with_port + request.path.sub('/en/', '/') %>
     <% alternate_path2 = 'https://' + request.host_with_port + request.path %>
-  <% elsif request.path =~ /^\/[a-z]{2}(-[A-Z]{2})?\/?.*$/ %>
+  <% elsif request.path =~ /^\/(#{locales_pattern})(\/.*)?$/ %>
     <% canonical_tag = 'https://' + request.host_with_port + request.path %>
     <% alternate_path_other_lang = canonical_tag %>
       <% if canonical_tag.end_with?('/about') %>
-        <% canonical_tag = canonical_tag.sub(/\/about\z/, '') %>
         <% alternate_path2 = canonical_tag %>
+        <% canonical_tag = canonical_tag.sub(/\/about\z/, '') %>
+        <% alternate_path_other_lang = canonical_tag %>
       <% end %>
+      <% if canonical_tag =~ /\/(#{locales_pattern})\z/ %>
+        <% alternate_path2 = canonical_tag + '/about' %>
+      <% end %>
+  <% else %>
+    <% alternate_path2 = 'https://' + request.host_with_port + '/en' + request.path %>
   <% end %>
 
   <link rel="canonical" href="<%= canonical_tag %>" hreflang="<%= locale.to_s %>" />
@@ -56,12 +63,9 @@
 
   <% I18n.available_locales.each do |locale| %>
     <% if locale != I18n.locale %>
-     
-   
-
       <% if alternate_path3.present? %>
         <% path_only = URI.parse(alternate_path3).path %>
-        <% new_path = path_only.sub(/^\/[a-z]{2,}(-[A-Z]{2})?\/?/, "/#{locale}/") %>
+        <% new_path = path_only.sub(/^\/(#{locales_pattern})(\/.*)?$/, "/#{locale}\\2") %>
         <% alternate_href_locale = alternate_path3.sub(path_only, new_path) %>
       
         <link rel="alternate" href="<%= alternate_href_locale %>" hreflang="<%= locale.to_s %>" />
@@ -69,7 +73,7 @@
 
       <% if alternate_path_other_lang.present? %>
         <% path_only = URI.parse(alternate_path_other_lang).path %>
-        <% new_path = path_only.sub(/^\/[a-z]{2,}(-[A-Z]{2})?\/?/, "/#{locale}/") %>
+        <% new_path = path_only.sub(/^\/(#{locales_pattern})(\/.*)?$/, "/#{locale}\\2") %>
         <% alternate_href_locale = alternate_path_other_lang.sub(path_only, new_path) %>
       
         <link rel="alternate" href="<%= alternate_href_locale %>" hreflang="<%= locale.to_s %>" />
@@ -77,7 +81,7 @@
     
       <% if alternate_path2.present? %>
         <% path_only = URI.parse(alternate_path2).path %>
-        <% new_path = path_only.sub(/^\/[a-z]{2,}(-[A-Z]{2})?\/?/, "/#{locale}/") %>
+        <% new_path = path_only.sub(/^\/(#{locales_pattern})(\/.*)?$/, "/#{locale}\\2") %>
         <% alternate_href_locale = alternate_path2.sub(path_only, new_path) %>
       
         <link rel="alternate" href="<%= alternate_href_locale %>" hreflang="<%= locale.to_s %>" />

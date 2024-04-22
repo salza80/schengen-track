@@ -38,8 +38,8 @@
     <% canonical_tag = 'https://' + request.host_with_port + request.path %>
     <% alternate_path_other_lang = canonical_tag %>
       <% if canonical_tag.end_with?('/about') %>
-        <% alternate_path2 = canonical_tag %>
         <% canonical_tag = canonical_tag.sub(/\/about\z/, '') %>
+        <% alternate_path2 = canonical_tag %>
       <% end %>
   <% end %>
 

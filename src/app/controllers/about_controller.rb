@@ -1,5 +1,3 @@
-require 'cgi'
-
 class AboutController < ApplicationController
 
   # GET /about/
@@ -10,10 +8,8 @@ class AboutController < ApplicationController
     end 
     @country = nil
     return if params[:nationality].nil?
-    parsedNationality = CGI.unescape(params[:nationality]).downcase
-    parsedNationality = parsedNationality.gsub!(" ", "_") if parsedNationality.include? " "
-    return if parsedNationality.nil?
-    @country = Country.find_by_nationality(parsedNationality)
+
+    @country = Country.find_by_nationality(params[:nationality].gsub(" ", "_"))
                .outside_schengen.first
     fail ActionController::RoutingError, 'Page Not Found' if @country.nil?
   end

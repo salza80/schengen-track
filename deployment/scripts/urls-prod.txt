@@ -46,7 +46,7 @@ schengen-calculator.com/hi/about
 schengen-calculator.com/hi/about/British
 schengen-calculator.com/hi/about/American
 schengen-calculator.com/hi/about/indian
-schengen-calculator.com/hi/about/srilankan
+schengen-calculator.com/hi/about/Sri%20Lankan
 schengen-calculator.com/hi/blog/extended-schengen-stay
 
 

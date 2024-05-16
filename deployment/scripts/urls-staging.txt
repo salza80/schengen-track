@@ -33,5 +33,8 @@ test.schengen-calculator.com/zh-CN
 test.schengen-calculator.com/zh-CN/about
 test.schengen-calculator.com/zh-CN/about/Chinese
 test.schengen-calculator.com/zh-CN/about/American
-test.schengen-calculator.com/tr/blog/extended-schengen-stay
+test.schengen-calculator.com/zh-CN/blog/extended-schengen-stay
+test.schengen-calculator.com/hi
+test.schengen-calculator.com/hi/about
+test.schengen-calculator.com/hi/blog/extended-schengen-stay
 

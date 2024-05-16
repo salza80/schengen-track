@@ -8,8 +8,9 @@ class AboutController < ApplicationController
     end 
     @country = nil
     return if params[:nationality].nil?
-
-    @country = Country.find_by_nationality(params[:nationality].gsub(" ", "_"))
+    nationality = params[:nationality]
+    nationality.gsub("_", " ")
+    @country = Country.find_by_nationality(nationality)
                .outside_schengen.first
     fail ActionController::RoutingError, 'Page Not Found' if @country.nil?
   end

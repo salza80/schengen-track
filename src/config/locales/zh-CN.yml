@@ -103,5 +103,5 @@ zh-CN:
     privacy_policy: "隐私政策"
   default_description: "免费的申根/欧洲90/180天计算器。输入您的国籍、旅行日期和目的地，申根计算器会为您完成其余工作。"
   keywords: "申根, 申根签证计算器, 180天内90天, 90天规则, 180天计算器, 90天计算器, 申根签证, 旅行, 欧洲签证, 申根区, 申根区域"
-  title_with_content: "免费申根/欧洲短期旅游签证计算器 %{content}"
+  title_with_content: "免费的申根/欧洲短期旅游签证计算器 - %{content}"
   default_title: "申根/欧洲短期旅游签证计算器"

@@ -1,5 +1,5 @@
 - if @country.nil? == false
-  - title " for " +  @country.nationality_plural 
+  - title @country.nationality_plural 
 / .row
 /   .col-sm-10
 /     / Schengen
@@ -121,13 +121,13 @@
         %h3.mb-4
           = t('about.about.nationality_section.subheading')
         %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality')"})
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')"})
       - else
         = render "nationality"
         %h4.mb-4
           = t('about.about.nationality_section.select_another_prompt')
         %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value, 'nationality')"})
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')"})
       .text-center.mb-4
         = link_to t('about.about.button_text'), visits_path(locale: I18n.locale), class: "btn btn-primary"
       .ad-block.mb-4

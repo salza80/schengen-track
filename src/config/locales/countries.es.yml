@@ -1,0 +1,751 @@
+es:
+  AD_name: Andorra
+  AE_name: Emiratos Árabes Unidos
+  AF_name: Afganistán
+  AG_name: Antigua y Barbuda
+  AI_name: Anguila
+  AL_name: Albania
+  AM_name: Armenia
+  AO_name: Angola
+  AQ_name: Antártida
+  AR_name: Argentina
+  AS_name: Samoa Americana
+  AT_name: Austria
+  AU_name: Australia
+  AW_name: Aruba
+  AX_name: Islas Åland
+  AZ_name: Azerbaiyán
+  BA_name: Bosnia y Herzegovina
+  BB_name: Barbados
+  BD_name: Bangladesh
+  BE_name: Bélgica
+  BF_name: Burkina Faso
+  BG_name: Bulgaria
+  BH_name: Baréin
+  BI_name: Burundi
+  BJ_name: Benín
+  BL_name: San Bartolomé
+  BM_name: Bermudas
+  BN_name: Brunéi
+  BO_name: Bolivia
+  BQ_name: Bonaire, San Eustaquio y Saba
+  BR_name: Brasil
+  BS_name: Bahamas
+  BT_name: Bután
+  BV_name: Isla Bouvet
+  BW_name: Botsuana
+  BY_name: Bielorrusia
+  BZ_name: Belice
+  CA_name: Canadá
+  CC_name: Islas Cocos
+  CD_name: República Democrática del Congo
+  CF_name: República Centroafricana
+  CG_name: República del Congo
+  CH_name: Suiza
+  CI_name: Costa de Marfil
+  CK_name: Islas Cook
+  CL_name: Chile
+  CM_name: Camerún
+  CN_name: China
+  CO_name: Colombia
+  CR_name: Costa Rica
+  CU_name: Cuba
+  CV_name: Cabo Verde
+  CW_name: Curazao
+  CX_name: Isla de Navidad
+  CY_name: Chipre
+  CZ_name: República Checa
+  DE_name: Alemania
+  DJ_name: Yibuti
+  DK_name: Dinamarca
+  DM_name: Dominica
+  DO_name: República Dominicana
+  DZ_name: Argelia
+  EC_name: Ecuador
+  EE_name: Estonia
+  EG_name: Egipto
+  EH_name: Sáhara Occidental
+  ER_name: Eritrea
+  KH_name: Camboya
+  KI_name: Kiribati
+  KM_name: Comoras
+  KN_name: San Cristóbal y Nieves
+  KP_name: Corea del Norte
+  ES_name: España
+  ET_name: Etiopía
+  FI_name: Finlandia
+  FJ_name: Fiyi
+  FK_name: Islas Malvinas
+  FM_name: Micronesia
+  FO_name: Islas Feroe
+  FR_name: Francia
+  GA_name: Gabón
+  GB_name: Reino Unido
+  GD_name: Granada
+  GE_name: Georgia
+  GF_name: Guayana Francesa
+  GG_name: Guernsey
+  GH_name: Ghana
+  GI_name: Gibraltar
+  GL_name: Groenlandia
+  GM_name: Gambia
+  GN_name: Guinea
+  GP_name: Guadalupe
+  GQ_name: Guinea Ecuatorial
+  GR_name: Grecia
+  GS_name: Islas Georgias del Sur y Sandwich del Sur
+  GT_name: Guatemala
+  GU_name: Guam
+  GW_name: Guinea-Bisáu
+  GY_name: Guyana
+  HK_name: Hong Kong
+  HM_name: Islas Heard y McDonald
+  HN_name: Honduras
+  HR_name: Croacia
+  HT_name: Haití
+  HU_name: Hungría
+  ID_name: Indonesia
+  IE_name: Irlanda
+  IL_name: Israel
+  IM_name: Isla de Man
+  IN_name: India
+  IO_name: Territorio Británico del Océano Índico
+  IQ_name: Irak
+  IR_name: Irán
+  IS_name: Islandia
+  IT_name: Italia
+  JE_name: Jersey
+  JM_name: Jamaica
+  JO_name: Jordania
+  JP_name: Japón
+  KE_name: Kenia
+  KG_name: Kirguistán
+  KR_name: Corea del Sur
+  KW_name: Kuwait
+  KY_name: Islas Caimán
+  KZ_name: Kazajistán
+  LA_name: Laos
+  LB_name: Líbano
+  LC_name: Santa Lucía
+  LI_name: Liechtenstein
+  LK_name: Sri Lanka
+  LR_name: Liberia
+  LS_name: Lesoto
+  LT_name: Lituania
+  LU_name: Luxemburgo
+  LV_name: Letonia
+  LY_name: Libia
+  MA_name: Marruecos
+  MC_name: Mónaco
+  MD_name: Moldavia
+  ME_name: Montenegro
+  MF_name: San Martín
+  MG_name: Madagascar
+  MH_name: Islas Marshall
+  MK_name: Macedonia del Norte
+  ML_name: Malí
+  MM_name: Myanmar
+  MN_name: Mongolia
+  MO_name: Macao
+  MP_name: Islas Marianas del Norte
+  MQ_name: Martinica
+  MR_name: Mauritania
+  MS_name: Montserrat
+  MT_name: Malta
+  MU_name: Mauricio
+  MV_name: Maldivas
+  MW_name: Malaui
+  MX_name: México
+  MY_name: Malasia
+  MZ_name: Mozambique
+  NA_name: Namibia
+  NC_name: Nueva Caledonia
+  NE_name: Níger
+  NF_name: Isla Norfolk
+  NG_name: Nigeria
+  NI_name: Nicaragua
+  NL_name: Países Bajos
+  NO_name: Noruega
+  NP_name: Nepal
+  NR_name: Nauru
+  NU_name: Niue
+  NZ_name: Nueva Zelanda
+  OM_name: Omán
+  PA_name: Panamá
+  PE_name: Perú
+  PF_name: Polinesia Francesa
+  PG_name: Papúa Nueva Guinea
+  PH_name: Filipinas
+  PK_name: Pakistán
+  PL_name: Polonia
+  PM_name: San Pedro y Miquelón
+  PN_name: Islas Pitcairn
+  PR_name: Puerto Rico
+  PS_name: Territorio Palestino
+  PT_name: Portugal
+  PW_name: Palaos
+  PY_name: Paraguay
+  QA_name: Catar
+  RE_name: Reunión
+  RO_name: Rumania
+  RS_name: Serbia
+  RU_name: Rusia
+  RW_name: Ruanda
+  SA_name: Arabia Saudita
+  SB_name: Islas Salomón
+  SC_name: Seychelles
+  SD_name: Sudán
+  SE_name: Suecia
+  SG_name: Singapur
+  SH_name: Santa Elena
+  SI_name: Eslovenia
+  SJ_name: Svalbard y Jan Mayen
+  SK_name: Eslovaquia
+  SL_name: Sierra Leona
+  SM_name: San Marino
+  SN_name: Senegal
+  SO_name: Somalia
+  SR_name: Surinam
+  SS_name: Sudán del Sur
+  ST_name: Santo Tomé y Príncipe
+  SV_name: El Salvador
+  SX_name: Sint Maarten
+  SY_name: Siria
+  SZ_name: Esuatini
+  TC_name: Islas Turcas y Caicos
+  TD_name: Chad
+  TF_name: Territorios Australes Franceses
+  TG_name: Togo
+  TH_name: Tailandia
+  TJ_name: Tayikistán
+  TK_name: Tokelau
+  TL_name: Timor Oriental
+  TM_name: Turkmenistán
+  TN_name: Túnez
+  TO_name: Tonga
+  TR_name: Turquía
+  TT_name: Trinidad y Tobago
+  TV_name: Tuvalu
+  TW_name: Taiwán
+  TZ_name: Tanzania
+  UA_name: Ucrania
+  UG_name: Uganda
+  UM_name: Islas menores alejadas de los Estados Unidos
+  US_name: Estados Unidos
+  UY_name: Uruguay
+  UZ_name: Uzbekistán
+  VA_name: Ciudad del Vaticano
+  VC_name: San Vicente y las Granadinas
+  VE_name: Venezuela
+  VG_name: Islas Vírgenes Británicas
+  VI_name: Islas Vírgenes de los Estados Unidos
+  VN_name: Vietnam
+  VU_name: Vanuatu
+  WF_name: Wallis y Futuna
+  WS_name: Samoa
+  YE_name: Yemen
+  YT_name: Mayotte
+  ZA_name: Sudáfrica
+  ZM_name: Zambia
+  ZW_name: Zimbabue
+  XK_name: Kosovo
+  AD_nationality: Andorrano
+  AE_nationality: Emiratí
+  AF_nationality: Afgano
+  AG_nationality: Antiguano
+  AI_nationality: Anguilano
+  AL_nationality: Albanés
+  AM_nationality: Armenio
+  AO_nationality: Angoleño
+  AQ_nationality: Antártico
+  AR_nationality: Argentino
+  AS_nationality: Samoano
+  AT_nationality: Austriaco
+  AU_nationality: Australiano
+  AW_nationality: Arubeño
+  AX_nationality: Alandés
+  AZ_nationality: Azerbaiyano
+  BA_nationality: Bosnio
+  BB_nationality: Barbadiano
+  BD_nationality: Bangladesí
+  BE_nationality: Belga
+  BF_nationality: Burkinés
+  BG_nationality: Búlgaro
+  BH_nationality: Bahreiní
+  BI_nationality: Burundés
+  BJ_nationality: Beninés
+  BL_nationality: Barthelemois
+  BM_nationality: Bermudeño
+  BN_nationality: Brunéi
+  BO_nationality: Boliviano
+  BQ_nationality:
+  BR_nationality: Brasileño
+  BS_nationality: Bahameño
+  BT_nationality: Butanés
+  BV_nationality: Bouvetense
+  BW_nationality: Botsuano
+  BY_nationality: Bielorruso
+  BZ_nationality: Beliceño
+  CA_nationality: Canadiense
+  CC_nationality: Cocosiano
+  CD_nationality: Congoleño
+  CF_nationality: Centroafricano
+  CG_nationality: Congoleño
+  CH_nationality: Suizo
+  CI_nationality: Marfileño
+  CK_nationality: Cookense
+  CL_nationality: Chileno
+  CM_nationality: Camerunés
+  CN_nationality: Chino
+  CO_nationality: Colombiano
+  CR_nationality: Costarricense
+  CU_nationality: Cubano
+  CV_nationality: Caboverdiano
+  CW_nationality: Curazoleño
+  CX_nationality: Isla de Navidad
+  CY_nationality: Chipriota
+  CZ_nationality: Checo
+  DE_nationality: Alemán
+  DJ_nationality: Yibutiano
+  DK_nationality: Danés
+  DM_nationality: Dominicano
+  DO_nationality: Dominicano
+  DZ_nationality: Argelino
+  EC_nationality: Ecuatoriano
+  EE_nationality: Estonio
+  EG_nationality: Egipcio
+  EH_nationality: Saharaui
+  ER_nationality: Eritreo
+  KH_nationality: Camboyano
+  KI_nationality: Kiribatiano
+  KM_nationality: Comorense
+  KN_nationality: Kittitiano
+  KP_nationality: Norcoreano
+  ES_nationality: Español
+  ET_nationality: Etíope
+  FI_nationality: Finlandés
+  FJ_nationality: Fiyiano
+  FK_nationality: Malvinense
+  FM_nationality: Micronesio
+  FO_nationality: Feroés
+  FR_nationality: Francés
+  GA_nationality: Gabonés
+  GB_nationality: Británico
+  GD_nationality: Granadino
+  GE_nationality: Georgiano
+  GF_nationality: Guayanés
+  GG_nationality:
+  GH_nationality: Ghanés
+  GI_nationality: Gibraltareño
+  GL_nationality: Groenlandés
+  GM_nationality: Gambiano
+  GN_nationality: Guineano
+  GP_nationality: Guadalupeño
+  GQ_nationality: Ecuatoguineano
+  GR_nationality: Griego
+  GS_nationality:
+  GT_nationality: Guatemalteco
+  GU_nationality: Guameño
+  GW_nationality: Guineano
+  GY_nationality: Guyanés
+  HK_nationality: Hongkonés
+  HM_nationality:
+  HN_nationality: Hondureño
+  HR_nationality: Croata
+  HT_nationality: Haitiano
+  HU_nationality: Húngaro
+  ID_nationality: Indonesio
+  IE_nationality: Irlandés
+  IL_nationality: Israelí
+  IM_nationality: Isleño
+  IN_nationality: Indio
+  IO_nationality:
+  IQ_nationality: Iraquí
+  IR_nationality: Iraní
+  IS_nationality: Islandés
+  IT_nationality: Italiano
+  JE_nationality:
+  JM_nationality: Jamaiquino
+  JO_nationality: Jordano
+  JP_nationality: Japonés
+  KE_nationality: Keniano
+  KG_nationality: Kirguís
+  KR_nationality: Surcoreano
+  KW_nationality: Kuwaití
+  KY_nationality: Caimanés
+  KZ_nationality: Kazajo
+  LA_nationality: Laosiano
+  LB_nationality: Libanés
+  LC_nationality: Sanluqueño
+  LI_nationality: Liechtensteiniano
+  LK_nationality: Ceilanés
+  LR_nationality: Liberiano
+  LS_nationality: Lesotense
+  LT_nationality: Lituano
+  LU_nationality: Luxemburgués
+  LV_nationality: Letón
+  LY_nationality: Libio
+  MA_nationality: Marroquí
+  MC_nationality: Monegasco
+  MD_nationality: Moldavo
+  ME_nationality: Montenegrino
+  MF_nationality:
+  MG_nationality: Malgache
+  MH_nationality: Marisquense
+  MK_nationality: Macedonio
+  ML_nationality: Malí
+  MM_nationality: Birmano
+  MN_nationality: Mongol
+  MO_nationality: Macaense
+  MP_nationality: Marianense
+  MQ_nationality: Martiniqués
+  MR_nationality: Mauritano
+  MS_nationality: Montserratense
+  MT_nationality: Maltés
+  MU_nationality: Mauriciano
+  MV_nationality: Maldivo
+  MW_nationality: Malauí
+  MX_nationality: Mexicano
+  MY_nationality: Malasio
+  MZ_nationality: Mozambiqueño
+  NA_nationality: Namibio
+  NC_nationality: Neocaledonio
+  NE_nationality: Nigerino
+  NF_nationality: Norfolquino
+  NG_nationality: Nigeriano
+  NI_nationality: Nicaragüense
+  NL_nationality: Neerlandés
+  NO_nationality: Noruego
+  NP_nationality: Nepalí
+  NR_nationality: Nauruano
+  NU_nationality: Niuano
+  NZ_nationality: Neozelandés
+  OM_nationality: Omaní
+  PA_nationality: Panameño
+  PE_nationality: Peruano
+  PF_nationality: Polinesio
+  PG_nationality: Papuano
+  PH_nationality: Filipino
+  PK_nationality: Pakistaní
+  PL_nationality: Polaco
+  PM_nationality: Sanpedrense
+  PN_nationality: Pitcairnense
+  PR_nationality: Puertorriqueño
+  PS_nationality: Palestino
+  PT_nationality: Portugués
+  PW_nationality: Palaosense
+  PY_nationality: Paraguayo
+  QA_nationality: Catarí
+  RE_nationality:
+  RO_nationality: Rumano
+  RS_nationality: Serbio
+  RU_nationality: Ruso
+  RW_nationality: Ruandés
+  SA_nationality: Saudí
+  SB_nationality: Salomonense
+  SC_nationality: Seichelense
+  SD_nationality: Sudanés
+  SE_nationality: Sueco
+  SG_nationality: Singapurense
+  SH_nationality: Santahelense
+  SI_nationality: Esloveno
+  SJ_nationality:
+  SK_nationality: Eslovaco
+  SL_nationality: Sierra Leones
+  SM_nationality: Sanmarinense
+  SN_nationality: Senegalés
+  SO_nationality: Somalí
+  SR_nationality: Surinamés
+  SS_nationality: Sudanés
+  ST_nationality: Santotomense
+  SV_nationality: Salvadoreño
+  SX_nationality:
+  SY_nationality: Sirio
+  SZ_nationality: Suazi
+  TC_nationality: Turcocaiqueño
+  TD_nationality: Chadiano
+  TF_nationality:
+  TG_nationality: Togolés
+  TH_nationality: Tailandés
+  TJ_nationality: Tayiko
+  TK_nationality: Tokelauano
+  TL_nationality: Timorense
+  TM_nationality: Turcomano
+  TN_nationality: Tunecino
+  TO_nationality: Tongano
+  TR_nationality: Turco
+  TT_nationality: Trinitense
+  TV_nationality: Tuvaluano
+  TW_nationality: Taiwanes
+  TZ_nationality: Tanzano
+  UA_nationality: Ucraniano
+  UG_nationality: Ugandés
+  UM_nationality:
+  US_nationality: Estadounidense
+  UY_nationality: Uruguayo
+  UZ_nationality: Uzbeco
+  VA_nationality: Vaticano
+  VC_nationality: Sanvicentino
+  VE_nationality: Venezolano
+  VG_nationality: Virgenense
+  VI_nationality: Virgenense
+  VN_nationality: Vietnamita
+  VU_nationality: Vanuatuense
+  WF_nationality: Wallisiano
+  WS_nationality: Samoano
+  YE_nationality: Yemení
+  YT_nationality: Mahorés
+  ZA_nationality: Sudafricano
+  ZM_nationality: Zambiano
+  ZW_nationality: Zimbabuense
+  XK_nationality: Kosovar
+  AD_nationality_plural: Andorranos
+  AE_nationality_plural: Emiratíes
+  AF_nationality_plural: Afganos
+  AG_nationality_plural: Antiguanos
+  AI_nationality_plural: Anguilenses
+  AL_nationality_plural: Albaneses
+  AM_nationality_plural: Armenios
+  AO_nationality_plural: Angoleños
+  AQ_nationality_plural: Antárticos
+  AR_nationality_plural: Argentinos
+  AS_nationality_plural: Samoanos
+  AT_nationality_plural: Austriacos
+  AU_nationality_plural: Australianos
+  AW_nationality_plural: Arubeños
+  AX_nationality_plural: Alandeses
+  AZ_nationality_plural: Azerbaiyanos
+  BA_nationality_plural: Bosnios
+  BB_nationality_plural: Barbadienses
+  BD_nationality_plural: Bangladesíes
+  BE_nationality_plural: Belgas
+  BF_nationality_plural: Burkinabeses
+  BG_nationality_plural: Búlgaros
+  BH_nationality_plural: Bahreiníes
+  BI_nationality_plural: Burundeses
+  BJ_nationality_plural: Benineses
+  BL_nationality_plural: Barthelemitas
+  BM_nationality_plural: Bermudeños
+  BN_nationality_plural: Brunéi
+  BO_nationality_plural: Bolivianos
+  BQ_nationality_plural:
+  BR_nationality_plural: Brasileños
+  BS_nationality_plural: Bahameños
+  BT_nationality_plural: Butaneses
+  BV_nationality_plural: Bouvetenses
+  BW_nationality_plural: Botsuanos
+  BY_nationality_plural: Bielorrusos
+  BZ_nationality_plural: Beliceños
+  CA_nationality_plural: Canadienses
+  CC_nationality_plural: Cocosianos
+  CD_nationality_plural: Congoleños
+  CF_nationality_plural: Centroafricanos
+  CG_nationality_plural: Congoleños
+  CH_nationality_plural: Suizos
+  CI_nationality_plural: Marfileños
+  CK_nationality_plural: Cookianos
+  CL_nationality_plural: Chilenos
+  CM_nationality_plural: Cameruneses
+  CN_nationality_plural: Chinos
+  CO_nationality_plural: Colombianos
+  CR_nationality_plural: Costarricenses
+  CU_nationality_plural: Cubanos
+  CV_nationality_plural: Caboverdianos
+  CW_nationality_plural: Curazaleños
+  CX_nationality_plural: Isla de Navidad
+  CY_nationality_plural: Chipriotas
+  CZ_nationality_plural: Checos
+  DE_nationality_plural: Alemanes
+  DJ_nationality_plural: Yibutianos
+  DK_nationality_plural: Daneses
+  DM_nationality_plural: Dominicanos
+  DO_nationality_plural: Dominicanos
+  DZ_nationality_plural: Argelinos
+  EC_nationality_plural: Ecuatorianos
+  EE_nationality_plural: Estonios
+  EG_nationality_plural: Egipcios
+  EH_nationality_plural: Saharauis
+  ER_nationality_plural: Eritreos
+  KH_nationality_plural: Camboyanos
+  KI_nationality_plural: Kiribatianos
+  KM_nationality_plural: Comorenses
+  KN_nationality_plural: Saint Kittsianos
+  KP_nationality_plural: Norcoreanos
+  ES_nationality_plural: Españoles
+  ET_nationality_plural: Etíopes
+  FI_nationality_plural: Finlandeses
+  FJ_nationality_plural: Fiyianos
+  FK_nationality_plural: Malvinenses
+  FM_nationality_plural: Micronesios
+  FO_nationality_plural: Feroeses
+  FR_nationality_plural: Franceses
+  GA_nationality_plural: Gaboneses
+  GB_nationality_plural: Británicos
+  GD_nationality_plural: Granadinos
+  GE_nationality_plural: Georgianos
+  GF_nationality_plural: Guayaneses
+  GG_nationality_plural:
+  GH_nationality_plural: Ghaneses
+  GI_nationality_plural: Gibraltareños
+  GL_nationality_plural: Groenlandeses
+  GM_nationality_plural: Gambianos
+  GN_nationality_plural: Guineanos
+  GP_nationality_plural: Guadalupeños
+  GQ_nationality_plural: Ecuatoguineanos
+  GR_nationality_plural: Griegos
+  GS_nationality_plural:
+  GT_nationality_plural: Guatemaltecos
+  GU_nationality_plural: Guameños
+  GW_nationality_plural: Guineanos
+  GY_nationality_plural: Guyaneses
+  HK_nationality_plural: Hongkoneses
+  HM_nationality_plural:
+  HN_nationality_plural: Hondureños
+  HR_nationality_plural: Croatas
+  HT_nationality_plural: Haitianos
+  HU_nationality_plural: Húngaros
+  ID_nationality_plural: Indonesios
+  IE_nationality_plural: Irlandeses
+  IL_nationality_plural: Israelíes
+  IM_nationality_plural: Maneses
+  IN_nationality_plural: Indios
+  IO_nationality_plural:
+  IQ_nationality_plural: Iraquíes
+  IR_nationality_plural: Iraníes
+  IS_nationality_plural: Islandeses
+  IT_nationality_plural: Italianos
+  JE_nationality_plural:
+  JM_nationality_plural: Jamaicanos
+  JO_nationality_plural: Jordanos
+  JP_nationality_plural: Japoneses
+  KE_nationality_plural: Kenianos
+  KG_nationality_plural: Kirguises
+  KR_nationality_plural: Surcoreanos
+  KW_nationality_plural: Kuwaitíes
+  KY_nationality_plural: Caimanenses
+  KZ_nationality_plural: Kazajos
+  LA_nationality_plural: Laosianos
+  LB_nationality_plural: Libaneses
+  LC_nationality_plural: Santa Lucenses
+  LI_nationality_plural: Liechtensteinianos
+  LK_nationality_plural: Ceilanenses
+  LR_nationality_plural: Liberianos
+  LS_nationality_plural: Lesotenses
+  LT_nationality_plural: Lituano
+  LU_nationality_plural: Luxemburgueses
+  LV_nationality_plural: Letones
+  LY_nationality_plural: Libios
+  MA_nationality_plural: Marroquíes
+  MC_nationality_plural: Monegascos
+  MD_nationality_plural: Moldavos
+  ME_nationality_plural: Montenegrinos
+  MF_nationality_plural:
+  MG_nationality_plural: Malgaches
+  MH_nationality_plural: Marshallenses
+  MK_nationality_plural: Macedonios
+  ML_nationality_plural: Malíes
+  MM_nationality_plural: Birmanos
+  MN_nationality_plural: Mongoles
+  MO_nationality_plural: Macaenses
+  MP_nationality_plural: Marianenses del Norte
+  MQ_nationality_plural: Martiniqueses
+  MR_nationality_plural: Mauritánicos
+  MS_nationality_plural: Montserratenses
+  MT_nationality_plural: Malteses
+  MU_nationality_plural: Mauricianos
+  MV_nationality_plural: Maldivos
+  MW_nationality_plural: Malauíes
+  MX_nationality_plural: Mexicanos
+  MY_nationality_plural: Malasios
+  MZ_nationality_plural: Mozambiqueños
+  NA_nationality_plural: Namibios
+  NC_nationality_plural: Neocaledonios
+  NE_nationality_plural: Nigerinos
+  NF_nationality_plural: Norfolkenses
+  NG_nationality_plural: Nigerianos
+  NI_nationality_plural: Nicaragüenses
+  NL_nationality_plural: Neerlandeses
+  NO_nationality_plural: Noruegos
+  NP_nationality_plural: Nepaleses
+  NR_nationality_plural: Nauruanos
+  NU_nationality_plural: Niueños
+  NZ_nationality_plural: Neozelandeses
+  OM_nationality_plural: Omaníes
+  PA_nationality_plural: Panameños
+  PE_nationality_plural: Peruanos
+  PF_nationality_plural: Polinesios Franceses
+  PG_nationality_plural: Papúes Nuevoguineanos
+  PH_nationality_plural: Filipinos
+  PK_nationality_plural: Pakistaníes
+  PL_nationality_plural: Polacos
+  PM_nationality_plural: Sanpedrenses
+  PN_nationality_plural: Pitcairnenses
+  PR_nationality_plural: Puertorriqueños
+  PS_nationality_plural: Palestinos
+  PT_nationality_plural: Portugueses
+  PW_nationality_plural: Palaos
+  PY_nationality_plural: Paraguayos
+  QA_nationality_plural: Cataríes
+  RE_nationality_plural:
+  RO_nationality_plural: Rumanos
+  RS_nationality_plural: Serbios
+  RU_nationality_plural: Rusos
+  RW_nationality_plural: Ruandeses
+  SA_nationality_plural: Saudíes
+  SB_nationality_plural: Salomonenses
+  SC_nationality_plural: Seichellenses
+  SD_nationality_plural: Sudanés
+  SE_nationality_plural: Suecos
+  SG_nationality_plural: Singapurenses
+  SH_nationality_plural: Santahelenenses
+  SI_nationality_plural: Eslovenos
+  SJ_nationality_plural:
+  SK_nationality_plural: Eslovacos
+  SL_nationality_plural: Sierraleoneses
+  SM_nationality_plural: Sanmarinenses
+  SN_nationality_plural: Senegaleses
+  SO_nationality_plural: Somalíes
+  SR_nationality_plural: Surinameses
+  SS_nationality_plural: Sudanés
+  ST_nationality_plural: Santotomenses
+  SV_nationality_plural: Salvadoreños
+  SX_nationality_plural:
+  SY_nationality_plural: Sirios
+  SZ_nationality_plural: Suazis
+  TC_nationality_plural: Turcas y Caicosianos
+  TD_nationality_plural: Chadianos
+  TF_nationality_plural:
+  TG_nationality_plural: Togoleses
+  TH_nationality_plural: Tailandeses
+  TJ_nationality_plural: Tayikos
+  TK_nationality_plural: Tokelauenses
+  TL_nationality_plural: Timorenses
+  TM_nationality_plural: Turcomanos
+  TN_nationality_plural: Tunecinos
+  TO_nationality_plural: Tonganos
+  TR_nationality_plural: Turcos
+  TT_nationality_plural: Trinitenses
+  TV_nationality_plural: Tuvaluanos
+  TW_nationality_plural: Taiwaneses
+  TZ_nationality_plural: Tanzanos
+  UA_nationality_plural: Ucranianos
+  UG_nationality_plural: Ugandeses
+  UM_nationality_plural:
+  US_nationality_plural: Estadounidenses
+  UY_nationality_plural: Uruguayos
+  UZ_nationality_plural: Uzbekos
+  VA_nationality_plural: Vaticanos
+  VC_nationality_plural: Sanvicentinos
+  VE_nationality_plural: Venezolanos
+  VG_nationality_plural: Islas Vírgenes Británicas
+  VI_nationality_plural: Islas Vírgenes de los Estados Unidos
+  VN_nationality_plural: Vietnamitas
+  VU_nationality_plural: Vanuatuenses
+  WF_nationality_plural: Wallisianos
+  WS_nationality_plural: Samoanos
+  YE_nationality_plural: Yemeníes
+  YT_nationality_plural: Mahoríes
+  ZA_nationality_plural: Sudafricanos
+  ZM_nationality_plural: Zambianos
+  ZW_nationality_plural: Zimbabuenses
+  XK_nationality_plural: Kosovares

@@ -1,0 +1,18 @@
+hi:
+  log_in_page:
+    title: "लॉग इन करें"
+    log_in_with_facebook: "फेसबुक के साथ लॉग इन करें"
+    remember_me_label: "मुझे याद रखें"
+    log_in_button: "लॉग इन करें"
+    not_registered: "अभी तक पंजीकृत नहीं हैं?"
+    register_link: "रजिस्टर करें"
+    forgot_password: "क्या आपने पासवर्ड भूल गए हैं?"
+    reset_password_link: "पासवर्ड रीसेट करें"
+  sign_up_page:
+    title: "साइन अप करें"
+    sign_up_with_facebook: "फेसबुक के साथ साइन अप करें"
+    sign_up_button: "साइन अप करें"
+    already_registered: "पहले से पंजीकृत हैं?"
+    log_in_link: "लॉग इन करें"
+  new_password_page:
+    reset: "रीसेट भेजें"

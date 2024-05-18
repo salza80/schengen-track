@@ -104,5 +104,5 @@ de:
     privacy_policy: "Datenschutzbestimmungen"
   default_description: "Kostenloser Schengen/Europa-90/180-Tage-Rechner. Geben Sie Ihre Nationalität, Reisedaten und Reiseziel ein, und der Schengen-Rechner erledigt den Rest."
   keywords: "Schengen, Schengen-Rechner, 90 Tage in 180, 90-Tage-Regel, 180-Tage-Rechner, 90-Tage-Rechner, Schengen-Visum, Reisen, Europa-Visum, Schengen-Gebiet, Schengen-Zone"
-  title_with_content: "Kostenloser Schengen / Europa-Kurzzeit-Touristenvisum-Rechner %{content}"
+  title_with_content: "Kostenloser Schengen / Europa-Kurzzeit-Touristenvisum-Rechner für %{content}"
   default_title: "Schengen / Europa-Kurzzeit-Touristenvisum-Rechner"

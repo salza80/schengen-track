@@ -1,0 +1,735 @@
+hi:
+  AD_name: अंडोरा
+  AE_name: संयुक्त अरब अमीरात
+  AF_name: अफगानिस्तान
+  AG_name: एंटिगुआ और बारबूडा
+  AI_name: एंगुइला
+  AL_name: अल्बानिया
+  AM_name: आर्मेनिया
+  AO_name: अंगोला
+  AQ_name: अंटार्कटिका
+  AR_name: अर्जेंटीना
+  AS_name: अमेरिकी समोआ
+  AT_name: ऑस्ट्रिया
+  AU_name: ऑस्ट्रेलिया
+  AW_name: अरूबा
+  AX_name: आलैंड द्वीपसमूह
+  AZ_name: अज़रबाइजान
+  BA_name: बोस्निया और हर्ज़ेगोविना
+  BB_name: बारबाडोस
+  BD_name: बांगलादेश
+  BE_name: बेल्जियम
+  BF_name: बुर्किना फासो
+  BG_name: बुल्गारिया
+  BH_name: बहरीन
+  BI_name: बुरुंडी
+  BJ_name: बेनिन
+  BL_name: सेंट बार्थेलेमी
+  BM_name: बरमूडा
+  BN_name: ब्रुनेई
+  BO_name: बोलीविया
+  BQ_name: बोनेयर, सेंट यूस्टेशियस और साबा
+  BR_name: ब्राज़ील
+  BS_name: बहामास
+  BT_name: भूटान
+  BV_name: बोवेत द्वीप
+  BW_name: बोत्सवाना
+  BY_name: बेलारूस
+  BZ_name: बेलीज़
+  CA_name: कनाडा
+  CC_name: कोकोस द्वीपसमूह
+  CD_name: कांगो लोकतांत्रिक गणराज्य
+  CF_name: मध्य अफ्रीकी गणराज्य
+  CG_name: कांगो गणराज्य
+  CH_name: स्विट्ज़रलैंड
+  CI_name: आईवरी कोस्ट
+  CK_name: कुक द्वीपसमूह
+  CL_name: चिली
+  CM_name: कैमरून
+  CN_name: चीन
+  CO_name: कोलंबिया
+  CR_name: कोस्टारिका
+  CU_name: क्यूबा
+  CV_name: केप वर्ड
+  CW_name: कुराकाओ
+  CX_name: क्रिसमस द्वीप
+  CY_name: साइप्रस
+  CZ_name: चेक गणराज्य
+  DE_name: जर्मनी
+  DJ_name: जिबूती
+  DK_name: डेनमार्क
+  DM_name: डोमिनिका
+  DO_name: डोमिनिकन गणराज्य
+  DZ_name: अल्जीरिया
+  EC_name: इक्वाडोर
+  EE_name: एस्टोनिया
+  EG_name: मिस्र
+  EH_name: पश्चिमी सहारा
+  ER_name: इरिट्रिया
+  KH_name: कंबोडिया
+  KI_name: किरिबाती
+  KM_name: कोमोरोस
+  KN_name: सेंट किट्स और नेविस
+  KP_name: उत्तर कोरिया
+  ES_name: स्पेन
+  ET_name: इथियोपिया
+  FI_name: फिनलैंड
+  FJ_name: फ़िजी
+  FK_name: फ़ॉकलैंड द्वीपसमूह
+  FM_name: माइक्रोनेशिया
+  FO_name: फ़ेरो द्वीपसमूह
+  FR_name: फ्रांस
+  GA_name: गैबॉन
+  GB_name: यूनाइटेड किंगडम
+  GD_name: ग्रेनाडा
+  GE_name: जॉर्जिया
+  GF_name: फ़्रेंच गुयाना
+  GG_name: ग्वेर्नसे
+  GH_name: घाना
+  GI_name: जिब्राल्टर
+  GL_name: ग्रीनलैंड
+  GM_name: गाम्बिया
+  GN_name: गिनी
+  GP_name: ग्वाडेलोप
+  GQ_name: भूमध्यरेखीय गिनी
+  GR_name: यूनान
+  GS_name: दक्षिणी जॉर्जिया और दक्षिणी सैंडविच द्वीपसमूह
+  GT_name: ग्वाटेमाला
+  GU_name: गुआम
+  GW_name: गिनी-बिसाउ
+  GY_name: गुयाना
+  HK_name: हांगकांग
+  HM_name: हर्ड द्वीप और मैकडोनाल्ड द्वीपसमूह
+  HN_name: होंडुरास
+  HR_name: क्रोएशिया
+  HT_name: हैती
+  HU_name: हंगरी
+  ID_name: इंडोनेशिया
+  IE_name: आयरलैंड
+  IL_name: इज़राइल
+  IM_name: आइल ऑफ़ मैन
+  IN_name: भारत
+  IO_name: ब्रिटिश हिंद महासागरीय क्षेत्र
+  IQ_name: इराक़
+  IR_name: ईरान
+  IS_name: आइसलैंड
+  IT_name: इटली
+  JE_name: जर्सी
+  JM_name: जमैका
+  JO_name: जॉर्डन
+  JP_name: जापान
+  KE_name: केन्या
+  KG_name: किर्गिज़स्तान
+  KR_name: दक्षिण कोरिया
+  KW_name: कुवैत
+  KY_name: केमैन द्वीपसमूह
+  KZ_name: कज़ाख़स्तान
+  LA_name: लाओस
+  LB_name: लेबनान
+  LC_name: सेंट लूसिया
+  LI_name: लिकटेंस्टीन
+  LK_name: श्रीलंका
+  LR_name: लाइबेरिया
+  LS_name: लेसोथो
+  LT_name: लिथुआनिया
+  LU_name: लक्ज़मबर्ग
+  LV_name: लातविया
+  LY_name: लीबिया
+  MA_name: मोरक्को
+  MC_name: मोनाको
+  MD_name: मोल्डोवा
+  ME_name: मोंटेनेग्रो
+  MF_name: सेंट मार्टिन
+  MG_name: मेडागास्कर
+  MH_name: मार्शल द्वीपसमूह
+  MK_name: मैसेडोनिया
+  ML_name: माली
+  MM_name: म्यांमार
+  MN_name: मंगोलिया
+  MO_name: मकाऊ
+  MP_name: उत्तरी मारियाना द्वीपसमूह
+  MQ_name: मार्टिनिक
+  MR_name: मॉरिटानिया
+  MS_name: मॉन्टसेराट
+  MT_name: माल्टा
+  MU_name: मॉरिशस
+  MV_name: मालदीव
+  MW_name: मलावी
+  MX_name: मेक्सिको
+  MY_name: मलेशिया
+  MZ_name: मोज़ाम्बिक
+  NA_name: नामीबिया
+  NC_name: न्यू कैलेडोनिया
+  NE_name: नाइजर
+  NF_name: नॉरफ़ॉक द्वीप
+  NG_name: नाइजीरिया
+  NI_name: निकारागुआ
+  NL_name: नीदरलैंड
+  NO_name: नॉर्वे
+  NP_name: नेपाल
+  NR_name: नाउरू
+  NU_name: नीयू
+  NZ_name: न्यूज़ीलैंड
+  OM_name: ओमान
+  PA_name: पनामा
+  PE_name: पेरू
+  PF_name: फ़्रेंच पॉलिनेशिया
+  PG_name: पापुआ न्यू गिनी
+  PH_name: फिलीपींस
+  PK_name: पाकिस्तान
+  PL_name: पोलैंड
+  PM_name: सेंट पियरे और मिक्वेलन
+  PN_name: पिटकैर्न
+  PR_name: प्यूर्टो रिको
+  PS_name: पालेस्टाइनियन क्षेत्र
+  PT_name: पुर्तगाल
+  PW_name: पलाऊ
+  PY_name: पराग्वे
+  QA_name: कतर
+  RE_name: रियूनियन
+  RO_name: रोमानिया
+  RS_name: सर्बिया
+  RU_name: रूस
+  RW_name: रवांडा
+  SA_name: सऊदी अरब
+  SB_name: सोलोमन द्वीपसमूह
+  SC_name: सेशेल्स
+  SD_name: सूडान
+  SE_name: स्वीडन
+  SG_name: सिंगापुर
+  SH_name: सेंट हेलेना
+  SI_name: स्लोवेनिया
+  SJ_name: स्वालबार्ड और जान मायेन
+  SK_name: स्लोवाकिया
+  SL_name: सिएरा लियोन
+  SM_name: सैन मरीनो
+  SN_name: सेनेगल
+  SO_name: सोमालिया
+  SR_name: सूरीनाम
+  SS_name: दक्षिण सूडान
+  ST_name: साओ टोमे और प्रिंसिपे
+  SV_name: अल साल्वाडोर
+  SX_name: सिंट मार्टेन
+  SY_name: सीरिया
+  SZ_name: स्वाज़ीलैंड
+  TC_name: तुर्क और कैकोस द्वीपसमूह
+  TD_name: चाड
+  TF_name: फ़्रांसीसी दक्षिणी क्षेत्र
+  TG_name: टोगो
+  TH_name: थाईलैंड
+  TJ_name: ताजिकिस्तान
+  TK_name: टोकेलाउ
+  TL_name: पूर्वी तिमोर
+  TM_name: तुर्कमेनिस्तान
+  TN_name: ट्यूनीशिया
+  TO_name: टोंगा
+  TR_name: तुर्की
+  TT_name: त्रिनिदाद और टोबैगो
+  TV_name: तुवालू
+  TW_name: ताइवान
+  TZ_name: तंज़ानिया
+  UA_name: यूक्रेन
+  UG_name: युगांडा
+  UM_name: संयुक्त राज्य अल्प बाह्य द्वीपसमूह
+  US_name: संयुक्त राज्य
+  UY_name: उरुग्वे
+  UZ_name: उज़्बेकिस्तान
+  VA_name: वेटिकन
+  VC_name: सेंट विंसेंट और ग्रेनाडाइंस
+  VE_name: वेनेज़ुएला
+  VG_name: ब्रिटिश वर्जिन द्वीपसमूह
+  VI_name: यूएस वर्जिन द्वीपसमूह
+  VN_name: वियतनाम
+  VU_name: वानुअतु
+  WF_name: वालिस और फ़्यूचूना
+  WS_name: समोआ
+  YE_name: यमन
+  YT_name: मायोत्ट
+  ZA_name: दक्षिण अफ्रीका
+  ZM_name: ज़ाम्बिया
+  ZW_name: Zimbabwe
+  XK_name: Kosovo
+  AD_nationality: अंडोर्राई
+  AF_nationality: अफगानी
+  AG_nationality: एंटीगुआ
+  AI_nationality: अंगुइलान
+  AL_nationality: अल्बानियाई
+  AM_nationality: आर्मेनियाई
+  AO_nationality: अंगोला
+  AQ_nationality: अंटार्कटिक
+  AR_nationality: अर्जेंटीना
+  AS_nationality: सामोअन
+  AT_nationality: ऑस्ट्रियाई
+  AU_nationality: ऑस्ट्रेलियाई
+  AW_nationality: अरूबियन
+  AX_nationality: आलैंडिक
+  AZ_nationality: अज़रबैजानी
+  BA_nationality: बोस्नियाई
+  BB_nationality: बारबाडियन
+  BD_nationality: बांगलादेशी
+  BE_nationality: बेल्जियमी
+  BF_nationality: बुर्किना फासो
+  BG_nationality: बुल्गारियाई
+  BH_nationality: बहरीनी
+  BI_nationality: बुरुंडी
+  BJ_nationality: बेनिनी
+  BL_nationality: बार्थेलेमोइस
+  BM_nationality: बरमूडा
+  BN_nationality: ब्रुनेई
+  BO_nationality: बोलिवियाई
+  BQ_nationality:
+  BR_nationality: ब्राज़ीली
+  BS_nationality: बहामी
+  BT_nationality: भूटानी
+  BV_nationality: बोवे द्वीपीय
+  BW_nationality: मोट्सवाना
+  BY_nationality: बेलारूसी
+  BZ_nationality: बेलीज़ी
+  CA_nationality: कनाडाई
+  CC_nationality: कोकोसी
+  CD_nationality: कांगोली
+  CF_nationality: मध्य अफ्रीकी
+  CG_nationality: कांगोली
+  CH_nationality: स्विस
+  CI_nationality: आईवरी कोस्ट
+  CK_nationality: कुक द्वीपीय
+  CL_nationality: चिली
+  CM_nationality: कैमरूनी
+  CN_nationality: चीनी
+  CO_nationality: कोलंबियाई
+  CR_nationality: कोस्टा रिका
+  CU_nationality: क्यूबाई
+  CV_nationality: केप वर्डी
+  CW_nationality: कुरासाओ
+  CX_nationality: क्रिसमस द्वीपीय
+  CY_nationality: साइप्रसी
+  CZ_nationality: चेक
+  DE_nationality: जर्मन
+  DJ_nationality: जिबूती
+  DK_nationality: डेनिश
+  DM_nationality: डोमिनिकन
+  DO_nationality: डोमिनिकन
+  DZ_nationality: अल्जीरियाई
+  EC_nationality: इक्वाडोरी
+  EE_nationality: एस्टोनियाई
+  EG_nationality: मिस्री
+  EH_nationality: पश्चिमी सहारा
+  ER_nationality: इरिट्रियाई
+  KH_nationality: कंबोडियाई
+  KI_nationality: आई-किरिबाती
+  KM_nationality: कोमोरियाई
+  KN_nationality: किट्टियन
+  KP_nationality: उत्तर कोरियाई
+  ES_nationality: स्पेनिश
+  ET_nationality: इथियोपियाई
+  FI_nationality: फिनिश
+  FJ_nationality: फ़िजी
+  FK_nationality: फ़ॉकलैंड द्वीपीय
+  FM_nationality: माइक्रोनेशियाई
+  FO_nationality: फ़ैरोइज़
+  FR_nationality: फ़्रांसीसी
+  GA_nationality: गैबोनी
+  GB_nationality: ब्रिटिश
+  GD_nationality: ग्रेनेडियन
+  GE_nationality: जॉर्जियाई
+  GF_nationality: फ़्रेंच गुयानी
+  GG_nationality:
+  GH_nationality: घानी
+  GI_nationality: जिब्राल्टरी
+  GL_nationality: ग्रीनलैंडर
+  GM_nationality: गाम्बियाई
+  GN_nationality: गिनी
+  GP_nationality: ग्वाडेलूपीय
+  GQ_nationality: भूमध्यवर्ती गिनी
+  GR_nationality: यूनानी
+  GS_nationality:
+  GT_nationality: ग्वाटेमाला
+  GU_nationality: गुआमानियन
+  GW_nationality: गिनी-बिसाउ
+  GY_nationality: गुयानी
+  HK_nationality: हांगकांगी
+  HM_nationality:
+  HN_nationality: होंडुरासी
+  HR_nationality: क्रोएशियाई
+  HT_nationality: हैतियाई
+  HU_nationality: हंगेरियाई
+  ID_nationality: इंडोनेशियाई
+  IE_nationality: आयरिश
+  IL_nationality: इज़राइली
+  IM_nationality: मैंक्स
+  IN_nationality: भारतीय
+  IO_nationality:
+  IQ_nationality: इराक़ी
+  IR_nationality: ईरानी
+  IS_nationality: आइसलैंडर
+  IT_nationality: इतालवी
+  JE_nationality:
+  JM_nationality: जमैकन
+  JO_nationality: जॉर्डनी
+  JP_nationality: जापानी
+  KE_nationality: केन्याई
+  KG_nationality: किर्गिज़स्तानी
+  KR_nationality: दक्षिण कोरियाई
+  KW_nationality: कुवैती
+  KY_nationality: केमेन द्वीपीय
+  KZ_nationality: कज़ाख़स्तानी
+  LA_nationality: लाओ
+  LB_nationality: लेबनानी
+  LC_nationality: सेंट लूसियन
+  LI_nationality: लिकटेंस्टाइनर
+  LK_nationality: श्रीलंकाई
+  LR_nationality: लाइबेरियाई
+  LS_nationality: मोसोथो
+  LT_nationality: लिथुआनियाई
+  LU_nationality: लक्ज़मबर्गी
+  LV_nationality: लातवियाई
+  LY_nationality: लीबियाई
+  MA_nationality: मोरक्कोई
+  MC_nationality: मोनाको
+  MD_nationality: मोल्डोवाई
+  ME_nationality: मोंटेनेग्रिन
+  MF_nationality:
+  MG_nationality: मालागासी
+  MH_nationality: मार्शलीज़
+  MK_nationality: मैसेडोनियाई
+  ML_nationality: मालीई
+  MM_nationality: म्यांमारी
+  MN_nationality: मंगोलियाई
+  MO_nationality: मकानीज़
+  MP_nationality: उत्तरी मेरियाना द्वीपीय
+  MQ_nationality: मार्टिनिकन
+  MR_nationality: मॉरिटानियाई
+  MS_nationality: मॉन्टसेराती
+  MT_nationality: माल्टीज़
+  MU_nationality: मॉरिशियाई
+  MV_nationality: मालदीवी
+  MW_nationality: मलावी
+  MX_nationality: मैक्सिकन
+  MY_nationality: मलेशियाई
+  MZ_nationality: मोज़ाम्बिकी
+  NA_nationality: नामीबियाई
+  NC_nationality: न्यू कैलेडोनियाई
+  NE_nationality: नाइजरी
+  NF_nationality: नॉरफ़ॉक द्वीपीय
+  NG_nationality: नाइजीरियाई
+  NI_nationality: निकारागुआई
+  NL_nationality: डच
+  NO_nationality: नॉर्वेजियाई
+  NP_nationality: नेपाली
+  NR_nationality: नाउरुई
+  NU_nationality: नियूआन
+  NZ_nationality: न्यूज़ीलैंडी
+  OM_nationality: ओमानी
+  PA_nationality: पनामेनियाई
+  PE_nationality: पेरूवियाई
+  PF_nationality: फ़्रेंच पॉलिनेशियाई
+  PG_nationality: पापुआ न्यू गिनीयाई
+  PH_nationality: फ़िलिपीनी
+  PK_nationality: पाकिस्तानी
+  PL_nationality: पोलिश
+  PM_nationality: सेंट-पियर्रे
+  PN_nationality: पिटकैर्न द्वीपीय
+  PR_nationality: प्यूर्टो रिको
+  PS_nationality: पालेस्टीनी
+  PT_nationality: पुर्तगाली
+  PW_nationality: पलाऊवाई
+  PY_nationality: पारागुआई
+  QA_nationality: क़तरी
+  RE_nationality:
+  RO_nationality: रोमानियाई
+  RS_nationality: सर्बियाई
+  RU_nationality: रूसी
+  RW_nationality: रवांडाई
+  SA_nationality: सऊदी अरबी
+  SB_nationality: सोलोमन द्वीपीय
+  SC_nationality: सेशेल्स
+  SD_nationality: सूडानी
+  SE_nationality: स्वीडिश
+  SG_nationality: सिंगापुरी
+  SH_nationality: सेंट हेलेनियन
+  SI_nationality: स्लोवेनियाई
+  SJ_nationality:
+  SK_nationality: स्लोवाकी
+  SL_nationality: सिएरा लियोनियन
+  SM_nationality: सैन मारिनेस
+  SN_nationality: सेनेगली
+  SO_nationality: सोमाली
+  SR_nationality: सुरिनामी
+  SS_nationality: सूडानी
+  ST_nationality: साओ टोमियन
+  SV_nationality: सैल्वाडोरी
+  SX_nationality:
+  SY_nationality: सीरियाई
+  SZ_nationality: स्वाज़ी
+  TC_nationality: टर्क्स और कैकोस द्वीपीय
+  TD_nationality: चाडी
+  TF_nationality:
+  TG_nationality: टोगोली
+  TH_nationality: थाई
+  TJ_nationality: ताजिकिस्तानी
+  TK_nationality: टोकेलाऊवाई
+  TL_nationality: तिमोरी
+  TM_nationality: तुर्कमेन
+  TN_nationality: त्यूनीशियाई
+  TO_nationality: टोंगन
+  TR_nationality: तुर्की
+  TT_nationality: त्रिनिदादी
+  TV_nationality: तुवालूवाई
+  TW_nationality: ताइवानी
+  TZ_nationality: तंज़ानियाई
+  UA_nationality: यूक्रेनी
+  UG_nationality: युगांडाई
+  UM_nationality:
+  US_nationality: अमेरिकी
+  UY_nationality: उरुग्वियाई
+  UZ_nationality: उज़्बेकिस्तानी
+  VA_nationality: वेटिकन
+  VC_nationality: सेंट विंसेंटियन
+  VE_nationality: वेनेज़ुएलाई
+  VG_nationality: वर्जिन द्वीपीय
+  VI_nationality: वर्जिन द्वीपीय
+  VN_nationality: वियतनामी
+  VU_nationality: नी-वानुआतु
+  WF_nationality: वालिसियाई
+  WS_nationality: सामोअन
+  YE_nationality: यमनी
+  ZA_nationality: दक्षिण अफ्रीकी
+  ZM_nationality: ज़ाम्बियाई
+  ZW_nationality: ज़िम्बाब्वेई
+  XK_nationality: कोसोवन
+  AD_nationality_plural: अंडोर्राई
+  AE_nationality_plural: अमीरियों
+  AF_nationality_plural: अफगान
+  AG_nationality_plural: एंटीगुआ
+  AI_nationality_plural: अंगुइलियन
+  AL_nationality_plural: अल्बेनियन
+  AM_nationality_plural: आर्मेनियन
+  AO_nationality_plural: अंगोलन
+  AQ_nationality_plural: अंटार्कटिक
+  AR_nationality_plural: अर्जेंटाइन
+  AS_nationality_plural: सामोअन
+  AT_nationality_plural: ऑस्ट्रियन
+  AU_nationality_plural: ऑस्ट्रेलियन
+  AW_nationality_plural: अरूबियन
+  AX_nationality_plural: आलैंडिक
+  AZ_nationality_plural: अज़रबैजानी
+  BA_nationality_plural: बोस्नियन
+  BB_nationality_plural: बारबाडियन
+  BD_nationality_plural: बांगलादेशी
+  BE_nationality_plural: बेल्जियन
+  BF_nationality_plural: बुर्किना फासो
+  BG_nationality_plural: बुल्गारियन
+  BH_nationality_plural: बहरीनी
+  BI_nationality_plural: बुरुंडी
+  BJ_nationality_plural: बेनिनी
+  BL_nationality_plural: बार्थेलेमोइस
+  BM_nationality_plural: बरमूडा
+  BN_nationality_plural: ब्रुनेई
+  BO_nationality_plural: बोलिवियन
+  BQ_nationality_plural:
+  BR_nationality_plural: ब्राज़ीली
+  BS_nationality_plural: बहामास
+  BT_nationality_plural: भूटानी
+  BV_nationality_plural: बोवेट
+  BW_nationality_plural: बोत्सवाना
+  BY_nationality_plural: बेलारूसी
+  BZ_nationality_plural: बेलीज़ी
+  CA_nationality_plural: कनाडियन
+  CC_nationality_plural: कोकोस
+  CD_nationality_plural: कांगोली
+  CF_nationality_plural: मध्य अफ्रीकी
+  CG_nationality_plural: कांगोली
+  CH_nationality_plural: स्विस
+  CI_nationality_plural: आईवरी कोस्ट
+  CK_nationality_plural: कुक द्वीपसमूह
+  CL_nationality_plural: चिली
+  CM_nationality_plural: कैमरूनी
+  CN_nationality_plural: चीनी
+  CO_nationality_plural: कोलंबियन
+  CR_nationality_plural: कोस्टारिकन
+  CU_nationality_plural: क्यूबाई
+  CV_nationality_plural: केप वर्डी
+  CW_nationality_plural: कुरासाओ
+  CX_nationality_plural: क्रिसमस द्वीप
+  CY_nationality_plural: साइप्रस
+  CZ_nationality_plural: चेक
+  DE_nationality_plural: जर्मन
+  DJ_nationality_plural: जिबूती
+  DK_nationality_plural: डेनिश
+  DM_nationality_plural: डोमिनिकन
+  DO_nationality_plural: डोमिनिकन
+  DZ_nationality_plural: अल्जीरियन
+  EC_nationality_plural: इक्वाडोरी
+  EE_nationality_plural: एस्टोनियन
+  EG_nationality_plural: मिस्री
+  EH_nationality_plural: पश्चिमी सहारा
+  ER_nationality_plural: इरिट्रियन
+  KH_nationality_plural: कंबोडियन
+  KI_nationality_plural: आई-किरिबाती
+  KM_nationality_plural: कोमोरियन
+  KN_nationality_plural: किट्टीश
+  KP_nationality_plural: उत्तर कोरियाई
+  ES_nationality_plural: स्पेनिश
+  ET_nationality_plural: इथियोपियन
+  FI_nationality_plural: फिनिश
+  FJ_nationality_plural: फिजी
+  FK_nationality_plural: फ़ॉकलैंड द्वीपसमूह
+  FM_nationality_plural: माइक्रोनेशियन
+  FO_nationality_plural: फ़ैरोइज़
+  FR_nationality_plural: फ्रेंच
+  GA_nationality_plural: गैबोनी
+  GB_nationality_plural: ब्रिटिश
+  GD_nationality_plural: ग्रेनेडियन
+  GE_nationality_plural: जॉर्जियन
+  GF_nationality_plural: फ़्रेंच गुयानी
+  GG_nationality_plural:
+  GH_nationality_plural: घानी
+  GI_nationality_plural: जिब्राल्टरी
+  GL_nationality_plural: ग्रीनलैंडी
+  GM_nationality_plural: गाम्बियन
+  GN_nationality_plural: गिनी
+  GP_nationality_plural: ग्वाडेलोपियन
+  GQ_nationality_plural: भूमध्य गिनी
+  GR_nationality_plural: यूनानी
+  GT_nationality_plural: ग्वाटेमाला
+  GU_nationality_plural: गुआमानियन
+  GW_nationality_plural: गिनी-बिसाउ
+  GY_nationality_plural: गुयानी
+  HK_nationality_plural: हांगकांग
+  HM_nationality_plural:
+  HN_nationality_plural: होंडुरास
+  HR_nationality_plural: क्रोएशियाई
+  HT_nationality_plural: हैतियन
+  HU_nationality_plural: हंगेरियन
+  ID_nationality_plural: इंडोनेशियन
+  IE_nationality_plural: आयरिश
+  IL_nationality_plural: इज़राइली
+  IM_nationality_plural: मैंक्स
+  IN_nationality_plural: भारतीय
+  IO_nationality_plural:
+  IQ_nationality_plural: इराक़ी
+  IR_nationality_plural: ईरानी
+  IS_nationality_plural: आइसलैंडिक
+  IT_nationality_plural: इटालियन
+  JE_nationality_plural:
+  JM_nationality_plural: जमैकन
+  JO_nationality_plural: जॉर्डनी
+  JP_nationality_plural: जापानी
+  KE_nationality_plural: केन्याई
+  KG_nationality_plural: किर्गिज़
+  KR_nationality_plural: दक्षिण कोरियाई
+  KW_nationality_plural: कुवैती
+  KY_nationality_plural: केमेन द्वीपसमूह
+  KZ_nationality_plural: कज़ाख़
+  LA_nationality_plural: लाओ
+  LB_nationality_plural: लेबनानी
+  LC_nationality_plural: सेंट लूसियन
+  LI_nationality_plural: लिकटेंस्टाइनर
+  LK_nationality_plural: श्रीलंकाई
+  LR_nationality_plural: लाइबेरियन
+  LS_nationality_plural: मोसोथो
+  LT_nationality_plural: लिथुआनियन
+  LU_nationality_plural: लक्ज़मबर्गी
+  LV_nationality_plural: लातवियाई
+  LY_nationality_plural: लीबियाई
+  MA_nationality_plural: मोरोक्कन
+  MC_nationality_plural: मोनाको
+  MD_nationality_plural: मोल्डोवन
+  ME_nationality_plural: मोंटेनेग्रिन
+  MF_nationality_plural:
+  MG_nationality_plural: मालागासी
+  MH_nationality_plural: मार्शलीज़
+  MK_nationality_plural: मैसिडोनियन
+  ML_nationality_plural: माली
+  MM_nationality_plural: म्यांमारी
+  MN_nationality_plural: मंगोलियन
+  MO_nationality_plural: मकानीज़
+  MP_nationality_plural: उत्तरी मारियाना द्वीपसमूह
+  MQ_nationality_plural: मार्टिनिकन
+  MR_nationality_plural: मॉरिटानियन
+  MS_nationality_plural: मॉन्टसेराती
+  MT_nationality_plural: माल्टीज़
+  MU_nationality_plural: मॉरिशियन
+  MV_nationality_plural: मालदीवी
+  MW_nationality_plural: मलावी
+  MX_nationality_plural: मैक्सिकन
+  MY_nationality_plural: मलेशियन
+  MZ_nationality_plural: मोज़ाम्बिकन
+  NA_nationality_plural: नामीबियन
+  NC_nationality_plural: न्यू कैलेडोनियन
+  NE_nationality_plural: नाइजरी
+  NF_nationality_plural: नॉरफ़ॉक द्वीप
+  NG_nationality_plural: नाइजीरियन
+  NI_nationality_plural: निकारागुअन
+  NL_nationality_plural: डच
+  NO_nationality_plural: नॉर्वेजियन
+  NP_nationality_plural: नेपाली
+  NR_nationality_plural: नाउरूआन
+  NU_nationality_plural: नियूआन
+  NZ_nationality_plural: न्यूज़ीलैंडर
+  OM_nationality_plural: ओमानी
+  PA_nationality_plural: पनामानियन
+  PE_nationality_plural: पेरूवियन
+  PF_nationality_plural: फ़्रेंच पॉलिनेशियन
+  PG_nationality_plural: पापुआ न्यू गिनी
+  PH_nationality_plural: फ़िलिपिनो
+  PK_nationality_plural: पाकिस्तानी
+  PL_nationality_plural: पोलिश
+  PM_nationality_plural: सेंट पियरियन
+  PN_nationality_plural: पिटकैर्न द्वीपसमूह
+  PR_nationality_plural: प्यूर्टो रिकन
+  PS_nationality_plural: पालेस्टीनी
+  PT_nationality_plural: पुर्तगाली
+  PW_nationality_plural: पलाउवियन
+  PY_nationality_plural: पारागुएयन
+  QA_nationality_plural: क़तरी
+  RE_nationality_plural:
+  RO_nationality_plural: रोमानियन
+  RS_nationality_plural: सर्बियन
+  RU_nationality_plural: रूसी
+  RW_nationality_plural: रवांडाई
+  SA_nationality_plural: सऊदी अरब
+  SB_nationality_plural: सोलोमन द्वीपसमूह
+  SC_nationality_plural: सेशेल्स
+  SD_nationality_plural: सूडानी
+  SE_nationality_plural: स्वीडिश
+  SG_nationality_plural: सिंगापुरी
+  SH_nationality_plural: सेंट हेलेनियन
+  SI_nationality_plural: स्लोवेनियन
+  SJ_nationality_plural:
+  SK_nationality_plural: स्लोवाकियाई
+  SL_nationality_plural: सिएरा लियोनियन
+  SM_nationality_plural: सैन मारिनेस
+  SN_nationality_plural: सेनेगली
+  SO_nationality_plural: सोमाली
+  SR_nationality_plural: सुरिनामी
+  SS_nationality_plural: सूडानी
+  ST_nationality_plural: साओ टोमे
+  SV_nationality_plural: सैल्वाडोरी
+  SX_nationality_plural:
+  SY_nationality_plural: सीरियन
+  SZ_nationality_plural: स्वाज़ी
+  TC_nationality_plural: टर्क और कैकोस द्वीपसमूह
+  TD_nationality_plural: चाडी
+  TF_nationality_plural:
+  TG_nationality_plural: टोगोली
+  TH_nationality_plural: थाई
+  TJ_nationality_plural: ताजिक़
+  TK_nationality_plural: टोकेलाऊ
+  TL_nationality_plural: तिमोरी
+  TM_nationality_plural: तुर्कमेन
+  TN_nationality_plural: त्यूनीशियन
+  TO_nationality_plural: टोंगन
+  TR_nationality_plural: तुर्क
+  TT_nationality_plural: त्रिनिदादी
+  TV_nationality_plural: टुवालू
+  TW_nationality_plural: ताइवानी
+  TZ_nationality_plural: तंज़ानियन
+  UA_nationality_plural: यूक्रेनी
+  UG_nationality_plural: युगांडाई
+  UM_nationality_plural:
+  US_nationality_plural: अमेरिकी
+  UY_nationality_plural: उरुग्वियन
+  UZ_nationality_plural: उज़्बेक
+  VA_nationality_plural: वेटिकन
+  VC_nationality_plural: सेंट विंसेंटियन

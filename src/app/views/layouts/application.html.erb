@@ -92,7 +92,7 @@
 
 
 
-  <title><%= content_for?(:title) ? t('.title_with_content', content: yield(:title)) : t('default_title') %></title>
+  <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>
   <%= favicon_link_tag asset_path('favicon.ico') %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>

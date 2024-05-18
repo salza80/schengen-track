@@ -27,14 +27,40 @@ class Country < ApplicationRecord
     order(:name)
   end
 
-  def nationality_plural
-    ending = nationality.last(3)
-
-    if ending == 'ese' || ending == 'nch' || ending == 'iss' || ending == 'ish'
-      nationality
-    else
-      nationality.pluralize
+  def name
+    begin
+      return super if I18n.locale == :en
+      translatedName = I18n.t!("#{country_code}_name")
+      return translatedName unless translatedName.empty?
+    rescue I18n::MissingTranslationData
+      puts "No name translation found for #{country_code}_name"
     end
+    return super
+  end
+
+  def nationality_translated
+    begin
+      return super if I18n.locale == :en
+      translatedNationality = I18n.t!("#{country_code}_nationality")
+      return translatedNationality unless translatedNationality.empty?
+    rescue I18n::MissingTranslationData
+      puts "No name translation found for #{country_code}_nationality"
+    end
+    return super
+  end
+
+  def nationality_english
+    return nationality
+  end
+
+  def nationality_plural
+    begin
+      plural = I18n.t!("#{country_code}_nationality_plural")
+      return plural unless plural.empty?
+    rescue I18n::MissingTranslationData
+      puts "No plural found for #{country_code}_nationality_plural"
+    end
+    return name
   end
 
   def schengen?(use_date = Time.now)

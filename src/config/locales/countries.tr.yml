@@ -1,249 +1,751 @@
-tr:
-    AF_name: Afgan
-  AG_name: Antigualı
-  AI_name: Anguillalı
-  AL_name: Arnavut
-  AM_name: Ermeni
-  AO_name: Angolalı
-  AQ_name: Antarktikalı
-  AR_name: Arjantinli
-  AS_name: Samoalı
-  AT_name: Avusturyalı
-  AU_name: Avustralyalı
-  AW_name: Arubalı
-  AX_name: Alandlı
-  AZ_name: Azerbaycanlı
-  BA_name: Bosnalı
-  BB_name: Barbadoslu
-  BD_name: Bangladeşli
-  BE_name: Belçikalı
-  BF_name: Burkina Fasolu
-  BG_name: Bulgar
-  BH_name: Bahreynli
-  BI_name: Burundili
-  BJ_name: Beninli
-  BL_name: Barthélemois
-  BM_name: Bermuda'lı
-  BN_name: Bruneili
-  BO_name: Bolivyalı
-  BQ_name: 
-  BR_name: Brezilyalı
-  BS_name: Bahamalı
-  BT_name: Bhutanlı
-  BV_name: Bouvet Adalı
-  BW_name: Botsvanalı
-  BY_name: Beyaz Rusyalı
-  BZ_name: Belize'li
-  CA_name: Kanadalı
-  CC_name: Cocoslu
-  CD_name: Kongolu
-  CF_name: Orta Afrikalı
-  CG_name: Kongolu
-  CH_name: İsviçreli
-  CI_name: Fildişi Sahilli
-  CK_name: Cook Adalı
-  CL_name: Şilili
-  CM_name: Kamerunlu
-  CN_name: Çinli
-  CO_name: Kolombiyalı
-  CR_name: Kosta Rikalı
-  CU_name: Kübalı
-  CV_name: Cape Verde'li
-  CW_name: Curaçao'lu
-  CX_name: Christmas Adalı
-  CY_name: Kıbrıslı
-  CZ_name: Çek
-  DE_name: Alman
-  DJ_name: Cibutili
-  DK_name: Danimarkalı
-  DM_name: Dominikalı
-  DO_name: Dominikalı
-  DZ_name: Cezayirli
-  EC_name: Ekvadorlu
-  EE_name: Estonyalı
-  EG_name: Mısırlı
-  EH_name: Batı Sahralı
-  ER_name: Eritreli
-  KH_name: Kamboçyalı
-  KI_name: Kiribatili
-  KM_name: Komorlu
-  KN_name: Kittian
-  KP_name: Kuzey Koreli
-  ES_name: İspanyol
-  ET_name: Etiyopyalı
-  FI_name: Fin
-  FJ_name: Fiji'li
-  FK_name: Falkland Adalı
-  FM_name: Mikronezyalı
-  FO_name: Faroeli
-  FR_name: Fransız
-  GA_name: Gabonlu
-  GB_name: İngiliz
-  GD_name: Grenadalı
-  GE_name: Gürcü
-  GF_name: Fransız Guyanalı
-  GG_name: 
-  GH_name: Ganalı
-  GI_name: Cebelitarıklı
-  GL_name: Grönlandlı
-  GM_name: Gambiyalı
-  GN_name: Gine'li
-  GP_name: Guadeluplu
-  GQ_name: Ekvator Ginesi'li
-  GR_name: Yunan
-  GS_name: 
-  GT_name: Guatemalalı
-  GU_name: Guamlı
-  GW_name: Gine'li
-  GY_name: Guyanalı
-  HK_name: Hong Konglu
-  HM_name: 
-  HN_name: Honduraslı
-  HR_name: Hırvat
-  HT_name: Haiti'li
-  HU_name: Macar
-  ID_name: Endonezyalı
-  IE_name: İrlandalı
-  IL_name: İsrailli
-  IM_name: Man Adalı
-  IN_name: Hintli
-  IO_name: 
-  IQ_name: Iraklı
-  IR_name: İranlı
-  IS_name: İzlandalı
-  IT_name: İtalyan
-  JE_name: 
-  JM_name: Jamaikalı
-  JO_name: Ürdünlü
-  JP_name: Japon
-  KE_name: Kenyalı
-  KG_name: Kırgız
-  KR_name: Güney Koreli
-  KW_name: Kuveytli
-  KY_name: Cayman Adalı
-  KZ_name: Kazak
-  LA_name: Laoslu
-  LB_name: Lübnanlı
-  LC_name: Saint Lucian
-  LI_name: Lihtenştaynlı
-  LK_name: Sri Lankalı
-  LR_name: Liberyalı
-  LS_name: Lesotholu
-  LT_name: Litvanyalı
-  LU_name: Lüksemburglu
-  LV_name: Leton
-  LY_name: Libya'lı
-  MA_name: Faslı
-  MC_name: Monakolu
-  MD_name: Moldovalı
-  ME_name: Karadağlı
-  MF_name: 
-  MG_name: Madagaskarlı
-  MH_name: Marshall Adalı
-  MK_name: Makedon
-  ML_name: Mali'li
-  MM_name: Myanmarlı
-  MN_name: Moğol
-  MO_name: Makao'lu
-  MP_name: Kuzey Mariana Adalı
-  MQ_name: Martinikli
-  MR_name: Moritanyalı
-  MS_name: Montserratlı
-  MT_name: Malta'lı
-  MU_name: Mauritiuslu
-  MV_name: Maldivli
-  MW_name: Malavili
-  MX_name: Meksikalı
-  MY_name: Malezyalı
-  MZ_name: Mozambikli
-  NA_name: Namibyalı
-  NC_name: Yeni Kaledonyalı
-  NE_name: Nijerli
-  NF_name: Norfolk Adalı
-  NG_name: Nijeryalı
-  NI_name: Nikaragualı
-  NL_name: Hollandalı
-  NO_name: Norveçli
-  NP_name: Nepal'li
-  NR_name: Naurulu
-  NU_name: Niueli
-  NZ_name: Yeni Zelandalı
-  OM_name: Ummanlı
-  PA_name: Panamalı
-  PE_name: Peru'lu
-  PF_name: Fransız Polinezyalı
-  PG_name: Papua Yeni Gine'li
-  PH_name: Filipinli
-  PK_name: Pakistanlı
-  PL_name: Polonyalı
-  PM_name: Saint-Pierrais
-  PN_name: Pitcairn Adalı
-  PR_name: Porto Rikolu
-  PS_name: Filistinli
-  PT_name: Portekizli
-  PW_name: Palaulu
-  PY_name: Paraguaylı
-  QA_name: Katarlı
-  RE_name: 
-  RO_name: Rumen
-  RS_name: Sırp
-  RU_name: Rus
-  RW_name: Ruandalı
-  SA_name: Suudi Arabistanlı
-  SB_name: Solomon Adalı
-  SC_name: Seyşelli
-  SD_name: Sudanlı
-  SE_name: İsveçli
-  SG_name: Singapurlu
-  SH_name: Saint Helenalı
-  SI_name: Sloven
-  SJ_name: 
-  SK_name: Slovak
-  SL_name: Sierra Leoneli
-  SM_name: San Marinolu
-  SN_name: Senegalli
+tr:  
+  AD_name: Andorra
+  AE_name: Birleşik Arap Emirlikleri
+  AF_name: Afganistan
+  AG_name: Antigua ve Barbuda
+  AI_name: Anguilla
+  AL_name: Arnavutluk
+  AM_name: Ermenistan
+  AO_name: Angola
+  AQ_name: Antarktika
+  AR_name: Arjantin
+  AS_name: Amerikan Samoası
+  AT_name: Avusturya
+  AU_name: Avustralya
+  AW_name: Aruba
+  AX_name: Åland Adaları
+  AZ_name: Azerbaycan
+  BA_name: Bosna-Hersek
+  BB_name: Barbados
+  BD_name: Bangladeş
+  BE_name: Belçika
+  BF_name: Burkina Faso
+  BG_name: Bulgaristan
+  BH_name: Bahreyn
+  BI_name: Burundi
+  BJ_name: Benin
+  BL_name: Saint Barthelemy
+  BM_name: Bermuda
+  BN_name: Brunei
+  BO_name: Bolivya
+  BQ_name: Bonaire, Saint Eustatius ve Saba 
+  BR_name: Brezilya
+  BS_name: Bahamalar
+  BT_name: Bhutan
+  BV_name: Bouvet Adası
+  BW_name: Botsvana
+  BY_name: Belarus
+  BZ_name: Belize
+  CA_name: Kanada
+  CC_name: Cocos Adaları
+  CD_name: Kongo Demokratik Cumhuriyeti
+  CF_name: Orta Afrika Cumhuriyeti
+  CG_name: Kongo Cumhuriyeti
+  CH_name: İsviçre
+  CI_name: Fildişi Sahili
+  CK_name: Cook Adaları
+  CL_name: Şili
+  CM_name: Kamerun
+  CN_name: Çin
+  CO_name: Kolombiya
+  CR_name: Kosta Rika
+  CU_name: Küba
+  CV_name: Cape Verde
+  CW_name: Curaçao
+  CX_name: Christmas Adası
+  CY_name: Kıbrıs
+  CZ_name: Çek Cumhuriyeti
+  DE_name: Almanya
+  DJ_name: Cibuti
+  DK_name: Danimarka
+  DM_name: Dominika
+  DO_name: Dominik Cumhuriyeti
+  DZ_name: Cezayir
+  EC_name: Ekvador
+  EE_name: Estonya
+  EG_name: Mısır
+  EH_name: Batı Sahra
+  ER_name: Eritre
+  KH_name: Kamboçya
+  KI_name: Kiribati
+  KM_name: Komorlar
+  KN_name: Saint Kitts ve Nevis
+  KP_name: Kuzey Kore
+  ES_name: İspanya
+  ET_name: Etiyopya
+  FI_name: Finlandiya
+  FJ_name: Fiji
+  FK_name: Falkland Adaları
+  FM_name: Mikronezya
+  FO_name: Faroe Adaları
+  FR_name: Fransa
+  GA_name: Gabon
+  GB_name: Birleşik Krallık
+  GD_name: Grenada
+  GE_name: Gürcistan
+  GF_name: Fransız Guyanası
+  GG_name: Guernsey
+  GH_name: Gana
+  GI_name: Cebelitarık
+  GL_name: Grönland
+  GM_name: Gambiya
+  GN_name: Gine
+  GP_name: Guadeloupe
+  GQ_name: Ekvator Ginesi
+  GR_name: Yunanistan
+  GS_name: Güney Georgia ve Güney Sandwich Adaları
+  GT_name: Guatemala
+  GU_name: Guam
+  GW_name: Gine-Bissau
+  GY_name: Guyana
+  HK_name: Hong Kong
+  HM_name: Heard Adası ve McDonald Adaları
+  HN_name: Honduras
+  HR_name: Hırvatistan
+  HT_name: Haiti
+  HU_name: Macaristan
+  ID_name: Endonezya
+  IE_name: İrlanda
+  IL_name: İsrail
+  IM_name: Man Adası
+  IN_name: Hindistan
+  IO_name: İngiliz Hint Okyanusu Toprakları
+  IQ_name: Irak
+  IR_name: İran
+  IS_name: İzlanda
+  IT_name: İtalya
+  JE_name: Jersey
+  JM_name: Jamaika
+  JO_name: Ürdün
+  JP_name: Japonya
+  KE_name: Kenya
+  KG_name: Kırgızistan
+  KR_name: Güney Kore
+  KW_name: Kuveyt
+  KY_name: Cayman Adaları
+  KZ_name: Kazakistan
+  LA_name: Laos
+  LB_name: Lübnan
+  LC_name: Saint Lucia
+  LI_name: Lihtenştayn
+  LK_name: Sri Lanka
+  LR_name: Liberya
+  LS_name: Lesotho
+  LT_name: Litvanya
+  LU_name: Lüksemburg
+  LV_name: Letonya
+  LY_name: Libya
+  MA_name: Fas
+  MC_name: Monako
+  MD_name: Moldova
+  ME_name: Karadağ
+  MF_name: Saint Martin
+  MG_name: Madagaskar
+  MH_name: Marshall Adaları
+  MK_name: Makedonya
+  ML_name: Mali
+  MM_name: Myanmar
+  MN_name: Moğolistan
+  MO_name: Makao
+  MP_name: Kuzey Mariana Adaları
+  MQ_name: Martinik
+  MR_name: Moritanya
+  MS_name: Montserrat
+  MT_name: Malta
+  MU_name: Mauritius
+  MV_name: Maldivler
+  MW_name: Malavi
+  MX_name: Meksika
+  MY_name: Malezya
+  MZ_name: Mozambik
+  NA_name: Namibya
+  NC_name: Yeni Kaledonya
+  NE_name: Nijer
+  NF_name: Norfolk Adası
+  NG_name: Nijerya
+  NI_name: Nikaragua
+  NL_name: Hollanda
+  NO_name: Norveç
+  NP_name: Nepal
+  NR_name: Nauru
+  NU_name: Niue
+  NZ_name: Yeni Zelanda
+  OM_name: Umman
+  PA_name: Panama
+  PE_name: Peru
+  PF_name: Fransız Polinezyası
+  PG_name: Papua Yeni Gine
+  PH_name: Filipinler
+  PK_name: Pakistan
+  PL_name: Polonya
+  PM_name: Saint Pierre ve Miquelon
+  PN_name: Pitcairn Adaları
+  PR_name: Porto Riko
+  PS_name: Filistin Bölgesi
+  PT_name: Portekiz
+  PW_name: Palau
+  PY_name: Paraguay
+  QA_name: Katar
+  RE_name: Réunion
+  RO_name: Romanya
+  RS_name: Sırbistan
+  RU_name: Rusya
+  RW_name: Ruanda
+  SA_name: Suudi Arabistan
+  SB_name: Solomon Adaları
+  SC_name: Seyşeller
+  SD_name: Sudan
+  SE_name: İsveç
+  SG_name: Singapur
+  SH_name: Saint Helena
+  SI_name: Slovenya
+  SJ_name: Svalbard ve Jan Mayen
+  SK_name: Slovakya
+  SL_name: Sierra Leone
+  SM_name: San Marino
+  SN_name: Senegal
   SO_name: Somali
-  SR_name: Surinamlı
-  SS_name: Sudanlı
-  ST_name: São Tomeli
-  SV_name: Salvadorlu
-  SX_name: 
-  SY_name: Suriyeli
-  SZ_name: Svazilandalı
-  TC_name: Turks ve Caicos Adalı
-  TD_name: Çadlı
-  TF_name: 
-  TG_name: Togolu
-  TH_name: Taylandlı
-  TJ_name: Tacik
-  TK_name: Tokelau Adalı
-  TL_name: Timorlu
-  TM_name: Türkmen
-  TN_name: Tunuslu
-  TO_name: Tongalı
-  TR_name: Türk
-  TT_name: Trinidadli
-  TV_name: Tuvalulu
-  TW_name: Tayvanlı
-  TZ_name: Tanzanyalı
-  UA_name: Ukraynalı
-  UG_name: Ugandalı
-  UM_name: 
-  US_name: Amerikalı
-  UY_name: Uruguaylı
-  UZ_name: Özbek
-  VA_name: Vatikanlı
-  VC_name: Saint Vincentli
-  VE_name: Venezuelalı
-  VG_name: Virgin Adalı
-  VI_name: Virgin Adalı
-  VN_name: Vietnamlı
-  VU_name: Ni-Vanuatulu
-  WF_name: Wallis ve Futuna Adalı
-  WS_name: Samoalı
-  YE_name: Yemenli
-  YT_name: Mahoralı
-  ZA_name: Güney Afrikalı
-  ZM_name: Zambiyalı
-  ZW_name: Zimbabveli
-  XK_name: Kosovalı
+  SR_name: Surinam
+  SS_name: Güney Sudan
+  ST_name: São Tomé ve Príncipe
+  SV_name: El Salvador
+  SX_name: Sint Maarten
+  SY_name: Suriye
+  SZ_name: Svaziland
+  TC_name: Turks ve Caicos Adaları
+  TD_name: Çad
+  TF_name: Fransız Güney Toprakları
+  TG_name: Togo
+  TH_name: Tayland
+  TJ_name: Tacikistan
+  TK_name: Tokelau
+  TL_name: Doğu Timor
+  TM_name: Türkmenistan
+  TN_name: Tunus
+  TO_name: Tonga
+  TR_name: Türkiye
+  TT_name: Trinidad ve Tobago
+  TV_name: Tuvalu
+  TW_name: Tayvan
+  TZ_name: Tanzanya
+  UA_name: Ukrayna
+  UG_name: Uganda
+  UM_name: Amerika Birleşik Devletleri Küçük Dış Adaları
+  US_name: Amerika Birleşik Devletleri
+  UY_name: Uruguay
+  UZ_name: Özbekistan
+  VA_name: Vatikan
+  VC_name: Saint Vincent ve Grenadinler
+  VE_name: Venezuela
+  VG_name: Britanya Virjin Adaları
+  VI_name: ABD Virjin Adaları
+  VN_name: Vietnam
+  VU_name: Vanuatu
+  WF_name: Wallis ve Futuna
+  WS_name: Samoa
+  YE_name: Yemen
+  YT_name: Mayotte
+  ZA_name: Güney Afrika
+  ZM_name: Zambiya
+  ZW_name: Zimbabve
+  XK_name: Kosova
+  AD_nationality: Andorralı
+  AE_nationality: Emirli
+  AF_nationality: Afgan
+  AG_nationality: Antigualı
+  AI_nationality: Anguillalı
+  AL_nationality: Arnavut
+  AM_nationality: Ermeni
+  AO_nationality: Angolalı
+  AQ_nationality: Antarktikalı
+  AR_nationality: Arjantinli
+  AS_nationality: Samoalı
+  AT_nationality: Avusturyalı
+  AU_nationality: Avustralyalı
+  AW_nationality: Arubalı
+  AX_nationality: Alandlı
+  AZ_nationality: Azerbaycanlı
+  BA_nationality: Bosnalı
+  BB_nationality: Barbadoslu
+  BD_nationality: Bangladeşli
+  BE_nationality: Belçikalı
+  BF_nationality: Burkina Fasolu
+  BG_nationality: Bulgar
+  BH_nationality: Bahreynli
+  BI_nationality: Burundili
+  BJ_nationality: Beninli
+  BL_nationality: Barthélemois
+  BM_nationality: Bermuda'lı
+  BN_nationality: Bruneili
+  BO_nationality: Bolivyalı
+  BQ_nationality:
+  BR_nationality: Brezilyalı
+  BS_nationality: Bahamalı
+  BT_nationality: Bhutanlı
+  BV_nationality: Bouvet Adalı
+  BW_nationality: Botsvanalı
+  BY_nationality: Beyaz Rusyalı
+  BZ_nationality: Belize'li
+  CA_nationality: Kanadalı
+  CC_nationality: Cocoslu
+  CD_nationality: Kongolu
+  CF_nationality: Orta Afrikalı
+  CG_nationality: Kongolu
+  CH_nationality: İsviçreli
+  CI_nationality: Fildişi Sahilli
+  CK_nationality: Cook Adalı
+  CL_nationality: Şilili
+  CM_nationality: Kamerunlu
+  CN_nationality: Çinli
+  CO_nationality: Kolombiyalı
+  CR_nationality: Kosta Rikalı
+  CU_nationality: Kübalı
+  CV_nationality: Cape Verde'li
+  CW_nationality: Curaçao'lu
+  CX_nationality: Christmas Adalı
+  CY_nationality: Kıbrıslı
+  CZ_nationality: Çek
+  DE_nationality: Alman
+  DJ_nationality: Cibutili
+  DK_nationality: Danimarkalı
+  DM_nationality: Dominikalı
+  DO_nationality: Dominikalı
+  DZ_nationality: Cezayirli
+  EC_nationality: Ekvadorlu
+  EE_nationality: Estonyalı
+  EG_nationality: Mısırlı
+  EH_nationality: Batı Sahralı
+  ER_nationality: Eritreli
+  KH_nationality: Kamboçyalı
+  KI_nationality: Kiribatili
+  KM_nationality: Komorlu
+  KN_nationality: Kittian
+  KP_nationality: Kuzey Koreli
+  ES_nationality: İspanyol
+  ET_nationality: Etiyopyalı
+  FI_nationality: Fin
+  FJ_nationality: Fiji'li
+  FK_nationality: Falkland Adalı
+  FM_nationality: Mikronezyalı
+  FO_nationality: Faroeli
+  FR_nationality: Fransız
+  GA_nationality: Gabonlu
+  GB_nationality: İngiliz
+  GD_nationality: Grenadalı
+  GE_nationality: Gürcü
+  GF_nationality: Fransız Guyanalı
+  GG_nationality:
+  GH_nationality: Ganalı
+  GI_nationality: Cebelitarık'lı
+  GL_nationality: Grönlandlı
+  GM_nationality: Gambiyalı
+  GN_nationality: Gine'li
+  GP_nationality: Guadeluplu
+  GQ_nationality: Ekvator Ginesi'li
+  GR_nationality: Yunan
+  GS_nationality:
+  GT_nationality: Guatemalalı
+  GU_nationality: Guamlı
+  GW_nationality: Gine'li
+  GY_nationality: Guyanalı
+  HK_nationality: Hong Konglu
+  HM_nationality:
+  HN_nationality: Honduraslı
+  HR_nationality: Hırvat
+  HT_nationality: Haiti'li
+  HU_nationality: Macar
+  ID_nationality: Endonezyalı
+  IE_nationality: İrlandalı
+  IL_nationality: İsrailli
+  IM_nationality: Man Adalı
+  IN_nationality: Hintli
+  IO_nationality:
+  IQ_nationality: Iraklı
+  IR_nationality: İranlı
+  IS_nationality: İzlandalı
+  IT_nationality: İtalyan
+  JE_nationality:
+  JM_nationality: Jamaikalı
+  JO_nationality: Ürdünlü
+  JP_nationality: Japon
+  KE_nationality: Kenyalı
+  KG_nationality: Kırgız
+  KR_nationality: Güney Koreli
+  KW_nationality: Kuveytli
+  KY_nationality: Cayman Adalı
+  KZ_nationality: Kazak
+  LA_nationality: Laoslu
+  LB_nationality: Lübnanlı
+  LC_nationality: Saint Lucian
+  LI_nationality: Lihtenştaynlı
+  LK_nationality: Sri Lankalı
+  LR_nationality: Liberyalı
+  LS_nationality: Lesotholu
+  LT_nationality: Litvanyalı
+  LU_nationality: Lüksemburglu
+  LV_nationality: Leton
+  LY_nationality: Libya'lı
+  MA_nationality: Faslı
+  MC_nationality: Monakolu
+  MD_nationality: Moldovalı
+  ME_nationality: Karadağlı
+  MF_nationality:
+  MG_nationality: Madagaskarlı
+  MH_nationality: Marshall Adalı
+  MK_nationality: Makedon
+  ML_nationality: Mali'li
+  MM_nationality: Myanmarlı
+  MN_nationality: Moğol
+  MO_nationality: Makao'lu
+  MP_nationality: Kuzey Mariana Adalı
+  MQ_nationality: Martinikli
+  MR_nationality: Moritanyalı
+  MS_nationality: Montserratlı
+  MT_nationality: Malta'lı
+  MU_nationality: Mauritiuslu
+  MV_nationality: Maldivli
+  MW_nationality: Malavili
+  MX_nationality: Meksikalı
+  MY_nationality: Malezyalı
+  MZ_nationality: Mozambikli
+  NA_nationality: Namibyalı
+  NC_nationality: Yeni Kaledonyalı
+  NE_nationality: Nijerli
+  NF_nationality: Norfolk Adalı
+  NG_nationality: Nijeryalı
+  NI_nationality: Nikaragualı
+  NL_nationality: Hollandalı
+  NO_nationality: Norveçli
+  NP_nationality: Nepal'li
+  NR_nationality: Naurulu
+  NU_nationality: Niueli
+  NZ_nationality: Yeni Zelandalı
+  OM_nationality: Ummanlı
+  PA_nationality: Panamalı
+  PE_nationality: Peru'lu
+  PF_nationality: Fransız Polinezyalı
+  PG_nationality: Papua Yeni Gine'li
+  PH_nationality: Filipinli
+  PK_nationality: Pakistanlı
+  PL_nationality: Polonyalı
+  PM_nationality: Saint-Pierrais
+  PN_nationality: Pitcairn Adalı
+  PR_nationality: Porto Rikolu
+  PS_nationality: Filistinli
+  PT_nationality: Portekizli
+  PW_nationality: Palaulu
+  PY_nationality: Paraguaylı
+  QA_nationality: Katarlı
+  RE_nationality:
+  RO_nationality: Rumen
+  RS_nationality: Sırp
+  RU_nationality: Rus
+  RW_nationality: Ruandalı
+  SA_nationality: Suudi Arabistanlı
+  SB_nationality: Solomon Adalı
+  SC_nationality: Seyşelli
+  SD_nationality: Sudanlı
+  SE_nationality: İsveçli
+  SG_nationality: Singapurlu
+  SH_nationality: Saint Helenalı
+  SI_nationality: Sloven
+  SJ_nationality:
+  SK_nationality: Slovak
+  SL_nationality: Sierra Leoneli
+  SM_nationality: San Marinolu
+  SN_nationality: Senegalli
+  SO_nationality: Somali
+  SR_nationality: Surinamlı
+  SS_nationality: Sudanlı
+  ST_nationality: São Tomeli
+  SV_nationality: Salvadorlu
+  SX_nationality:
+  SY_nationality: Suriyeli
+  SZ_nationality: Svazilendli
+  TC_nationality: Turks ve Caicos Adalı
+  TD_nationality: Çadlı
+  TF_nationality:
+  TG_nationality: Togolu
+  TH_nationality: Taylandlı
+  TJ_nationality: Tacik
+  TK_nationality: Tokelau Adalı
+  TL_nationality: Timorlu
+  TM_nationality: Türkmen
+  TN_nationality: Tunuslu
+  TO_nationality: Tongalı
+  TR_nationality: Türk
+  TT_nationality: Trinidadli
+  TV_nationality: Tuvalulu
+  TW_nationality: Tayvanlı
+  TZ_nationality: Tanzanyalı
+  UA_nationality: Ukraynalı
+  UG_nationality: Ugandalı
+  UM_nationality:
+  US_nationality: Amerikalı
+  UY_nationality: Uruguaylı
+  UZ_nationality: Özbek
+  VA_nationality: Vatikanlı
+  VC_nationality: Saint Vincentli
+  VE_nationality: Venezuelalı
+  VG_nationality: Virgin Adalı
+  VI_nationality: Virgin Adalı
+  VN_nationality: Vietnamlı
+  VU_nationality: Ni-Vanuatulu
+  WF_nationality: Wallis ve Futuna Adalı
+  WS_nationality: Samoalı
+  YE_nationality: Yemenli
+  YT_nationality: Mahoralı
+  ZA_nationality: Güney Afrikalı
+  ZM_nationality: Zambiyalı
+  ZW_nationality: Zimbabveli
+  XK_nationality: Kosovalı
+  AD_nationality_plural: Andorrans 
+  AE_nationality_plural: Emirians
+  AF_nationality_plural: Afganlar
+  AG_nationality_plural: Antiguans
+  AI_nationality_plural: Anguillans
+  AL_nationality_plural: Arnavutlar
+  AM_nationality_plural: Ermeniler
+  AO_nationality_plural: Angolalılar
+  AQ_nationality_plural: Antarktikalılar
+  AR_nationality_plural: Arjantinliler
+  AS_nationality_plural: Samoalılar
+  AT_nationality_plural: Avusturyalılar
+  AU_nationality_plural: Avustralyalılar
+  AW_nationality_plural: Arubalılar
+  AX_nationality_plural: Ålandlılar
+  AZ_nationality_plural: Azeriler
+  BA_nationality_plural: Bosnalılar
+  BB_nationality_plural: Barbadoslular
+  BD_nationality_plural: Bangladeşliler
+  BE_nationality_plural: Belçikalılar
+  BF_nationality_plural: Burkina Fasolular
+  BG_nationality_plural: Bulgarlar
+  BH_nationality_plural: Bahreynliler
+  BI_nationality_plural: Burundililer
+  BJ_nationality_plural: Beninliler
+  BL_nationality_plural: Barthélemois
+  BM_nationality_plural: Bermudalılar
+  BN_nationality_plural: Bruneililer
+  BO_nationality_plural: Bolivyalılar
+  BQ_nationality_plural:
+  BR_nationality_plural: Brezilyalılar
+  BS_nationality_plural: Bahamalılar
+  BT_nationality_plural: Bhutanlılar
+  BV_nationality_plural: Bouvet Adalıları
+  BW_nationality_plural: Botsvanalılar
+  BY_nationality_plural: Beyaz Ruslar
+  BZ_nationality_plural: Belize'liler
+  CA_nationality_plural: Kanadalılar
+  CC_nationality_plural: Cocos Adalıları
+  CD_nationality_plural: Kongolu
+  CF_nationality_plural: Orta Afrikalılar
+  CG_nationality_plural: Kongolu
+  CH_nationality_plural: İsviçreliler
+  CI_nationality_plural: Fildişi Sahilli
+  CK_nationality_plural: Cook Adalıları
+  CL_nationality_plural: Şilililer
+  CM_nationality_plural: Kamerunlular
+  CN_nationality_plural: Çinliler
+  CO_nationality_plural: Kolombiyalılar
+  CR_nationality_plural: Kosta Rikalılar
+  CU_nationality_plural: Kübalılar
+  CV_nationality_plural: Cape Verde'liler
+  CW_nationality_plural: Curaçao'lular
+  CX_nationality_plural: Christmas Adalıları
+  CY_nationality_plural: Kıbrıslılar
+  CZ_nationality_plural: Çekler
+  DE_nationality_plural: Almanlar
+  DJ_nationality_plural: Cibutililer
+  DK_nationality_plural: Danimarkalılar
+  DM_nationality_plural: Dominikalılar
+  DO_nationality_plural: Dominikalılar
+  DZ_nationality_plural: Cezayirliler
+  EC_nationality_plural: Ekvadorlular
+  EE_nationality_plural: Estonyalılar
+  EG_nationality_plural: Mısırlılar
+  EH_nationality_plural: Batı Sahralılar
+  ER_nationality_plural: Eritreli
+  KH_nationality_plural: Kamboçyalılar
+  KI_nationality_plural: Kiribatililer
+  KM_nationality_plural: Komorlular
+  KN_nationality_plural: Kittis
+  KP_nationality_plural: Kuzey Koreliler
+  ES_nationality_plural: İspanyollar
+  ET_nationality_plural: Etiyopyalılar
+  FI_nationality_plural: Finliler
+  FJ_nationality_plural: Fiji'liler
+  FK_nationality_plural: Falkland Adalıları
+  FM_nationality_plural: Mikronezyalılar
+  FO_nationality_plural: Faroelular
+  FR_nationality_plural: Fransızlar
+  GA_nationality_plural: Gabonlular
+  GB_nationality_plural: İngilizler
+  GD_nationality_plural: Grenadalılar
+  GE_nationality_plural: Gürcüler
+  GF_nationality_plural: Fransız Guyanalılar
+  GG_nationality_plural:
+  GH_nationality_plural: Ganalılar
+  GI_nationality_plural: Cebelitarıklılar
+  GL_nationality_plural: Grönlandlılar
+  GM_nationality_plural: Gambiyalılar
+  GN_nationality_plural: Gine'liler
+  GP_nationality_plural: Guadeloupelular
+  GQ_nationality_plural: Ekvator Ginesi'nden
+  GR_nationality_plural: Yunanlar
+  GS_nationality_plural:
+  GT_nationality_plural: Guatemalalılar
+  GU_nationality_plural: Guamlılar
+  GW_nationality_plural: Gine-Bissaulular
+  GY_nationality_plural: Guyanalılar
+  HK_nationality_plural: Hong Konglular
+  HM_nationality_plural:
+  HN_nationality_plural: Honduraslılar
+  HR_nationality_plural: Hırvatlar
+  HT_nationality_plural: Haiti'liler
+  HU_nationality_plural: Macarlar
+  ID_nationality_plural: Endonezyalılar
+  IE_nationality_plural: İrlandalılar
+  IL_nationality_plural: İsrailliler
+  IM_nationality_plural: Man Adalıları
+  IN_nationality_plural: Hintliler
+  IO_nationality_plural:
+  IQ_nationality_plural: Iraklılar
+  IR_nationality_plural: İranlılar
+  IS_nationality_plural: İzlandalılar
+  IT_nationality_plural: İtalyanlar
+  JE_nationality_plural:
+  JM_nationality_plural: Jamaikalılar
+  JO_nationality_plural: Ürdünlüler
+  JP_nationality_plural: Japonlar
+  KE_nationality_plural: Kenyalılar
+  KG_nationality_plural: Kırgızlar
+  KR_nationality_plural: Güney Koreliler
+  KW_nationality_plural: Kuveytliler
+  KY_nationality_plural: Cayman Adalıları
+  KZ_nationality_plural: Kazaklar
+  LA_nationality_plural: Laoslular
+  LB_nationality_plural: Lübnanlılar
+  LC_nationality_plural: Saint Lucians
+  LI_nationality_plural: Liechtensteiners
+  LK_nationality_plural: Sri Lankalılar
+  LR_nationality_plural: Liberyalılar
+  LS_nationality_plural: Lesotholular
+  LT_nationality_plural: Litvanyalılar
+  LU_nationality_plural: Lüksemburglular
+  LV_nationality_plural: Letonyalılar
+  LY_nationality_plural: Libyalılar
+  MA_nationality_plural: Faslılar
+  MC_nationality_plural: Monakolular
+  MD_nationality_plural: Moldovalılar
+  ME_nationality_plural: Karadağlılar
+  MF_nationality_plural:
+  MG_nationality_plural: Madagaskarlilar
+  MH_nationality_plural: Marshall Adalıları
+  MK_nationality_plural: Makedonlar
+  ML_nationality_plural: Mali'ler
+  MM_nationality_plural: Myanmarlılar
+  MN_nationality_plural: Moğollar
+  MO_nationality_plural: Makao'lular
+  MP_nationality_plural: Kuzey Mariana Adalıları
+  MQ_nationality_plural: Martinikliler
+  MR_nationality_plural: Moritanyalılar
+  MS_nationality_plural: Montserratlılar
+  MT_nationality_plural: Maltalılar
+  MU_nationality_plural: Mauritiuslular
+  MV_nationality_plural: Maldivliler
+  MW_nationality_plural: Malavililer
+  MX_nationality_plural: Meksikalılar
+  MY_nationality_plural: Malezyalılar
+  MZ_nationality_plural: Mozambikliler
+  NA_nationality_plural: Namibyalılar
+  NC_nationality_plural: Yeni Kaledonyalılar
+  NE_nationality_plural: Nijerliler
+  NF_nationality_plural: Norfolk Adalıları
+  NG_nationality_plural: Nijeryalılar
+  NI_nationality_plural: Nikaragualılar
+  NL_nationality_plural: Hollandalılar
+  NO_nationality_plural: Norveçliler
+  NP_nationality_plural: Nepalililer
+  NR_nationality_plural: Naurulular
+  NU_nationality_plural: Niuelular
+  NZ_nationality_plural: Yeni Zelandalılar
+  OM_nationality_plural: Ummanlılar
+  PA_nationality_plural: Panamalılar
+  PE_nationality_plural: Perulular
+  PF_nationality_plural: Fransız Polinezyalılar
+  PG_nationality_plural: Papua Yeni Gine'liler
+  PH_nationality_plural: Filipinliler
+  PK_nationality_plural: Pakistanlılar
+  PL_nationality_plural: Polonyalılar
+  PM_nationality_plural: Saint-Pierrais
+  PN_nationality_plural: Pitcairn Adalıları
+  PR_nationality_plural: Porto Rikolular
+  PS_nationality_plural: Filistinliler
+  PT_nationality_plural: Portekizliler
+  PW_nationality_plural: Palaulular
+  PY_nationality_plural: Paraguaylılar
+  QA_nationality_plural: Katarlılar
+  RE_nationality_plural:
+  RO_nationality_plural: Rumenler
+  RS_nationality_plural: Sırp
+  RU_nationality_plural: Ruslar
+  RW_nationality_plural: Ruandalılar
+  SA_nationality_plural: Suudi Arabistanlılar
+  SB_nationality_plural: Solomon Adalıları
+  SC_nationality_plural: Seyşelliler
+  SD_nationality_plural: Sudanlılar
+  SE_nationality_plural: İsveçliler
+  SG_nationality_plural: Singapurlular
+  SH_nationality_plural: Saint Helenalılar
+  SI_nationality_plural: Slovenler
+  SJ_nationality_plural:
+  SK_nationality_plural: Slovakyalılar
+  SL_nationality_plural: Sierra Leoneliler
+  SM_nationality_plural: San Marinolu
+  SN_nationality_plural: Senegalliler
+  SO_nationality_plural: Somali'ler
+  SR_nationality_plural: Surinamlılar
+  SS_nationality_plural: Sudanlılar
+  ST_nationality_plural: São Tomeliler
+  SV_nationality_plural: Salvadorlular
+  SX_nationality_plural:
+  SY_nationality_plural: Suriyeliler
+  SZ_nationality_plural: Svazilend'liler
+  TC_nationality_plural: Turks ve Caicos Adalıları
+  TD_nationality_plural: Çadlılar
+  TF_nationality_plural:
+  TG_nationality_plural: Togolular
+  TH_nationality_plural: Taylandlılar
+  TJ_nationality_plural: Tacikler
+  TK_nationality_plural: Tokelau Adalıları
+  TL_nationality_plural: Timorlu
+  TM_nationality_plural: Türkmenler
+  TN_nationality_plural: Tunuslular
+  TO_nationality_plural: Tongalılar
+  TR_nationality_plural: Türkler
+  TT_nationality_plural: Trinidad ve Tobagolular
+  TV_nationality_plural: Tuvalulular
+  TW_nationality_plural: Tayvanlılar
+  TZ_nationality_plural: Tanzanyalılar
+  UA_nationality_plural: Ukraynalılar
+  UG_nationality_plural: Ugandalılar
+  UM_nationality_plural:
+  US_nationality_plural: Amerikalılar
+  UY_nationality_plural: Uruguaylılar
+  UZ_nationality_plural: Özbekler
+  VA_nationality_plural: Vatikanlılar
+  VC_nationality_plural: Saint Vincentlılar
+  VE_nationality_plural: Venezuelalılar
+  VG_nationality_plural: Virgin Adalıları
+  VI_nationality_plural: Virgin Adalıları
+  VN_nationality_plural: Vietnamlılar
+  VU_nationality_plural: Ni-Vanuatu
+  WF_nationality_plural: Wallis ve Futuna Adalıları
+  WS_nationality_plural: Samoalılar
+  YE_nationality_plural: Yemenliler
+  YT_nationality_plural: Mahorans
+  ZA_nationality_plural: Güney Afrikalılar
+  ZM_nationality_plural: Zambiyalılar
+  ZW_nationality_plural: Zimbabveliler
+  XK_nationality_plural: Kosovalılar

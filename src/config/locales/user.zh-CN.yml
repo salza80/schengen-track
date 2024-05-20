@@ -19,5 +19,3 @@ zh-CN:
   my_details_page:
     delete_account: "删除账户"
     delete_account_confirm: "您确定要删除您的账户吗？所有数据将会丢失。此操作无法撤销。"
-
-

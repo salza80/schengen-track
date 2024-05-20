@@ -19,5 +19,3 @@ tr:
   my_details_page:
     delete_account: "Hesabı Sil"
     delete_account_confirm: "Hesabınızı silmek istediğinizden emin misiniz? Tüm verileriniz kaybolacak. Bu işlem geri alınamaz."
-
-

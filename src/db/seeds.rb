@@ -7,9 +7,11 @@ require 'nokogiri'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Continent.delete_all
-# Country.delete_all
-# User.delete_all
+User.destroy_all
+Country.delete_all
+Continent.delete_all
+
+
 
 f = File.open(File.join(Rails.root, 'db/data', 'continent.xml'))
 continents = Nokogiri::XML(f)

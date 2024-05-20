@@ -16,3 +16,8 @@ es:
     log_in_link: "Iniciar sesión"
   new_password_page:
     reset: "Enviar restablecimiento"
+  my_details_page:
+    delete_account: "Eliminar cuenta"
+    delete_account_confirm: "¿Estás seguro de que quieres eliminar tu cuenta? Se perderán todos tus datos. Esta acción no se puede deshacer."
+
+

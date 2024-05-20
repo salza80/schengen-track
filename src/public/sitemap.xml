@@ -24,6 +24,10 @@
     <priority>0.10</priority>
   </url>
   <url>
+    <loc>https://schengen-calculator.com/datadeletion</loc>
+    <priority>0</priority>
+  </url>
+  <url>
     <loc>https://schengen-calculator.com/users/sign_up</loc>
     <priority>0.20</priority>
   </url>
@@ -47,7 +51,11 @@
   </url>
   <url>
     <loc>https://schengen-calculator.com/de/disclaimer</loc>
-    <priority>0.10</priority>
+    <priority>0</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/de/datadeletion</loc>
+    <priority>0</priority>
   </url>
   <url>
     <loc>https://schengen-calculator.com/de/users/sign_up</loc>
@@ -73,7 +81,11 @@
   </url>
   <url>
     <loc>https://schengen-calculator.com/es/disclaimer</loc>
-    <priority>0.10</priority>
+    <priority>0</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/datadeletion</loc>
+    <priority>0</priority>
   </url>
   <url>
     <loc>https://schengen-calculator.com/es/users/sign_up</loc>
@@ -99,7 +111,11 @@
   </url>
   <url>
     <loc>https://schengen-calculator.com/tr/disclaimer</loc>
-    <priority>0.10</priority>
+    <priority>0</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/datadeletion</loc>
+    <priority>0</priority>
   </url>
   <url>
     <loc>https://schengen-calculator.com/tr/users/sign_up</loc>

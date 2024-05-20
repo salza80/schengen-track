@@ -5,3 +5,5 @@
     = render 'form'
   .card-footer
     = link_to t('common.back'), visits_path(locale: I18n.locale)
+    - unless @user.is_guest?
+      = link_to t('my_details_page.delete_account'), delete_account_path, method: :delete, data: { confirm: t('my_details_page.delete_account_confirm') }, class: "float-right text-danger"

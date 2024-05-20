@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'my_details' => 'users#edit'
     put 'my_details' => 'users#update'
     patch 'my_details' => 'users#update'
+    delete 'my_details' => 'users#destroy', as: 'delete_account'
     get 'user' => 'users#show'
     get 'about' => 'about#about'
     get '/blog/:slug', to: 'blogs#show', as: :blog
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
     get 'about/:nationality' => 'about#about'
     get 'disclaimer' => 'about#disclaimer'
     get 'privacy' => 'about#privacy'
+    get 'datadeletion' => 'about#datadeletion'
     
     get 'migrate' => 'tasks#migrate'
     get 'create' => 'tasks#create'

@@ -16,3 +16,6 @@ zh-CN:
     log_in_link: "登录"
   new_password_page:
     reset: "发送重置"
+  my_details_page:
+    delete_account: "删除账户"
+    delete_account_confirm: "您确定要删除您的账户吗？所有数据将会丢失。此操作无法撤销。"

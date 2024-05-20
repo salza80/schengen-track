@@ -101,6 +101,7 @@ tr:
     country: "Ülke"
     disclaimer: "Açıklama"
     privacy_policy: "Gizlilik Politikası"
+    data_deletion: "Veri Silme"
   default_description: "Ücretsiz Schengen/Avrupa 90/180 gün hesaplayıcısı. Uyruğunuzu, seyahat tarihlerinizi ve varış noktanızı girin, Schengen hesaplayıcısı gerisini yapar."
   keywords: "Schengen, Schengen Hesaplayıcı, 90 gün içinde 180, 90 gün kuralı, 180 gün hesaplayıcı, 90 gün hesap makinesi, Schengen Vizesi, Seyahat, Avrupa Vizesi, Schengen Alanı, Schengen Bölgesi"
   title_with_content: "%{content} için Ücretsiz Schengen / Avrupa Kısa Süreli Turist Vize Hesaplayıcısı"

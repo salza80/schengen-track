@@ -1,5 +1,13 @@
 en:
   about:
+    datadeletion:
+      title: "Data Deletion Policy"
+      subtitle: "How to delete your data"
+      step1: "Log in to your account"
+      step2: "Go to your account settings by selecting your nationality in the top right corner of the page"
+      step3: "Click on the 'Delete Account' button"
+      step4: "Confirm that you want to delete your account"
+      conclusion: "Your account and all data will be deleted. This action can not be undone."
     about:
       title: "About Schengen Calculator"
       introduction: "Introduction"

@@ -48,6 +48,7 @@ en:
     country: "Country"
     disclaimer: "Disclaimer"
     privacy_policy: "Privacy Policy"
+    data_deletion: "Data Deletion"
   default_description: "Free Schengen/Europe 90/180 day calculator. Enter your nationality, travel dates and destination, and the Schengen calculator does the rest."
   keywords: "Schengen, Schengen Calculator,90 days in 180, 90 day rule, 180 day calculator, 90 day calculator, Schengen Visa, Travel, Europe Visa, Schengen Area, Schengen Zone"
   title_with_content: "Free Schengen / Europe Short-stay Tourist Visa Calculator for %{content}"

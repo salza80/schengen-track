@@ -1,5 +1,13 @@
 zh-CN:
   about:
+    datadeletion:
+      title: "数据删除政策"
+      subtitle: "如何删除您的数据"
+      step1: "登录您的账户"
+      step2: "通过在页面右上角选择您的国籍，进入您的账户设置"
+      step3: "点击“删除账户”按钮"
+      step4: "确认您要删除您的账户"
+      conclusion: "您的账户和所有数据将被删除。此操作无法撤销。"
     about:
       title: "关于申根签证计算器"
       introduction: "介绍"

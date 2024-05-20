@@ -1,10 +1,16 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def show
   end
 
   def edit
+  end
+
+  def destroy
+    @user.destroy
+    sign_out
+    redirect_to root_path, notice: 'Your account has been successfully deleted.'
   end
 
   

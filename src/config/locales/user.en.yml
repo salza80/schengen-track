@@ -16,4 +16,7 @@ en:
     log_in_link: "Log in"
   new_password_page:
     reset: "Send Reset"
+  my_details_page:
+    delete_account: "Delete Account"
+    delete_account_confirm: "Are you sure you want to delete your account? All your data will be lost. This action can not be undone."
 

@@ -16,3 +16,8 @@ hi:
     log_in_link: "लॉग इन करें"
   new_password_page:
     reset: "रीसेट भेजें"
+  my_details_page:
+    my_details_page:
+      delete_account: "खाता हटाएं"
+      delete_account_confirm: "क्या आप वाकई अपना खाता हटाना चाहते हैं? आपका सभी डेटा खो जाएगा। यह कार्रवाई पूर्ववत नहीं की जा सकती है।"
+

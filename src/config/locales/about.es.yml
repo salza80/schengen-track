@@ -1,5 +1,13 @@
 es:
   about:
+    datadeletion:
+      title: "Política de Eliminación de Datos"
+      subtitle: "Cómo eliminar tus datos"
+      step1: "Inicia sesión en tu cuenta"
+      step2: "Ve a la configuración de tu cuenta seleccionando tu nacionalidad en la esquina superior derecha de la página"
+      step3: "Haz clic en el botón 'Eliminar cuenta'"
+      step4: "Confirma que deseas eliminar tu cuenta"
+      conclusion: "Tu cuenta y todos los datos serán eliminados. Esta acción no se puede deshacer."
     about:
       title: "Acerca de Schengen Calculator"
       introduction: "Introducción"

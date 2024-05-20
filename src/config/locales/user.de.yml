@@ -16,4 +16,9 @@ de:
     log_in_link: "Einloggen"
   new_password_page:
     reset: "Zurücksetzen senden"
+  my_details_page:
+    delete_account: "Konto löschen"
+    delete_account_confirm: "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Alle Ihre Daten gehen verloren. Diese Aktion kann nicht rückgängig gemacht werden."
+
+
 

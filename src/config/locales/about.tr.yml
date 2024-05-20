@@ -1,5 +1,13 @@
 tr:
   about:
+    datadeletion:
+      title: "Veri Silme Politikası"
+      subtitle: "Verilerinizi nasıl silebilirsiniz"
+      step1: "Hesabınıza giriş yapın"
+      step2: "Sayfanın sağ üst köşesindeki uyruğunuzu seçerek hesap ayarlarına gidin"
+      step3: "'Hesabı Sil' düğmesine tıklayın"
+      step4: "Hesabınızı silmek istediğinizi onaylayın"
+      conclusion: "Hesabınız ve tüm verileriniz silinecektir. Bu işlem geri alınamaz."
     about:
       title: "Schengen Hesap Makinesi Hakkında"
       introduction: "Giriş"

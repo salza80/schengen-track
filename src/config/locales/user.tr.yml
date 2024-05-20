@@ -16,3 +16,8 @@ tr:
     log_in_link: "Giriş Yap"
   new_password_page:
     reset: "Sıfırlamayı Gönder"
+  my_details_page:
+    delete_account: "Hesabı Sil"
+    delete_account_confirm: "Hesabınızı silmek istediğinizden emin misiniz? Tüm verileriniz kaybolacak. Bu işlem geri alınamaz."
+
+

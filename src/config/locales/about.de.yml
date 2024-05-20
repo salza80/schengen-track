@@ -1,5 +1,13 @@
 de:
   about:
+    datadeletion:
+      title: "Datenschutzrichtlinie"
+      subtitle: "Wie Sie Ihre Daten löschen können"
+      step1: "Melden Sie sich in Ihrem Konto an"
+      step2: "Gehen Sie zu Ihren Kontoeinstellungen, indem Sie Ihre Nationalität in der oberen rechten Ecke der Seite auswählen"
+      step3: "Klicken Sie auf die Schaltfläche 'Konto löschen'"
+      step4: "Bestätigen Sie, dass Sie Ihr Konto löschen möchten"
+      conclusion: "Ihr Konto und alle Daten werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
     about:
       title: "Über den Schengen-Rechner"
       introduction: "Einleitung"

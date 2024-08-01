@@ -17,7 +17,7 @@ gem 'jbuilder', '~> 2.0'
 # gem 'sdoc', group: :doc
 
 gem 'haml-rails', '~> 2.0.0'
-gem 'bootstrap', '4.2.1'
+gem 'bootstrap', '5.0.0'
 gem "font-awesome-sass", "~> 6.5.1"
 gem "devise", ">= 4.9.2"
 gem 'nokogiri'

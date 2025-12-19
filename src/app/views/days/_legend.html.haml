@@ -1,0 +1,24 @@
+.calendar-legend.mb-4.p-3.bg-light.rounded
+  %h5.mb-3= t('days.legend')
+  .row
+    .col-6.col-md-3.mb-2
+      .legend-item.d-flex.align-items-center
+        .legend-color.outside-schengen.me-2
+        %small= t('days.legend_outside')
+    .col-6.col-md-3.mb-2
+      .legend-item.d-flex.align-items-center
+        .legend-color.in-schengen-safe.me-2
+        %small= t('days.legend_safe')
+    .col-6.col-md-3.mb-2
+      .legend-item.d-flex.align-items-center
+        .legend-color.in-schengen-warning.me-2
+        %small= t('days.legend_warning')
+    .col-6.col-md-3.mb-2
+      .legend-item.d-flex.align-items-center
+        .legend-color.overstay.me-2
+        %small= t('days.legend_overstay')
+    - if @overstay
+      .col-6.col-md-3.mb-2
+        .legend-item.d-flex.align-items-center
+          .legend-color.waiting-period.me-2
+          %small= t('days.legend_waiting')

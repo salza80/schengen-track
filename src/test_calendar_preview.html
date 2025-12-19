@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calendar Preview</title>
+  <style>
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background: #dee2e6;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+    .calendar-cell {
+      min-height: 80px;
+      background: white;
+      padding: 0.25rem;
+      position: relative;
+    }
+    .day-header {
+      background: #f8f9fa;
+      font-weight: bold;
+      text-align: center;
+      padding: 0.5rem;
+      min-height: auto;
+    }
+    .empty-cell {
+      background: #fafafa;
+    }
+    .day-number {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      font-weight: bold;
+    }
+    .day-country {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+    }
+    .day-count {
+      text-align: center;
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+    }
+    .in-schengen-safe {
+      background-color: #d1f4e0;
+      color: #155724;
+    }
+    .outside-schengen {
+      background-color: #e9ecef;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align: center;">January 2024</h2>
+  <div class="calendar-grid">
+    <div class="calendar-cell day-header">S</div>
+    <div class="calendar-cell day-header">M</div>
+    <div class="calendar-cell day-header">T</div>
+    <div class="calendar-cell day-header">W</div>
+    <div class="calendar-cell day-header">T</div>
+    <div class="calendar-cell day-header">F</div>
+    <div class="calendar-cell day-header">S</div>
+    
+    <!-- Week 1 -->
+    <div class="calendar-cell empty-cell"></div>
+    <div class="calendar-cell outside-schengen">
+      <div class="day-number">1</div>
+    </div>
+    <div class="calendar-cell outside-schengen">
+      <div class="day-number">2</div>
+    </div>
+    <div class="calendar-cell in-schengen-safe">
+      <div class="day-number">3</div>
+      <div class="day-country">FR</div>
+      <div class="day-count">15/90</div>
+    </div>
+    <div class="calendar-cell in-schengen-safe">
+      <div class="day-number">4</div>
+      <div class="day-country">FR</div>
+      <div class="day-count">16/90</div>
+    </div>
+    <div class="calendar-cell in-schengen-safe">
+      <div class="day-number">5</div>
+      <div class="day-country">FR</div>
+      <div class="day-count">17/90</div>
+    </div>
+    <div class="calendar-cell in-schengen-safe">
+      <div class="day-number">6</div>
+      <div class="day-country">FR</div>
+      <div class="day-count">18/90</div>
+    </div>
+  </div>
+  <p style="text-align: center; margin-top: 20px;">This is how the calendar should look</p>
+</body>
+</html>

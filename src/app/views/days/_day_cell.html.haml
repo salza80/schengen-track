@@ -1,0 +1,20 @@
+.calendar-cell.day-cell{class: [day_cell_class(day)], data: {toggle: 'tooltip', placement: 'top', html: true, title: day_tooltip(day), date: day.the_date.to_s}}
+  .day-number= day.the_date.day
+
+  - if day.hasCountry?
+    .day-country
+      %small= country_iso_code(day)
+
+  - if day.schengen_days_count
+    .day-count
+      %small
+        %strong= day.schengen_days_count
+        %span.text-muted /90
+
+  - if day.overstay_days.positive?
+    .day-overstay
+      %small.text-danger +#{day.overstay_days}
+
+  - if day.remaining_wait
+    .day-wait
+      %small.text-warning ⏱#{180 - day.remaining_wait}

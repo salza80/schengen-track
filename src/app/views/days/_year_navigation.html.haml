@@ -1,0 +1,36 @@
+.calendar-year-nav{class: position == 'top' ? 'sticky-top bg-white shadow-sm' : 'bg-light'}
+  .container-fluid
+    .row.align-items-center.py-3
+      .col-4.text-start
+        - if @prev_year
+          = link_to days_path(locale: I18n.locale, view: 'calendar', year: @prev_year), class: 'btn btn-outline-primary btn-prev-year' do
+            %i.fa.fa-chevron-left
+            = @prev_year
+        - else
+          %button.btn.btn-outline-secondary{disabled: true}
+            %i.fa.fa-chevron-left
+
+      .col-4.text-center
+        %h3.mb-0
+          %i.fa.fa-calendar.me-2
+          = @selected_year
+
+      .col-4.text-end
+        - if @next_year
+          = link_to days_path(locale: I18n.locale, view: 'calendar', year: @next_year), class: 'btn btn-outline-primary btn-next-year' do
+            = @next_year
+            %i.fa.fa-chevron-right
+        - else
+          %button.btn.btn-outline-secondary{disabled: true}
+            %i.fa.fa-chevron-right
+
+    - if position == 'top'
+      .row.mt-2
+        .col-6.text-start
+          = link_to visits_path(locale: I18n.locale), class: 'btn btn-sm btn-outline-secondary' do
+            %i.fa.fa-arrow-left
+            = t('common.back')
+        .col-6.text-end
+          = link_to days_path(locale: I18n.locale, view: 'table'), class: 'btn btn-sm btn-outline-secondary' do
+            %i.fa.fa-table
+            = t('days.view_table')

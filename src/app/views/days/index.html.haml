@@ -1,18 +1,41 @@
-%h3= t('days.schengen_visa_calculation_by_day')
-%p
-  = t('days.max_remaining_days')
-  - if @overstay
-    %small
-      = t('days.overstay_warning')
+- if @view_mode == 'calendar'
+  - if @days.any?
+    = render 'year_navigation', position: 'top'
+    
+    .container-fluid.mt-3
+      = render 'legend'
+      = render 'calendar'
+    
+    = render 'year_navigation', position: 'bottom'
+  - else
+    .container.mt-4
+      .alert.alert-info
+        %h4= t('visits.start_using')
+        %p= t('visits.dont_forget', nationality: current_user_or_guest_user.nationality.name, change_link: link_to(t('visits.change_link'), my_details_path(locale: I18n.locale))).html_safe
+        %p
+          = link_to visits_path(locale: I18n.locale), class: 'btn btn-primary' do
+            %i.fa.fa-arrow-left
+            = t('common.back')
 
-.row
-  .col-md-12.text-right
-    = link_to t('common.back'), visits_path(locale: I18n.locale)
+- else
+  %h3= t('days.schengen_visa_calculation_by_day')
+  %p
+    = t('days.max_remaining_days')
+    - if @overstay
+      %small
+        = t('days.overstay_warning')
 
-.row
-  .col-md-12
-    = render 'dayslist'
+  .row
+    .col-md-12.d-flex.justify-content-between.mb-3
+      = link_to t('common.back'), visits_path(locale: I18n.locale), class: 'btn btn-outline-primary'
+      = link_to days_path(locale: I18n.locale, view: 'calendar'), class: 'btn btn-outline-secondary' do
+        %i.fa.fa-calendar
+        = t('days.view_calendar')
 
-.row
-  .col-md-12
-    = link_to t('common.back'), visits_path(locale: I18n.locale)
+  .row
+    .col-md-12
+      = render 'dayslist'
+
+  .row
+    .col-md-12.text-center.mt-3
+      = link_to t('common.back'), visits_path(locale: I18n.locale), class: 'btn btn-outline-primary'

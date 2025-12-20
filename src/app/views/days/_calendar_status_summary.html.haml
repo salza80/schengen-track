@@ -1,28 +1,56 @@
 - if @status_summary
   .calendar-status-card.card.mb-3{class: "border-#{status_text_class(@status_summary[:status])}"}
     .card-body.p-3
-      .row.align-items-center
-        .col-12.col-md-6.mb-2.mb-md-0
-          .status-current
-            %h5.mb-2
-              %i.fa{class: status_icon_class(@status_summary[:status])}
-              = t('days.current_status')
-              %small.text-muted.ml-2
-                = t('common.as_of')
-                = Date.today.strftime('%B %d, %Y')
-            .status-numbers.mb-2
-              %span.h4.mb-0
-                %strong= @status_summary[:current_days]
-                %span.text-muted /#{@status_summary[:max_days]}
-              = t('days.days_used')
-            %span.badge{class: status_badge_class(@status_summary[:status])}
-              = t("days.status_#{@status_summary[:status]}")
-              
-        .col-12.col-md-6
-          .status-remaining
-            %h6.mb-2
-              %i.fa.fa-calendar-check
-              = t('days.days_remaining')
-            .remaining-number
-              %strong.h3{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
-              = t('days.days')
+      -# Mobile layout (< md)
+      .d-md-none
+        .status-current
+          %h5.mb-2
+            %i.fa{class: status_icon_class(@status_summary[:status])}
+            = t('days.current_status')
+            %small.text-muted.ml-2
+              = t('common.as_of')
+              = Date.today.strftime('%B %d, %Y')
+          .row
+            .col-6
+              .status-numbers
+                %span.h4.mb-0
+                  %strong= @status_summary[:current_days]
+                  %span.text-muted / #{@status_summary[:max_days]}
+                %div
+                  %small= t('days.days_used')
+            .col-6
+              .status-remaining
+                %div
+                  %strong.h4{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
+                  %span.badge.ml-2{class: status_badge_class(@status_summary[:status])}
+                    = t("days.status_#{@status_summary[:status]}")
+                %div
+                  %small= t('days.days_remaining')
+      
+      -# Desktop layout (>= md, < lg)
+      .d-none.d-md-block.d-lg-none
+        .row.align-items-center
+          .col-md-6.mb-2.mb-md-0
+            .status-current
+              %h5.mb-2
+                %i.fa{class: status_icon_class(@status_summary[:status])}
+                = t('days.current_status')
+                %small.text-muted.ml-2
+                  = t('common.as_of')
+                  = Date.today.strftime('%B %d, %Y')
+              .status-numbers.mb-2
+                %span.h4.mb-0
+                  %strong= @status_summary[:current_days]
+                  %span.text-muted / #{@status_summary[:max_days]}
+                = t('days.days_used')
+              %span.badge{class: status_badge_class(@status_summary[:status])}
+                = t("days.status_#{@status_summary[:status]}")
+                
+          .col-md-6
+            .status-remaining
+              %h6.mb-2
+                %i.fa.fa-calendar-check
+                = t('days.days_remaining')
+              .remaining-number
+                %strong.h3{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
+                = t('days.days')

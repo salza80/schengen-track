@@ -245,3 +245,29 @@
 html {
   scroll-behavior: smooth;
 }
+
+// Calendar sidebar
+.calendar-sidebar {
+  z-index: 50; // Lower than header (which should be around 100+)
+  
+  // Smooth scrolling for sidebar content
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.2) transparent;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,0.3);
+  }
+}

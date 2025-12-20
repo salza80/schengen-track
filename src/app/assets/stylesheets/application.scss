@@ -56,6 +56,11 @@ html {
     }
 }
 
+// Ensure sticky header stays on top
+.navbar.sticky-top {
+  z-index: 1020; // Bootstrap's default sticky navbar z-index
+}
+
 .justify-right{
   justify-content: right;
 }

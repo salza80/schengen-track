@@ -1,4 +1,4 @@
-.calendar-sidebar.sticky-top{style: "top: 20px;"}
+.calendar-sidebar.sticky-top{style: "top: 91px; max-height: calc(100vh - 111px); overflow-y: auto;"}
   -# Status information (if available)
   - if @status_summary
     .sidebar-section.card.mb-3
@@ -18,7 +18,7 @@
             %small.text-muted= t('days.days_used')
             .h5.mb-0
               %strong= @status_summary[:current_days]
-              %span.text-muted /90
+              %span.text-muted / 90
           .mb-2
             %small.text-muted= t('days.days_remaining')
             .h5.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}

@@ -45,12 +45,13 @@
   
   .month-header {
     background: $headerGreen;
-    color: white;
+    color: #2d5016; // Dark green for better contrast on light green background
     padding: 1rem;
     
     h4 {
       margin: 0;
       font-size: 1.25rem;
+      font-weight: 600; // Slightly bolder for better readability
     }
   }
 }

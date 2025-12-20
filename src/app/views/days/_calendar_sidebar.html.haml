@@ -1,7 +1,7 @@
 .calendar-sidebar.sticky-top{style: "top: 91px; max-height: calc(100vh - 111px); overflow-y: auto;"}
   -# Status information (if available)
   - if @status_summary
-    .sidebar-section.card.mb-3
+    .sidebar-section.card.mb-2
       .card-header.bg-primary.text-white
         %h6.mb-0
           %i.fa.fa-chart-line
@@ -10,15 +10,14 @@
           = t('common.as_of')
           = Date.today.strftime('%B %d, %Y')
       .card-body.p-3
-        .status-badge.text-center.mb-3
-          %span.badge{class: status_badge_class(@status_summary[:status])}
-            = t("days.status_#{@status_summary[:status]}")
         .status-info
           .mb-2
             %small.text-muted= t('days.days_used')
             .h5.mb-0
               %strong= @status_summary[:current_days]
               %span.text-muted / 90
+              %span.badge.ml-2{class: status_badge_class(@status_summary[:status])}
+                = t("days.status_#{@status_summary[:status]}")
           .mb-2
             %small.text-muted= t('days.days_remaining')
             .h5.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}
@@ -26,7 +25,7 @@
 
   -# Next entry options
   - if @next_entry_days && @next_entry_days.any?
-    .sidebar-section.card.mb-3
+    .sidebar-section.card.mb-2
       .card-header.bg-info.text-white
         %h6.mb-0
           %i.fa.fa-plane-arrival
@@ -48,7 +47,7 @@
 
   -# Legend
   .sidebar-section.card
-    .card-header.bg-secondary.text-white
+    .card-header.bg-dark.text-white
       %h6.mb-0
         %i.fa.fa-palette
         = t('days.legend')

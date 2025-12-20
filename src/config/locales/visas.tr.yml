@@ -1,6 +1,7 @@
 tr:
   visas:
     list_caption: "Hesaplama için kullanılacak Schengen Vizelerinin Listesi."
+    edit_title: "Schengen Vizesini Düzenle"
     columns:
       dates: "Tarihler"
       no_entries: "Giriş Yok"

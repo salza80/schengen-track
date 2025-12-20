@@ -16,10 +16,19 @@ class VisasController < ApplicationController
   def new
     @visa = Visa.new
     @visa.no_entries = 0
+    
+    respond_to do |format|
+      format.html # Full page render
+      format.js   # AJAX request from visits page
+    end
   end
 
   # GET /visas/1/edit
   def edit
+    respond_to do |format|
+      format.html # Full page render
+      format.js   # AJAX request from visits page
+    end
   end
 
   # POST /visas
@@ -31,9 +40,11 @@ class VisasController < ApplicationController
       if @visa.save
         format.html { redirect_to visits_path, notice: 'Visa was successfully created.' }
         format.json { render :show, status: :created, location: @visa }
+        format.js   # AJAX request from visits page
       else
         format.html { render :new }
         format.json { render json: @visa.errors, status: :unprocessable_entity }
+        format.js   # AJAX request from visits page - show errors
       end
     end
   end
@@ -45,9 +56,11 @@ class VisasController < ApplicationController
       if @visa.update(visa_params)
         format.html { redirect_to visits_path, notice: 'Visa was successfully updated.' }
         format.json { render :show, status: :ok, location: @visa }
+        format.js   # AJAX request from visits page
       else
         format.html { render :edit }
         format.json { render json: @visa.errors, status: :unprocessable_entity }
+        format.js   # AJAX request from visits page - show errors
       end
     end
   end

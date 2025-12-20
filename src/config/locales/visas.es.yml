@@ -1,6 +1,7 @@
 es:
   visas:
     list_caption: "Lista de Visas Schengen para usar en el cálculo."
+    edit_title: "Editar Visa Schengen"
     columns:
       dates: "Fechas"
       no_entries: "Sin Entradas"

@@ -1,6 +1,7 @@
 de:
   visas:
     list_caption: "Liste der Schengen-Visa zur Verwendung für die Berechnung."
+    edit_title: "Schengen-Visum bearbeiten"
     columns:
       dates: "Daten"
       no_entries: "Keine Einträge"

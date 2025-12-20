@@ -1,6 +1,7 @@
 zh-CN:
   visas:
     list_caption: "用于计算的申根签证列表。"
+    edit_title: "编辑申根签证"
     columns:
       dates: "日期"
       no_entries: "无条目"

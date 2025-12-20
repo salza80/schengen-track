@@ -54,12 +54,14 @@ class DaysControllerTest < ActionController::TestCase
   # C. Calendar Setup - With Visits
   # ====================
   
-  test "should setup calendar with available years" do
+  test "should setup calendar with year navigation" do
     sign_in users(:Sally)
     get :index, params: { locale: 'en' }
-    assert_not_nil assigns(:available_years)
-    assert assigns(:available_years).is_a?(Array)
-    assert assigns(:available_years).include?(2014), "Should include year 2014 from Sally's visits"
+    # With infinite navigation, we should have prev/next year instead of available_years array
+    assert_not_nil assigns(:prev_year)
+    assert_not_nil assigns(:next_year)
+    assert_equal Date.today.year - 1, assigns(:prev_year)
+    assert_equal Date.today.year + 1, assigns(:next_year)
   end
 
   test "should select current year by default" do
@@ -107,11 +109,9 @@ class DaysControllerTest < ActionController::TestCase
     
     get :index, params: { locale: 'en' }
     assert_response :success
-    assert_not_nil assigns(:available_years)
-    current_year = Date.today.year
-    assert assigns(:available_years).include?(current_year)
-    assert assigns(:available_years).include?(current_year - 2)
-    assert assigns(:available_years).include?(current_year + 2)
+    # With infinite navigation, should still be able to navigate years
+    assert_not_nil assigns(:prev_year)
+    assert_not_nil assigns(:next_year)
     assert_equal 12, assigns(:calendar_months).length
   end
 

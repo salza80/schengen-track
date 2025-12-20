@@ -1,6 +1,7 @@
 hi:
   visas:
     list_caption: "कैलकुलेशन के लिए शेंगेन वीज़ा की सूची।"
+    edit_title: "शेंगेन वीज़ा संपादित करें"
     columns:
       dates: "तारीखें"
       no_entries: "कोई एंट्री नहीं"

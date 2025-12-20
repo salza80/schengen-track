@@ -80,6 +80,6 @@
           %td{ "data-title": t('visits.schengen_days_overstay'), class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
             = visit.schengen_overstay_days
           %td{ "data-title": t('visits.modify') }
-            = link_to t('common.edit'), edit_visit_path(locale: I18n.locale, id: visit.id)
+            %a.edit-visit-link{href: "#", "data-visit-id" => visit.id}= t('common.edit')
             = " / "
             = link_to t('common.delete'), visit, method: :delete, data: { confirm: t('visits.delete_confirm') }

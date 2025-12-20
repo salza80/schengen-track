@@ -81,6 +81,8 @@ es:
     schengen: "Schengen"
     visa: "Visa"
     calculator: "Calculadora"
+    trips: "Viajes"
+    calendar: "Calendario"
     about: "Sobre nosotros"
     about_page: "Página Sobre"
     log_out: "Cerrar sesión"

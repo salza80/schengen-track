@@ -28,6 +28,8 @@ en:
     schengen: "Schengen"
     visa: "Visa"
     calculator: "Calculator"
+    trips: "Trips"
+    calendar: "Calendar"
     about: "About"
     about_page: "About page"
     log_out: "Log out"

@@ -27,10 +27,6 @@
   .col-md-6.d-flex.align-items-end
     - if @visits.count > 0
       = link_to t('visits.export_to_csv'), visits_path(locale: I18n.locale, format: "csv")
-      %span.px-2
-        |
-    - if !current_user_or_guest_user.visa_required? && @visits.count > 0
-      = link_to t('visits.view_calculation_details'), days_path(locale: I18n.locale)
   .col-md-6.text-right
     %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visit"}
       %i.fa.fa-plus{"aria-hidden" => "true"}

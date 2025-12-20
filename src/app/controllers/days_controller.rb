@@ -15,12 +15,8 @@ class DaysController < ApplicationController
       @overstay = calc.schengen_overstay?
       @next_entry_days = calc.next_entry_days
       
-      @view_mode = params[:view] || 'calendar'
-      
-      if @view_mode == 'calendar'
-        setup_calendar_view_infinite
-        calculate_status_summary if @days.any?
-      end
+      setup_calendar_view_infinite
+      calculate_status_summary if @days.any?
     end
   end
 

@@ -2,7 +2,7 @@
   .d-flex.align-items-center.py-3
     .flex-fill.text-left
       - if @prev_year
-        = link_to days_path(locale: I18n.locale, view: 'calendar', year: @prev_year), class: 'btn btn-outline-primary btn-prev-year' do
+        = link_to days_path(locale: I18n.locale, year: @prev_year), class: 'btn btn-outline-primary btn-prev-year' do
           %i.fa.fa-chevron-left
           = @prev_year
       - else
@@ -16,20 +16,9 @@
 
     .flex-fill.text-right
       - if @next_year
-        = link_to days_path(locale: I18n.locale, view: 'calendar', year: @next_year), class: 'btn btn-outline-primary btn-next-year' do
+        = link_to days_path(locale: I18n.locale, year: @next_year), class: 'btn btn-outline-primary btn-next-year' do
           = @next_year
           %i.fa.fa-chevron-right
       - else
         %button.btn.btn-outline-secondary{disabled: true}
           %i.fa.fa-chevron-right
-
-  - if position == 'top'
-    .d-flex.mt-2
-      .flex-fill.text-left
-        = link_to visits_path(locale: I18n.locale), class: 'btn btn-sm btn-outline-secondary' do
-          %i.fa.fa-arrow-left
-          = t('common.back')
-      .flex-fill.text-right
-        = link_to days_path(locale: I18n.locale, view: 'table'), class: 'btn btn-sm btn-outline-secondary' do
-          %i.fa.fa-table
-          = t('days.view_table')

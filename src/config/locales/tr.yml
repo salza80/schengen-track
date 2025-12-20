@@ -81,6 +81,8 @@ tr:
     schengen: "Schengen"
     visa: "Vize"
     calculator: "Hesap Makinesi"
+    trips: "Seyahatler"
+    calendar: "Takvim"
     about: "Hakkında"
     about_page: "Hakkında sayfası"
     log_out: "Çıkış yap"

@@ -1,9 +1,9 @@
-.calendar-cell.day-cell{class: [day_cell_class(day)], data: {toggle: 'tooltip', placement: 'top', html: true, title: day_tooltip(day), date: day.the_date.to_s}}
+.calendar-cell.day-cell{class: [day_cell_class(day), (is_today?(day) ? 'current-day' : nil)], data: {toggle: 'tooltip', placement: 'top', html: true, title: day_tooltip(day), date: day.the_date.to_s}}
   .day-number= day.the_date.day
 
   - if day.hasCountry?
     .day-country
-      %small= country_iso_code(day)
+      %small= day.country_name
 
   - if day.schengen_days_count
     .day-count

@@ -39,4 +39,43 @@ module DaysHelper
     # Use country_code field if available, otherwise extract first 2 letters of name
     country.country_code&.upcase || country.name[0..1].upcase
   end
+
+  # Returns Bootstrap icon class for status
+  def status_icon_class(status)
+    case status.to_s
+    when 'safe'
+      'fa-check-circle text-success'
+    when 'warning'
+      'fa-exclamation-triangle text-warning'
+    when 'overstay'
+      'fa-times-circle text-danger'
+    else
+      'fa-info-circle text-info'
+    end
+  end
+
+  # Returns Bootstrap text color class for status
+  def status_text_class(status)
+    case status.to_s
+    when 'safe' then 'success'
+    when 'warning' then 'warning'
+    when 'overstay' then 'danger'
+    else 'info'
+    end
+  end
+
+  # Returns Bootstrap badge class for status
+  def status_badge_class(status)
+    case status.to_s
+    when 'safe' then 'badge-success'
+    when 'warning' then 'badge-warning'
+    when 'overstay' then 'badge-danger'
+    else 'badge-info'
+    end
+  end
+
+  # Checks if a day is today
+  def is_today?(day)
+    day && day.the_date == Date.today
+  end
 end

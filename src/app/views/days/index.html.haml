@@ -1,23 +1,33 @@
 - if @view_mode == 'calendar'
-  - if @days.any?
-    = render 'year_navigation', position: 'top'
+  .calendar-view-container
+    -# Status summary (mobile & desktop)
+    = render 'calendar_status_summary'
     
-    .container-fluid.mt-3
-      = render 'legend'
-      = render 'calendar'
+    -# Mobile legend (shown only on mobile)
+    .d-lg-none
+      = render 'legend_mobile'
     
-    = render 'year_navigation', position: 'bottom'
-  - else
-    .container.mt-4
-      .alert.alert-info
-        %h4= t('visits.start_using')
-        %p= t('visits.dont_forget', nationality: current_user_or_guest_user.nationality.name, change_link: link_to(t('visits.change_link'), my_details_path(locale: I18n.locale))).html_safe
-        %p
-          = link_to visits_path(locale: I18n.locale), class: 'btn btn-primary' do
-            %i.fa.fa-arrow-left
-            = t('common.back')
+    .row
+      -# Main calendar area
+      .col-lg-9.calendar-main-area
+        -# Year navigation (top)
+        = render 'year_navigation', position: 'top'
+        
+        -# Year summary banner
+        = render 'calendar_year_summary'
+        
+        -# Calendar months
+        = render 'calendar'
+        
+        -# Year navigation (bottom)
+        = render 'year_navigation', position: 'bottom'
+      
+      -# Sidebar (desktop only)
+      .col-lg-3.d-none.d-lg-block.calendar-sidebar-col
+        = render 'calendar_sidebar'
 
 - else
+  -# Table view (existing)
   %h3= t('days.schengen_visa_calculation_by_day')
   %p
     = t('days.max_remaining_days')

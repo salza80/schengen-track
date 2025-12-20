@@ -73,13 +73,14 @@
   }
 }
 
-// Calendar cells
+// Calendar cells (Option B: Moderate reduction)
 .calendar-cell {
-  min-height: 80px;
+  min-height: 70px;
   background: white;
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   
   &.empty-cell {
     background: #fafafa;
@@ -114,15 +115,15 @@
   }
   
   .day-country {
-    margin-top: 1.5rem;
     text-align: center;
     font-size: 0.75rem;
     font-weight: 600;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
   }
   
   .day-count {
     text-align: center;
-    margin-top: 0.25rem;
     font-size: 0.75rem;
     font-weight: 600;
   }
@@ -137,42 +138,47 @@
 
 // Color coding
 .outside-schengen {
-  background-color: #e9ecef;
-  color: #495057;
+  background-color: $calendar-outside;
+  color: $calendar-outside-text;
 }
 
 .in-schengen-safe {
-  background-color: #d1f4e0;
-  color: #155724;
+  background-color: $calendar-safe;
+  color: $calendar-safe-text;
 }
 
 .in-schengen-warning {
-  background-color: #fff3cd;
-  color: #856404;
+  background-color: $calendar-warning;
+  color: $calendar-warning-text;
 }
 
 .overstay {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 2px solid #f5c6cb !important;
+  background-color: $calendar-overstay;
+  color: $calendar-overstay-text;
+  border: 2px solid darken($calendar-overstay, 10%) !important;
 }
 
 .waiting-period {
-  background-color: #ffeaa7;
-  color: #856404;
-  border: 2px solid #ffeeba !important;
+  background-color: $calendar-waiting;
+  color: $calendar-waiting-text;
+  border: 2px solid darken($calendar-waiting, 10%) !important;
 }
 
-// Current day highlight
+// Current day highlight (Option C: Background accent)
 .day-cell.current-day {
-  border: 3px solid #007bff !important;
-  box-shadow: 0 0 10px rgba(0,123,255,0.5);
+  background-color: lighten($primary, 45%) !important;
+  border: 2px solid $primary !important;
+  
+  .day-number {
+    color: $primary;
+    font-weight: 900;
+  }
 }
 
-// Mobile responsive
+// Mobile responsive (updated for smaller cells)
 @media (max-width: 768px) {
   .calendar-cell {
-    min-height: 60px;
+    min-height: 50px;
   }
   
   .day-cell {

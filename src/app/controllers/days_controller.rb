@@ -9,57 +9,98 @@ class DaysController < ApplicationController
     if current_user_or_guest_user.visa_required? 
       redirect_to visits_path
     else
-      days_calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
-      @days = days_calc.calculated_days
-      @overstay = days_calc.schengen_overstay?
+      # Use full calculator (same as visits page)
+      calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
+      @days = calc.calculated_days
+      @overstay = calc.schengen_overstay?
+      @next_entry_days = calc.next_entry_days
       
       @view_mode = params[:view] || 'calendar'
       
-      if @view_mode == 'calendar' && @days.any?
-        setup_calendar_view
+      if @view_mode == 'calendar'
+        setup_calendar_view_infinite
+        calculate_status_summary if @days.any?
       end
     end
   end
 
   private
   
-  def setup_calendar_view
-    # Determine date range
-    range = calculate_month_range(@days)
-    @available_years = range[:available_years]
-    
-    # Get selected year (default to most recent)
-    @selected_year = params[:year]&.to_i || @available_years.last
-    
-    # Ensure selected year is valid
-    unless @available_years.include?(@selected_year)
-      @selected_year = @available_years.last
+  def setup_calendar_view_infinite
+    # Calculate year range (works with or without visits)
+    if @days.any?
+      first_date = @days.min_by(&:the_date).the_date
+      last_date = @days.max_by(&:the_date).the_date
+      start_year = first_date.year - 1
+      end_year = [last_date.year + 2, Date.today.year + 2].max
+    else
+      # No visits: show current year ± 2 years
+      start_year = Date.today.year - 2
+      end_year = Date.today.year + 2
     end
     
-    # Filter days for this year only
+    @available_years = (start_year..end_year).to_a
+    @selected_year = (params[:year] || Date.today.year).to_i
+    
+    # Clamp selected year to available range
+    @selected_year = @selected_year.clamp(start_year, end_year)
+    
+    # Set prev/next years (always available now)
+    @prev_year = @selected_year - 1 if @selected_year > start_year
+    @next_year = @selected_year + 1 if @selected_year < end_year
+    
+    # Filter days for this year
     year_days = @days.select { |d| d.the_date.year == @selected_year }
     
-    # Format into calendar structure
-    @calendar_months = format_calendar_data(year_days, @selected_year)
+    # Calculate year summary
+    @year_summary = calculate_year_summary(year_days, @selected_year)
     
-    # Determine prev/next years
-    current_index = @available_years.index(@selected_year)
-    @prev_year = current_index&.positive? ? @available_years[current_index - 1] : nil
-    @next_year = current_index && current_index < @available_years.length - 1 ? @available_years[current_index + 1] : nil
+    # Format months
+    @calendar_months = format_calendar_data(year_days, @selected_year)
   end
   
-  def calculate_month_range(days)
-    return { available_years: [] } if days.empty?
+  def calculate_year_summary(year_days, year)
+    visits_in_year = current_user_or_guest_user.visits.where(
+      '(entry_date >= ? AND entry_date <= ?) OR (exit_date >= ? AND exit_date <= ?) OR (entry_date <= ? AND exit_date >= ?)',
+      Date.new(year, 1, 1), Date.new(year, 12, 31),
+      Date.new(year, 1, 1), Date.new(year, 12, 31),
+      Date.new(year, 1, 1), Date.new(year, 12, 31)
+    ).count
     
-    first_date = days.first.the_date.beginning_of_month
+    # Count schengen days in this year
+    schengen_days = year_days.count { |d| d.schengen? }
     
-    # Find last day where count > 0
-    last_day_with_count = days.reverse.find { |d| d.schengen_days_count && d.schengen_days_count.positive? }
-    last_date = last_day_with_count ? last_day_with_count.the_date.end_of_month : days.last.the_date.end_of_month
+    # Get max schengen count in this year
+    max_count = year_days.map(&:schengen_days_count).compact.max || 0
     
-    years = (first_date.year..last_date.year).to_a
+    {
+      visits_count: visits_in_year,
+      schengen_days: schengen_days,
+      max_schengen_count: max_count
+    }
+  end
+  
+  def calculate_status_summary
+    return unless @days.any?
     
-    { available_years: years, start_date: first_date, end_date: last_date }
+    # Find today's day data, or the latest day if today is not in the range
+    today = Date.today
+    today_day = @days.find { |d| d.the_date == today }
+    reference_day = today_day || @days.max_by(&:the_date)
+    
+    @status_summary = {
+      current_days: reference_day.schengen_days_count || 0,
+      max_days: 90,
+      remaining_days: [90 - (reference_day.schengen_days_count || 0), 0].max,
+      status: if reference_day.overstay?
+                'overstay'
+              elsif (reference_day.schengen_days_count || 0) >= 80
+                'warning'
+              else
+                'safe'
+              end,
+      last_calculated_date: reference_day.the_date
+    }
   end
   
   def format_calendar_data(year_days, year)

@@ -1,0 +1,17 @@
+.calendar-legend-mobile.card.mb-3
+  .card-body.p-2
+    %h6.text-center.mb-2
+      %i.fa.fa-palette
+      = t('days.legend')
+    .legend-pills.d-flex.flex-wrap.justify-content-center.gap-2
+      %span.badge.badge-pill.px-3.py-2{class: "outside-schengen"}
+        = t('days.legend_outside')
+      %span.badge.badge-pill.px-3.py-2{class: "in-schengen-safe"}
+        = t('days.legend_safe')
+      %span.badge.badge-pill.px-3.py-2{class: "in-schengen-warning"}
+        = t('days.legend_warning')
+      %span.badge.badge-pill.px-3.py-2{class: "overstay"}
+        = t('days.legend_overstay')
+      - if @overstay
+        %span.badge.badge-pill.px-3.py-2{class: "waiting-period"}
+          = t('days.legend_waiting')

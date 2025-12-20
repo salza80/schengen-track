@@ -139,6 +139,13 @@ class DaysController < ApplicationController
     # Fill in days
     month_start.upto(month_end) do |date|
       day_data = month_days.find { |d| d.the_date == date }
+      
+      # If no visit data exists for this date, create an empty SchengenDay object
+      # so the cell is still clickable for adding new visits
+      if day_data.nil?
+        day_data = Schengen::Days::SchengenDay.new(date)
+      end
+      
       current_week << day_data
       
       # Complete week (7 days)

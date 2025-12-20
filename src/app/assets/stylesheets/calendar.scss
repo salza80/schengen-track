@@ -272,3 +272,125 @@ html {
     background-color: rgba(0,0,0,0.3);
   }
 }
+
+// Calendar interaction styles
+.day-cell {
+  cursor: pointer;
+  user-select: none;
+  
+  &.clickable {
+    cursor: pointer;
+    
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+  }
+  
+  &.selecting {
+    outline: 2px dashed $primary;
+    outline-offset: -2px;
+  }
+  
+  &.selected {
+    outline: 3px solid $primary;
+    outline-offset: -3px;
+  }
+}
+
+// Context menu for days with multiple visits
+.context-menu {
+  position: fixed;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1050;
+  min-width: 250px;
+  max-width: 350px;
+  
+  ul {
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    
+    li {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      
+      &:hover:not(.divider) {
+        background: #f8f9fa;
+      }
+      
+      &:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+      
+      &:last-child {
+        border-radius: 0 0 8px 8px;
+      }
+      
+      .visit-country {
+        font-weight: 600;
+        color: #212529;
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+      }
+      
+      .visit-dates {
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+    }
+    
+    .divider {
+      height: 0;
+      border-top: 1px solid #dee2e6;
+      margin: 0.5rem 0;
+      padding: 0;
+      cursor: default;
+      
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
+}
+
+// Modal customizations
+#visitModal {
+  .modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+  
+  .form-horizontal {
+    .form-group {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+// Empty calendar message
+.empty-calendar-message {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+  
+  h4 {
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+  
+  .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+}

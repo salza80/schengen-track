@@ -279,7 +279,7 @@ module Schengen
         end
 
         def overstay_days
-          return 0 if schengen_days_count <=90
+          return 0 if schengen_days_count.nil? || schengen_days_count <= 90
           schengen_days_count - 90
         end
 

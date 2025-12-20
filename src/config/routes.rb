@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     root 'about#about'
 
-    resources :visits
+    resources :visits do
+      collection do
+        get 'for_date' # Get visits for a specific date
+      end
+    end
     resources :visas, except: [:index, :show]
     resources :days, only: [:index]
     

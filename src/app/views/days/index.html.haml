@@ -25,6 +25,24 @@
       -# Sidebar (desktop only)
       .col-lg-3.d-none.d-lg-block.calendar-sidebar-col
         = render 'calendar_sidebar'
+    
+    -# Modal for adding/editing visits
+    #visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1"}
+      .modal-dialog.modal-lg{role: "document"}
+        .modal-content
+          .modal-header
+            %h5#visitModalLabel.modal-title Add Visit
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+              %span{"aria-hidden" => "true"} &times;
+          .modal-body
+            -# Form will be loaded here via AJAX
+          .modal-footer
+            %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+    
+    -# Context menu for days with multiple visits
+    #visitContextMenu.context-menu{style: "display: none;"}
+      %ul.list-unstyled.mb-0
+        -# Will be populated dynamically via JavaScript
 
 - else
   -# Table view (existing)

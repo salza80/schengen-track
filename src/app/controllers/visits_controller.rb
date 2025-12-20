@@ -31,6 +31,17 @@ class VisitsController < ApplicationController
   # GET /visits/new
   def new
     @visit = Visit.with_default(current_user_or_guest_user)
+    
+    # Support pre-filling dates from calendar clicks
+    if params[:entry_date]
+      @visit.entry_date = Date.parse(params[:entry_date])
+      @visit.exit_date = params[:exit_date] ? Date.parse(params[:exit_date]) : @visit.entry_date + 1.day
+    end
+    
+    respond_to do |format|
+      format.html # Full page render
+      format.js   # AJAX request from calendar
+    end
   end
 
   # GET /visits/1/edit
@@ -38,7 +49,12 @@ class VisitsController < ApplicationController
     @continent_default_id = @visit.country.continent.id.to_s
     if @visit.country && !@visit.country.affiliate_booking_html.nil?
       @advertise_country = @visit.country
-    end   
+    end
+    
+    respond_to do |format|
+      format.html # Full page render
+      format.js   # AJAX request from calendar
+    end
   end
 
   # POST /visits
@@ -49,10 +65,12 @@ class VisitsController < ApplicationController
       if @visit.save
         format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
+        format.js   # AJAX request from calendar
       else
         @continent_default_id = @visit&.country&.continent&.id&.to_s || @continent_default_id
         format.html { render :new }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
+        format.js   # AJAX request from calendar - show errors
       end
     end
   end
@@ -64,9 +82,11 @@ class VisitsController < ApplicationController
       if @visit.update(visit_params)
         format.html { redirect_to visits_path, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
+        format.js   # AJAX request from calendar
       else
         format.html { render :edit }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
+        format.js   # AJAX request from calendar - show errors
       end
     end
   end
@@ -78,6 +98,26 @@ class VisitsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to visits_path, notice: 'Visit was successfully deleted.' }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /visits/for_date?date=YYYY-MM-DD
+  # Returns all visits that include the specified date (for calendar context menu)
+  def for_date
+    date = Date.parse(params[:date])
+    visits = current_user_or_guest_user.visits.find_by_date(date, date)
+    
+    respond_to do |format|
+      format.json { 
+        render json: visits.map { |v| {
+          id: v.id,
+          entry_date: v.entry_date,
+          exit_date: v.exit_date,
+          country_name: v.country.name,
+          country_id: v.country_id,
+          schengen: v.schengen?
+        }}
+      }
     end
   end
 

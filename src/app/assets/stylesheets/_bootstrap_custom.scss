@@ -16,5 +16,6 @@ $calendar-overstay-text: #721c24 !default;
 $calendar-waiting-text: #856404 !default;
 
 $theme-colors: (
-  "header": $headerGreen
+  "header": $headerGreen,
+  "danger": #ff6b35  // Override danger with softer coral/orange
 );

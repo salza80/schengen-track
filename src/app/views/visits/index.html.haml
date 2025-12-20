@@ -70,6 +70,24 @@
       .modal-footer
         %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
 
+-# Modal for delete confirmation
+#deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog{role: "document"}
+    .modal-content
+      .modal-header.bg-danger.text-white
+        %h5#deleteModalLabel.modal-title
+          %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
+          = t('common.confirm_delete')
+        %button.close.text-white{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} &times;
+      .modal-body
+        %p#deleteModalMessage= t('common.delete_warning')
+      .modal-footer
+        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        %a#deleteConfirmButton.btn.btn-danger{href: "#"}
+          %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
+          = t('common.delete')
+
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
 

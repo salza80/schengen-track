@@ -42,6 +42,20 @@
         var visaId = $(this).data('visa-id');
         self.openEditVisaModal(visaId);
       });
+      
+      // Bind delete visit links
+      $(document).on('click', '.delete-visit-link', function(e) {
+        e.preventDefault();
+        var deleteUrl = $(this).data('delete-url');
+        self.openDeleteModal(deleteUrl, 'visit');
+      });
+      
+      // Bind delete visa links
+      $(document).on('click', '.delete-visa-link', function(e) {
+        e.preventDefault();
+        var deleteUrl = $(this).data('delete-url');
+        self.openDeleteModal(deleteUrl, 'visa');
+      });
     },
     
     // Open ADD visit modal
@@ -93,6 +107,48 @@
         error: function() {
           alert('Failed to open visa form. Please try again.');
         }
+      });
+    },
+    
+    // Open delete confirmation modal
+    openDeleteModal: function(deleteUrl, itemType) {
+      var $modal = $('#deleteModal');
+      var $confirmButton = $('#deleteConfirmButton');
+      
+      // Update the confirmation button with the delete URL
+      $confirmButton.attr('href', deleteUrl);
+      $confirmButton.attr('data-method', 'delete');
+      $confirmButton.attr('rel', 'nofollow');
+      
+      // Show the modal
+      $modal.modal('show');
+      
+      // Handle delete confirmation click
+      $confirmButton.off('click').on('click', function(e) {
+        e.preventDefault();
+        
+        // Create a form to submit the DELETE request
+        var $form = $('<form>', {
+          'method': 'POST',
+          'action': deleteUrl
+        });
+        
+        // Add CSRF token
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $form.append($('<input>', {
+          'type': 'hidden',
+          'name': '_method',
+          'value': 'delete'
+        }));
+        $form.append($('<input>', {
+          'type': 'hidden',
+          'name': 'authenticity_token',
+          'value': csrfToken
+        }));
+        
+        // Submit the form
+        $('body').append($form);
+        $form.submit();
       });
     }
   };

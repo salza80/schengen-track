@@ -82,4 +82,4 @@
           %td{ "data-title": t('visits.modify') }
             %a.edit-visit-link{href: "#", "data-visit-id" => visit.id}= t('common.edit')
             = " / "
-            = link_to t('common.delete'), visit, method: :delete, data: { confirm: t('visits.delete_confirm') }
+            %a.delete-visit-link{href: "#", "data-visit-id" => visit.id, "data-delete-url" => visit_path(visit, locale: I18n.locale)}= t('common.delete')

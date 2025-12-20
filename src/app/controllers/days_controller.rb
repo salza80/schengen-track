@@ -27,35 +27,23 @@ class DaysController < ApplicationController
   private
   
   def setup_calendar_view_infinite
-    # Calculate year range (works with or without visits)
-    if @days.any?
-      first_date = @days.min_by(&:the_date).the_date
-      last_date = @days.max_by(&:the_date).the_date
-      start_year = first_date.year - 1
-      end_year = [last_date.year + 2, Date.today.year + 2].max
-    else
-      # No visits: show current year ± 2 years
-      start_year = Date.today.year - 2
-      end_year = Date.today.year + 2
-    end
-    
-    @available_years = (start_year..end_year).to_a
+    # Allow infinite year navigation with reasonable limits
     @selected_year = (params[:year] || Date.today.year).to_i
     
-    # Clamp selected year to available range
-    @selected_year = @selected_year.clamp(start_year, end_year)
+    # Set reasonable bounds (1900 - 2100) to prevent abuse
+    @selected_year = @selected_year.clamp(1900, 2100)
     
-    # Set prev/next years (always available now)
-    @prev_year = @selected_year - 1 if @selected_year > start_year
-    @next_year = @selected_year + 1 if @selected_year < end_year
+    # Always allow prev/next year navigation within bounds
+    @prev_year = @selected_year - 1 if @selected_year > 1900
+    @next_year = @selected_year + 1 if @selected_year < 2100
     
-    # Filter days for this year
+    # Filter days for this year (if any exist)
     year_days = @days.select { |d| d.the_date.year == @selected_year }
     
     # Calculate year summary
     @year_summary = calculate_year_summary(year_days, @selected_year)
     
-    # Format months
+    # Format months (will create empty clickable days for months without data)
     @calendar_months = format_calendar_data(year_days, @selected_year)
   end
   

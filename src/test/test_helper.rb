@@ -29,14 +29,12 @@ class ActionDispatch::IntegrationTest
   end
 
   def user_login
-    visit login_url
+    visit new_user_session_path(locale: :en)
     within("//form[@id='login']") do
       fill_in 'Email', with: 'smclean17@gmail.com'
       fill_in 'Password', with: 'password'
-      click_button 'Login'
+      click_button 'Log in'
     end
-    assert has_content? 'Sally Mclean'
+    assert has_content?('Sally Mclean')
   end
 end
-
-

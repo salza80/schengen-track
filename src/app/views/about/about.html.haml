@@ -234,6 +234,16 @@
         = t('about.about.last_updated.description', date: l(Time.new(2024, 1, 23), format: :mid))
 :javascript
   $('body').scrollspy({ target: '.about-sidebar', offset: 130 })
-  $('.about-sidebar li a').click(function(event) {event.preventDefault(); $( $(this).attr('href') )[0].scrollIntoView(); scrollBy(0, -120); });
+  $('.about-sidebar li a').click(function(event) {
+    event.preventDefault();
+    var target = $(this).attr('href');
+    var $target = $(target);
+    if ($target.length) {
+      var scrollToPosition = $target.offset().top - 120;
+      $('html, body').animate({
+        scrollTop: scrollToPosition
+      }, 400);
+    }
+  });
   (adsbygoogle = window.adsbygoogle || []).push({});
   (adsbygoogle = window.adsbygoogle || []).push({});

@@ -22,29 +22,6 @@
             %small.text-muted= t('days.days_remaining')
             .h5.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}
               %strong= @status_summary[:remaining_days]
-
-  -# Next entry options
-  - if @next_entry_days && @next_entry_days.any?
-    .sidebar-section.card.mb-2
-      .card-header.bg-info.text-white
-        %h6.mb-0
-          %i.fa.fa-plane-arrival
-          = t('days.next_entry_options')
-      .card-body.p-2
-        - @next_entry_days.take(3).each do |day|
-          .next-entry-item.border-bottom.py-2.px-2
-            .entry-date
-              %strong.text-primary
-                = t('days.from_date_onwards', date: day.the_date.strftime('%b %d, %Y'))
-            .entry-duration
-              %small
-                = t('days.stay_for_days', days: day.max_remaining_days)
-                - if day.max_remaining_days == 90
-                  %span.badge.badge-success.ml-1= t('days.full_stay')
-            .entry-until
-              %small.text-muted
-                = t('days.until_date', date: (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y'))
-
   -# Legend
   .sidebar-section.card
     .card-header.bg-dark.text-white
@@ -68,3 +45,24 @@
         .legend-item.d-flex.align-items-center
           .legend-color.waiting-period.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
           %small= t('days.legend_waiting')
+  -# Next entry options
+  - if @next_entry_days && @next_entry_days.any?
+    .sidebar-section.card.mb-2
+      .card-header.bg-info.text-white
+        %h6.mb-0
+          %i.fa.fa-plane-arrival
+          = t('days.next_entry_options')
+      .card-body.p-2
+        - @next_entry_days.take(3).each do |day|
+          .next-entry-item.border-bottom.py-2.px-2
+            .entry-date
+              %strong.text-primary
+                = t('days.from_date_onwards', date: day.the_date.strftime('%b %d, %Y'))
+            .entry-duration
+              %small
+                = t('days.stay_for_days', days: day.max_remaining_days)
+                - if day.max_remaining_days == 90
+                  %span.badge.badge-success.ml-1= t('days.full_stay')
+            .entry-until
+              %small.text-muted
+                = t('days.until_date', date: (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y'))

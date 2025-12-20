@@ -56,7 +56,7 @@
       %p.mb-4
         = t('about.about.calculator_description')
       .text-center.mb-4
-        = link_to t('about.about.get_started'), visits_path, class: "btn btn-primary"
+        = link_to t('about.about.get_started'), get_started_path, class: "btn btn-primary btn-lg"
       %br
       %p.mb-4
         = t('about.about.useful_for_planning')
@@ -129,7 +129,7 @@
         %p.mb-4
           = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')"})
       .text-center.mb-4
-        = link_to t('about.about.button_text'), visits_path(locale: I18n.locale), class: "btn btn-primary"
+        = link_to t('about.about.button_text'), get_started_path, class: "btn btn-primary btn-lg"
       .ad-block.mb-4
         %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
       %p.mb-4

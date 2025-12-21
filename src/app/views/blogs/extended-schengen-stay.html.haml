@@ -1,103 +1,108 @@
 - title t('blog.extendedTravel.title')
 - content_for :meta_description, t('blog.extendedTravel.introduction').truncate(160)
 
-.blog-article
-  %nav.breadcrumbs{"aria-label" => "Breadcrumb"}
-    %ol
-      %li
-        = link_to "Home", root_path(locale: I18n.locale)
-      %li
-        = link_to "Blog", "#"
-      %li.active
-        = t('blog.extendedTravel.title').truncate(50)
+.row
+  .col-lg-3{role: "complementary"}
+    = render 'blogs/sidebar'
   
-  %article
-    %header.article-header
-      %h1.article-title= t('blog.extendedTravel.title')
-      .article-meta
-        .meta-item
-          %i.fa.fa-user
-          %span Schengen Calculator
-        .meta-item
-          %i.fa.fa-calendar
-          %time{datetime: "2024-01-15"} January 15, 2024
-        .meta-item
-          %i.fa.fa-clock-o
-          %span 8 min read
-    
-    .article-hero
-      = image_tag("switzerland.jpg", class: "hero-image", alt: "European travel destinations")
-    
-    .article-content
-      %section.intro-section
-        %p.lead= t('blog.extendedTravel.introduction')
+  .col-lg-9{role: "main"}
+    .blog-article
+      %nav.breadcrumbs{"aria-label" => "Breadcrumb"}
+        %ol
+          %li
+            = link_to "Home", root_path(locale: I18n.locale)
+          %li
+            = link_to t('common.blog'), blog_index_path(locale: I18n.locale)
+          %li.active
+            = t('blog.extendedTravel.title')
       
-      %section
-        %h2= t('blog.extendedTravel.understandingTitle')
-        %p= t('blog.extendedTravel.understandingContent')
+      %article
+        %header.article-header
+          %h1.article-title= t('blog.extendedTravel.title')
+          .article-meta
+            .meta-item
+              %i.fa.fa-user
+              %span Schengen Calculator
+            .meta-item
+              %i.fa.fa-calendar
+              %time{datetime: "2024-01-15"} January 15, 2024
+            .meta-item
+              %i.fa.fa-clock-o
+              %span 8 min read
         
-        .info-box
-          %h4
-            %i.fa.fa-info-circle
-            Key Point: The 90/180 Rolling Rule
-          %p= t('blog.extendedTravel.understanding90Content')
-      
-      %section
-        %h2= t('blog.extendedTravel.nearbyTitle')
-        %p= t('blog.extendedTravel.nearbyContent')
+        .article-hero
+          = image_tag("switzerland.jpg", class: "hero-image", alt: "European travel destinations")
         
-        %ul.country-list
-          - t('blog.extendedTravel.countries').each do |country|
-            %li
-              %strong= country[:name] + ":"
-              = country[:description]
+        .article-content
+          %section.intro-section
+            %p.lead= t('blog.extendedTravel.introduction')
+          
+          %section
+            %h2= t('blog.extendedTravel.understandingTitle')
+            %p= t('blog.extendedTravel.understandingContent')
+            
+            .info-box
+              %h4
+                %i.fa.fa-info-circle
+                Key Point: The 90/180 Rolling Rule
+              %p= t('blog.extendedTravel.understanding90Content')
+          
+          %section
+            %h2= t('blog.extendedTravel.nearbyTitle')
+            %p= t('blog.extendedTravel.nearbyContent')
+            
+            %ul.country-list
+              - t('blog.extendedTravel.countries').each do |country|
+                %li
+                  %strong= country[:name] + ":"
+                  = country[:description]
+            
+            %p= t('blog.extendedTravel.accessibilityContent')
+            
+            .figure
+              = image_tag("schengen_area_eu_countries.webp", class: "img-fluid", alt: "Map showing Schengen Area countries and nearby non-Schengen countries in Europe")
+              %figcaption Schengen Area and surrounding non-Schengen countries
+          
+          %section
+            %h2= t('blog.extendedTravel.maximizingTitle')
+            %p= t('blog.extendedTravel.maximizingContent')
+            
+            .strategy-steps
+              = t('blog.extendedTravel.maximizingContentContinued').html_safe
+            
+            .tip-box
+              %h4
+                %i.fa.fa-lightbulb-o
+                Pro Tip
+              %p= t('blog.extendedTravel.repeatPatternContent')
+          
+          %section.cta-section
+            .cta-box
+              %h3
+                %i.fa.fa-calculator
+                Ready to Plan Your Extended European Adventure?
+              %p= t('blog.extendedTravel.schengenButtonIntro')
+              = link_to visits_path(locale: I18n.locale), class: "cta-button" do
+                = t('blog.extendedTravel.schengenButtonTitle')
+                %i.fa.fa-arrow-right
+              %p.mt-3
+                = t('blog.extendedTravel.schengenAboutIntro')
+                = link_to t('blog.extendedTravel.schengenAboutLink'), about_path(locale: I18n.locale), class: "text-link"
+          
+          %section.conclusion
+            %h2= t('blog.extendedTravel.conclusionTitle')
+            %p= t('blog.extendedTravel.conclusionContent')
         
-        %p= t('blog.extendedTravel.accessibilityContent')
-        
-        .figure
-          = image_tag("schengen_area_eu_countries.webp", class: "img-fluid", alt: "Map showing Schengen Area countries and nearby non-Schengen countries in Europe")
-          %figcaption Schengen Area and surrounding non-Schengen countries
-      
-      %section
-        %h2= t('blog.extendedTravel.maximizingTitle')
-        %p= t('blog.extendedTravel.maximizingContent')
-        
-        .strategy-steps
-          = t('blog.extendedTravel.maximizingContentContinued').html_safe
-        
-        .tip-box
-          %h4
-            %i.fa.fa-lightbulb-o
-            Pro Tip
-          %p= t('blog.extendedTravel.repeatPatternContent')
-      
-      %section.cta-section
-        .cta-box
-          %h3
-            %i.fa.fa-calculator
-            Ready to Plan Your Extended European Adventure?
-          %p= t('blog.extendedTravel.schengenButtonIntro')
-          = link_to visits_path(locale: I18n.locale), class: "cta-button" do
-            = t('blog.extendedTravel.schengenButtonTitle')
-            %i.fa.fa-arrow-right
-          %p.mt-3
-            = t('blog.extendedTravel.schengenAboutIntro')
-            = link_to t('blog.extendedTravel.schengenAboutLink'), about_path(locale: I18n.locale), class: "text-link"
-      
-      %section.conclusion
-        %h2= t('blog.extendedTravel.conclusionTitle')
-        %p= t('blog.extendedTravel.conclusionContent')
-    
-    %footer.article-footer
-      .share-section
-        %h4 Share this article
-        .share-buttons
-          %a.share-btn.x-twitter{href: "#", target: "_blank", rel: "noopener", data: {share: "twitter"}}
-            %i.fa-brands.fa-x-twitter
-          %a.share-btn.facebook{href: "#", target: "_blank", rel: "noopener", data: {share: "facebook"}}
-            %i.fa-brands.fa-facebook
-          %a.share-btn.linkedin{href: "#", target: "_blank", rel: "noopener", data: {share: "linkedin"}}
-            %i.fa-brands.fa-linkedin
+        %footer.article-footer
+          .share-section
+            %h4 Share this article
+            .share-buttons
+              %a.share-btn.x-twitter{href: "#", target: "_blank", rel: "noopener", data: {share: "twitter"}}
+                %i.fa-brands.fa-x-twitter
+              %a.share-btn.facebook{href: "#", target: "_blank", rel: "noopener", data: {share: "facebook"}}
+                %i.fa-brands.fa-facebook
+              %a.share-btn.linkedin{href: "#", target: "_blank", rel: "noopener", data: {share: "linkedin"}}
+                %i.fa-brands.fa-linkedin
 
 :javascript
   // Structured data for SEO

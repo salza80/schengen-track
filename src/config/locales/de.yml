@@ -22,6 +22,7 @@ de:
     formats:
       long: "%e. %B %Y"
       mid: "%e. %B %Y"
+      short: "%-d. %b %Y"
       default: "%e. %B %Y"
   date:
     abbr_day_names:
@@ -85,6 +86,7 @@ de:
     trips: "Reisen"
     calendar: "Kalender"
     about: "Über uns"
+    blog: "Blog"
     about_page: "Über Seite"
     log_out: "Abmelden"
     login: "Anmelden"

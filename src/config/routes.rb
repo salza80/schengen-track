@@ -17,8 +17,8 @@ Rails.application.routes.draw do
     delete 'my_details' => 'users#destroy', as: 'delete_account'
     get 'user' => 'users#show'
     get 'about' => 'about#about'
-    get '/blog/:slug', to: 'blogs#show', as: :blog
-    # get '/blog', to: 'blogs#index', as: :blogs
+    get 'blog' => 'blogs#index', as: :blog_index
+    get 'blog/:slug' => 'blogs#show', as: :blog
     get 'about/:nationality' => 'about#about'
     get 'disclaimer' => 'about#disclaimer'
     get 'privacy' => 'about#privacy'

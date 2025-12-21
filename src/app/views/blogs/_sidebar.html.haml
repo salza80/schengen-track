@@ -1,0 +1,15 @@
+%nav.page-sidebar.position-sticky.d-none.d-lg-block
+  %h4.title
+    = t('blog.index.title')
+  %ul.nav.flex-column.page-sidenav
+    - @blog_posts.each do |post|
+      %li{class: ('active' if post[:slug] == @current_slug)}
+        = link_to blog_path(locale: I18n.locale, slug: post[:slug]), class: "text-dark" do
+          .post-date
+            = l(post[:published_date], format: :short)
+          .post-title
+            = post[:title]
+          .post-meta
+            %small
+              %i.fa.fa-clock-o
+              = t('blog.index.reading_time', minutes: post[:reading_time])

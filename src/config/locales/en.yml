@@ -21,6 +21,7 @@ en:
     formats:
       long: "%B %e, %Y"
       mid: "%e %B %Y"
+      short: "%b %-d, %Y"
   errors:
     prohibited_saving_visa: "%{count} error prohibited this visa from being saved:"
   common:
@@ -31,6 +32,7 @@ en:
     trips: "Trips"
     calendar: "Calendar"
     about: "About"
+    blog: "Blog"
     about_page: "About page"
     log_out: "Log out"
     login: "Log in"

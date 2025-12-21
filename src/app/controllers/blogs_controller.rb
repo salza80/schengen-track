@@ -1,9 +1,30 @@
 
 
 class BlogsController < ApplicationController
+  # Blog posts registry - add new posts here (most recent first)
+  BLOG_POSTS = [
+    {
+      slug: 'extended-schengen-stay',
+      published_date: Date.new(2024, 1, 15),
+      reading_time: 8,
+      title_key: 'blog.extendedTravel.title',
+      description_key: 'blog.extendedTravel.introduction'
+    }
+    # Future posts added here, newest first
+  ].freeze
+  
   def index
     if current_user_or_guest_user.is_guest?
       expires_in 1.month, public: true
+    end
+    
+    @blog_posts = blog_posts_for_locale
+    
+    # Redirect to most recent post
+    if @blog_posts.any?
+      redirect_to blog_path(locale: I18n.locale, slug: @blog_posts.first[:slug])
+    else
+      render plain: 'No blog posts available', status: :not_found
     end
   end
 
@@ -12,15 +33,27 @@ class BlogsController < ApplicationController
       expires_in 1.month, public: true
     end
     
-    # Set blog-specific meta tags
-    set_blog_meta_tags(params[:slug])
+    @blog_posts = blog_posts_for_locale
+    @current_slug = params[:slug]
     
-    render "blogs/#{params[:slug]}", layout: 'application'
+    # Set blog-specific meta tags
+    set_blog_meta_tags(@current_slug)
+    
+    render "blogs/#{@current_slug}", layout: 'application'
   rescue ActionView::MissingTemplate
     render file: 'public/404.html', status: :not_found
   end
   
   private
+  
+  def blog_posts_for_locale
+    BLOG_POSTS.map do |post|
+      post.merge(
+        title: I18n.t(post[:title_key]),
+        description: I18n.t(post[:description_key]).truncate(160)
+      )
+    end
+  end
   
   def set_blog_meta_tags(slug)
     case slug

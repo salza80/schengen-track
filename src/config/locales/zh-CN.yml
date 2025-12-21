@@ -22,6 +22,7 @@ zh-CN:
       long: "%Y年%B%e日"
       mid: "%Y年%B%e日"
       default: "%Y年%B%e日"
+      short: "%Y年%m月%d日"
   date:
     abbr_day_names:
     - 周日
@@ -81,7 +82,10 @@ zh-CN:
     schengen: "申根"
     visa: "签证"
     calculator: "计算器"
+    trips: "行程"
+    calendar: "日历"
     about: "关于"
+    blog: "博客"
     about_page: "关于页面"
     log_out: "登出"
     login: "登录"

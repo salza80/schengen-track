@@ -1,7 +1,10 @@
 es:
   blog:
+    index:
+      title: "Artículos del Blog"
+      reading_time: "%{minutes} min de lectura"
     extendedTravel:
-      title: "¿Cómo puedes desbloquear aventuras europeas extendidas y viajar por Europa por más de 90 días sin exceder tu visa de turista Schengen?"
+      title: "Cómo quedarse en Europa más de 90 días (legalmente)"
       introduction: "Embarcarse en una odisea europea es un sueño para muchos, pero el límite de 90 días dentro del Área Schengen a menudo deja a los viajeros anhelando más. No temas, compañero explorador, ya que revelamos los secretos para extender legalmente tu viaje europeo más allá del típico período de 90 días. Antes de sumergirte en la planificación estratégica, es crucial familiarizarse con los países fuera del Área Schengen. Aquí, enumeraremos algunas naciones clave, como Irlanda, Reino Unido, Montenegro, Bielorrusia y Marruecos, que pueden convertirse en piezas clave para maximizar tu tiempo en Europa."
       introContent: "Comprensión del Área Schengen y la Regla de 90/180:
       El Área Schengen comprende 27 países europeos, ofreciendo una experiencia de viaje sin fronteras internas. Sin embargo, la regla de 90/180 establece que dentro de cualquier período de 180 días, tu estadía en el Área Schengen no puede exceder los 90 días. Esta regla opera de manera continua, lo que significa que cada día cuenta para tu estadía total."

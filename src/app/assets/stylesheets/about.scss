@@ -109,8 +109,8 @@ a.nationality_anchor {
   }
 }
 
-// Improved sidebar navigation
-nav.about-sidebar {
+// Improved sidebar navigation (reusable for about and blog pages)
+nav.page-sidebar {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -147,7 +147,7 @@ nav.about-sidebar {
     border-bottom: 2px solid #e9ecef;
   }
 
-  ul.about-sidenav {
+  ul.page-sidenav {
     padding-left: 0;
     list-style: none;
 

@@ -22,6 +22,7 @@ hi:
       long: "%e de %B de %Y"
       mid: "%e de %B de %Y"
       default: "%e de %B de %Y"
+      short: "%b %-d, %Y"
   date:
     abbr_day_names:
     - रवि
@@ -84,6 +85,7 @@ hi:
     trips: "यात्राएं"
     calendar: "कैलेंडर"
     about: "के बारे में"
+    blog: "ब्लॉग"
     about_page: "बारे में पृष्ठ"
     log_out: "लॉग आउट"
     login: "लॉग इन"

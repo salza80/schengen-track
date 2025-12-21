@@ -6,10 +6,10 @@
 /     %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "7291202216", :style => "display:block"}
 .row
   .col-lg-4{:role => "complementary"}
-    %nav.about-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}}
+    %nav.page-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}}
       %h4.title
         = t('about.about.contents_title')
-      %ul.nav.flex-column.about-sidenav
+      %ul.nav.flex-column.page-sidenav
         %li
           = link_to t('about.about.introduction'), "#intro", {:class => "text-dark"}
         %li
@@ -233,8 +233,8 @@
       %p.mb-4
         = t('about.about.last_updated.description', date: l(Time.new(2024, 1, 23), format: :mid))
 :javascript
-  $('body').scrollspy({ target: '.about-sidebar', offset: 130 })
-  $('.about-sidebar li a').click(function(event) {
+  $('body').scrollspy({ target: '.page-sidebar', offset: 130 })
+  $('.page-sidebar li a').click(function(event) {
     event.preventDefault();
     var target = $(this).attr('href');
     var $target = $(target);

@@ -22,6 +22,7 @@ tr:
       long: "%e %B %Y"
       mid: "%e %B %Y"
       default: "%e %B %Y"
+      short: "%-d %b %Y"
   date:
     abbr_day_names:
     - Pzr
@@ -84,6 +85,7 @@ tr:
     trips: "Seyahatler"
     calendar: "Takvim"
     about: "Hakkında"
+    blog: "Blog"
     about_page: "Hakkında sayfası"
     log_out: "Çıkış yap"
     login: "Giriş yap"

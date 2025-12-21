@@ -26,6 +26,11 @@
           %span.fa.fa-info-circle{"aria-hidden": "true"}
           %span
             = t('common.about')
+      %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'blogs'))}
+        %a.nav-link.btn-lg{href: blog_index_path(locale: I18n.locale)}
+          %span.fa.fa-book{"aria-hidden": "true"}
+          %span
+            = t('common.blog')
   .navbar-nav
     - if current_user_or_guest_user
       %p.current-setting.navbar-text.pr-2

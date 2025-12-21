@@ -181,7 +181,7 @@
     checkVisitsForDate: function(date, callback) {
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/' + locale + '/visits/for_date',
+        url: '/' + locale + '/visits/for_date.json',
         method: 'GET',
         data: { date: date },
         dataType: 'json',

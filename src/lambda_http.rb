@@ -81,7 +81,11 @@ def handler(event:, context:)
 
   path = event['requestContext']['http']['path']
   # Check if the request is for a static file
-  if path.start_with?('/assets/') || path.start_with?('/public/') || File.extname(path) != ''
+  # Only serve actual static files (assets, public directory, or file extensions that aren't API formats)
+  extname = File.extname(path)
+  is_api_format = ['.json', '.xml', '.csv', '.js', '.html', '.txt'].include?(extname)
+  
+  if (path.start_with?('/assets/') || path.start_with?('/public/')) || (extname != '' && !is_api_format)
     # Serve static files directly
     response = serve_static_file(path)
     return response if response['statusCode'] != 404

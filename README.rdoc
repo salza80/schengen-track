@@ -36,6 +36,118 @@ in /src Folder
 * run command <tt>`./bin/rake db:guest_cleanup["2010-10-01"]`</tt>
 
 
+== Translation Management (i18n)
+
+The application supports 6 languages: English (en), German (de), Spanish (es), Hindi (hi), Turkish (tr), and Chinese Simplified (zh-CN).
+
+Translation validation is powered by the i18n-tasks gem (https://github.com/glebm/i18n-tasks), which provides intelligent scanning and validation of translation keys.
+
+=== Available Commands
+
+==== Check Translation Status
+Scans all locale files for missing, unused, and placeholder translations:
+  rails i18n:check
+
+Output shows:
+* Missing translations (keys in English but not in other languages)
+* Unused translations (keys in YAML but not used in code)
+* Placeholder translations (keys marked with [TRANSLATE] needing human translation)
+
+==== Add Placeholder Translations
+Auto-generates placeholder translations for missing keys using [TRANSLATE] prefix:
+  rails i18n:add_placeholders
+
+This creates entries like:
+  calendar_view_title: "[TRANSLATE] Schengen Calendar View"
+
+Translators should search for [TRANSLATE] and replace with proper translations:
+  grep -rn "\[TRANSLATE\]" config/locales/
+
+==== Remove Unused Translations
+Removes translation keys that are no longer used in the codebase:
+  rails i18n:remove_unused
+
+Warning: Reviews and prompts for confirmation before deletion.
+
+==== Normalize YAML Files
+Sorts and formats all locale YAML files for consistency:
+  rails i18n:normalize
+
+==== Install Pre-commit Hook
+Installs a git hook that automatically validates translations before each commit:
+  rails i18n:install_hook
+
+The hook blocks commits if any translation issues are found. Bypass with:
+  git commit --no-verify
+
+=== Translation Files
+All translations are stored in src/config/locales/:
+* Main files: en.yml, de.yml, es.yml, hi.yml, tr.yml, zh-CN.yml
+* Namespaced files: days.*.yml, visits.*.yml, blog.*.yml, about.*.yml, etc.
+
+Configuration: src/config/i18n-tasks.yml
+
+=== Workflow for Adding New Translations
+1. Add English translation to appropriate config/locales/*.en.yml file
+2. Run rails i18n:add_placeholders to generate stubs in other languages
+3. Search for [TRANSLATE] and replace with actual translations
+4. Commit changes (pre-commit hook will validate)
+
+=== Technical Details
+The i18n-tasks gem uses AST (Abstract Syntax Tree) parsing to intelligently detect translation usage:
+
+Automatic detection of:
+* Static calls: t('key'), I18n.t('key'), I18n.translate('key')
+* Rails form helpers: f.label :field_name → helpers.label.model.field_name
+* Model attributes: User.human_attribute_name(:email)
+* Dynamic patterns: I18n.t!("#{country_code}_name") - configured to match XX_name, XX_nationality, XX_nationality_plural
+
+Scans these directories:
+* Views (app/views/**/*.haml)
+* Controllers (app/controllers/**/*.rb)
+* Helpers (app/helpers/**/*.rb)
+* Models (app/models/**/*.rb)
+* Mailers (app/mailers/**/*.rb)
+* JavaScript (app/assets/javascripts/**/*.js)
+
+For advanced usage and configuration, see: https://github.com/glebm/i18n-tasks
+
+=== Handling Undetectable Translation Keys
+
+Some translation keys cannot be automatically detected by i18n-tasks because they're used in non-standard ways:
+
+==== Common Scenarios:
+1. Keys used as parameter names (not translation lookups):
+     t('page.title', optional: true)
+   The 'optional' key stores the value 'true' but isn't a t() call itself
+
+2. Keys used as model/controller variable names:
+     @year_summary = calculate_summary()
+   The variable name matches a translation key but isn't translating
+
+3. Keys used as interpolation parameters:
+     t('message', about_link: link_to(...))
+   The 'about_link' parameter name matches a key but isn't looked up
+
+4. Keys accessed as attributes or dynamic lookups:
+     day.max_remaining_days
+
+==== Solution: Whitelist in i18n-tasks.yml
+
+Add these keys to config/i18n-tasks.yml under ignore_unused:
+
+  ignore_unused:
+    - 'your.special.key'  # Brief explanation why it's actually used
+
+Current whitelisted keys (as of last cleanup):
+* about.about.how_to_use.step_5.optional - Used as 'optional: true' parameter
+* days.max_remaining_days - Used as model attribute name
+* days.year_summary - Used as controller variable name
+* visits.about_page_link - Used as interpolation parameter name
+
+This prevents false "unused key" warnings while documenting why the key is special.
+
+
 == How to run application and tests (test framework `MiniTest`)
 * run docker-compose up
 * command to  run applicaiton <tt>`rails server`</tt>

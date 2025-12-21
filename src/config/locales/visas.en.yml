@@ -1,10 +1,11 @@
+---
 en:
   visas:
-    list_caption: "List of Schengen Visas to use for calculation."
-    edit_title: "Edit Schengen Visa"
+    add_visa: Add Visa
     columns:
-      dates: "Dates"
-      no_entries: "No Entries"
-      modify: "Modify"
-      delete_confirmation: "Are you sure?"
-    to: "to"
+      dates: Dates
+      modify: Modify
+      no_entries: No Entries
+    edit_title: Edit Schengen Visa
+    list_caption: List of Schengen Visas to use for calculation.
+    to: to

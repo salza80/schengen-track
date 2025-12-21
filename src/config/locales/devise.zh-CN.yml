@@ -1,3 +1,4 @@
+---
 zh-CN:
   activerecord:
     attributes:
@@ -25,8 +26,6 @@ zh-CN:
         unconfirmed_email: 未确认邮件
         unlock_token: 帐户解锁令牌
         updated_at: 更新于
-    models:
-      user: 用户
   devise:
     confirmations:
       confirmed: 成功验证您的邮箱。
@@ -124,7 +123,9 @@ zh-CN:
         sign_in: 登录
         sign_in_with_provider: 通过 %{provider} 登录
         sign_up: 注册
-      minimum_password_length: "（最少%{count}个字符）"
+      minimum_password_length:
+        one: "（最少%{count}个字符）"
+        other: "（最少%{count}个字符）"
     unlocks:
       new:
         resend_unlock_instructions: 重发解锁邮件

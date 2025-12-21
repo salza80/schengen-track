@@ -1,10 +1,11 @@
+---
 de:
   visas:
-    list_caption: "Liste der Schengen-Visa zur Verwendung für die Berechnung."
-    edit_title: "Schengen-Visum bearbeiten"
+    add_visa: Visum hinzufügen
     columns:
-      dates: "Daten"
-      no_entries: "Keine Einträge"
-      modify: "Ändern"
-      delete_confirmation: "Sind Sie sicher?"
-    to: "bis"
+      dates: Daten
+      modify: Ändern
+      no_entries: Keine Einträge
+    edit_title: Schengen-Visum bearbeiten
+    list_caption: Liste der Schengen-Visa zur Verwendung für die Berechnung.
+    to: bis

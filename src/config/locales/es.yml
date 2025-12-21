@@ -1,115 +1,121 @@
+---
 es:
-  helpers:
-    label:
-      user:
-        first_name: "Nombre"
-        last_name: "Apellido"
-        nationality: "Nacionalidad"
-        email: "Correo electrónico"
-        password: "Contraseña"
-        password_confirmation: "Confirmación de Contraseña"
-      visit:
-        entry_date: "Fecha de entrada"
-        exit_date: "Fecha de salida"
-        continent: "Continente"
-        country: "País"
-      visa:
-        start_date: "Fecha de inicio"
-        end_date: "Fecha de finalización"
-        no_entries: "Número de entradas"
-  time:
-    formats:
-      long: "%e de %B de %Y"
-      mid: "%e de %B de %Y"
-      default: "%e de %B de %Y"
-      short: "%-d %b %Y"
+  common:
+    about: Sobre nosotros
+    about_page: Página Sobre
+    as_of: A partir de
+    back: Atrás
+    blog: Blog
+    calculator: Calculadora
+    calendar: Calendario
+    cancel: Cancelar
+    confirm_delete: Confirmar Eliminación
+    continent: Continente
+    country: País
+    data_deletion: Eliminación de Datos
+    delete: Eliminar
+    delete_warning: "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer."
+    disclaimer: Descargo de responsabilidad
+    edit: Editar
+    edit_my_details: Editar mis datos
+    'false': 'No'
+    log_out: Cerrar sesión
+    login: Iniciar sesión
+    multi_unlimited_entries: "(introduce 0 para entradas múltiples/ilimitadas)"
+    na: N/A
+    'no': 'No'
+    no_days: Número de Días
+    of: de
+    privacy_policy: Política de Privacidad
+    save: Guardar
+    schengen: Schengen
+    schengen_calculator: Calculadora Schengen
+    to: hasta
+    trips: Viajes
+    'true': Sí
+    visa: Visa
+    'yes': Sí
   date:
     abbr_day_names:
-    - Dom
-    - Lun
-    - Mar
-    - Mié
-    - Jue
-    - Vie
-    - Sáb
+    - dom
+    - lun
+    - mar
+    - mié
+    - jue
+    - vie
+    - sáb
     abbr_month_names:
-    - Ene
-    - Feb
-    - Mar
-    - Abr
-    - May
-    - Jun
-    - Jul
-    - Ago
-    - Sep
-    - Oct
-    - Nov
-    - Dic
+    -
+    - ene
+    - feb
+    - mar
+    - abr
+    - may
+    - jun
+    - jul
+    - ago
+    - sep
+    - oct
+    - nov
+    - dic
     day_names:
-    - Domingo
-    - Lunes
-    - Martes
-    - Miércoles
-    - Jueves
-    - Viernes
-    - Sábado
+    - domingo
+    - lunes
+    - martes
+    - miércoles
+    - jueves
+    - viernes
+    - sábado
     formats:
       default: "%d/%m/%Y"
       long: "%e de %B de %Y"
-      short: "%e de %b"
+      short: "%e %b"
     month_names:
-    - 
-    - Enero
-    - Febrero
-    - Marzo
-    - Abril
-    - Mayo
-    - Junio
-    - Julio
-    - Agosto
-    - Septiembre
-    - Octubre
-    - Noviembre
-    - Diciembre
+    -
+    - enero
+    - febrero
+    - marzo
+    - abril
+    - mayo
+    - junio
+    - julio
+    - agosto
+    - septiembre
+    - octubre
+    - noviembre
+    - diciembre
     order:
     - :day
     - :month
     - :year
+  default_description: Calculadora gratuita de 90/180 días de Schengen/Europa. Ingrese su nacionalidad, fechas de viaje y destino, y la calculadora de Schengen hará el resto.
+  default_title: Calculadora de Visa de Turista de Corta Estancia de Schengen / Europa
   errors:
     prohibited_saving_visa: "%{count} errores impidieron guardar este visado:"
-  common:
-    schengen_calculator: "Calculadora Schengen"
-    schengen: "Schengen"
-    visa: "Visa"
-    calculator: "Calculadora"
-    trips: "Viajes"
-    calendar: "Calendario"
-    about: "Sobre nosotros"
-    blog: "Blog"
-    about_page: "Página Sobre"
-    log_out: "Cerrar sesión"
-    login: "Iniciar sesión"
-    edit_my_details: "Editar mis datos"
-    back: "Atrás"
-    multi_unlimited_entries: "(introduce 0 para entradas múltiples/ilimitadas)"
-    save: "Guardar"
-    to: "hasta"
-    edit: "Editar"
-    delete: "Eliminar"
-    cancel: "Cancelar"
-    confirm_delete: "Confirmar Eliminación"
-    delete_warning: "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer."
-    continent: "Continente"
-    no_days: "Número de Días"
-    yes: "Sí"
-    no: "No"
-    na: "N/A"
-    of: "de"
-    country: "País"
-    disclaimer: "Descargo de responsabilidad"
-    privacy_policy: "Política de Privacidad"
-    data_deletion: "Eliminación de Datos"
-  default_description: "Calculadora gratuita de 90/180 días de Schengen/Europa. Ingrese su nacionalidad, fechas de viaje y destino, y la calculadora de Schengen hará el resto."
-  keywords: "Schengen, Calculadora Schengen, 90 días en 180, regla de los 90 días, calculadora de 180 días, calculadora de 90 días, Visa Schengen, Viaje, Visa de Europa, Área Schengen, Zona Schengen"
-  title_with_content: "Calculadora gratuita de Visa de Turista de Corta Estancia de Schengen / Europa para %{content}"
-  default_title: "Calculadora de Visa de Turista de Corta Estancia de Schengen / Europa"
+  helpers:
+    label:
+      user:
+        email: Correo electrónico
+        first_name: Nombre
+        last_name: Apellido
+        nationality: Nacionalidad
+        nationality_id: Nacionalidad
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+      visa:
+        end_date: Fecha de finalización
+        no_entries: Número de entradas
+        start_date: Fecha de inicio
+      visit:
+        continent: Continente
+        country: País
+        entry_date: Fecha de entrada
+        exit_date: Fecha de salida
+  keywords: Schengen, Calculadora Schengen, 90 días en 180, regla de los 90 días, calculadora de 180 días, calculadora de 90 días, Visa Schengen, Viaje, Visa de Europa, Área Schengen, Zona Schengen
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%e de %B de %Y"
+      mid: "%e de %B de %Y"
+      short: "%-d %b %Y"
+  title_with_content: Calculadora gratuita de Visa de Turista de Corta Estancia de Schengen / Europa para %{content}

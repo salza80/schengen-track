@@ -11,9 +11,9 @@
 %h4= t('about.nationality.length_of_stay_calculation_title', nationality_plural: @country.nationality_plural)
 %p.mb-4
   - if @country.old_schengen_calc
-    = raw(t('about.nationality.old_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
+    = raw(t('about.nationality.old_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision_link'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
   - else
-    = raw(t('about.nationality.new_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
+    = raw(t('about.nationality.new_calculation_description', country: @country.name, european_commision_link: link_to(t('about.nationality.european_commision_link'), 'http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/index_en.htm')))
 
 %h4= t('about.nationality.additional_visa_waiver_title', country: @country.name)
 %p.mb-4

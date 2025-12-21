@@ -1,43 +1,41 @@
+---
 es:
   blog:
-    index:
-      title: "Artículos del Blog"
-      reading_time: "%{minutes} min de lectura"
     extendedTravel:
-      title: "Cómo quedarse en Europa más de 90 días (legalmente)"
-      introduction: "Embarcarse en una odisea europea es un sueño para muchos, pero el límite de 90 días dentro del Área Schengen a menudo deja a los viajeros anhelando más. No temas, compañero explorador, ya que revelamos los secretos para extender legalmente tu viaje europeo más allá del típico período de 90 días. Antes de sumergirte en la planificación estratégica, es crucial familiarizarse con los países fuera del Área Schengen. Aquí, enumeraremos algunas naciones clave, como Irlanda, Reino Unido, Montenegro, Bielorrusia y Marruecos, que pueden convertirse en piezas clave para maximizar tu tiempo en Europa."
-      introContent: "Comprensión del Área Schengen y la Regla de 90/180:
-      El Área Schengen comprende 27 países europeos, ofreciendo una experiencia de viaje sin fronteras internas. Sin embargo, la regla de 90/180 establece que dentro de cualquier período de 180 días, tu estadía en el Área Schengen no puede exceder los 90 días. Esta regla opera de manera continua, lo que significa que cada día cuenta para tu estadía total."
-      understandingTitle: "Comprensión del Área Schengen y la Regla de 90/180:"
-      understandingContent: "El Área Schengen comprende 27 países europeos, ofreciendo una experiencia de viaje sin fronteras internas. Sin embargo, la regla de 90/180 establece que dentro de cualquier período de 180 días, tu estadía en el Área Schengen no puede exceder los 90 días. Esta regla opera de manera continua, lo que significa que cada día cuenta para tu estadía total."
-      understanding90Content: "Ten en cuenta que la regla de 90 en 180 días opera de manera continua. Para ilustrar, supongamos que entras al Área Schengen el 1 de enero y te quedas hasta el 30 de marzo, utilizando tus 90 días completos. Si vuelves a entrar el 1 de junio, tienes otros 90 días a tu disposición. La clave es asegurarte de que, en cualquier día dado dentro del área, no hayas excedido los 90 días en los últimos 180 días. Es un cálculo continuo que puedes entender para optimizar tu estadía sin violar la regla."
-      nearbyTitle: "Países Cercanos Fuera del Área Schengen"
-      nearbyContent: "Antes de sumergirte en tus planes de viaje, familiarízate con los países fácilmente accesibles fuera del Área Schengen. Estas naciones desempeñan un papel crucial en la extensión de tu aventura europea. Algunos ejemplos clave incluyen:"
+      accessibilityContent: Estos países no pertenecientes al Área Schengen no solo son adiciones emocionantes a tu itinerario, sino que también son muy accesibles desde Europa. Ya sea un vuelo corto, un tren nocturno o un viaje en ferry, estos destinos están bien conectados, lo que los convierte en paradas convenientes en tu aventura europea extendida.
+      conclusionContent: Armado con una planificación estratégica y un claro entendimiento de las regulaciones de Schengen, puedes transformar tu sueño europeo en una realidad duradera. Sumérgete en la rica diversidad de Europa mientras te mantienes dentro de los límites legales de tu visa de turista Schengen. ¡Aquí hay una aventura extendida llena de momentos inolvidables!
+      conclusionTitle: Conclusión
       countries:
-        - name: "Irlanda"
-          description: "Un destino cautivador con una rica historia y paisajes impresionantes."
-        - name: "Reino Unido"
-          description: "Explora Inglaterra, Escocia, Gales e Irlanda del Norte para una experiencia cultural diversa."
-        - name: "Montenegro"
-          description: "Conocido por su pintoresca costa y ciudades históricas."
-        - name: "Bielorrusia"
-          description: "Un país con una mezcla única de historia, arquitectura y belleza natural."
-        - name: "Marruecos"
-          description: "Ofrece un sabor del norte de África, Marruecos es conocido por sus vibrantes mercados, ciudades históricas y paisajes diversos."
-      accessibilityContent: "Estos países no pertenecientes al Área Schengen no solo son adiciones emocionantes a tu itinerario, sino que también son muy accesibles desde Europa. Ya sea un vuelo corto, un tren nocturno o un viaje en ferry, estos destinos están bien conectados, lo que los convierte en paradas convenientes en tu aventura europea extendida."
-      maximizingTitle: "Maximizando tu Estadía Europea"
-      maximizingContent: "Ahora que estás familiarizado con los países no pertenecientes al Área Schengen, la planificación estratégica se vuelve esencial:"
+      - name: Irlanda
+        description: Un destino cautivador con una rica historia y paisajes impresionantes.
+      - name: Reino Unido
+        description: Explora Inglaterra, Escocia, Gales e Irlanda del Norte para una experiencia cultural diversa.
+      - name: Montenegro
+        description: Conocido por su pintoresca costa y ciudades históricas.
+      - name: Bielorrusia
+        description: Un país con una mezcla única de historia, arquitectura y belleza natural.
+      - name: Marruecos
+        description: Ofrece un sabor del norte de África, Marruecos es conocido por sus vibrantes mercados, ciudades históricas y paisajes diversos.
+      introduction: Embarcarse en una odisea europea es un sueño para muchos, pero el límite de 90 días dentro del Área Schengen a menudo deja a los viajeros anhelando más. No temas, compañero explorador, ya que revelamos los secretos para extender legalmente tu viaje europeo más allá del típico período de 90 días. Antes de sumergirte en la planificación estratégica, es crucial familiarizarse con los países fuera del Área Schengen. Aquí, enumeraremos algunas naciones clave, como Irlanda, Reino Unido, Montenegro, Bielorrusia y Marruecos, que pueden convertirse en piezas clave para maximizar tu tiempo en Europa.
+      maximizingContent: 'Ahora que estás familiarizado con los países no pertenecientes al Área Schengen, la planificación estratégica se vuelve esencial:'
       maximizingContentContinued: |
         <p> <strong>Comienza en un Centro Schengen:</strong> Comienza tu viaje en un país Schengen de tu elección, como París, Italia o España. Dedica las primeras semanas a sumergirte en la cultura local y los alrededores.</p>
 
         <p> <strong>Interludio No Schengen:</strong> Haz un desvío a un país no Schengen, aprovechando tu conocimiento de destinos como Irlanda o el Reino Unido para una parte sustancial de tu viaje.</p>
 
         <p> <strong>Explora y Sal del Área Schengen:</strong> Regresa al Área Schengen para otro segmento de tu viaje. Explora países como Francia o Italia, asegurándote de salir del Área Schengen antes de tu límite de 90 días."
-      repeatPatternTitle: "Repite el Patrón"
-      repeatPatternContent: "Continúa este patrón a lo largo de tus viajes, tejiendo estratégicamente dentro y fuera del Área Schengen. Optimiza tu tiempo en países no Schengen como Montenegro, Bielorrusia y Marruecos para extender tu estadía europea."
-      schengenButtonIntro: "Puedes usar la Calculadora Schengen tanto para planificar como para hacer un seguimiento de tus viajes sobre la marcha. Simplemente ingresa las fechas de entrada y salida de cada país, y hace el resto, calculando tus días totales en el Área Schengen, cuántos días restantes y en qué fecha puedes volver a entrar y por cuánto tiempo extender tu estadía. Feliz planificación y quédate tranquilo sabiendo que no estás excediendo tu visa."
-      schengenButtonTitle: "Comienza con la Calculadora Schengen"
-      schengenAboutIntro: "Para leer más sobre la Calculadora y obtener más información sobre el Área Schengen, consulta la "
-      schengenAboutLink: "página Acerca de la Calculadora Schengen"
-      conclusionTitle: "Conclusión"
-      conclusionContent: "Armado con una planificación estratégica y un claro entendimiento de las regulaciones de Schengen, puedes transformar tu sueño europeo en una realidad duradera. Sumérgete en la rica diversidad de Europa mientras te mantienes dentro de los límites legales de tu visa de turista Schengen. ¡Aquí hay una aventura extendida llena de momentos inolvidables!"
+      maximizingTitle: Maximizando tu Estadía Europea
+      nearbyContent: 'Antes de sumergirte en tus planes de viaje, familiarízate con los países fácilmente accesibles fuera del Área Schengen. Estas naciones desempeñan un papel crucial en la extensión de tu aventura europea. Algunos ejemplos clave incluyen:'
+      nearbyTitle: Países Cercanos Fuera del Área Schengen
+      repeatPatternContent: Continúa este patrón a lo largo de tus viajes, tejiendo estratégicamente dentro y fuera del Área Schengen. Optimiza tu tiempo en países no Schengen como Montenegro, Bielorrusia y Marruecos para extender tu estadía europea.
+      schengenAboutIntro: 'Para leer más sobre la Calculadora y obtener más información sobre el Área Schengen, consulta la '
+      schengenAboutLink: página Acerca de la Calculadora Schengen
+      schengenButtonIntro: Puedes usar la Calculadora Schengen tanto para planificar como para hacer un seguimiento de tus viajes sobre la marcha. Simplemente ingresa las fechas de entrada y salida de cada país, y hace el resto, calculando tus días totales en el Área Schengen, cuántos días restantes y en qué fecha puedes volver a entrar y por cuánto tiempo extender tu estadía. Feliz planificación y quédate tranquilo sabiendo que no estás excediendo tu visa.
+      schengenButtonTitle: Comienza con la Calculadora Schengen
+      title: Cómo quedarse en Europa más de 90 días (legalmente)
+      understanding90Content: Ten en cuenta que la regla de 90 en 180 días opera de manera continua. Para ilustrar, supongamos que entras al Área Schengen el 1 de enero y te quedas hasta el 30 de marzo, utilizando tus 90 días completos. Si vuelves a entrar el 1 de junio, tienes otros 90 días a tu disposición. La clave es asegurarte de que, en cualquier día dado dentro del área, no hayas excedido los 90 días en los últimos 180 días. Es un cálculo continuo que puedes entender para optimizar tu estadía sin violar la regla.
+      understandingContent: El Área Schengen comprende 27 países europeos, ofreciendo una experiencia de viaje sin fronteras internas. Sin embargo, la regla de 90/180 establece que dentro de cualquier período de 180 días, tu estadía en el Área Schengen no puede exceder los 90 días. Esta regla opera de manera continua, lo que significa que cada día cuenta para tu estadía total.
+      understandingTitle: 'Comprensión del Área Schengen y la Regla de 90/180:'
+    index:
+      reading_time: "%{minutes} min de lectura"
+      title: Artículos del Blog

@@ -1,46 +1,51 @@
+---
 en:
   visits:
-    reenter_info: "If you re-enter the Schengen Area on the %{date}, you can stay for %{max_days} %{day_plural} until %{end_date}."
+    about_page_link: About page
+    add_record: Add a Travel Record
+    add_travel: Add Travel
+    add_visa: Add Visa
+    change_link: change it now here
+    country: Country
+    dates: Dates
     day_plural:
-      one: "day"
-      other: "days"
-    register_now: "Register now"
-    save_travel_plans: "to save your travel plans!"
-    list_caption: "List of countries visited or that you have visited in the last 180 days, and are planning to visit in the future."
-    travel_details: "Travel Details"
-    visa_details: "Visa Details"
-    schengen_days: "Days in Schengen Area"
-    modify: "Modify"
-    dates: "Dates"
-    country: "Country"
-    schengen_area_tooltip: "Indicates if the country of this visit is included in the Schengen Area."
-    number_of_days_tooltip: "The number of days of this visit."
-    exits_tooltip: "Indicates if a Visa for the period of travel been entered."
-    number_of_entries_tooltip: "The number entries allowed on this Visa."
-    days_overstay_tooltip: "The number of days inside the Schengen Area not allowed by the Visa's Entered."
-    schengen_days_calculation_tooltip: "The number of days inside the Schengen Area in the previous 180 days."
-    days_overstay: "Days Overstay"
+      one: day
+      other: days
+    days: days
     days_in_schengen_zone: " in Schengen Zone"
     days_outside_schengen_zone: " outside Schengen Zone"
-    visa_required: "Visa Required!"
-    delete_confirm: "Are you sure?"
-    days: "days"
-    start_using: "Start using the Schengen Calculator by adding your previous and upcoming travel plans."
-    dont_forget: "Don't forget to also select your nationality, which is currently set to %{nationality}. If this is not correct, %{change_link} or later by following the link in the top right corner of this page."
-    for_further_information: "For further information, read the %{about_page_link}."
-    schengen_visa_list: "Schengen Visa List"
-    add_visa: "Add Visa"
-    travel_record: "Travel Record"
-    export_to_csv: "Export to CSV"
-    view_calculation_details: "View Calculation Details"
-    add_travel: "Add Travel"
-    change_link: "change it now here"
-    about_page_link: "About page"
-    add_record: "Add a Travel Record"
-    entry_date: "Entry date"
-    exit_date: "Exit date"
-    edit_title: "Edit a Travel Record"
-    schengen_area: "Schengen Area"
-    no_days: "No Days"
-    no_entries: "No. Entries"
-    exits: "Exits"
+    days_overstay: Days Overstay
+    days_overstay_tooltip: The number of days inside the Schengen Area not allowed by the Visa's Entered.
+    dont_forget: Don't forget to also select your nationality, which is currently set to %{nationality}. If this is not correct, %{change_link} or later by following the link in the top right corner of this page.
+    edit_title: Edit a Travel Record
+    entry_date: Entry date
+    exit_date: Exit date
+    exits: Exits
+    exits_tooltip: Indicates if a Visa for the period of travel been entered.
+    export_to_csv: Export to CSV
+    for_further_information: For further information, read the %{about_page_link}.
+    list_caption: List of countries visited or that you have visited in the last 180 days, and are planning to visit in the future.
+    modify: Modify
+    multi: Multi
+    no_days: No Days
+    no_entries: No. Entries
+    number_of_days_tooltip: The number of days of this visit.
+    number_of_entries_tooltip: The number entries allowed on this Visa.
+    reenter_info: If you re-enter the Schengen Area on the %{date}, you can stay for %{max_days} %{day_plural} until %{end_date}.
+    register_now: Register now
+    save_travel_plans: to save your travel plans!
+    schengen_area: Schengen Area
+    schengen_area_tooltip: Indicates if the country of this visit is included in the Schengen Area.
+    schengen_days: Days in Schengen Area
+    schengen_days_calculation: Schengen Days
+    schengen_days_calculation_tooltip: The number of days inside the Schengen Area in the previous 180 days.
+    schengen_days_overstay: Overstay Days
+    schengen_visa_list: Schengen Visa List
+    start_using: Start using the Schengen Calculator by adding your previous and upcoming travel plans.
+    travel_details: Travel Details
+    travel_record: Travel Record
+    visa_days_overstay: Visa Overstay
+    visa_details: Visa Details
+    visa_entry_count: Entries Used
+    visa_exists: Visa Exists
+    visa_required: Visa Required!

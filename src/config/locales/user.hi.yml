@@ -1,22 +1,18 @@
+---
 hi:
   log_in_page:
-    title: "लॉग इन करें"
-    log_in_with_facebook: "फेसबुक के साथ लॉग इन करें"
-    remember_me_label: "मुझे याद रखें"
-    log_in_button: "लॉग इन करें"
-    not_registered: "अभी तक पंजीकृत नहीं हैं?"
-    register_link: "रजिस्टर करें"
-    forgot_password: "क्या आपने पासवर्ड भूल गए हैं?"
-    reset_password_link: "पासवर्ड रीसेट करें"
-  sign_up_page:
-    title: "साइन अप करें"
-    sign_up_with_facebook: "फेसबुक के साथ साइन अप करें"
-    sign_up_button: "साइन अप करें"
-    already_registered: "पहले से पंजीकृत हैं?"
-    log_in_link: "लॉग इन करें"
+    forgot_password: क्या आपने पासवर्ड भूल गए हैं?
+    log_in_button: लॉग इन करें
+    log_in_with_facebook: फेसबुक के साथ लॉग इन करें
+    not_registered: अभी तक पंजीकृत नहीं हैं?
+    register_link: रजिस्टर करें
+    remember_me_label: मुझे याद रखें
+    reset_password_link: पासवर्ड रीसेट करें
+    title: लॉग इन करें
   new_password_page:
-    reset: "रीसेट भेजें"
-  my_details_page:
-    my_details_page:
-      delete_account: "खाता हटाएं"
-      delete_account_confirm: "क्या आप वाकई अपना खाता हटाना चाहते हैं? आपका सभी डेटा खो जाएगा। यह कार्रवाई पूर्ववत नहीं की जा सकती है।"
+    reset: रीसेट भेजें
+  sign_up_page:
+    already_registered: पहले से पंजीकृत हैं?
+    log_in_link: लॉग इन करें
+    sign_up_button: साइन अप करें
+    title: साइन अप करें

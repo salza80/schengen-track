@@ -1,23 +1,21 @@
+---
 es:
   log_in_page:
-    title: "Iniciar sesión"
-    log_in_with_facebook: "Iniciar sesión con Facebook"
-    remember_me_label: "Recordarme"
-    log_in_button: "Iniciar sesión"
-    not_registered: "¿Todavía no estás registrado?"
-    register_link: "Registrarse"
     forgot_password: "¿Olvidaste tu contraseña?"
-    reset_password_link: "Restablecer contraseña"
-  sign_up_page:
-    title: "Registrarse"
-    sign_up_with_facebook: "Iniciar sesión con Facebook"
-    sign_up_button: "Registrarse"
-    already_registered: "¿Ya estás registrado?"
-    log_in_link: "Iniciar sesión"
-  new_password_page:
-    reset: "Enviar restablecimiento"
+    log_in_button: Iniciar sesión
+    log_in_with_facebook: Iniciar sesión con Facebook
+    not_registered: "¿Todavía no estás registrado?"
+    register_link: Registrarse
+    remember_me_label: Recordarme
+    reset_password_link: Restablecer contraseña
+    title: Iniciar sesión
   my_details_page:
-    delete_account: "Eliminar cuenta"
+    delete_account: Eliminar cuenta
     delete_account_confirm: "¿Estás seguro de que quieres eliminar tu cuenta? Se perderán todos tus datos. Esta acción no se puede deshacer."
-
-
+  new_password_page:
+    reset: Enviar restablecimiento
+  sign_up_page:
+    already_registered: "¿Ya estás registrado?"
+    log_in_link: Iniciar sesión
+    sign_up_button: Registrarse
+    title: Registrarse

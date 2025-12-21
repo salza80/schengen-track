@@ -1,7 +1,7 @@
 .card
   .card-body
     %h3{:class => "card-title"}
-      = t('visit.add_record')
+      = t('visits.add_record')
     = render 'form'
   .card-footer
     = link_to t('common.back'), visits_path(locale: I18n.locale)

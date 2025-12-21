@@ -6,24 +6,19 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (scrollTarget) {
     var targetMonth = scrollTarget.getAttribute('data-month');
-    console.log('Scroll target found. Month:', targetMonth);
     
     if (targetMonth) {
       // Try to find month element
       var monthElement = document.querySelector('.calendar-month[data-month="' + targetMonth + '"]');
-      console.log('Looking for month element with data-month=' + targetMonth, monthElement);
       
       if (monthElement) {
-        console.log('Month element found, scrolling...');
         // Wait for page to fully render
         setTimeout(function() {
           // Offset for sticky header (year nav is ~80-100px)
           var offset = 100;
           var elementPosition = monthElement.getBoundingClientRect().top + window.pageYOffset;
           var offsetPosition = elementPosition - offset;
-          
-          console.log('Scrolling to position:', offsetPosition);
-          
+                    
           window.scrollTo({
             top: offsetPosition,
             behavior: 'smooth'

@@ -2,6 +2,10 @@ class VisitsController < ApplicationController
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
+  
+  # Skip CSRF verification for .js GET requests (new, edit, for_date)
+  # These are safe read-only operations that need to work with AJAX
+  skip_before_action :verify_authenticity_token, only: [:new, :edit, :for_date], if: -> { request.format.js? || request.format.json? }
 
   # GET /visits
   # GET /visits.json

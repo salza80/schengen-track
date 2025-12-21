@@ -15,11 +15,14 @@ class BlogsController < ApplicationController
   
   def index
     if current_user_or_guest_user.is_guest?
-      # Tell CloudFront to cache for 1 month (CloudFront overrides this for browsers)
-      expires_in 1.month, public: true
-      # In development, prevent browser caching to match production behavior
-      # (Production: CloudFront's ResponseHeadersPolicy overrides Cache-Control to no-cache)
-      response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate' if Rails.env.development?
+      if Rails.env.development?
+        # In development, prevent browser caching to match production behavior
+        # (Production: CloudFront's ResponseHeadersPolicy overrides Cache-Control to no-cache)
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+      else
+        # Tell CloudFront to cache for 1 month (only in production)
+        expires_in 1.month, public: true
+      end
     end
     
     @blog_posts = blog_posts_for_locale
@@ -34,11 +37,14 @@ class BlogsController < ApplicationController
 
   def show
     if current_user_or_guest_user.is_guest?
-      # Tell CloudFront to cache for 1 month (CloudFront overrides this for browsers)
-      expires_in 1.month, public: true
-      # In development, prevent browser caching to match production behavior
-      # (Production: CloudFront's ResponseHeadersPolicy overrides Cache-Control to no-cache)
-      response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate' if Rails.env.development?
+      if Rails.env.development?
+        # In development, prevent browser caching to match production behavior
+        # (Production: CloudFront's ResponseHeadersPolicy overrides Cache-Control to no-cache)
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+      else
+        # Tell CloudFront to cache for 1 month (only in production)
+        expires_in 1.month, public: true
+      end
     end
     
     @blog_posts = blog_posts_for_locale

@@ -1,12 +1,21 @@
-:plain
-  // Visit was successfully created
-  $('#visitModal').modal('hide');
-  
-  // Show success message
-  var message = '<div class="alert alert-success alert-dismissible fade show" role="alert">Visit was successfully created.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-  $('body').prepend(message);
-  
-  // Reload page to refresh calendar
-  setTimeout(function() {
-    location.reload();
-  }, 500);
+- if @visit.errors.any?
+  :plain
+    // Visit creation failed - show errors in modal
+    $('#visitModal .modal-body').html('#{j render("form")}');
+    
+    // Re-initialize cascade dropdowns after form is reloaded
+    var country = #{@country_options.html_safe};
+    var CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');
+- else
+  :plain
+    // Visit was successfully created
+    $('#visitModal').modal('hide');
+    
+    // Show success message
+    var message = '<div class="alert alert-success alert-dismissible fade show" role="alert">Visit was successfully created.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+    $('body').prepend(message);
+    
+    // Reload page to refresh calendar
+    setTimeout(function() {
+      location.reload();
+    }, 500);

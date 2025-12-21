@@ -209,7 +209,7 @@
       self.currentVisitId = null; // Clear current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/' + locale + '/visits/new',
+        url: '/' + locale + '/visits/new.js',
         method: 'GET',
         data: { 
           entry_date: entryDate,
@@ -232,7 +232,7 @@
       self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/' + locale + '/visits/' + visitId + '/edit',
+        url: '/' + locale + '/visits/' + visitId + '/edit.js',
         method: 'GET',
         dataType: 'script',
         success: function() {

@@ -27,31 +27,7 @@ class DaysControllerTest < ActionController::TestCase
   end
 
   # ====================
-  # B. View Mode Switching
-  # ====================
-  
-  test "should default to calendar view" do
-    sign_in users(:Sally)
-    get :index, params: { locale: 'en' }
-    assert_equal 'calendar', assigns(:view_mode)
-  end
-
-  test "should switch to table view when requested" do
-    sign_in users(:Sally)
-    get :index, params: { locale: 'en', view: 'table' }
-    assert_equal 'table', assigns(:view_mode)
-    assert_nil assigns(:calendar_months)
-  end
-
-  test "should persist view mode parameter" do
-    sign_in users(:Sally)
-    get :index, params: { locale: 'en', view: 'table' }
-    assert_response :success
-    assert_equal 'table', assigns(:view_mode)
-  end
-
-  # ====================
-  # C. Calendar Setup - With Visits
+  # B. Calendar Setup - With Visits
   # ====================
   
   test "should setup calendar with year navigation" do

@@ -18,7 +18,6 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     assert has_content?('2014'), "Should show year 2014 from Sally's visits"
     assert has_css?('.calendar-month'), "Should have calendar month containers"
     assert has_css?('.calendar-grid'), "Should have calendar grid"
-    assert has_link?('Table View'), "Should have Table View button"
   end
   
   test "guest user can view empty calendar" do
@@ -76,29 +75,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
   end
   
   # ====================
-  # C. View Switching
-  # ====================
-  
-  test "can switch between calendar and table view" do
-    user_login
-    
-    # Start on calendar view with year parameter
-    visit days_path(locale: 'en', year: 2014)
-    assert has_css?('.calendar-month'), "Should start with calendar view"
-    
-    # Switch to table view
-    click_link 'Table View'
-    assert_match /view=table/, current_url, "URL should contain view=table"
-    
-    # Should now see table view (old format)
-    assert has_content?('Schengen Visa Calculation by Day'), "Should show table view heading"
-    
-    # Should have Calendar View link to switch back
-    assert has_link?('Calendar View'), "Should have link to switch back to calendar"
-  end
-  
-  # ====================
-  # D. Calendar Display
+  # C. Calendar Display
   # ====================
   
   test "calendar shows all 12 months" do

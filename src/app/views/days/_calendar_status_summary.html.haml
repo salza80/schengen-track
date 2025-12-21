@@ -26,6 +26,11 @@
                     = t("days.status_#{@status_summary[:status]}")
                 %div
                   %small= t('days.days_remaining')
+          .row.mt-3
+            .col-12.text-center
+              = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
+                %i.fa.fa-list.mr-2{"aria-hidden" => "true"}
+                = t('days.view_table')
       
       -# Desktop layout (>= md, < lg)
       .d-none.d-md-block.d-lg-none

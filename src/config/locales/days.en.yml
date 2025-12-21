@@ -38,5 +38,6 @@ en:
       schengen_days_used: Schengen Days Used
       schengen_days_used_tooltip: The number of days inside the Schengen Area in the previous 180 days.
     until_date: until %{date}
+    view_table: View in Table
     visits_count: Visits
     year_summary: "%{year} Summary"

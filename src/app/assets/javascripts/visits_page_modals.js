@@ -74,6 +74,21 @@
         $('#visitModal').modal('hide');
         self.openDeleteModal(deleteUrl, 'visit');
       });
+      
+      // Bind clickable visit rows (navigate to calendar)
+      $(document).on('click', 'tr[data-clickable-row="true"]', function(e) {
+        // Don't navigate if clicking edit/delete links or any anchor tag
+        if ($(e.target).is('a') || $(e.target).closest('a').length) {
+          return;
+        }
+        
+        var year = $(this).data('entry-year');
+        var month = $(this).data('entry-month');
+        var locale = $('html').attr('lang') || 'en';
+        
+        // Navigate to calendar page with year and month
+        window.location.href = '/' + locale + '/days?year=' + year + '&month=' + month;
+      });
     },
     
     // Submit the visit form

@@ -1,18 +1,56 @@
 // Calendar enhancements
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize Bootstrap tooltips on day cells
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
-  tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl, {
-      html: true,
-      boundary: 'window'
-    });
-  });
+  // Scroll to specific month if parameter is present (do this FIRST, before tooltips)
+  var scrollTarget = document.querySelector('#calendar-scroll-target');
   
-  // Smooth scroll to top on page load (after year change)
-  if (document.querySelector('.calendar-container')) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (scrollTarget) {
+    var targetMonth = scrollTarget.getAttribute('data-month');
+    console.log('Scroll target found. Month:', targetMonth);
+    
+    if (targetMonth) {
+      // Try to find month element
+      var monthElement = document.querySelector('.calendar-month[data-month="' + targetMonth + '"]');
+      console.log('Looking for month element with data-month=' + targetMonth, monthElement);
+      
+      if (monthElement) {
+        console.log('Month element found, scrolling...');
+        // Wait for page to fully render
+        setTimeout(function() {
+          // Offset for sticky header (year nav is ~80-100px)
+          var offset = 100;
+          var elementPosition = monthElement.getBoundingClientRect().top + window.pageYOffset;
+          var offsetPosition = elementPosition - offset;
+          
+          console.log('Scrolling to position:', offsetPosition);
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 500); // Increased delay to 500ms
+      } else {
+        console.warn('Month element not found for month:', targetMonth);
+      }
+    }
+  } else {
+    console.log('No scroll target found - will use default behavior');
+  }
+  
+  // Initialize Bootstrap tooltips on day cells (only if Bootstrap is available)
+  if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      try {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+          html: true,
+          boundary: 'window'
+        });
+      } catch(e) {
+        console.warn('Tooltip initialization failed:', e);
+        return null;
+      }
+    });
   }
   
   // Keyboard navigation for year controls
@@ -43,16 +81,18 @@ document.addEventListener('DOMContentLoaded', function() {
   if (currentDayCell) {
     currentDayCell.classList.add('current-day');
     
-    // Optional: Scroll to current day after a brief delay
-    setTimeout(function() {
-      var yOffset = -150; // Offset for sticky header
-      var y = currentDayCell.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      
-      // Only scroll if current day is not visible
-      var rect = currentDayCell.getBoundingClientRect();
-      if (rect.top < 0 || rect.bottom > window.innerHeight) {
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-    }, 500);
+    // Only scroll to current day if we're NOT scrolling to a specific month
+    if (!scrollTarget) {
+      setTimeout(function() {
+        var yOffset = -150; // Offset for sticky header
+        var y = currentDayCell.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        
+        // Only scroll if current day is not visible
+        var rect = currentDayCell.getBoundingClientRect();
+        if (rect.top < 0 || rect.bottom > window.innerHeight) {
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 500);
+    }
   }
 });

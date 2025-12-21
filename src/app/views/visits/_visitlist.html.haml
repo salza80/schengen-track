@@ -36,7 +36,7 @@
         %th{ scope: "col", "data-toggle": "tooltip" }
     %tbody
       - @visits.each do |visit|
-        %tr
+        %tr{class: (!current_user_or_guest_user.visa_required? ? 'clickable-visit-row' : ''), 'data-clickable-row': (!current_user_or_guest_user.visa_required? ? 'true' : 'false'), 'data-entry-year': visit.entry_date.year, 'data-entry-month': visit.entry_date.month}
           %th{ scope: "row", class: 'bg-md-header' }
             %span.d-md-none
               = visit.country.name

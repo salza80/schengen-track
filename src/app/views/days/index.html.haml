@@ -1,4 +1,8 @@
 .calendar-view-container
+  -# Hidden data element for scroll target
+  - if @scroll_to_month
+    #calendar-scroll-target{'data-month': @scroll_to_month, style: "display:none;"}
+  
   -# Status summary (mobile & desktop)
   = render 'calendar_status_summary'
   

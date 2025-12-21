@@ -26,6 +26,18 @@ class DaysController < ApplicationController
     # Allow infinite year navigation with reasonable limits
     @selected_year = (params[:year] || Date.today.year).to_i
     
+    # Set month for scrolling
+    # Only default to current month if:
+    # 1. Month param is provided, OR
+    # 2. Year is current year (or no year specified)
+    if params[:month].present?
+      @scroll_to_month = params[:month].to_i
+    elsif params[:year].blank? || @selected_year == Date.today.year
+      @scroll_to_month = Date.today.month
+    else
+      @scroll_to_month = nil # Don't scroll if viewing a different year without month param
+    end
+    
     # Set reasonable bounds (1900 - 2100) to prevent abuse
     @selected_year = @selected_year.clamp(1900, 2100)
     

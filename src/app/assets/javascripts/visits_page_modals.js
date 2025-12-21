@@ -5,6 +5,9 @@
   'use strict';
   
   var VisitsPageModals = {
+    // Store current visit ID for edit mode
+    currentVisitId: null,
+    
     // Initialize on page load
     init: function() {
       var self = this;
@@ -56,15 +59,44 @@
         var deleteUrl = $(this).data('delete-url');
         self.openDeleteModal(deleteUrl, 'visa');
       });
+      
+      // Bind modal Save button
+      $('#saveVisitButton').on('click', function(e) {
+        e.preventDefault();
+        self.submitVisitForm();
+      });
+      
+      // Bind modal Delete button
+      $('#deleteVisitButton').on('click', function(e) {
+        e.preventDefault();
+        var locale = $('html').attr('lang') || 'en';
+        var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        $('#visitModal').modal('hide');
+        self.openDeleteModal(deleteUrl, 'visit');
+      });
+    },
+    
+    // Submit the visit form
+    submitVisitForm: function() {
+      var $form = $('#visitModal form');
+      if ($form.length) {
+        $form.submit();
+      }
     },
     
     // Open ADD visit modal
     openAddVisitModal: function() {
+      var self = this;
+      self.currentVisitId = null; // Clear current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visits/new',
         method: 'GET',
         dataType: 'script',
+        success: function() {
+          // Hide delete button for new visits
+          $('#deleteVisitButton').hide();
+        },
         error: function() {
           alert('Failed to open visit form. Please try again.');
         }
@@ -73,11 +105,17 @@
     
     // Open EDIT visit modal
     openEditVisitModal: function(visitId) {
+      var self = this;
+      self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visits/' + visitId + '/edit',
         method: 'GET',
         dataType: 'script',
+        success: function() {
+          // Show delete button for existing visits
+          $('#deleteVisitButton').show();
+        },
         error: function() {
           alert('Failed to open visit form. Please try again.');
         }

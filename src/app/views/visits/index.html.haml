@@ -50,8 +50,15 @@
           %span{"aria-hidden" => "true"} &times;
       .modal-body
         -# Form will be loaded here via AJAX
-      .modal-footer
+      .modal-footer.d-flex.justify-content-between
         %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        .ml-auto
+          %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+            %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+            = t('common.delete')
+          %button#saveVisitButton.btn.btn-primary{type: "button"}
+            %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+            = t('common.save')
 
 -# Modal for adding/editing visas
 #visaModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visaModalLabel", role: "dialog", tabindex: "-1"}

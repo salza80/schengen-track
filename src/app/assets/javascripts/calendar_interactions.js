@@ -13,6 +13,9 @@
       selectedCells: []
     },
     
+    // Store current visit ID for edit mode
+    currentVisitId: null,
+    
     // Initialize on page load
     init: function() {
       var self = this;
@@ -38,6 +41,21 @@
       // Close modal cleanup
       $('#visitModal').on('hidden.bs.modal', function() {
         self.resetSelection();
+      });
+      
+      // Bind modal Save button
+      $('#saveVisitButton').on('click', function(e) {
+        e.preventDefault();
+        self.submitVisitForm();
+      });
+      
+      // Bind modal Delete button
+      $('#deleteVisitButton').on('click', function(e) {
+        e.preventDefault();
+        var locale = $('html').attr('lang') || 'en';
+        var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        $('#visitModal').modal('hide');
+        self.openDeleteModal(deleteUrl);
       });
     },
     
@@ -176,8 +194,18 @@
       });
     },
     
+    // Submit the visit form
+    submitVisitForm: function() {
+      var $form = $('#visitModal form');
+      if ($form.length) {
+        $form.submit();
+      }
+    },
+    
     // Open ADD modal
     openAddModal: function(entryDate, exitDate) {
+      var self = this;
+      self.currentVisitId = null; // Clear current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visits/new',
@@ -187,6 +215,10 @@
           exit_date: exitDate
         },
         dataType: 'script',
+        success: function() {
+          // Hide delete button for new visits
+          $('#deleteVisitButton').hide();
+        },
         error: function() {
           alert('Failed to open visit form. Please try again.');
         }
@@ -195,14 +227,62 @@
     
     // Open EDIT modal
     openEditModal: function(visitId) {
+      var self = this;
+      self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visits/' + visitId + '/edit',
         method: 'GET',
         dataType: 'script',
+        success: function() {
+          // Show delete button for existing visits
+          $('#deleteVisitButton').show();
+        },
         error: function() {
           alert('Failed to open visit form. Please try again.');
         }
+      });
+    },
+    
+    // Open delete confirmation modal
+    openDeleteModal: function(deleteUrl) {
+      var $modal = $('#deleteModal');
+      var $confirmButton = $('#deleteConfirmButton');
+      
+      // Update the confirmation button with the delete URL
+      $confirmButton.attr('href', deleteUrl);
+      $confirmButton.attr('data-method', 'delete');
+      $confirmButton.attr('rel', 'nofollow');
+      
+      // Show the modal
+      $modal.modal('show');
+      
+      // Handle delete confirmation click
+      $confirmButton.off('click').on('click', function(e) {
+        e.preventDefault();
+        
+        // Create a form to submit the DELETE request
+        var $form = $('<form>', {
+          'method': 'POST',
+          'action': deleteUrl
+        });
+        
+        // Add CSRF token
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $form.append($('<input>', {
+          'type': 'hidden',
+          'name': '_method',
+          'value': 'delete'
+        }));
+        $form.append($('<input>', {
+          'type': 'hidden',
+          'name': 'authenticity_token',
+          'value': csrfToken
+        }));
+        
+        // Submit the form
+        $('body').append($form);
+        $form.submit();
       });
     },
     

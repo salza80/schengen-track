@@ -179,8 +179,9 @@
     
     // Check if date has visits (AJAX call)
     checkVisitsForDate: function(date, callback) {
+      var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/visits/for_date',
+        url: '/' + locale + '/visits/for_date',
         method: 'GET',
         data: { date: date },
         dataType: 'json',

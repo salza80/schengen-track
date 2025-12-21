@@ -24,9 +24,11 @@
 
 %h2= t('visits.travel_record')
 .row.py-1
-  .col-md-6.d-flex.align-items-end
+  .col-md-6.d-flex.align-items-center
     - if @visits.count > 0
-      = link_to t('visits.export_to_csv'), visits_path(locale: I18n.locale, format: "csv")
+      = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md" do
+        %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
+        = t('visits.export_to_csv')
   .col-md-6.text-right
     %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visit"}
       %i.fa.fa-plus{"aria-hidden" => "true"}

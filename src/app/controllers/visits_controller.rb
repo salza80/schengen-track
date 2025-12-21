@@ -12,6 +12,10 @@ class VisitsController < ApplicationController
     @visits = calc.visits
     @visas = current_user_or_guest_user.visas.all if current_user_or_guest_user.visa_required?
     @next_entry_days = calc.next_entry_days
+    
+    # Set SEO meta tags for visits page
+    set_visits_meta_tags
+    
     respond_to do |format|
       format.html do
         @visits.each do |visit|
@@ -136,5 +140,16 @@ class VisitsController < ApplicationController
       @continent = Continent.all
       @continent_default_id = Continent.find_by(continent_code: 'EU').id.to_s
       @country_options = Country.all.order_by_name.to_json(:only => [:id, :name, :continent_id])
+    end
+    
+    def set_visits_meta_tags
+      @meta_title = I18n.t('default_title')
+      @meta_description = I18n.t('default_description')
+      @og_type = 'website'
+      @og_url = "https://#{request.host_with_port}#{request.path}"
+      # Use schengen map image for visits page
+      image_path = view_context.asset_path('schengen_area_eu_countries.webp')
+      @og_image = "https://#{request.host_with_port}#{image_path}"
+      @og_site_name = "Schengen Calculator"
     end
 end

@@ -104,6 +104,28 @@ jobs:
       - name: Wait for CloudFront Invalidation
         run: aws cloudfront wait invalidation-completed --distribution-id E1KF4KLAR0V084 --id "${{ steps.cloudfront_invalidation.outputs.invalidationId }}"
 
+      - name: Run database migrations
+        run: |
+          echo "Running database migrations on production..."
+          response=$(curl -s "https://schengen-calculator.com/migrate?token=${{ secrets.TASK_PASSWORD }}")
+          echo "Migration response: $response"
+          if echo "$response" | grep -q '"success":true'; then
+            echo "✓ Migrations completed successfully"
+          else
+            echo "⚠ Migration response: $response"
+          fi
+
+      - name: Update countries data
+        run: |
+          echo "Updating countries data from XML..."
+          response=$(curl -s "https://schengen-calculator.com/update_countries?token=${{ secrets.TASK_PASSWORD }}")
+          echo "Update countries response: $response"
+          if echo "$response" | grep -q '"success":true'; then
+            echo "✓ Countries data updated successfully"
+          else
+            echo "⚠ Update countries response: $response"
+          fi
+
       - name: Recache main urls
         run: ./recache.sh urls-prod.txt
         working-directory: ./deployment/scripts

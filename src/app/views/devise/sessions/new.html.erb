@@ -6,7 +6,7 @@
       </div>
       <div class="col-md-7">
         <div class="d-flex float-right">
-          <%= link_to user_facebook_omniauth_authorize_path, class: "btn btn-primary d-flex align-items-center" do %>
+          <%= link_to user_facebook_omniauth_authorize_path, method: :post, class: "btn btn-primary d-flex align-items-center" do %>
             <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
             <%= t('log_in_page.log_in_with_facebook') %>
           <% end %>

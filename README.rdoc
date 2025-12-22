@@ -173,6 +173,53 @@ This prevents false "unused key" warnings while documenting why the key is speci
 * command to run tests <tt>`.bin/rake test`</tt>
 
 
+== Facebook OAuth Configuration
+
+The application uses Facebook Login (OAuth) for user authentication.
+
+=== Current Configuration
+* Facebook Graph API Version: v19.0
+* Required Scopes: email, public_profile
+* OAuth Provider: omniauth-facebook gem
+
+=== Facebook App Setup Requirements
+
+To configure Facebook Login, you must set up your Facebook App at https://developers.facebook.com/apps with the following settings:
+
+==== 1. Basic Settings (Settings → Basic)
+* App Domains: Add your production and staging domains:
+  * schengen-calculator.com
+  * www.schengen-calculator.com
+  * test.schengen-calculator.com
+
+==== 2. Facebook Login Settings (Facebook Login → Settings)
+* Valid OAuth Redirect URIs: Add all callback URLs:
+  * https://schengen-calculator.com/users/auth/facebook/callback
+  * https://www.schengen-calculator.com/users/auth/facebook/callback
+  * https://test.schengen-calculator.com/users/auth/facebook/callback
+  * http://localhost:3000/users/auth/facebook/callback (for development)
+
+==== 3. API Version (Settings → Advanced)
+* Upgrade API Version to v19.0 or later
+* Facebook requires periodic API version upgrades
+
+==== 4. Required Permissions
+* Default permissions (automatically approved):
+  * email - Access user's email address
+  * public_profile - Access user's public profile (name)
+
+=== Environment Variables / Parameter Store
+The following Facebook credentials must be configured:
+* FACEBOOK_ID - Your Facebook App ID
+* FACEBOOK_SECRET - Your Facebook App Secret
+* FACEBOOK_CALLBACK_URL - Production OAuth callback URL (production only)
+
+=== Troubleshooting Facebook Login
+* Mobile Login Issues: Ensure Facebook App settings include all domains and OAuth redirect URIs
+* API Version Warnings: Update client_options in config/initializers/devise.rb to the latest version
+* Callback Errors: Verify OAuth redirect URIs in Facebook App match exactly (including https://)
+
+
 == Deployment
 * Automatic deployment to AWS lambda / cloudfront via CDK and Github Actions
 * CDK Deployment code is in /deployment directory

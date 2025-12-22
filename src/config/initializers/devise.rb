@@ -319,12 +319,12 @@ Devise.setup do |config|
     Rails.application.secrets.facebook_id,
     Rails.application.secrets.facebook_secret,
     callback_url: Rails.env.production? ? Rails.application.secrets.facebook_callback_url : 'http://localhost:3000/users/auth/facebook/callback',
-    scope: 'email',
+    scope: 'email,public_profile',
     info_fields: 'email,first_name,last_name',
     token_params: { parse: :json },
     client_options: {
-      site: 'https://graph.facebook.com/v7.0',
-      authorize_url: "https://www.facebook.com/v7.0/dialog/oauth"
+      site: 'https://graph.facebook.com/v19.0',
+      authorize_url: "https://www.facebook.com/v19.0/dialog/oauth"
     }
 
 end

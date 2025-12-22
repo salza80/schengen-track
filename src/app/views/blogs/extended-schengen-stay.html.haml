@@ -60,8 +60,15 @@
             %p= t('blog.extendedTravel.accessibilityContent')
             
             .figure
-              = image_tag("schengen_area_eu_countries.webp", class: "img-fluid", alt: "Map showing Schengen Area countries and nearby non-Schengen countries in Europe")
-              %figcaption Schengen Area and surrounding non-Schengen countries
+              = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "Map showing Schengen Area countries (29 countries as of 2025, including Bulgaria and Romania) and nearby non-Schengen countries in Europe")
+              %figcaption
+                Schengen Area and surrounding non-Schengen countries.
+                %br
+                %small
+                  Map by Evan Centanni,
+                  = link_to "Political Geography Now", "https://www.polgeonow.com/2020/03/what-is-schengen-list-countries-map.html", target: "_blank", rel: "noopener"
+                  \. License:
+                  = link_to "CC BY-SA", "https://creativecommons.org/licenses/by-sa/3.0/deed.en", target: "_blank", rel: "noopener"
           
           %section
             %h2= t('blog.extendedTravel.maximizingTitle')

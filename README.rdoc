@@ -195,6 +195,10 @@ One approach: Attempt deploy with no permissions, then add permissions that fail
   AWS_DEFAULT_REGION
   TASK_PASSWORD (used for automated migration and data update API calls during deployment)
 
+The GitHub Actions deployment IAM user requires these permissions:
+* Standard CDK deployment permissions (Lambda, API Gateway, CloudFront, IAM, etc.)
+* SSM Parameter Store write permission for deployment timestamp (see deployment/iam-policy-ssm-deployment-timestamp.json)
+
 === Automated Database Updates on Deployment
 
 The deployment workflows automatically run database migrations and country data updates via API endpoints after each deployment:

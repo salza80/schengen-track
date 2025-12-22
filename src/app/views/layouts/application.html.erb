@@ -147,5 +147,11 @@
 
 <%= render 'layouts/footer' %>
 
+<!-- Temporary mobile debugging console - staging only -->
+<% if request.host.include?('test.schengen-calculator.com') %>
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>eruda.init();</script>
+<% end %>
+
 </body>
 </html>

@@ -30,7 +30,6 @@ gem 'pg'
 gem 'listen'
 gem "webpacker", '>= 6.0.0.rc.6'
 gem "sprockets-rails"
-gem "omniauth-rails_csrf_protection"
 gem 'bourbon'
 gem 'autoprefixer-rails'
 gem 'canonical-rails'

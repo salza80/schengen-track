@@ -98,7 +98,13 @@ export class HttpApiConstruct extends Construct {
     const sslCertificateArn = props.sslArn;
     const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList('Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'),
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Origin', 
+        'Access-Control-Request-Method', 
+        'Access-Control-Request-Headers',
+        'Accept',
+        'X-Requested-With'
+      ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
     })

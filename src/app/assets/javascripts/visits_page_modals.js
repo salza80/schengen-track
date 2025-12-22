@@ -105,14 +105,16 @@
       self.currentVisitId = null; // Clear current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/' + locale + '/visits/new',
+        url: '/' + locale + '/visits/new.js',
         method: 'GET',
         dataType: 'script',
         success: function() {
           // Hide delete button for new visits
           $('#deleteVisitButton').hide();
         },
-        error: function() {
+        error: function(xhr, status, error) {
+          console.error('Failed to load visit form:', status, error);
+          console.error('Response:', xhr.responseText);
           alert('Failed to open visit form. Please try again.');
         }
       });
@@ -124,14 +126,16 @@
       self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/' + locale + '/visits/' + visitId + '/edit',
+        url: '/' + locale + '/visits/' + visitId + '/edit.js',
         method: 'GET',
         dataType: 'script',
         success: function() {
           // Show delete button for existing visits
           $('#deleteVisitButton').show();
         },
-        error: function() {
+        error: function(xhr, status, error) {
+          console.error('Failed to load visit form:', status, error);
+          console.error('Response:', xhr.responseText);
           alert('Failed to open visit form. Please try again.');
         }
       });
@@ -141,10 +145,12 @@
     openAddVisaModal: function() {
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/' + locale + '/visas/new',
+        url: '/' + locale + '/visas/new.js',
         method: 'GET',
         dataType: 'script',
-        error: function() {
+        error: function(xhr, status, error) {
+          console.error('Failed to load visa form:', status, error);
+          console.error('Response:', xhr.responseText);
           alert('Failed to open visa form. Please try again.');
         }
       });
@@ -154,10 +160,12 @@
     openEditVisaModal: function(visaId) {
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
-        url: '/' + locale + '/visas/' + visaId + '/edit',
+        url: '/' + locale + '/visas/' + visaId + '/edit.js',
         method: 'GET',
         dataType: 'script',
-        error: function() {
+        error: function(xhr, status, error) {
+          console.error('Failed to load visa form:', status, error);
+          console.error('Response:', xhr.responseText);
           alert('Failed to open visa form. Please try again.');
         }
       });

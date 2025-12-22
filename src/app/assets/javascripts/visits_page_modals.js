@@ -5,8 +5,9 @@
   'use strict';
   
   var VisitsPageModals = {
-    // Store current visit ID for edit mode
+    // Store current visit/visa ID for edit mode
     currentVisitId: null,
+    currentVisaId: null,
     
     // Initialize on page load
     init: function() {
@@ -60,19 +61,34 @@
         self.openDeleteModal(deleteUrl, 'visa');
       });
       
-      // Bind modal Save button
+      // Bind modal Save button (visits)
       $('#saveVisitButton').on('click', function(e) {
         e.preventDefault();
         self.submitVisitForm();
       });
       
-      // Bind modal Delete button
+      // Bind modal Delete button (visits)
       $('#deleteVisitButton').on('click', function(e) {
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
         $('#visitModal').modal('hide');
         self.openDeleteModal(deleteUrl, 'visit');
+      });
+      
+      // Bind modal Save button (visas)
+      $('#saveVisaButton').on('click', function(e) {
+        e.preventDefault();
+        self.submitVisaForm();
+      });
+      
+      // Bind modal Delete button (visas)
+      $('#deleteVisaButton').on('click', function(e) {
+        e.preventDefault();
+        var locale = $('html').attr('lang') || 'en';
+        var deleteUrl = '/' + locale + '/visas/' + self.currentVisaId;
+        $('#visaModal').modal('hide');
+        self.openDeleteModal(deleteUrl, 'visa');
       });
       
       // Bind clickable visit rows (navigate to calendar)
@@ -94,6 +110,14 @@
     // Submit the visit form
     submitVisitForm: function() {
       var $form = $('#visitModal form');
+      if ($form.length) {
+        $form.submit();
+      }
+    },
+    
+    // Submit the visa form
+    submitVisaForm: function() {
+      var $form = $('#visaModal form');
       if ($form.length) {
         $form.submit();
       }
@@ -143,11 +167,17 @@
     
     // Open ADD visa modal
     openAddVisaModal: function() {
+      var self = this;
+      self.currentVisaId = null; // Clear current visa ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visas/new.js',
         method: 'GET',
         dataType: 'script',
+        success: function() {
+          // Hide delete button for new visas
+          $('#deleteVisaButton').hide();
+        },
         error: function(xhr, status, error) {
           console.error('Failed to load visa form:', status, error);
           console.error('Response:', xhr.responseText);
@@ -158,11 +188,17 @@
     
     // Open EDIT visa modal
     openEditVisaModal: function(visaId) {
+      var self = this;
+      self.currentVisaId = visaId; // Store current visa ID
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visas/' + visaId + '/edit.js',
         method: 'GET',
         dataType: 'script',
+        success: function() {
+          // Show delete button for existing visas
+          $('#deleteVisaButton').show();
+        },
         error: function(xhr, status, error) {
           console.error('Failed to load visa form:', status, error);
           console.error('Response:', xhr.responseText);

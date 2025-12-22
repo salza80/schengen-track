@@ -38,6 +38,7 @@ gem 'canonical-rails'
 group :production do
   gem 'rails_12factor'
   gem 'aws_lambda_ric'
+  gem 'aws-sdk-ssm', '~> 1'
 end
 
 group :development, :test do

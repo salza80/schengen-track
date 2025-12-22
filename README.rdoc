@@ -211,12 +211,25 @@ The deployment workflows automatically run database migrations and country data 
 
 Deployment order:
 1. Deploy application code to Lambda
-2. Run database migrations (db:migrate)
-3. Update countries data (db:update_countries)
-4. Invalidate CloudFront cache
-5. Recache main URLs
+2. Set deployment timestamp in Parameter Store
+3. Run database migrations (db:migrate)
+4. Update countries data (db:update_countries)
+5. Invalidate CloudFront cache
+6. Recache main URLs
 
 This ensures the database is updated before the cache is cleared, preventing inconsistencies.
+
+=== Security: Time-Limited Deployment Endpoints
+
+For security, the <tt>/migrate</tt> and <tt>/update_countries</tt> endpoints are only accessible within 1 hour of deployment:
+
+* During deployment, a timestamp is written to AWS Parameter Store (<tt>/schengen/deployment-timestamp</tt>)
+* The endpoints check this timestamp and reject requests with 403 Forbidden if more than 1 hour has elapsed
+* This prevents unauthorized access even if the TASK_PASSWORD token is compromised
+* The Lambda function has IAM permissions to read the deployment timestamp from Parameter Store
+* In development mode, the time restriction is disabled for local testing
+
+This security mechanism ensures that sensitive database operations can only be triggered during active deployment windows.
 
 
 

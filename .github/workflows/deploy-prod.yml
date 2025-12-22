@@ -95,6 +95,17 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
       
+      - name: Set deployment timestamp
+        run: |
+          echo "Setting deployment timestamp in Parameter Store..."
+          current_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          aws ssm put-parameter \
+            --name "/schengen/deployment-timestamp" \
+            --value "$current_time" \
+            --type String \
+            --overwrite
+          echo "✓ Deployment timestamp set to: $current_time"
+      
       - name: Run database migrations
         run: |
           echo "Running database migrations on production..."

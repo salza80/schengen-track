@@ -4,6 +4,7 @@ import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
@@ -69,7 +70,8 @@ export class HttpApiConstruct extends Construct {
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password'),
-      DOMAIN: customDomain
+      DOMAIN: customDomain,
+      AWS_REGION: Stack.of(this).region
     };
 
     // Lambda function for Lambda proxy integration of AWS API Gateway HTTP API
@@ -84,6 +86,15 @@ export class HttpApiConstruct extends Construct {
       timeout: cdk.Duration.minutes(1),
       tracing: lambda.Tracing.ACTIVE,
     });
+
+    // Grant Lambda permission to read the deployment timestamp from Parameter Store
+    apiFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['ssm:GetParameter'],
+      resources: [
+        `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter/schengen/deployment-timestamp`
+      ]
+    }));
 
     // AWS API Gateway HTTP API using Rails as Lambda proxy integration
     // overwrite host header with domain, as it will come from cloudfront and rails requires it for security xss checks.

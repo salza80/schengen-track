@@ -3,9 +3,7 @@ es:
   about:
     about:
       90_days_definition_blockquote: "“90 días en cualquier período de 180 días […]“. “Se considerará como fecha de entrada el primer día de estancia en el territorio de los Estados miembros y como fecha de salida el último día de estancia en el territorio de los Estados miembros. Los períodos de estancia autorizados bajo un permiso de residencia o una visa de larga duración no se tendrán en cuenta en el cálculo de la duración de la estancia en el territorio de los Estados miembros.”\n"
-      abolished_internal_borders: 'Aunque han abolido sus fronteras internas, los Estados Schengen tienen un acuerdo de fronteras externas común sobre la base de las reglas de Schengen. Esto hace que sea muy conveniente para los turistas viajar entre los países incluidos en el área de Schengen. Sin embargo, es importante comprender las reglas sobre qué visa se requiere antes de ingresar al área (si corresponde) y cuánto tiempo puedes quedarte.
-
-        '
+      abolished_internal_borders: Aunque han abolido sus fronteras internas, los Estados Schengen tienen un acuerdo de fronteras externas común sobre la base de las reglas de Schengen. Esto hace que sea muy conveniente para los turistas viajar entre los países incluidos en el área de Schengen. Sin embargo, es importante comprender las reglas sobre qué visa se requiere antes de ingresar al área (si corresponde) y cuánto tiempo puedes quedarte.
       additional_requirements:
         first_paragraph: Algunos países tienen acuerdos de exención de visa adicionales con países dentro del área de Schengen que permiten una estadía adicional de 90 días en un período de 180 días; sin embargo, esto se incluirá en los 90 días para otros países de Schengen. ¡Estos acuerdos adicionales a menudo son poco conocidos por los viajeros!
         heading: Acuerdos de Exención de Visa Adicionales
@@ -17,13 +15,9 @@ es:
         first_paragraph: Este cálculo ahora solo se usa para personas de Antigua y Barbuda, Bahamas, Barbados, Brasil, San Cristóbal y Nieves, Mauricio y Seychelles, donde continúa aplicándose la antigua definición del cálculo de Schengen.
         second_paragraph: La antigua definición es diferente a un período de 6 meses “continuo”, ya que comienza en la fecha de la primera entrada y luego se reiniciará 6 meses después de esa fecha. Usar este cálculo puede permitir estadías más largas que la nueva definición. Por ejemplo, si entraste por un día a principios de enero, y luego volviste a entrar 3 meses después durante 3 meses hasta finales de junio, después de eso, los 6 meses (desde enero), se reiniciarían permitiéndote quedarte otros 3 meses, efectivamente permitiendo casi 6 meses. Sin embargo, no puedes quedarte más de 3 meses seguidos, así que tendrías que salir y volver a entrar en el Área de Schengen.
         third_paragraph: La calculadora de Schengen tiene esto en cuenta, por lo que puedes usarla para experimentar con las fechas de entrada y salida y maximizar tu estadía.
-      calculator_description: 'La Calculadora de Schengen calcula la duración de la estadía permitida para viajar en el Área de Schengen con una visa de corta duración. Puedes usarla para llevar un registro o prever todas tus visitas dentro del Área de Schengen, así sabrás cuántos días te quedan antes de tener que salir.
-
-        '
+      calculator_description: La Calculadora de Schengen calcula la duración de la estadía permitida para viajar en el Área de Schengen con una visa de corta duración. Puedes usarla para llevar un registro o prever todas tus visitas dentro del Área de Schengen, así sabrás cuántos días te quedan antes de tener que salir.
       contents_title: Contenidos
-      countries_in_schengen: 'Los países en el área de Schengen incluyen son: Austria, Bélgica, República Checa, Croacia, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Eslovaquia, Eslovenia, España, Suecia, Suiza.
-
-        '
+      countries_in_schengen: 'Los países en el área de Schengen incluyen son: Austria, Bélgica, República Checa, Croacia, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Eslovaquia, Eslovenia, España, Suecia, Suiza.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Fecha de Finalización:'
@@ -61,12 +55,8 @@ es:
       disclaimer_link: Descargo de Responsabilidad
       european_commission_link: Comisión Europea
       european_commission_website_link: Sitio Web de la Comisión Europea
-      exempt_countries_conditions: 'Ten en cuenta que hay condiciones para algunos de estos países. Por ejemplo, los ciudadanos de Albania, Bosnia-Herzegovina, Antigua República Yugoslava de Macedonia, Moldavia, Montenegro, Serbia están exentos de la obligación de visa solo si el pasaporte contiene datos biométricos.
-
-        '
-      exempt_countries_list: 'Albania, Andorra, Antigua y Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia-Herzegovina, Brasil, Brunéi, Canadá, Chile, Costa Rica, Croacia, El Salvador, Antigua República Yugoslava de Macedonia (FYROM), Guatemala, Honduras, Hong Kong, Israel, Japón, Malasia, Macao, Mauricio, México, Mónaco, Montenegro, Nueva Zelanda, Nicaragua, Marianas del Norte, Panamá, Paraguay, San Cristóbal y Nieves, Serbia, Seychelles, Singapur, Corea del Sur, Taiwán, Estados Unidos, Uruguay y Venezuela.
-
-        '
+      exempt_countries_conditions: Ten en cuenta que hay condiciones para algunos de estos países. Por ejemplo, los ciudadanos de Albania, Bosnia-Herzegovina, Antigua República Yugoslava de Macedonia, Moldavia, Montenegro, Serbia están exentos de la obligación de visa solo si el pasaporte contiene datos biométricos.
+      exempt_countries_list: Albania, Andorra, Antigua y Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia-Herzegovina, Brasil, Brunéi, Canadá, Chile, Costa Rica, Croacia, El Salvador, Antigua República Yugoslava de Macedonia (FYROM), Guatemala, Honduras, Hong Kong, Israel, Japón, Malasia, Macao, Mauricio, México, Mónaco, Montenegro, Nueva Zelanda, Nicaragua, Marianas del Norte, Panamá, Paraguay, San Cristóbal y Nieves, Serbia, Seychelles, Singapur, Corea del Sur, Taiwán, Estados Unidos, Uruguay y Venezuela.
       field_definitions_link: Definiciones de Nombres de Campos
       get_started: Comienza Ahora
       how_to_use:
@@ -106,9 +96,7 @@ es:
         title: Limitaciones
       limitations_link: Limitaciones
       more_information_link: 'Más información: gov.uk - Visitar Europa a partir del 1 de enero de 2021'
-      nationality_dependent_visa_requirement: 'Dependiendo de tu nacionalidad, es posible que necesites solicitar una Visa de Corta Estadía Schengen antes de ingresar al área de Schengen. La UE tiene una lista de países cuyos ciudadanos deben solicitar una visa y una lista de países que están exentos de este requisito. A partir del 1 de marzo de 2015, los siguientes países están exentos de tener que obtener una Visa Schengen antes de ingresar:
-
-        '
+      nationality_dependent_visa_requirement: 'Dependiendo de tu nacionalidad, es posible que necesites solicitar una Visa de Corta Estadía Schengen antes de ingresar al área de Schengen. La UE tiene una lista de países cuyos ciudadanos deben solicitar una visa y una lista de países que están exentos de este requisito. A partir del 1 de marzo de 2015, los siguientes países están exentos de tener que obtener una Visa Schengen antes de ingresar:'
       nationality_requirements_link: Requisitos de Nacionalidad Schengen
       nationality_section:
         heading: Requisitos de entrada y duración de la estadía turística en Schengen / Europa para mi nacionalidad
@@ -118,13 +106,9 @@ es:
       new_definition_as_of_2013: Nueva definición a partir de 2013
       new_definition_link: Nueva definición a partir de 2013
       new_rules_from: Nuevas reglas a partir del %{date}
-      non_eu_visa_requirement: 'Si eres de cualquier otro país (fuera de la UE), deberás solicitar una Visa antes de viajar. La visa especificará la duración de su validez y el número de entradas (de múltiples entradas - ilimitadas) que se permiten. Ten en cuenta que los "90 días en cualquier período de 180 días" aún se aplican independientemente de las fechas de inicio y finalización de la visa. Utiliza la calculadora de Schengen para ingresar los detalles de tu visa y para ayudarte a calcular la duración permitida de tu estadía.
-
-        '
+      non_eu_visa_requirement: Si eres de cualquier otro país (fuera de la UE), deberás solicitar una Visa antes de viajar. La visa especificará la duración de su validez y el número de entradas (de múltiples entradas - ilimitadas) que se permiten. Ten en cuenta que los "90 días en cualquier período de 180 días" aún se aplican independientemente de las fechas de inicio y finalización de la visa. Utiliza la calculadora de Schengen para ingresar los detalles de tu visa y para ayudarte a calcular la duración permitida de tu estadía.
       previous_definition_link: Definición anterior
-      schengen_area_description: 'El Área de Schengen comprende 27 países europeos sin fronteras internas. Los ciudadanos, así como muchos no ciudadanos de la UE, empresarios y turistas, pueden circular libremente sin enfrentar controles fronterizos. Desde 1985, ha crecido para incluir casi todos los estados de la UE y algunos países no pertenecientes a la UE asociados.
-
-        '
+      schengen_area_description: El Área de Schengen comprende 27 países europeos sin fronteras internas. Los ciudadanos, así como muchos no ciudadanos de la UE, empresarios y turistas, pueden circular libremente sin enfrentar controles fronterizos. Desde 1985, ha crecido para incluir casi todos los estados de la UE y algunos países no pertenecientes a la UE asociados.
       schengen_area_link: "¿Qué es el Área de Schengen?"
       step_by_step_link: Paso a Paso
       title: Acerca de Schengen Calculator
@@ -133,9 +117,7 @@ es:
       uk_citizens: Ciudadanos del Reino Unido / BREXIT
       uk_citizens_can_use: A partir del %{date}, los ciudadanos del Reino Unido pueden utilizar la calculadora de Schengen para determinar los 90 días permitidos en cualquier período de 180 días para visitas turísticas a la UE.
       uk_citizens_link: Ciudadanos del Reino Unido
-      useful_for_planning: 'Es especialmente útil para planificar viajes en Europa que probablemente excederán los 90 días. Al viajar y pasar tiempo dentro y fuera del Área de Schengen estratégicamente, puedes prolongar tus viajes. Si viajas entre países con frecuencia, puede ser difícil llevar un seguimiento de cuánto tiempo has pasado en el Área de Schengen, recordar qué países están en el Área de Schengen y calcular cuándo puedes regresar después de pasar tiempo fuera. Solo ingresa tu nacionalidad, tus viajes anteriores y los planificados en la calculadora, y ella se encargará del resto.
-
-        '
+      useful_for_planning: Es especialmente útil para planificar viajes en Europa que probablemente excederán los 90 días. Al viajar y pasar tiempo dentro y fuera del Área de Schengen estratégicamente, puedes prolongar tus viajes. Si viajas entre países con frecuencia, puede ser difícil llevar un seguimiento de cuánto tiempo has pasado en el Área de Schengen, recordar qué países están en el Área de Schengen y calcular cuándo puedes regresar después de pasar tiempo fuera. Solo ingresa tu nacionalidad, tus viajes anteriores y los planificados en la calculadora, y ella se encargará del resto.
       visa_requirements: Requisitos de Visa
       visa_requirements_link: Requisitos de Visa
       what_is_schengen: "¿Qué es el Área de Schengen?"
@@ -148,15 +130,9 @@ es:
       subtitle: Cómo eliminar tus datos
       title: Política de Eliminación de Datos
     disclaimer:
-      disclaimer_content_1: 'La información contenida en este sitio web y proporcionada por la Calculadora Schengen es solo para fines de información general. Si bien nos esforzamos por mantener la información actualizada y correcta, así como los cálculos de visa correctos, no hacemos representaciones ni garantías de ningún tipo, expresas o implícitas, sobre la integridad, exactitud, confiabilidad, idoneidad o disponibilidad con respecto al sitio web o la información, productos, servicios o gráficos relacionados contenidos en el sitio web para cualquier propósito. Cualquier confianza que usted deposite en dicha información es, por lo tanto, estrictamente bajo su propio riesgo.
-
-        '
-      disclaimer_content_2: 'En ningún caso seremos responsables de ninguna pérdida o daño, incluidos, entre otros, pérdida o daño indirecto o consecuente, o cualquier pérdida o daño que surja de la pérdida de datos o beneficios, que surja de o en conexión con el uso de este sitio web.
-
-        '
-      disclaimer_content_3: 'A través de este sitio web, puede vincularse a otros sitios web que no están bajo el control de la Calculadora Schengen. No tenemos control sobre la naturaleza, el contenido y la disponibilidad de esos sitios. La inclusión de cualquier enlace no implica necesariamente una recomendación o respaldo de las opiniones expresadas en ellos.
-
-        '
+      disclaimer_content_1: La información contenida en este sitio web y proporcionada por la Calculadora Schengen es solo para fines de información general. Si bien nos esforzamos por mantener la información actualizada y correcta, así como los cálculos de visa correctos, no hacemos representaciones ni garantías de ningún tipo, expresas o implícitas, sobre la integridad, exactitud, confiabilidad, idoneidad o disponibilidad con respecto al sitio web o la información, productos, servicios o gráficos relacionados contenidos en el sitio web para cualquier propósito. Cualquier confianza que usted deposite en dicha información es, por lo tanto, estrictamente bajo su propio riesgo.
+      disclaimer_content_2: En ningún caso seremos responsables de ninguna pérdida o daño, incluidos, entre otros, pérdida o daño indirecto o consecuente, o cualquier pérdida o daño que surja de la pérdida de datos o beneficios, que surja de o en conexión con el uso de este sitio web.
+      disclaimer_content_3: A través de este sitio web, puede vincularse a otros sitios web que no están bajo el control de la Calculadora Schengen. No tenemos control sobre la naturaleza, el contenido y la disponibilidad de esos sitios. La inclusión de cualquier enlace no implica necesariamente una recomendación o respaldo de las opiniones expresadas en ellos.
       disclaimer_title: Descargo de responsabilidad del sitio web / Calculadora Schengen
     nationality:
       additional_visa_waiver_description: "%{country} tiene acuerdos adicionales de exención de visa con algunos países Schengen. Estos acuerdos pueden permitirle quedarse en el área Schengen por más de 90 días. Debería tener precaución si planea hacer esto y buscar asesoramiento antes de viajar. Tenga en cuenta que la Calculadora Schengen no tiene en cuenta los acuerdos adicionales de exención de visa en sus cálculos.\n"
@@ -176,47 +152,27 @@ es:
       visa_not_required: No. Las personas de %{country} tienen libertad de movimiento dentro de la UE.
       visa_required: Sí. Las personas de %{country} deben solicitar una visa Schengen de corta estadía antes de ingresar al Área Schengen.
     privacy:
-      changes_policy_content: 'Nos reservamos el derecho de cambiar esta política de privacidad según lo consideremos necesario o apropiado debido a requisitos de cumplimiento legal o cambios en nuestras prácticas comerciales. Si nos ha proporcionado una dirección de correo electrónico, intentaremos notificarle, por correo electrónico a esa dirección, cualquier cambio material en cómo utilizaremos la información personalmente identificable.
-
-        '
+      changes_policy_content: Nos reservamos el derecho de cambiar esta política de privacidad según lo consideremos necesario o apropiado debido a requisitos de cumplimiento legal o cambios en nuestras prácticas comerciales. Si nos ha proporcionado una dirección de correo electrónico, intentaremos notificarle, por correo electrónico a esa dirección, cualquier cambio material en cómo utilizaremos la información personalmente identificable.
       changes_policy_title: Cambios en esta política de privacidad
-      children_info_content: 'Debe tener al menos 13 años para usar el(los) sitio(s) web y servicio(s) de la Calculadora Schengen. La Calculadora Schengen no recopila intencionalmente información de niños menores de 13 años. (Consulte la Ley de Protección de la Privacidad en Línea de los Niños de los Estados Unidos.)
-
-        '
+      children_info_content: Debe tener al menos 13 años para usar el(los) sitio(s) web y servicio(s) de la Calculadora Schengen. La Calculadora Schengen no recopila intencionalmente información de niños menores de 13 años. (Consulte la Ley de Protección de la Privacidad en Línea de los Niños de los Estados Unidos.)
       children_info_title: Información recopilada de niños
-      cookies_content: 'La Calculadora Schengen utiliza "cookies" para almacenar datos personales en su computadora. También podemos vincular la información almacenada en su computadora en cookies con datos personales sobre individuos específicos almacenados en nuestros servidores. Si configura su navegador web (por ejemplo, Internet Explorer o Firefox) para que no se permitan cookies, es posible que no pueda usar algunas o todas las funciones de nuestro(s) sitio(s) web.
-
-        '
+      cookies_content: La Calculadora Schengen utiliza "cookies" para almacenar datos personales en su computadora. También podemos vincular la información almacenada en su computadora en cookies con datos personales sobre individuos específicos almacenados en nuestros servidores. Si configura su navegador web (por ejemplo, Internet Explorer o Firefox) para que no se permitan cookies, es posible que no pueda usar algunas o todas las funciones de nuestro(s) sitio(s) web.
       cookies_title: Cookies
-      eu_notice_content: 'Las operaciones de la Calculadora Schengen se encuentran principalmente en los Estados Unidos. Si nos proporciona información, la información se transferirá fuera de la Unión Europea (UE) a los Estados Unidos. Al proporcionar información personal a nosotros, está dando su consentimiento para su almacenamiento y uso según se describe en este documento.
-
-        '
+      eu_notice_content: Las operaciones de la Calculadora Schengen se encuentran principalmente en los Estados Unidos. Si nos proporciona información, la información se transferirá fuera de la Unión Europea (UE) a los Estados Unidos. Al proporcionar información personal a nosotros, está dando su consentimiento para su almacenamiento y uso según se describe en este documento.
       eu_notice_title: Aviso a los usuarios de la Unión Europea
-      external_storage_content: 'Podemos almacenar sus datos en servidores proporcionados por proveedores de alojamiento de terceros con los que hemos contratado.
-
-        '
+      external_storage_content: Podemos almacenar sus datos en servidores proporcionados por proveedores de alojamiento de terceros con los que hemos contratado.
       external_storage_title: Sitios de almacenamiento de datos externos
-      introduction_content: 'La Calculadora Schengen (nosotros" o "nos") valora la privacidad de sus visitantes. Esta política de privacidad es efectiva Fecha; resume qué información podríamos recopilar de un usuario registrado u otro visitante ("usted"), y qué haremos y no haremos con ella. Tenga en cuenta que esta política de privacidad no rige la recopilación y el uso de información por parte de empresas que la Calculadora Schengen no controla, ni por individuos que no están empleados o son administrados por la Calculadora Schengen. Si visita un sitio web que mencionamos o al que enlazamos, asegúrese de revisar su política de privacidad antes de proporcionar información al sitio.
-
-        '
+      introduction_content: La Calculadora Schengen (nosotros" o "nos") valora la privacidad de sus visitantes. Esta política de privacidad es efectiva Fecha; resume qué información podríamos recopilar de un usuario registrado u otro visitante ("usted"), y qué haremos y no haremos con ella. Tenga en cuenta que esta política de privacidad no rige la recopilación y el uso de información por parte de empresas que la Calculadora Schengen no controla, ni por individuos que no están empleados o son administrados por la Calculadora Schengen. Si visita un sitio web que mencionamos o al que enlazamos, asegúrese de revisar su política de privacidad antes de proporcionar información al sitio.
       introduction_title: Introducción
       list_items:
       - su nombre, dirección de correo electrónico, número de teléfono
       - su ID de usuario y contraseña de la Calculadora Schengen
-      other_info_content: 'Podemos recopilar otra información que no se pueda utilizar fácilmente para identificarlo, como (por ejemplo) el nombre de dominio y la dirección IP de su computadora. Podemos usar esta información, individualmente o en conjunto, para la administración técnica de nuestro sitio(s) web; investigación y desarrollo; administración de clientes y cuentas; y para ayudarnos a enfocar nuestros esfuerzos de marketing de manera más precisa.
-
-        '
-      personally_identifiable_info_content: 'Siempre depende de usted si divulga información personalmente identificable para nosotros, aunque si elige no hacerlo, nos reservamos el derecho de no registrarlo como usuario o proporcionarle productos o servicios. "Información personalmente identificable" significa información que se puede utilizar para identificarlo como individuo, como, por ejemplo:
-
-        '
+      other_info_content: Podemos recopilar otra información que no se pueda utilizar fácilmente para identificarlo, como (por ejemplo) el nombre de dominio y la dirección IP de su computadora. Podemos usar esta información, individualmente o en conjunto, para la administración técnica de nuestro sitio(s) web; investigación y desarrollo; administración de clientes y cuentas; y para ayudarnos a enfocar nuestros esfuerzos de marketing de manera más precisa.
+      personally_identifiable_info_content: 'Siempre depende de usted si divulga información personalmente identificable para nosotros, aunque si elige no hacerlo, nos reservamos el derecho de no registrarlo como usuario o proporcionarle productos o servicios. "Información personalmente identificable" significa información que se puede utilizar para identificarlo como individuo, como, por ejemplo:'
       privacy_policy_title: Política de privacidad
-      privacy_responsibilities_content: 'Para ayudar a proteger su privacidad, asegúrese de:
-
-        '
+      privacy_responsibilities_content: 'Para ayudar a proteger su privacidad, asegúrese de:'
       privacy_responsibilities_title: Sus responsabilidades de privacidad
-      questions_comments_content: 'Si tiene preguntas o comentarios sobre la política de privacidad de la Calculadora Schengen, envíe un correo electrónico a support@company''sname.com o contáctenos a través de cualquiera de las formas descritas en la página Acerca de nosotros en la URL del sitio web de la empresa. ¡Gracias por elegir la Calculadora Schengen!
-
-        '
+      questions_comments_content: Si tiene preguntas o comentarios sobre la política de privacidad de la Calculadora Schengen, envíe un correo electrónico a support@company'sname.com o contáctenos a través de cualquiera de las formas descritas en la página Acerca de nosotros en la URL del sitio web de la empresa. ¡Gracias por elegir la Calculadora Schengen!
       questions_comments_title: "¿Preguntas o comentarios?"
       responsibilities_list:
       - no compartir su ID de usuario o contraseña con nadie más

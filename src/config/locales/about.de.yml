@@ -3,9 +3,7 @@ de:
   about:
     about:
       90_days_definition_blockquote: "„90 Tage in einem Zeitraum von 180 Tagen [...]“. „Der Einreisetag gilt als erster Tag des Aufenthalts auf dem Gebiet der Mitgliedstaaten und der Ausreisetag gilt als letzter Tag des Aufenthalts auf dem Gebiet der Mitgliedstaaten. Aufenthaltszeiten, die durch eine Aufenthaltserlaubnis oder ein Visum für langfristige Aufenthalte autorisiert sind, werden bei der Berechnung der Aufenthaltsdauer auf dem Gebiet der Mitgliedstaaten nicht berücksichtigt.“\n"
-      abolished_internal_borders: 'Obwohl sie ihre inneren Grenzen abgeschafft haben, haben die Schengen-Staaten ein gemeinsames externes Grenzabkommen auf der Grundlage von Schengen-Regeln. Dies macht es für Touristen sehr bequem, zwischen den Ländern des Schengen-Raums zu reisen. Es ist jedoch wichtig zu verstehen, welche Visa vor dem Eintritt in das Gebiet (falls vorhanden) erforderlich sind und wie lange Sie bleiben können.
-
-        '
+      abolished_internal_borders: Obwohl sie ihre inneren Grenzen abgeschafft haben, haben die Schengen-Staaten ein gemeinsames externes Grenzabkommen auf der Grundlage von Schengen-Regeln. Dies macht es für Touristen sehr bequem, zwischen den Ländern des Schengen-Raums zu reisen. Es ist jedoch wichtig zu verstehen, welche Visa vor dem Eintritt in das Gebiet (falls vorhanden) erforderlich sind und wie lange Sie bleiben können.
       additional_requirements:
         first_paragraph: Einige Länder haben zusätzliche Visabefreiungsabkommen mit Ländern im Schengen-Raum, die einen zusätzlichen Aufenthalt von 90 Tagen in einem Zeitraum von 180 Tagen ermöglichen. Dies wird jedoch in den 90 Tagen für andere Schengen-Länder berücksichtigt. Diese zusätzlichen Abkommen sind den Reisenden oft wenig bekannt!
         heading: Zusätzliche Visabefreiungsabkommen
@@ -17,13 +15,9 @@ de:
         first_paragraph: Diese Berechnung wird jetzt nur noch für Personen aus Antigua und Barbuda, den Bahamas, Barbados, Brasilien, Saint Kitts und Nevis, Mauritius und den Seychellen angewendet, bei denen weiterhin die alte Definition der Schengen-Berechnung gilt.
         second_paragraph: Die alte Definition unterscheidet sich von einem „rollenden“ 6-Monats-Zeitraum, da sie mit dem Datum der ersten Einreise beginnt und dann 6 Monate nach diesem Datum zurückgesetzt wird. Diese Berechnung ermöglicht längere Aufenthalte als die neue Definition. Wenn Sie beispielsweise Anfang Januar einen Tag lang eingereist sind und dann 3 Monate später für 3 Monate bis Ende Juni erneut einreisen, wird danach die 6-monatige Frist (ab Januar) zurückgesetzt und Sie können effektiv fast 6 Monate bleiben. Sie können jedoch nicht länger als 3 Monate am Stück bleiben, sodass Sie den Schengen-Raum verlassen und erneut einreisen müssten.
         third_paragraph: Der Schengen-Rechner berücksichtigt dies, sodass Sie den Schengen-Rechner verwenden können, um mit Ein- und Ausreisedaten zu experimentieren und Ihren Aufenthalt zu maximieren.
-      calculator_description: 'Der Schengen-Rechner berechnet die Aufenthaltsdauer, die Sie mit einem kurzfristigen Schengen-Visum im Schengen-Raum reisen dürfen. Sie können ihn nutzen, um alle Ihre Besuche im Schengen-Raum zu verfolgen oder vorherzusagen, damit Sie wissen, wie viele Tage Ihnen bleiben, bevor Sie abreisen müssen.
-
-        '
+      calculator_description: Der Schengen-Rechner berechnet die Aufenthaltsdauer, die Sie mit einem kurzfristigen Schengen-Visum im Schengen-Raum reisen dürfen. Sie können ihn nutzen, um alle Ihre Besuche im Schengen-Raum zu verfolgen oder vorherzusagen, damit Sie wissen, wie viele Tage Ihnen bleiben, bevor Sie abreisen müssen.
       contents_title: Inhalt
-      countries_in_schengen: 'Die Länder im Schengen-Raum sind: Österreich, Belgien, Tschechische Republik, Kroatien, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Slowakei, Slowenien, Spanien, Schweden, Schweiz.
-
-        '
+      countries_in_schengen: 'Die Länder im Schengen-Raum sind: Österreich, Belgien, Tschechische Republik, Kroatien, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Slowakei, Slowenien, Spanien, Schweden, Schweiz.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Enddatum:'
@@ -61,12 +55,8 @@ de:
       disclaimer_link: Haftungsausschluss
       european_commission_link: Europäische Kommission
       european_commission_website_link: Website der Europäischen Kommission
-      exempt_countries_conditions: 'Bitte beachten Sie, dass für einige dieser Länder Bedingungen gelten. Zum Beispiel sind Bürger von Albanien, Bosnien und Herzegowina, Ehemalige jugoslawische Republik Mazedonien, Moldau, Montenegro, Serbien von der Visumpflicht befreit, wenn der Reisepass biometrische Daten enthält.
-
-        '
-      exempt_countries_list: 'Albanien, Andorra, Antigua und Barbuda, Argentinien, Australien, Bahamas, Barbados, Bosnien und Herzegowina, Brasilien, Brunei, Kanada, Chile, Costa Rica, Kroatien, El Salvador, Ehemalige jugoslawische Republik Mazedonien (EJR Mazedonien), Guatemala, Honduras, Hongkong, Israel, Japan, Malaysia, Macao, Mauritius, Mexiko, Monaco, Montenegro, Neuseeland, Nicaragua, Nördliche Marianen, Panama, Paraguay, Saint Kitts und Nevis, Serbien, Seychellen, Singapur, Südkorea, Taiwan, Vereinigte Staaten, Uruguay und Venezuela.
-
-        '
+      exempt_countries_conditions: Bitte beachten Sie, dass für einige dieser Länder Bedingungen gelten. Zum Beispiel sind Bürger von Albanien, Bosnien und Herzegowina, Ehemalige jugoslawische Republik Mazedonien, Moldau, Montenegro, Serbien von der Visumpflicht befreit, wenn der Reisepass biometrische Daten enthält.
+      exempt_countries_list: Albanien, Andorra, Antigua und Barbuda, Argentinien, Australien, Bahamas, Barbados, Bosnien und Herzegowina, Brasilien, Brunei, Kanada, Chile, Costa Rica, Kroatien, El Salvador, Ehemalige jugoslawische Republik Mazedonien (EJR Mazedonien), Guatemala, Honduras, Hongkong, Israel, Japan, Malaysia, Macao, Mauritius, Mexiko, Monaco, Montenegro, Neuseeland, Nicaragua, Nördliche Marianen, Panama, Paraguay, Saint Kitts und Nevis, Serbien, Seychellen, Singapur, Südkorea, Taiwan, Vereinigte Staaten, Uruguay und Venezuela.
       field_definitions_link: Feldnamendefinitionen
       get_started: Jetzt loslegen
       how_to_use:
@@ -106,9 +96,7 @@ de:
         title: Einschränkungen
       limitations_link: Einschränkungen
       more_information_link: 'Weitere Informationen: gov.uk - Besuch in Europa ab 1. Januar 2021'
-      nationality_dependent_visa_requirement: 'Je nach Ihrer Nationalität müssen Sie möglicherweise ein Kurzzeit-Schengen-Visum beantragen, bevor Sie in den Schengen-Raum einreisen können. Die EU hat eine Liste von Ländern, deren Bürger ein Visum beantragen müssen, und eine Liste von Ländern, die von dieser Anforderung befreit sind. Ab dem 1. März 2015 sind die folgenden Länder von der Visumpflicht befreit:
-
-        '
+      nationality_dependent_visa_requirement: 'Je nach Ihrer Nationalität müssen Sie möglicherweise ein Kurzzeit-Schengen-Visum beantragen, bevor Sie in den Schengen-Raum einreisen können. Die EU hat eine Liste von Ländern, deren Bürger ein Visum beantragen müssen, und eine Liste von Ländern, die von dieser Anforderung befreit sind. Ab dem 1. März 2015 sind die folgenden Länder von der Visumpflicht befreit:'
       nationality_requirements_link: Schengen-Anforderungen für meine Nationalität
       nationality_section:
         heading: Schengen- / Europäische touristische Reiseeinreise- und Aufenthaltsanforderungen für meine Nationalität
@@ -118,13 +106,9 @@ de:
       new_definition_as_of_2013: Neue Definition seit 2013
       new_definition_link: Neue Definition seit 2013
       new_rules_from: Neue Regeln ab %{date}
-      non_eu_visa_requirement: 'Wenn Sie aus einem anderen Land (außerhalb der EU) stammen, müssen Sie vor Ihrer Reise ein Visum beantragen. Im Visum wird angegeben, wie lange es gültig ist, und wie viele Einträge (mehrere Einträge - unbegrenzt) erlaubt sind. Bitte beachten Sie, dass die Regel „90 Tage in einem Zeitraum von 180 Tagen“ unabhängig von den Beginn- und Enddaten des Visums gilt. Verwenden Sie den Schengen-Rechner, um Ihre Visadetails einzugeben und Ihre erlaubte Aufenthaltsdauer zu berechnen.
-
-        '
+      non_eu_visa_requirement: Wenn Sie aus einem anderen Land (außerhalb der EU) stammen, müssen Sie vor Ihrer Reise ein Visum beantragen. Im Visum wird angegeben, wie lange es gültig ist, und wie viele Einträge (mehrere Einträge - unbegrenzt) erlaubt sind. Bitte beachten Sie, dass die Regel „90 Tage in einem Zeitraum von 180 Tagen“ unabhängig von den Beginn- und Enddaten des Visums gilt. Verwenden Sie den Schengen-Rechner, um Ihre Visadetails einzugeben und Ihre erlaubte Aufenthaltsdauer zu berechnen.
       previous_definition_link: Vorherige Definition
-      schengen_area_description: 'Der Schengen-Raum umfasst 27 europäische Länder ohne innere Grenzen. Bürger sowie viele Nicht-EU-Bürger, Geschäftsleute und Touristen können sich frei bewegen, ohne Grenzkontrollen zu unterliegen. Seit 1985 hat er sich auf fast alle EU-Staaten und einige verbundene Nicht-EU-Länder ausgeweitet.
-
-        '
+      schengen_area_description: Der Schengen-Raum umfasst 27 europäische Länder ohne innere Grenzen. Bürger sowie viele Nicht-EU-Bürger, Geschäftsleute und Touristen können sich frei bewegen, ohne Grenzkontrollen zu unterliegen. Seit 1985 hat er sich auf fast alle EU-Staaten und einige verbundene Nicht-EU-Länder ausgeweitet.
       schengen_area_link: Was ist der Schengen-Raum
       step_by_step_link: Schritt für Schritt
       title: Über den Schengen-Rechner
@@ -133,9 +117,7 @@ de:
       uk_citizens: UK-Bürger / BREXIT
       uk_citizens_can_use: Ab %{date} können britische Staatsbürger den Schengen-Rechner nutzen, um die 90 Tage zu bestimmen, die ihnen in einem Zeitraum von 180 Tagen für Touristenbesuche in der EU erlaubt sind.
       uk_citizens_link: UK-Bürger
-      useful_for_planning: 'Es ist besonders nützlich für die Reiseplanung in Europa, die wahrscheinlich mehr als 90 Tage dauern wird. Indem Sie strategisch innerhalb und außerhalb des Schengen-Raums reisen und Zeit verbringen, können Sie Ihre Reisen verlängern. Wenn Sie häufig zwischen Ländern reisen, kann es schwierig sein, zu verfolgen, wie lange Sie sich im Schengen-Raum aufgehalten haben, sich daran zu erinnern, welche Länder sich im Schengen-Raum befinden, und zu berechnen, wann Sie nach einem Aufenthalt außerhalb zurückkehren können. Geben Sie einfach Ihre Nationalität, Ihre früheren Reisen und geplanten Reisen in den Rechner ein, und er erledigt den Rest.
-
-        '
+      useful_for_planning: Es ist besonders nützlich für die Reiseplanung in Europa, die wahrscheinlich mehr als 90 Tage dauern wird. Indem Sie strategisch innerhalb und außerhalb des Schengen-Raums reisen und Zeit verbringen, können Sie Ihre Reisen verlängern. Wenn Sie häufig zwischen Ländern reisen, kann es schwierig sein, zu verfolgen, wie lange Sie sich im Schengen-Raum aufgehalten haben, sich daran zu erinnern, welche Länder sich im Schengen-Raum befinden, und zu berechnen, wann Sie nach einem Aufenthalt außerhalb zurückkehren können. Geben Sie einfach Ihre Nationalität, Ihre früheren Reisen und geplanten Reisen in den Rechner ein, und er erledigt den Rest.
       visa_requirements: Visabestimmungen
       visa_requirements_link: Visabestimmungen
       what_is_schengen: Was ist der Schengen-Raum
@@ -148,15 +130,9 @@ de:
       subtitle: Wie Sie Ihre Daten löschen können
       title: Datenschutzrichtlinie
     disclaimer:
-      disclaimer_content_1: 'Die auf dieser Website enthaltenen Informationen und die vom Schengen-Rechner bereitgestellten Informationen dienen nur zu allgemeinen Informationszwecken. Obwohl wir uns bemühen, die Informationen aktuell und korrekt zu halten und die Visa-Berechnungen korrekt durchzuführen, übernehmen wir keine Garantie für die Vollständigkeit, Richtigkeit, Zuverlässigkeit, Eignung oder Verfügbarkeit in Bezug auf die Website oder die Informationen, Produkte, Dienstleistungen oder Grafiken, die auf der Website für einen bestimmten Zweck enthalten sind. Jegliches Vertrauen, das Sie in solche Informationen setzen, geschieht daher ausschließlich auf eigenes Risiko.
-
-        '
-      disclaimer_content_2: 'In keinem Fall haften wir für Verluste oder Schäden, einschließlich, aber nicht beschränkt auf, indirekte oder Folgeschäden oder Schäden oder Verluste, die sich aus dem Verlust von Daten oder Gewinnen ergeben, die sich aus oder in Zusammenhang mit der Nutzung dieser Website ergeben.
-
-        '
-      disclaimer_content_3: 'Durch diese Website haben Sie die Möglichkeit, zu anderen Websites zu gelangen, die nicht unter der Kontrolle des Schengen-Rechners stehen. Wir haben keine Kontrolle über die Art, den Inhalt und die Verfügbarkeit dieser Websites. Die Aufnahme von Links bedeutet nicht, dass wir die damit verbundenen Websites befürworten.
-
-        '
+      disclaimer_content_1: Die auf dieser Website enthaltenen Informationen und die vom Schengen-Rechner bereitgestellten Informationen dienen nur zu allgemeinen Informationszwecken. Obwohl wir uns bemühen, die Informationen aktuell und korrekt zu halten und die Visa-Berechnungen korrekt durchzuführen, übernehmen wir keine Garantie für die Vollständigkeit, Richtigkeit, Zuverlässigkeit, Eignung oder Verfügbarkeit in Bezug auf die Website oder die Informationen, Produkte, Dienstleistungen oder Grafiken, die auf der Website für einen bestimmten Zweck enthalten sind. Jegliches Vertrauen, das Sie in solche Informationen setzen, geschieht daher ausschließlich auf eigenes Risiko.
+      disclaimer_content_2: In keinem Fall haften wir für Verluste oder Schäden, einschließlich, aber nicht beschränkt auf, indirekte oder Folgeschäden oder Schäden oder Verluste, die sich aus dem Verlust von Daten oder Gewinnen ergeben, die sich aus oder in Zusammenhang mit der Nutzung dieser Website ergeben.
+      disclaimer_content_3: Durch diese Website haben Sie die Möglichkeit, zu anderen Websites zu gelangen, die nicht unter der Kontrolle des Schengen-Rechners stehen. Wir haben keine Kontrolle über die Art, den Inhalt und die Verfügbarkeit dieser Websites. Die Aufnahme von Links bedeutet nicht, dass wir die damit verbundenen Websites befürworten.
       disclaimer_title: Haftungsausschluss für Website / Schengen-Rechner
     nationality:
       additional_visa_waiver_description: "%{country} hat zusätzliche Visa-Waiver-Vereinbarungen mit einigen Schengen-Ländern. Diese Vereinbarungen können es Ihnen ermöglichen, länger als 90 Tage im Schengen-Raum zu bleiben. Wenn Sie dies planen, sollten Sie Vorsicht walten lassen und vor Reiseantritt Rat einholen. Beachten Sie, dass der Schengen-Rechner zusätzliche Visa-Waiver-Vereinbarungen nicht in seine Berechnungen einbezieht.\n"
@@ -180,47 +156,27 @@ de:
       visa_not_required: Nein. Personen aus %{country} haben innerhalb der EU Freizügigkeit.
       visa_required: Ja. Personen aus %{country} müssen vor der Einreise in den Schengen-Raum ein Schengen-Visum für Kurzaufenthalte beantragen.
     privacy:
-      changes_policy_content: 'Wir behalten uns das Recht vor, diese Datenschutzrichtlinie zu ändern, wenn dies aufgrund rechtlicher Anforderungen oder Änderungen unserer Geschäftspraktiken erforderlich oder angemessen ist. Wenn Sie uns Ihre E-Mail-Adresse zur Verfügung gestellt haben, werden wir versuchen, Sie per E-Mail an diese Adresse über jede wesentliche Änderung in Bezug darauf zu informieren, wie wir personenbezogene Daten verwenden werden.
-
-        '
+      changes_policy_content: Wir behalten uns das Recht vor, diese Datenschutzrichtlinie zu ändern, wenn dies aufgrund rechtlicher Anforderungen oder Änderungen unserer Geschäftspraktiken erforderlich oder angemessen ist. Wenn Sie uns Ihre E-Mail-Adresse zur Verfügung gestellt haben, werden wir versuchen, Sie per E-Mail an diese Adresse über jede wesentliche Änderung in Bezug darauf zu informieren, wie wir personenbezogene Daten verwenden werden.
       changes_policy_title: Änderungen dieser Datenschutzrichtlinie
-      children_info_content: 'Sie müssen mindestens 13 Jahre alt sein, um die Website(n) und Dienst(e) des Schengen-Rechners zu nutzen. Der Schengen-Rechner sammelt keine Informationen von Kindern unter 13 Jahren. (Siehe das US-amerikanische Children’s Online Privacy Protection Act.)
-
-        '
+      children_info_content: Sie müssen mindestens 13 Jahre alt sein, um die Website(n) und Dienst(e) des Schengen-Rechners zu nutzen. Der Schengen-Rechner sammelt keine Informationen von Kindern unter 13 Jahren. (Siehe das US-amerikanische Children’s Online Privacy Protection Act.)
       children_info_title: Informationen, die von Kindern gesammelt werden
-      cookies_content: 'Der Schengen-Rechner verwendet "Cookies", um personenbezogene Daten auf Ihrem Computer zu speichern. Wir können auch Informationen, die auf Ihrem Computer in Cookies gespeichert sind, mit personenbezogenen Daten über bestimmte Personen verknüpfen, die auf unseren Servern gespeichert sind. Wenn Sie Ihren Webbrowser (zum Beispiel Internet Explorer oder Firefox) so einrichten, dass Cookies nicht zugelassen sind, können Sie möglicherweise einige oder alle Funktionen unserer Website(s) nicht nutzen.
-
-        '
+      cookies_content: Der Schengen-Rechner verwendet "Cookies", um personenbezogene Daten auf Ihrem Computer zu speichern. Wir können auch Informationen, die auf Ihrem Computer in Cookies gespeichert sind, mit personenbezogenen Daten über bestimmte Personen verknüpfen, die auf unseren Servern gespeichert sind. Wenn Sie Ihren Webbrowser (zum Beispiel Internet Explorer oder Firefox) so einrichten, dass Cookies nicht zugelassen sind, können Sie möglicherweise einige oder alle Funktionen unserer Website(s) nicht nutzen.
       cookies_title: Cookies
-      eu_notice_content: 'Die Geschäftsaktivitäten des Schengen-Rechners befinden sich hauptsächlich in den Vereinigten Staaten. Wenn Sie uns Informationen zur Verfügung stellen, werden die Informationen aus der Europäischen Union (EU) in die Vereinigten Staaten übertragen. Indem Sie uns personenbezogene Informationen zur Verfügung stellen, erklären Sie sich mit deren Speicherung und Verwendung gemäß dieser Datenschutzrichtlinie einverstanden.
-
-        '
+      eu_notice_content: Die Geschäftsaktivitäten des Schengen-Rechners befinden sich hauptsächlich in den Vereinigten Staaten. Wenn Sie uns Informationen zur Verfügung stellen, werden die Informationen aus der Europäischen Union (EU) in die Vereinigten Staaten übertragen. Indem Sie uns personenbezogene Informationen zur Verfügung stellen, erklären Sie sich mit deren Speicherung und Verwendung gemäß dieser Datenschutzrichtlinie einverstanden.
       eu_notice_title: Hinweis an Benutzer der Europäischen Union
-      external_storage_content: 'Wir können Ihre Daten auf Servern speichern, die von Drittanbieter-Hosting-Anbietern bereitgestellt werden, mit denen wir Verträge abgeschlossen haben.
-
-        '
+      external_storage_content: Wir können Ihre Daten auf Servern speichern, die von Drittanbieter-Hosting-Anbietern bereitgestellt werden, mit denen wir Verträge abgeschlossen haben.
       external_storage_title: Externe Datenspeicherorte
-      introduction_content: 'Der Schengen-Rechner (wir" oder "uns") legt Wert auf die Privatsphäre seiner Besucher. Diese Datenschutzrichtlinie ist ab dem Datum wirksam; sie fasst zusammen, welche Informationen wir von einem registrierten Benutzer oder einem anderen Besucher ("Sie") sammeln könnten, und was wir damit tun und nicht tun werden. Bitte beachten Sie, dass diese Datenschutzrichtlinie nicht die Erfassung und Verwendung von Informationen durch Unternehmen regelt, die der Schengen-Rechner nicht kontrolliert, noch von Personen, die nicht von Schengen-Rechner beschäftigt oder verwaltet werden. Wenn Sie eine von uns erwähnte oder verlinkte Website besuchen, sollten Sie deren Datenschutzrichtlinie überprüfen, bevor Sie der Website Informationen zur Verfügung stellen.
-
-        '
+      introduction_content: Der Schengen-Rechner (wir" oder "uns") legt Wert auf die Privatsphäre seiner Besucher. Diese Datenschutzrichtlinie ist ab dem Datum wirksam; sie fasst zusammen, welche Informationen wir von einem registrierten Benutzer oder einem anderen Besucher ("Sie") sammeln könnten, und was wir damit tun und nicht tun werden. Bitte beachten Sie, dass diese Datenschutzrichtlinie nicht die Erfassung und Verwendung von Informationen durch Unternehmen regelt, die der Schengen-Rechner nicht kontrolliert, noch von Personen, die nicht von Schengen-Rechner beschäftigt oder verwaltet werden. Wenn Sie eine von uns erwähnte oder verlinkte Website besuchen, sollten Sie deren Datenschutzrichtlinie überprüfen, bevor Sie der Website Informationen zur Verfügung stellen.
       introduction_title: Einleitung
       list_items:
       - Ihr Name, Ihre E-Mail-Adresse, Ihre Telefonnummer
       - Ihre Schengen-Rechner-Benutzerkennung und Ihr Passwort
-      other_info_content: 'Wir können auch andere Informationen sammeln, die nicht leicht verwendet werden können, um Sie zu identifizieren, wie z. B. (zum Beispiel) den Domainnamen und die IP-Adresse Ihres Computers. Wir können diese Informationen, einzeln oder in der Summe, für die technische Verwaltung unserer Website(s); Forschung und Entwicklung; Kunden- und Kontoverwaltung; und um uns bei der genaueren Ausrichtung unserer Marketingbemühungen zu helfen.
-
-        '
-      personally_identifiable_info_content: 'Es liegt immer bei Ihnen, ob Sie uns personenbezogene Daten mitteilen möchten, obwohl wir uns das Recht vorbehalten, Sie nicht als Benutzer zu registrieren oder Ihnen Produkte oder Dienstleistungen anzubieten, wenn Sie dies nicht tun. "Personenbezogene Daten" sind Informationen, mit denen Sie als Einzelperson identifiziert werden können, wie z. B.:
-
-        '
+      other_info_content: Wir können auch andere Informationen sammeln, die nicht leicht verwendet werden können, um Sie zu identifizieren, wie z. B. (zum Beispiel) den Domainnamen und die IP-Adresse Ihres Computers. Wir können diese Informationen, einzeln oder in der Summe, für die technische Verwaltung unserer Website(s); Forschung und Entwicklung; Kunden- und Kontoverwaltung; und um uns bei der genaueren Ausrichtung unserer Marketingbemühungen zu helfen.
+      personally_identifiable_info_content: 'Es liegt immer bei Ihnen, ob Sie uns personenbezogene Daten mitteilen möchten, obwohl wir uns das Recht vorbehalten, Sie nicht als Benutzer zu registrieren oder Ihnen Produkte oder Dienstleistungen anzubieten, wenn Sie dies nicht tun. "Personenbezogene Daten" sind Informationen, mit denen Sie als Einzelperson identifiziert werden können, wie z. B.:'
       privacy_policy_title: Datenschutzrichtlinie
-      privacy_responsibilities_content: 'Um Ihre Privatsphäre zu schützen, sollten Sie:
-
-        '
+      privacy_responsibilities_content: 'Um Ihre Privatsphäre zu schützen, sollten Sie:'
       privacy_responsibilities_title: Ihre Datenschutzverantwortung
-      questions_comments_content: 'Wenn Sie Fragen oder Kommentare zur Datenschutzrichtlinie des Schengen-Rechners haben, senden Sie eine E-Mail an support@companysname.com oder kontaktieren Sie uns über eine der im Impressum auf der Website des Unternehmens beschriebenen Möglichkeiten. Vielen Dank, dass Sie den Schengen-Rechner gewählt haben!
-
-        '
+      questions_comments_content: Wenn Sie Fragen oder Kommentare zur Datenschutzrichtlinie des Schengen-Rechners haben, senden Sie eine E-Mail an support@companysname.com oder kontaktieren Sie uns über eine der im Impressum auf der Website des Unternehmens beschriebenen Möglichkeiten. Vielen Dank, dass Sie den Schengen-Rechner gewählt haben!
       questions_comments_title: Fragen oder Kommentare?
       responsibilities_list:
       - Ihre Benutzerkennung oder Ihr Passwort nicht an andere weitergeben

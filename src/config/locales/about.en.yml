@@ -118,13 +118,9 @@ en:
       new_definition_as_of_2013: New definition as of 2013
       new_definition_link: New definition as of 2013
       new_rules_from: New rules from %{date}
-      non_eu_visa_requirement: 'If you are from any other country (outside of the EU), you will need to apply for a Visa before you travel. The visa will specify the length of time it is valid, and the number of entries (of multi entry – unlimited) that are allowed. Please note that the “90 days in any 180 day period” still applies regardless of the Visa beginning and end dates. Use the Schengen calculator to enter your visa details, and to help calculate your allowed length of stay.
-
-        '
+      non_eu_visa_requirement: If you are from any other country (outside of the EU), you will need to apply for a Visa before you travel. The visa will specify the length of time it is valid, and the number of entries (of multi entry – unlimited) that are allowed. Please note that the “90 days in any 180 day period” still applies regardless of the Visa beginning and end dates. Use the Schengen calculator to enter your visa details, and to help calculate your allowed length of stay.
       previous_definition_link: Previous definition
-      schengen_area_description: 'The Schengen Area comprises 27 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
-
-        '
+      schengen_area_description: The Schengen Area comprises 27 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
       schengen_area_link: What is the Schengen Area
       step_by_step_link: Step by Step
       title: About Schengen Calculator
@@ -133,9 +129,7 @@ en:
       uk_citizens: UK Citizens / BREXIT
       uk_citizens_can_use: As of %{date}, UK citizens can utilize the Schengen calculator to determine the 90 days allowed in any 180-day period for tourist visits to the EU.
       uk_citizens_link: UK Citizens
-      useful_for_planning: 'It is especially useful for planning travel in Europe that will likely exceed 90 days. By traveling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are traveling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countries are in the Schengen Area, and to calculate when you are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
-
-        '
+      useful_for_planning: It is especially useful for planning travel in Europe that will likely exceed 90 days. By traveling and spending time in and out of the Schengen Area strategically to lengthen your travels. If you are traveling between countries often it can be difficult to track how long you have spent in the Schengen Area, remember which countries are in the Schengen Area, and to calculate when you are able to return after spending time outside. Just enter your nationality, your previous travel and planned travel into the calculator, and it will work out the rest.
       visa_requirements: Visa Requirements
       visa_requirements_link: Visa Requirements
       what_is_schengen: What is the Schengen Area
@@ -148,15 +142,9 @@ en:
       subtitle: How to delete your data
       title: Data Deletion Policy
     disclaimer:
-      disclaimer_content_1: 'The information contained in this website and provided by the Schengen Calculator is for general information purposes only. While we endeavour to keep the information up to date and correct, and the visa calculations correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
-
-        '
-      disclaimer_content_2: 'In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arise out of, or in connection with, the use of this website.
-
-        '
-      disclaimer_content_3: 'Through this website you are able to link to other websites which are not under the control of Schengen Calculator. We have no control over the nature, content and availability of those sites. The inclusion of any links does
-
-        '
+      disclaimer_content_1: The information contained in this website and provided by the Schengen Calculator is for general information purposes only. While we endeavour to keep the information up to date and correct, and the visa calculations correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
+      disclaimer_content_2: In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arise out of, or in connection with, the use of this website.
+      disclaimer_content_3: Through this website you are able to link to other websites which are not under the control of Schengen Calculator. We have no control over the nature, content and availability of those sites. The inclusion of any links does
       disclaimer_title: Website / Schengen Calculator Disclaimer
     nationality:
       additional_visa_waiver_description: "%{country} does have additional visa waiver agreements with some Schengen countries. These agreements may allow you to stay in the Schengen area for longer than 90 days. You should exercise caution if you plan to do this, and seek advice before you travel. Note the Schengen Calculator does not take additional visa waiver agreements into account in its calculations.\n"
@@ -176,47 +164,27 @@ en:
       visa_not_required: No. People from %{country} have freedom of movement within the EU.
       visa_required: Yes. People from %{country} must apply for a short-stay Schengen visa before entering the Schengen Area.
     privacy:
-      changes_policy_content: 'We reserve the right to change this privacy policy as we deem necessary or appropriate because of legal compliance requirements or changes in our business practices. If you have provided us with an email address, we will endeavor to notify you, by email to that address, of any material change to how we will use personally identifiable information.
-
-        '
+      changes_policy_content: We reserve the right to change this privacy policy as we deem necessary or appropriate because of legal compliance requirements or changes in our business practices. If you have provided us with an email address, we will endeavor to notify you, by email to that address, of any material change to how we will use personally identifiable information.
       changes_policy_title: Changes to this privacy policy
-      children_info_content: 'You must be at least 13 years old to use Schengen Calculator‘s Web site(s) and service(s). Schengen Calculator does not knowingly collect information from children under 13. (See the U.S. Children’s Online Privacy Protection Act.)
-
-        '
+      children_info_content: You must be at least 13 years old to use Schengen Calculator‘s Web site(s) and service(s). Schengen Calculator does not knowingly collect information from children under 13. (See the U.S. Children’s Online Privacy Protection Act.)
       children_info_title: Information collected from children
-      cookies_content: 'Schengen Calculator uses “cookies” to store personal data on your computer. We may also link information stored on your computer in cookies with personal data about specific individuals stored on our servers. If you set up your Web browser (for example, Internet Explorer or Firefox) so that cookies are not allowed, you might not be able to use some or all of the features of our Web site(s).
-
-        '
+      cookies_content: Schengen Calculator uses “cookies” to store personal data on your computer. We may also link information stored on your computer in cookies with personal data about specific individuals stored on our servers. If you set up your Web browser (for example, Internet Explorer or Firefox) so that cookies are not allowed, you might not be able to use some or all of the features of our Web site(s).
       cookies_title: Cookies
-      eu_notice_content: 'Schengen Calculator‘s operations are located primarily in the United States. If you provide information to us, the information will be transferred out of the European Union (EU) to the United States. By providing personal information to us, you are consenting to its storage and use as described herein.
-
-        '
+      eu_notice_content: Schengen Calculator‘s operations are located primarily in the United States. If you provide information to us, the information will be transferred out of the European Union (EU) to the United States. By providing personal information to us, you are consenting to its storage and use as described herein.
       eu_notice_title: Notice to European Union users
-      external_storage_content: 'We may store your data on servers provided by third party hosting vendors with whom we have contracted.
-
-        '
+      external_storage_content: We may store your data on servers provided by third party hosting vendors with whom we have contracted.
       external_storage_title: External data storage sites
-      introduction_content: 'Schengen Calculator (we” or “us”) values its visitors’ privacy. This privacy policy is effective Date; it summarizes what information we might collect from a registered user or other visitor (“you”), and what we will and will not do with it. Please note that this privacy policy does not govern the collection and use of information by companies that Schengen Calculator does not control, nor by individuals not employed or managed by Schengen Calculator. If you visit a Web site that we mention or link to, be sure to review its privacy policy before providing the site with information.
-
-        '
+      introduction_content: Schengen Calculator (we” or “us”) values its visitors’ privacy. This privacy policy is effective Date; it summarizes what information we might collect from a registered user or other visitor (“you”), and what we will and will not do with it. Please note that this privacy policy does not govern the collection and use of information by companies that Schengen Calculator does not control, nor by individuals not employed or managed by Schengen Calculator. If you visit a Web site that we mention or link to, be sure to review its privacy policy before providing the site with information.
       introduction_title: Introduction
       list_items:
       - your name, email address, phone number
       - your Schengen Calculator user ID and password
-      other_info_content: 'We may collect other information that cannot be readily used to identify you, such as (for example) the domain name and IP address of your computer. We may use this information, individually or in the aggregate, for technical administration of our Web site(s); research and development; customer- and account administration; and to help us focus our marketing efforts more precisely.
-
-        '
-      personally_identifiable_info_content: 'It is always up to you whether to disclose personally identifiable information to us, although if you elect not to do so, we reserve the right not to register you as a user or provide you with any products or services. “Personally identifiable information” means information that can be used to identify you as an individual, such as, for example:
-
-        '
+      other_info_content: We may collect other information that cannot be readily used to identify you, such as (for example) the domain name and IP address of your computer. We may use this information, individually or in the aggregate, for technical administration of our Web site(s); research and development; customer- and account administration; and to help us focus our marketing efforts more precisely.
+      personally_identifiable_info_content: 'It is always up to you whether to disclose personally identifiable information to us, although if you elect not to do so, we reserve the right not to register you as a user or provide you with any products or services. “Personally identifiable information” means information that can be used to identify you as an individual, such as, for example:'
       privacy_policy_title: Privacy Policy
-      privacy_responsibilities_content: 'To help protect your privacy, be sure:
-
-        '
+      privacy_responsibilities_content: 'To help protect your privacy, be sure:'
       privacy_responsibilities_title: Your privacy responsibilities
-      questions_comments_content: 'If you have questions or comments about Schengen Calculator''s privacy policy, send an email to support@company''sname.com, or contact us via any of the ways described in the About Us page at URL of company''s website. Thank you for choosing Schengen Calculator!
-
-        '
+      questions_comments_content: If you have questions or comments about Schengen Calculator''s privacy policy, send an email to support@company''sname.com, or contact us via any of the ways described in the About Us page at URL of company''s website. Thank you for choosing Schengen Calculator!
       questions_comments_title: Questions or comments?
       responsibilities_list:
       - not to share your user ID or password with anyone else

@@ -174,7 +174,30 @@ One approach: Attempt deploy with no permissions, then add permissions that fail
   AWS_ACCESS_KEY_ID
   AWS_SECRET_ACCESS_KEY
   AWS_DEFAULT_REGION
+  TASK_PASSWORD (used for automated migration and data update API calls during deployment)
 
+=== Automated Database Updates on Deployment
+
+The deployment workflows automatically run database migrations and country data updates via API endpoints after each deployment:
+
+1. <tt>db:migrate</tt> - Runs pending database schema migrations
+   * API endpoint: <tt>/migrate?token=TASK_PASSWORD</tt>
+   * Purpose: Apply structural database changes (tables, columns, indexes)
+   * Runs automatically on every staging and production deployment
+
+2. <tt>db:update_countries</tt> - Updates country data from XML files
+   * API endpoint: <tt>/update_countries?token=TASK_PASSWORD</tt>
+   * Purpose: Sync country data (names, Schengen dates, visa requirements) from db/data/countries.xml
+   * Runs automatically on every staging and production deployment
+
+Deployment order:
+1. Deploy application code to Lambda
+2. Run database migrations (db:migrate)
+3. Update countries data (db:update_countries)
+4. Invalidate CloudFront cache
+5. Recache main URLs
+
+This ensures the database is updated before the cache is cleared, preventing inconsistencies.
 
 
 

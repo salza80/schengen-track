@@ -17,7 +17,7 @@ es:
         third_paragraph: La calculadora de Schengen tiene esto en cuenta, por lo que puedes usarla para experimentar con las fechas de entrada y salida y maximizar tu estadía.
       calculator_description: La Calculadora de Schengen calcula la duración de la estadía permitida para viajar en el Área de Schengen con una visa de corta duración. Puedes usarla para llevar un registro o prever todas tus visitas dentro del Área de Schengen, así sabrás cuántos días te quedan antes de tener que salir.
       contents_title: Contenidos
-      countries_in_schengen: 'Los países en el área de Schengen incluyen son: Austria, Bélgica, República Checa, Croacia, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Eslovaquia, Eslovenia, España, Suecia, Suiza.'
+      countries_in_schengen: 'Los países en el área de Schengen incluyen son: Austria, Bélgica, Bulgaria, Croacia, República Checa, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Rumania, Eslovaquia, Eslovenia, España, Suecia, Suiza.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Fecha de Finalización:'
@@ -108,7 +108,7 @@ es:
       new_rules_from: Nuevas reglas a partir del %{date}
       non_eu_visa_requirement: Si eres de cualquier otro país (fuera de la UE), deberás solicitar una Visa antes de viajar. La visa especificará la duración de su validez y el número de entradas (de múltiples entradas - ilimitadas) que se permiten. Ten en cuenta que los "90 días en cualquier período de 180 días" aún se aplican independientemente de las fechas de inicio y finalización de la visa. Utiliza la calculadora de Schengen para ingresar los detalles de tu visa y para ayudarte a calcular la duración permitida de tu estadía.
       previous_definition_link: Definición anterior
-      schengen_area_description: El Área de Schengen comprende 27 países europeos sin fronteras internas. Los ciudadanos, así como muchos no ciudadanos de la UE, empresarios y turistas, pueden circular libremente sin enfrentar controles fronterizos. Desde 1985, ha crecido para incluir casi todos los estados de la UE y algunos países no pertenecientes a la UE asociados.
+      schengen_area_description: El Área de Schengen comprende 29 países europeos sin fronteras internas. Los ciudadanos, así como muchos no ciudadanos de la UE, empresarios y turistas, pueden circular libremente sin enfrentar controles fronterizos. Desde 1985, ha crecido para incluir casi todos los estados de la UE y algunos países no pertenecientes a la UE asociados.
       schengen_area_link: "¿Qué es el Área de Schengen?"
       step_by_step_link: Paso a Paso
       title: Acerca de Schengen Calculator

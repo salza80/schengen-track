@@ -17,7 +17,7 @@ tr:
         third_paragraph: Schengen hesap makinesi bunu dikkate alır, bu nedenle giriş ve çıkış tarihlerini maksimum kalışınızı hesaplamak için kullanabilirsiniz.
       calculator_description: Schengen Hesap Makinesi, kısa süreli Schengen vizesi ile Schengen Bölgesi'nde seyahat etme hakkınızı hesaplar. Schengen Bölgesi içindeki tüm ziyaretlerinizi takip etmek veya tahmin etmek için kullanabilirsiniz, böylece ne zaman ayrılmanız gerektiğini bilirsiniz.
       contents_title: İçindekiler
-      countries_in_schengen: 'Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Çek Cumhuriyeti, Hırvatistan, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Slovakya, Slovenya, İspanya, İsveç, İsviçre.'
+      countries_in_schengen: 'Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç, İsviçre.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Bitiş Tarihi:'
@@ -108,7 +108,7 @@ tr:
       new_rules_from: "%{date} itibarıyla yeni kurallar"
       non_eu_visa_requirement: AB dışındaki herhangi bir ülkenin vatandaşıysanız, seyahatten önce bir Vize başvurmanız gerekir. Vize, geçerlilik süresini ve izin verilen giriş sayısını (çoklu giriş - sınırsız) belirtecektir. Lütfen unutmayın ki, "herhangi bir 180 günlük dönemde 90 gün" kuralı, Vize başlangıç ve bitiş tarihlerinden bağımsız olarak geçerlidir. Schengen hesap makinesini vize bilgilerinizi girmek ve izin verilen kalış sürenizi hesaplamak için kullanabilirsiniz.
       previous_definition_link: Önceki tanım
-      schengen_area_description: Schengen Bölgesi, iç sınırlara sahip olmayan 27 Avrupa ülkesinden oluşur. Vatandaşlar ve birçok AB dışı vatandaş, iş insanı ve turist, sınır kontrolleri olmaksızın serbestçe dolaşabilir. 1985'ten beri, neredeyse tüm AB ülkelerini ve birkaç ilişkili olmayan AB dışı ülkeyi kapsamıştır.
+      schengen_area_description: Schengen Bölgesi, iç sınırlara sahip olmayan 29 Avrupa ülkesinden oluşur. Vatandaşlar ve birçok AB dışı vatandaş, iş insanı ve turist, sınır kontrolleri olmaksızın serbestçe dolaşabilir. 1985'ten beri, neredeyse tüm AB ülkelerini ve birkaç ilişkili olmayan AB dışı ülkeyi kapsamıştır.
       schengen_area_link: Schengen Bölgesi Nedir
       step_by_step_link: Adım Adım
       title: Schengen Hesap Makinesi Hakkında

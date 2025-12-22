@@ -3,9 +3,7 @@ en:
   about:
     about:
       90_days_definition_blockquote: "“90 days in any 180-day period […]“. “The date of entry shall be considered as the first day of stay on the territory of the Member States and the date of exit shall be considered as the last day of stay on the territory of the Member States. Periods of stay authorized under a residence permit or a long-stay visa shall not be taken into account in the calculation of the duration of stay on the territory of the Member States.”\n"
-      abolished_internal_borders: 'While having abolished their internal borders, Schengen States have a common external border agreement on the basis of Schengen rules. This makes it very convenient for tourists to travel between the countries included in Schengen area. However, it is important to understand the rules for what visa is required before entering the area (if any), and how long you can stay.
-
-        '
+      abolished_internal_borders: While having abolished their internal borders, Schengen States have a common external border agreement on the basis of Schengen rules. This makes it very convenient for tourists to travel between the countries included in Schengen area. However, it is important to understand the rules for what visa is required before entering the area (if any), and how long you can stay.
       additional_requirements:
         first_paragraph: Some countries have additional Visa waiver agreements with countries within the Schengen area allowing an additional 90 days in a 180 period stay; however, this will be included in the 90 days for other Schengen countries. These additional agreements are often little known by travellers!
         heading: Additional Visa Waiver agreements
@@ -17,13 +15,9 @@ en:
         first_paragraph: This calculation is now only used for people from Antigua and Barbuda, The Bahamas, Barbados, Brazil, Saint Kitts and Nevis, Mauritius, and Seychelles where the old definition of the Schengen calculation continues to apply.
         second_paragraph: The old definition is different to a “rolling” 6 months, as it begins on the date of first entry, and then will reset 6 months after that date. Using this calculation can allow for longer stays that the new definition. For example, if you entered for one day at the start of January, and then re-entered 3 months later for 3 months to end of June, after that, the 6 months (from January), would reset allowing you to stay another 3 months, effectively allowing almost 6 months. However, you cannot stay more than 3 months continuous days, so you would have to exit and re-enter the Schengen Area.
         third_paragraph: The Schengen calculator takes this into account, so you can use the Schengen calculator to experiment with entry and exits dates to maximise your stay.
-      calculator_description: 'The Schengen Calculator calculates the length of stay you are allowed to travel in the Schengen Area on a short term Schengen visa. You can use it to keep track, or forecast all of your visits inside the Schengen Area so you know how many days you have remaining before you have to leave.
-
-        '
+      calculator_description: The Schengen Calculator calculates the length of stay you are allowed to travel in the Schengen Area on a short term Schengen visa. You can use it to keep track, or forecast all of your visits inside the Schengen Area so you know how many days you have remaining before you have to leave.
       contents_title: Contents
-      countries_in_schengen: 'The countries in the Schengen area include are: Austria, Belgium, Czech Republic, Croatia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Slovakia, Slovenia, Spain, Sweden, Switzerland.
-
-        '
+      countries_in_schengen: 'The countries in the Schengen area include are: Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, Switzerland.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'End Date:'
@@ -61,12 +55,8 @@ en:
       disclaimer_link: Disclaimer
       european_commission_link: European Commission
       european_commission_website_link: European Commission Website
-      exempt_countries_conditions: 'Please be aware that there are conditions on some of these countries. For example, Citizens of Albania, Bosnia-Herzegovina, Former Yugoslav Republic of Macedonia, Moldova, Montenegro, Serbia are exempt from visa obligation only if the passport contains biometric data.
-
-        '
-      exempt_countries_list: 'Albania, Andorra, Antigua and Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia-Herzegovina, Brazil, Brunei, Canada, Chile, Costa Rica, Croatia, El Salvador, Former Yugoslav Republic of Macedonia (FYROM), Guatemala, Honduras, Hong Kong, Israel, Japan, Malaysia, Macao, Mauritius, Mexico, Monaco, Montenegro, New Zealand, Nicaragua, Northern Marianas, Panama, Paraguay, Saint Kitts and Nevis, Serbia, Seychelles, Singapore, South Korea, Taiwan, United States, Uruguay and Venezuela.
-
-        '
+      exempt_countries_conditions: Please be aware that there are conditions on some of these countries. For example, Citizens of Albania, Bosnia-Herzegovina, Former Yugoslav Republic of Macedonia, Moldova, Montenegro, Serbia are exempt from visa obligation only if the passport contains biometric data.'
+      exempt_countries_list: Albania, Andorra, Antigua and Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia-Herzegovina, Brazil, Brunei, Canada, Chile, Costa Rica, Croatia, El Salvador, Former Yugoslav Republic of Macedonia (FYROM), Guatemala, Honduras, Hong Kong, Israel, Japan, Malaysia, Macao, Mauritius, Mexico, Monaco, Montenegro, New Zealand, Nicaragua, Northern Marianas, Panama, Paraguay, Saint Kitts and Nevis, Serbia, Seychelles, Singapore, South Korea, Taiwan, United States, Uruguay and Venezuela.
       field_definitions_link: Field Name Definitions
       get_started: Get Started Now
       how_to_use:
@@ -120,7 +110,7 @@ en:
       new_rules_from: New rules from %{date}
       non_eu_visa_requirement: If you are from any other country (outside of the EU), you will need to apply for a Visa before you travel. The visa will specify the length of time it is valid, and the number of entries (of multi entry – unlimited) that are allowed. Please note that the “90 days in any 180 day period” still applies regardless of the Visa beginning and end dates. Use the Schengen calculator to enter your visa details, and to help calculate your allowed length of stay.
       previous_definition_link: Previous definition
-      schengen_area_description: The Schengen Area comprises 27 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
+      schengen_area_description: The Schengen Area comprises 29 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
       schengen_area_link: What is the Schengen Area
       step_by_step_link: Step by Step
       title: About Schengen Calculator

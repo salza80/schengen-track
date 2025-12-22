@@ -17,7 +17,7 @@ de:
         third_paragraph: Der Schengen-Rechner berücksichtigt dies, sodass Sie den Schengen-Rechner verwenden können, um mit Ein- und Ausreisedaten zu experimentieren und Ihren Aufenthalt zu maximieren.
       calculator_description: Der Schengen-Rechner berechnet die Aufenthaltsdauer, die Sie mit einem kurzfristigen Schengen-Visum im Schengen-Raum reisen dürfen. Sie können ihn nutzen, um alle Ihre Besuche im Schengen-Raum zu verfolgen oder vorherzusagen, damit Sie wissen, wie viele Tage Ihnen bleiben, bevor Sie abreisen müssen.
       contents_title: Inhalt
-      countries_in_schengen: 'Die Länder im Schengen-Raum sind: Österreich, Belgien, Tschechische Republik, Kroatien, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Slowakei, Slowenien, Spanien, Schweden, Schweiz.'
+      countries_in_schengen: 'Die Länder im Schengen-Raum sind: Österreich, Belgien, Bulgarien, Kroatien, Tschechische Republik, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Rumänien, Slowakei, Slowenien, Spanien, Schweden, Schweiz.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Enddatum:'
@@ -108,7 +108,7 @@ de:
       new_rules_from: Neue Regeln ab %{date}
       non_eu_visa_requirement: Wenn Sie aus einem anderen Land (außerhalb der EU) stammen, müssen Sie vor Ihrer Reise ein Visum beantragen. Im Visum wird angegeben, wie lange es gültig ist, und wie viele Einträge (mehrere Einträge - unbegrenzt) erlaubt sind. Bitte beachten Sie, dass die Regel „90 Tage in einem Zeitraum von 180 Tagen“ unabhängig von den Beginn- und Enddaten des Visums gilt. Verwenden Sie den Schengen-Rechner, um Ihre Visadetails einzugeben und Ihre erlaubte Aufenthaltsdauer zu berechnen.
       previous_definition_link: Vorherige Definition
-      schengen_area_description: Der Schengen-Raum umfasst 27 europäische Länder ohne innere Grenzen. Bürger sowie viele Nicht-EU-Bürger, Geschäftsleute und Touristen können sich frei bewegen, ohne Grenzkontrollen zu unterliegen. Seit 1985 hat er sich auf fast alle EU-Staaten und einige verbundene Nicht-EU-Länder ausgeweitet.
+      schengen_area_description: Der Schengen-Raum umfasst 29 europäische Länder ohne innere Grenzen. Bürger sowie viele Nicht-EU-Bürger, Geschäftsleute und Touristen können sich frei bewegen, ohne Grenzkontrollen zu unterliegen. Seit 1985 hat er sich auf fast alle EU-Staaten und einige verbundene Nicht-EU-Länder ausgeweitet.
       schengen_area_link: Was ist der Schengen-Raum
       step_by_step_link: Schritt für Schritt
       title: Über den Schengen-Rechner

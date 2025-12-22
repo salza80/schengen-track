@@ -70,8 +70,7 @@ export class HttpApiConstruct extends Construct {
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password'),
-      DOMAIN: customDomain,
-      AWS_REGION: Stack.of(this).region
+      DOMAIN: customDomain
     };
 
     // Lambda function for Lambda proxy integration of AWS API Gateway HTTP API

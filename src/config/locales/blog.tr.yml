@@ -32,7 +32,7 @@ tr:
       schengenButtonTitle: Schengen Hesap Makinesi ile başlayın
       title: Avrupa'da 90 Günden Fazla Nasıl Kalınır (Yasal Olarak)
       understanding90Content: 90 günlük 180 gün kuralının bir devirli hesaplamada işlediğini unutmayın. İllüstrasyon yapmak için, Schengen Alanı'na 1 Ocak'ta girip 30 Mart'ta tam 90 gün kullanarak kalırsanız, 1 Haziran'da yeniden girerseniz, başka 90 gününüz olur. Önemli olan, herhangi bir günde, son 180 günde 90 günü aşmadığınızdan emin olmaktır. Bu kuralı ihlal etmeden kalışınızı optimize etmek için anlayabileceğiniz sürekli bir hesaplamadır.
-      understandingContent: Schengen Alanı, iç sınırlar olmadan sorunsuz bir seyahat deneyimi sunan 27 Avrupa ülkesinden oluşur. Ancak, 90/180 kuralı, herhangi bir 180 günlük dönem içinde Schengen Alanı'nda kalışınızın 90 günü aşamayacağını zorunlu kılar. Bu kural, bir devirli hesaplamada işler, her gün toplam kalışınıza katkıda bulunur.
+      understandingContent: Schengen Alanı, iç sınırlar olmadan sorunsuz bir seyahat deneyimi sunan 29 Avrupa ülkesinden oluşur. Ancak, 90/180 kuralı, herhangi bir 180 günlük dönem içinde Schengen Alanı'nda kalışınızın 90 günü aşamayacağını zorunlu kılar. Bu kural, bir devirli hesaplamada işler, her gün toplam kalışınıza katkıda bulunur.
       understandingTitle: 'Schengen Alanı ve 90/180 Kuralını Anlama:'
     index:
       reading_time: "%{minutes} dk okuma"

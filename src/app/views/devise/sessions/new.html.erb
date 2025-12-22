@@ -6,8 +6,8 @@
       </div>
       <div class="col-md-7">
         <div class="d-flex float-right">
-          <%= link_to user_facebook_omniauth_authorize_path, method: :post, class: "btn btn-primary d-flex align-items-center" do %>
-            <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
+          <%= button_to user_facebook_omniauth_authorize_path, method: :post, class: "btn btn-primary", style: "display: flex; align-items: center; border: none; padding: 0.375rem 0.75rem;" do %>
+            <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2", style: "margin-bottom: 0;") %>
             <%= t('log_in_page.log_in_with_facebook') %>
           <% end %>
         </div>

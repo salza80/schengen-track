@@ -27,8 +27,27 @@ in /src Folder
   * run command <tt>`./bin/rake db:migrate`</tt>
   * run command <tt>`./bin/rake db:seed`</tt>
 
+
+== Country Data Management
+
+*Source of Truth:* db/data/countries.xml
+
+The countries.xml file is the authoritative source for all country-related data in the application, including:
+* Country codes (ISO 2-letter and 3-letter)
+* Country names (English)
+* Schengen Area membership status
+* Schengen start dates (when countries joined the Schengen Area)
+* Visa requirement information
+
+To update country data in the database after modifying countries.xml:
+* Locally: run command <tt>`./bin/rake countries:update_countries`</tt>
+* Deployments: Automatically runs via API endpoint (see Deployment section)
+
+Note: Direct database modifications to country data will be overwritten on the next deployment or when the update_countries task runs.
+
+
 = After updating seed countries data
-* run command <tt>`./bin/rake db:update_countries`</tt>
+* run command <tt>`./bin/rake countries:update_countries`</tt>
 
 = To clean up guest user accounts up to last week
 * run command <tt>`./bin/rake db:guest_cleanup`</tt>

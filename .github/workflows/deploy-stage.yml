@@ -103,15 +103,6 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
       
-      - name: Perform CloudFront Invalidation
-        id: cloudfront_invalidation
-        run: |
-          invalidation_id=$(aws cloudfront create-invalidation --distribution-id E2J7FXI85QUSUM --paths '/*' --query Invalidation.Id --output text)
-          echo "invalidationId=${invalidation_id}" >> $GITHUB_OUTPUT
-      
-      - name: Wait for CloudFront Invalidation
-        run: aws cloudfront wait invalidation-completed --distribution-id E2J7FXI85QUSUM --id "${{ steps.cloudfront_invalidation.outputs.invalidationId }}"
-
       - name: Run database migrations
         run: |
           echo "Running database migrations on staging..."
@@ -133,6 +124,15 @@ jobs:
           else
             echo "⚠ Update countries response: $response"
           fi
+      
+      - name: Perform CloudFront Invalidation
+        id: cloudfront_invalidation
+        run: |
+          invalidation_id=$(aws cloudfront create-invalidation --distribution-id E2J7FXI85QUSUM --paths '/*' --query Invalidation.Id --output text)
+          echo "invalidationId=${invalidation_id}" >> $GITHUB_OUTPUT
+      
+      - name: Wait for CloudFront Invalidation
+        run: aws cloudfront wait invalidation-completed --distribution-id E2J7FXI85QUSUM --id "${{ steps.cloudfront_invalidation.outputs.invalidationId }}"
 
       - name: Recache main urls
         run: ./recache.sh urls-staging.txt

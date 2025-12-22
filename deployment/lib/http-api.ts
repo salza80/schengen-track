@@ -119,6 +119,20 @@ export class HttpApiConstruct extends Construct {
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
     })
 
+    // Separate policy for authentication flows that need all cookies for CSRF
+    const authOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "authRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Origin', 
+        'Access-Control-Request-Method', 
+        'Access-Control-Request-Headers',
+        'Accept',
+        'X-Requested-With',
+        'Referer'
+      ),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+    })
+
     const customCacheCountryGuestKey = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
       headerBehavior: cloudfront.CacheHeaderBehavior.allowList('Origin'),
       cookieBehavior: cloudfront.CacheCookieBehavior.allowList('cache_country_guest'),
@@ -164,6 +178,15 @@ export class HttpApiConstruct extends Construct {
       functionAssociations
     };
 
+    const authFlowBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: authOriginRequestPolicy,
+      functionAssociations
+    };
+
     const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain, altDomain],
@@ -178,6 +201,8 @@ export class HttpApiConstruct extends Construct {
         functionAssociations
       },
       additionalBehaviors: {
+        "/users/*": authFlowBehavior,
+        "/*/users/*": authFlowBehavior,
         "assets/*": publicAssetsCacheBehavior,
         "/": publicCacheByCountryGuestBehavior,
         "/en": publicCacheByCountryGuestBehavior,

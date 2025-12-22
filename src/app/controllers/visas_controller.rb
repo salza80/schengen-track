@@ -1,5 +1,9 @@
 class VisasController < ApplicationController
   before_action :set_visa, only: [:show, :edit, :update, :destroy]
+  
+  # Skip CSRF verification for .js GET requests (new, edit)
+  # These are safe read-only operations that need to work with AJAX
+  skip_before_action :verify_authenticity_token, only: [:new, :edit], if: -> { request.format.js? || request.format.json? }
 
   # GET /visas
   # GET /visas.json

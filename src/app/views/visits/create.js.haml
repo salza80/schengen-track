@@ -15,7 +15,16 @@
     var message = '<div class="alert alert-success alert-dismissible fade show" role="alert">Visit was successfully created.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     $('body').prepend(message);
     
-    // Reload page to refresh calendar
+    // Get the saved visit's entry date (Rails already parsed the form submission)
+    var dateString = '#{@visit.entry_date.to_s}'; // Already in YYYY-MM-DD format
+    var dateParts = dateString.split('-');
+    var entryYear = dateParts[0];
+    var entryMonth = parseInt(dateParts[1]);
+    
+    // Store the date for highlighting after reload
+    sessionStorage.setItem('newVisitDate', dateString);
+    
+    // Reload and scroll to the month of the new visit
     setTimeout(function() {
-      location.reload();
-    }, 500);
+      window.location.href = '?month=' + entryMonth + '&year=' + entryYear;
+    }, 300);

@@ -1,6 +1,52 @@
 // Calendar enhancements
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Check for newly created or updated visits (handle FIRST)
+  var newVisitDate = sessionStorage.getItem('newVisitDate');
+  var updatedVisitDate = sessionStorage.getItem('updatedVisitDate');
+  var savedScrollPosition = sessionStorage.getItem('scrollPosition');
+  
+  // Handle newly created visit highlight
+  if (newVisitDate) {
+    setTimeout(function() {
+      var visitCell = document.querySelector('[data-date="' + newVisitDate + '"]');
+      if (visitCell) {
+        visitCell.classList.add('newly-created-visit');
+        // Remove highlight after 3 seconds
+        setTimeout(function() {
+          visitCell.classList.remove('newly-created-visit');
+        }, 3000);
+      }
+    }, 600);
+    sessionStorage.removeItem('newVisitDate');
+  }
+  
+  // Handle updated visit highlight
+  if (updatedVisitDate) {
+    setTimeout(function() {
+      var visitCell = document.querySelector('[data-date="' + updatedVisitDate + '"]');
+      if (visitCell) {
+        visitCell.classList.add('newly-updated-visit');
+        // Remove highlight after 3 seconds
+        setTimeout(function() {
+          visitCell.classList.remove('newly-updated-visit');
+        }, 3000);
+      }
+    }, 600);
+    sessionStorage.removeItem('updatedVisitDate');
+  }
+  
+  // Restore scroll position for edits (only if not creating new visit)
+  if (savedScrollPosition && !newVisitDate) {
+    setTimeout(function() {
+      window.scrollTo({
+        top: parseInt(savedScrollPosition),
+        behavior: 'smooth'
+      });
+    }, 100);
+    sessionStorage.removeItem('scrollPosition');
+  }
+  
   // Scroll to specific month if parameter is present (do this FIRST, before tooltips)
   var scrollTarget = document.querySelector('#calendar-scroll-target');
   

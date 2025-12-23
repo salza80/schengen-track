@@ -394,3 +394,59 @@ html {
     opacity: 0.5;
   }
 }
+
+// ============================================================================
+// Visit Highlight Animations
+// ============================================================================
+
+// Green pulse animation for newly created visits
+@keyframes highlightPulseGreen {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+    transform: scale(1.02);
+  }
+  100% { 
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    transform: scale(1);
+  }
+}
+
+.newly-created-visit {
+  animation: highlightPulseGreen 1s ease-in-out 2;
+  border: 2px solid #28a745 !important;
+  position: relative;
+  z-index: 10; // Ensure it appears above other cells
+}
+
+// Blue pulse animation for updated visits
+@keyframes highlightPulseBlue {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    transform: scale(1.02);
+  }
+  100% { 
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    transform: scale(1);
+  }
+}
+
+.newly-updated-visit {
+  animation: highlightPulseBlue 1s ease-in-out 2;
+  border: 2px solid #007bff !important;
+  position: relative;
+  z-index: 10; // Ensure it appears above other cells
+}
+
+// Smooth transition when highlight is removed
+.calendar-day-cell,
+.day-cell {
+  transition: border 0.3s ease, transform 0.3s ease;
+}

@@ -7,11 +7,3 @@
   // Re-initialize cascade dropdowns after form is loaded
   var country = #{@country_options.html_safe};
   var CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');
-
-  // Handle form submission via AJAX
-  $('#visitModal form').on('ajax:success', function(event) {
-    // Reload the page to refresh the calendar
-    location.reload();
-  }).on('ajax:error', function(event) {
-    // Error handling will be done by create.js.haml
-  });

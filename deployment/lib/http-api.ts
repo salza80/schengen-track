@@ -184,7 +184,8 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: authOriginRequestPolicy,
-      functionAssociations
+      // Removed functionAssociations - auth flows don't need domain rewriting
+      // This prevents redirect chain issues on mobile browsers during OAuth
     };
 
     const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {

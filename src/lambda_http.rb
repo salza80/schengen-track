@@ -213,6 +213,11 @@ def handler(event:, context:)
       response['headers'] = unifiedResponseHeaders
     end
 
+    # Debug logging for OAuth redirects
+    if status == 302 || status == 301
+      puts "[OAUTH DEBUG] Redirect response: status=#{status}, Location=#{unifiedResponseHeaders['Location']}"
+    end
+
     return response
 
   rescue Exception => exception

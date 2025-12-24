@@ -88,12 +88,16 @@ class ApplicationController < ActionController::Base
 
   def set_cache_cookie
     guest_value = current_user_or_guest_user.is_guest? ? 'true' : SecureRandom.hex(16)
-    cookies[:cache_country_guest] = {
+    cache_cookie_options = {
       value: current_user_or_guest_user.nationality.country_code + "_" + guest_value,
       expires: 1.month.from_now,
-      httponly: true,
-      secure: Rails.env.production?,
-      same_site: :lax
+      httponly: true
     }
+    # Only add secure and same_site for production
+    if Rails.env.production?
+      cache_cookie_options[:secure] = true
+      cache_cookie_options[:same_site] = :lax
+    end
+    cookies[:cache_country_guest] = cache_cookie_options
   end
 end

@@ -7,6 +7,16 @@ module ApplicationHelper
     'active' if params.merge(options) == params
   end
 
+  def get_started_path
+    # Check if user requires visa - if so, send to visits page
+    # Otherwise, send to calendar/days page with current year
+    if current_user_or_guest_user&.visa_required?
+      visits_path(locale: I18n.locale)
+    else
+      days_path(locale: I18n.locale, year: Date.today.year)
+    end
+  end
+
   def language_selector
     locales = Rails.application.config.i18n.available_locales
     current_locale = I18n.locale.to_sym

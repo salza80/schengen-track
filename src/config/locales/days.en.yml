@@ -1,18 +1,43 @@
+---
 en:
   days:
-    table_caption: "List of days in Schengen Calculaton with visit and calculation details."
+    current_status: Current Status
+    days: days
+    days_remaining: Days Remaining
+    days_used: days used
+    from_date_onwards: From %{date} onwards
+    full_stay: Full 90 days!
+    legend: Legend
+    legend_outside: Outside Schengen
+    legend_overstay: Overstay
+    legend_safe: In Schengen (Safe)
+    legend_waiting: Waiting Period
+    legend_warning: Near Limit (80+ days)
+    max_days_reached: Peak
+    max_remaining_days: Max remaining days - Is the maximum amount of time you can stay in the Schengen area if you re-enter on this day.
+    next_entry_options: Earliest Re-entry Dates
+    no_visits_this_year: No visits in %{year}
+    overstay_na: N/A
+    schengen_days_in_year: Days in Schengen
+    schengen_no: 'No'
+    schengen_yes: 'Yes'
+    status_overstay: Overstay
+    status_safe: Safe
+    status_warning: Warning
+    stay_for_days: Can stay %{days} days
+    table_caption: List of days in Schengen Calculaton with visit and calculation details.
     table_headers:
-      date: "Date"
-      country: "Country"
-      schengen_area: "Schengen Area"
-      schengen_days_used_tooltip: "The number of days inside the Schengen Area in the previous 180 days."
-      max_remaining_days_tooltip: "The number of days you can stay in the Schengen Area if you entered on this day."
-      overstay_days: "Overstay Days"
-      overstay_wait_tooltip: "Overstay Re-Enter Wait (days)"
-    schengen_yes: "Yes"
-    schengen_no: "No"
-    overstay_na: "N/A"
-    schengen_visa_calculation_by_day: "Schengen Visa Calculation by Day"
-    max_remaining_days: "Max remaining days - Is the maximum amount of time you can stay in the Schengen area if you re-enter on this day."
-    overstay_warning: "* the Schengen Calculator warns on re-entry for 180 days after an 'overstay' of the allowed days. This is not the law!, you need to check with the appropriate authorities if this may affect you. You may be banned from re-entry for years if caught overstaying the Schengen tourist visa rules. Please use this as a guide only."
-
+      country: Country
+      date: Date
+      max_remaining_days: Max Remaining Days
+      max_remaining_days_tooltip: The number of days you can stay in the Schengen Area if you entered on this day.
+      overstay_days: Overstay Days
+      overstay_wait: Re-entry Wait
+      overstay_wait_tooltip: Overstay Re-Enter Wait (days)
+      schengen_area: Schengen Area
+      schengen_days_used: Schengen Days Used
+      schengen_days_used_tooltip: The number of days inside the Schengen Area in the previous 180 days.
+    until_date: until %{date}
+    view_table: View in Table
+    visits_count: Visits
+    year_summary: "%{year} Summary"

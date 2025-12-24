@@ -195,3 +195,13 @@ $bp-homer: 75em;
     } 
   }
 }
+
+// Clickable visit row styling
+.clickable-visit-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(33, 150, 243, 0.1) !important; // Light blue hover - match primary color
+  }
+}

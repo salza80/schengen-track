@@ -1,4 +1,21 @@
+// Custom theme colors
 $headerGreen: #d8ffa2 !default;
+
+// Calendar status colors (semantic naming)
+$calendar-outside: #e9ecef !default;      // Gray - outside Schengen
+$calendar-safe: #d1f4e0 !default;         // Green - safe (< 80 days)
+$calendar-warning: #fff3cd !default;      // Yellow - warning (80-89 days)
+$calendar-overstay: #f8d7da !default;     // Red - overstay (> 90 days)
+$calendar-waiting: #ffeaa7 !default;      // Orange - waiting period
+
+// Calendar status text colors
+$calendar-outside-text: #495057 !default;
+$calendar-safe-text: #155724 !default;
+$calendar-warning-text: #856404 !default;
+$calendar-overstay-text: #721c24 !default;
+$calendar-waiting-text: #856404 !default;
+
 $theme-colors: (
-  "header": $headerGreen
+  "header": $headerGreen,
+  "danger": #ff6b35  // Override danger with softer coral/orange
 );

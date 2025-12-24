@@ -10,7 +10,7 @@ class SessionsTest < ActionDispatch::IntegrationTest
       click_button 'Log in'
     end
     assert has_content? 'Sally Mclean'
-    click_link 'Log out'
+    click_button 'Log out'
     assert has_no_content? 'Sally Mclean'
   end
 end

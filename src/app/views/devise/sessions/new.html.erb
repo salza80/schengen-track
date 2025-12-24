@@ -5,9 +5,13 @@
         <h3><%= t('log_in_page.title') %></h3>
       </div>
       <div class="col-md-7">
-        <div class="d-flex float-right">
-          <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
-          <%= button_to t('log_in_page.log_in_with_facebook'), user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
+        <div class="float-right">
+          <a href="<%= user_facebook_omniauth_authorize_path(display: 'page') %>" class="btn" style="background-color: white; color: #333; border: 1px solid #007bff; text-decoration: none;" rel="noopener noreferrer" data-turbo="false">
+            <div style="display: flex; align-items: center;">
+              <%= image_tag("facebook_icon.png", alt: "Facebook", style: "margin-right: 0.5rem; margin-bottom: 0;") %>
+              <span><%= t('log_in_page.log_in_with_facebook') %></span>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -28,7 +32,7 @@
 
       <% if devise_mapping.rememberable? -%>
         <div class="form-group row">
-          <%= f.label t('log_in_page.remember_me_label'), class: "form-check-label col-form-label col-sm-2" %>
+          <%= f.label :remember_me, t('log_in_page.remember_me_label'), class: "form-check-label col-form-label col-sm-2" %>
           <div class="col-sm-10">
             <div class="form-check">
               <%= f.check_box :remember_me, class: "form-check-input" %>

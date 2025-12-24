@@ -1,0 +1,68 @@
+.calendar-sidebar.sticky-top{style: "top: 91px; max-height: calc(100vh - 111px); overflow-y: auto;"}
+  -# Status information (if available)
+  - if @status_summary
+    .sidebar-section.card.mb-2
+      .card-header.bg-primary.text-white
+        %h6.mb-0
+          %i.fa.fa-chart-line
+          = t('days.current_status')
+        %small.d-block.mt-1
+          = t('common.as_of')
+          = Date.today.strftime('%B %d, %Y')
+      .card-body.p-3
+        .status-info
+          .mb-2
+            %small.text-muted= t('days.days_used')
+            .h5.mb-0
+              %strong= @status_summary[:current_days]
+              %span.text-muted / 90
+              %span.badge.ml-2{class: status_badge_class(@status_summary[:status])}
+                = t("days.status_#{@status_summary[:status]}")
+          .mb-2
+            %small.text-muted= t('days.days_remaining')
+            .h5.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}
+              %strong= @status_summary[:remaining_days]
+  -# Legend
+  .sidebar-section.card
+    .card-header.bg-dark.text-white
+      %h6.mb-0
+        %i.fa.fa-palette
+        = t('days.legend')
+    .card-body.p-2
+      .legend-item.d-flex.align-items-center.mb-2
+        .legend-color.outside-schengen.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+        %small= t('days.legend_outside')
+      .legend-item.d-flex.align-items-center.mb-2
+        .legend-color.in-schengen-safe.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+        %small= t('days.legend_safe')
+      .legend-item.d-flex.align-items-center.mb-2
+        .legend-color.in-schengen-warning.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+        %small= t('days.legend_warning')
+      .legend-item.d-flex.align-items-center.mb-2
+        .legend-color.overstay.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+        %small= t('days.legend_overstay')
+      - if @overstay
+        .legend-item.d-flex.align-items-center
+          .legend-color.waiting-period.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+          %small= t('days.legend_waiting')
+  -# Next entry options
+  - if @next_entry_days && @next_entry_days.any?
+    .sidebar-section.card.mb-2
+      .card-header.bg-info.text-white
+        %h6.mb-0
+          %i.fa.fa-plane-arrival
+          = t('days.next_entry_options')
+      .card-body.p-2
+        - @next_entry_days.take(3).each do |day|
+          .next-entry-item.border-bottom.py-2.px-2
+            .entry-date
+              %strong.text-primary
+                = t('days.from_date_onwards', date: day.the_date.strftime('%b %d, %Y'))
+            .entry-duration
+              %small
+                = t('days.stay_for_days', days: day.max_remaining_days)
+                - if day.max_remaining_days == 90
+                  %span.badge.badge-success.ml-1= t('days.full_stay')
+            .entry-until
+              %small.text-muted
+                = t('days.until_date', date: (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y'))

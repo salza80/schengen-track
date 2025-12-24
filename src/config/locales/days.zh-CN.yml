@@ -1,17 +1,43 @@
+---
 zh-CN:
   days:
-    table_caption: "申根计算中的日期列表，包含访问和计算细节。"
+    current_status: 当前状态
+    days: 天
+    days_remaining: 剩余天数
+    days_used: 已用天数
+    from_date_onwards: 从 %{date} 起
+    full_stay: 整整90天！
+    legend: 图例
+    legend_outside: 申根区外
+    legend_overstay: 超期停留
+    legend_safe: 在申根区（安全）
+    legend_waiting: 等待期
+    legend_warning: 接近限制（80天以上）
+    max_days_reached: 峰值
+    max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
+    next_entry_options: 最早再入境日期
+    no_visits_this_year: "%{year}年无访问"
+    overstay_na: 不适用
+    schengen_days_in_year: 在申根区的天数
+    schengen_no: 否
+    schengen_yes: 是
+    status_overstay: 超期
+    status_safe: 安全
+    status_warning: 警告
+    stay_for_days: 可停留%{days}天
+    table_caption: 申根计算中的日期列表，包含访问和计算细节。
     table_headers:
-      date: "日期"
-      country: "国家"
-      schengen_area: "申根区"
-      schengen_days_used_tooltip: "在过去180天内在申根区内的天数。"
-      max_remaining_days_tooltip: "如果您在此日期进入，您可以在申根区停留的最多天数。"
-      overstay_days: "逾期停留天数"
-      overstay_wait_tooltip: "逾期重新入境等待时间（天）"
-    schengen_yes: "是"
-    schengen_no: "否"
-    overstay_na: "不适用"
-    schengen_visa_calculation_by_day: "按天计算申根签证"
-    max_remaining_days: "最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。"
-    overstay_warning: "*申根计算器在超出允许天数后的180天内重新入境时发出警告。这不是法律！如果可能影响您，您需要与相关部门核实。如果被发现违反申根旅游签证规则，您可能会被禁止多年重新入境。请仅将此用作参考。"
+      country: 国家
+      date: 日期
+      max_remaining_days: 最多剩余天数
+      max_remaining_days_tooltip: 如果您在此日期进入，您可以在申根区停留的最多天数。
+      overstay_days: 逾期停留天数
+      overstay_wait: 重新入境等待
+      overstay_wait_tooltip: 逾期重新入境等待时间（天）
+      schengen_area: 申根区
+      schengen_days_used: 已用申根天数
+      schengen_days_used_tooltip: 在过去180天内在申根区内的天数。
+    until_date: 直到 %{date}
+    view_table: 表格视图
+    visits_count: 访问次数
+    year_summary: "%{year}年摘要"

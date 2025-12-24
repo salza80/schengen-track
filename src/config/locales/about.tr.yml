@@ -1,212 +1,185 @@
+---
 tr:
   about:
-    datadeletion:
-      title: "Veri Silme Politikası"
-      subtitle: "Verilerinizi nasıl silebilirsiniz"
-      step1: "Hesabınıza giriş yapın"
-      step2: "Sayfanın sağ üst köşesindeki uyruğunuzu seçerek hesap ayarlarına gidin"
-      step3: "'Hesabı Sil' düğmesine tıklayın"
-      step4: "Hesabınızı silmek istediğinizi onaylayın"
-      conclusion: "Hesabınız ve tüm verileriniz silinecektir. Bu işlem geri alınamaz."
     about:
-      title: "Schengen Hesap Makinesi Hakkında"
-      introduction: "Giriş"
-      calculator_description: |
-        Schengen Hesap Makinesi, kısa süreli Schengen vizesi ile Schengen Bölgesi'nde seyahat etme hakkınızı hesaplar. Schengen Bölgesi içindeki tüm ziyaretlerinizi takip etmek veya tahmin etmek için kullanabilirsiniz, böylece ne zaman ayrılmanız gerektiğini bilirsiniz.
-      get_started: "Şimdi Başlayın"
-      useful_for_planning: |
-        Özellikle 90 günü aşacak Avrupa seyahatleri için kullanışlıdır. Seyahat ederken Schengen Bölgesi içinde ve dışında zaman geçirerek seyahatinizi uzatabilirsiniz. Sık sık ülkeler arasında seyahat ediyorsanız, kaç gün Schengen Bölgesi'nde geçirdiğinizi takip etmek, hangi ülkelerin Schengen Bölgesi'nde olduğunu hatırlamak ve ne zaman geri dönebileceğinizi hesaplamak zor olabilir. Sadece vatandaşlığınızı, önceki seyahatlerinizi ve planlanan seyahatlerinizi hesaplayıcıya girin, gerisini hesaplayıcı halleder.
-      contents_title: "İçindekiler"
-      uk_citizens: "İngiliz Vatandaşları / BREXIT"
-      uk_citizens_link: "İngiliz Vatandaşları"
-      schengen_area_link: "Schengen Bölgesi Nedir"
-      travelling_link: "Schengen Bölgesi'nde Seyahat"
-      visa_requirements_link: "Vize Gereklilikleri"
-      length_of_stay_link: "Kalış Süresi Hesaplama"
-      new_definition_link: "2013'ten itibaren Yeni tanım"
-      previous_definition_link: "Önceki tanım"
-      additional_visa_waiver_link: "Ek Vize Muafiyet Anlaşmaları"
-      nationality_requirements_link: "Vatandaşlık gereksinimleri"
-      how_to_use_link: "Schengen Hesap Makinesi Nasıl Kullanılır"
-      step_by_step_link: "Adım Adım"
-      limitations_link: "Sınırlamalar"
-      field_definitions_link: "Alan Adı Tanımları"
-      disclaimer_link: "Feragatname"
-      new_rules_from: "%{date} itibarıyla yeni kurallar"
-      uk_citizens_can_use: "%{date} tarihinden itibaren İngiliz vatandaşları, AB'ye turistik ziyaretler için 180 günlük dönemde 90 gün izin veren Schengen hesap makinesini kullanabilir."
-      more_information_link: "Daha Fazla Bilgi: gov.uk - 1 Ocak 2021'den İtibaren Avrupa'yı Ziyaret"
-      what_is_schengen: "Schengen Bölgesi Nedir"
-      schengen_area_description: |
-        Schengen Bölgesi, iç sınırlara sahip olmayan 27 Avrupa ülkesinden oluşur. Vatandaşlar ve birçok AB dışı vatandaş, iş insanı ve turist, sınır kontrolleri olmaksızın serbestçe dolaşabilir. 1985'ten beri, neredeyse tüm AB ülkelerini ve birkaç ilişkili olmayan AB dışı ülkeyi kapsamıştır.
-      countries_in_schengen: |
-        Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Çek Cumhuriyeti, Hırvatistan, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Slovakya, Slovenya, İspanya, İsveç, İsviçre.
-      abolished_internal_borders: |
-        Schengen Ülkeleri, iç sınırlarını kaldırmalarına rağmen, Schengen kuralları temelinde ortak bir dış sınır anlaşmasına sahiptir. Bu, turistlerin Schengen bölgesindeki ülkeler arasında seyahat etmesini çok uygun hale getirir. Bununla birlikte, bölgeye girişte (varsa) gereken vize türleri ve ne kadar süreyle kalabileceğiniz konusundaki kuralları anlamanız önemlidir.
-      european_commission_website_link: "Avrupa Komisyonu Web Sitesi"
-      travelling_in_schengen: "Schengen Bölgesi'nde Seyahat"
-      visa_requirements: "Vize Gereklilikleri"
-      nationality_dependent_visa_requirement: |
-        Vatandaşlık durumunuza bağlı olarak, Schengen bölgesine girmeden önce Kısa Süreli Schengen Vizesi başvurmanız gerekebilir. AB'nin, vize başvurması gereken ülkelerin bir listesi ve bu gereksinimi taşımayan ülkelerin bir listesi bulunmaktadır. 1 Mart 2015 tarihi itibarıyla, Schengen Vizesi almadan önce giriş yapması gerekmeyen ülkelerin şu şekildedir:
-      exempt_countries_list: |
-        Arnavutluk, Andora, Antigua ve Barbuda, Arjantin, Avustralya, Bahamalar, Barbados, Bosna-Hersek, Brezilya, Brunei, Kanada, Şili, Kosta Rika, Hırvatistan, El Salvador, Eski Yugoslav Cumhuriyeti Makedonya (ESCM), Guatemala, Honduras, Hong Kong, İsrail, Japonya, Malezya, Makao, Mauritius, Meksika, Monako, Karadağ, Yeni Zelanda, Nikaragua, Kuzey Mariana Adaları, Panama, Paraguay, Saint Kitts ve Nevis, Sırbistan, Seyşeller, Singapur, Güney Kore, Tayvan, Amerika Birleşik Devletleri, Uruguay ve Venezuela.
-      exempt_countries_conditions: |
-        Lütfen bu ülkelerin bazıları için koşulların olduğunu unutmayın. Örneğin, Arnavutluk, Bosna-Hersek, Eski Yugoslav Cumhuriyeti Makedonya, Moldova, Karadağ, Sırbistan vatandaşları, pasaportlarında biyometrik veri bulundurdukları takdirde vize zorunluluğundan muaf tutulur.
-      non_eu_visa_requirement: |
-        AB dışındaki herhangi bir ülkenin vatandaşıysanız, seyahatten önce bir Vize başvurmanız gerekir. Vize, geçerlilik süresini ve izin verilen giriş sayısını (çoklu giriş - sınırsız) belirtecektir. Lütfen unutmayın ki, "herhangi bir 180 günlük dönemde 90 gün" kuralı, Vize başlangıç ve bitiş tarihlerinden bağımsız olarak geçerlidir. Schengen hesap makinesini vize bilgilerinizi girmek ve izin verilen kalış sürenizi hesaplamak için kullanabilirsiniz.
-      length_of_stay_calculation: "Kalma Süresi Hesaplama"
-      length_calculation_revision: "Üçüncü ülke vatandaşlarının izin verilen kalma süresini hesaplama kuralı revize edildi ve %{date} tarihinden itibaren yürürlüğe girdi. Bununla birlikte, Antigua ve Barbuda, Bahamalar, Barbados, Brezilya, Saint Kitts ve Nevis, Mauritius ve Seyşeller'in hala eski hesaplama yöntemini kullanması gereken bazı ülkeler vardır. Bu Schengen hesap makinesi, vatandaşlık durumunuza ve seyahat tarihinize bağlı olarak eski veya yeni hesaplama yöntemini kullanır, bu nedenle bu ülkelerin vatandaşları hesap makinesini hala kullanabilir."
-      new_definition_as_of_2013: "2013'ten İtibaren Yeni tanım"
-      90_days_definition_blockquote: |
-        "180 günlük herhangi bir dönemde 90 gün […]". "Giriş tarihi, birinci gün olarak kabul edilecek ve çıkış tarihi, AB ülkelerinin topraklarında kalınan son gün olarak kabul edilecektir. İkamet izni veya uzun süreli vize kapsamında verilen kalış süreleri, AB ülkelerinin topraklarında kalınan sürenin hesaplanmasında dikkate alınmayacaktır."
-      european_commission_link: "Avrupa Komisyonu"
-      calculation_description:
-        first_paragraph: "Bu hesaplama, artık Antigua ve Barbuda, Bahamalar, Barbados, Brezilya, Saint Kitts ve Nevis, Mauritius ve Seyşeller'den gelen kişiler için kullanılır."
-        second_paragraph: "Eski tanım, 6 aylık sürekli bir döngü olmadığından, birinci giriş tarihinden başlar ve ardından o tarihten 6 ay sonra sıfırlanır. Bu hesaplama, yeni tanıma göre daha uzun kalışlara izin verebilir. Örneğin, Ocak ayının başında bir gün için giriş yaptıysanız ve ardından 3 ay sonra Haziran sonuna kadar 3 ay süreyle yeniden giriş yaptıysanız, 6 ay (Ocak'tan) sonra sıfırlanır ve yaklaşık 6 ay daha kalabilirsiniz. Ancak, 3 aydan fazla süreyle kalamazsınız, bu nedenle Schengen Bölgesi'nden çıkıp yeniden girmeniz gerekir."
-        third_paragraph: "Schengen hesap makinesi bunu dikkate alır, bu nedenle giriş ve çıkış tarihlerini maksimum kalışınızı hesaplamak için kullanabilirsiniz."
+      90_days_definition_blockquote: '"180 günlük herhangi bir dönemde 90 gün […]". "Giriş tarihi, birinci gün olarak kabul edilecek ve çıkış tarihi, AB ülkelerinin topraklarında kalınan son gün olarak kabul edilecektir. İkamet izni veya uzun süreli vize kapsamında verilen kalış süreleri, AB ülkelerinin topraklarında kalınan sürenin hesaplanmasında dikkate alınmayacaktır."'
+      abolished_internal_borders: Schengen Ülkeleri, iç sınırlarını kaldırmalarına rağmen, Schengen kuralları temelinde ortak bir dış sınır anlaşmasına sahiptir. Bu, turistlerin Schengen bölgesindeki ülkeler arasında seyahat etmesini çok uygun hale getirir. Bununla birlikte, bölgeye girişte (varsa) gereken vize türleri ve ne kadar süreyle kalabileceğiniz konusundaki kuralları anlamanız önemlidir.
       additional_requirements:
-        heading: "Ek Vize Muafiyet Anlaşmaları"
-        first_paragraph: "Bazı ülkeler, Schengen bölgesi ülkeleri ile ek vize muafiyet anlaşmalarına sahiptir ve bu anlaşmalarla 180 günlük bir dönemde ek 90 gün kalabilirler; ancak, bu diğer Schengen ülkelerindeki 90 gün içindedir. Bu ek anlaşmalar genellikle gezginler tarafından pek bilinmemektedir!"
-        second_paragraph: "Şu anda, Schengen hesap makinesi Ek Vize Muafiyet Anlaşmalarını dikkate almamaktadır. Lütfen bununla ilgili kendi araştırmanızı yapın."
-      nationality_section:
-        heading: "Vatandaşlığım için Schengen / Avrupa turistik seyahat giriş ve kalış süresi gereksinimleri"
-        subheading: "Gereksinimlerinizi görmek için vatandaşlığınızı seçin"
-        select_prompt: "Ülke Seçin"
-        select_another_prompt: "Başka Bir Ülke Seçin"
-      button_text: "Başlamak için Schengen Hesap Makinesine Git"
-      blog_link_intro: "Avrupa'da uzun bir seyahat için hesap makinesini nasıl kullanabileceğiniz konusunda biraz ilham almak için:"
-      how_to_use:
-        title: "Schengen Hesap Makinesi Nasıl Kullanılır"
-        step_1:
-          title: "Adım 1:"
-          description: "Uyruğunuzu seçin. Bunun için sayfanın üst kısmındaki başlık kısmını kullanabilirsiniz."
-        step_2:
-          title: "Adım 2:"
-          description: "Gerekirse, kısa süreli Schengen Vizenizin detaylarını girin. Bu yalnızca gerektiğinde seyahat kaydının altında görünecektir."
-        step_3:
-          title: "Adım 3:"
-          description_1: "Seyahat kaydınızı (geçmiş ve gelecek) ekleyin. Son 180 gün içinde Schengen Bölgesi içinde yaptığınız herhangi bir seyahati en azından dahil etmelisiniz."
-          description_2: "Ülkeler arası tüm hareketlerinizi, Schengen ve Schengen Dışı Ülkeler arasındaki seyahatleri ve hatta bir Schengen Ülkesinden diğerine seyahati girmeniz önemlidir; çünkü hangi ülkelerin Schengen Anlaşmasının bir parçası olduğunu veya olmadığını farkında olmayabilirsiniz. Giriş tarihi varış yaptığınız gündür ve çıkış tarihi ise ayrıldığınız gündür. Bir sonraki ziyaretinizin giriş tarihi çıkış tarihinizle örtüşüyorsa endişelenmeyin, hesap makinesi, Schengen Bölgesinde kalış sürenizi hesaplarken günleri çift saymaz."
-        step_4:
-          title: "Adım 4:"
-          description: "Seyahatin geçerliliği ve Schengen alanında kalabileceğiniz kalan süre hakkında bilgileri inceleyin. Hesap Makinesini kullanarak, niyetinizdeki seyahat kaydını değiştirerek 'ne olur' senaryoları yapın."
-        step_5:
-          title: "Adım 5: (isteğe bağlı)"
-          description: "Seyahat kaydınızı kaydetmek için Kayıt Olun ve Giriş Yapın. Var olan 'Misafir' verileriniz yeni hesabınıza kopyalanacaktır. Schengen Hesap Makinesine kaydolabilir veya Giriş yapmak ve Kaydolmak için Facebook'u kullanabilirsiniz."
-          optional: true
-      limitations:
-        title: "Sınırlamalar"
-        additional_visa_waiver:
-          title: "Ek Vize Muafiyet Anlaşmaları"
-          description: "Schengen Hesap Makinesi, mevcut olabilecek herhangi bir ek Vize Muafiyet Anlaşmasını dikkate almaz."
-        countries_outside_schengen:
-          title: "Schengen Bölgesi Dışındaki Ülkeler"
-          description: "Schengen Hesap Makinesi, Schengen Bölgesi dışındaki ülkeler için vize, giriş gereksinimleri veya kalış süresi gereksinimleri hakkında herhangi bir bilgi vermez. Bunlar N/A - Uygulanamaz olarak işaretlenecektir."
+        first_paragraph: Bazı ülkeler, Schengen bölgesi ülkeleri ile ek vize muafiyet anlaşmalarına sahiptir ve bu anlaşmalarla 180 günlük bir dönemde ek 90 gün kalabilirler; ancak, bu diğer Schengen ülkelerindeki 90 gün içindedir. Bu ek anlaşmalar genellikle gezginler tarafından pek bilinmemektedir!
+        heading: Ek Vize Muafiyet Anlaşmaları
+        second_paragraph: Şu anda, Schengen hesap makinesi Ek Vize Muafiyet Anlaşmalarını dikkate almamaktadır. Lütfen bununla ilgili kendi araştırmanızı yapın.
+      additional_visa_waiver_link: Ek Vize Muafiyet Anlaşmaları
+      blog_link_intro: 'Avrupa''da uzun bir seyahat için hesap makinesini nasıl kullanabileceğiniz konusunda biraz ilham almak için:'
+      button_text: Başlamak için Schengen Hesap Makinesine Git
+      calculation_description:
+        first_paragraph: Bu hesaplama, artık Antigua ve Barbuda, Bahamalar, Barbados, Brezilya, Saint Kitts ve Nevis, Mauritius ve Seyşeller'den gelen kişiler için kullanılır.
+        second_paragraph: Eski tanım, 6 aylık sürekli bir döngü olmadığından, birinci giriş tarihinden başlar ve ardından o tarihten 6 ay sonra sıfırlanır. Bu hesaplama, yeni tanıma göre daha uzun kalışlara izin verebilir. Örneğin, Ocak ayının başında bir gün için giriş yaptıysanız ve ardından 3 ay sonra Haziran sonuna kadar 3 ay süreyle yeniden giriş yaptıysanız, 6 ay (Ocak'tan) sonra sıfırlanır ve yaklaşık 6 ay daha kalabilirsiniz. Ancak, 3 aydan fazla süreyle kalamazsınız, bu nedenle Schengen Bölgesi'nden çıkıp yeniden girmeniz gerekir.
+        third_paragraph: Schengen hesap makinesi bunu dikkate alır, bu nedenle giriş ve çıkış tarihlerini maksimum kalışınızı hesaplamak için kullanabilirsiniz.
+      calculator_description: Schengen Hesap Makinesi, kısa süreli Schengen vizesi ile Schengen Bölgesi'nde seyahat etme hakkınızı hesaplar. Schengen Bölgesi içindeki tüm ziyaretlerinizi takip etmek veya tahmin etmek için kullanabilirsiniz, böylece ne zaman ayrılmanız gerektiğini bilirsiniz.
+      contents_title: İçindekiler
+      countries_in_schengen: 'Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç, İsviçre.'
       definitions:
-        title: "Alan Adı Tanımları"
-        visits_travel_record:
-          title: "Ziyaretler/Seyahat Kaydı"
-          entry_date: "Giriş Tarihi:"
-          entry_date_description: "Ülkeye giriş yaptığınız gün"
-          exit_date: "Çıkış Tarihi:"
-          exit_date_description: "Ülkeden çıkış yaptığınız gün"
-          country: "Ülke:"
-          country_description: "Ziyaret ettiğiniz ülke"
-          schengen_area: "Schengen Bölgesi:"
-          schengen_area_description: "Evet = Schengen Bölgesindedir; Hayır = Schengen Bölgesinde değildir"
-          days_remaining: "Kalan Günler:"
-          days_remaining_description: "Ziyaretin çıkış tarihi itibarıyla Schengen Bölgesinde izin verilen 90 günün kalan sayısı."
-          days_over_stay: "Aşırı Kalış Günleri:"
-          days_over_stay_description: "Schengen Bölgesindeki izin verilen 90 günlük kalış sürenizin ÜZERİNDE geçen gün sayısı. Seyahat planlarınızı gözden geçirin lütfen!"
-          visa: "Vize:"
-          visa_description: "Bu yalnızca giriş öncesi Vize gerektiren Tekli/Multi Kısa Süreli Schengen Vizesiyle ilgilidir. Bu gereksinimden muafsanız, Vize seçenekleri görünmez. Lütfen sayfanın sağ üst köşesindeki Uyruğunuzu seçmeyi unutmayın!"
-          no_entries: "Giriş Yok:"
-          no_entries_description: "Schengen Bölgesine giriş/tekrar giriş yaptığınız kez sayısı. (Bir Schengen ülkesinden diğerine geçiş, tekrar giriş olarak kabul edilmez, ancak bir Schengen Ülkesinden çıkış yapılıp bir sonrakine giriş yapılan arasında bir gün veya daha fazla bir süre varsa, hesap makinesi, Schengen Bölgesinden çıktığınızı ve bunu tekrar giriş olarak sayacağını varsayar."
-          visa_days_over_stay: "Vizeyle Aşırı Kalış Günleri:"
-          visa_days_over_stay_description: "Vize izni olmadan Schengen Bölgesinde geçirilen gün sayısı. Ya bir vize girmediğiniz, vizenin bitiş tarihinden sonra çıktığınız veya vizeye izin verilen giriş sayısından fazla giriş yaptınız."
         short_stay_schengen_visa_record:
-          title: "Kısa Süreli Schengen Vize Kaydı"
-          start_date: "Başlangıç Tarihi:"
-          start_date_description: "Vize Döneminin ilk günü"
-          end_date: "Bitiş Tarihi:"
-          end_date_description: "Vize Döneminin son günü"
-          no_entries: "Giriş Yok:"
-          no_entries_description: "Vizede izin verilen giriş sayısı. Birden fazla giriş vizesiyse 0 girin."
+          end_date: 'Bitiş Tarihi:'
+          end_date_description: Vize Döneminin son günü
+          no_entries: 'Giriş Yok:'
+          no_entries_description: Vizede izin verilen giriş sayısı. Birden fazla giriş vizesiyse 0 girin.
+          start_date: 'Başlangıç Tarihi:'
+          start_date_description: Vize Döneminin ilk günü
+          title: Kısa Süreli Schengen Vize Kaydı
+        title: Alan Adı Tanımları
+        visits_travel_record:
+          country: 'Ülke:'
+          country_description: Ziyaret ettiğiniz ülke
+          days_over_stay: 'Aşırı Kalış Günleri:'
+          days_over_stay_description: Schengen Bölgesindeki izin verilen 90 günlük kalış sürenizin ÜZERİNDE geçen gün sayısı. Seyahat planlarınızı gözden geçirin lütfen!
+          days_remaining: 'Kalan Günler:'
+          days_remaining_description: Ziyaretin çıkış tarihi itibarıyla Schengen Bölgesinde izin verilen 90 günün kalan sayısı.
+          entry_date: 'Giriş Tarihi:'
+          entry_date_description: Ülkeye giriş yaptığınız gün
+          exit_date: 'Çıkış Tarihi:'
+          exit_date_description: Ülkeden çıkış yaptığınız gün
+          no_entries: 'Giriş Yok:'
+          no_entries_description: Schengen Bölgesine giriş/tekrar giriş yaptığınız kez sayısı. (Bir Schengen ülkesinden diğerine geçiş, tekrar giriş olarak kabul edilmez, ancak bir Schengen Ülkesinden çıkış yapılıp bir sonrakine giriş yapılan arasında bir gün veya daha fazla bir süre varsa, hesap makinesi, Schengen Bölgesinden çıktığınızı ve bunu tekrar giriş olarak sayacağını varsayar.
+          schengen_area: 'Schengen Bölgesi:'
+          schengen_area_description: Evet = Schengen Bölgesindedir; Hayır = Schengen Bölgesinde değildir
+          title: Ziyaretler/Seyahat Kaydı
+          visa: 'Vize:'
+          visa_days_over_stay: 'Vizeyle Aşırı Kalış Günleri:'
+          visa_days_over_stay_description: Vize izni olmadan Schengen Bölgesinde geçirilen gün sayısı. Ya bir vize girmediğiniz, vizenin bitiş tarihinden sonra çıktığınız veya vizeye izin verilen giriş sayısından fazla giriş yaptınız.
+          visa_description: Bu yalnızca giriş öncesi Vize gerektiren Tekli/Multi Kısa Süreli Schengen Vizesiyle ilgilidir. Bu gereksinimden muafsanız, Vize seçenekleri görünmez. Lütfen sayfanın sağ üst köşesindeki Uyruğunuzu seçmeyi unutmayın!
       disclaimer:
-        title: "Feragatname"
-        description: "Lütfen Schengen Hesap Makinesini kullanmadan önce %{link}'i okuyun."
-        link_text: "Feragatname"
+        description: Lütfen Schengen Hesap Makinesini kullanmadan önce %{link}'i okuyun.
+        link_text: Feragatname
+        title: Feragatname
+      disclaimer_link: Feragatname
+      european_commission_link: Avrupa Komisyonu
+      european_commission_website_link: Avrupa Komisyonu Web Sitesi
+      exempt_countries_conditions: Lütfen bu ülkelerin bazıları için koşulların olduğunu unutmayın. Örneğin, Arnavutluk, Bosna-Hersek, Eski Yugoslav Cumhuriyeti Makedonya, Moldova, Karadağ, Sırbistan vatandaşları, pasaportlarında biyometrik veri bulundurdukları takdirde vize zorunluluğundan muaf tutulur.
+      exempt_countries_list: Arnavutluk, Andora, Antigua ve Barbuda, Arjantin, Avustralya, Bahamalar, Barbados, Bosna-Hersek, Brezilya, Brunei, Kanada, Şili, Kosta Rika, Hırvatistan, El Salvador, Eski Yugoslav Cumhuriyeti Makedonya (ESCM), Guatemala, Honduras, Hong Kong, İsrail, Japonya, Malezya, Makao, Mauritius, Meksika, Monako, Karadağ, Yeni Zelanda, Nikaragua, Kuzey Mariana Adaları, Panama, Paraguay, Saint Kitts ve Nevis, Sırbistan, Seyşeller, Singapur, Güney Kore, Tayvan, Amerika Birleşik Devletleri, Uruguay ve Venezuela.
+      field_definitions_link: Alan Adı Tanımları
+      get_started: Şimdi Başlayın
+      how_to_use:
+        step_1:
+          description: Uyruğunuzu seçin. Bunun için sayfanın üst kısmındaki başlık kısmını kullanabilirsiniz.
+          title: 'Adım 1:'
+        step_2:
+          description: Gerekirse, kısa süreli Schengen Vizenizin detaylarını girin. Bu yalnızca gerektiğinde seyahat kaydının altında görünecektir.
+          title: 'Adım 2:'
+        step_3:
+          description_1: Seyahat kaydınızı (geçmiş ve gelecek) ekleyin. Son 180 gün içinde Schengen Bölgesi içinde yaptığınız herhangi bir seyahati en azından dahil etmelisiniz.
+          description_2: Ülkeler arası tüm hareketlerinizi, Schengen ve Schengen Dışı Ülkeler arasındaki seyahatleri ve hatta bir Schengen Ülkesinden diğerine seyahati girmeniz önemlidir; çünkü hangi ülkelerin Schengen Anlaşmasının bir parçası olduğunu veya olmadığını farkında olmayabilirsiniz. Giriş tarihi varış yaptığınız gündür ve çıkış tarihi ise ayrıldığınız gündür. Bir sonraki ziyaretinizin giriş tarihi çıkış tarihinizle örtüşüyorsa endişelenmeyin, hesap makinesi, Schengen Bölgesinde kalış sürenizi hesaplarken günleri çift saymaz.
+          title: 'Adım 3:'
+        step_4:
+          description: Seyahatin geçerliliği ve Schengen alanında kalabileceğiniz kalan süre hakkında bilgileri inceleyin. Hesap Makinesini kullanarak, niyetinizdeki seyahat kaydını değiştirerek 'ne olur' senaryoları yapın.
+          title: 'Adım 4:'
+        step_5:
+          description: Seyahat kaydınızı kaydetmek için Kayıt Olun ve Giriş Yapın. Var olan 'Misafir' verileriniz yeni hesabınıza kopyalanacaktır. Schengen Hesap Makinesine kaydolabilir veya Giriş yapmak ve Kaydolmak için Facebook'u kullanabilirsiniz.
+          optional: true
+          title: 'Adım 5: (isteğe bağlı)'
+        title: Schengen Hesap Makinesi Nasıl Kullanılır
+      how_to_use_link: Schengen Hesap Makinesi Nasıl Kullanılır
+      introduction: Giriş
       last_updated:
-        title: "Son Güncelleme"
-        description: "Son Güncelleme: %{date}"
+        description: 'Son Güncelleme: %{date}'
+        title: Son Güncelleme
+      length_calculation_revision: Üçüncü ülke vatandaşlarının izin verilen kalma süresini hesaplama kuralı revize edildi ve %{date} tarihinden itibaren yürürlüğe girdi. Bununla birlikte, Antigua ve Barbuda, Bahamalar, Barbados, Brezilya, Saint Kitts ve Nevis, Mauritius ve Seyşeller'in hala eski hesaplama yöntemini kullanması gereken bazı ülkeler vardır. Bu Schengen hesap makinesi, vatandaşlık durumunuza ve seyahat tarihinize bağlı olarak eski veya yeni hesaplama yöntemini kullanır, bu nedenle bu ülkelerin vatandaşları hesap makinesini hala kullanabilir.
+      length_of_stay_calculation: Kalma Süresi Hesaplama
+      length_of_stay_link: Kalış Süresi Hesaplama
+      limitations:
+        additional_visa_waiver:
+          description: Schengen Hesap Makinesi, mevcut olabilecek herhangi bir ek Vize Muafiyet Anlaşmasını dikkate almaz.
+          title: Ek Vize Muafiyet Anlaşmaları
+        countries_outside_schengen:
+          description: Schengen Hesap Makinesi, Schengen Bölgesi dışındaki ülkeler için vize, giriş gereksinimleri veya kalış süresi gereksinimleri hakkında herhangi bir bilgi vermez. Bunlar N/A - Uygulanamaz olarak işaretlenecektir.
+          title: Schengen Bölgesi Dışındaki Ülkeler
+        title: Sınırlamalar
+      limitations_link: Sınırlamalar
+      more_information_link: 'Daha Fazla Bilgi: gov.uk - 1 Ocak 2021''den İtibaren Avrupa''yı Ziyaret'
+      nationality_dependent_visa_requirement: 'Vatandaşlık durumunuza bağlı olarak, Schengen bölgesine girmeden önce Kısa Süreli Schengen Vizesi başvurmanız gerekebilir. AB''nin, vize başvurması gereken ülkelerin bir listesi ve bu gereksinimi taşımayan ülkelerin bir listesi bulunmaktadır. 1 Mart 2015 tarihi itibarıyla, Schengen Vizesi almadan önce giriş yapması gerekmeyen ülkelerin şu şekildedir:'
+      nationality_requirements_link: Vatandaşlık gereksinimleri
+      nationality_section:
+        heading: Vatandaşlığım için Schengen / Avrupa turistik seyahat giriş ve kalış süresi gereksinimleri
+        select_another_prompt: Başka Bir Ülke Seçin
+        select_prompt: Ülke Seçin
+        subheading: Gereksinimlerinizi görmek için vatandaşlığınızı seçin
+      new_definition_as_of_2013: 2013'ten İtibaren Yeni tanım
+      new_definition_link: 2013'ten itibaren Yeni tanım
+      new_rules_from: "%{date} itibarıyla yeni kurallar"
+      non_eu_visa_requirement: AB dışındaki herhangi bir ülkenin vatandaşıysanız, seyahatten önce bir Vize başvurmanız gerekir. Vize, geçerlilik süresini ve izin verilen giriş sayısını (çoklu giriş - sınırsız) belirtecektir. Lütfen unutmayın ki, "herhangi bir 180 günlük dönemde 90 gün" kuralı, Vize başlangıç ve bitiş tarihlerinden bağımsız olarak geçerlidir. Schengen hesap makinesini vize bilgilerinizi girmek ve izin verilen kalış sürenizi hesaplamak için kullanabilirsiniz.
+      previous_definition_link: Önceki tanım
+      schengen_area_description: Schengen Bölgesi, iç sınırlara sahip olmayan 29 Avrupa ülkesinden oluşur. Vatandaşlar ve birçok AB dışı vatandaş, iş insanı ve turist, sınır kontrolleri olmaksızın serbestçe dolaşabilir. 1985'ten beri, neredeyse tüm AB ülkelerini ve birkaç ilişkili olmayan AB dışı ülkeyi kapsamıştır.
+      schengen_area_link: Schengen Bölgesi Nedir
+      step_by_step_link: Adım Adım
+      title: Schengen Hesap Makinesi Hakkında
+      travelling_in_schengen: Schengen Bölgesi'nde Seyahat
+      travelling_link: Schengen Bölgesi'nde Seyahat
+      uk_citizens: İngiliz Vatandaşları / BREXIT
+      uk_citizens_can_use: "%{date} tarihinden itibaren İngiliz vatandaşları, AB'ye turistik ziyaretler için 180 günlük dönemde 90 gün izin veren Schengen hesap makinesini kullanabilir."
+      uk_citizens_link: İngiliz Vatandaşları
+      useful_for_planning: Özellikle 90 günü aşacak Avrupa seyahatleri için kullanışlıdır. Seyahat ederken Schengen Bölgesi içinde ve dışında zaman geçirerek seyahatinizi uzatabilirsiniz. Sık sık ülkeler arasında seyahat ediyorsanız, kaç gün Schengen Bölgesi'nde geçirdiğinizi takip etmek, hangi ülkelerin Schengen Bölgesi'nde olduğunu hatırlamak ve ne zaman geri dönebileceğinizi hesaplamak zor olabilir. Sadece vatandaşlığınızı, önceki seyahatlerinizi ve planlanan seyahatlerinizi hesaplayıcıya girin, gerisini hesaplayıcı halleder.
+      visa_requirements: Vize Gereklilikleri
+      visa_requirements_link: Vize Gereklilikleri
+      what_is_schengen: Schengen Bölgesi Nedir
+    datadeletion:
+      conclusion: Hesabınız ve tüm verileriniz silinecektir. Bu işlem geri alınamaz.
+      step1: Hesabınıza giriş yapın
+      step2: Sayfanın sağ üst köşesindeki uyruğunuzu seçerek hesap ayarlarına gidin
+      step3: "'Hesabı Sil' düğmesine tıklayın"
+      step4: Hesabınızı silmek istediğinizi onaylayın
+      subtitle: Verilerinizi nasıl silebilirsiniz
+      title: Veri Silme Politikası
+    disclaimer:
+      disclaimer_content_1: Bu web sitesinde bulunan ve Schengen Hesap Makinesi tarafından sağlanan bilgiler yalnızca genel bilgi amaçlıdır. Bilgileri güncel ve doğru tutmaya çalışsak da, ve vize hesaplamalarını doğru yapmış olsak da, web sitesi veya bilgi, ürün, hizmet veya ilgili grafiklerin web sitesinde mevcudiyeti hakkında herhangi bir türde, açık veya zımni, eksiksizlik, doğruluk, güvenilirlik, uygunluk veya kullanılabilirlik konusunda herhangi bir temsil veya garanti vermemekteyiz. Bu tür bilgilere dayanmanız tamamen kendi riskinizdedir.
+      disclaimer_content_2: Herhangi bir kayıp veya zarardan sorumlu olmayacağız, dolaylı veya ardışık kayıp veya zarar, veya veri kaybı veya kar kaybı dahil, bu web sitesinin kullanımından kaynaklanan veya bu web sitesinin kullanımıyla bağlantılı herhangi bir kayıp veya zarar.
+      disclaimer_content_3: Bu web sitesi aracılığıyla, Schengen Hesap Makinesi'nin kontrolü altında olmayan diğer web sitelerine bağlantı kurabilirsiniz. Bu sitelerin doğası, içeriği ve mevcudiyeti üzerinde hiçbir kontrolümüz yoktur. Herhangi bir bağlantının eklenmesi
+      disclaimer_title: Web Sitesi / Schengen Hesap Makinesi Feragatnamesi
     nationality:
-      tourist_travel_requirements_title: "%{nationality_plural} için Schengen / Avrupa turistik seyahat giriş ve kalış gereksinimleri"
-      schengen_visa_requirement_title: "%{nationality_plural} Schengen Turist Vizesi başvurusu yapmalı mı?"
-      visa_not_required: "Hayır. %{country} vatandaşları AB içinde serbest dolaşıma sahiptir."
-      visa_required: "Evet. %{country} vatandaşlarının Schengen Bölgesine giriş yapmadan önce kısa süreli Schengen vizesi başvurusu yapmaları gerekir."
-      visa_exempt: "Hayır. %{country} vatandaşları, giriş öncesinde Schengen Vizesi almak zorunda değildir."
+      additional_visa_waiver_description: "%{country}, bazı Schengen ülkeleri ile ek vize muafiyet anlaşmalarına sahiptir. Bu anlaşmalar, Schengen alanında 90 günden daha uzun kalmanıza izin verebilir. Bunu yapmayı planlıyorsanız dikkatli olmalı ve seyahat etmeden önce danışmanlık almalısınız. Lütfen Schengen Hesap Makinesinin hesaplamalarında ek vize muafiyet anlaşmalarını dikkate almadığını unutmayın.\n"
+      additional_visa_waiver_title: "%{country} Ek Vize Muafiyet anlaşmaları bulunuyor mu?"
+      european_commision_link: Avrupa Komisyonu
       length_of_stay_calculation_title: "%{nationality_plural} için kalış süresi izni hesaplanırken hangi hesaplama kullanılmalıdır?"
-      old_calculation_description: |
-        %{country} vatandaşları, Schengen bölgesinde kalabilecekleri süreyi hesaplarken ESKİ Schengen hesaplamasını kullanmalıdır.
-        Bu, şu şekilde tanımlanır:
-        "İlk giriş tarihinden itibaren 6 aylık bir dönem içinde 3 ay"
-        Daha fazla bilgi için %{european_commision_link} adresini ziyaret edin.
       new_calculation_description: |
         %{country} vatandaşları, Schengen bölgesinde kalabilecekleri süreyi hesaplarken YENİ Schengen hesaplamasını kullanmalıdır.
         Bu, şu şekilde tanımlanır:
         “Herhangi bir 180 günlük dönemde 90 gün […]“. “Giriş tarihi, üye devletlerin topraklarında geçirilen ilk gün olarak kabul edilir ve çıkış tarihi, üye devletlerin topraklarında geçirilen son gün olarak kabul edilir. Oturum izni veya uzun süreli vize altında verilen kalış süreleri, üye devletlerin topraklarında geçirilen kalış süresinin hesaplanmasında dikkate alınmaz.”
         Daha fazla bilgi için %{european_commision_link} adresini ziyaret edin.
-      european_commision_link: "Avrupa Komisyonu"
-      additional_visa_waiver_title: "%{country} Ek Vize Muafiyet anlaşmaları bulunuyor mu?"
-      additional_visa_waiver_description: |
-        %{country}, bazı Schengen ülkeleri ile ek vize muafiyet anlaşmalarına sahiptir. Bu anlaşmalar, Schengen alanında 90 günden daha uzun kalmanıza izin verebilir. Bunu yapmayı planlıyorsanız dikkatli olmalı ve seyahat etmeden önce danışmanlık almalısınız. Lütfen Schengen Hesap Makinesinin hesaplamalarında ek vize muafiyet anlaşmalarını dikkate almadığını unutmayın.
-      no_additional_visa_waiver_description: "Hayır. %{country}, Schengen Bölgesindeki ülkelerle herhangi bir ek vize muafiyet anlaşmasına sahip değildir."
-    disclaimer:
-      disclaimer_title: "Web Sitesi / Schengen Hesap Makinesi Feragatnamesi"
-      disclaimer_content_1: |
-        Bu web sitesinde bulunan ve Schengen Hesap Makinesi tarafından sağlanan bilgiler yalnızca genel bilgi amaçlıdır. Bilgileri güncel ve doğru tutmaya çalışsak da, ve vize hesaplamalarını doğru yapmış olsak da, web sitesi veya bilgi, ürün, hizmet veya ilgili grafiklerin web sitesinde mevcudiyeti hakkında herhangi bir türde, açık veya zımni, eksiksizlik, doğruluk, güvenilirlik, uygunluk veya kullanılabilirlik konusunda herhangi bir temsil veya garanti vermemekteyiz. Bu tür bilgilere dayanmanız tamamen kendi riskinizdedir.
-      disclaimer_content_2: |
-        Herhangi bir kayıp veya zarardan sorumlu olmayacağız, dolaylı veya ardışık kayıp veya zarar, veya veri kaybı veya kar kaybı dahil, bu web sitesinin kullanımından kaynaklanan veya bu web sitesinin kullanımıyla bağlantılı herhangi bir kayıp veya zarar.
-      disclaimer_content_3: |
-        Bu web sitesi aracılığıyla, Schengen Hesap Makinesi'nin kontrolü altında olmayan diğer web sitelerine bağlantı kurabilirsiniz. Bu sitelerin doğası, içeriği ve mevcudiyeti üzerinde hiçbir kontrolümüz yoktur. Herhangi bir bağlantının eklenmesi
+      no_additional_visa_waiver_description: Hayır. %{country}, Schengen Bölgesindeki ülkelerle herhangi bir ek vize muafiyet anlaşmasına sahip değildir.
+      old_calculation_description: |
+        %{country} vatandaşları, Schengen bölgesinde kalabilecekleri süreyi hesaplarken ESKİ Schengen hesaplamasını kullanmalıdır.
+        Bu, şu şekilde tanımlanır:
+        "İlk giriş tarihinden itibaren 6 aylık bir dönem içinde 3 ay"
+        Daha fazla bilgi için %{european_commision_link} adresini ziyaret edin.
+      schengen_visa_requirement_title: "%{nationality_plural} Schengen Turist Vizesi başvurusu yapmalı mı?"
+      tourist_travel_requirements_title: "%{nationality_plural} için Schengen / Avrupa turistik seyahat giriş ve kalış gereksinimleri"
+      visa_exempt: Hayır. %{country} vatandaşları, giriş öncesinde Schengen Vizesi almak zorunda değildir.
+      visa_not_required: Hayır. %{country} vatandaşları AB içinde serbest dolaşıma sahiptir.
+      visa_required: Evet. %{country} vatandaşlarının Schengen Bölgesine giriş yapmadan önce kısa süreli Schengen vizesi başvurusu yapmaları gerekir.
     privacy:
-      privacy_policy_title: "Gizlilik Politikası"
-      introduction_title: "Giriş"
-      introduction_content: >
-        Schengen Hesap Makinesi ("biz" veya "bize") ziyaretçilerin gizliliğini değerlendirir. Bu gizlilik politikası Etkili Tarih; kayıtlı bir kullanıcıdan veya diğer ziyaretçiden ("siz") hangi bilgileri toplayabileceğimizi ve bu bilgileri ne yapacağımızı ve yapmayacağımızı özetler.
-        Lütfen bu gizlilik politikasının Schengen Hesap Makinesi tarafından kontrol edilmeyen şirketler tarafından toplanan ve kullanılan bilgileri düzenlemediğini, Schengen Hesap Makinesi tarafından istihdam edilmeyen veya yönetilmeyen bireyler tarafından toplanan bilgileri de düzenlemediğini unutmayın. Bahsettiğimiz veya bağlantı verdiğimiz bir web sitesini ziyaret ederseniz, siteden bilgi sağlamadan önce gizlilik politikasını inceleyin.
-      what_we_do_title: "Kişisel kimlik bilgilerinizle ne yapıyoruz"
-      personally_identifiable_info_content: >
-        Kişisel kimlik bilgilerini bize ifşa etmek size bağlıdır, ancak bunu yapmayı seçerseniz, sizi bir kullanıcı olarak kaydetme veya size herhangi bir ürün veya hizmet sağlama hakkını saklı tutarız. "Kişisel kimlik bilgileri", sizi birey olarak tanımlamak için kullanılabilecek bilgiler anlamına gelir, örneğin:
-      list_title: "Örneğin, bu şunları içerebilir:"
+      changes_policy_content: Yasal uyum gereksinimleri veya iş uygulamalarımızdaki değişiklikler nedeniyle bu gizlilik politikasını gerektiği gibi değiştirme hakkını saklı tutarız. Bize bir e-posta adresi sağladıysanız, kişisel kimlik bilgilerini nasıl kullanacağımıza ilişkin herhangi bir önemli değişiklik hakkında sizi, o adrese e-posta yoluyla bilgilendirmeye çalışacağız.
+      changes_policy_title: Bu gizlilik politikasındaki değişiklikler
+      children_info_content: Schengen Hesap Makinesi'nin web sitesi ve hizmetlerini kullanmak için en az 13 yaşında olmanız gerekmektedir. Schengen Hesap Makinesi, 13 yaşın altındaki çocuklardan bilgi bilerek toplamaz. (ABD Çocukların Çevrimiçi Gizlilik Korunması Yasası'na bakınız.)
+      children_info_title: Çocuklardan toplanan bilgiler
+      cookies_content: Schengen Hesap Makinesi, kişisel verilerinizi bilgisayarınızda depolamak için "çerezler" kullanır. Bilgisayarınızda çerezlerde depolanan bilgileri, sunucularımızda depolanan belirli kişilerle ilgili kişisel verilerle bağlantılandırabiliriz. Web tarayıcınızı (örneğin, Internet Explorer veya Firefox) çerezlere izin verilmeyen şekilde yapılandırırsanız, web sitemizin bazı veya tüm özelliklerini kullanamayabilirsiniz.
+      cookies_title: Çerezler
+      eu_notice_content: Schengen Hesap Makinesi'nin işlemleri öncelikle Amerika Birleşik Devletleri'nde bulunmaktadır. Bize bilgi sağlarsanız, bilgi Avrupa Birliği'nden (AB) Amerika Birleşik Devletleri'ne aktarılacaktır. Bize kişisel bilgileri sağlayarak, burada tanımlanan şekilde depolanmasına ve kullanılmasına izin vermiş olursunuz.
+      eu_notice_title: Avrupa Birliği kullanıcılarına duyuru
+      external_storage_content: Verilerinizi, sözleşme yaptığımız üçüncü taraf barındırma sağlayıcılarının sunucularında saklayabiliriz.
+      external_storage_title: Harici veri depolama siteleri
+      introduction_content: Schengen Hesap Makinesi ("biz" veya "bize") ziyaretçilerin gizliliğini değerlendirir. Bu gizlilik politikası Etkili Tarih; kayıtlı bir kullanıcıdan veya diğer ziyaretçiden ("siz") hangi bilgileri toplayabileceğimizi ve bu bilgileri ne yapacağımızı ve yapmayacağımızı özetler. Lütfen bu gizlilik politikasının Schengen Hesap Makinesi tarafından kontrol edilmeyen şirketler tarafından toplanan ve kullanılan bilgileri düzenlemediğini, Schengen Hesap Makinesi tarafından istihdam edilmeyen veya yönetilmeyen bireyler tarafından toplanan bilgileri de düzenlemediğini unutmayın. Bahsettiğimiz veya bağlantı verdiğimiz bir web sitesini ziyaret ederseniz, siteden bilgi sağlamadan önce gizlilik politikasını inceleyin.
+      introduction_title: Giriş
       list_items:
-        - "adınız, e-posta adresiniz, telefon numaranız"
-        - "Schengen Hesap Makinesi kullanıcı kimliğiniz ve şifreniz"
-      other_info_title: "Topladığımız diğer bilgiler"
-      other_info_content: >
-        Sizi kolayca tanımlamak için kullanılamayan diğer bilgileri de toplayabiliriz, örneğin bilgisayarınızın alan adı ve IP adresi. Bu bilgileri, tek tek veya toplu olarak, web sitemizin teknik yönetimi için; araştırma ve geliştirme; müşteri ve hesap yönetimi; ve pazarlama çabalarımızı daha hassas bir şekilde odaklamamıza yardımcı olmak için kullanabiliriz.
-      cookies_title: "Çerezler"
-      cookies_content: >
-        Schengen Hesap Makinesi, kişisel verilerinizi bilgisayarınızda depolamak için "çerezler" kullanır. Bilgisayarınızda çerezlerde depolanan bilgileri, sunucularımızda depolanan belirli kişilerle ilgili kişisel verilerle bağlantılandırabiliriz. Web tarayıcınızı (örneğin, Internet Explorer veya Firefox) çerezlere izin verilmeyen şekilde yapılandırırsanız, web sitemizin bazı veya tüm özelliklerini kullanamayabilirsiniz.
-      external_storage_title: "Harici veri depolama siteleri"
-      external_storage_content: >
-        Verilerinizi, sözleşme yaptığımız üçüncü taraf barındırma sağlayıcılarının sunucularında saklayabiliriz.
-      privacy_responsibilities_title: "Gizlilik sorumluluklarınız"
-      privacy_responsibilities_content: >
-        Gizliliğinizi korumaya yardımcı olmak için şunlara dikkat edin:
+      - adınız, e-posta adresiniz, telefon numaranız
+      - Schengen Hesap Makinesi kullanıcı kimliğiniz ve şifreniz
+      other_info_content: Sizi kolayca tanımlamak için kullanılamayan diğer bilgileri de toplayabiliriz, örneğin bilgisayarınızın alan adı ve IP adresi. Bu bilgileri, tek tek veya toplu olarak, web sitemizin teknik yönetimi için; araştırma ve geliştirme; müşteri ve hesap yönetimi; ve pazarlama çabalarımızı daha hassas bir şekilde odaklamamıza yardımcı olmak için kullanabiliriz.
+      personally_identifiable_info_content: 'Kişisel kimlik bilgilerini bize ifşa etmek size bağlıdır, ancak bunu yapmayı seçerseniz, sizi bir kullanıcı olarak kaydetme veya size herhangi bir ürün veya hizmet sağlama hakkını saklı tutarız. "Kişisel kimlik bilgileri", sizi birey olarak tanımlamak için kullanılabilecek bilgiler anlamına gelir, örneğin:'
+      privacy_policy_title: Gizlilik Politikası
+      privacy_responsibilities_content: 'Gizliliğinizi korumaya yardımcı olmak için şunlara dikkat edin:'
+      privacy_responsibilities_title: Gizlilik sorumluluklarınız
+      questions_comments_content: Schengen Hesap Makinesi'nin gizlilik politikası hakkında sorularınız veya yorumlarınız varsa, bir e-posta gönderin support@company'sname.com, veya şirket web sitesinin URL'sindeki Hakkımızda sayfasında açıklanan herhangi bir şekilde bizimle iletişime geçin. Schengen Hesap Makinesi'ni tercih ettiğiniz için teşekkür ederiz!
+      questions_comments_title: Sorular veya yorumlar?
       responsibilities_list:
-        - "kullanıcı kimliğinizi veya şifrenizi başkalarıyla paylaşmayın"
-        - "Schengen Hesap Makinesi web sitesinden çıktığınızda oturumu kapatın"
-        - "'kötü amaçlı yazılım' (virüsler, Truva atları, botlar vb.) karşı alışılmış önlemleri alın, örneğin uygun antivirüs yazılımını kurarak ve güncelleyerek"
-      eu_notice_title: "Avrupa Birliği kullanıcılarına duyuru"
-      eu_notice_content: >
-        Schengen Hesap Makinesi'nin işlemleri öncelikle Amerika Birleşik Devletleri'nde bulunmaktadır. Bize bilgi sağlarsanız, bilgi Avrupa Birliği'nden (AB) Amerika Birleşik Devletleri'ne aktarılacaktır. Bize kişisel bilgileri sağlayarak, burada tanımlanan şekilde depolanmasına ve kullanılmasına izin vermiş olursunuz.
-      children_info_title: "Çocuklardan toplanan bilgiler"
-      children_info_content: >
-        Schengen Hesap Makinesi'nin web sitesi ve hizmetlerini kullanmak için en az 13 yaşında olmanız gerekmektedir. Schengen Hesap Makinesi, 13 yaşın altındaki çocuklardan bilgi bilerek toplamaz. (ABD Çocukların Çevrimiçi Gizlilik Korunması Yasası'na bakınız.)
-      changes_policy_title: "Bu gizlilik politikasındaki değişiklikler"
-      changes_policy_content: >
-        Yasal uyum gereksinimleri veya iş uygulamalarımızdaki değişiklikler nedeniyle bu gizlilik politikasını gerektiği gibi değiştirme hakkını saklı tutarız. Bize bir e-posta adresi sağladıysanız, kişisel kimlik bilgilerini nasıl kullanacağımıza ilişkin herhangi bir önemli değişiklik hakkında sizi, o adrese e-posta yoluyla bilgilendirmeye çalışacağız.
-      questions_comments_title: "Sorular veya yorumlar?"
-      questions_comments_content: >
-        Schengen Hesap Makinesi'nin gizlilik politikası hakkında sorularınız veya yorumlarınız varsa, bir e-posta gönderin support@company'sname.com, veya şirket web sitesinin URL'sindeki Hakkımızda sayfasında açıklanan herhangi bir şekilde bizimle iletişime geçin.
-        Schengen Hesap Makinesi'ni tercih ettiğiniz için teşekkür ederiz!
+      - kullanıcı kimliğinizi veya şifrenizi başkalarıyla paylaşmayın
+      - Schengen Hesap Makinesi web sitesinden çıktığınızda oturumu kapatın
+      - "'kötü amaçlı yazılım' (virüsler, Truva atları, botlar vb.) karşı alışılmış önlemleri alın, örneğin uygun antivirüs yazılımını kurarak ve güncelleyerek"
+      what_we_do_title: Kişisel kimlik bilgilerinizle ne yapıyoruz

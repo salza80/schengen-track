@@ -1,30 +1,48 @@
+---
 tr:
-  helpers:
-    label:
+  activerecord:
+    models:
       user:
-        first_name: "Ad"
-        last_name: "Soyad"
-        Nationality: "Uyruk"
-        email: "E-posta"
-        password: "Parola"
-        password_confirmation: "Parola Onayı"
-      visit:
-        entry_date: "Giriş tarihi"
-        exit_date: "Çıkış tarihi"
-        continent: "Kıta"
-        country: "Ülke"
-      visa:
-        start_date: "Başlangıç tarihi"
-        end_date: "Bitiş tarihi"
-        no_entries: "Giriş sayısı"
-  time:
-    formats:
-      long: "%e %B %Y"
-      mid: "%e %B %Y"
-      default: "%e %B %Y"
+        one: Kullanıcı
+        other: Kullanıcılar
+  common:
+    about: Hakkında
+    about_page: Hakkında sayfası
+    as_of: İtibariyle
+    back: Geri
+    blog: Blog
+    calculator: Hesap Makinesi
+    calendar: Takvim
+    cancel: İptal
+    confirm_delete: Silmeyi Onayla
+    continent: Kıta
+    country: Ülke
+    data_deletion: Veri Silme
+    delete: Sil
+    delete_warning: Bunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+    disclaimer: Açıklama
+    edit: Düzenle
+    edit_my_details: Bilgilerimi Düzenle
+    'false': Hayır
+    log_out: Çıkış yap
+    login: Giriş yap
+    multi_unlimited_entries: "(çoklu/sınırsız girişler için 0 girin)"
+    na: Yok
+    'no': Hayır
+    no_days: Gün Sayısı
+    of: toplam
+    privacy_policy: Gizlilik Politikası
+    save: Kaydet
+    schengen: Schengen
+    schengen_calculator: Schengen Hesaplayıcı
+    to: ile
+    trips: Seyahatler
+    'true': Evet
+    visa: Vize
+    'yes': Evet
   date:
     abbr_day_names:
-    - Pzr
+    - Paz
     - Pzt
     - Sal
     - Çar
@@ -32,6 +50,7 @@ tr:
     - Cum
     - Cmt
     abbr_month_names:
+    -
     - Oca
     - Şub
     - Mar
@@ -57,7 +76,7 @@ tr:
       long: "%e %B %Y"
       short: "%e %b"
     month_names:
-    - 
+    -
     - Ocak
     - Şubat
     - Mart
@@ -74,35 +93,38 @@ tr:
     - :day
     - :month
     - :year
+  default_description: Ücretsiz Schengen/Avrupa 90/180 gün hesaplayıcısı. Uyruğunuzu, seyahat tarihlerinizi ve varış noktanızı girin, Schengen hesaplayıcısı gerisini yapar.
+  default_title: Schengen / Avrupa Kısa Süreli Turist Vize Hesaplayıcısı
   errors:
+    messages:
+      not_saved:
+        one: '1 hata bu %{resource} kaydedilmesini engelledi:'
+        other: "%{count} hata bu %{resource} kaydedilmesini engelledi:"
     prohibited_saving_visa: "%{count} hata, bu vizenin kaydedilmesini engelledi:"
-  common:
-    schengen_calculator: "Schengen Hesaplayıcı"
-    schengen: "Schengen"
-    visa: "Vize"
-    calculator: "Hesap Makinesi"
-    about: "Hakkında"
-    about_page: "Hakkında sayfası"
-    log_out: "Çıkış yap"
-    login: "Giriş yap"
-    edit_my_details: "Bilgilerimi Düzenle"
-    back: "Geri"
-    multi_unlimited_entries: "(çoklu/sınırsız girişler için 0 girin)"
-    save: "Kaydet"
-    to: "ile"
-    edit: "Düzenle"
-    delete: "Sil"
-    continent: "Kıta"
-    no_days: "Gün Sayısı"
-    yes: "Evet"
-    no: "Hayır"
-    na: "Yok"
-    of: "toplam"
-    country: "Ülke"
-    disclaimer: "Açıklama"
-    privacy_policy: "Gizlilik Politikası"
-    data_deletion: "Veri Silme"
-  default_description: "Ücretsiz Schengen/Avrupa 90/180 gün hesaplayıcısı. Uyruğunuzu, seyahat tarihlerinizi ve varış noktanızı girin, Schengen hesaplayıcısı gerisini yapar."
-  keywords: "Schengen, Schengen Hesaplayıcı, 90 gün içinde 180, 90 gün kuralı, 180 gün hesaplayıcı, 90 gün hesap makinesi, Schengen Vizesi, Seyahat, Avrupa Vizesi, Schengen Alanı, Schengen Bölgesi"
+  helpers:
+    label:
+      user:
+        email: E-posta
+        first_name: Ad
+        last_name: Soyad
+        nationality: Milliyet
+        nationality_id: Milliyet
+        password: Parola
+        password_confirmation: Parola Onayı
+      visa:
+        end_date: Bitiş tarihi
+        no_entries: Giriş sayısı
+        start_date: Başlangıç tarihi
+      visit:
+        continent: Kıta
+        country: Ülke
+        entry_date: Giriş tarihi
+        exit_date: Çıkış tarihi
+  keywords: Schengen, Schengen Hesaplayıcı, 90 gün içinde 180, 90 gün kuralı, 180 gün hesaplayıcı, 90 gün hesap makinesi, Schengen Vizesi, Seyahat, Avrupa Vizesi, Schengen Alanı, Schengen Bölgesi
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%e %B %Y"
+      mid: "%e %B %Y"
+      short: "%-d %b %Y"
   title_with_content: "%{content} için Ücretsiz Schengen / Avrupa Kısa Süreli Turist Vize Hesaplayıcısı"
-  default_title: "Schengen / Avrupa Kısa Süreli Turist Vize Hesaplayıcısı"

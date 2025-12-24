@@ -18,6 +18,6 @@
           %td{"data-title": t('visas.columns.no_entries')} 
             = visa.no_entries
           %td{"data-title": t('visas.columns.modify')} 
-            = link_to t('common.edit'), edit_visa_path(locale: I18n.locale, id: visa.id)
+            %a.edit-visa-link{href: "#", "data-visa-id" => visa.id}= t('common.edit')
             = " / "
-            = link_to t('common.delete'), visa, :method => :delete, :data => { :confirm => t('visas.delete_confirmation') }
+            %a.delete-visa-link{href: "#", "data-visa-id" => visa.id, "data-delete-url" => visa_path(visa, locale: I18n.locale)}= t('common.delete')

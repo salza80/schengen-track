@@ -1,750 +1,751 @@
+---
 de:
-  AD_name: Andorra 
-  AE_name: Vereinigte Arabische Emirate
-  AF_name: Afghanistan
-  AG_name: Antigua und Barbuda
-  AI_name: Anguilla
-  AL_name: Albanien
-  AM_name: Armenien
-  AO_name: Angola
-  AQ_name: Antarktis
-  AR_name: Argentinien
-  AS_name: Amerikanisch-Samoa
-  AT_name: Österreich
-  AU_name: Australien
-  AW_name: Aruba
-  AX_name: Åland-Inseln
-  AZ_name: Aserbaidschan
-  BA_name: Bosnien und Herzegowina
-  BB_name: Barbados
-  BD_name: Bangladesch
-  BE_name: Belgien
-  BF_name: Burkina Faso
-  BG_name: Bulgarien
-  BH_name: Bahrain
-  BI_name: Burundi
-  BJ_name: Benin
-  BL_name: Saint-Barthélemy
-  BM_name: Bermuda
-  BN_name: Brunei
-  BO_name: Bolivien
-  BQ_name: Bonaire, Sint Eustatius und Saba
-  BR_name: Brasilien
-  BS_name: Bahamas
-  BT_name: Bhutan
-  BV_name: Bouvetinsel
-  BW_name: Botsuana
-  BY_name: Weißrussland
-  BZ_name: Belize
-  CA_name: Kanada
-  CC_name: Kokosinseln
-  CD_name: Demokratische Republik Kongo
-  CF_name: Zentralafrikanische Republik
-  CG_name: Republik Kongo
-  CH_name: Schweiz
-  CI_name: Elfenbeinküste
-  CK_name: Cookinseln
-  CL_name: Chile
-  CM_name: Kamerun
-  CN_name: China
-  CO_name: Kolumbien
-  CR_name: Costa Rica
-  CU_name: Kuba
-  CV_name: Kap Verde
-  CW_name: Curaçao
-  CX_name: Weihnachtsinsel
-  CY_name: Zypern
-  CZ_name: Tschechien
-  DE_name: Deutschland
-  DJ_name: Dschibuti
-  DK_name: Dänemark
-  DM_name: Dominica
-  DO_name: Dominikanische Republik
-  DZ_name: Algerien
-  EC_name: Ecuador
-  EE_name: Estland
-  EG_name: Ägypten
-  EH_name: Westsahara
-  ER_name: Eritrea
-  KH_name: Kambodscha
-  KI_name: Kiribati
-  KM_name: Komoren
-  KN_name: St. Kitts und Nevis
-  KP_name: Nordkorea
-  ES_name: Spanien
-  ET_name: Äthiopien
-  FI_name: Finnland
-  FJ_name: Fidschi
-  FK_name: Falklandinseln
-  FM_name: Mikronesien
-  FO_name: Färöer-Inseln
-  FR_name: Frankreich
-  GA_name: Gabun
-  GB_name: Vereinigtes Königreich
-  GD_name: Grenada
-  GE_name: Georgien
-  GF_name: Französisch-Guayana
-  GG_name: Guernsey
-  GH_name: Ghana
-  GI_name: Gibraltar
-  GL_name: Grönland
-  GM_name: Gambia
-  GN_name: Guinea
-  GP_name: Guadeloupe
-  GQ_name: Äquatorialguinea
-  GR_name: Griechenland
-  GS_name: Südgeorgien und die Südlichen Sandwichinseln
-  GT_name: Guatemala
-  GU_name: Guam
-  GW_name: Guinea-Bissau
-  GY_name: Guyana
-  HK_name: Hongkong
-  HM_name: Heard und McDonaldinseln
-  HN_name: Honduras
-  HR_name: Kroatien
-  HT_name: Haiti
-  HU_name: Ungarn
-  ID_name: Indonesien
-  IE_name: Irland
-  IL_name: Israel
-  IM_name: Isle of Man
-  IN_name: Indien
-  IO_name: Britisches Territorium im Indischen Ozean
-  IQ_name: Irak
-  IR_name: Iran
-  IS_name: Island
-  IT_name: Italien
-  JE_name: Jersey
-  JM_name: Jamaika
-  JO_name: Jordanien
-  JP_name: Japan
-  KE_name: Kenia
-  KG_name: Kirgisistan
-  KR_name: Südkorea
-  KW_name: Kuwait
-  KY_name: Kaimaninseln
-  KZ_name: Kasachstan
-  LA_name: Laos
-  LB_name: Libanon
-  LC_name: St. Lucia
-  LI_name: Liechtenstein
-  LK_name: Sri Lanka
-  LR_name: Liberia
-  LS_name: Lesotho
-  LT_name: Litauen
-  LU_name: Luxemburg
-  LV_name: Lettland
-  LY_name: Libyen
-  MA_name: Marokko
-  MC_name: Monaco
-  MD_name: Moldawien
-  ME_name: Montenegro
-  MF_name: Saint-Martin
-  MG_name: Madagaskar
-  MH_name: Marshallinseln
-  MK_name: Nordmazedonien
-  ML_name: Mali
-  MM_name: Myanmar
-  MN_name: Mongolei
-  MO_name: Macau
-  MP_name: Nördliche Marianen
-  MQ_name: Martinique
-  MR_name: Mauretanien
-  MS_name: Montserrat
-  MT_name: Malta
-  MU_name: Mauritius
-  MV_name: Malediven
-  MW_name: Malawi
-  MX_name: Mexiko
-  MY_name: Malaysia
-  MZ_name: Mosambik
-  NA_name: Namibia
-  NC_name: Neukaledonien
-  NE_name: Niger
-  NF_name: Norfolkinsel
-  NG_name: Nigeria
-  NI_name: Nicaragua
-  NL_name: Niederlande
-  NO_name: Norwegen
-  NP_name: Nepal
-  NR_name: Nauru
-  NU_name: Niue
-  NZ_name: Neuseeland
-  OM_name: Oman
-  PA_name: Panama
-  PE_name: Peru
-  PF_name: Französisch-Polynesien
-  PG_name: Papua-Neuguinea
-  PH_name: Philippinen
-  PK_name: Pakistan
-  PL_name: Polen
-  PM_name: Saint-Pierre und Miquelon
-  PN_name: Pitcairninseln
-  PR_name: Puerto Rico
-  PS_name: Palästinensische Gebiete
-  PT_name: Portugal
-  PW_name: Palau
-  PY_name: Paraguay
-  QA_name: Katar
-  RE_name: Réunion
-  RO_name: Rumänien
-  RS_name: Serbien
-  RU_name: Russland
-  RW_name: Ruanda
-  SA_name: Saudi-Arabien
-  SB_name: Salomonen
-  SC_name: Seychellen
-  SD_name: Sudan
-  SE_name: Schweden
-  SG_name: Singapur
-  SH_name: St. Helena
-  SI_name: Slowenien
-  SJ_name: Spitzbergen und Jan Mayen
-  SK_name: Slowakei
-  SL_name: Sierra Leone
-  SM_name: San Marino
-  SN_name: Senegal
-  SO_name: Somalia
-  SR_name: Suriname
-  SS_name: Südsudan
-  ST_name: São Tomé und Príncipe
-  SV_name: El Salvador
-  SX_name: Sint Maarten
-  SY_name: Syrien
-  SZ_name: Eswatini
-  TC_name: Turks- und Caicosinseln
-  TD_name: Tschad
-  TF_name: Französische Süd- und Antarktisgebiete
-  TG_name: Togo
-  TH_name: Thailand
-  TJ_name: Tadschikistan
-  TK_name: Tokelau
-  TL_name: Osttimor
-  TM_name: Turkmenistan
-  TN_name: Tunesien
-  TO_name: Tonga
-  TR_name: Türkei
-  TT_name: Trinidad und Tobago
-  TV_name: Tuvalu
-  TW_name: Taiwan
-  TZ_name: Tansania
-  UA_name: Ukraine
-  UG_name: Uganda
-  UM_name: United States Minor Outlying Islands
-  US_name: Vereinigte Staaten
-  UY_name: Uruguay
-  UZ_name: Usbekistan
-  VA_name: Vatikanstadt
-  VC_name: St. Vincent und die Grenadinen
-  VE_name: Venezuela
-  VG_name: Britische Jungferninseln
-  VI_name: Amerikanische Jungferninseln
-  VN_name: Vietnam
-  VU_name: Vanuatu
-  WF_name: Wallis und Futuna
-  WS_name: Samoa
-  YE_name: Jemen
-  YT_name: Mayotte
-  ZA_name: Südafrika
-  ZM_name: Sambia
-  ZW_name: Simbabwe
-  XK_name: Kosovo
+  AD_name: Andorra
   AD_nationality: Andorraner
-  AE_nationality: Emirianer
-  AF_nationality: Afghane
-  AG_nationality: Antiguaner
-  AI_nationality: Anguillaner
-  AL_nationality: Albaner
-  AM_nationality: Armenier
-  AO_nationality: Angolaner
-  AQ_nationality: Antarktisbewohner
-  AR_nationality: Argentinier
-  AS_nationality: Samoaner
-  AT_nationality: Österreicher
-  AU_nationality: Australier
-  AW_nationality: Aruber
-  AX_nationality: Alandbewohner
-  AZ_nationality: Aserbaidschaner
-  BA_nationality: Bosnier
-  BB_nationality: Barbadier
-  BD_nationality: Bangladescher
-  BE_nationality: Belgier
-  BF_nationality: Burkinabe
-  BG_nationality: Bulgare
-  BH_nationality: Bahrainer
-  BI_nationality: Burundier
-  BJ_nationality: Beniner
-  BL_nationality: Barthélemois
-  BM_nationality: Bermudaner
-  BN_nationality: Bruneier
-  BO_nationality: Bolivianer
-  BQ_nationality:
-  BR_nationality: Brasilianer
-  BS_nationality: Bahameese
-  BT_nationality: Bhutaner
-  BV_nationality: Bouvet-Insulaner
-  BW_nationality: Botsuaner
-  BY_nationality: Weißrussischer
-  BZ_nationality: Belizer
-  CA_nationality: Kanadier
-  CC_nationality: Kokosinsulaner
-  CD_nationality: Kongolese
-  CF_nationality: Zentralafrikaner
-  CG_nationality: Kongolese
-  CH_nationality: Schweizer
-  CI_nationality: Ivorer
-  CK_nationality: Cook-Insulaner
-  CL_nationality: Chilene
-  CM_nationality: Kameruner
-  CN_nationality: Chinese
-  CO_nationality: Kolumbianer
-  CR_nationality: Costa Ricaner
-  CU_nationality: Kubaner
-  CV_nationality: Kapverdianer
-  CW_nationality: Curaçaoaner
-  CX_nationality: Weihnachtsinsulaner
-  CY_nationality: Zyprer
-  CZ_nationality: Tscheche
-  DE_nationality: Deutscher
-  DJ_nationality: Dschibutier
-  DK_nationality: Däne
-  DM_nationality: Dominikaner
-  DO_nationality: Dominikaner
-  DZ_nationality: Algerier
-  EC_nationality: Ecuadorianer
-  EE_nationality: Este
-  EG_nationality: Ägypter
-  EH_nationality: Westsaharaner
-  ER_nationality: Eritreer
-  KH_nationality: Kambodschaner
-  KI_nationality: Kiribatier
-  KM_nationality: Komorer
-  KN_nationality: Kittianer
-  KP_nationality: Nordkoreaner
-  ES_nationality: Spanier
-  ET_nationality: Äthiopier
-  FI_nationality: Finne
-  FJ_nationality: Fidschianer
-  FK_nationality: Falkland-Insulaner
-  FM_nationality: Mikronesier
-  FO_nationality: Färöer
-  FR_nationality: Franzose
-  GA_nationality: Gabuner
-  GB_nationality: Brite
-  GD_nationality: Grenadier
-  GE_nationality: Georgier
-  GF_nationality: Französisch-Guianer
-  GG_nationality:
-  GH_nationality: Ghanaer
-  GI_nationality: Gibraltarer
-  GL_nationality: Grönländer
-  GM_nationality: Gambier
-  GN_nationality: Guineer
-  GP_nationality: Guadeloupeaner
-  GQ_nationality: Äquatorialguineer
-  GR_nationality: Grieche
-  GS_nationality:
-  GT_nationality: Guatemalteke
-  GU_nationality: Guamanianer
-  GW_nationality: Guineer
-  GY_nationality: Guyanese
-  HK_nationality: Hongkonger
-  HM_nationality:
-  HN_nationality: Honduraner
-  HR_nationality: Kroate
-  HT_nationality: Haitianer
-  HU_nationality: Ungar
-  ID_nationality: Indonesier
-  IE_nationality: Ire
-  IL_nationality: Israeli
-  IM_nationality: Manx
-  IN_nationality: Inder
-  IO_nationality:
-  IQ_nationality: Iraker
-  IR_nationality: Iraner
-  IS_nationality: Isländer
-  IT_nationality: Italiener
-  JE_nationality:
-  JM_nationality: Jamaikaner
-  JO_nationality: Jordanier
-  JP_nationality: Japaner
-  KE_nationality: Kenianer
-  KG_nationality: Kirgise
-  KR_nationality: Südkoreaner
-  KW_nationality: Kuwaiti
-  KY_nationality: Caymaner
-  KZ_nationality: Kasache
-  LA_nationality: Laote
-  LB_nationality: Libanese
-  LC_nationality: Saint-Lucianer
-  LI_nationality: Liechtensteiner
-  LK_nationality: Sri-Lanker
-  LR_nationality: Liberianer
-  LS_nationality: Mosotho
-  LT_nationality: Litauer
-  LU_nationality: Luxemburger
-  LV_nationality: Lette
-  LY_nationality: Libyer
-  MA_nationality: Marokkaner
-  MC_nationality: Monegasse
-  MD_nationality: Moldauer
-  ME_nationality: Montenegriner
-  MF_nationality:
-  MG_nationality: Madagasse
-  MH_nationality: Marshallinsulaner
-  MK_nationality: Mazedonier
-  ML_nationality: Malier
-  MM_nationality: Burmese
-  MN_nationality: Mongole
-  MO_nationality: Macanese
-  MP_nationality: Nördliche Marianenbewohner
-  MQ_nationality: Martinicaner
-  MR_nationality: Mauretanier
-  MS_nationality: Montserrater
-  MT_nationality: Malteser
-  MU_nationality: Mauritier
-  MV_nationality: Malediver
-  MW_nationality: Malawier
-  MX_nationality: Mexikaner
-  MY_nationality: Malayer
-  MZ_nationality: Mosambikaner
-  NA_nationality: Namibier
-  NC_nationality: Neukaledonier
-  NE_nationality: Nigerianer
-  NF_nationality: Norfolkinsulaner
-  NG_nationality: Nigerianer
-  NI_nationality: Nicaraguaner
-  NL_nationality: Niederländer
-  NO_nationality: Norweger
-  NP_nationality: Nepalese
-  NR_nationality: Nauruer
-  NU_nationality: Niueaner
-  NZ_nationality: Neuseeländer
-  OM_nationality: Omaner
-  PA_nationality: Panamenser
-  PE_nationality: Peruaner
-  PF_nationality: Französisch-Polynesier
-  PG_nationality: Papua-Neuguineer
-  PH_nationality: Filipino
-  PK_nationality: Pakistani
-  PL_nationality: Pole
-  PM_nationality: Saint-Pierrais
-  PN_nationality: Pitcairninsulaner
-  PR_nationality: Puerto Ricaner
-  PS_nationality: Palästinenser
-  PT_nationality: Portugiese
-  PW_nationality: Palauer
-  PY_nationality: Paraguayer
-  QA_nationality: Katarer
-  RE_nationality:
-  RO_nationality: Rumäne
-  RS_nationality: Serbe
-  RU_nationality: Russe
-  RW_nationality: Ruander
-  SA_nationality: Saudi-Araber
-  SB_nationality: Salomonenbewohner
-  SC_nationality: Seychellois
-  SD_nationality: Sudanese
-  SE_nationality: Schwede
-  SG_nationality: Singapurer
-  SH_nationality: Saint-Helenianer
-  SI_nationality: Slowene
-  SJ_nationality:
-  SK_nationality: Slowake
-  SL_nationality: Sierra-Leoner
-  SM_nationality: San-Marinese
-  SN_nationality: Senegalese
-  SO_nationality: Somalier
-  SR_nationality: Surinamer
-  SS_nationality: Sudanese
-  ST_nationality: São-Toméer
-  SV_nationality: Salvadorianer
-  SX_nationality:
-  SY_nationality: Syrer
-  SZ_nationality: Swasi
-  TC_nationality: Turks- und Caicosinsulaner
-  TD_nationality: Tschader
-  TF_nationality:
-  TG_nationality: Togoer
-  TH_nationality: Thailänder
-  TJ_nationality: Tadschik
-  TK_nationality: Tokelauer
-  TL_nationality: Osttimorese
-  TM_nationality: Turkmen
-  TN_nationality: Tunesier
-  TO_nationality: Tonganer
-  TR_nationality: Türke
-  TT_nationality: Trinidadianer
-  TV_nationality: Tuvaluer
-  TW_nationality: Taiwanese
-  TZ_nationality: Tansanier
-  UA_nationality: Ukrainer
-  UG_nationality: Ugander
-  UM_nationality:
-  US_nationality: Amerikaner
-  UY_nationality: Uruguayer
-  UZ_nationality: Usbeke
-  VA_nationality: Vatikaner
-  VC_nationality: Saint-Vincentianer
-  VE_nationality: Venezuelaner
-  VG_nationality: Virgin Islander
-  VI_nationality: Virgin Islander
-  VN_nationality: Vietnamese
-  VU_nationality: Ni-Vanuatu
-  WF_nationality: Walliser
-  WS_nationality: Samoaner
-  YE_nationality: Jemenit
-  YT_nationality: Mahorer
-  ZA_nationality: Südafrikaner
-  ZM_nationality: Sambier
-  ZW_nationality: Simbabwer
-  XK_nationality: Kosovare
   AD_nationality_plural: Andorraner
+  AE_name: Vereinigte Arabische Emirate
+  AE_nationality: Emirianer
   AE_nationality_plural: Emirianer
+  AF_name: Afghanistan
+  AF_nationality: Afghane
   AF_nationality_plural: Afghanen
+  AG_name: Antigua und Barbuda
+  AG_nationality: Antiguaner
   AG_nationality_plural: Antiguaner
+  AI_name: Anguilla
+  AI_nationality: Anguillaner
   AI_nationality_plural: Anguillaner
+  AL_name: Albanien
+  AL_nationality: Albaner
   AL_nationality_plural: Albaner
+  AM_name: Armenien
+  AM_nationality: Armenier
   AM_nationality_plural: Armenier
+  AO_name: Angola
+  AO_nationality: Angolaner
   AO_nationality_plural: Angolaner
+  AQ_name: Antarktis
+  AQ_nationality: Antarktisbewohner
   AQ_nationality_plural: Antarktisbewohner
+  AR_name: Argentinien
+  AR_nationality: Argentinier
   AR_nationality_plural: Argentinier
+  AS_name: Amerikanisch-Samoa
+  AS_nationality: Samoaner
   AS_nationality_plural: Samoaner
+  AT_name: Österreich
+  AT_nationality: Österreicher
   AT_nationality_plural: Österreicher
+  AU_name: Australien
+  AU_nationality: Australier
   AU_nationality_plural: Australier
+  AW_name: Aruba
+  AW_nationality: Aruber
   AW_nationality_plural: Aruber
+  AX_name: Åland-Inseln
+  AX_nationality: Alandbewohner
   AX_nationality_plural: Alandbewohner
+  AZ_name: Aserbaidschan
+  AZ_nationality: Aserbaidschaner
   AZ_nationality_plural: Aserbaidschaner
+  BA_name: Bosnien und Herzegowina
+  BA_nationality: Bosnier
   BA_nationality_plural: Bosnier
+  BB_name: Barbados
+  BB_nationality: Barbadier
   BB_nationality_plural: Barbadier
+  BD_name: Bangladesch
+  BD_nationality: Bangladescher
   BD_nationality_plural: Bangladescher
+  BE_name: Belgien
+  BE_nationality: Belgier
   BE_nationality_plural: Belgier
+  BF_name: Burkina Faso
+  BF_nationality: Burkinabe
   BF_nationality_plural: Burkinabe
+  BG_name: Bulgarien
+  BG_nationality: Bulgare
   BG_nationality_plural: Bulgaren
+  BH_name: Bahrain
+  BH_nationality: Bahrainer
   BH_nationality_plural: Bahrainer
+  BI_name: Burundi
+  BI_nationality: Burundier
   BI_nationality_plural: Burundier
+  BJ_name: Benin
+  BJ_nationality: Beniner
   BJ_nationality_plural: Beniner
+  BL_name: Saint-Barthélemy
+  BL_nationality: Barthélemois
   BL_nationality_plural: Barthélemois
+  BM_name: Bermuda
+  BM_nationality: Bermudaner
   BM_nationality_plural: Bermudaner
+  BN_name: Brunei
+  BN_nationality: Bruneier
   BN_nationality_plural: Bruneier
+  BO_name: Bolivien
+  BO_nationality: Bolivianer
   BO_nationality_plural: Bolivianer
-  BQ_nationality_plural:
+  BQ_name: Bonaire, Sint Eustatius und Saba
+  BQ_nationality: Bonaire-Insulaner
+  BQ_nationality_plural: Bonaire-Insulaner
+  BR_name: Brasilien
+  BR_nationality: Brasilianer
   BR_nationality_plural: Brasilianer
+  BS_name: Bahamas
+  BS_nationality: Bahameese
   BS_nationality_plural: Bahameese
+  BT_name: Bhutan
+  BT_nationality: Bhutaner
   BT_nationality_plural: Bhutaner
+  BV_name: Bouvetinsel
+  BV_nationality: Bouvet-Insulaner
   BV_nationality_plural: Bouvet-Insulaner
+  BW_name: Botsuana
+  BW_nationality: Botsuaner
   BW_nationality_plural: Botsuaner
+  BY_name: Weißrussland
+  BY_nationality: Weißrussischer
   BY_nationality_plural: Weißrussen
+  BZ_name: Belize
+  BZ_nationality: Belizer
   BZ_nationality_plural: Belizer
+  CA_name: Kanada
+  CA_nationality: Kanadier
   CA_nationality_plural: Kanadier
+  CC_name: Kokosinseln
+  CC_nationality: Kokosinsulaner
   CC_nationality_plural: Kokosinsulaner
+  CD_name: Demokratische Republik Kongo
+  CD_nationality: Kongolese
   CD_nationality_plural: Kongolese
+  CF_name: Zentralafrikanische Republik
+  CF_nationality: Zentralafrikaner
   CF_nationality_plural: Zentralafrikaner
+  CG_name: Republik Kongo
+  CG_nationality: Kongolese
   CG_nationality_plural: Kongolese
+  CH_name: Schweiz
+  CH_nationality: Schweizer
   CH_nationality_plural: Schweizer
+  CI_name: Elfenbeinküste
+  CI_nationality: Ivorer
   CI_nationality_plural: Ivorer
+  CK_name: Cookinseln
+  CK_nationality: Cook-Insulaner
   CK_nationality_plural: Cook-Insulaner
+  CL_name: Chile
+  CL_nationality: Chilene
   CL_nationality_plural: Chilenen
+  CM_name: Kamerun
+  CM_nationality: Kameruner
   CM_nationality_plural: Kameruner
+  CN_name: China
+  CN_nationality: Chinese
   CN_nationality_plural: Chinesen
+  CO_name: Kolumbien
+  CO_nationality: Kolumbianer
   CO_nationality_plural: Kolumbianer
+  CR_name: Costa Rica
+  CR_nationality: Costa Ricaner
   CR_nationality_plural: Costa Ricaner
+  CU_name: Kuba
+  CU_nationality: Kubaner
   CU_nationality_plural: Kubaner
+  CV_name: Kap Verde
+  CV_nationality: Kapverdianer
   CV_nationality_plural: Kapverdianer
+  CW_name: Curaçao
+  CW_nationality: Curaçaoaner
   CW_nationality_plural: Curaçaoaner
+  CX_name: Weihnachtsinsel
+  CX_nationality: Weihnachtsinsulaner
   CX_nationality_plural: Weihnachtsinsulaner
+  CY_name: Zypern
+  CY_nationality: Zyprer
   CY_nationality_plural: Zyprer
+  CZ_name: Tschechien
+  CZ_nationality: Tscheche
   CZ_nationality_plural: Tschechen
+  DE_name: Deutschland
+  DE_nationality: Deutscher
   DE_nationality_plural: Deutsche
+  DJ_name: Dschibuti
+  DJ_nationality: Dschibutier
   DJ_nationality_plural: Dschibutier
+  DK_name: Dänemark
+  DK_nationality: Däne
   DK_nationality_plural: Dänen
+  DM_name: Dominica
+  DM_nationality: Dominikaner
   DM_nationality_plural: Dominikaner
+  DO_name: Dominikanische Republik
+  DO_nationality: Dominikaner
   DO_nationality_plural: Dominikaner
+  DZ_name: Algerien
+  DZ_nationality: Algerier
   DZ_nationality_plural: Algerier
+  EC_name: Ecuador
+  EC_nationality: Ecuadorianer
   EC_nationality_plural: Ecuadorianer
+  EE_name: Estland
+  EE_nationality: Este
   EE_nationality_plural: Esten
+  EG_name: Ägypten
+  EG_nationality: Ägypter
   EG_nationality_plural: Ägypter
+  EH_name: Westsahara
+  EH_nationality: Westsaharaner
   EH_nationality_plural: Westsaharaner
+  ER_name: Eritrea
+  ER_nationality: Eritreer
   ER_nationality_plural: Eritreer
-  KI_nationality_plural: Kiribatier
-  KM_nationality_plural: Komorer
-  KN_nationality_plural: Kittianer
-  KP_nationality_plural: Nordkoreaner
+  ES_name: Spanien
+  ES_nationality: Spanier
   ES_nationality_plural: Spanier
+  ET_name: Äthiopien
+  ET_nationality: Äthiopier
   ET_nationality_plural: Äthiopier
+  FI_name: Finnland
+  FI_nationality: Finne
   FI_nationality_plural: Finnen
+  FJ_name: Fidschi
+  FJ_nationality: Fidschianer
   FJ_nationality_plural: Fidschianer
+  FK_name: Falklandinseln
+  FK_nationality: Falkland-Insulaner
   FK_nationality_plural: Falkland-Insulaner
+  FM_name: Mikronesien
+  FM_nationality: Mikronesier
   FM_nationality_plural: Mikronesier
+  FO_name: Färöer-Inseln
+  FO_nationality: Färöer
   FO_nationality_plural: Färöer
+  FR_name: Frankreich
+  FR_nationality: Franzose
   FR_nationality_plural: Franzosen
+  GA_name: Gabun
+  GA_nationality: Gabuner
   GA_nationality_plural: Gabuner
+  GB_name: Vereinigtes Königreich
+  GB_nationality: Brite
   GB_nationality_plural: Briten
+  GD_name: Grenada
+  GD_nationality: Grenadier
   GD_nationality_plural: Grenadier
+  GE_name: Georgien
+  GE_nationality: Georgier
   GE_nationality_plural: Georgier
+  GF_name: Französisch-Guayana
+  GF_nationality: Französisch-Guianer
   GF_nationality_plural: Französisch-Guianer
-  GG_nationality_plural:
+  GG_name: Guernsey
+  GG_nationality: Kanalinsulaner
+  GG_nationality_plural: Kanalinsulaner
+  GH_name: Ghana
+  GH_nationality: Ghanaer
   GH_nationality_plural: Ghanaer
+  GI_name: Gibraltar
+  GI_nationality: Gibraltarer
   GI_nationality_plural: Gibraltarer
+  GL_name: Grönland
+  GL_nationality: Grönländer
   GL_nationality_plural: Grönländer
+  GM_name: Gambia
+  GM_nationality: Gambier
   GM_nationality_plural: Gambier
+  GN_name: Guinea
+  GN_nationality: Guineer
   GN_nationality_plural: Guineer
+  GP_name: Guadeloupe
+  GP_nationality: Guadeloupeaner
   GP_nationality_plural: Guadeloupeaner
+  GQ_name: Äquatorialguinea
+  GQ_nationality: Äquatorialguineer
   GQ_nationality_plural: Äquatorialguineer
+  GR_name: Griechenland
+  GR_nationality: Grieche
   GR_nationality_plural: Griechen
-  GS_nationality_plural:
+  GS_name: Südgeorgien und die Südlichen Sandwichinseln
+  GS_nationality: Südgeorgier
+  GS_nationality_plural: Südgeorgier
+  GT_name: Guatemala
+  GT_nationality: Guatemalteke
   GT_nationality_plural: Guatemalteken
+  GU_name: Guam
+  GU_nationality: Guamanianer
   GU_nationality_plural: Guamanianer
+  GW_name: Guinea-Bissau
+  GW_nationality: Guineer
   GW_nationality_plural: Guineer
+  GY_name: Guyana
+  GY_nationality: Guyanese
   GY_nationality_plural: Guyanese
+  HK_name: Hongkong
+  HK_nationality: Hongkonger
   HK_nationality_plural: Hongkonger
-  HM_nationality_plural:
+  HM_name: Heard und McDonaldinseln
+  HM_nationality: Heard- und McDonald-Insulaner
+  HM_nationality_plural: Heard- und McDonald-Insulaner
+  HN_name: Honduras
+  HN_nationality: Honduraner
   HN_nationality_plural: Honduraner
+  HR_name: Kroatien
+  HR_nationality: Kroate
   HR_nationality_plural: Kroaten
+  HT_name: Haiti
+  HT_nationality: Haitianer
   HT_nationality_plural: Haitianer
+  HU_name: Ungarn
+  HU_nationality: Ungar
   HU_nationality_plural: Hungarians
+  ID_name: Indonesien
+  ID_nationality: Indonesier
   ID_nationality_plural: Indonesians
+  IE_name: Irland
+  IE_nationality: Ire
   IE_nationality_plural: Irish
+  IL_name: Israel
+  IL_nationality: Israeli
   IL_nationality_plural: Israelis
+  IM_name: Isle of Man
+  IM_nationality: Manx
   IM_nationality_plural: Manx
+  IN_name: Indien
+  IN_nationality: Inder
   IN_nationality_plural: Indians
-  IO_nationality_plural:
+  IO_name: Britisches Territorium im Indischen Ozean
+  IO_nationality: Britischer Territoriumsbewohner im Indischen Ozean
+  IO_nationality_plural: Britische Territoriumsbewohner im Indischen Ozean
+  IQ_name: Irak
+  IQ_nationality: Iraker
   IQ_nationality_plural: Iraqis
+  IR_name: Iran
+  IR_nationality: Iraner
   IR_nationality_plural: Iranians
+  IS_name: Island
+  IS_nationality: Isländer
   IS_nationality_plural: Icelanders
+  IT_name: Italien
+  IT_nationality: Italiener
   IT_nationality_plural: Italians
-  JE_nationality_plural:
+  JE_name: Jersey
+  JE_nationality: Kanalinsulaner
+  JE_nationality_plural: Kanalinsulaner
+  JM_name: Jamaika
+  JM_nationality: Jamaikaner
   JM_nationality_plural: Jamaicans
+  JO_name: Jordanien
+  JO_nationality: Jordanier
   JO_nationality_plural: Jordanians
+  JP_name: Japan
+  JP_nationality: Japaner
   JP_nationality_plural: Japanese
+  KE_name: Kenia
+  KE_nationality: Kenianer
   KE_nationality_plural: Kenyans
+  KG_name: Kirgisistan
+  KG_nationality: Kirgise
   KG_nationality_plural: Kyrgyzstanis
+  KH_name: Kambodscha
+  KH_nationality: Kambodschaner
+  KI_name: Kiribati
+  KI_nationality: Kiribatier
+  KI_nationality_plural: Kiribatier
+  KM_name: Komoren
+  KM_nationality: Komorer
+  KM_nationality_plural: Komorer
+  KN_name: St. Kitts und Nevis
+  KN_nationality: Kittianer
+  KN_nationality_plural: Kittianer
+  KP_name: Nordkorea
+  KP_nationality: Nordkoreaner
+  KP_nationality_plural: Nordkoreaner
+  KR_name: Südkorea
+  KR_nationality: Südkoreaner
   KR_nationality_plural: South Koreans
+  KW_name: Kuwait
+  KW_nationality: Kuwaiti
   KW_nationality_plural: Kuwaitis
+  KY_name: Kaimaninseln
+  KY_nationality: Caymaner
   KY_nationality_plural: Caymanians
+  KZ_name: Kasachstan
+  KZ_nationality: Kasache
   KZ_nationality_plural: Kazakhstanis
+  LA_name: Laos
+  LA_nationality: Laote
   LA_nationality_plural: Laotians
+  LB_name: Libanon
+  LB_nationality: Libanese
   LB_nationality_plural: Lebanese
+  LC_name: St. Lucia
+  LC_nationality: Saint-Lucianer
   LC_nationality_plural: Saint Lucians
+  LI_name: Liechtenstein
+  LI_nationality: Liechtensteiner
   LI_nationality_plural: Liechtensteiners
+  LK_name: Sri Lanka
+  LK_nationality: Sri-Lanker
   LK_nationality_plural: Sri Lankans
+  LR_name: Liberia
+  LR_nationality: Liberianer
   LR_nationality_plural: Liberians
+  LS_name: Lesotho
+  LS_nationality: Mosotho
   LS_nationality_plural: Mosotho
+  LT_name: Litauen
+  LT_nationality: Litauer
   LT_nationality_plural: Lithuanians
+  LU_name: Luxemburg
+  LU_nationality: Luxemburger
   LU_nationality_plural: Luxembourgers
+  LV_name: Lettland
+  LV_nationality: Lette
   LV_nationality_plural: Latvians
+  LY_name: Libyen
+  LY_nationality: Libyer
   LY_nationality_plural: Libyans
+  MA_name: Marokko
+  MA_nationality: Marokkaner
   MA_nationality_plural: Moroccans
+  MC_name: Monaco
+  MC_nationality: Monegasse
   MC_nationality_plural: Monacans
+  MD_name: Moldawien
+  MD_nationality: Moldauer
   MD_nationality_plural: Moldovans
+  ME_name: Montenegro
+  ME_nationality: Montenegriner
   ME_nationality_plural: Montenegrins
-  MF_nationality_plural:
+  MF_name: Saint-Martin
+  MF_nationality: Saint-Martiner
+  MF_nationality_plural: Saint-Martiner
+  MG_name: Madagaskar
+  MG_nationality: Madagasse
   MG_nationality_plural: Malagasies
+  MH_name: Marshallinseln
+  MH_nationality: Marshallinsulaner
   MH_nationality_plural: Marshallese
+  MK_name: Nordmazedonien
+  MK_nationality: Mazedonier
   MK_nationality_plural: Macedonians
+  ML_name: Mali
+  ML_nationality: Malier
   ML_nationality_plural: Malians
+  MM_name: Myanmar
+  MM_nationality: Burmese
   MM_nationality_plural: Burmese
+  MN_name: Mongolei
+  MN_nationality: Mongole
   MN_nationality_plural: Mongolians
+  MO_name: Macau
+  MO_nationality: Macanese
   MO_nationality_plural: Macanese
+  MP_name: Nördliche Marianen
+  MP_nationality: Nördliche Marianenbewohner
   MP_nationality_plural: Northern Mariana Islanders
+  MQ_name: Martinique
+  MQ_nationality: Martinicaner
   MQ_nationality_plural: Martinicans
+  MR_name: Mauretanien
+  MR_nationality: Mauretanier
   MR_nationality_plural: Mauritanians
+  MS_name: Montserrat
+  MS_nationality: Montserrater
   MS_nationality_plural: Montserratians
+  MT_name: Malta
+  MT_nationality: Malteser
   MT_nationality_plural: Maltese
+  MU_name: Mauritius
+  MU_nationality: Mauritier
   MU_nationality_plural: Mauritians
+  MV_name: Malediven
+  MV_nationality: Malediver
   MV_nationality_plural: Maldivians
+  MW_name: Malawi
+  MW_nationality: Malawier
   MW_nationality_plural: Malawians
+  MX_name: Mexiko
+  MX_nationality: Mexikaner
   MX_nationality_plural: Mexicans
+  MY_name: Malaysia
+  MY_nationality: Malayer
   MY_nationality_plural: Malaysians
+  MZ_name: Mosambik
+  MZ_nationality: Mosambikaner
   MZ_nationality_plural: Mozambicans
+  NA_name: Namibia
+  NA_nationality: Namibier
   NA_nationality_plural: Namibians
+  NC_name: Neukaledonien
+  NC_nationality: Neukaledonier
   NC_nationality_plural: New Caledonians
+  NE_name: Niger
+  NE_nationality: Nigerianer
   NE_nationality_plural: Nigerians
+  NF_name: Norfolkinsel
+  NF_nationality: Norfolkinsulaner
   NF_nationality_plural: Norfolk Islanders
+  NG_name: Nigeria
+  NG_nationality: Nigerianer
   NG_nationality_plural: Nigerians
+  NI_name: Nicaragua
+  NI_nationality: Nicaraguaner
   NI_nationality_plural: Nicaraguans
+  NL_name: Niederlande
+  NL_nationality: Niederländer
   NL_nationality_plural: Dutch
+  NO_name: Norwegen
+  NO_nationality: Norweger
   NO_nationality_plural: Norwegians
+  NP_name: Nepal
+  NP_nationality: Nepalese
   NP_nationality_plural: Nepalese
+  NR_name: Nauru
+  NR_nationality: Nauruer
   NR_nationality_plural: Nauruans
+  NU_name: Niue
+  NU_nationality: Niueaner
   NU_nationality_plural: Niueans
+  NZ_name: Neuseeland
+  NZ_nationality: Neuseeländer
   NZ_nationality_plural: New Zealanders
+  OM_name: Oman
+  OM_nationality: Omaner
   OM_nationality_plural: Omanis
+  PA_name: Panama
+  PA_nationality: Panamenser
   PA_nationality_plural: Panamanians
+  PE_name: Peru
+  PE_nationality: Peruaner
   PE_nationality_plural: Peruvians
+  PF_name: Französisch-Polynesien
+  PF_nationality: Französisch-Polynesier
   PF_nationality_plural: French Polynesians
+  PG_name: Papua-Neuguinea
+  PG_nationality: Papua-Neuguineer
   PG_nationality_plural: Papua New Guineans
+  PH_name: Philippinen
+  PH_nationality: Filipino
   PH_nationality_plural: Filipinos
+  PK_name: Pakistan
+  PK_nationality: Pakistani
   PK_nationality_plural: Pakistanis
+  PL_name: Polen
+  PL_nationality: Pole
   PL_nationality_plural: Poles
+  PM_name: Saint-Pierre und Miquelon
+  PM_nationality: Saint-Pierrais
   PM_nationality_plural: Saint-Pierrais
+  PN_name: Pitcairninseln
+  PN_nationality: Pitcairninsulaner
   PN_nationality_plural: Pitcairn Islanders
+  PR_name: Puerto Rico
+  PR_nationality: Puerto Ricaner
   PR_nationality_plural: Puerto Ricans
+  PS_name: Palästinensische Gebiete
+  PS_nationality: Palästinenser
   PS_nationality_plural: Palestinians
+  PT_name: Portugal
+  PT_nationality: Portugiese
   PT_nationality_plural: Portuguese
+  PW_name: Palau
+  PW_nationality: Palauer
   PW_nationality_plural: Palauans
+  PY_name: Paraguay
+  PY_nationality: Paraguayer
   PY_nationality_plural: Paraguayans
+  QA_name: Katar
+  QA_nationality: Katarer
   QA_nationality_plural: Qataris
-  RE_nationality_plural:
+  RE_name: Réunion
+  RE_nationality: Réunioner
+  RE_nationality_plural: Réunioner
+  RO_name: Rumänien
+  RO_nationality: Rumäne
   RO_nationality_plural: Romanians
+  RS_name: Serbien
+  RS_nationality: Serbe
   RS_nationality_plural: Serbs
+  RU_name: Russland
+  RU_nationality: Russe
   RU_nationality_plural: Russians
+  RW_name: Ruanda
+  RW_nationality: Ruander
   RW_nationality_plural: Rwandans
+  SA_name: Saudi-Arabien
+  SA_nationality: Saudi-Araber
   SA_nationality_plural: Saudis
+  SB_name: Salomonen
+  SB_nationality: Salomonenbewohner
   SB_nationality_plural: Solomon Islanders
+  SC_name: Seychellen
+  SC_nationality: Seychellois
   SC_nationality_plural: Seychellois
+  SD_name: Sudan
+  SD_nationality: Sudanese
   SD_nationality_plural: Sudanese
+  SE_name: Schweden
+  SE_nationality: Schwede
   SE_nationality_plural: Swedes
+  SG_name: Singapur
+  SG_nationality: Singapurer
   SG_nationality_plural: Singaporeans
+  SH_name: St. Helena
+  SH_nationality: Saint-Helenianer
   SH_nationality_plural: Saint Helenians
+  SI_name: Slowenien
+  SI_nationality: Slowene
   SI_nationality_plural: Slovenes
-  SJ_nationality_plural:
+  SJ_name: Spitzbergen und Jan Mayen
+  SJ_nationality: Svalbard-Bewohner
+  SJ_nationality_plural: Svalbard-Bewohner
+  SK_name: Slowakei
+  SK_nationality: Slowake
   SK_nationality_plural: Slovaks
+  SL_name: Sierra Leone
+  SL_nationality: Sierra-Leoner
   SL_nationality_plural: Sierra Leoneans
+  SM_name: San Marino
+  SM_nationality: San-Marinese
   SM_nationality_plural: San Marinese
+  SN_name: Senegal
+  SN_nationality: Senegalese
   SN_nationality_plural: Senegalese
+  SO_name: Somalia
+  SO_nationality: Somalier
   SO_nationality_plural: Somalis
+  SR_name: Suriname
+  SR_nationality: Surinamer
   SR_nationality_plural: Surinamese
+  SS_name: Südsudan
+  SS_nationality: Sudanese
   SS_nationality_plural: Sudanese
+  ST_name: São Tomé und Príncipe
+  ST_nationality: São-Toméer
   ST_nationality_plural: São Toméans
+  SV_name: El Salvador
+  SV_nationality: Salvadorianer
   SV_nationality_plural: Salvadorans
-  SX_nationality_plural:
+  SX_name: Sint Maarten
+  SX_nationality: Sint-Maarten-Insulaner
+  SX_nationality_plural: Sint-Maarten-Insulaner
+  SY_name: Syrien
+  SY_nationality: Syrer
   SY_nationality_plural: Syrians
+  SZ_name: Eswatini
+  SZ_nationality: Swasi
   SZ_nationality_plural: Swazis
+  TC_name: Turks- und Caicosinseln
+  TC_nationality: Turks- und Caicosinsulaner
   TC_nationality_plural: Turks and Caicos Islanders
+  TD_name: Tschad
+  TD_nationality: Tschader
   TD_nationality_plural: Chadians
-  TF_nationality_plural:
+  TF_name: Französische Süd- und Antarktisgebiete
+  TF_nationality: Französischer Süd-Territoriumsbewohner
+  TF_nationality_plural: Französische Süd-Territoriumsbewohner
+  TG_name: Togo
+  TG_nationality: Togoer
   TG_nationality_plural: Togolese
+  TH_name: Thailand
+  TH_nationality: Thailänder
   TH_nationality_plural: Thais
+  TJ_name: Tadschikistan
+  TJ_nationality: Tadschik
   TJ_nationality_plural: Tajiks
+  TK_name: Tokelau
+  TK_nationality: Tokelauer
   TK_nationality_plural: Tokelauans
+  TL_name: Osttimor
+  TL_nationality: Osttimorese
   TL_nationality_plural: East Timorese
+  TM_name: Turkmenistan
+  TM_nationality: Turkmen
   TM_nationality_plural: Turkmen
+  TN_name: Tunesien
+  TN_nationality: Tunesier
   TN_nationality_plural: Tunisians
+  TO_name: Tonga
+  TO_nationality: Tonganer
   TO_nationality_plural: Tongans
+  TR_name: Türkei
+  TR_nationality: Türke
   TR_nationality_plural: Turks
+  TT_name: Trinidad und Tobago
+  TT_nationality: Trinidadianer
   TT_nationality_plural: Trinidadians
+  TV_name: Tuvalu
+  TV_nationality: Tuvaluer
   TV_nationality_plural: Tuvaluans
+  TW_name: Taiwan
+  TW_nationality: Taiwanese
   TW_nationality_plural: Taiwanese
+  TZ_name: Tansania
+  TZ_nationality: Tansanier
   TZ_nationality_plural: Tanzanians
+  UA_name: Ukraine
+  UA_nationality: Ukrainer
   UA_nationality_plural: Ukrainians
+  UG_name: Uganda
+  UG_nationality: Ugander
   UG_nationality_plural: Ugandans
-  UM_nationality_plural:
+  UM_name: United States Minor Outlying Islands
+  UM_nationality: US-Außeninsulaner
+  UM_nationality_plural: US-Außeninsulaner
+  US_name: Vereinigte Staaten
+  US_nationality: Amerikaner
   US_nationality_plural: Americans
+  UY_name: Uruguay
+  UY_nationality: Uruguayer
   UY_nationality_plural: Uruguayans
+  UZ_name: Usbekistan
+  UZ_nationality: Usbeke
   UZ_nationality_plural: Uzbeks
+  VA_name: Vatikanstadt
+  VA_nationality: Vatikaner
   VA_nationality_plural: Vatican Citizens
+  VC_name: St. Vincent und die Grenadinen
+  VC_nationality: Saint-Vincentianer
   VC_nationality_plural: Saint Vincentians
+  VE_name: Venezuela
+  VE_nationality: Venezuelaner
   VE_nationality_plural: Venezuelans
+  VG_name: Britische Jungferninseln
+  VG_nationality: Virgin Islander
   VG_nationality_plural: Virgin Islanders
+  VI_name: Amerikanische Jungferninseln
+  VI_nationality: Virgin Islander
   VI_nationality_plural: Virgin Islanders
+  VN_name: Vietnam
+  VN_nationality: Vietnamese
   VN_nationality_plural: Vietnamese
+  VU_name: Vanuatu
+  VU_nationality: Ni-Vanuatu
   VU_nationality_plural: Ni-Vanuatu
+  WF_name: Wallis und Futuna
+  WF_nationality: Walliser
   WF_nationality_plural: Wallisians
+  WS_name: Samoa
+  WS_nationality: Samoaner
   WS_nationality_plural: Samoans
-  YE_nationality_plural: Yemenis
-  YT_nationality_plural: Mahorans
-  ZA_nationality_plural: South Africans
-  ZM_nationality_plural: Zambians
-  ZW_nationality_plural: Zimbabweans
+  XK_name: Kosovo
+  XK_nationality: Kosovare
   XK_nationality_plural: Kosovars
+  YE_name: Jemen
+  YE_nationality: Jemenit
+  YE_nationality_plural: Yemenis
+  YT_name: Mayotte
+  YT_nationality: Mahorer
+  YT_nationality_plural: Mahorans
+  ZA_name: Südafrika
+  ZA_nationality: Südafrikaner
+  ZA_nationality_plural: South Africans
+  ZM_name: Sambia
+  ZM_nationality: Sambier
+  ZM_nationality_plural: Zambians
+  ZW_name: Simbabwe
+  ZW_nationality: Simbabwer
+  ZW_nationality_plural: Zimbabweans

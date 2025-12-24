@@ -257,7 +257,7 @@
 		<name>Bulgaria</name>
 		<nationality>Bulgarian</nationality>
 		<continent_code>EU</continent_code>
-		<schengen_start_date/>
+		<schengen_start_date>2025-01-01</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>
@@ -2345,7 +2345,7 @@
 		<name>Romania</name>
 		<nationality>Romanian</nationality>
 		<continent_code>EU</continent_code>
-		<schengen_start_date/>
+		<schengen_start_date>2025-01-01</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
 		<old_schengen_calc>false</old_schengen_calc>

@@ -1,8 +1,12 @@
-= form_for @visit, html: { class: "form-horizontal" } do |f|
+= form_for @visit, html: { class: "form-horizontal" }, remote: true do |f|
   - if @visit.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@visit.errors.count, "error")} prohibited this visit from being saved:"
-      %ul
+    .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
+      %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
+        %span{"aria-hidden" => "true"} &times;
+      %strong
+        = pluralize(@visit.errors.count, "error")
+        prohibited this visit from being saved:
+      %ul.mb-0.mt-2
         - @visit.errors.full_messages.each do |msg|
           %li= msg
   .form-group.row
@@ -26,11 +30,6 @@
     .col-sm-10
       = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select")
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
-  .actions
-    .form-group.row
-      .col-sm-12
-        = f.submit 'Save', class: "btn btn-primary form-btn float-right" do
-          %span.glyphicon.glyphicon-save{"aria-hidden" => "true"}
 %script
   != "var country = #{@country_options.html_safe};"
   != "var CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id')"

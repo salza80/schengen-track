@@ -1,24 +1,21 @@
+---
 de:
   log_in_page:
-    title: "Anmelden"
-    log_in_with_facebook: "Mit Facebook anmelden"
-    remember_me_label: "Erinnere dich an mich"
-    log_in_button: "Anmelden"
-    not_registered: "Noch nicht registriert?"
-    register_link: "Registrieren"
-    forgot_password: "Passwort vergessen?"
-    reset_password_link: "Passwort zurücksetzen"
-  sign_up_page:
-    title: "Registrieren"
-    sign_up_with_facebook: "Mit Facebook anmelden"
-    sign_up_button: "Registrieren"
-    already_registered: "Bereits registriert?"
-    log_in_link: "Einloggen"
-  new_password_page:
-    reset: "Zurücksetzen senden"
+    forgot_password: Passwort vergessen?
+    log_in_button: Anmelden
+    log_in_with_facebook: Mit Facebook anmelden
+    not_registered: Noch nicht registriert?
+    register_link: Registrieren
+    remember_me_label: Erinnere dich an mich
+    reset_password_link: Passwort zurücksetzen
+    title: Anmelden
   my_details_page:
-    delete_account: "Konto löschen"
-    delete_account_confirm: "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Alle Ihre Daten gehen verloren. Diese Aktion kann nicht rückgängig gemacht werden."
-
-
-
+    delete_account: Konto löschen
+    delete_account_confirm: Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Alle Ihre Daten gehen verloren. Diese Aktion kann nicht rückgängig gemacht werden.
+  new_password_page:
+    reset: Zurücksetzen senden
+  sign_up_page:
+    already_registered: Bereits registriert?
+    log_in_link: Einloggen
+    sign_up_button: Registrieren
+    title: Registrieren

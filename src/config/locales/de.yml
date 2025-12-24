@@ -1,28 +1,41 @@
+---
 de:
-  #form helpers
-  helpers:
-    label:
-      user:
-        first_name: "Vorname"
-        last_name: "Nachname"
-        nationality: "Nationalität"
-        email: "E-Mail"
-        password: "Passwort"
-        password_confirmation: "Passwort Bestätigung"
-      visit:
-        entry_date: "Einreisedatum"
-        exit_date: "Ausreisedatum"
-        continent: "Kontinent"
-        country: "Land"
-      visa:
-        start_date: "Startdatum"
-        end_date: "Enddatum"
-        no_entries: "Anzahl der Einträge"
-  time:
-    formats:
-      long: "%e. %B %Y"
-      mid: "%e. %B %Y"
-      default: "%e. %B %Y"
+  KH_nationality_plural: Kambodschaner
+  common:
+    about: Über uns
+    about_page: Über Seite
+    as_of: Stand
+    back: Zurück
+    blog: Blog
+    calculator: Rechner
+    calendar: Kalender
+    cancel: Abbrechen
+    confirm_delete: Löschen bestätigen
+    continent: Kontinent
+    country: Land
+    data_deletion: Datenlöschung
+    delete: Löschen
+    delete_warning: Sind Sie sicher, dass Sie dies löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.
+    disclaimer: Haftungsausschluss
+    edit: Bearbeiten
+    edit_my_details: Meine Angaben bearbeiten
+    'false': Nein
+    log_out: Abmelden
+    login: Anmelden
+    multi_unlimited_entries: "(0 eingeben für mehrere/unbegrenzte Einträge)"
+    na: N/A
+    'no': Nein
+    no_days: Anzahl der Tage
+    of: von
+    privacy_policy: Datenschutzbestimmungen
+    save: Speichern
+    schengen: Schengen
+    schengen_calculator: Schengen-Rechner
+    to: bis
+    trips: Reisen
+    'true': Ja
+    visa: Visum
+    'yes': Ja
   date:
     abbr_day_names:
     - So
@@ -33,6 +46,7 @@ de:
     - Fr
     - Sa
     abbr_month_names:
+    -
     - Jan
     - Feb
     - Mär
@@ -58,7 +72,7 @@ de:
       long: "%e. %B %Y"
       short: "%e. %b"
     month_names:
-    - 
+    -
     - Januar
     - Februar
     - März
@@ -75,35 +89,34 @@ de:
     - :day
     - :month
     - :year
+  default_description: Kostenloser Schengen/Europa-90/180-Tage-Rechner. Geben Sie Ihre Nationalität, Reisedaten und Reiseziel ein, und der Schengen-Rechner erledigt den Rest.
+  default_title: Schengen / Europa-Kurzzeit-Touristenvisum-Rechner
   errors:
     prohibited_saving_visa: "%{count} Fehler verhinderten das Speichern dieses Visums:"
-  common:
-    schengen_calculator: "Schengen-Rechner"
-    schengen: "Schengen"
-    visa: "Visum"
-    calculator: "Rechner"
-    about: "Über uns"
-    about_page: "Über Seite"
-    log_out: "Abmelden"
-    login: "Anmelden"
-    edit_my_details: "Meine Angaben bearbeiten"
-    back: "Zurück"
-    multi_unlimited_entries: "(0 eingeben für mehrere/unbegrenzte Einträge)"
-    save: "Speichern"
-    to: "bis"
-    edit: "Bearbeiten"
-    delete: "Löschen"
-    continent: "Kontinent"
-    no_days: "Anzahl der Tage"
-    yes: "Ja"
-    no: "Nein"
-    na: "N/A"
-    of: "von"
-    country: "Land"
-    disclaimer: "Haftungsausschluss"
-    privacy_policy: "Datenschutzbestimmungen"
-    data_deletion: "Datenlöschung"
-  default_description: "Kostenloser Schengen/Europa-90/180-Tage-Rechner. Geben Sie Ihre Nationalität, Reisedaten und Reiseziel ein, und der Schengen-Rechner erledigt den Rest."
-  keywords: "Schengen, Schengen-Rechner, 90 Tage in 180, 90-Tage-Regel, 180-Tage-Rechner, 90-Tage-Rechner, Schengen-Visum, Reisen, Europa-Visum, Schengen-Gebiet, Schengen-Zone"
-  title_with_content: "Kostenloser Schengen / Europa-Kurzzeit-Touristenvisum-Rechner für %{content}"
-  default_title: "Schengen / Europa-Kurzzeit-Touristenvisum-Rechner"
+  helpers:
+    label:
+      user:
+        email: E-Mail
+        first_name: Vorname
+        last_name: Nachname
+        nationality: Nationalität
+        nationality_id: Nationalität
+        password: Passwort
+        password_confirmation: Passwort Bestätigung
+      visa:
+        end_date: Enddatum
+        no_entries: Anzahl der Einträge
+        start_date: Startdatum
+      visit:
+        continent: Kontinent
+        country: Land
+        entry_date: Einreisedatum
+        exit_date: Ausreisedatum
+  keywords: Schengen, Schengen-Rechner, 90 Tage in 180, 90-Tage-Regel, 180-Tage-Rechner, 90-Tage-Rechner, Schengen-Visum, Reisen, Europa-Visum, Schengen-Gebiet, Schengen-Zone
+  time:
+    formats:
+      default: "%a, %d. %b %Y %H:%M:%S %z"
+      long: "%e. %B %Y"
+      mid: "%e. %B %Y"
+      short: "%-d. %b %Y"
+  title_with_content: Kostenloser Schengen / Europa-Kurzzeit-Touristenvisum-Rechner für %{content}

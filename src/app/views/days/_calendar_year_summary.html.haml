@@ -1,0 +1,20 @@
+.calendar-year-summary.card.mb-3{class: @year_summary[:visits_count] > 0 ? 'border-primary' : 'border-secondary'}
+  .card-body.py-2.px-3
+    - if @year_summary[:visits_count] > 0
+      .row.align-items-center.text-center
+        .col-4
+          %small.text-muted.d-block= t('days.visits_count')
+          %strong= @year_summary[:visits_count]
+        .col-4
+          %small.text-muted.d-block= t('days.schengen_days_in_year')
+          %strong= @year_summary[:schengen_days]
+        .col-4
+          %small.text-muted.d-block= t('days.max_days_reached')
+          %strong{class: "text-#{@year_summary[:max_schengen_count] >= 80 ? 'warning' : 'success'}"}
+            = @year_summary[:max_schengen_count]
+            %small /90
+    - else
+      .text-center.text-muted
+        %small
+          %i.fa.fa-info-circle
+          = t('days.no_visits_this_year', year: @selected_year)

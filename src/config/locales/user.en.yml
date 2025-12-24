@@ -1,22 +1,21 @@
+---
 en:
   log_in_page:
-    title: "Log In"
-    log_in_with_facebook: "Log in with Facebook"
-    remember_me_label: "Remember me"
-    log_in_button: "Log in"
-    not_registered: "Not yet registered?"
-    register_link: "Register"
-    forgot_password: "Forgot your password?"
-    reset_password_link: "Reset Password"
-  sign_up_page:
-    title: "Sign Up"
-    sign_up_with_facebook: "Log in with Facebook"
-    sign_up_button: "Sign up"
-    already_registered: "Already registered?"
-    log_in_link: "Log in"
-  new_password_page:
-    reset: "Send Reset"
+    forgot_password: Forgot your password?
+    log_in_button: Log in
+    log_in_with_facebook: Log in with Facebook
+    not_registered: Not yet registered?
+    register_link: Register
+    remember_me_label: Remember me
+    reset_password_link: Reset Password
+    title: Log In
   my_details_page:
-    delete_account: "Delete Account"
-    delete_account_confirm: "Are you sure you want to delete your account? All your data will be lost. This action can not be undone."
-
+    delete_account: Delete Account
+    delete_account_confirm: Are you sure you want to delete your account? All your data will be lost. This action can not be undone.
+  new_password_page:
+    reset: Send Reset
+  sign_up_page:
+    already_registered: Already registered?
+    log_in_link: Log in
+    sign_up_button: Sign up
+    title: Sign Up

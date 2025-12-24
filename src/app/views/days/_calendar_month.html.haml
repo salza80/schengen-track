@@ -1,0 +1,21 @@
+.calendar-month.mb-4{id: "month-#{month[:month]}", 'data-month': month[:month]}
+  .month-header
+    %h4.text-center.mb-0= month[:month_name]
+
+  .calendar-grid
+    -# Day headers (S M T W T F S)
+    .calendar-cell.day-header= t('date.abbr_day_names')[0]
+    .calendar-cell.day-header= t('date.abbr_day_names')[1]
+    .calendar-cell.day-header= t('date.abbr_day_names')[2]
+    .calendar-cell.day-header= t('date.abbr_day_names')[3]
+    .calendar-cell.day-header= t('date.abbr_day_names')[4]
+    .calendar-cell.day-header= t('date.abbr_day_names')[5]
+    .calendar-cell.day-header= t('date.abbr_day_names')[6]
+
+    -# All day cells (weeks flattened into grid)
+    - month[:weeks].each do |week|
+      - week.each do |day|
+        - if day.nil?
+          .calendar-cell.empty-cell
+        - else
+          = render 'day_cell', day: day

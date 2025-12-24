@@ -1,3 +1,4 @@
+---
 tr:
   activerecord:
     attributes:
@@ -25,8 +26,6 @@ tr:
         unconfirmed_email: Onaylanmayan e-posta
         unlock_token: Jetonun kilidini kaldır
         updated_at: Güncellendi
-    models:
-      user: Kullanıcı
   devise:
     confirmations:
       confirmed: Hesabınız başarıyla onaylandı. Şu an giriş yapmış bulunuyorsunuz.
@@ -124,7 +123,9 @@ tr:
         sign_in: Giriş yap
         sign_in_with_provider: "%{provider} ile giriş yap"
         sign_up: Kaydol
-      minimum_password_length: "(Minimum %{count} karakter)"
+      minimum_password_length:
+        one: "(minimum %{count} karakter)"
+        other: "(minimum %{count} karakter)"
     unlocks:
       new:
         resend_unlock_instructions: Hesap geri açma talimatlarını tekrar gönder
@@ -138,4 +139,3 @@ tr:
       expired: süresi doldu, lütfen yeni bir tane isteyin
       not_found: bulunamadı
       not_locked: kilitlenmemiş
-      not_saved: "%{count} tane hata %{resource}'ın kaydını engelledi."

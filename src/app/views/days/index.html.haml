@@ -1,18 +1,73 @@
-%h3= t('days.schengen_visa_calculation_by_day')
-%p
-  = t('days.max_remaining_days')
-  - if @overstay
-    %small
-      = t('days.overstay_warning')
+.calendar-view-container
+  -# Hidden data element for scroll target
+  - if @scroll_to_month
+    #calendar-scroll-target{'data-month': @scroll_to_month, style: "display:none;"}
+  
+  -# Status summary (mobile & desktop)
+  = render 'calendar_status_summary'
+  
+  -# Mobile legend (shown only on mobile)
+  .d-lg-none
+    = render 'legend_mobile'
+  
+  .row
+    -# Main calendar area
+    .col-lg-9.calendar-main-area
+      -# Year navigation (top)
+      = render 'year_navigation', position: 'top'
+      
+      -# Year summary banner
+      = render 'calendar_year_summary'
+      
+      -# Calendar months
+      = render 'calendar'
+      
+      -# Year navigation (bottom)
+      = render 'year_navigation', position: 'bottom'
+    
+    -# Sidebar (desktop only)
+    .col-lg-3.d-none.d-lg-block.calendar-sidebar-col
+      = render 'calendar_sidebar'
+  
+  -# Modal for adding/editing visits
+  #visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog.modal-lg{role: "document"}
+      .modal-content
+        .modal-header
+          %h5#visitModalLabel.modal-title= t('visits.add_record')
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+            %span{"aria-hidden" => "true"} &times;
+        .modal-body
+          -# Form will be loaded here via AJAX
+        .modal-footer.d-flex.justify-content-between
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+          .ml-auto
+            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+              = t('common.delete')
+            %button#saveVisitButton.btn.btn-primary{type: "button"}
+              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              = t('common.save')
+  
+  -# Context menu for days with multiple visits
+  #visitContextMenu.context-menu{style: "display: none;"}
+    %ul.list-unstyled.mb-0
+      -# Will be populated dynamically via JavaScript
 
-.row
-  .col-md-12.text-right
-    = link_to t('common.back'), visits_path(locale: I18n.locale)
-
-.row
-  .col-md-12
-    = render 'dayslist'
-
-.row
-  .col-md-12
-    = link_to t('common.back'), visits_path(locale: I18n.locale)
+  -# Modal for delete confirmation
+  #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog{role: "document"}
+      .modal-content
+        .modal-header.bg-danger.text-white
+          %h5#deleteModalLabel.modal-title
+            %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
+            = t('common.confirm_delete')
+          %button.close.text-white{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+            %span{"aria-hidden" => "true"} &times;
+        .modal-body
+          %p#deleteModalMessage= t('common.delete_warning')
+        .modal-footer
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+          %a#deleteConfirmButton.btn.btn-danger{href: "#"}
+            %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
+            = t('common.delete')

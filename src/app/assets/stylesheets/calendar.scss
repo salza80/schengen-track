@@ -1,0 +1,452 @@
+// Calendar View Styles
+
+// Sticky year navigation
+.calendar-year-nav {
+  z-index: 100;
+  border-bottom: 2px solid #dee2e6;
+  
+  &.sticky-top {
+    background: white !important;
+  }
+  
+  h3 {
+    font-size: 1.75rem;
+    color: $primary;
+  }
+}
+
+// Legend
+.calendar-legend {
+  border: 1px solid #dee2e6;
+  
+  h5 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .legend-item {
+    .legend-color {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      border: 1px solid #dee2e6;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Month container
+.calendar-month {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  
+  .month-header {
+    background: $headerGreen;
+    color: #2d5016; // Dark green for better contrast on light green background
+    padding: 1rem;
+    
+    h4 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600; // Slightly bolder for better readability
+    }
+  }
+}
+
+// Calendar grid
+.calendar-month .calendar-grid {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  gap: 1px !important;
+  background: #dee2e6 !important;
+  
+  .day-header {
+    background: #f8f9fa;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    border-bottom: 2px solid #dee2e6;
+    min-height: 40px;
+  }
+}
+
+// Calendar cells (Option B: Moderate reduction)
+.calendar-cell {
+  min-height: 70px;
+  background: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  &.empty-cell {
+    background: #fafafa;
+  }
+  
+  &.day-header {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Day cells with data
+.day-cell {
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+  
+  .day-number {
+    font-weight: bold;
+    font-size: 1rem;
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+  }
+  
+  .day-country {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+  }
+  
+  .day-count {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .day-overstay,
+  .day-wait {
+    text-align: center;
+    font-size: 0.7rem;
+    margin-top: 0.125rem;
+  }
+}
+
+// Color coding
+.outside-schengen {
+  background-color: $calendar-outside;
+  color: $calendar-outside-text;
+}
+
+.in-schengen-safe {
+  background-color: $calendar-safe;
+  color: $calendar-safe-text;
+}
+
+.in-schengen-warning {
+  background-color: $calendar-warning;
+  color: $calendar-warning-text;
+}
+
+.overstay {
+  background-color: $calendar-overstay;
+  color: $calendar-overstay-text;
+  border: 2px solid darken($calendar-overstay, 10%) !important;
+}
+
+.waiting-period {
+  background-color: $calendar-waiting;
+  color: $calendar-waiting-text;
+  border: 2px solid darken($calendar-waiting, 10%) !important;
+}
+
+// Current day highlight (Option C: Background accent)
+.day-cell.current-day {
+  background-color: lighten($primary, 45%) !important;
+  border: 2px solid $primary !important;
+  
+  .day-number {
+    color: $primary;
+    font-weight: 900;
+  }
+}
+
+// Mobile responsive (updated for smaller cells)
+@media (max-width: 768px) {
+  .calendar-cell {
+    min-height: 50px;
+  }
+  
+  .day-cell {
+    padding: 0.125rem;
+    
+    .day-number {
+      font-size: 0.875rem;
+      top: 0.125rem;
+      right: 0.125rem;
+    }
+    
+    .day-country {
+      margin-top: 1.25rem;
+      font-size: 0.65rem;
+    }
+    
+    .day-count {
+      font-size: 0.65rem;
+    }
+  }
+  
+  .calendar-month {
+    margin-bottom: 2rem;
+  }
+  
+  .calendar-year-nav {
+    h3 {
+      font-size: 1.25rem;
+    }
+    
+    .btn {
+      font-size: 0.875rem;
+      padding: 0.375rem 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-cell {
+    min-height: 50px;
+  }
+  
+  .day-cell {
+    .day-number {
+      font-size: 0.75rem;
+    }
+    
+    .day-country {
+      font-size: 0.6rem;
+    }
+    
+    .day-count {
+      font-size: 0.6rem;
+    }
+    
+    .day-overstay,
+    .day-wait {
+      font-size: 0.55rem;
+    }
+  }
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Calendar sidebar
+.calendar-sidebar {
+  z-index: 50; // Lower than header (which should be around 100+)
+  
+  // Smooth scrolling for sidebar content
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.2) transparent;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,0.3);
+  }
+}
+
+// Calendar interaction styles
+.day-cell {
+  cursor: pointer;
+  user-select: none;
+  
+  &.clickable {
+    cursor: pointer;
+    
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+  }
+  
+  &.selecting {
+    outline: 2px dashed $primary;
+    outline-offset: -2px;
+  }
+  
+  &.selected {
+    outline: 3px solid $primary;
+    outline-offset: -3px;
+  }
+}
+
+// Context menu for days with multiple visits
+.context-menu {
+  position: fixed;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1050;
+  min-width: 250px;
+  max-width: 350px;
+  
+  ul {
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    
+    li {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      
+      &:hover:not(.divider) {
+        background: #f8f9fa;
+      }
+      
+      &:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+      
+      &:last-child {
+        border-radius: 0 0 8px 8px;
+      }
+      
+      .visit-country {
+        font-weight: 600;
+        color: #212529;
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+      }
+      
+      .visit-dates {
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+    }
+    
+    .divider {
+      height: 0;
+      border-top: 1px solid #dee2e6;
+      margin: 0.5rem 0;
+      padding: 0;
+      cursor: default;
+      
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
+}
+
+// Modal customizations
+#visitModal {
+  .modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+  
+  .form-horizontal {
+    .form-group {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+// Empty calendar message
+.empty-calendar-message {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+  
+  h4 {
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+  
+  .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+}
+
+// ============================================================================
+// Visit Highlight Animations
+// ============================================================================
+
+// Green pulse animation for newly created visits
+@keyframes highlightPulseGreen {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+    transform: scale(1.02);
+  }
+  100% { 
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    transform: scale(1);
+  }
+}
+
+.newly-created-visit {
+  animation: highlightPulseGreen 1s ease-in-out 2;
+  border: 2px solid #28a745 !important;
+  position: relative;
+  z-index: 10; // Ensure it appears above other cells
+}
+
+// Blue pulse animation for updated visits
+@keyframes highlightPulseBlue {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    transform: scale(1.02);
+  }
+  100% { 
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    transform: scale(1);
+  }
+}
+
+.newly-updated-visit {
+  animation: highlightPulseBlue 1s ease-in-out 2;
+  border: 2px solid #007bff !important;
+  position: relative;
+  z-index: 10; // Ensure it appears above other cells
+}
+
+// Smooth transition when highlight is removed
+.calendar-day-cell,
+.day-cell {
+  transition: border 0.3s ease, transform 0.3s ease;
+}

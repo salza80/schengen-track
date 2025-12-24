@@ -4,6 +4,7 @@ import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
@@ -85,6 +86,15 @@ export class HttpApiConstruct extends Construct {
       tracing: lambda.Tracing.ACTIVE,
     });
 
+    // Grant Lambda permission to read the deployment timestamp from Parameter Store
+    apiFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['ssm:GetParameter'],
+      resources: [
+        `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter/schengen/deployment-timestamp`
+      ]
+    }));
+
     // AWS API Gateway HTTP API using Rails as Lambda proxy integration
     // overwrite host header with domain, as it will come from cloudfront and rails requires it for security xss checks.
     const railsHttpApi = new apigwv2.HttpApi(this, 'Api', {
@@ -98,8 +108,28 @@ export class HttpApiConstruct extends Construct {
     const sslCertificateArn = props.sslArn;
     const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList('Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'),
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Origin', 
+        'Access-Control-Request-Method', 
+        'Access-Control-Request-Headers',
+        'Accept',
+        'X-Requested-With'
+      ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+    })
+
+    // Separate policy for authentication flows that need all cookies for CSRF
+    const authOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "authRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Origin', 
+        'Access-Control-Request-Method', 
+        'Access-Control-Request-Headers',
+        'Accept',
+        'X-Requested-With',
+        'Referer'
+      ),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
     })
 
@@ -148,6 +178,16 @@ export class HttpApiConstruct extends Construct {
       functionAssociations
     };
 
+    const authFlowBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: authOriginRequestPolicy,
+      // Removed functionAssociations - auth flows don't need domain rewriting
+      // This prevents redirect chain issues on mobile browsers during OAuth
+    };
+
     const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain, altDomain],
@@ -162,6 +202,8 @@ export class HttpApiConstruct extends Construct {
         functionAssociations
       },
       additionalBehaviors: {
+        "/users/*": authFlowBehavior,
+        "/*/users/*": authFlowBehavior,
         "assets/*": publicAssetsCacheBehavior,
         "/": publicCacheByCountryGuestBehavior,
         "/en": publicCacheByCountryGuestBehavior,

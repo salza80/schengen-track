@@ -1,27 +1,56 @@
+---
 hi:
-  helpers:
-    label:
-      user:
-        first_name: "पहला नाम"
-        last_name: "अंतिम नाम"
-        Nationality: "राष्ट्रीयता"
-        email: "ईमेल"
-        password: "पासवर्ड"
-        password_confirmatio: "पासवर्ड की पुष्टि"
-      visit:
-        entry_date: "प्रवेश तिथि"
-        exit_date: "निकास तिथि"
-        continent: "महाद्वीप"
-        country: "देश"
-      visa:
-        start_date: "प्रारंभ तिथि"
-        end_date: "समाप्ति तिथि"
-        no_entries: "प्रवेशों की संख्या"
-  time:
-    formats:
-      long: "%e de %B de %Y"
-      mid: "%e de %B de %Y"
-      default: "%e de %B de %Y"
+  AE_nationality: अमीराती
+  GS_nationality_plural: दक्षिण जॉर्जियाई
+  VE_nationality_plural: वेनेजुएला
+  VG_nationality_plural: वर्जिन द्वीपवासी
+  VI_nationality_plural: वर्जिन द्वीपवासी
+  VN_nationality_plural: वियतनामी
+  VU_nationality_plural: नी-वानुआतु
+  WF_nationality_plural: वालिसियन
+  WS_nationality_plural: सामोन
+  XK_nationality_plural: कोसोवार
+  YE_nationality_plural: यमनी
+  YT_nationality: महोरन
+  YT_nationality_plural: महोरन
+  ZA_nationality_plural: दक्षिण अफ्रीकी
+  ZM_nationality_plural: जाम्बियाई
+  ZW_nationality_plural: जिम्बाब्वे
+  common:
+    about: के बारे में
+    about_page: बारे में पृष्ठ
+    as_of: की तिथि से
+    back: वापस
+    blog: ब्लॉग
+    calculator: कैलकुलेटर
+    calendar: कैलेंडर
+    cancel: रद्द करें
+    confirm_delete: हटाना पुष्टि करें
+    continent: महाद्वीप
+    country: देश
+    data_deletion: डेटा हटाना
+    delete: हटाएं
+    delete_warning: क्या आप वाकई इसे हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।
+    disclaimer: अस्वीकरण
+    edit: संपादित करें
+    edit_my_details: मेरा विवरण संपादित करें
+    'false': नहीं
+    log_out: लॉग आउट
+    login: लॉग इन
+    multi_unlimited_entries: "(बहु/असीमित प्रवेश के लिए 0 दर्ज करें)"
+    na: उपलब्ध नहीं
+    'no': नहीं
+    no_days: दिनों की संख्या
+    of: का
+    privacy_policy: गोपनीयता नीति
+    save: सहेजें
+    schengen: शेंगेन
+    schengen_calculator: शेंगेन कैलकुलेटर
+    to: तक
+    trips: यात्राएं
+    'true': हाँ
+    visa: वीज़ा
+    'yes': हाँ
   date:
     abbr_day_names:
     - रवि
@@ -32,18 +61,19 @@ hi:
     - शुक्र
     - शनि
     abbr_month_names:
-    - जनवरी
-    - फ़रवरी
+    -
+    - जन
+    - फ़र
     - मार्च
-    - अप्रैल
+    - अप्रै
     - मई
     - जून
-    - जुलाई
-    - अगस्त
-    - सितंबर
-    - अक्टूबर
-    - नवंबर
-    - दिसंबर
+    - जुला
+    - अग
+    - सित
+    - अक्टू
+    - नव
+    - दिस
     day_names:
     - रविवार
     - सोमवार
@@ -57,7 +87,7 @@ hi:
       long: "%e %B %Y"
       short: "%e %b"
     month_names:
-    - 
+    -
     - जनवरी
     - फ़रवरी
     - मार्च
@@ -74,35 +104,37 @@ hi:
     - :day
     - :month
     - :year
+  default_description: मुफ्त शेंगेन / यूरोप 90/180 दिन कैलकुलेटर। अपनी राष्ट्रीयता, यात्रा तिथियाँ और गंतव्य दर्ज करें, और शेंगेन कैलकुलेटर बाकी का काम करेगा।
+  default_title: शेंगेन / यूरोप शॉर्ट-स्टे टूरिस्ट वीज़ा कैलकुलेटर
   errors:
     prohibited_saving_visa: "%{count} त्रुटि के कारण इस वीज़ा को सहेजना निषेध है:"
-  common:
-    schengen_calculator: "शेंगेन कैलकुलेटर"
-    schengen: "शेंगेन"
-    visa: "वीज़ा"
-    calculator: "कैलकुलेटर"
-    about: "के बारे में"
-    about_page: "बारे में पृष्ठ"
-    log_out: "लॉग आउट"
-    login: "लॉग इन"
-    edit_my_details: "मेरा विवरण संपादित करें"
-    back: "वापस"
-    multi_unlimited_entries: "(बहु/असीमित प्रवेश के लिए 0 दर्ज करें)"
-    save: "सहेजें"
-    to: "तक"
-    edit: "संपादित करें"
-    delete: "हटाएं"
-    continent: "महाद्वीप"
-    no_days: "दिनों की संख्या"
-    yes: "हाँ"
-    no: "नहीं"
-    na: "उपलब्ध नहीं"
-    of: "का"
-    country: "देश"
-    disclaimer: "अस्वीकरण"
-    privacy_policy: "गोपनीयता नीति"
-    data_deletion: "डेटा हटाना"
-  default_description: "मुफ्त शेंगेन / यूरोप 90/180 दिन कैलकुलेटर। अपनी राष्ट्रीयता, यात्रा तिथियाँ और गंतव्य दर्ज करें, और शेंगेन कैलकुलेटर बाकी का काम करेगा।"
-  keywords: "शेंगेन, शेंगेन कैलकुलेटर, 180 दिनों में 90 दिन, 90 दिन का नियम, 180 दिन कैलकुलेटर, 90 दिन कैलकुलेटर, शेंगेन वीज़ा, यात्रा, यूरोप वीज़ा, शेंगेन क्षेत्र, शेंगेन ज़ोन"
-  title_with_content: "मुफ्त शेंगेन / यूरोप शॉर्ट-स्टे टूरिस्ट वीज़ा कैलकुलेटर %{content} के लिए"
-  default_title: "शेंगेन / यूरोप शॉर्ट-स्टे टूरिस्ट वीज़ा कैलकुलेटर"
+  helpers:
+    label:
+      user:
+        email: ईमेल
+        first_name: पहला नाम
+        last_name: अंतिम नाम
+        nationality: राष्ट्रीयता
+        nationality_id: राष्ट्रीयता
+        password: पासवर्ड
+        password_confirmation: पासवर्ड की पुष्टि
+      visa:
+        end_date: समाप्ति तिथि
+        no_entries: प्रवेशों की संख्या
+        start_date: प्रारंभ तिथि
+      visit:
+        continent: महाद्वीप
+        country: देश
+        entry_date: प्रवेश तिथि
+        exit_date: निकास तिथि
+  keywords: शेंगेन, शेंगेन कैलकुलेटर, 180 दिनों में 90 दिन, 90 दिन का नियम, 180 दिन कैलकुलेटर, 90 दिन कैलकुलेटर, शेंगेन वीज़ा, यात्रा, यूरोप वीज़ा, शेंगेन क्षेत्र, शेंगेन ज़ोन
+  my_details_page:
+    delete_account: खाता हटाएं
+    delete_account_confirm: क्या आप वाकई अपना खाता हटाना चाहते हैं? आपका सभी डेटा खो जाएगा। इस कार्य को पूर्ववत नहीं किया जा सकता।
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%e de %B de %Y"
+      mid: "%e de %B de %Y"
+      short: "%b %-d, %Y"
+  title_with_content: मुफ्त शेंगेन / यूरोप शॉर्ट-स्टे टूरिस्ट वीज़ा कैलकुलेटर %{content} के लिए

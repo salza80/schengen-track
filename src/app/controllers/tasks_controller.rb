@@ -1,21 +1,26 @@
 class TasksController < ApplicationController
   before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries]
+  before_action :check_deployment_window, only: [:migrate, :update_countries]
+  
   # GET /tasks/migrations
   def migrate
     rake_migrate = "db:migrate"
     @success = system("rake #{rake_migrate}")
     render_json_response
   end
+  
   def create
     rake_create = "db:create"
     @success = system("rake #{rake_create}")
     render_json_response
   end
+  
   def seed
     rake_seed = "db:seed"
     @success = system("rake #{rake_seed}")
     render_json_response
   end
+  
   def update_countries
     rake_update_countries = "db:update_countries"
     @success = system("rake #{rake_update_countries}")
@@ -34,7 +39,36 @@ class TasksController < ApplicationController
     end
   end
 
-   def render_json_response
+  def check_deployment_window
+    unless deployment_in_progress?
+      @success = false
+      render json: { success: false, error: 'Deployment endpoints are only accessible within 1 hour of deployment' }, status: :forbidden
+    end
+  end
+
+  def deployment_in_progress?
+    return true if Rails.env.development?
+    
+    begin
+      require 'aws-sdk-ssm'
+      
+      ssm_client = Aws::SSM::Client.new(region: ENV['AWS_REGION'] || 'us-east-1')
+      param_name = '/schengen/deployment-timestamp'
+      
+      response = ssm_client.get_parameter(name: param_name)
+      deployment_time = Time.parse(response.parameter.value)
+      
+      Time.now - deployment_time < 3600
+    rescue Aws::SSM::Errors::ParameterNotFound
+      Rails.logger.warn("Deployment timestamp parameter not found")
+      false
+    rescue => e
+      Rails.logger.error("Error checking deployment window: #{e.message}")
+      false
+    end
+  end
+
+  def render_json_response
     render json: { success: @success }
   end
 

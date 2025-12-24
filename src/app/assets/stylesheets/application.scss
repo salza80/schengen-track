@@ -9,10 +9,11 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
- *= require_tree .
- *= require_self
  */
+
+// Override Bootstrap danger color BEFORE variables are loaded
+$red: #ff6b35;  // Softer coral/orange instead of harsh red
+$danger: #ff6b35;
 
 // import theme variables
 @import "_variables.scss";
@@ -22,6 +23,10 @@
 // @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
+@import "calendar";
+@import "about";
+@import "blog";
+@import "responsive_table";
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -34,6 +39,7 @@ html {
   bottom: 0;
   width: 100%;
   padding-top: 10px;
+  z-index: 100; // Above sidebar (50) but below header (1020)
 }
 
 .bg-md-header {       
@@ -54,6 +60,11 @@ html {
         border-color: $primary;
       }
     }
+}
+
+// Ensure sticky header stays on top
+.navbar.sticky-top {
+  z-index: 1020; // Bootstrap's default sticky navbar z-index
 }
 
 .justify-right{
@@ -134,4 +145,25 @@ input.form-control {
   object-position: 25% 55%;
   margin-bottom: 1em;
   margin-top: 1em; 
+}
+
+// Delete confirmation modal styles
+#deleteModal {
+  .modal-header {
+    border-bottom: none;
+    
+    .modal-title {
+      display: flex;
+      align-items: center;
+    }
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+    font-size: 1rem;
+    
+    p {
+      margin-bottom: 0;
+    }
+  }
 }

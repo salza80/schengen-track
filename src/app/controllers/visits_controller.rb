@@ -2,6 +2,10 @@ class VisitsController < ApplicationController
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
+  
+  # Skip CSRF verification for .js GET requests (new, edit, for_date)
+  # These are safe read-only operations that need to work with AJAX
+  skip_before_action :verify_authenticity_token, only: [:new, :edit, :for_date], if: -> { request.format.js? || request.format.json? }
 
   # GET /visits
   # GET /visits.json
@@ -12,6 +16,10 @@ class VisitsController < ApplicationController
     @visits = calc.visits
     @visas = current_user_or_guest_user.visas.all if current_user_or_guest_user.visa_required?
     @next_entry_days = calc.next_entry_days
+    
+    # Set SEO meta tags for visits page
+    set_visits_meta_tags
+    
     respond_to do |format|
       format.html do
         @visits.each do |visit|
@@ -31,6 +39,17 @@ class VisitsController < ApplicationController
   # GET /visits/new
   def new
     @visit = Visit.with_default(current_user_or_guest_user)
+    
+    # Support pre-filling dates from calendar clicks
+    if params[:entry_date]
+      @visit.entry_date = Date.parse(params[:entry_date])
+      @visit.exit_date = params[:exit_date] ? Date.parse(params[:exit_date]) : @visit.entry_date + 1.day
+    end
+    
+    respond_to do |format|
+      format.html # Full page render
+      format.js   # AJAX request from calendar
+    end
   end
 
   # GET /visits/1/edit
@@ -38,7 +57,12 @@ class VisitsController < ApplicationController
     @continent_default_id = @visit.country.continent.id.to_s
     if @visit.country && !@visit.country.affiliate_booking_html.nil?
       @advertise_country = @visit.country
-    end   
+    end
+    
+    respond_to do |format|
+      format.html # Full page render
+      format.js   # AJAX request from calendar
+    end
   end
 
   # POST /visits
@@ -49,10 +73,12 @@ class VisitsController < ApplicationController
       if @visit.save
         format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
+        format.js   # AJAX request from calendar
       else
         @continent_default_id = @visit&.country&.continent&.id&.to_s || @continent_default_id
         format.html { render :new }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
+        format.js   # AJAX request from calendar - show errors
       end
     end
   end
@@ -64,9 +90,11 @@ class VisitsController < ApplicationController
       if @visit.update(visit_params)
         format.html { redirect_to visits_path, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
+        format.js   # AJAX request from calendar
       else
         format.html { render :edit }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
+        format.js   # AJAX request from calendar - show errors
       end
     end
   end
@@ -78,6 +106,26 @@ class VisitsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to visits_path, notice: 'Visit was successfully deleted.' }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /visits/for_date?date=YYYY-MM-DD
+  # Returns all visits that include the specified date (for calendar context menu)
+  def for_date
+    date = Date.parse(params[:date])
+    visits = current_user_or_guest_user.visits.find_by_date(date, date)
+    
+    respond_to do |format|
+      format.json { 
+        render json: visits.map { |v| {
+          id: v.id,
+          entry_date: v.entry_date,
+          exit_date: v.exit_date,
+          country_name: v.country.name,
+          country_id: v.country_id,
+          schengen: v.schengen?
+        }}
+      }
     end
   end
 
@@ -96,5 +144,16 @@ class VisitsController < ApplicationController
       @continent = Continent.all
       @continent_default_id = Continent.find_by(continent_code: 'EU').id.to_s
       @country_options = Country.all.order_by_name.to_json(:only => [:id, :name, :continent_id])
+    end
+    
+    def set_visits_meta_tags
+      @meta_title = I18n.t('default_title')
+      @meta_description = I18n.t('default_description')
+      @og_type = 'website'
+      @og_url = "https://#{request.host_with_port}#{request.path}"
+      # Use schengen map image for visits page
+      image_path = view_context.asset_path('schengen_area_eu_countries.webp')
+      @og_image = "https://#{request.host_with_port}#{image_path}"
+      @og_site_name = "Schengen Calculator"
     end
 end

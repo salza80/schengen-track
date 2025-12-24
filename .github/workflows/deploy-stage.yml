@@ -19,7 +19,7 @@ jobs:
         #   ref: 'master'
 
       - name: Start containers
-        run: docker-compose -f "docker-compose.yml" up -d
+        run: docker compose -f "docker-compose.yml" up -d
         working-directory: src
 
       - uses: ruby/setup-ruby@v1
@@ -34,7 +34,12 @@ jobs:
       - run: bundle exec rails db:migrate
         working-directory: src
 
-      - run: bundle exec bundle exec rake
+      - name: Check i18n translations
+        run: bundle exec rake i18n:check
+        working-directory: src
+
+      - name: Run tests
+        run: bundle exec rake test
         working-directory: src
   deploy:
     runs-on: ubuntu-latest
@@ -97,6 +102,39 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
+      
+      - name: Set deployment timestamp
+        run: |
+          echo "Setting deployment timestamp in Parameter Store..."
+          current_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          aws ssm put-parameter \
+            --name "/schengen/deployment-timestamp" \
+            --value "$current_time" \
+            --type String \
+            --overwrite
+          echo "✓ Deployment timestamp set to: $current_time"
+      
+      - name: Run database migrations
+        run: |
+          echo "Running database migrations on staging..."
+          response=$(curl -s "https://test.schengen-calculator.com/migrate?token=${{ secrets.TASK_PASSWORD }}")
+          echo "Migration response: $response"
+          if echo "$response" | grep -q '"success":true'; then
+            echo "✓ Migrations completed successfully"
+          else
+            echo "⚠ Migration response: $response"
+          fi
+
+      - name: Update countries data
+        run: |
+          echo "Updating countries data from XML..."
+          response=$(curl -s "https://test.schengen-calculator.com/update_countries?token=${{ secrets.TASK_PASSWORD }}")
+          echo "Update countries response: $response"
+          if echo "$response" | grep -q '"success":true'; then
+            echo "✓ Countries data updated successfully"
+          else
+            echo "⚠ Update countries response: $response"
+          fi
       
       - name: Perform CloudFront Invalidation
         id: cloudfront_invalidation

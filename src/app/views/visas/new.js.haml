@@ -1,0 +1,13 @@
+:plain
+  // Load the form into the modal
+  $('#visaModal .modal-body').html('#{j render("form")}');
+  $('#visaModal .modal-title').text('#{t("visits.add_visa")}');
+  $('#visaModal').modal('show');
+
+  // Handle form submission via AJAX
+  $('#visaModal form').on('ajax:success', function(event) {
+    // Reload the page to refresh the list
+    location.reload();
+  }).on('ajax:error', function(event) {
+    // Error handling will be done by create.js.haml
+  });

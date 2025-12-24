@@ -1,21 +1,21 @@
+---
 zh-CN:
   log_in_page:
-    title: "登录"
-    log_in_with_facebook: "使用Facebook登录"
-    remember_me_label: "记住我"
-    log_in_button: "登录"
-    not_registered: "还没有注册？"
-    register_link: "注册"
-    forgot_password: "忘记密码？"
-    reset_password_link: "重置密码"
-  sign_up_page:
-    title: "注册"
-    sign_up_with_facebook: "使用Facebook登录"
-    sign_up_button: "注册"
-    already_registered: "已注册？"
-    log_in_link: "登录"
-  new_password_page:
-    reset: "发送重置"
+    forgot_password: 忘记密码？
+    log_in_button: 登录
+    log_in_with_facebook: 使用Facebook登录
+    not_registered: 还没有注册？
+    register_link: 注册
+    remember_me_label: 记住我
+    reset_password_link: 重置密码
+    title: 登录
   my_details_page:
-    delete_account: "删除账户"
-    delete_account_confirm: "您确定要删除您的账户吗？所有数据将会丢失。此操作无法撤销。"
+    delete_account: 删除账户
+    delete_account_confirm: 您确定要删除您的账户吗？所有数据将会丢失。此操作无法撤销。
+  new_password_page:
+    reset: 发送重置
+  sign_up_page:
+    already_registered: 已注册？
+    log_in_link: 登录
+    sign_up_button: 注册
+    title: 注册

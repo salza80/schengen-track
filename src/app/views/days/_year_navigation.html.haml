@@ -1,0 +1,24 @@
+.calendar-year-nav{class: position == 'top' ? 'sticky-top bg-white shadow-sm' : 'bg-light'}
+  .d-flex.align-items-center.py-3
+    .flex-fill.text-left
+      - if @prev_year
+        = link_to days_path(locale: I18n.locale, year: @prev_year), class: 'btn btn-outline-primary btn-prev-year' do
+          %i.fa.fa-chevron-left
+          = @prev_year
+      - else
+        %button.btn.btn-outline-secondary{disabled: true}
+          %i.fa.fa-chevron-left
+
+    .flex-fill.text-center
+      %h3.mb-0
+        %i.fa.fa-calendar.mr-2
+        = @selected_year
+
+    .flex-fill.text-right
+      - if @next_year
+        = link_to days_path(locale: I18n.locale, year: @next_year), class: 'btn btn-outline-primary btn-next-year' do
+          = @next_year
+          %i.fa.fa-chevron-right
+      - else
+        %button.btn.btn-outline-secondary{disabled: true}
+          %i.fa.fa-chevron-right

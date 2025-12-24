@@ -1,213 +1,185 @@
+---
 zh-CN:
   about:
-    datadeletion:
-      title: "数据删除政策"
-      subtitle: "如何删除您的数据"
-      step1: "登录您的账户"
-      step2: "通过在页面右上角选择您的国籍，进入您的账户设置"
-      step3: "点击“删除账户”按钮"
-      step4: "确认您要删除您的账户"
-      conclusion: "您的账户和所有数据将被删除。此操作无法撤销。"
     about:
-      title: "关于申根签证计算器"
-      introduction: "介绍"
-      calculator_description: |
-        申根签证计算器可以计算您在申根地区持短期申根签证期间允许停留的时间长度。您可以使用它来跟踪或预测您在申根地区内所有的访问，以便知道在您必须离开之前剩余多少天。
-      get_started: "立即开始"
-      useful_for_planning: |
-        这对于计划在欧洲旅行的时间可能超过90天的人特别有用。通过有计划地在申根地区内外旅行以延长您的旅程。如果您经常在各国之间旅行，很难追踪您在申根地区停留的时间长度，记住哪些国家在申根地区，并计算您在外部停留一段时间后何时可以返回。只需将您的国籍、之前的旅行和计划的旅行输入计算器，它就会处理剩下的事情。
-      contents_title: "目录"
-      uk_citizens: "英国公民 / BREXIT"
-      uk_citizens_link: "英国公民"
-      schengen_area_link: "什么是申根区"
-      travelling_link: "在申根区旅行"
-      visa_requirements_link: "签证要求"
-      length_of_stay_link: "停留期计算"
-      new_definition_link: "2013年的新定义"
-      previous_definition_link: "之前的定义"
-      additional_visa_waiver_link: "额外签证豁免协议"
-      nationality_requirements_link: "我国籍的申根要求"
-      how_to_use_link: "如何使用申根签证计算器"
-      step_by_step_link: "逐步指南"
-      limitations_link: "限制"
-      field_definitions_link: "字段名称定义"
-      disclaimer_link: "免责声明"
-      new_rules_from: "新规则自%{date}"
-      uk_citizens_can_use: "截至%{date}，英国公民可以使用申根计算器确定他们在任何180天期间允许在欧盟进行旅游访问的90天。"
-      more_information_link: "更多信息：gov.uk - 2021年1月1日起访问欧洲"
-      what_is_schengen: "申根区是什么"
-      schengen_area_description: |
-        申根区由27个欧洲国家组成，没有内部边界。公民以及许多非欧盟国家的商人和游客可以在没有面临边境检查的情况下自由流动。自1985年以来，它已扩展到几乎所有欧盟成员国和一些关联的非欧盟国家。
-      countries_in_schengen: |
-        申根区的国家包括：奥地利、比利时、捷克共和国、克罗地亚、丹麦、爱沙尼亚、芬兰、法国、德国、希腊、匈牙利、冰岛、意大利、拉脱维亚、立陶宛、卢森堡、马耳他、荷兰、挪威、波兰、葡萄牙、斯洛伐克、斯洛文尼亚、西班牙、瑞典、瑞士。
-      abolished_internal_borders: |
-        虽然已废除了内部边界，但申根国家根据申根规则达成了共同的外部边界协议。这使得游客在包括在申根区内的国家之间旅行非常方便。然而，重要的是要了解进入该地区（如果有）所需的签证规则以及您可以停留的时间长短。
-      european_commission_website_link: "欧洲委员会网站"
-      travelling_in_schengen: "在申根区旅行"
-      visa_requirements: "签证要求"
-      nationality_dependent_visa_requirement: |
-        根据您的国籍，您可能需要在进入申根区之前申请申根短期签证。欧盟列出了必须申请签证的国家以及免除此要求的国家的名单。截至2015年3月1日，以下国家的公民无需在入境前获得申根签证：
-      exempt_countries_list: |
-        阿尔巴尼亚、安道尔、安提瓜和巴布达、阿根廷、澳大利亚、巴哈马、巴巴多斯、波斯尼亚和黑塞哥维那、巴西、文莱、加拿大、智利、哥斯达黎加、克罗地亚、萨尔瓦多、前南斯拉夫马其顿共和国、危地马拉、洪都拉斯、香港、以色列、日本、马来西亚、澳门、毛里求斯、墨西哥、摩纳哥、黑山、新西兰、尼加拉瓜、北马里亚纳、巴拿马、巴拉圭、圣基茨和尼维斯、塞尔维亚、塞舌尔、新加坡、韩国、台湾、美国、乌拉圭和委内瑞拉。
-      exempt_countries_conditions: |
-        请注意，其中一些国家有一些条件。例如，只有阿尔巴尼亚、波斯尼亚和黑塞哥维那、前南斯拉夫马其顿共和国、摩尔多瓦、黑山、塞尔维亚的公民的护照包含生物识别数据时，才免除签证义务。
-      non_eu_visa_requirement: |
-        如果您来自欧盟之外的任何其他国家，您需要在旅行前申请签证。签证将指明其有效期和允许的入境次数（多次入境-无限制）。请注意，“180天内的任何90天”规则仍然适用，无论签证开始和结束日期如何。使用申根计算器输入您的签证详细信息，并帮助计算您允许停留的时间长度。
-      length_of_stay_calculation: "停留期计算"
-      length_calculation_revision: "用于计算第三方国家公民允许停留时间的计算于%{date}修订并生效。然而，仍有少数国家必须使用旧的计算方式，这些国家包括阿根廷、巴哈马、巴巴多斯、巴西、圣基茨和尼维斯、毛里求斯和塞舌尔。此申根计算器根据您的国籍和旅行日期使用旧的或新的计算方式，因此这些国家的国民仍可以使用该计算器。"
-      new_definition_as_of_2013: "2013年的新定义"
-      90_days_definition_blockquote: |
-        “180天内的任何90天[…]”。“入境日期应视为在成员国领土停留的第一天，而出境日期应视为在成员国领土停留的最后一天。根据居留许可证或长期签证授权的停留期不计入在成员国领土停留的时间计算中。”
-      european_commission_link: "欧洲委员会"
-      calculation_description:
-        first_paragraph: "这个计算现在只用于来自阿根廷、巴哈马、巴巴多斯、巴西、圣基茨和尼维斯、毛里求斯和塞舌尔的人，他们仍然适用申根计算的旧定义。"
-        second_paragraph: "旧的定义与“滚动”的6个月不同，因为它从第一次入境的日期开始，然后将在那天之后的6个月重置。使用此计算方式可以允许更长的停留时间。例如，如果您在1月初入境一天，然后3个月后再次入境，停留至6月底，然后，从1月份开始的6个月（从1月份开始）将重置，允许您再停留3个月，有效地允许近6个月。然而，您不能连续停留超过3个月，因此您必须退出并重新进入申根地区。"
-        third_paragraph: "申根计算器考虑了这一点，因此您可以使用申根计算器来尝试入境和出境日期，以最大程度地延长您的停留时间。"
+      90_days_definition_blockquote: "“180天内的任何90天[…]”。“入境日期应视为在成员国领土停留的第一天，而出境日期应视为在成员国领土停留的最后一天。根据居留许可证或长期签证授权的停留期不计入在成员国领土停留的时间计算中。”\n"
+      abolished_internal_borders: 虽然已废除了内部边界，但申根国家根据申根规则达成了共同的外部边界协议。这使得游客在包括在申根区内的国家之间旅行非常方便。然而，重要的是要了解进入该地区（如果有）所需的签证规则以及您可以停留的时间长短。
       additional_requirements:
-        heading: "额外签证豁免协议"
-        first_paragraph: "一些国家与申根区内的国家有额外的签证豁免协议，允许在180天期间额外停留90天；但是，这将包含在其他申根国家的90天中。这些额外的协议通常为游客所知甚少！"
-        second_paragraph: "目前，申根计算器不考虑额外的签证豁免协议。请通过自己的研究进行跟进。"
-      nationality_section:
-        heading: "我的国籍的申根 / 欧洲旅游入境和停留要求"
-        subheading: "选择您的国籍以查看您的申根要求"
-        select_prompt: "选择国家"
-        select_another_prompt: "选择另一个国家"
-      button_text: "前往申根计算器立即开始"
-      blog_link_intro: "有关在欧洲进行长时间旅行并使用计算器的一些灵感："
-      how_to_use:
-        title: "如何使用申根签证计算器"
-        step_1:
-          title: "步骤 1："
-          description: "选择您的国籍。您可以在页面顶部的页眉中更改此选项。"
-        step_2:
-          title: "步骤 2："
-          description: "如果需要，请输入您的申根短期签证的详细信息。这将仅在需要时显示在旅行记录下方。"
-        step_3:
-          title: "步骤 3："
-          description_1: "添加您的旅行记录（过去和未来）。您需要至少包括过去180天内您在申根地区内的任何旅行。"
-          description_2: "最好是您输入所有在国家之间的移动，申根区和非申根区的旅行，甚至在一个申根国家到另一个申根国家的旅行，因为您可能不知道某些国家是或不是申根协议的一部分。入境日期是您到达的那天，出境日期是您离开的那天。如果出境日期与您下次访问的入境日期重叠，不用担心，计算器在计算您在申根地区内停留时间时不会重复计算这些天数。"
-        step_4:
-          title: "步骤 4："
-          description: "查看有关旅行的有效性以及您在申根地区可以停留的剩余时间的信息。使用计算器进行一些假设性场景的实验，改变您的预期旅行记录。"
-        step_5:
-          title: "步骤 5：（可选）"
-          description: "要保存您的旅行记录，请注册并登录。您现有的“访客”数据将复制到您的新帐户中。您可以使用申根计算器进行注册，或使用 Facebook 登录和注册。"
-          optional: true
-      limitations:
-        title: "限制"
-        additional_visa_waiver:
-          title: "额外签证豁免协议"
-          description: "申根签证计算器不考虑可能存在的任何额外签证豁免协议。"
-        countries_outside_schengen:
-          title: "申根区外的国家"
-          description: "申根签证计算器不提供有关申根区外国家的签证、入境要求或停留要求的任何信息。这些将标记为 N/A - 不适用。"
+        first_paragraph: 一些国家与申根区内的国家有额外的签证豁免协议，允许在180天期间额外停留90天；但是，这将包含在其他申根国家的90天中。这些额外的协议通常为游客所知甚少！
+        heading: 额外签证豁免协议
+        second_paragraph: 目前，申根计算器不考虑额外的签证豁免协议。请通过自己的研究进行跟进。
+      additional_visa_waiver_link: 额外签证豁免协议
+      blog_link_intro: 有关在欧洲进行长时间旅行并使用计算器的一些灵感：
+      button_text: 前往申根计算器立即开始
+      calculation_description:
+        first_paragraph: 这个计算现在只用于来自阿根廷、巴哈马、巴巴多斯、巴西、圣基茨和尼维斯、毛里求斯和塞舌尔的人，他们仍然适用申根计算的旧定义。
+        second_paragraph: 旧的定义与“滚动”的6个月不同，因为它从第一次入境的日期开始，然后将在那天之后的6个月重置。使用此计算方式可以允许更长的停留时间。例如，如果您在1月初入境一天，然后3个月后再次入境，停留至6月底，然后，从1月份开始的6个月（从1月份开始）将重置，允许您再停留3个月，有效地允许近6个月。然而，您不能连续停留超过3个月，因此您必须退出并重新进入申根地区。
+        third_paragraph: 申根计算器考虑了这一点，因此您可以使用申根计算器来尝试入境和出境日期，以最大程度地延长您的停留时间。
+      calculator_description: 申根签证计算器可以计算您在申根地区持短期申根签证期间允许停留的时间长度。您可以使用它来跟踪或预测您在申根地区内所有的访问，以便知道在您必须离开之前剩余多少天。
+      contents_title: 目录
+      countries_in_schengen: 申根区的国家包括：奥地利、比利时、保加利亚、克罗地亚、捷克共和国、丹麦、爱沙尼亚、芬兰、法国、德国、希腊、匈牙利、冰岛、意大利、拉脱维亚、立陶宛、卢森堡、马耳他、荷兰、挪威、波兰、葡萄牙、罗马尼亚、斯洛伐克、斯洛文尼亚、西班牙、瑞典、瑞士。
       definitions:
-        title: "字段名称定义"
-        visits_travel_record:
-          title: "访问/旅行记录"
-          entry_date: "入境日期："
-          entry_date_description: "您进入该国的日期"
-          exit_date: "出境日期："
-          exit_date_description: "您离开该国的日期"
-          country: "国家："
-          country_description: "您要访问的国家"
-          schengen_area: "申根区："
-          schengen_area_description: "是 = 在申根区内；否 = 不在申根区内"
-          days_remaining: "剩余天数："
-          days_remaining_description: "在您访问结束日期时，剩余在申根区允许停留的90天数量。"
-          days_over_stay: "超过停留天数："
-          days_over_stay_description: "在申根区允许停留的90天期限之外的天数。请修改您的旅行计划！"
-          visa: "签证："
-          visa_description: "这仅涉及需要在入境前申请签证的单次/多次短期申根签证持有人。如果您免除了此要求，签证选项将不会出现。请记得在页面右上角选择您的国籍！"
-          no_entries: "无入境次数："
-          no_entries_description: "您进入/重新进入申根区的次数。（从一个申根国家到另一个申根国家的移动不被视为重新进入，但是如果两个申根国家之间的出境和入境日期之间有超过一天的间隔，计算器将假定您已经离开了申根区，并将其视为重新进入。"
-          visa_days_over_stay: "签证超出停留天数："
-          visa_days_over_stay_description: "在申根区停留期间未获许可的天数。要么您没有输入签证，要么您在签证期限结束后出境，要么您进入申根区的次数超过了签证允许的次数。"
         short_stay_schengen_visa_record:
-          title: "申根短期签证记录"
-          start_date: "开始日期："
-          start_date_description: "签证期的第一天"
-          end_date: "结束日期："
-          end_date_description: "签证期的最后一天"
-          no_entries: "无入境次数："
-          no_entries_description: "签证允许的入境次数。如果是多次入境签证，请输入 0。"
+          end_date: 结束日期：
+          end_date_description: 签证期的最后一天
+          no_entries: 无入境次数：
+          no_entries_description: 签证允许的入境次数。如果是多次入境签证，请输入 0。
+          start_date: 开始日期：
+          start_date_description: 签证期的第一天
+          title: 申根短期签证记录
+        title: 字段名称定义
+        visits_travel_record:
+          country: 国家：
+          country_description: 您要访问的国家
+          days_over_stay: 超过停留天数：
+          days_over_stay_description: 在申根区允许停留的90天期限之外的天数。请修改您的旅行计划！
+          days_remaining: 剩余天数：
+          days_remaining_description: 在您访问结束日期时，剩余在申根区允许停留的90天数量。
+          entry_date: 入境日期：
+          entry_date_description: 您进入该国的日期
+          exit_date: 出境日期：
+          exit_date_description: 您离开该国的日期
+          no_entries: 无入境次数：
+          no_entries_description: 您进入/重新进入申根区的次数。（从一个申根国家到另一个申根国家的移动不被视为重新进入，但是如果两个申根国家之间的出境和入境日期之间有超过一天的间隔，计算器将假定您已经离开了申根区，并将其视为重新进入。
+          schengen_area: 申根区：
+          schengen_area_description: 是 = 在申根区内；否 = 不在申根区内
+          title: 访问/旅行记录
+          visa: 签证：
+          visa_days_over_stay: 签证超出停留天数：
+          visa_days_over_stay_description: 在申根区停留期间未获许可的天数。要么您没有输入签证，要么您在签证期限结束后出境，要么您进入申根区的次数超过了签证允许的次数。
+          visa_description: 这仅涉及需要在入境前申请签证的单次/多次短期申根签证持有人。如果您免除了此要求，签证选项将不会出现。请记得在页面右上角选择您的国籍！
       disclaimer:
-        title: "免责声明"
-        description: "在使用申根签证计算器之前，请阅读%{link}。"
-        link_text: "免责声明"
+        description: 在使用申根签证计算器之前，请阅读%{link}。
+        link_text: 免责声明
+        title: 免责声明
+      disclaimer_link: 免责声明
+      european_commission_link: 欧洲委员会
+      european_commission_website_link: 欧洲委员会网站
+      exempt_countries_conditions: 请注意，其中一些国家有一些条件。例如，只有阿尔巴尼亚、波斯尼亚和黑塞哥维那、前南斯拉夫马其顿共和国、摩尔多瓦、黑山、塞尔维亚的公民的护照包含生物识别数据时，才免除签证义务。
+      exempt_countries_list: 阿尔巴尼亚、安道尔、安提瓜和巴布达、阿根廷、澳大利亚、巴哈马、巴巴多斯、波斯尼亚和黑塞哥维那、巴西、文莱、加拿大、智利、哥斯达黎加、克罗地亚、萨尔瓦多、前南斯拉夫马其顿共和国、危地马拉、洪都拉斯、香港、以色列、日本、马来西亚、澳门、毛里求斯、墨西哥、摩纳哥、黑山、新西兰、尼加拉瓜、北马里亚纳、巴拿马、巴拉圭、圣基茨和尼维斯、塞尔维亚、塞舌尔、新加坡、韩国、台湾、美国、乌拉圭和委内瑞拉。
+      field_definitions_link: 字段名称定义
+      get_started: 立即开始
+      how_to_use:
+        step_1:
+          description: 选择您的国籍。您可以在页面顶部的页眉中更改此选项。
+          title: 步骤 1：
+        step_2:
+          description: 如果需要，请输入您的申根短期签证的详细信息。这将仅在需要时显示在旅行记录下方。
+          title: 步骤 2：
+        step_3:
+          description_1: 添加您的旅行记录（过去和未来）。您需要至少包括过去180天内您在申根地区内的任何旅行。
+          description_2: 最好是您输入所有在国家之间的移动，申根区和非申根区的旅行，甚至在一个申根国家到另一个申根国家的旅行，因为您可能不知道某些国家是或不是申根协议的一部分。入境日期是您到达的那天，出境日期是您离开的那天。如果出境日期与您下次访问的入境日期重叠，不用担心，计算器在计算您在申根地区内停留时间时不会重复计算这些天数。
+          title: 步骤 3：
+        step_4:
+          description: 查看有关旅行的有效性以及您在申根地区可以停留的剩余时间的信息。使用计算器进行一些假设性场景的实验，改变您的预期旅行记录。
+          title: 步骤 4：
+        step_5:
+          description: 要保存您的旅行记录，请注册并登录。您现有的“访客”数据将复制到您的新帐户中。您可以使用申根计算器进行注册，或使用 Facebook 登录和注册。
+          optional: true
+          title: 步骤 5：（可选）
+        title: 如何使用申根签证计算器
+      how_to_use_link: 如何使用申根签证计算器
+      introduction: 介绍
       last_updated:
-        title: "上次更新"
-        description: "上次更新时间：%{date}"
+        description: 上次更新时间：%{date}
+        title: 上次更新
+      length_calculation_revision: 用于计算第三方国家公民允许停留时间的计算于%{date}修订并生效。然而，仍有少数国家必须使用旧的计算方式，这些国家包括阿根廷、巴哈马、巴巴多斯、巴西、圣基茨和尼维斯、毛里求斯和塞舌尔。此申根计算器根据您的国籍和旅行日期使用旧的或新的计算方式，因此这些国家的国民仍可以使用该计算器。
+      length_of_stay_calculation: 停留期计算
+      length_of_stay_link: 停留期计算
+      limitations:
+        additional_visa_waiver:
+          description: 申根签证计算器不考虑可能存在的任何额外签证豁免协议。
+          title: 额外签证豁免协议
+        countries_outside_schengen:
+          description: 申根签证计算器不提供有关申根区外国家的签证、入境要求或停留要求的任何信息。这些将标记为 N/A - 不适用。
+          title: 申根区外的国家
+        title: 限制
+      limitations_link: 限制
+      more_information_link: 更多信息：gov.uk - 2021年1月1日起访问欧洲
+      nationality_dependent_visa_requirement: 根据您的国籍，您可能需要在进入申根区之前申请申根短期签证。欧盟列出了必须申请签证的国家以及免除此要求的国家的名单。截至2015年3月1日，以下国家的公民无需在入境前获得申根签证：
+      nationality_requirements_link: 我国籍的申根要求
+      nationality_section:
+        heading: 我的国籍的申根 / 欧洲旅游入境和停留要求
+        select_another_prompt: 选择另一个国家
+        select_prompt: 选择国家
+        subheading: 选择您的国籍以查看您的申根要求
+      new_definition_as_of_2013: 2013年的新定义
+      new_definition_link: 2013年的新定义
+      new_rules_from: 新规则自%{date}
+      non_eu_visa_requirement: 如果您来自欧盟之外的任何其他国家，您需要在旅行前申请签证。签证将指明其有效期和允许的入境次数（多次入境-无限制）。请注意，“180天内的任何90天”规则仍然适用，无论签证开始和结束日期如何。使用申根计算器输入您的签证详细信息，并帮助计算您允许停留的时间长度。
+      previous_definition_link: 之前的定义
+      schengen_area_description: 申根区由29个欧洲国家组成，没有内部边界。公民以及许多非欧盟国家的商人和游客可以在没有面临边境检查的情况下自由流动。自1985年以来，它已扩展到几乎所有欧盟成员国和一些关联的非欧盟国家。
+      schengen_area_link: 什么是申根区
+      step_by_step_link: 逐步指南
+      title: 关于申根签证计算器
+      travelling_in_schengen: 在申根区旅行
+      travelling_link: 在申根区旅行
+      uk_citizens: 英国公民 / BREXIT
+      uk_citizens_can_use: 截至%{date}，英国公民可以使用申根计算器确定他们在任何180天期间允许在欧盟进行旅游访问的90天。
+      uk_citizens_link: 英国公民
+      useful_for_planning: 这对于计划在欧洲旅行的时间可能超过90天的人特别有用。通过有计划地在申根地区内外旅行以延长您的旅程。如果您经常在各国之间旅行，很难追踪您在申根地区停留的时间长度，记住哪些国家在申根地区，并计算您在外部停留一段时间后何时可以返回。只需将您的国籍、之前的旅行和计划的旅行输入计算器，它就会处理剩下的事情。
+      visa_requirements: 签证要求
+      visa_requirements_link: 签证要求
+      what_is_schengen: 申根区是什么
+    datadeletion:
+      conclusion: 您的账户和所有数据将被删除。此操作无法撤销。
+      step1: 登录您的账户
+      step2: 通过在页面右上角选择您的国籍，进入您的账户设置
+      step3: 点击“删除账户”按钮
+      step4: 确认您要删除您的账户
+      subtitle: 如何删除您的数据
+      title: 数据删除政策
+    disclaimer:
+      disclaimer_content_1: 本网站中包含的信息以及申根计算器提供的信息仅供一般信息之用。虽然我们努力保持信息的及时更新和正确性，并保持签证计算的正确性，但我们对于网站的完整性、准确性、可靠性、适用性或可用性以及与网站有关的信息、产品、服务或相关图形不作任何明示或暗示的陈述或担保。您对这些信息的任何依赖均完全自担风险。
+      disclaimer_content_2: 在任何情况下，我们都不对任何损失或损害承担责任，包括但不限于间接或后果性的损失或损害，或由于数据丢失或利润损失而引起的任何损失或损害，无论是因使用本网站还是与本网站的使用有关。
+      disclaimer_content_3: 通过本网站，您可以链接到我们无法控制的其他网站。我们对于这些网站的性质、内容和可用性没有控制权。链接的包含并不意味着我们赞同这些网站。
+      disclaimer_title: 网站/申根计算器免责声明
     nationality:
-      tourist_travel_requirements_title: "%{nationality_plural}的申根/欧洲旅游入境和停留要求"
-      schengen_visa_requirement_title: "%{nationality_plural}是否需要在入境前申请申根旅游签证？"
-      visa_not_required: "不需要。%{country}的人在欧盟内有自由移动权。"
-      visa_required: "是的。%{country}的人必须在进入申根区之前申请短期申根签证。"
-      visa_exempt: "不需要。%{country}的人在入境前免除申请申根签证的要求。"
+      additional_visa_waiver_description: "%{country}与一些申根国家签订了额外的签证豁免协议。这些协议可能允许您在申根区停留时间超过90天。如果您计划这样做，请务必谨慎，并在出行前寻求建议。请注意，申根计算器在计算中不考虑额外的签证豁免协议。\n"
+      additional_visa_waiver_title: "%{country}是否与其他国家签订了任何额外的签证豁免协议？"
+      european_commision_link: 欧洲委员会
       length_of_stay_calculation_title: "%{nationality_plural}在计算允许停留期限时需要使用哪种计算方式？"
-      old_calculation_description: |
-        %{country}的人在计算在申根区可以停留多久时必须使用旧的申根计算方式。
-        这被定义为：
-        “自第一次入境日期后的6个月内的3个月”。
-        更多信息请参见%{european_commision_link}。
       new_calculation_description: |
         %{country}的人在计算在申根区可以停留多久时必须使用新的申根计算方式。
         这被定义为：
         “在任何180天内的90天”。 “入境日期应被视为在成员国领土上停留的第一天，出境日期应被视为在成员国领土上停留的最后一天。在居留许可或长期签证下授权的停留期不应计入在成员国领土上停留的持续时间的计算中。”
         更多信息请参见%{european_commision_link}。
-      european_commision_link: "欧洲委员会"
-      additional_visa_waiver_title: "%{country}是否与其他国家签订了任何额外的签证豁免协议？"
-      additional_visa_waiver_description: |
-        %{country}与一些申根国家签订了额外的签证豁免协议。这些协议可能允许您在申根区停留时间超过90天。如果您计划这样做，请务必谨慎，并在出行前寻求建议。请注意，申根计算器在计算中不考虑额外的签证豁免协议。
-      no_additional_visa_waiver_description: "没有。%{country}与申根区国家没有签订任何额外的签证豁免协议。"
-    disclaimer:
-      disclaimer_title: "网站/申根计算器免责声明"
-      disclaimer_content_1: |
-        本网站中包含的信息以及申根计算器提供的信息仅供一般信息之用。虽然我们努力保持信息的及时更新和正确性，并保持签证计算的正确性，但我们对于网站的完整性、准确性、可靠性、适用性或可用性以及与网站有关的信息、产品、服务或相关图形不作任何明示或暗示的陈述或担保。您对这些信息的任何依赖均完全自担风险。
-      disclaimer_content_2: |
-        在任何情况下，我们都不对任何损失或损害承担责任，包括但不限于间接或后果性的损失或损害，或由于数据丢失或利润损失而引起的任何损失或损害，无论是因使用本网站还是与本网站的使用有关。
-      disclaimer_content_3: |
-        通过本网站，您可以链接到我们无法控制的其他网站。我们对于这些网站的性质、内容和可用性没有控制权。链接的包含并不意味着我们赞同这些网站。
+      no_additional_visa_waiver_description: 没有。%{country}与申根区国家没有签订任何额外的签证豁免协议。
+      old_calculation_description: |
+        %{country}的人在计算在申根区可以停留多久时必须使用旧的申根计算方式。
+        这被定义为：
+        “自第一次入境日期后的6个月内的3个月”。
+        更多信息请参见%{european_commision_link}。
+      schengen_visa_requirement_title: "%{nationality_plural}是否需要在入境前申请申根旅游签证？"
+      tourist_travel_requirements_title: "%{nationality_plural}的申根/欧洲旅游入境和停留要求"
+      visa_exempt: 不需要。%{country}的人在入境前免除申请申根签证的要求。
+      visa_not_required: 不需要。%{country}的人在欧盟内有自由移动权。
+      visa_required: 是的。%{country}的人必须在进入申根区之前申请短期申根签证。
     privacy:
-      privacy_policy_title: "隐私政策"
-      introduction_title: "介绍"
-      introduction_content: >
-        Schengen 计算器（以下简称“我们”或“我们”）重视访问者的隐私。本隐私政策自生效日期起生效；它总结了我们可能从注册用户或其他访问者（“您”）那里收集的信息，以及我们将对其采取的行动和不会采取的行动。
-        请注意，本隐私政策不适用于 Schengen 计算器不控制的公司收集和使用的信息，也不适用于 Schengen 计算器不雇用或管理的个人收集和使用的信息。如果您访问我们提到或链接到的网站，请务必在向该网站提供信息之前查看其隐私政策。
-      what_we_do_title: "我们如何处理您的个人身份信息"
-      personally_identifiable_info_content: >
-        是否向我们披露个人身份信息始终取决于您，但如果您选择不这样做，我们保留不注册您为用户或为您提供任何产品或服务的权利。“个人身份信息”指可用于识别您的信息，例如：
-      list_title: "例如，这可能包括："
+      changes_policy_content: 我们保留根据法律遵守要求或业务实践变化的必要性或适当性更改本隐私政策的权利。如果您向我们提供了电子邮件地址，我们将尽力通过发送电子邮件至该地址通知您任何重大变更我们将如何使用个人身份信息。
+      changes_policy_title: 本隐私政策的变更
+      children_info_content: 您必须至少年满13岁才能使用 Schengen 计算器的网站和服务。Schengen 计算器不会有意收集13岁以下儿童的信息。（请参阅美国儿童在线隐私保护法。）
+      children_info_title: 从儿童处收集的信息
+      cookies_content: Schengen 计算器使用“Cookie”在您的计算机上存储个人数据。我们还可能将存储在您计算机上的信息与我们服务器上存储的特定个人数据相关联。如果您设置您的网络浏览器（例如，Internet Explorer 或 Firefox）不允许使用 Cookie，您可能无法使用我们网站的某些或所有功能。
+      cookies_title: Cookie
+      eu_notice_content: Schengen 计算器的运营主要位于美国。如果您向我们提供信息，则该信息将被转移到欧盟以外的美国。通过向我们提供个人信息，您同意按照本文件中描述的方式存储和使用该信息。
+      eu_notice_title: 欧盟用户须知
+      external_storage_content: 我们可能将您的数据存储在我们已签约的第三方托管供应商的服务器上。
+      external_storage_title: 外部数据存储站点
+      introduction_content: Schengen 计算器（以下简称“我们”或“我们”）重视访问者的隐私。本隐私政策自生效日期起生效；它总结了我们可能从注册用户或其他访问者（“您”）那里收集的信息，以及我们将对其采取的行动和不会采取的行动。 请注意，本隐私政策不适用于 Schengen 计算器不控制的公司收集和使用的信息，也不适用于 Schengen 计算器不雇用或管理的个人收集和使用的信息。如果您访问我们提到或链接到的网站，请务必在向该网站提供信息之前查看其隐私政策。
+      introduction_title: 介绍
       list_items:
-        - "您的姓名、电子邮件地址、电话号码"
-        - "您的 Schengen 计算器用户ID 和密码"
-      other_info_title: "我们收集的其他信息"
-      other_info_content: >
-        我们可能会收集其他不能轻易用于识别您的信息，例如（例如）您计算机的域名和 IP 地址。我们可能会将这些信息单独或汇总后用于我们网站的技术管理；研究和开发；客户和帐户管理；以及帮助我们更精确地聚焦我们的营销工作。
-      cookies_title: "Cookie"
-      cookies_content: >
-        Schengen 计算器使用“Cookie”在您的计算机上存储个人数据。我们还可能将存储在您计算机上的信息与我们服务器上存储的特定个人数据相关联。如果您设置您的网络浏览器（例如，Internet Explorer 或 Firefox）不允许使用 Cookie，您可能无法使用我们网站的某些或所有功能。
-      external_storage_title: "外部数据存储站点"
-      external_storage_content: >
-        我们可能将您的数据存储在我们已签约的第三方托管供应商的服务器上。
-      privacy_responsibilities_title: "您的隐私责任"
-      privacy_responsibilities_content: >
-        为了保护您的隐私，请确保：
+      - 您的姓名、电子邮件地址、电话号码
+      - 您的 Schengen 计算器用户ID 和密码
+      other_info_content: 我们可能会收集其他不能轻易用于识别您的信息，例如（例如）您计算机的域名和 IP 地址。我们可能会将这些信息单独或汇总后用于我们网站的技术管理；研究和开发；客户和帐户管理；以及帮助我们更精确地聚焦我们的营销工作。
+      personally_identifiable_info_content: 是否向我们披露个人身份信息始终取决于您，但如果您选择不这样做，我们保留不注册您为用户或为您提供任何产品或服务的权利。“个人身份信息”指可用于识别您的信息，例如：
+      privacy_policy_title: 隐私政策
+      privacy_responsibilities_content: 为了保护您的隐私，请确保：
+      privacy_responsibilities_title: 您的隐私责任
+      questions_comments_content: 如果您对 Schengen 计算器的隐私政策有任何疑问或意见，请发送电子邮件至support@company'sname.com，或通过公司网站URL中关于我们页面中描述的任何方式与我们联系。 感谢您选择 Schengen 计算器！
+      questions_comments_title: 有问题或意见？
       responsibilities_list:
-        - "不要与他人分享您的用户ID或密码"
-        - "在完成操作后退出 Schengen 计算器网站"
-        - "采取习惯性的预防措施防范'恶意软件'（病毒、特洛伊木马、机器人等），例如安装和更新适当的反病毒软件"
-      eu_notice_title: "欧盟用户须知"
-      eu_notice_content: >
-        Schengen 计算器的运营主要位于美国。如果您向我们提供信息，则该信息将被转移到欧盟以外的美国。通过向我们提供个人信息，您同意按照本文件中描述的方式存储和使用该信息。
-      children_info_title: "从儿童处收集的信息"
-      children_info_content: >
-        您必须至少年满13岁才能使用 Schengen 计算器的网站和服务。Schengen 计算器不会有意收集13岁以下儿童的信息。（请参阅美国儿童在线隐私保护法。）
-      changes_policy_title: "本隐私政策的变更"
-      changes_policy_content: >
-        我们保留根据法律遵守要求或业务实践变化的必要性或适当性更改本隐私政策的权利。如果您向我们提供了电子邮件地址，我们将尽力通过发送电子邮件至该地址通知您任何重大变更我们将如何使用个人身份信息。
-      questions_comments_title: "有问题或意见？"
-      questions_comments_content: >
-        如果您对 Schengen 计算器的隐私政策有任何疑问或意见，请发送电子邮件至support@company'sname.com，或通过公司网站URL中关于我们页面中描述的任何方式与我们联系。
-        感谢您选择 Schengen 计算器！
-
+      - 不要与他人分享您的用户ID或密码
+      - 在完成操作后退出 Schengen 计算器网站
+      - 采取习惯性的预防措施防范'恶意软件'（病毒、特洛伊木马、机器人等），例如安装和更新适当的反病毒软件
+      what_we_do_title: 我们如何处理您的个人身份信息

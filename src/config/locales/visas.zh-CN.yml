@@ -1,9 +1,11 @@
+---
 zh-CN:
   visas:
-    list_caption: "用于计算的申根签证列表。"
+    add_visa: 添加签证
     columns:
-      dates: "日期"
-      no_entries: "无条目"
-      modify: "修改"
-      delete_confirmation: "您确定吗？"
-    to: "至"
+      dates: 日期
+      modify: 修改
+      no_entries: 无条目
+    edit_title: 编辑申根签证
+    list_caption: 用于计算的申根签证列表。
+    to: 至

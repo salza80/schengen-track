@@ -1,46 +1,51 @@
+---
 tr:
   visits:
-    reenter_info: "Eğer %{date} tarihinde Schengen Alanına yeniden girerseniz, %{max_days} %{day_plural} boyunca %{end_date} tarihine kadar kalabilirsiniz."
+    about_page_link: Hakkında sayfası
+    add_record: Seyahat Kaydı Ekle
+    add_travel: Seyahat Ekle
+    add_visa: Vize Ekle
+    change_link: şimdi buradan değiştirin
+    country: Ülke
+    dates: Tarihler
     day_plural:
-      one: "gün"
-      other: "gün"
-    register_now: "Şimdi kayıt olun"
-    save_travel_plans: "seyahat planlarınızı kaydetmek için!"
-    list_caption: "Son 180 gün içinde ziyaret edilen veya ziyaret edilen ve gelecekte ziyaret etmeyi planladığınız ülkelerin listesi."
-    travel_details: "Seyahat Detayları"
-    visa_details: "Vize Detayları"
-    schengen_days: "Schengen Alanındaki Günler"
-    modify: "Düzenle"
-    dates: "Tarihler"
-    country: "Ülke"
-    schengen_area_tooltip: "Bu ziyaretin ülkesinin Schengen Alanına dahil olup olmadığını gösterir."
-    number_of_days_tooltip: "Bu ziyaretin gün sayısı."
-    exits_tooltip: "Seyahat dönemi için Vize girilmiş mi?"
-    number_of_entries_tooltip: "Bu Vize için izin verilen giriş sayısı."
-    days_overstay_tooltip: "Vize Girişi tarafından izin verilmeyen Schengen Alanındaki günlerin sayısı."
-    schengen_days_calculation_tooltip: "Önceki 180 gün içinde Schengen Alanında geçirilen günlerin sayısı."
-    days_overstay: "Günler Geçikme"
+      one: gün
+      other: gün
+    days: gün
     days_in_schengen_zone: " Schengen Bölgesinde"
     days_outside_schengen_zone: " Schengen Bölgesi Dışında"
-    visa_required: "Vize Gerekli!"
-    delete_confirm: "Emin misiniz?"
-    days: "gün"
-    start_using: "Önceki ve gelecekteki seyahat planlarınızı ekleyerek Schengen Hesaplayıcıyı kullanmaya başlayın."
-    dont_forget: "Ayrıca, şu anda %{nationality} olarak ayarlanmış olan vatandaşlığınızı da seçmeyi unutmayın. Bu doğru değilse, %{change_link} ya da daha sonra bu sayfanın sağ üst köşesindeki bağlantıyı takip ederek değiştirin."
-    for_further_information: "Daha fazla bilgi için %{about_page_link}'ı okuyun."
-    schengen_visa_list: "Schengen Vize Listesi"
-    add_visa: "Vize Ekle"
-    travel_record: "Seyahat Kaydı"
-    export_to_csv: "CSV'ye Aktar"
-    view_calculation_details: "Hesaplama Detaylarını Görüntüle"
-    add_travel: "Seyahat Ekle"
-    change_link: "şimdi buradan değiştirin"
-    about_page_link: "Hakkında sayfası"
-    add_record: "Seyahat Kaydı Ekle"
-    entry_date: "Giriş tarihi"
-    exit_date: "Çıkış tarihi"
-    edit_title: "Bir Seyahat Kaydını Düzenle"
-    schengen_area: "Schengen Bölgesi"
-    no_days: "Gün No."
-    no_entries: "Giriş No."
-    exits: "Çıkışlar"
+    days_overstay: Günler Geçikme
+    days_overstay_tooltip: Vize Girişi tarafından izin verilmeyen Schengen Alanındaki günlerin sayısı.
+    dont_forget: Ayrıca, şu anda %{nationality} olarak ayarlanmış olan vatandaşlığınızı da seçmeyi unutmayın. Bu doğru değilse, %{change_link} ya da daha sonra bu sayfanın sağ üst köşesindeki bağlantıyı takip ederek değiştirin.
+    edit_title: Bir Seyahat Kaydını Düzenle
+    entry_date: Giriş tarihi
+    exit_date: Çıkış tarihi
+    exits: Çıkışlar
+    exits_tooltip: Seyahat dönemi için Vize girilmiş mi?
+    export_to_csv: CSV'ye Aktar
+    for_further_information: Daha fazla bilgi için %{about_page_link}'ı okuyun.
+    list_caption: Son 180 gün içinde ziyaret edilen veya ziyaret edilen ve gelecekte ziyaret etmeyi planladığınız ülkelerin listesi.
+    modify: Düzenle
+    multi: Çoklu
+    no_days: Gün No.
+    no_entries: Giriş No.
+    number_of_days_tooltip: Bu ziyaretin gün sayısı.
+    number_of_entries_tooltip: Bu Vize için izin verilen giriş sayısı.
+    reenter_info: Eğer %{date} tarihinde Schengen Alanına yeniden girerseniz, %{max_days} %{day_plural} boyunca %{end_date} tarihine kadar kalabilirsiniz.
+    register_now: Şimdi kayıt olun
+    save_travel_plans: seyahat planlarınızı kaydetmek için!
+    schengen_area: Schengen Bölgesi
+    schengen_area_tooltip: Bu ziyaretin ülkesinin Schengen Alanına dahil olup olmadığını gösterir.
+    schengen_days: Schengen Alanındaki Günler
+    schengen_days_calculation: Schengen Günleri
+    schengen_days_calculation_tooltip: Önceki 180 gün içinde Schengen Alanında geçirilen günlerin sayısı.
+    schengen_days_overstay: Fazla Kalma Günleri
+    schengen_visa_list: Schengen Vize Listesi
+    start_using: Önceki ve gelecekteki seyahat planlarınızı ekleyerek Schengen Hesaplayıcıyı kullanmaya başlayın.
+    travel_details: Seyahat Detayları
+    travel_record: Seyahat Kaydı
+    visa_days_overstay: Vize Fazla Kalma
+    visa_details: Vize Detayları
+    visa_entry_count: Kullanılan Girişler
+    visa_exists: Vize Mevcut
+    visa_required: Vize Gerekli!

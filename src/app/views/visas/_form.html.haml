@@ -1,8 +1,10 @@
-= form_for @visa, html: { class: "form-horizontal" } do |f|
+= form_for @visa, html: { class: "form-horizontal" }, remote: true do |f|
   - if @visa.errors.any?
-    #error_explanation
-      %h2= t('errors.prohibited_saving_visa', count: @visa.errors.count)
-      %ul
+    .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
+      %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
+        %span{"aria-hidden" => "true"} &times;
+      %strong= t('errors.prohibited_saving_visa', count: @visa.errors.count)
+      %ul.mb-0.mt-2
         - @visa.errors.full_messages.each do |msg|
           %li= msg
   .form-group.row
@@ -21,7 +23,4 @@
     .col-sm-10
       = f.number_field :no_entries, class: "form-control"
       = t('common.multi_unlimited_entries')
-  .actions
-    .form-group.row
-      .col-sm-12
-        = f.submit t('common.save'), class: "btn btn-primary form-btn float-right"
+

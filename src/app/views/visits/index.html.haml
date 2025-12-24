@@ -15,7 +15,7 @@
   %h2= t('visits.schengen_visa_list')
   .row.py-1
     .col-md-12.text-right
-      = link_to new_visa_path(locale: I18n.locale), class: "btn btn-primary btn-md form-btn" do
+      %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visa"}
         %i.fa.fa-plus{"aria-hidden" => "true"}
         =t('visits.add_visa')
   .row
@@ -24,15 +24,13 @@
 
 %h2= t('visits.travel_record')
 .row.py-1
-  .col-md-6.d-flex.align-items-end
+  .col.d-flex.align-items-center
     - if @visits.count > 0
-      = link_to t('visits.export_to_csv'), visits_path(locale: I18n.locale, format: "csv")
-      %span.px-2
-        |
-    - if !current_user_or_guest_user.visa_required? && @visits.count > 0
-      = link_to t('visits.view_calculation_details'), days_path(locale: I18n.locale)
-  .col-md-6.text-right
-    = link_to new_visit_path(locale: I18n.locale), class: "btn btn-primary btn-md form-btn" do
+      = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md" do
+        %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
+        = t('visits.export_to_csv')
+  .col-auto.ml-auto
+    %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visit"}
       %i.fa.fa-plus{"aria-hidden" => "true"}
       = t('visits.add_travel')
 
@@ -44,7 +42,64 @@
     .ad-block-limit
       %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
 
+-# Modal for adding/editing visits
+#visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog.modal-lg{role: "document"}
+    .modal-content
+      .modal-header
+        %h5#visitModalLabel.modal-title= t('visits.add_record')
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} &times;
+      .modal-body
+        -# Form will be loaded here via AJAX
+      .modal-footer.d-flex.justify-content-between
+        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        .ml-auto
+          %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+            %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+            = t('common.delete')
+          %button#saveVisitButton.btn.btn-primary{type: "button"}
+            %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+            = t('common.save')
+
+-# Modal for adding/editing visas
+#visaModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visaModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog.modal-lg{role: "document"}
+    .modal-content
+      .modal-header
+        %h5#visaModalLabel.modal-title= t('visas.add_visa')
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} &times;
+      .modal-body
+        -# Form will be loaded here via AJAX
+      .modal-footer.d-flex.justify-content-between
+        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        .ml-auto
+          %button#deleteVisaButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+            %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+            = t('common.delete')
+          %button#saveVisaButton.btn.btn-primary{type: "button"}
+            %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+            = t('common.save')
+
+-# Modal for delete confirmation
+#deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog{role: "document"}
+    .modal-content
+      .modal-header.bg-danger.text-white
+        %h5#deleteModalLabel.modal-title
+          %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
+          = t('common.confirm_delete')
+        %button.close.text-white{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} &times;
+      .modal-body
+        %p#deleteModalMessage= t('common.delete_warning')
+      .modal-footer
+        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        %a#deleteConfirmButton.btn.btn-danger{href: "#"}
+          %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
+          = t('common.delete')
+
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
-
 

@@ -14,7 +14,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       click_button 'Sign up'
     end
     assert has_content? 'Test Signup'
-    click_link 'Log out'
+    click_button 'Log out'
     assert has_no_content? 'Test Signup'
   end
 end

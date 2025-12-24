@@ -9,7 +9,7 @@
       <div class="col-md-7">
         <div class="d-flex float-right">
           <%= image_tag("facebook_icon.png", alt: "Facebook", class: "mr-2") %>
-          <%= button_to t('log_in_page.log_in_with_facebook'), user_facebook_omniauth_authorize_path, class: "btn btn-link" %>
+          <%= button_to t('log_in_page.log_in_with_facebook'), user_facebook_omniauth_authorize_path(display: 'page'), class: "btn btn-link" %>
         </div>
       </div>
     </div>

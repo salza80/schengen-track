@@ -29,7 +29,10 @@ Rails.application.routes.draw do
     get 'seed' => 'tasks#seed'
     get 'update_countries' => 'tasks#update_countries'
 
-    devise_for :users, skip: :omniauth_callbacks, controllers: {registrations: 'users/registrations'}
+    devise_for :users, skip: :omniauth_callbacks, controllers: {
+      registrations: 'users/registrations',
+      sessions: 'users/sessions'
+    }
 
   end
   devise_for :users, only: :omniauth_callbacks, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}

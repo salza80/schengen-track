@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-Rails.application.config.session_store :cookie_store, key: '_schengen_track_session'
+Rails.application.config.session_store :cookie_store, key: '_schengen_track_session', same_site: :lax, secure: true, httponly: true, domain: :all

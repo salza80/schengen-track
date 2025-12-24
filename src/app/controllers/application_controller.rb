@@ -92,7 +92,8 @@ class ApplicationController < ActionController::Base
       value: current_user_or_guest_user.nationality.country_code + "_" + guest_value,
       expires: 1.month.from_now,
       httponly: true,
-      secure: Rails.env.production?
+      secure: Rails.env.production?,
+      same_site: :lax
     }
   end
 end

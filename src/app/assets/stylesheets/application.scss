@@ -53,11 +53,11 @@ html {
       .nav-link {
         border-bottom-color: $primary;
         font-weight: bold;
-        color: #6610f2;  // Purple text for active page
+        color: $primary;  // Blue text for active page
         
-        // Make icon purple too
+        // Make icon blue too
         .fa, .fas, .far, .fab {
-          color: #6610f2;
+          color: $primary;
         }
       }
     }

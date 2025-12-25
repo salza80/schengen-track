@@ -4,4 +4,4 @@
 # User-agent: *
 # Disallow: /
 
-SITEMAP: http://schengen-calculator.com/sitemap.xml
+Sitemap: https://schengen-calculator.com/sitemap.xml

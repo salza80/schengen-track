@@ -29,4 +29,46 @@ module ApplicationHelper
       end.join(" | ").html_safe
     end
   end
+
+  # Generate breadcrumb JSON-LD structured data
+  def breadcrumb_schema(breadcrumbs)
+    items = breadcrumbs.each_with_index.map do |crumb, index|
+      {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb[:name],
+        item: crumb[:url]
+      }
+    end
+
+    schema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: items
+    }
+
+    content_tag(:script, type: 'application/ld+json') do
+      schema.to_json.html_safe
+    end
+  end
+
+  # Helper to render breadcrumb navigation with schema
+  def render_breadcrumbs(breadcrumbs)
+    content = content_tag(:nav, class: 'breadcrumbs', 'aria-label': 'Breadcrumb') do
+      content_tag(:ol) do
+        breadcrumbs.each_with_index.map do |crumb, index|
+          content_tag(:li, class: (index == breadcrumbs.length - 1 ? 'active' : '')) do
+            if index == breadcrumbs.length - 1
+              crumb[:name]
+            else
+              link_to(crumb[:name], crumb[:url])
+            end
+          end
+        end.join.html_safe
+      end
+    end
+
+    # Return both navigation and schema
+    content + breadcrumb_schema(breadcrumbs)
+  end
 end

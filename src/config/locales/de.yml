@@ -20,6 +20,7 @@ de:
     edit: Bearbeiten
     edit_my_details: Meine Angaben bearbeiten
     'false': Nein
+    home: Startseite
     log_out: Abmelden
     login: Anmelden
     multi_unlimited_entries: "(0 eingeben für mehrere/unbegrenzte Einträge)"
@@ -89,8 +90,8 @@ de:
     - :day
     - :month
     - :year
-  default_description: Kostenloser Schengen/Europa-90/180-Tage-Rechner. Geben Sie Ihre Nationalität, Reisedaten und Reiseziel ein, und der Schengen-Rechner erledigt den Rest.
-  default_title: Schengen / Europa-Kurzzeit-Touristenvisum-Rechner
+  default_description: Berechnen Sie Ihre visafreien Schengen-Tage mit unserem kostenlosen 90/180-Tage-Tracker. Verfolgen Sie die rollende 180-Tage-Regel für 29 europäische Länder. Planen Sie jetzt Ihre Europareise!
+  default_title: Schengen Rechner | 90/180-Tage-Regel Tracker | Kostenlos
   errors:
     prohibited_saving_visa: "%{count} Fehler verhinderten das Speichern dieses Visums:"
   helpers:

@@ -7,6 +7,7 @@ zh-CN:
     days_used: 已用天数
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
+    learn_about_rule: 了解90/180天规则
     legend: 图例
     legend_outside: 申根区外
     legend_overstay: 超期停留
@@ -15,9 +16,11 @@ zh-CN:
     legend_warning: 接近限制（80天以上）
     max_days_reached: 峰值
     max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
+    need_help: 需要帮助理解规则吗？
     next_entry_options: 最早再入境日期
     no_visits_this_year: "%{year}年无访问"
     overstay_na: 不适用
+    page_title: 申根90/180天计算器
     schengen_days_in_year: 在申根区的天数
     schengen_no: 否
     schengen_yes: 是

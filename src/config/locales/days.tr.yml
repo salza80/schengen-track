@@ -7,6 +7,7 @@ tr:
     days_used: kullanılan günler
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
+    learn_about_rule: 90/180 Gün Kuralı Hakkında Bilgi Edinin
     legend: Açıklama
     legend_outside: Schengen Dışında
     legend_overstay: Süre Aşımı
@@ -15,9 +16,11 @@ tr:
     legend_warning: Limite Yakın (80+ gün)
     max_days_reached: Zirve
     max_remaining_days: Maksimum kalan günler - Bu günde yeniden girdiğinizde Schengen alanında kalabileceğiniz maksimum süre.
+    need_help: Kuralı anlamak için yardıma mı ihtiyacınız var?
     next_entry_options: En Erken Yeniden Giriş Tarihleri
     no_visits_this_year: "%{year} yılında ziyaret yok"
     overstay_na: Uygun Değil
+    page_title: Schengen 90/180 Gün Hesaplayıcı
     schengen_days_in_year: Schengen'de Günler
     schengen_no: Hayır
     schengen_yes: Evet

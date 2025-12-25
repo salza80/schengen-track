@@ -19,6 +19,7 @@ en:
     edit: Edit
     edit_my_details: Edit My Details
     'false': 'No'
+    home: Home
     log_out: Log out
     login: Log in
     multi_unlimited_entries: "(enter 0 for multi/unlimited entries)"
@@ -88,8 +89,8 @@ en:
     - :year
     - :month
     - :day
-  default_description: Free Schengen/Europe 90/180 day calculator. Enter your nationality, travel dates and destination, and the Schengen calculator does the rest.
-  default_title: Schengen / Europe Short-stay Tourist Visa Calculator
+  default_description: Calculate your Schengen visa-free days with our free 90/180 day tracker. Track the rolling 180-day rule for 29 European countries. Start planning your Europe trip today!
+  default_title: Schengen Calculator | Track 90/180 Day Rule | Free Visa Calculator
   errors:
     prohibited_saving_visa: "%{count} error prohibited this visa from being saved:"
   helpers:

@@ -167,3 +167,55 @@ input.form-control {
     }
   }
 }
+
+// Screen reader only - visually hidden but accessible
+.sr-only-heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Breadcrumb navigation styles
+nav.breadcrumbs {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    
+    li {
+      display: inline;
+      
+      &:not(:last-child)::after {
+        content: "›";
+        margin: 0 0.5rem;
+        color: #6c757d;
+      }
+      
+      &.active {
+        color: #6c757d;
+        font-weight: 500;
+      }
+      
+      a {
+        color: $primary;
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

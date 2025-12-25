@@ -153,6 +153,17 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
+    // Allow aggressive browser caching for static assets (fingerprinted, so safe to cache long-term)
+    const assetsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "assetsBrowserCache", {
+      customHeadersBehavior: {
+        customHeaders: [{
+          header: 'Cache-Control',
+          value: 'public, max-age=31536000, immutable',
+          override: true
+        }]
+      }
+    });
+
     const functionAssociations = [
       {
         function: cfRewriteUrlFunction,
@@ -175,6 +186,7 @@ export class HttpApiConstruct extends Construct {
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+      responseHeadersPolicy: assetsBrowserCachePolicy,
       functionAssociations
     };
 

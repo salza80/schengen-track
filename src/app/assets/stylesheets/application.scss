@@ -49,21 +49,30 @@ html {
 }
 
 #navtabs {
-    .active {
-      .nav-link {
-        border-bottom-color: $link-color;  // Darker blue for WCAG AA contrast
-        font-weight: bold;
-        color: $link-color;  // #0056b3 instead of #2196f3 for better contrast
-        
-        // Make icon darker blue too
-        .fa, .fas, .far, .fab {
-          color: $link-color;
-        }
-      }
-    }
-    .nav-link{
+    .nav-link {
+      transition: all 0.3s ease;  // Smooth transition for all properties
+      
       &:hover {
         border-color: $link-color;
+      }
+      
+      // Smooth transition for icons too
+      .fa, .fas, .far, .fab {
+        transition: color 0.3s ease;
+      }
+    }
+    
+    .active {
+      .nav-link {
+        background-color: $primary;  // Light blue background
+        color: white;  // White text
+        font-weight: bold;
+        border-radius: 0.25rem;  // Rounded corners for pill effect
+        
+        // Make icon white too
+        .fa, .fas, .far, .fab {
+          color: white;
+        }
       }
     }
 }

@@ -6,10 +6,6 @@
   - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('about.link'), :url => about_url(:locale => I18n.locale) }]
   = render_breadcrumbs(breadcrumbs)
 
-/ .row
-/   .col-sm-10
-/     / Schengen
-/     %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "7291202216", :style => "display:block"}
 .row
   .col-lg-4{:role => "complementary"}
     %nav.page-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}}
@@ -66,8 +62,6 @@
       %br
       %p.mb-4
         = t('about.about.useful_for_planning')
-      .ad-block
-        %ins.adsbygoogle{data: {ad_client: "ca-pub-8290979932488448", ad_format: "auto", ad_slot: "7291202216"}, style: "display:block"}
       %h2#brexit.mb-4
         = t('about.about.uk_citizens')
       %h3.mb-4
@@ -444,5 +438,4 @@
   });
   
   // Initialize AdSense ads
-  (adsbygoogle = window.adsbygoogle || []).push({});
   (adsbygoogle = window.adsbygoogle || []).push({});

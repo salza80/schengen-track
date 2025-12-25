@@ -1,0 +1,30 @@
+// Font display optimization for better performance
+// Override Font Awesome font-face declarations to add font-display: swap
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(font_path('font-awesome/fa-solid-900.woff2')) format('woff2');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(font_path('font-awesome/fa-regular-400.woff2')) format('woff2');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(font_path('font-awesome/fa-brands-400.woff2')) format('woff2');
+}
+
+// Add Roboto font from Google Fonts with font-display: swap
+// Using system fonts as fallback defined in _variables.scss
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');

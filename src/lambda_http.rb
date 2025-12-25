@@ -81,9 +81,10 @@ def handler(event:, context:)
 
   path = event['requestContext']['http']['path']
   
-  # Explicitly serve robots.txt as a static file
-  # This must be handled before API format checking since .txt is considered an API format
-  if path == '/robots.txt'
+  # Explicitly serve static SEO files as static files
+  # These must be handled before API format checking since .txt and .xml are considered API formats
+  # Handle: robots.txt, ads.txt, sitemap.xml, sitemap-*.xml
+  if path == '/robots.txt' || path == '/ads.txt' || path == '/sitemap.xml' || path.start_with?('/sitemap')
     response = serve_static_file(path)
     return response if response['statusCode'] != 404
   end

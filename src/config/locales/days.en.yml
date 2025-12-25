@@ -7,6 +7,7 @@ en:
     days_used: days used
     from_date_onwards: From %{date} onwards
     full_stay: Full 90 days!
+    learn_about_rule: Learn About the 90/180 Day Rule
     legend: Legend
     legend_outside: Outside Schengen
     legend_overstay: Overstay
@@ -15,9 +16,11 @@ en:
     legend_warning: Near Limit (80+ days)
     max_days_reached: Peak
     max_remaining_days: Max remaining days - Is the maximum amount of time you can stay in the Schengen area if you re-enter on this day.
+    need_help: Need help understanding the rule?
     next_entry_options: Earliest Re-entry Dates
     no_visits_this_year: No visits in %{year}
     overstay_na: N/A
+    page_title: Schengen 90/180 Day Calculator
     schengen_days_in_year: Days in Schengen
     schengen_no: 'No'
     schengen_yes: 'Yes'

@@ -419,17 +419,34 @@
       %p.mb-4
         = t('about.about.last_updated.description', date: l(Time.new(2025, 12, 24), format: :mid))
 :javascript
-  $('body').scrollspy({ target: '.page-sidebar', offset: 130 })
-  $('.page-sidebar li a').click(function(event) {
-    event.preventDefault();
-    const target = $(this).attr('href');
-    const $target = $(target);
-    if ($target.length) {
-      const scrollToPosition = $target.offset().top - 120;
-      $('html, body').animate({
-        scrollTop: scrollToPosition
-      }, 400);
+  // Wait for jQuery to be loaded before initializing scrollspy and smooth scroll
+  function initializeAboutPage() {
+    if (typeof $ === 'undefined') {
+      // jQuery not loaded yet, wait and try again
+      setTimeout(initializeAboutPage, 100);
+      return;
     }
-  });
+    
+    // Initialize Bootstrap scrollspy
+    $('body').scrollspy({ target: '.page-sidebar', offset: 130 })
+    
+    // Smooth scroll for sidebar links
+    $('.page-sidebar li a').click(function(event) {
+      event.preventDefault();
+      const target = $(this).attr('href');
+      const $target = $(target);
+      if ($target.length) {
+        const scrollToPosition = $target.offset().top - 120;
+        $('html, body').animate({
+          scrollTop: scrollToPosition
+        }, 400);
+      }
+    });
+  }
+  
+  // Start initialization
+  initializeAboutPage();
+  
+  // Initialize AdSense ads
   (adsbygoogle = window.adsbygoogle || []).push({});
   (adsbygoogle = window.adsbygoogle || []).push({});

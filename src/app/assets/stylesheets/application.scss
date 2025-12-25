@@ -133,6 +133,19 @@ body {
   margin-bottom: 60px;
 }
 
+// Screen reader only content (visually hidden but accessible)
+.sr-only-heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 // Global link contrast is now controlled by Bootstrap theme variables
 // in _bootstrap_custom.scss ($link-color, $link-hover-color)
 

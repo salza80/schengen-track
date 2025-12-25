@@ -7,9 +7,10 @@
   
   .col-lg-9{role: "main"}
     .blog-article
-      -# Breadcrumb navigation and schema
-      - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('common.blog'), :url => blog_index_url(:locale => I18n.locale) }, { :name => t('blog.extendedTravel.title'), :url => blog_url(:slug => 'extended-schengen-stay', :locale => I18n.locale) }]
-      = render_breadcrumbs(breadcrumbs)
+      -# Breadcrumb navigation and schema (hidden but accessible)
+      .sr-only-heading
+        - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('common.blog'), :url => blog_index_url(:locale => I18n.locale) }, { :name => t('blog.extendedTravel.title'), :url => blog_url(:slug => 'extended-schengen-stay', :locale => I18n.locale) }]
+        = render_breadcrumbs(breadcrumbs)
       
       %article
         %header.article-header

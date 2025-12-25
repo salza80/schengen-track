@@ -12,9 +12,7 @@ zh-CN:
       blog_link_intro: 有关在欧洲进行长时间旅行并使用计算器的一些灵感：
       button_text: 前往申根计算器立即开始
       calculation_description:
-        first_paragraph: 这个计算现在只用于来自阿根廷、巴哈马、巴巴多斯、巴西、圣基茨和尼维斯、毛里求斯和塞舌尔的人，他们仍然适用申根计算的旧定义。
-        second_paragraph: 旧的定义与“滚动”的6个月不同，因为它从第一次入境的日期开始，然后将在那天之后的6个月重置。使用此计算方式可以允许更长的停留时间。例如，如果您在1月初入境一天，然后3个月后再次入境，停留至6月底，然后，从1月份开始的6个月（从1月份开始）将重置，允许您再停留3个月，有效地允许近6个月。然而，您不能连续停留超过3个月，因此您必须退出并重新进入申根地区。
-        third_paragraph: 申根计算器考虑了这一点，因此您可以使用申根计算器来尝试入境和出境日期，以最大程度地延长您的停留时间。
+        paragraph: 所有旅客都使用标准申根计算来确定其允许的停留时间。这被定义为"任何180天期间内的90天"。申根计算器考虑了这一点，因此您可以尝试入境和出境日期以最大化您的停留时间。
       calculator_description: 申根签证计算器可以计算您在申根地区持短期申根签证期间允许停留的时间长度。您可以使用它来跟踪或预测您在申根地区内所有的访问，以便知道在您必须离开之前剩余多少天。
       contents_title: 目录
       countries_in_schengen: 申根区的国家包括：奥地利、比利时、保加利亚、克罗地亚、捷克共和国、丹麦、爱沙尼亚、芬兰、法国、德国、希腊、匈牙利、冰岛、意大利、拉脱维亚、立陶宛、卢森堡、马耳他、荷兰、挪威、波兰、葡萄牙、罗马尼亚、斯洛伐克、斯洛文尼亚、西班牙、瑞典、瑞士。
@@ -53,10 +51,22 @@ zh-CN:
         link_text: 免责声明
         title: 免责声明
       disclaimer_link: 免责声明
+      etias_additional_info: ETIAS不会改变90/180天规则。您仍需遵守标准的申根计算来确定停留时间，但您需要在入境前获得ETIAS授权。
+      etias_coming_soon: ETIAS将于2026年第四季度开始运营。目前旅客无需采取任何行动。欧盟将在启动前几个月通知ETIAS开始的具体日期。
+      etias_description: ETIAS（欧洲旅行信息和授权系统）是进入申根区的免签证旅客的预先旅行授权系统。它类似于美国的ESTA或加拿大的eTA。
+      etias_effective_date: 从2026年第四季度开始
+      etias_link: 官方ETIAS信息
+      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
+      etias_not_visa: 重要提示：ETIAS不是签证。它是一种电子旅行授权，必须在旅行前在线获得。
+      etias_section_link: ETIAS - 旅行授权
+      etias_title: ETIAS - 欧洲旅行授权
+      etias_who_needs: ETIAS将适用于来自免签证国家（包括美国、英国、澳大利亚、加拿大、新西兰、日本等）的旅客，这些旅客目前可以在没有任何预先许可的情况下入境。
       european_commission_link: 欧洲委员会
       european_commission_website_link: 欧洲委员会网站
-      exempt_countries_conditions: 请注意，其中一些国家有一些条件。例如，只有阿尔巴尼亚、波斯尼亚和黑塞哥维那、前南斯拉夫马其顿共和国、摩尔多瓦、黑山、塞尔维亚的公民的护照包含生物识别数据时，才免除签证义务。
-      exempt_countries_list: 阿尔巴尼亚、安道尔、安提瓜和巴布达、阿根廷、澳大利亚、巴哈马、巴巴多斯、波斯尼亚和黑塞哥维那、巴西、文莱、加拿大、智利、哥斯达黎加、克罗地亚、萨尔瓦多、前南斯拉夫马其顿共和国、危地马拉、洪都拉斯、香港、以色列、日本、马来西亚、澳门、毛里求斯、墨西哥、摩纳哥、黑山、新西兰、尼加拉瓜、北马里亚纳、巴拿马、巴拉圭、圣基茨和尼维斯、塞尔维亚、塞舌尔、新加坡、韩国、台湾、美国、乌拉圭和委内瑞拉。
+      exempt_countries_conditions: 请注意，这些国家中的某些国家有条件限制。例如，阿尔巴尼亚、波黑、格鲁吉亚、摩尔多瓦、黑山、塞尔维亚和乌克兰的公民只有在护照包含生物识别数据的情况下才能免除签证义务。科索沃的签证豁免从ETIAS开始运营之日或2024年1月1日起生效，以较早者为准。有关所有条件的完整和最新列表，请参阅官方欧盟法规。
+      exempt_countries_list: 阿尔巴尼亚、安道尔、安提瓜和巴布达、阿根廷、澳大利亚、巴哈马、巴巴多斯、波斯尼亚和黑塞哥维那、巴西、文莱、加拿大、智利、哥伦比亚、哥斯达黎加、多米尼克、萨尔瓦多、阿拉伯联合酋长国、美国、格鲁吉亚、格林纳达、危地马拉、洪都拉斯、香港、以色列、日本、基里巴斯、科索沃、澳门、马来西亚、马绍尔群岛、毛里求斯、墨西哥、密克罗尼西亚、摩尔多瓦、摩纳哥、黑山、瑙鲁、尼加拉瓜、新西兰、北马其顿、帕劳、巴拿马、巴拉圭、秘鲁、英国、圣基茨和尼维斯、圣卢西亚、圣文森特和格林纳丁斯、萨摩亚、圣马力诺、塞尔维亚、塞舌尔、新加坡、所罗门群岛、韩国、台湾、东帝汶、汤加、特立尼达和多巴哥、图瓦卢、乌克兰、乌拉圭、梵蒂冈城（圣座）和委内瑞拉。
+      exempt_countries_official_link: 签证要求官方欧盟法规
+      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
       field_definitions_link: 字段名称定义
       get_started: 立即开始
       how_to_use:
@@ -83,7 +93,7 @@ zh-CN:
       last_updated:
         description: 上次更新时间：%{date}
         title: 上次更新
-      length_calculation_revision: 用于计算第三方国家公民允许停留时间的计算于%{date}修订并生效。然而，仍有少数国家必须使用旧的计算方式，这些国家包括阿根廷、巴哈马、巴巴多斯、巴西、圣基茨和尼维斯、毛里求斯和塞舌尔。此申根计算器根据您的国籍和旅行日期使用旧的或新的计算方式，因此这些国家的国民仍可以使用该计算器。
+      length_calculation_revision: 用于计算第三方国家公民允许停留时间的计算于%{date}修订并生效。现在所有国家都使用滚动180天计算方法。
       length_of_stay_calculation: 停留期计算
       length_of_stay_link: 停留期计算
       limitations:
@@ -96,7 +106,7 @@ zh-CN:
         title: 限制
       limitations_link: 限制
       more_information_link: 更多信息：gov.uk - 2021年1月1日起访问欧洲
-      nationality_dependent_visa_requirement: 根据您的国籍，您可能需要在进入申根区之前申请申根短期签证。欧盟列出了必须申请签证的国家以及免除此要求的国家的名单。截至2015年3月1日，以下国家的公民无需在入境前获得申根签证：
+      nationality_dependent_visa_requirement: 根据您的国籍，您可能需要在进入申根区之前申请申根短期签证。欧盟列出了必须申请签证的国家以及免除此要求的国家的名单。截至2025年2月3日（欧盟法规最新更新日期），以下国家的公民无需在入境前获得申根签证：
       nationality_requirements_link: 我国籍的申根要求
       nationality_section:
         heading: 我的国籍的申根 / 欧洲旅游入境和停留要求
@@ -107,7 +117,6 @@ zh-CN:
       new_definition_link: 2013年的新定义
       new_rules_from: 新规则自%{date}
       non_eu_visa_requirement: 如果您来自欧盟之外的任何其他国家，您需要在旅行前申请签证。签证将指明其有效期和允许的入境次数（多次入境-无限制）。请注意，“180天内的任何90天”规则仍然适用，无论签证开始和结束日期如何。使用申根计算器输入您的签证详细信息，并帮助计算您允许停留的时间长度。
-      previous_definition_link: 之前的定义
       schengen_area_description: 申根区由29个欧洲国家组成，没有内部边界。公民以及许多非欧盟国家的商人和游客可以在没有面临边境检查的情况下自由流动。自1985年以来，它已扩展到几乎所有欧盟成员国和一些关联的非欧盟国家。
       schengen_area_link: 什么是申根区
       step_by_step_link: 逐步指南
@@ -137,19 +146,14 @@ zh-CN:
     nationality:
       additional_visa_waiver_description: "%{country}与一些申根国家签订了额外的签证豁免协议。这些协议可能允许您在申根区停留时间超过90天。如果您计划这样做，请务必谨慎，并在出行前寻求建议。请注意，申根计算器在计算中不考虑额外的签证豁免协议。\n"
       additional_visa_waiver_title: "%{country}是否与其他国家签订了任何额外的签证豁免协议？"
+      calculation_description: |
+        %{country}的人在计算在申根区可以停留多久时必须使用申根计算方式。
+        这被定义为：
+        "在任何180天内的90天 […]"。"入境日期应被视为在成员国领土上停留的第一天，出境日期应被视为在成员国领土上停留的最后一天。在居留许可或长期签证下授权的停留期不应计入在成员国领土上停留的持续时间的计算中。"
+        更多信息请参见%{european_commision_link}。
       european_commision_link: 欧洲委员会
       length_of_stay_calculation_title: "%{nationality_plural}在计算允许停留期限时需要使用哪种计算方式？"
-      new_calculation_description: |
-        %{country}的人在计算在申根区可以停留多久时必须使用新的申根计算方式。
-        这被定义为：
-        “在任何180天内的90天”。 “入境日期应被视为在成员国领土上停留的第一天，出境日期应被视为在成员国领土上停留的最后一天。在居留许可或长期签证下授权的停留期不应计入在成员国领土上停留的持续时间的计算中。”
-        更多信息请参见%{european_commision_link}。
       no_additional_visa_waiver_description: 没有。%{country}与申根区国家没有签订任何额外的签证豁免协议。
-      old_calculation_description: |
-        %{country}的人在计算在申根区可以停留多久时必须使用旧的申根计算方式。
-        这被定义为：
-        “自第一次入境日期后的6个月内的3个月”。
-        更多信息请参见%{european_commision_link}。
       schengen_visa_requirement_title: "%{nationality_plural}是否需要在入境前申请申根旅游签证？"
       tourist_travel_requirements_title: "%{nationality_plural}的申根/欧洲旅游入境和停留要求"
       visa_exempt: 不需要。%{country}的人在入境前免除申请申根签证的要求。

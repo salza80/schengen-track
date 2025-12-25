@@ -12,7 +12,6 @@
               <xs:element type="xs:date" name="schengen_start_date"/>
               <xs:element type="xs:boolean" name="EU_memeber_state"/>
               <xs:element type="xs:string" name="visa_required"/>
-              <xs:element type="xs:boolean" name="old_schengen_calc"/>
               <xs:element type="xs:boolean" name="additional_visa_waiver"/>
               <xs:element typle="xs:text" name="affiliate_booking_html"/>
             </xs:sequence>

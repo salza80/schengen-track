@@ -44,7 +44,7 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
+		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -212,7 +212,7 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
+		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -368,7 +368,7 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
+		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -380,7 +380,7 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
+		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1508,7 +1508,7 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
+		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1916,7 +1916,7 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
+		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2420,7 +2420,7 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
+		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>

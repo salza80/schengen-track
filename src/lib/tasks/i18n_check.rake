@@ -73,7 +73,7 @@ namespace :i18n do
 
     puts
     puts 'Removing unused keys...'
-    system('bundle exec i18n-tasks unused-rm')
+    system('bundle exec i18n-tasks remove-unused')
 
     puts
     puts '✓ Unused keys removed successfully'

@@ -29,7 +29,6 @@ namespace :db do
       country.schengen_start_date = c.xpath('schengen_start_date').text
       country.EU_member_state = c.xpath('EU_memeber_state').text
       country.visa_required = c.xpath('visa_required').text
-      country.old_schengen_calc = c.xpath('old_schengen_calc').text
       country.additional_visa_waiver = c.xpath('additional_visa_waiver').text
       country.affiliate_booking_html = c.xpath('affiliate_booking_html').text
       country.continent = cont

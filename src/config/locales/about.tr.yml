@@ -12,9 +12,7 @@ tr:
       blog_link_intro: 'Avrupa''da uzun bir seyahat için hesap makinesini nasıl kullanabileceğiniz konusunda biraz ilham almak için:'
       button_text: Başlamak için Schengen Hesap Makinesine Git
       calculation_description:
-        first_paragraph: Bu hesaplama, artık Antigua ve Barbuda, Bahamalar, Barbados, Brezilya, Saint Kitts ve Nevis, Mauritius ve Seyşeller'den gelen kişiler için kullanılır.
-        second_paragraph: Eski tanım, 6 aylık sürekli bir döngü olmadığından, birinci giriş tarihinden başlar ve ardından o tarihten 6 ay sonra sıfırlanır. Bu hesaplama, yeni tanıma göre daha uzun kalışlara izin verebilir. Örneğin, Ocak ayının başında bir gün için giriş yaptıysanız ve ardından 3 ay sonra Haziran sonuna kadar 3 ay süreyle yeniden giriş yaptıysanız, 6 ay (Ocak'tan) sonra sıfırlanır ve yaklaşık 6 ay daha kalabilirsiniz. Ancak, 3 aydan fazla süreyle kalamazsınız, bu nedenle Schengen Bölgesi'nden çıkıp yeniden girmeniz gerekir.
-        third_paragraph: Schengen hesap makinesi bunu dikkate alır, bu nedenle giriş ve çıkış tarihlerini maksimum kalışınızı hesaplamak için kullanabilirsiniz.
+        paragraph: Tüm gezginler, izin verilen kalma sürelerini belirlemek için standart Schengen hesaplamasını kullanır. Bu, "herhangi bir 180 günlük dönemde 90 gün" olarak tanımlanır. Schengen hesap makinesi bunu dikkate alır, bu nedenle giriş ve çıkış tarihlerini deneyerek kalışınızı maksimize edebilirsiniz.
       calculator_description: Schengen Hesap Makinesi, kısa süreli Schengen vizesi ile Schengen Bölgesi'nde seyahat etme hakkınızı hesaplar. Schengen Bölgesi içindeki tüm ziyaretlerinizi takip etmek veya tahmin etmek için kullanabilirsiniz, böylece ne zaman ayrılmanız gerektiğini bilirsiniz.
       contents_title: İçindekiler
       countries_in_schengen: 'Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç, İsviçre.'
@@ -53,10 +51,22 @@ tr:
         link_text: Feragatname
         title: Feragatname
       disclaimer_link: Feragatname
+      etias_additional_info: ETIAS, 90/180 gün kuralını değiştirmez. Kalış süreniz için standart Schengen hesaplamasına uymaya devam etmeniz gerekecek, ancak giriş yapmadan önce ETIAS iznine ihtiyacınız olacak.
+      etias_coming_soon: ETIAS, 2026 yılının son çeyreğinde faaliyete başlayacak. Şu anda gezginlerden herhangi bir işlem yapması gerekmiyor. Avrupa Birliği, ETIAS başlangıç tarihini lansmanından birkaç ay önce duyuracaktır.
+      etias_description: ETIAS (Avrupa Seyahat Bilgi ve İzin Sistemi), Schengen Bölgesine giren vize muafiyeti olan gezginler için bir ön seyahat izin sistemidir. ABD ESTA veya Kanada eTA sistemine benzer.
+      etias_effective_date: 2026 4. Çeyrek itibarıyla
+      etias_link: Resmi ETIAS Bilgileri
+      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
+      etias_not_visa: 'Önemli: ETIAS bir vize DEĞİLDİR. Seyahatinizden önce çevrimiçi olarak alınması gereken elektronik bir seyahat iznidir.'
+      etias_section_link: ETIAS - Seyahat İzni
+      etias_title: ETIAS - Avrupa Seyahat İzni
+      etias_who_needs: ETIAS, şu anda herhangi bir ön izin olmadan girebilen vize muafiyeti olan ülkelerden (Amerika Birleşik Devletleri, Birleşik Krallık, Avustralya, Kanada, Yeni Zelanda, Japonya ve diğerleri dahil) gelen gezginler için gerekli olacaktır.
       european_commission_link: Avrupa Komisyonu
       european_commission_website_link: Avrupa Komisyonu Web Sitesi
-      exempt_countries_conditions: Lütfen bu ülkelerin bazıları için koşulların olduğunu unutmayın. Örneğin, Arnavutluk, Bosna-Hersek, Eski Yugoslav Cumhuriyeti Makedonya, Moldova, Karadağ, Sırbistan vatandaşları, pasaportlarında biyometrik veri bulundurdukları takdirde vize zorunluluğundan muaf tutulur.
-      exempt_countries_list: Arnavutluk, Andora, Antigua ve Barbuda, Arjantin, Avustralya, Bahamalar, Barbados, Bosna-Hersek, Brezilya, Brunei, Kanada, Şili, Kosta Rika, Hırvatistan, El Salvador, Eski Yugoslav Cumhuriyeti Makedonya (ESCM), Guatemala, Honduras, Hong Kong, İsrail, Japonya, Malezya, Makao, Mauritius, Meksika, Monako, Karadağ, Yeni Zelanda, Nikaragua, Kuzey Mariana Adaları, Panama, Paraguay, Saint Kitts ve Nevis, Sırbistan, Seyşeller, Singapur, Güney Kore, Tayvan, Amerika Birleşik Devletleri, Uruguay ve Venezuela.
+      exempt_countries_conditions: Bu ülkelerden bazıları için koşullar olduğunu lütfen unutmayın. Örneğin, Arnavutluk, Bosna-Hersek, Gürcistan, Moldova, Karadağ, Sırbistan ve Ukrayna vatandaşları vize yükümlülüğünden muaftır ancak yalnızca pasaport biyometrik veri içeriyorsa. Kosova için vize muafiyeti, ETIAS'ın faaliyete başladığı tarihten veya 1 Ocak 2024'ten, hangisi daha önce gelirse, geçerlidir. Tüm koşullarla birlikte eksiksiz ve güncel liste için lütfen resmi AB düzenlemesine bakın.
+      exempt_countries_list: ABD, Andora, Antigua ve Barbuda, Arjantin, Arnavutluk, Avustralya, Bahamalar, Barbados, Birleşik Arap Emirlikleri, Birleşik Krallık, Bosna ve Hersek, Brezilya, Brunei, Dominika, El Salvador, Granada, Guatemala, Güney Kore, Gürcistan, Honduras, Hong Kong, İsrail, Japonya, Kanada, Kiribati, Kolombiya, Kosova, Kosta Rika, Macau, Makedonya, Malezya, Marshall Adaları, Mauritius, Meksika, Mikronezya, Moldova, Monako, Karadağ, Nauru, Nikaragua, Yeni Zelanda, Palau, Panama, Paraguay, Peru, Saint Kitts ve Nevis, Saint Lucia, Saint Vincent ve Grenadinler, Samoa, San Marino, Sırbistan, Seyşeller, Singapur, Solomon Adaları, Şili, Tayvan, Timor-Leste, Tonga, Trinidad ve Tobago, Tuvalu, Ukrayna, Uruguay, Vatikan Şehri (Kutsal Makam) ve Venezuela.
+      exempt_countries_official_link: Vize Gereksinimleri Hakkında Resmi AB Düzenlemesi
+      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
       field_definitions_link: Alan Adı Tanımları
       get_started: Şimdi Başlayın
       how_to_use:
@@ -83,7 +93,7 @@ tr:
       last_updated:
         description: 'Son Güncelleme: %{date}'
         title: Son Güncelleme
-      length_calculation_revision: Üçüncü ülke vatandaşlarının izin verilen kalma süresini hesaplama kuralı revize edildi ve %{date} tarihinden itibaren yürürlüğe girdi. Bununla birlikte, Antigua ve Barbuda, Bahamalar, Barbados, Brezilya, Saint Kitts ve Nevis, Mauritius ve Seyşeller'in hala eski hesaplama yöntemini kullanması gereken bazı ülkeler vardır. Bu Schengen hesap makinesi, vatandaşlık durumunuza ve seyahat tarihinize bağlı olarak eski veya yeni hesaplama yöntemini kullanır, bu nedenle bu ülkelerin vatandaşları hesap makinesini hala kullanabilir.
+      length_calculation_revision: Üçüncü ülke vatandaşlarının izin verilen kalma süresini hesaplama kuralı revize edildi ve %{date} tarihinden itibaren yürürlüğe girdi. Artık tüm ülkeler dönen 180 günlük hesaplama yöntemini kullanmaktadır.
       length_of_stay_calculation: Kalma Süresi Hesaplama
       length_of_stay_link: Kalış Süresi Hesaplama
       limitations:
@@ -96,7 +106,7 @@ tr:
         title: Sınırlamalar
       limitations_link: Sınırlamalar
       more_information_link: 'Daha Fazla Bilgi: gov.uk - 1 Ocak 2021''den İtibaren Avrupa''yı Ziyaret'
-      nationality_dependent_visa_requirement: 'Vatandaşlık durumunuza bağlı olarak, Schengen bölgesine girmeden önce Kısa Süreli Schengen Vizesi başvurmanız gerekebilir. AB''nin, vize başvurması gereken ülkelerin bir listesi ve bu gereksinimi taşımayan ülkelerin bir listesi bulunmaktadır. 1 Mart 2015 tarihi itibarıyla, Schengen Vizesi almadan önce giriş yapması gerekmeyen ülkelerin şu şekildedir:'
+      nationality_dependent_visa_requirement: 'Vatandaşlık durumunuza bağlı olarak, Schengen bölgesine girmeden önce Kısa Süreli Schengen Vizesi başvurmanız gerekebilir. AB''nin, vize başvurması gereken ülkelerin bir listesi ve bu gereksinimi taşımayan ülkelerin bir listesi bulunmaktadır. 3 Şubat 2025 (AB düzenlemesinin son güncellenme tarihi) tarihi itibarıyla, Schengen Vizesi almadan önce giriş yapması gerekmeyen ülkelerin şu şekildedir:'
       nationality_requirements_link: Vatandaşlık gereksinimleri
       nationality_section:
         heading: Vatandaşlığım için Schengen / Avrupa turistik seyahat giriş ve kalış süresi gereksinimleri
@@ -107,7 +117,6 @@ tr:
       new_definition_link: 2013'ten itibaren Yeni tanım
       new_rules_from: "%{date} itibarıyla yeni kurallar"
       non_eu_visa_requirement: AB dışındaki herhangi bir ülkenin vatandaşıysanız, seyahatten önce bir Vize başvurmanız gerekir. Vize, geçerlilik süresini ve izin verilen giriş sayısını (çoklu giriş - sınırsız) belirtecektir. Lütfen unutmayın ki, "herhangi bir 180 günlük dönemde 90 gün" kuralı, Vize başlangıç ve bitiş tarihlerinden bağımsız olarak geçerlidir. Schengen hesap makinesini vize bilgilerinizi girmek ve izin verilen kalış sürenizi hesaplamak için kullanabilirsiniz.
-      previous_definition_link: Önceki tanım
       schengen_area_description: Schengen Bölgesi, iç sınırlara sahip olmayan 29 Avrupa ülkesinden oluşur. Vatandaşlar ve birçok AB dışı vatandaş, iş insanı ve turist, sınır kontrolleri olmaksızın serbestçe dolaşabilir. 1985'ten beri, neredeyse tüm AB ülkelerini ve birkaç ilişkili olmayan AB dışı ülkeyi kapsamıştır.
       schengen_area_link: Schengen Bölgesi Nedir
       step_by_step_link: Adım Adım
@@ -137,19 +146,14 @@ tr:
     nationality:
       additional_visa_waiver_description: "%{country}, bazı Schengen ülkeleri ile ek vize muafiyet anlaşmalarına sahiptir. Bu anlaşmalar, Schengen alanında 90 günden daha uzun kalmanıza izin verebilir. Bunu yapmayı planlıyorsanız dikkatli olmalı ve seyahat etmeden önce danışmanlık almalısınız. Lütfen Schengen Hesap Makinesinin hesaplamalarında ek vize muafiyet anlaşmalarını dikkate almadığını unutmayın.\n"
       additional_visa_waiver_title: "%{country} Ek Vize Muafiyet anlaşmaları bulunuyor mu?"
+      calculation_description: |
+        %{country} vatandaşları, Schengen bölgesinde kalabilecekleri süreyi hesaplarken Schengen hesaplamasını kullanmalıdır.
+        Bu, şu şekilde tanımlanır:
+        "Herhangi bir 180 günlük dönemde 90 gün […]". "Giriş tarihi, üye devletlerin topraklarında geçirilen ilk gün olarak kabul edilir ve çıkış tarihi, üye devletlerin topraklarında geçirilen son gün olarak kabul edilir. Oturum izni veya uzun süreli vize altında verilen kalış süreleri, üye devletlerin topraklarında geçirilen kalış süresinin hesaplanmasında dikkate alınmaz."
+        Daha fazla bilgi için %{european_commision_link} adresini ziyaret edin.
       european_commision_link: Avrupa Komisyonu
       length_of_stay_calculation_title: "%{nationality_plural} için kalış süresi izni hesaplanırken hangi hesaplama kullanılmalıdır?"
-      new_calculation_description: |
-        %{country} vatandaşları, Schengen bölgesinde kalabilecekleri süreyi hesaplarken YENİ Schengen hesaplamasını kullanmalıdır.
-        Bu, şu şekilde tanımlanır:
-        “Herhangi bir 180 günlük dönemde 90 gün […]“. “Giriş tarihi, üye devletlerin topraklarında geçirilen ilk gün olarak kabul edilir ve çıkış tarihi, üye devletlerin topraklarında geçirilen son gün olarak kabul edilir. Oturum izni veya uzun süreli vize altında verilen kalış süreleri, üye devletlerin topraklarında geçirilen kalış süresinin hesaplanmasında dikkate alınmaz.”
-        Daha fazla bilgi için %{european_commision_link} adresini ziyaret edin.
       no_additional_visa_waiver_description: Hayır. %{country}, Schengen Bölgesindeki ülkelerle herhangi bir ek vize muafiyet anlaşmasına sahip değildir.
-      old_calculation_description: |
-        %{country} vatandaşları, Schengen bölgesinde kalabilecekleri süreyi hesaplarken ESKİ Schengen hesaplamasını kullanmalıdır.
-        Bu, şu şekilde tanımlanır:
-        "İlk giriş tarihinden itibaren 6 aylık bir dönem içinde 3 ay"
-        Daha fazla bilgi için %{european_commision_link} adresini ziyaret edin.
       schengen_visa_requirement_title: "%{nationality_plural} Schengen Turist Vizesi başvurusu yapmalı mı?"
       tourist_travel_requirements_title: "%{nationality_plural} için Schengen / Avrupa turistik seyahat giriş ve kalış gereksinimleri"
       visa_exempt: Hayır. %{country} vatandaşları, giriş öncesinde Schengen Vizesi almak zorunda değildir.

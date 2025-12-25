@@ -22,12 +22,12 @@
             %li
               = link_to t('about.about.visa_requirements_link'), "#visa", {:class => "text-dark"}
             %li
+              = link_to t('about.about.etias_section_link'), "#etias", {:class => "text-dark"}
+            %li
               = link_to t('about.about.length_of_stay_link'), "#length", {:class => "text-dark"}
               %ul.nav.flex-column
                 %li
                   = link_to t('about.about.new_definition_link'), "#new", {:class => "text-dark"}
-                %li
-                  = link_to t('about.about.previous_definition_link'), "#previous", {:class => "text-dark"}
             %li
               = link_to t('about.about.additional_visa_waiver_link'), "#additional", {:class => "text-dark"}
             %li
@@ -89,7 +89,27 @@
       %p.mb-4
         = t('about.about.exempt_countries_conditions')
       %p.mb-4
+        = link_to t('about.about.exempt_countries_official_link'), t('about.about.exempt_countries_official_url'), target: :_blank
+      %p.mb-4
         = t('about.about.non_eu_visa_requirement')
+      %h3#etias.mb-4
+        = t('about.about.etias_title')
+      %p.mb-4
+        %strong
+          = t('about.about.etias_effective_date')
+      %p.mb-4
+        = t('about.about.etias_coming_soon')
+      %p.mb-4
+        = t('about.about.etias_description')
+      %p.mb-4
+        %strong
+          = t('about.about.etias_not_visa')
+      %p.mb-4
+        = t('about.about.etias_who_needs')
+      %p.mb-4
+        = t('about.about.etias_additional_info')
+      %p.mb-4
+        = link_to t('about.about.etias_link'), t('about.about.etias_link_url'), target: :_blank
       %h3#length.mb-4
         = t('about.about.length_of_stay_calculation')
       %p.mb-4
@@ -103,11 +123,7 @@
             %cite{title: "European Commission"}
               =t('about.about.european_commission_link')
       %p.mb-4
-        = t('about.about.calculation_description.first_paragraph')
-      %p.mb-4
-        = t('about.about.calculation_description.second_paragraph')
-      %p.mb-4
-        = t('about.about.calculation_description.third_paragraph')
+        = t('about.about.calculation_description.paragraph')
       %h3#additional.mb-4
         = t('about.about.additional_requirements.heading')
       %p.mb-4
@@ -231,7 +247,7 @@
       %h3#updated.mb-4
         = t('about.about.last_updated.title')
       %p.mb-4
-        = t('about.about.last_updated.description', date: l(Time.new(2025, 12, 22), format: :mid))
+        = t('about.about.last_updated.description', date: l(Time.new(2025, 12, 24), format: :mid))
 :javascript
   $('body').scrollspy({ target: '.page-sidebar', offset: 130 })
   $('.page-sidebar li a').click(function(event) {

@@ -51,22 +51,10 @@ es:
         link_text: Descargo de Responsabilidad
         title: Descargo de Responsabilidad
       disclaimer_link: Descargo de Responsabilidad
-      etias_additional_info: ETIAS no cambia la regla de 90/180 días. Todavía deberá cumplir con el cálculo estándar de Schengen para la duración de su estancia, pero necesitará la autorización ETIAS antes de poder ingresar.
-      etias_coming_soon: ETIAS comenzará a operar en el último trimestre de 2026. No se requiere ninguna acción por parte de los viajeros en este momento. La Unión Europea informará sobre la fecha específica de inicio de ETIAS varios meses antes de su lanzamiento.
-      etias_description: ETIAS (Sistema Europeo de Información y Autorización de Viajes) es un sistema de autorización de viaje previo para viajeros exentos de visa que ingresan al Área Schengen. Es similar al ESTA de EE. UU. o al eTA canadiense.
-      etias_effective_date: A partir del cuarto trimestre de 2026
-      etias_link: Información oficial de ETIAS
-      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
-      etias_not_visa: 'Importante: ETIAS NO es una visa. Es una autorización de viaje electrónica que debe obtenerse en línea antes de su viaje.'
-      etias_section_link: ETIAS - Autorización de Viaje
-      etias_title: ETIAS - Autorización Europea de Viaje
-      etias_who_needs: ETIAS será obligatorio para viajeros de países exentos de visa (incluidos Estados Unidos, Reino Unido, Australia, Canadá, Nueva Zelanda, Japón y otros) que actualmente pueden ingresar sin ninguna autorización previa.
       european_commission_link: Comisión Europea
       european_commission_website_link: Sitio Web de la Comisión Europea
-      exempt_countries_conditions: Ten en cuenta que hay condiciones para algunos de estos países. Por ejemplo, los ciudadanos de Albania, Bosnia-Herzegovina, Georgia, Moldavia, Montenegro, Serbia y Ucrania están exentos de la obligación de visa solo si el pasaporte contiene datos biométricos. La exención de visa de Kosovo se aplica desde la fecha en que ETIAS comience a operar o desde el 1 de enero de 2024, lo que ocurra primero. Para la lista completa y actualizada con todas las condiciones, consulte la normativa oficial de la UE.
-      exempt_countries_list: Albania, Andorra, Antigua y Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia y Herzegovina, Brasil, Brunéi, Canadá, Chile, Colombia, Costa Rica, Dominica, El Salvador, Emiratos Árabes Unidos, Estados Unidos, Georgia, Granada, Guatemala, Honduras, Hong Kong, Israel, Japón, Kiribati, Kosovo, Macao, Malasia, Islas Marshall, Mauricio, México, Micronesia, Moldavia, Mónaco, Montenegro, Nauru, Nicaragua, Nueva Zelanda, Macedonia del Norte, Palaos, Panamá, Paraguay, Perú, Reino Unido, San Cristóbal y Nieves, Santa Lucía, San Vicente y las Granadinas, Samoa, San Marino, Serbia, Seychelles, Singapur, Islas Salomón, Corea del Sur, Taiwán, Timor-Leste, Tonga, Trinidad y Tobago, Tuvalu, Ucrania, Uruguay, Ciudad del Vaticano (Santa Sede) y Venezuela.
-      exempt_countries_official_link: Reglamento oficial de la UE sobre requisitos de visado
-      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      exempt_countries_conditions: Ten en cuenta que hay condiciones para algunos de estos países. Por ejemplo, los ciudadanos de Albania, Bosnia-Herzegovina, Antigua República Yugoslava de Macedonia, Moldavia, Montenegro, Serbia están exentos de la obligación de visa solo si el pasaporte contiene datos biométricos.
+      exempt_countries_list: Albania, Andorra, Antigua y Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia-Herzegovina, Brasil, Brunéi, Canadá, Chile, Costa Rica, Croacia, El Salvador, Antigua República Yugoslava de Macedonia (FYROM), Guatemala, Honduras, Hong Kong, Israel, Japón, Malasia, Macao, Mauricio, México, Mónaco, Montenegro, Nueva Zelanda, Nicaragua, Marianas del Norte, Panamá, Paraguay, San Cristóbal y Nieves, Serbia, Seychelles, Singapur, Corea del Sur, Taiwán, Estados Unidos, Uruguay y Venezuela.
       field_definitions_link: Definiciones de Nombres de Campos
       get_started: Comienza Ahora
       how_to_use:
@@ -93,7 +81,7 @@ es:
       last_updated:
         description: 'Última Actualización: %{date}'
         title: Última Actualización
-      length_calculation_revision: El cálculo para calcular la duración permitida de la estadía de nacionales de terceros países fue revisado y entró en vigencia el %{date}. Todos los países ahora utilizan el método de cálculo del período móvil de 180 días.
+      length_calculation_revision: El cálculo para calcular la duración permitida de la estadía de nacionales de terceros países fue revisado y entró en vigencia el %{date}. Sin embargo, hay algunos que aún deben usar el antiguo cálculo, estos son Antigua y Barbuda, Bahamas, Barbados, Brasil, San Cristóbal y Nieves, Mauricio y Seychelles. Esta calculadora de Schengen utiliza el cálculo antiguo o nuevo según tu nacionalidad y fecha de viaje, por lo que los nacionales de estos países aún pueden utilizar la calculadora.
       length_of_stay_calculation: Cálculo de la Duración de la Estadía
       length_of_stay_link: Cálculo de la Duración de la Estadía
       limitations:
@@ -106,7 +94,7 @@ es:
         title: Limitaciones
       limitations_link: Limitaciones
       more_information_link: 'Más información: gov.uk - Visitar Europa a partir del 1 de enero de 2021'
-      nationality_dependent_visa_requirement: 'Dependiendo de tu nacionalidad, es posible que necesites solicitar una Visa de Corta Estadía Schengen antes de ingresar al área de Schengen. La UE tiene una lista de países cuyos ciudadanos deben solicitar una visa y una lista de países que están exentos de este requisito. A partir del 3 de febrero de 2025 (fecha de la última actualización del reglamento de la UE), los siguientes países están exentos de tener que obtener una Visa Schengen antes de ingresar:'
+      nationality_dependent_visa_requirement: 'Dependiendo de tu nacionalidad, es posible que necesites solicitar una Visa de Corta Estadía Schengen antes de ingresar al área de Schengen. La UE tiene una lista de países cuyos ciudadanos deben solicitar una visa y una lista de países que están exentos de este requisito. A partir del 1 de marzo de 2015, los siguientes países están exentos de tener que obtener una Visa Schengen antes de ingresar:'
       nationality_requirements_link: Requisitos de Nacionalidad Schengen
       nationality_section:
         heading: Requisitos de entrada y duración de la estadía turística en Schengen / Europa para mi nacionalidad
@@ -117,6 +105,7 @@ es:
       new_definition_link: Nueva definición a partir de 2013
       new_rules_from: Nuevas reglas a partir del %{date}
       non_eu_visa_requirement: Si eres de cualquier otro país (fuera de la UE), deberás solicitar una Visa antes de viajar. La visa especificará la duración de su validez y el número de entradas (de múltiples entradas - ilimitadas) que se permiten. Ten en cuenta que los "90 días en cualquier período de 180 días" aún se aplican independientemente de las fechas de inicio y finalización de la visa. Utiliza la calculadora de Schengen para ingresar los detalles de tu visa y para ayudarte a calcular la duración permitida de tu estadía.
+      previous_definition_link: Definición anterior
       schengen_area_description: El Área de Schengen comprende 29 países europeos sin fronteras internas. Los ciudadanos, así como muchos no ciudadanos de la UE, empresarios y turistas, pueden circular libremente sin enfrentar controles fronterizos. Desde 1985, ha crecido para incluir casi todos los estados de la UE y algunos países no pertenecientes a la UE asociados.
       schengen_area_link: "¿Qué es el Área de Schengen?"
       step_by_step_link: Paso a Paso

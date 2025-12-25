@@ -8,7 +8,6 @@ Australia:
   continent: Europe
   EU_member_state: false
   visa_required: A
-  old_schengen_calc: false
   additional_visa_waiver: true
 
 Germany:
@@ -19,7 +18,6 @@ Germany:
   continent: Europe
   EU_member_state: true
   visa_required: F
-  old_schengen_calc: false
   additional_visa_waiver: false
 
 Croatia:
@@ -30,7 +28,6 @@ Croatia:
   continent: Europe
   EU_member_state: true
   visa_required: F
-  old_schengen_calc: false
   additional_visa_waiver: false
 
 Brazil:
@@ -41,7 +38,6 @@ Brazil:
   continent: SouthAmerica
   EU_member_state: false
   visa_required: A
-  old_schengen_calc: true
   additional_visa_waiver: true 
 
 India:
@@ -52,7 +48,6 @@ India:
   continent: Asia
   EU_member_state: false
   visa_required: V
-  old_schengen_calc: false
   additional_visa_waiver: false 
 USA:
   name: United States of America
@@ -62,5 +57,4 @@ USA:
   continent: NorthAmerica
   EU_member_state: false
   visa_required: A
-  old_schengen_calc: false
   additional_visa_waiver: false

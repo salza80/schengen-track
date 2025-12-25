@@ -35,19 +35,7 @@ class CalculatorTest < ActiveSupport::TestCase
   end
 
 
-   test 'test shengen days old calculation day count' do
-    user = users(:OldCalcTest)
-    as =  Schengen::Days::Calculator.new(user)
-   
-    assert_equal 1, as.calculated_days.first.schengen_days_count
-
-    assert_equal 30,  as.find_by_date(Date.new(2014,4,29)).schengen_days_count
-    assert_equal 30,  as.find_by_date(Date.new(2014,5,5)).schengen_days_count
-    assert_equal 85,  as.find_by_date(Date.new(2014,10,19)).schengen_days_count
-    assert_equal 1,  as.find_by_date(Date.new(2015,1,8)).schengen_days_count
-  end
-
-    test 'no_days_continuous  by day in schengen' do
+  test 'no_days_continuous  by day in schengen' do
     user = users(:Test1)
     as =  Schengen::Days::Calculator.new(user)
     a = as.find_visit(visits(:testvisit1).id)

@@ -22,8 +22,8 @@
               .status-remaining
                 %div
                   %strong.h4{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
-                  %span.badge.ml-2{class: status_badge_class(@status_summary[:status])}
-                    = t("days.status_#{@status_summary[:status]}")
+                %span.badge.ml-2{class: status_badge_class(@status_summary[:status])}
+                  = t("days.status_#{@status_summary[:status]}")
                 %div
                   %small= t('days.days_remaining')
           .row.mt-3
@@ -31,6 +31,21 @@
               = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
                 %i.fa.fa-list.mr-2{"aria-hidden" => "true"}
                 = t('days.view_table')
+          - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
+            .row.mt-3
+              .col-12
+                .visa-status-info.text-center
+                  - if @status_summary[:visa_status] == 'ok'
+                    %span.badge.badge-success
+                      %i.fa.fa-check
+                      = t('days.visa_status_ok')
+                  - else
+                    %span.badge.badge-danger
+                      %i.fa.fa-exclamation-triangle
+                      = t('days.visa_warning')
+                  - if @status_summary[:visa_entries_display]
+                    %small.ml-2{class: (@status_summary[:visa_entries_exceeded] ? 'text-danger font-weight-bold' : '')}
+                      = @status_summary[:visa_entries_display]
       
       -# Desktop layout (>= md, < lg)
       .d-none.d-md-block.d-lg-none
@@ -59,3 +74,18 @@
               .remaining-number
                 %strong.h3{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
                 = t('days.days')
+          - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
+            .col-md-12.mt-3
+              .visa-status-info.text-center
+                - if @status_summary[:visa_status] == 'ok'
+                  %span.badge.badge-success
+                    %i.fa.fa-check
+                    = t('days.visa_status_ok')
+                - else
+                  %span.badge.badge-danger
+                    %i.fa.fa-exclamation-triangle
+                    = t('days.visa_warning')
+                - if @status_summary[:visa_entries_display]
+                  %small.ml-2{class: (@status_summary[:visa_entries_exceeded] ? 'text-danger font-weight-bold' : '')}
+                    = @status_summary[:visa_entries_display]
+

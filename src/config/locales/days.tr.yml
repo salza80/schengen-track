@@ -42,5 +42,7 @@ tr:
       schengen_days_used_tooltip: Önceki 180 gün içinde Schengen Alanı'nda geçirilen gün sayısı.
     until_date: "%{date} tarihine kadar"
     view_table: Tabloda Görüntüle
+    visa_status_ok: 'Vize Durumu: Tamam'
+    visa_warning: Vize Sorunu
     visits_count: Ziyaretler
     year_summary: "%{year} Özeti"

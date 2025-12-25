@@ -98,8 +98,8 @@ oldcalc7:
   user: OldCalcTest
 
 noVisaVisit1:
-  entry_date: 2016-2-2
-  exit_date: 2016-2-8
+  entry_date: 2016-3-2
+  exit_date: 2016-3-8
   country: Germany
   user: VisaRequiredUser
 
@@ -273,5 +273,44 @@ bugfix6:
   exit_date: 2017-10-26
   country: Germany
   user: bugfix
+
+# Visit spanning two visas
+crossVisa1:
+  entry_date: 2015-05-15
+  exit_date: 2015-06-15
+  country: Germany
+  user: VisaRequiredUser
+
+# Multiple short visits on strict single-entry visa
+strictSingle1:
+  entry_date: 2017-03-01
+  exit_date: 2017-03-05
+  country: Germany
+  user: VisaRequiredUser
+
+strictSingle2:
+  entry_date: 2017-03-06
+  exit_date: 2017-03-10
+  country: Germany
+  user: VisaRequiredUser
+
+# Valid visits with unlimited visa
+unlimited1:
+  entry_date: 2013-03-01
+  exit_date: 2013-03-30
+  country: Germany
+  user: VisaRequiredUser
+
+unlimited2:
+  entry_date: 2013-05-01
+  exit_date: 2013-05-30
+  country: Germany
+  user: VisaRequiredUser
+
+unlimited3:
+  entry_date: 2013-08-01
+  exit_date: 2013-08-30
+  country: Germany
+  user: VisaRequiredUser
 
 

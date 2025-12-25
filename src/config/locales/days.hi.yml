@@ -42,5 +42,7 @@ hi:
       schengen_days_used_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में दिनों की संख्या।
     until_date: "%{date} तक"
     view_table: तालिका में देखें
+    visa_status_ok: 'वीज़ा स्थिति: ठीक है'
+    visa_warning: वीज़ा समस्या
     visits_count: यात्राएं
     year_summary: "%{year} सारांश"

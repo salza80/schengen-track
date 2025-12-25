@@ -37,4 +37,14 @@ class ActionDispatch::IntegrationTest
     end
     assert has_content?('Sally Mclean')
   end
+
+  def visa_user_login
+    visit new_user_session_path(locale: :en)
+    within("//form[@id='login']") do
+      fill_in 'Email', with: 'smclean17@testvr.com'
+      fill_in 'Password', with: 'password'
+      click_button 'Log in'
+    end
+    assert has_content?('Visa Required')
+  end
 end

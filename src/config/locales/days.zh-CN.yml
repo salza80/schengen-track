@@ -42,5 +42,7 @@ zh-CN:
       schengen_days_used_tooltip: 在过去180天内在申根区内的天数。
     until_date: 直到 %{date}
     view_table: 表格视图
+    visa_status_ok: 签证状态：正常
+    visa_warning: 签证问题
     visits_count: 访问次数
     year_summary: "%{year}年摘要"

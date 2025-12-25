@@ -127,6 +127,17 @@ jobs:
           else
             echo "⚠ Update countries response: $response"
           fi
+
+      - name: Clean up guest users
+        run: |
+          echo "Cleaning up old guest user accounts..."
+          response=$(curl -s "https://schengen-calculator.com/guest_cleanup?token=${{ secrets.TASK_PASSWORD }}")
+          echo "Guest cleanup response: $response"
+          if echo "$response" | grep -q '"success":true'; then
+            echo "✓ Guest cleanup completed successfully"
+          else
+            echo "⚠ Guest cleanup response: $response"
+          fi
       
       - name: Perform CloudFront Invalidation
         id: cloudfront_invalidation

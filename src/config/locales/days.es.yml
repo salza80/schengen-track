@@ -42,5 +42,7 @@ es:
       schengen_days_used_tooltip: El número de días dentro del Área Schengen en los últimos 180 días.
     until_date: hasta %{date}
     view_table: Ver en tabla
+    visa_status_ok: 'Estado de visa: OK'
+    visa_warning: Problema de visa
     visits_count: Visitas
     year_summary: Resumen de %{year}

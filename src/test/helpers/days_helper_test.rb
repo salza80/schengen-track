@@ -175,4 +175,181 @@ class DaysHelperTest < ActionView::TestCase
     result = is_today?(nil)
     assert_not result, "is_today?(nil) should be falsey"
   end
+  
+  # ====================
+  # E. Visa Display Tests
+  # ====================
+  
+  test "day_cell_class returns overstay for visa violation" do
+    day = OpenStruct.new(
+      schengen?: true,
+      schengen_days_count: 45,
+      danger?: false,
+      warning?: false,
+      visa_warning?: true
+    )
+    
+    assert_equal 'overstay', day_cell_class(day)
+  end
+  
+  test "day_cell_class prioritizes visa warning over safe" do
+    day = OpenStruct.new(
+      schengen?: true,
+      schengen_days_count: 30,
+      danger?: false,
+      warning?: false,
+      visa_warning?: true
+    )
+    
+    assert_equal 'overstay', day_cell_class(day)
+  end
+  
+  test "day_tooltip includes visa valid status" do
+    visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
+    day = OpenStruct.new(
+      hasCountry?: true,
+      country_name: 'France',
+      user_requires_visa?: true,
+      schengen?: true,
+      visa: visa,
+      visa_valid?: true,
+      has_limited_entries?: false,
+      schengen_days_count: 30,
+      max_remaining_days: 60,
+      overstay_days: 0,
+      remaining_wait: nil
+    )
+    
+    tooltip = day_tooltip(day)
+    assert_includes tooltip, 'Valid visa'
+    assert_includes tooltip, 'text-success'
+  end
+  
+  test "day_tooltip shows no visa warning" do
+    day = OpenStruct.new(
+      hasCountry?: true,
+      country_name: 'Germany',
+      user_requires_visa?: true,
+      schengen?: true,
+      visa: nil,
+      visa_valid?: false,
+      schengen_days_count: 30,
+      max_remaining_days: nil,
+      overstay_days: 0,
+      remaining_wait: nil
+    )
+    
+    tooltip = day_tooltip(day)
+    assert_includes tooltip, 'NO VISA'
+    assert_includes tooltip, 'text-danger'
+  end
+  
+  test "day_tooltip shows visa entries when limited" do
+    visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
+    day = OpenStruct.new(
+      hasCountry?: true,
+      country_name: 'Italy',
+      user_requires_visa?: true,
+      schengen?: true,
+      visa: visa,
+      visa_valid?: true,
+      visa_entry_valid?: true,
+      has_limited_entries?: true,
+      visa_entry_count: 2,
+      visa_entries_allowed: 4,
+      schengen_days_count: 45,
+      max_remaining_days: 45,
+      overstay_days: 0,
+      remaining_wait: nil
+    )
+    
+    tooltip = day_tooltip(day)
+    assert_includes tooltip, 'Entries: 2/4'
+  end
+  
+  test "day_tooltip shows entry limit exceeded" do
+    visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
+    day = OpenStruct.new(
+      hasCountry?: true,
+      country_name: 'Spain',
+      user_requires_visa?: true,
+      schengen?: true,
+      visa: visa,
+      visa_valid?: true,
+      visa_entry_valid?: false,
+      has_limited_entries?: true,
+      visa_entry_count: 3,
+      visa_entries_allowed: 2,
+      schengen_days_count: 50,
+      max_remaining_days: nil,
+      overstay_days: 0,
+      remaining_wait: nil
+    )
+    
+    tooltip = day_tooltip(day)
+    assert_includes tooltip, 'Entry limit exceeded: 3/2'
+    assert_includes tooltip, 'text-danger'
+  end
+  
+  test "day_tooltip shows both visa and schengen overstay" do
+    visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
+    day = OpenStruct.new(
+      hasCountry?: true,
+      country_name: 'France',
+      user_requires_visa?: true,
+      schengen?: true,
+      visa: visa,
+      visa_valid?: true,
+      visa_entry_valid?: false,
+      has_limited_entries?: true,
+      visa_entry_count: 3,
+      visa_entries_allowed: 2,
+      schengen_days_count: 95,
+      max_remaining_days: nil,
+      overstay_days: 5,
+      remaining_wait: nil
+    )
+    
+    tooltip = day_tooltip(day)
+    assert_includes tooltip, 'Entry limit exceeded'
+    assert_includes tooltip, 'SCHENGEN OVERSTAY: +5 days'
+  end
+  
+  test "day_tooltip shows outside visa period" do
+    visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 6, 30))
+    day = OpenStruct.new(
+      hasCountry?: true,
+      country_name: 'Germany',
+      user_requires_visa?: true,
+      schengen?: true,
+      visa: visa,
+      visa_valid?: false,  # Outside period
+      schengen_days_count: 20,
+      max_remaining_days: nil,
+      overstay_days: 0,
+      remaining_wait: nil
+    )
+    
+    tooltip = day_tooltip(day)
+    assert_includes tooltip, 'Outside visa period'
+    assert_includes tooltip, 'text-danger'
+  end
+  
+  test "day_tooltip does not show visa info for non-schengen days" do
+    day = OpenStruct.new(
+      hasCountry?: true,
+      country_name: 'Australia',
+      user_requires_visa?: true,
+      schengen?: false,  # Non-Schengen
+      visa: nil,
+      schengen_days_count: nil,
+      max_remaining_days: nil,
+      overstay_days: 0,
+      remaining_wait: nil
+    )
+    
+    tooltip = day_tooltip(day)
+    assert_not_includes tooltip, 'visa'
+    assert_not_includes tooltip, 'NO VISA'
+  end
 end

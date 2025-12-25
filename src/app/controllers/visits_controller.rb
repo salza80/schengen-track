@@ -1,4 +1,6 @@
 class VisitsController < ApplicationController
+  include VisitCleanup
+  
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
@@ -11,6 +13,9 @@ class VisitsController < ApplicationController
   # GET /visits.json
   def index
     puts Rails.application.secrets.facebook_id
+    
+    # Clean up old visits (beyond ±20 years)
+    cleanup_old_visits
 
     calc = Schengen::Calculator.new(current_user_or_guest_user)
     @visits = calc.visits

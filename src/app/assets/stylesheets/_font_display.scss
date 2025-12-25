@@ -25,6 +25,6 @@
   src: url(font_path('font-awesome/fa-brands-400.woff2')) format('woff2');
 }
 
-// Add Roboto font from Google Fonts with font-display: swap
-// Using system fonts as fallback defined in _variables.scss
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+// Note: Roboto font from Google Fonts is now loaded asynchronously in application.html.erb
+// to avoid render-blocking CSS imports. The font uses display=swap for optimal performance.
+

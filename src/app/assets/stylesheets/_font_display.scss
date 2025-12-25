@@ -1,0 +1,30 @@
+// Font display optimization for better performance
+// Override Font Awesome font-face declarations to add font-display: swap
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(font_path('font-awesome/fa-solid-900.woff2')) format('woff2');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(font_path('font-awesome/fa-regular-400.woff2')) format('woff2');
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(font_path('font-awesome/fa-brands-400.woff2')) format('woff2');
+}
+
+// Note: Roboto font from Google Fonts is now loaded asynchronously in application.html.erb
+// to avoid render-blocking CSS imports. The font uses display=swap for optimal performance.
+

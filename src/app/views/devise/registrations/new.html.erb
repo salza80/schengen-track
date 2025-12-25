@@ -12,6 +12,12 @@
               <span><%= t('log_in_page.log_in_with_facebook') %></span>
             </div>
           </a>
+          <div class="d-md-none mt-2">
+            <small class="text-muted">
+              <i class="fa fa-mobile" aria-hidden="true"></i>
+              <em>Mobile tip: If Facebook login doesn't work, try long-press and "Open in new tab"</em>
+            </small>
+          </div>
         </div>
       </div>
     </div>
@@ -61,9 +67,10 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <div class="col-sm-12">
-          <%= f.submit t('sign_up_page.sign_up_button'), class: "btn btn-primary form-btn float-right" %>
+      <div class="form-group row mt-4">
+        <div class="col-12 d-flex justify-content-between">
+          <%= link_to t('common.cancel', default: 'Cancel'), about_path(locale: I18n.locale), class: "btn btn-secondary" %>
+          <%= f.submit t('sign_up_page.sign_up_button'), class: "btn btn-primary form-btn" %>
         </div>
       </div>
     <% end %>

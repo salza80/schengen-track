@@ -3,9 +3,7 @@
     // Visit update failed - show errors in modal
     $('#visitModal .modal-body').html('#{j render("form")}');
     
-    // Re-initialize cascade dropdowns after form is reloaded
-    const country = #{@country_options.html_safe};
-    const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');
+    // Note: Cascade dropdowns are initialized by the script in _form.html.haml
 - else
   :plain
     // Visit was successfully updated

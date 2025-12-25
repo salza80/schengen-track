@@ -31,5 +31,14 @@
       = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select")
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
 %script
-  != "const country = #{@country_options.html_safe};"
-  != "const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id')"
+  != "(function() {"
+  != "  function initCascade() {"
+  != "    if (typeof $ === 'undefined' || typeof App === 'undefined') {"
+  != "      setTimeout(initCascade, 50);"
+  != "      return;"
+  != "    }"
+  != "    const country = #{@country_options};"
+  != "    const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');"
+  != "  }"
+  != "  initCascade();"
+  != "})();"

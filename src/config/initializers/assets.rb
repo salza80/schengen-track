@@ -10,3 +10,15 @@ Rails.application.config.assets.version = "1.0"
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Precompile split JavaScript bundles for code splitting optimization
+# - core.js: Core libraries (jQuery, Bootstrap) loaded on all pages
+# - calendar_bundle.js: Calendar-specific code for days#index
+# - visits_bundle.js: Visits management for visits#index
+Rails.application.config.assets.precompile += %w( core.js calendar_bundle.js visits_bundle.js )
+
+# Precompile split CSS bundles for code splitting optimization
+# - calendar.css: Calendar-specific styles for days#index (8.2KB)
+# - blog.css: Blog article styles for blogs#show (11.3KB)
+# Note: about.scss stays in application.css as it's used on landing page
+Rails.application.config.assets.precompile += %w( calendar.css blog.css )

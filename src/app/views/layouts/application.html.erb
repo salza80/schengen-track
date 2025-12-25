@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
 <head>
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-8290979932488448",
-      enable_page_level_ads: true
-    });
-  </script>
-
   <!-- Preconnect to external domains for faster resource loading -->
+  <!-- Google Fonts (critical for styling) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Third-party services (ads, analytics, social) -->
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="preconnect" href="https://connect.facebook.net">
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-  <link rel="dns-prefetch" href="https://connect.facebook.net">
-
+  
   <!-- Preload critical assets -->
   <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
 
@@ -24,6 +21,10 @@
   <meta http-equiv="content-language" content="<%= I18n.locale %>">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="referrer-policy" content="no-referrer-when-downgrade">
+  <% if request.host.include?('test.') %>
+  <!-- Staging environment - prevent search engine indexing -->
+  <meta name="robots" content="noindex, nofollow">
+  <% end %>
   <meta name="description" content="<%= @meta_description || (content_for?(:description) ? yield(:description) : t('default_description')) %>" />
   <meta name="keywords" content="<%= t('keywords') %>">
   <meta property="og:type" content="<%= @og_type || 'website' %>" />
@@ -112,11 +113,11 @@
   
   <!-- Default to English for unmatched locales -->
   <link rel="alternate" href="https://<%= request.host_with_port %>/" hreflang="x-default" />
-  
 
-
-
-  <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>
+  <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>  
+  <!-- Load Google Fonts asynchronously to avoid render blocking -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" media="print" onload="this.media='all'; this.onload=null;">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"></noscript>
   
   <!-- Favicon links for all devices and browsers -->
   <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') %>">
@@ -125,7 +126,17 @@
   <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
   
   <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <% if controller_name == 'days' %>
+    <%= stylesheet_link_tag 'calendar', media: 'all' %>
+  <% elsif controller_name == 'blogs' %>
+    <%= stylesheet_link_tag 'blog', media: 'all' %>
+  <% end %>
+  <%= javascript_include_tag 'core', defer: true %>
+  <% if controller_name == 'days' %>
+    <%= javascript_include_tag 'calendar_bundle', defer: true %>
+  <% elsif controller_name == 'visits' || controller_name == 'visas' %>
+    <%= javascript_include_tag 'visits_bundle', defer: true %>
+  <% end %>
   <%= csrf_meta_tags %>
 
   <!-- WebApplication Structured Data for SEO -->
@@ -160,25 +171,6 @@
 </head>
 <body>
 
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.secrets.facebook_id %>',
-      autoLogAppEvents: true,
-      xfbml: true,
-      version: 'v19.0'
-    });
-  };
-
-  (function(d, s, id){
-     let js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
 <%= render 'layouts/header' %>
 
 <div class="container-fluid">
@@ -197,11 +189,77 @@
 
 <%= render 'layouts/footer' %>
 
-<!-- Temporary mobile debugging console - staging only -->
-<% if request.host.include?('test.schengen-calculator.com') %>
-  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-  <script>eruda.init();</script>
-<% end %>
+<!-- Eruda mobile debugging console (131KB) -->
+<!-- Commented out to improve staging performance (saves ~200ms load time) -->
+<!-- To re-enable for debugging mobile issues, uncomment the lines below: -->
+<%# if request.host.include?('test.schengen-calculator.com') %>
+  <%#= tag.script src: "https://cdn.jsdelivr.net/npm/eruda" %>
+  <%#= tag.script do %>
+    <%# raw "eruda.init();" %>
+  <%# end %>
+<%# end %>
+
+<!-- Lazy-load third-party scripts on user interaction or after load -->
+<script>
+  // Flag to ensure scripts only load once
+  let scriptsLoaded = false;
+
+  function loadThirdPartyScripts() {
+    if (scriptsLoaded) return;
+    scriptsLoaded = true;
+
+    // Facebook SDK
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.secrets.facebook_id %>',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v19.0'
+      });
+    };
+
+    (function(d, s, id){
+       let js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+
+    // Google AdSense
+    const adsScript = document.createElement('script');
+    adsScript.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+    adsScript.async = true;
+    document.body.appendChild(adsScript);
+    
+    adsScript.onload = function() {
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8290979932488448",
+        enable_page_level_ads: true
+      });
+    };
+  }
+
+  // Load scripts after page is fully loaded and user interacts
+  // Or automatically after 3 seconds if no interaction
+  window.addEventListener('load', function() {
+    let autoLoadTimer = setTimeout(loadThirdPartyScripts, 3000);
+    
+    // Load on first user interaction (click, scroll, touch, keydown)
+    const events = ['click', 'scroll', 'touchstart', 'keydown', 'mousemove'];
+    const loadOnInteraction = function() {
+      clearTimeout(autoLoadTimer);
+      loadThirdPartyScripts();
+      events.forEach(event => {
+        window.removeEventListener(event, loadOnInteraction);
+      });
+    };
+    
+    events.forEach(event => {
+      window.addEventListener(event, loadOnInteraction, { once: true, passive: true });
+    });
+  });
+</script>
 
 </body>
 </html>

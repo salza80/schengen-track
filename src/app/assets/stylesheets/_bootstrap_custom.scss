@@ -1,6 +1,25 @@
 // Custom theme colors
 $headerGreen: #d8ffa2 !default;
 
+// Accessibility: WCAG AA compliant contrast colors
+// Override Bootstrap's default colors for better readability
+
+// Navbar light variant colors - darker for better contrast on light backgrounds
+$navbar-light-color:                #495057 !default;  // Main nav link color (was rgba(0,0,0,.5))
+$navbar-light-hover-color:          #212529 !default;  // Hover state (was rgba(0,0,0,.7))
+$navbar-light-active-color:         #212529 !default;  // Active/current page
+$navbar-light-disabled-color:       #6c757d !default;  // Disabled state
+$navbar-light-brand-color:          #212529 !default;  // Brand/logo text (was rgba(0,0,0,.9))
+$navbar-light-brand-hover-color:    #212529 !default;  // Brand hover
+
+// Link colors for better contrast
+$link-color:                        #0056b3 !default;  // Darker blue for better contrast (was #007bff)
+$link-hover-color:                  #003d82 !default;  // Even darker on hover
+
+// Text colors
+$body-color:                        #212529 !default;  // Dark gray for body text
+$text-muted:                        #495057 !default;  // Darker muted text for better readability (was #6c757d)
+
 // Calendar status colors (semantic naming)
 $calendar-outside: #e9ecef !default;      // Gray - outside Schengen
 $calendar-safe: #d1f4e0 !default;         // Green - safe (< 80 days)

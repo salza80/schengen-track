@@ -6,10 +6,6 @@
   - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('about.link'), :url => about_url(:locale => I18n.locale) }]
   = render_breadcrumbs(breadcrumbs)
 
-/ .row
-/   .col-sm-10
-/     / Schengen
-/     %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "7291202216", :style => "display:block"}
 .row
   .col-lg-4{:role => "complementary"}
     %nav.page-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}}
@@ -59,8 +55,6 @@
     .about-section
       %h1#intro.mb-4
         = t('about.about.title')
-      %h2.mb-4
-        = t('about.about.introduction')
       %p.mb-4
         = t('about.about.calculator_description')
       .text-center.mb-4
@@ -68,8 +62,6 @@
       %br
       %p.mb-4
         = t('about.about.useful_for_planning')
-      .ad-block
-        %ins.adsbygoogle{data: {ad_client: "ca-pub-8290979932488448", ad_format: "auto", ad_slot: "7291202216"}, style: "display:block"}
       %h2#brexit.mb-4
         = t('about.about.uk_citizens')
       %h3.mb-4
@@ -144,14 +136,16 @@
           = t('about.about.nationality_section.heading')
         %h3.mb-4
           = t('about.about.nationality_section.subheading')
-        %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')"})
+        .mb-4
+          = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt'), class: "form-label sr-only"
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
       - else
         = render "nationality"
         %h4.mb-4
           = t('about.about.nationality_section.select_another_prompt')
-        %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')"})
+        .mb-4
+          = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt'), class: "form-label sr-only"
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
       .text-center.mb-4
         = link_to t('about.about.button_text'), get_started_path, class: "btn btn-primary btn-lg"
       .ad-block.mb-4
@@ -322,25 +316,25 @@
 
       %h2#how.mb-4
         = t('about.about.how_to_use.title')
-      %h4#steps.mb-4
+      %h3.mb-4
         = t('about.about.how_to_use.step_1.title')
       %p.mb-4
         = t('about.about.how_to_use.step_1.description')
-      %h4.mb-4
+      %h3.mb-4
         = t('about.about.how_to_use.step_2.title')
       %p.mb-4
         = t('about.about.how_to_use.step_2.description')
-      %h4.mb-4
+      %h3.mb-4
         = t('about.about.how_to_use.step_3.title')
       %p.mb-4
         = t('about.about.how_to_use.step_3.description_1')
         %br
         = t('about.about.how_to_use.step_3.description_2')
-      %h4.mb-4
+      %h3.mb-4
         = t('about.about.how_to_use.step_4.title')
       %p.mb-4
         = t('about.about.how_to_use.step_4.description')
-      %h4.mb-4
+      %h3.mb-4
         = t('about.about.how_to_use.step_5.title', optional: true)
       %p.mb-4
         = t('about.about.how_to_use.step_5.description', optional: true)
@@ -417,17 +411,31 @@
       %p.mb-4
         = t('about.about.last_updated.description', date: l(Time.new(2025, 12, 24), format: :mid))
 :javascript
-  $('body').scrollspy({ target: '.page-sidebar', offset: 130 })
-  $('.page-sidebar li a').click(function(event) {
-    event.preventDefault();
-    const target = $(this).attr('href');
-    const $target = $(target);
-    if ($target.length) {
-      const scrollToPosition = $target.offset().top - 120;
-      $('html, body').animate({
-        scrollTop: scrollToPosition
-      }, 400);
+  // Initialize scrollspy and smooth scroll after page load
+  // This runs AFTER deferred scripts (core.js with jQuery) have loaded
+  window.addEventListener('load', function() {
+    // Double-check jQuery is available (should be loaded by now)
+    if (typeof $ === 'undefined') {
+      console.warn('jQuery not loaded, skipping scrollspy initialization');
+      return;
     }
+    
+    // Initialize Bootstrap scrollspy for sidebar navigation
+    $('body').scrollspy({ target: '.page-sidebar', offset: 130 });
+    
+    // Smooth scroll for sidebar links
+    $('.page-sidebar li a').click(function(event) {
+      event.preventDefault();
+      const target = $(this).attr('href');
+      const $target = $(target);
+      if ($target.length) {
+        const scrollToPosition = $target.offset().top - 120;
+        $('html, body').animate({
+          scrollTop: scrollToPosition
+        }, 400);
+      }
+    });
   });
-  (adsbygoogle = window.adsbygoogle || []).push({});
+  
+  // Initialize AdSense ads
   (adsbygoogle = window.adsbygoogle || []).push({});

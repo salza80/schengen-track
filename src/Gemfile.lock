@@ -366,13 +366,13 @@ GEM
     temple (0.10.3)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
+    terser (1.2.6)
+      execjs (>= 0.3.0, < 3)
     thor (1.3.1)
     tilt (2.3.0)
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
@@ -427,7 +427,7 @@ DEPENDENCIES
   spring (~> 1.3.2)
   sprockets-rails
   staccato
-  uglifier (>= 1.3.0)
+  terser
   webpacker (>= 6.0.0.rc.6)
 
 RUBY VERSION

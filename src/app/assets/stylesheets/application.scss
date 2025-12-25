@@ -67,58 +67,42 @@ html {
   z-index: 1020; // Bootstrap's default sticky navbar z-index
 }
 
-// Fix contrast issues for accessibility (WCAG AA compliance)
-// Override Bootstrap's .navbar-light default colors for better contrast
-.navbar-light {
-  // Navbar text colors - darker for better contrast on light background
-  .navbar-text {
-    color: #212529 !important; // Dark gray instead of light gray
-  }
+// Accessibility contrast colors for navbar and links are now controlled
+// via Bootstrap theme variables in _bootstrap_custom.scss
+// This eliminates the need for !important overrides
+
+// Fix button text colors when buttons are rendered as links (<a class="btn">)
+// Bootstrap sets appropriate colors but link color takes precedence, so we override
+a.btn-primary,
+a.btn-success,
+a.btn-danger,
+a.btn-info,
+a.btn-dark {
+  color: #fff !important; // White text on colored buttons
   
-  .navbar-brand {
-    color: #212529 !important;
-    
-    .site-title {
-      color: #212529 !important;
-    }
-  }
-  
-  .nav-link {
-    color: #495057 !important; // Darker gray for better contrast
-    
-    &:hover, &:focus {
-      color: #212529 !important;
-    }
-  }
-  
-  .current-setting {
-    color: #212529 !important;
-    
-    a {
-      color: #007bff !important; // Primary blue for links
-      
-      &:hover {
-        color: #0056b3 !important;
-        text-decoration: underline;
-      }
-    }
+  &:hover,
+  &:focus,
+  &:active {
+    color: #fff !important;
   }
 }
 
-// Footer contrast fixes
-.footer.bg-light {
-  color: #212529 !important; // Dark text on light background
+a.btn-warning {
+  color: #212529 !important; // Dark text on yellow
   
-  a {
-    color: #007bff !important; // Primary blue for links
-    
-    &:hover {
-      color: #0056b3 !important;
-      text-decoration: underline;
-    }
+  &:hover,
+  &:focus,
+  &:active {
+    color: #212529 !important;
   }
+}
+
+a.btn-light {
+  color: #212529 !important; // Dark text on light
   
-  p {
+  &:hover,
+  &:focus,
+  &:active {
     color: #212529 !important;
   }
 }
@@ -143,21 +127,13 @@ body {
   margin-bottom: 60px;
 }
 
-// Global link contrast fixes for WCAG AA compliance
-// Ensure all links have sufficient contrast (4.5:1 minimum)
-a {
-  color: #0056b3; // Darker blue for better contrast on white
-  
-  &:hover, &:focus {
-    color: #003d82; // Even darker on hover
-    text-decoration: underline;
-  }
-}
+// Global link contrast is now controlled by Bootstrap theme variables
+// in _bootstrap_custom.scss ($link-color, $link-hover-color)
 
-// Visited link color - scoped to content areas only (not nav/footer)
-// This prevents navigation links from turning purple after being clicked
+// Visited link color - scoped to content areas only (not nav/footer/buttons)
+// This prevents navigation links and buttons from turning purple after being clicked
 .container-fluid, .page-sidebar, .blog-content {
-  a:visited {
+  a:visited:not(.btn) {
     color: #6610f2; // Purple for visited links (sufficient contrast)
   }
 }

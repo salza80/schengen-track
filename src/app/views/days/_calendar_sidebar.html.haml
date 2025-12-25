@@ -66,3 +66,12 @@
             .entry-until
               %small.text-muted
                 = t('days.until_date', date: (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y'))
+  
+  -# Help and resources link
+  .sidebar-section.card.mt-2
+    .card-body.text-center.py-3
+      %small.text-muted= t('days.need_help')
+      %div
+        = link_to about_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm mt-2" do
+          %i.fa.fa-question-circle.mr-1
+          = t('days.learn_about_rule')

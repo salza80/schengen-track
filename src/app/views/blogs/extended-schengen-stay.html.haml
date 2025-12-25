@@ -7,14 +7,9 @@
   
   .col-lg-9{role: "main"}
     .blog-article
-      %nav.breadcrumbs{"aria-label" => "Breadcrumb"}
-        %ol
-          %li
-            = link_to "Home", root_path(locale: I18n.locale)
-          %li
-            = link_to t('common.blog'), blog_index_path(locale: I18n.locale)
-          %li.active
-            = t('blog.extendedTravel.title')
+      -# Breadcrumb navigation and schema
+      - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('common.blog'), :url => blog_index_url(:locale => I18n.locale) }, { :name => t('blog.extendedTravel.title'), :url => blog_url(:slug => 'extended-schengen-stay', :locale => I18n.locale) }]
+      = render_breadcrumbs(breadcrumbs)
       
       %article
         %header.article-header
@@ -31,7 +26,9 @@
               %span 8 min read
         
         .article-hero
-          = image_tag("switzerland.jpg", class: "hero-image", alt: "European travel destinations")
+          %picture
+            %source{srcset: image_path("switzerland.webp"), type: "image/webp"}
+            = image_tag("switzerland.jpg", class: "hero-image", alt: "Swiss Alps mountain landscape - Extended European travel guide for maximizing your 90 days in Schengen Area", loading: "eager")
         
         .article-content
           %section.intro-section
@@ -60,7 +57,9 @@
             %p= t('blog.extendedTravel.accessibilityContent')
             
             .figure
-              = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "Map showing Schengen Area countries (29 countries as of 2025, including Bulgaria and Romania) and nearby non-Schengen countries in Europe")
+              %picture
+                %source{srcset: image_path("schengen-countries-map-2025.webp"), type: "image/webp"}
+                = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "2025 Schengen Area map showing all 29 member countries including Bulgaria, Romania, and neighboring non-Schengen European countries", loading: "lazy")
               %figcaption
                 Schengen Area and surrounding non-Schengen countries.
                 %br
@@ -154,19 +153,17 @@
         
         switch(platform) {
           case 'twitter':
-            shareUrl = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+            shareUrl = 'https://twitter.com/intent/tweet?url=' + pageUrl + '&text=' + pageTitle;
             break;
           case 'facebook':
-            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+            shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + pageUrl;
             break;
           case 'linkedin':
-            // LinkedIn's current sharing URL
-            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+            shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl;
             break;
         }
         
         if (shareUrl) {
-          // Open in popup window for better UX
           window.open(shareUrl, 'share-dialog', 'width=600,height=600');
         }
       });

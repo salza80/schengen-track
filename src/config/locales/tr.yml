@@ -24,6 +24,7 @@ tr:
     edit: Düzenle
     edit_my_details: Bilgilerimi Düzenle
     'false': Hayır
+    home: Ana Sayfa
     log_out: Çıkış yap
     login: Giriş yap
     multi_unlimited_entries: "(çoklu/sınırsız girişler için 0 girin)"
@@ -93,8 +94,8 @@ tr:
     - :day
     - :month
     - :year
-  default_description: Ücretsiz Schengen/Avrupa 90/180 gün hesaplayıcısı. Uyruğunuzu, seyahat tarihlerinizi ve varış noktanızı girin, Schengen hesaplayıcısı gerisini yapar.
-  default_title: Schengen / Avrupa Kısa Süreli Turist Vize Hesaplayıcısı
+  default_description: Ücretsiz 90/180 gün takipçimizle Schengen vizesiz günlerinizi hesaplayın. 29 Avrupa ülkesi için kayan 180 gün kuralını takip edin. Avrupa gezinizi bugün planlayın!
+  default_title: Schengen Hesaplayıcı | 90/180 Gün Kuralı | Ücretsiz
   errors:
     messages:
       not_saved:

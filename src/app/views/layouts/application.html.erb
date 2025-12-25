@@ -19,6 +19,15 @@
     });
   </script>
 
+  <!-- Preconnect to external domains for faster resource loading -->
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://connect.facebook.net">
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="msvalidate.01" content="78EB2E60264CB939006FF5C07C8F2404">
@@ -115,8 +124,8 @@
     <% end %>
   <% end %>
   
-
-
+  <!-- Default to English for unmatched locales -->
+  <link rel="alternate" href="https://<%= request.host_with_port %>/" hreflang="x-default" />
 
   <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>
   <%= favicon_link_tag asset_path('favicon.ico') %>
@@ -124,6 +133,12 @@
   <!-- Load Google Fonts asynchronously to avoid render blocking -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" media="print" onload="this.media='all'; this.onload=null;">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"></noscript>
+  
+  <!-- Favicon links for all devices and browsers -->
+  <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') %>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('favicon-32x32.png') %>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('favicon-16x16.png') %>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
   
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <% if controller_name == 'days' %>
@@ -138,6 +153,36 @@
     <%= javascript_include_tag 'visits_bundle', defer: true %>
   <% end %>
   <%= csrf_meta_tags %>
+
+  <!-- WebApplication Structured Data for SEO -->
+  <% if controller_name == 'days' && action_name == 'index' %>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "<%= t('common.schengen_calculator') %>",
+      "url": "https://<%= request.host %>",
+      "description": "<%= t('default_description') %>",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Track Schengen 90/180 day rule",
+        "Visual calendar interface",
+        "Multiple trip planning",
+        "Visa holder support",
+        "6 language support (EN, DE, ES, HI, TR, ZH)",
+        "Free account and data sync"
+      ],
+      "inLanguage": ["en", "de", "es", "hi", "tr", "zh"]
+    }
+    </script>
+  <% end %>
 </head>
 <body>
 
@@ -152,7 +197,7 @@
   };
 
   (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
+     let js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
      js = d.createElement(s); js.id = id;
      js.src = "https://connect.facebook.net/en_US/sdk.js";

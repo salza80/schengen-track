@@ -1,7 +1,13 @@
+-# Breadcrumb navigation and schema (hidden but accessible)
+- breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }]
+.sr-only-heading
+  = render_breadcrumbs(breadcrumbs)
+  %h1= t('days.page_title')
+
 .calendar-view-container
   -# Hidden data element for scroll target
   - if @scroll_to_month
-    #calendar-scroll-target{'data-month': @scroll_to_month, style: "display:none;"}
+    #calendar-scroll-target{data: {month: @scroll_to_month}, style: 'display:none'}
   
   -# Status summary (mobile & desktop)
   = render 'calendar_status_summary'
@@ -42,7 +48,7 @@
         .modal-footer.d-flex.justify-content-between
           %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
           .ml-auto
-            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none"}
               %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
               = t('common.delete')
             %button#saveVisitButton.btn.btn-primary{type: "button"}
@@ -50,7 +56,7 @@
               = t('common.save')
   
   -# Context menu for days with multiple visits
-  #visitContextMenu.context-menu{style: "display: none;"}
+  #visitContextMenu.context-menu{style: "display: none"}
     %ul.list-unstyled.mb-0
       -# Will be populated dynamically via JavaScript
 

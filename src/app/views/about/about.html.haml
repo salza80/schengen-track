@@ -417,16 +417,17 @@
       %p.mb-4
         = t('about.about.last_updated.description', date: l(Time.new(2025, 12, 24), format: :mid))
 :javascript
-  // Wait for jQuery to be loaded before initializing scrollspy and smooth scroll
-  function initializeAboutPage() {
+  // Initialize scrollspy and smooth scroll after page load
+  // This runs AFTER deferred scripts (core.js with jQuery) have loaded
+  window.addEventListener('load', function() {
+    // Double-check jQuery is available (should be loaded by now)
     if (typeof $ === 'undefined') {
-      // jQuery not loaded yet, wait and try again
-      setTimeout(initializeAboutPage, 100);
+      console.warn('jQuery not loaded, skipping scrollspy initialization');
       return;
     }
     
-    // Initialize Bootstrap scrollspy
-    $('body').scrollspy({ target: '.page-sidebar', offset: 130 })
+    // Initialize Bootstrap scrollspy for sidebar navigation
+    $('body').scrollspy({ target: '.page-sidebar', offset: 130 });
     
     // Smooth scroll for sidebar links
     $('.page-sidebar li a').click(function(event) {
@@ -440,10 +441,7 @@
         }, 400);
       }
     });
-  }
-  
-  // Start initialization
-  initializeAboutPage();
+  });
   
   // Initialize AdSense ads
   (adsbygoogle = window.adsbygoogle || []).push({});

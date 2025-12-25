@@ -1,5 +1,11 @@
 - if @country.nil? == false
-  - title @country.nationality_plural 
+  - title @country.nationality_plural
+
+-# Breadcrumb navigation and schema (hidden but accessible)
+.sr-only-heading
+  - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('about.link'), :url => about_url(:locale => I18n.locale) }]
+  = render_breadcrumbs(breadcrumbs)
+
 / .row
 /   .col-sm-10
 /     / Schengen

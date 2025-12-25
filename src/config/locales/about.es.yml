@@ -153,7 +153,7 @@ es:
       schengen_area_description: El Área de Schengen comprende 29 países europeos sin fronteras internas. Los ciudadanos, así como muchos no ciudadanos de la UE, empresarios y turistas, pueden circular libremente sin enfrentar controles fronterizos. Desde 1985, ha crecido para incluir casi todos los estados de la UE y algunos países no pertenecientes a la UE asociados.
       schengen_area_link: "¿Qué es el Área de Schengen?"
       step_by_step_link: Paso a Paso
-      title: Acerca de Schengen Calculator
+      title: Acerca de Calculadora Schengen 90/180
       travelling_in_schengen: Viajar en el Área de Schengen
       travelling_link: Viajar en el Área de Schengen
       uk_citizens: Ciudadanos del Reino Unido / BREXIT
@@ -176,6 +176,7 @@ es:
       disclaimer_content_2: En ningún caso seremos responsables de ninguna pérdida o daño, incluidos, entre otros, pérdida o daño indirecto o consecuente, o cualquier pérdida o daño que surja de la pérdida de datos o beneficios, que surja de o en conexión con el uso de este sitio web.
       disclaimer_content_3: A través de este sitio web, puede vincularse a otros sitios web que no están bajo el control de la Calculadora Schengen. No tenemos control sobre la naturaleza, el contenido y la disponibilidad de esos sitios. La inclusión de cualquier enlace no implica necesariamente una recomendación o respaldo de las opiniones expresadas en ellos.
       disclaimer_title: Descargo de responsabilidad del sitio web / Calculadora Schengen
+    link: Sobre nosotros
     nationality:
       additional_visa_waiver_description: "%{country} tiene acuerdos adicionales de exención de visa con algunos países Schengen. Estos acuerdos pueden permitirle quedarse en el área Schengen por más de 90 días. Debería tener precaución si planea hacer esto y buscar asesoramiento antes de viajar. Tenga en cuenta que la Calculadora Schengen no tiene en cuenta los acuerdos adicionales de exención de visa en sus cálculos.\n"
       additional_visa_waiver_title: "¿Tiene %{country} algún acuerdo adicional de exención de visa?"

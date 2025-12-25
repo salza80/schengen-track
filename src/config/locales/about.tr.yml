@@ -153,7 +153,7 @@ tr:
       schengen_area_description: Schengen Bölgesi, iç sınırlara sahip olmayan 29 Avrupa ülkesinden oluşur. Vatandaşlar ve birçok AB dışı vatandaş, iş insanı ve turist, sınır kontrolleri olmaksızın serbestçe dolaşabilir. 1985'ten beri, neredeyse tüm AB ülkelerini ve birkaç ilişkili olmayan AB dışı ülkeyi kapsamıştır.
       schengen_area_link: Schengen Bölgesi Nedir
       step_by_step_link: Adım Adım
-      title: Schengen Hesap Makinesi Hakkında
+      title: Schengen 90/180 Hesap Makinesi Hakkında
       travelling_in_schengen: Schengen Bölgesi'nde Seyahat
       travelling_link: Schengen Bölgesi'nde Seyahat
       uk_citizens: İngiliz Vatandaşları / BREXIT
@@ -176,6 +176,7 @@ tr:
       disclaimer_content_2: Herhangi bir kayıp veya zarardan sorumlu olmayacağız, dolaylı veya ardışık kayıp veya zarar, veya veri kaybı veya kar kaybı dahil, bu web sitesinin kullanımından kaynaklanan veya bu web sitesinin kullanımıyla bağlantılı herhangi bir kayıp veya zarar.
       disclaimer_content_3: Bu web sitesi aracılığıyla, Schengen Hesap Makinesi'nin kontrolü altında olmayan diğer web sitelerine bağlantı kurabilirsiniz. Bu sitelerin doğası, içeriği ve mevcudiyeti üzerinde hiçbir kontrolümüz yoktur. Herhangi bir bağlantının eklenmesi
       disclaimer_title: Web Sitesi / Schengen Hesap Makinesi Feragatnamesi
+    link: Hakkında
     nationality:
       additional_visa_waiver_description: "%{country}, bazı Schengen ülkeleri ile ek vize muafiyet anlaşmalarına sahiptir. Bu anlaşmalar, Schengen alanında 90 günden daha uzun kalmanıza izin verebilir. Bunu yapmayı planlıyorsanız dikkatli olmalı ve seyahat etmeden önce danışmanlık almalısınız. Lütfen Schengen Hesap Makinesinin hesaplamalarında ek vize muafiyet anlaşmalarını dikkate almadığını unutmayın.\n"
       additional_visa_waiver_title: "%{country} Ek Vize Muafiyet anlaşmaları bulunuyor mu?"

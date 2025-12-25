@@ -155,7 +155,7 @@ en:
       schengen_area_description: The Schengen Area comprises 29 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
       schengen_area_link: What is the Schengen Area
       step_by_step_link: Step by Step
-      title: About Schengen Calculator
+      title: About Schengen 90/180 Calculator
       travelling_in_schengen: Travelling in the Schengen Area
       travelling_link: Travelling in the Schengen Area
       uk_citizens: UK Citizens / BREXIT
@@ -178,6 +178,7 @@ en:
       disclaimer_content_2: In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arise out of, or in connection with, the use of this website.
       disclaimer_content_3: Through this website you are able to link to other websites which are not under the control of Schengen Calculator. We have no control over the nature, content and availability of those sites. The inclusion of any links does
       disclaimer_title: Website / Schengen Calculator Disclaimer
+    link: About
     nationality:
       additional_visa_waiver_description: "%{country} does have additional visa waiver agreements with some Schengen countries. These agreements may allow you to stay in the Schengen area for longer than 90 days. You should exercise caution if you plan to do this, and seek advice before you travel. Note the Schengen Calculator does not take additional visa waiver agreements into account in its calculations.\n"
       additional_visa_waiver_title: Does %{country} have any Additional Visa Waiver agreements?

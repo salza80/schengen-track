@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Spanish Homepage -->
+  <url>
+    <loc>https://schengen-calculator.com/es</loc>
+    <priority>1.00</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2025-12-24</lastmod>
+  </url>
+  
+  <!-- Spanish About Page -->
+  <url>
+    <loc>https://schengen-calculator.com/es/about</loc>
+    <priority>0.95</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-24</lastmod>
+  </url>
+  
+  <!-- Spanish Blog -->
+  <url>
+    <loc>https://schengen-calculator.com/es/blog/extended-schengen-stay</loc>
+    <priority>0.90</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Spanish Secondary Pages -->
+  <url>
+    <loc>https://schengen-calculator.com/es/visits</loc>
+    <priority>0.30</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/disclaimer</loc>
+    <priority>0.10</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/es/privacy</loc>
+    <priority>0.10</priority>
+  </url>
+
+</urlset>

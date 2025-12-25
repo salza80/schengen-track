@@ -7,14 +7,9 @@
   
   .col-lg-9{role: "main"}
     .blog-article
-      %nav.breadcrumbs{"aria-label" => "Breadcrumb"}
-        %ol
-          %li
-            = link_to "Home", root_path(locale: I18n.locale)
-          %li
-            = link_to t('common.blog'), blog_index_path(locale: I18n.locale)
-          %li.active
-            = t('blog.extendedTravel.title')
+      -# Breadcrumb navigation and schema
+      - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('common.blog'), :url => blog_index_url(:locale => I18n.locale) }, { :name => t('blog.extendedTravel.title'), :url => blog_url(:slug => 'extended-schengen-stay', :locale => I18n.locale) }]
+      = render_breadcrumbs(breadcrumbs)
       
       %article
         %header.article-header
@@ -117,7 +112,7 @@
 
 :javascript
   // Structured data for SEO
-  const structuredData = {
+  var structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "#{t('blog.extendedTravel.title')}",
@@ -139,38 +134,36 @@
     "description": "#{t('blog.extendedTravel.introduction').truncate(160)}"
   };
   
-  const script = document.createElement('script');
+  var script = document.createElement('script');
   script.type = 'application/ld+json';
   script.text = JSON.stringify(structuredData);
   document.head.appendChild(script);
 
   // Social media sharing functionality
   document.addEventListener('DOMContentLoaded', function() {
-    const pageUrl = encodeURIComponent(window.location.href);
-    const pageTitle = encodeURIComponent(document.title);
+    var pageUrl = encodeURIComponent(window.location.href);
+    var pageTitle = encodeURIComponent(document.title);
     
     // Share button click handlers
     document.querySelectorAll('.share-btn').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
-        const platform = this.getAttribute('data-share');
-        let shareUrl = '';
+        var platform = this.getAttribute('data-share');
+        var shareUrl = '';
         
         switch(platform) {
           case 'twitter':
-            shareUrl = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+            shareUrl = 'https://twitter.com/intent/tweet?url=' + pageUrl + '&text=' + pageTitle;
             break;
           case 'facebook':
-            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+            shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + pageUrl;
             break;
           case 'linkedin':
-            // LinkedIn's current sharing URL
-            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+            shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl;
             break;
         }
         
         if (shareUrl) {
-          // Open in popup window for better UX
           window.open(shareUrl, 'share-dialog', 'width=600,height=600');
         }
       });

@@ -153,7 +153,7 @@ de:
       schengen_area_description: Der Schengen-Raum umfasst 29 europäische Länder ohne innere Grenzen. Bürger sowie viele Nicht-EU-Bürger, Geschäftsleute und Touristen können sich frei bewegen, ohne Grenzkontrollen zu unterliegen. Seit 1985 hat er sich auf fast alle EU-Staaten und einige verbundene Nicht-EU-Länder ausgeweitet.
       schengen_area_link: Was ist der Schengen-Raum
       step_by_step_link: Schritt für Schritt
-      title: Über den Schengen-Rechner
+      title: Über den Schengen 90/180 Rechner
       travelling_in_schengen: Reisen im Schengen-Raum
       travelling_link: Reisen im Schengen-Raum
       uk_citizens: UK-Bürger / BREXIT
@@ -176,6 +176,7 @@ de:
       disclaimer_content_2: In keinem Fall haften wir für Verluste oder Schäden, einschließlich, aber nicht beschränkt auf, indirekte oder Folgeschäden oder Schäden oder Verluste, die sich aus dem Verlust von Daten oder Gewinnen ergeben, die sich aus oder in Zusammenhang mit der Nutzung dieser Website ergeben.
       disclaimer_content_3: Durch diese Website haben Sie die Möglichkeit, zu anderen Websites zu gelangen, die nicht unter der Kontrolle des Schengen-Rechners stehen. Wir haben keine Kontrolle über die Art, den Inhalt und die Verfügbarkeit dieser Websites. Die Aufnahme von Links bedeutet nicht, dass wir die damit verbundenen Websites befürworten.
       disclaimer_title: Haftungsausschluss für Website / Schengen-Rechner
+    link: Über uns
     nationality:
       additional_visa_waiver_description: "%{country} hat zusätzliche Visa-Waiver-Vereinbarungen mit einigen Schengen-Ländern. Diese Vereinbarungen können es Ihnen ermöglichen, länger als 90 Tage im Schengen-Raum zu bleiben. Wenn Sie dies planen, sollten Sie Vorsicht walten lassen und vor Reiseantritt Rat einholen. Beachten Sie, dass der Schengen-Rechner zusätzliche Visa-Waiver-Vereinbarungen nicht in seine Berechnungen einbezieht.\n"
       additional_visa_waiver_title: Hat %{country} zusätzliche Visa-Waiver-Vereinbarungen?

@@ -153,7 +153,7 @@ zh-CN:
       schengen_area_description: 申根区由29个欧洲国家组成，没有内部边界。公民以及许多非欧盟国家的商人和游客可以在没有面临边境检查的情况下自由流动。自1985年以来，它已扩展到几乎所有欧盟成员国和一些关联的非欧盟国家。
       schengen_area_link: 什么是申根区
       step_by_step_link: 逐步指南
-      title: 关于申根签证计算器
+      title: 关于申根90/180签证计算器
       travelling_in_schengen: 在申根区旅行
       travelling_link: 在申根区旅行
       uk_citizens: 英国公民 / BREXIT
@@ -176,6 +176,7 @@ zh-CN:
       disclaimer_content_2: 在任何情况下，我们都不对任何损失或损害承担责任，包括但不限于间接或后果性的损失或损害，或由于数据丢失或利润损失而引起的任何损失或损害，无论是因使用本网站还是与本网站的使用有关。
       disclaimer_content_3: 通过本网站，您可以链接到我们无法控制的其他网站。我们对于这些网站的性质、内容和可用性没有控制权。链接的包含并不意味着我们赞同这些网站。
       disclaimer_title: 网站/申根计算器免责声明
+    link: 关于
     nationality:
       additional_visa_waiver_description: "%{country}与一些申根国家签订了额外的签证豁免协议。这些协议可能允许您在申根区停留时间超过90天。如果您计划这样做，请务必谨慎，并在出行前寻求建议。请注意，申根计算器在计算中不考虑额外的签证豁免协议。\n"
       additional_visa_waiver_title: "%{country}是否与其他国家签订了任何额外的签证豁免协议？"

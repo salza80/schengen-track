@@ -152,8 +152,12 @@ a {
     color: #003d82; // Even darker on hover
     text-decoration: underline;
   }
-  
-  &:visited {
+}
+
+// Visited link color - scoped to content areas only (not nav/footer)
+// This prevents navigation links from turning purple after being clicked
+.container-fluid, .page-sidebar, .blog-content {
+  a:visited {
     color: #6610f2; // Purple for visited links (sufficient contrast)
   }
 }

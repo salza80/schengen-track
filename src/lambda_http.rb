@@ -80,6 +80,14 @@ def handler(event:, context:)
   end
 
   path = event['requestContext']['http']['path']
+  
+  # Explicitly serve robots.txt as a static file
+  # This must be handled before API format checking since .txt is considered an API format
+  if path == '/robots.txt'
+    response = serve_static_file(path)
+    return response if response['statusCode'] != 404
+  end
+  
   # Check if the request is for a static file
   # Only serve actual static files (assets, public directory, or file extensions that aren't API formats)
   extname = File.extname(path)

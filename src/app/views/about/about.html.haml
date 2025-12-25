@@ -136,14 +136,16 @@
           = t('about.about.nationality_section.heading')
         %h3.mb-4
           = t('about.about.nationality_section.subheading')
-        %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')"})
+        .mb-4
+          = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt'), class: "form-label sr-only"
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
       - else
         = render "nationality"
         %h4.mb-4
           = t('about.about.nationality_section.select_another_prompt')
-        %p.mb-4
-          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')"})
+        .mb-4
+          = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt'), class: "form-label sr-only"
+          = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
       .text-center.mb-4
         = link_to t('about.about.button_text'), get_started_path, class: "btn btn-primary btn-lg"
       .ad-block.mb-4

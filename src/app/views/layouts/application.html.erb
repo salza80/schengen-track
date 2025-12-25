@@ -10,21 +10,8 @@
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="preconnect" href="https://www.google-analytics.com">
   <link rel="preconnect" href="https://connect.facebook.net">
-  
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-8290979932488448",
-      enable_page_level_ads: true
-    });
-  </script>
-
-  <!-- Preconnect to external domains for faster resource loading -->
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-  <link rel="preconnect" href="https://www.google-analytics.com">
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-  <link rel="dns-prefetch" href="https://connect.facebook.net">
-
+  
   <!-- Preload critical assets -->
   <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
 
@@ -186,25 +173,6 @@
 </head>
 <body>
 
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.secrets.facebook_id %>',
-      autoLogAppEvents: true,
-      xfbml: true,
-      version: 'v19.0'
-    });
-  };
-
-  (function(d, s, id){
-     let js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
 <%= render 'layouts/header' %>
 
 <div class="container-fluid">
@@ -232,6 +200,68 @@
     <%# raw "eruda.init();" %>
   <%# end %>
 <%# end %>
+
+<!-- Lazy-load third-party scripts on user interaction or after load -->
+<script>
+  // Flag to ensure scripts only load once
+  let scriptsLoaded = false;
+
+  function loadThirdPartyScripts() {
+    if (scriptsLoaded) return;
+    scriptsLoaded = true;
+
+    // Facebook SDK
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.secrets.facebook_id %>',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v19.0'
+      });
+    };
+
+    (function(d, s, id){
+       let js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+
+    // Google AdSense
+    const adsScript = document.createElement('script');
+    adsScript.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+    adsScript.async = true;
+    document.body.appendChild(adsScript);
+    
+    adsScript.onload = function() {
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8290979932488448",
+        enable_page_level_ads: true
+      });
+    };
+  }
+
+  // Load scripts after page is fully loaded and user interacts
+  // Or automatically after 3 seconds if no interaction
+  window.addEventListener('load', function() {
+    let autoLoadTimer = setTimeout(loadThirdPartyScripts, 3000);
+    
+    // Load on first user interaction (click, scroll, touch, keydown)
+    const events = ['click', 'scroll', 'touchstart', 'keydown', 'mousemove'];
+    const loadOnInteraction = function() {
+      clearTimeout(autoLoadTimer);
+      loadThirdPartyScripts();
+      events.forEach(event => {
+        window.removeEventListener(event, loadOnInteraction);
+      });
+    };
+    
+    events.forEach(event => {
+      window.addEventListener(event, loadOnInteraction, { once: true, passive: true });
+    });
+  });
+</script>
 
 </body>
 </html>

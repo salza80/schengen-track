@@ -36,6 +36,8 @@
               - else
                 = link_to "Schengen requirements for " + @country.nationality_plural, "#nationality", {:class => "text-dark"}
         %li
+          = link_to t('about.about.faq_link'), "#faq", {:class => "text-dark"}
+        %li
           = link_to t('about.about.how_to_use_link'), "#how", {:class => "text-dark"}
           %ul.nav.flex-column
             %li
@@ -151,6 +153,166 @@
       %p.mb-4
         = t('about.about.blog_link_intro')
         = link_to t('blog.extendedTravel.title'), blog_path(locale: I18n.locale, slug: 'extended-schengen-stay')
+
+      %h2#faq.mb-4
+        = t('about.about.faq.title')
+      
+      .faq-section
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q1.question')
+          .faq-answer
+            %p= t('about.about.faq.q1.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q2.question')
+          .faq-answer
+            %p= t('about.about.faq.q2.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q3.question')
+          .faq-answer
+            %p= t('about.about.faq.q3.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q4.question')
+          .faq-answer
+            %p= t('about.about.faq.q4.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q5.question')
+          .faq-answer
+            %p= t('about.about.faq.q5.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q6.question')
+          .faq-answer
+            %p= t('about.about.faq.q6.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q7.question')
+          .faq-answer
+            %p= t('about.about.faq.q7.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q8.question')
+          .faq-answer
+            %p= t('about.about.faq.q8.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q9.question')
+          .faq-answer
+            %p= t('about.about.faq.q9.answer')
+        
+        .faq-item
+          %h3.faq-question
+            = t('about.about.faq.q10.question')
+          .faq-answer
+            %p= t('about.about.faq.q10.answer')
+
+      -# FAQ Structured Data for SEO
+      :javascript
+        (function() {
+          const faqStructuredData = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q1.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q1.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q2.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q2.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q3.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q3.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q4.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q4.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q5.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q5.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q6.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q6.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q7.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q7.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q8.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q8.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q9.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q9.answer')}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "#{j t('about.about.faq.q10.question')}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "#{j t('about.about.faq.q10.answer')}"
+                }
+              }
+            ]
+          };
+          
+          const faqScript = document.createElement('script');
+          faqScript.type = 'application/ld+json';
+          faqScript.text = JSON.stringify(faqStructuredData);
+          document.head.appendChild(faqScript);
+        })();
 
       %h2#how.mb-4
         = t('about.about.how_to_use.title')

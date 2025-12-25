@@ -67,6 +67,39 @@ tr:
       exempt_countries_list: ABD, Andora, Antigua ve Barbuda, Arjantin, Arnavutluk, Avustralya, Bahamalar, Barbados, Birleşik Arap Emirlikleri, Birleşik Krallık, Bosna ve Hersek, Brezilya, Brunei, Dominika, El Salvador, Granada, Guatemala, Güney Kore, Gürcistan, Honduras, Hong Kong, İsrail, Japonya, Kanada, Kiribati, Kolombiya, Kosova, Kosta Rika, Macau, Makedonya, Malezya, Marshall Adaları, Mauritius, Meksika, Mikronezya, Moldova, Monako, Karadağ, Nauru, Nikaragua, Yeni Zelanda, Palau, Panama, Paraguay, Peru, Saint Kitts ve Nevis, Saint Lucia, Saint Vincent ve Grenadinler, Samoa, San Marino, Sırbistan, Seyşeller, Singapur, Solomon Adaları, Şili, Tayvan, Timor-Leste, Tonga, Trinidad ve Tobago, Tuvalu, Ukrayna, Uruguay, Vatikan Şehri (Kutsal Makam) ve Venezuela.
       exempt_countries_official_link: Vize Gereksinimleri Hakkında Resmi AB Düzenlemesi
       exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      faq:
+        q1:
+          answer: 90/180 gün kuralı, Schengen Bölgesi'nde herhangi bir 180 günlük dönem içinde vizesiz olarak (vize muafiyeti olan bir ülkeden geliyorsanız) 90 güne kadar kalabileceğiniz anlamına gelir. 180 günlük dönem, mevcut tarihinizden geriye bakan hareketli bir penceredir.
+          question: Schengen 90/180 gün kuralı nedir?
+        q10:
+          answer: Evet, Schengen Hesaplayıcı tamamen ücretsizdir. Kalışlarınızı hesaplayabilir, sınırsız seyahat kayıtları ekleyebilir ve hatta verilerinizi cihazlar arasında kaydetmek için ücretsiz bir hesap oluşturabilirsiniz. Kredi kartı gerekmez, gizli ücret yoktur.
+          question: Schengen Hesaplayıcı kullanımı ücretsiz mi?
+        q2:
+          answer: 180 günlük dönem, mevcut veya planlanan çıkış tarihinizden geriye doğru hesaplanır. Kalmak istediğiniz her gün için hesaplayıcı, önceki 180 gün boyunca Schengen Bölgesi'nde kaç gün geçirdiğinizi kontrol eder. Bu hareketli dönem içinde toplamda 90 günü aşamazsınız.
+          question: 180 günlük dönem nasıl hesaplanır?
+        q3:
+          answer: Hayır, 90/180 kuralı hareketli bir hesaplamadır. Çıkış ve tekrar giriş yapmak 90 günlük tahsisinizi sıfırlamaz. Önceki ziyaretlerinizden günler 180 günlük pencerenin dışına düşene kadar beklemeniz gerekir. Schengen Hesaplayıcı, tam olarak ne zaman geri dönebileceğinizi takip etmenize yardımcı olur.
+          question: Schengen Bölgesi'nden çıkarak 90 günümü sıfırlayabilir miyim?
+        q4:
+          answer: Hayır, İngiltere vatandaşları Schengen Bölgesi'nde kısa süreli kalışlar (herhangi bir 180 günlük dönemde 90 güne kadar) için vizeye ihtiyaç duymaz. Ancak, 2026'nın 4. çeyreğinden itibaren, İngiltere vatandaşları seyahat etmeden önce ETIAS (Avrupa Seyahat Bilgi ve Yetkilendirme Sistemi) onayına ihtiyaç duyacaktır.
+          question: Brexit sonrası İngiltere vatandaşlarının Schengen Bölgesi'ni ziyaret etmek için vizey ihtiyacı var mı?
+        q5:
+          answer: Aşırı kalma, para cezaları, sınır dışı edilme, giriş yasakları (genellikle 1-5 yıl) ve gelecekteki vize veya seyahat yetkilendirmeleri alma zorluklarını içeren ciddi sonuçlara yol açabilir. Her zaman 90/180 gün kuralına uyduğunuzdan emin olun ve izin verilen kaldığınız süreyi aşmadan önce ayrılın.
+          question: Schengen Bölgesi'nde 90 günümü aşarsam ne olur?
+        q6:
+          answer: 2025 itibariyle Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Lihtenştayn, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç ve İsviçre dahil olmak üzere 29 Schengen ülkesi bulunmaktadır. Bulgaristan ve Romanya 31 Mart 2024'te tam olarak katıldı.
+          question: 2025'te Schengen Bölgesi'nde hangi ülkeler var?
+        q7:
+          answer: Evet, Schengen Bölgesi'nde fiziksel olarak bulunduğunuz her gün, transit günler ve sadece havaalanları veya tren istasyonlarından geçtiğiniz günler dahil olmak üzere 90 günlük limitinize dahildir. Giriş günü ve çıkış günü tam gün olarak sayılır.
+          question: Transit günler 90 günlük limitime dahil mi?
+        q8:
+          answer: ETIAS (Avrupa Seyahat Bilgi ve Yetkilendirme Sistemi), 2026'nın 4. çeyreğinden itibaren vize muafiyeti olan gezginler için gerekli bir ön seyahat yetkilendirmesidir. ABD, İngiltere, Kanada, Avustralya gibi ülkelerden ve şu anda vizeye ihtiyaç duymayan diğer ülkelerden vatandaşlar ETIAS onayına ihtiyaç duyacaktır. ABD ESTA'ya benzer ve yaklaşık 7 € tutarındadır, 3 yıl geçerlidir.
+          question: ETIAS nedir ve kimler ihtiyaç duyar?
+        q9:
+          answer: Evet! Hesaplayıcı hem vize muafiyeti olan gezginleri hem de kısa süreli Schengen vizeli olanları destekler. Sadece vize detaylarınızı (başlangıç tarihi, bitiş tarihi, giriş sayısı) ve seyahat kaydınızı girin. Hesaplayıcı hem 90/180 gün limitinizi hem de vizeye özel kısıtlamalarınızı takip edecektir.
+          question: Schengen vizem varsa Schengen Hesaplayıcı'yı kullanabilir miyim?
+        title: Sıkça Sorulan Sorular
+      faq_link: Sıkça Sorulan Sorular
       field_definitions_link: Alan Adı Tanımları
       get_started: Şimdi Başlayın
       how_to_use:

@@ -67,6 +67,39 @@ en:
       exempt_countries_list: Albania, Andorra, Antigua and Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia and Herzegovina, Brazil, Brunei, Canada, Chile, Colombia, Costa Rica, Dominica, El Salvador, Georgia, Grenada, Guatemala, Honduras, Hong Kong, Israel, Japan, Kiribati, Kosovo, Malaysia, Macao, Marshall Islands, Mauritius, Mexico, Micronesia, Moldova, Monaco, Montenegro, Nauru, New Zealand, Nicaragua, North Macedonia, Palau, Panama, Paraguay, Peru, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines, Samoa, San Marino, Serbia, Seychelles, Singapore, Solomon Islands, South Korea, Taiwan, Timor-Leste, Tonga, Trinidad and Tobago, Tuvalu, Ukraine, United Kingdom, United States, United Arab Emirates, Uruguay, Vatican City (Holy See), and Venezuela.
       exempt_countries_official_link: Official EU Regulation on Visa Requirements
       exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      faq:
+        q1:
+          answer: The 90/180 day rule means you can stay in the Schengen Area for up to 90 days within any 180-day period without a visa (if you're from a visa-exempt country). The 180-day period is a rolling window that looks back from your current date.
+          question: What is the Schengen 90/180 day rule?
+        q10:
+          answer: Yes, the Schengen Calculator is completely free to use. You can calculate your stays, add unlimited travel records, and even register for a free account to save your data across devices. No credit card required, no hidden fees.
+          question: Is the Schengen Calculator free to use?
+        q2:
+          answer: The 180-day period is calculated backwards from your current or planned exit date. For each day you want to stay, the calculator checks how many days you've already spent in the Schengen Area during the previous 180 days. You cannot exceed 90 days in total within this rolling period.
+          question: How is the 180-day period calculated?
+        q3:
+          answer: No, the 90/180 rule is a rolling calculation. Leaving and re-entering does not reset your 90-day allowance. You must wait until days from your previous visits fall outside the 180-day window. The Schengen Calculator helps you track exactly when you can return.
+          question: Can I reset my 90 days by leaving the Schengen Area?
+        q4:
+          answer: No, UK citizens do not need a visa for short stays (up to 90 days in any 180-day period) in the Schengen Area. However, from Q4 2026, UK citizens will need an ETIAS (European Travel Information and Authorization System) approval before traveling.
+          question: Do UK citizens need a visa to visit the Schengen Area after Brexit?
+        q5:
+          answer: Overstaying can result in serious consequences including fines, deportation, entry bans (typically 1-5 years), and difficulties obtaining future visas or travel authorizations. Always ensure you comply with the 90/180 day rule and leave before exceeding your allowed stay.
+          question: What happens if I overstay my 90 days in the Schengen Area?
+        q6:
+          answer: As of 2025, there are 29 Schengen countries including Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and Switzerland. Bulgaria and Romania joined fully on March 31, 2024.
+          question: Which countries are in the Schengen Area in 2025?
+        q7:
+          answer: Yes, any day you are physically present in the Schengen Area counts toward your 90-day limit, including transit days and days when you're simply passing through airports or train stations. The day of entry and day of exit both count as full days.
+          question: Do days in transit count toward my 90-day limit?
+        q8:
+          answer: ETIAS (European Travel Information and Authorization System) is a pre-travel authorization required for visa-exempt travelers starting Q4 2026. Citizens from countries like the US, UK, Canada, Australia, and others who currently don't need a visa will need ETIAS approval. It's similar to the US ESTA and costs approximately €7, valid for 3 years.
+          question: What is ETIAS and who needs it?
+        q9:
+          answer: Yes! The calculator supports both visa-exempt travelers and those with short-stay Schengen visas. Simply enter your visa details (start date, end date, number of entries) and your travel record. The calculator will track both your 90/180 day limit and your visa-specific restrictions.
+          question: Can I use the Schengen Calculator if I have a Schengen visa?
+        title: Frequently Asked Questions
+      faq_link: Frequently Asked Questions
       field_definitions_link: Field Name Definitions
       get_started: Get Started Now
       how_to_use:

@@ -67,6 +67,39 @@ de:
       exempt_countries_list: Albanien, Andorra, Antigua und Barbuda, Argentinien, Australien, Bahamas, Barbados, Bosnien und Herzegowina, Brasilien, Brunei, Costa Rica, Dominica, El Salvador, Georgien, Grenada, Guatemala, Honduras, Hongkong, Israel, Japan, Kanada, Chile, Kiribati, Kolumbien, Kosovo, Macau, Malaysia, Marshallinseln, Mauritius, Mexiko, Mikronesien, Moldau, Monaco, Montenegro, Nauru, Neuseeland, Nicaragua, Nordmazedonien, Palau, Panama, Paraguay, Peru, Saint Kitts und Nevis, Saint Lucia, Saint Vincent und die Grenadinen, Salomonen, Samoa, San Marino, Serbien, Seychellen, Singapur, Südkorea, Taiwan, Timor-Leste, Tonga, Trinidad und Tobago, Tuvalu, Ukraine, Vereinigte Arabische Emirate, Vereinigtes Königreich, Vereinigte Staaten, Uruguay, Vatikanstadt (Heiliger Stuhl) und Venezuela.
       exempt_countries_official_link: Offizielle EU-Verordnung zu Visabestimmungen
       exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      faq:
+        q1:
+          answer: Die 90/180-Tage-Regel bedeutet, dass Sie sich bis zu 90 Tage innerhalb eines beliebigen 180-Tage-Zeitraums ohne Visum im Schengen-Raum aufhalten können (wenn Sie aus einem visumbefreiten Land kommen). Der 180-Tage-Zeitraum ist ein rollierendes Fenster, das von Ihrem aktuellen Datum zurückblickt.
+          question: Was ist die Schengen 90/180-Tage-Regel?
+        q10:
+          answer: Ja, der Schengen-Rechner ist völlig kostenlos nutzbar. Sie können Ihre Aufenthalte berechnen, unbegrenzte Reiseaufzeichnungen hinzufügen und sich sogar für ein kostenloses Konto registrieren, um Ihre Daten geräteübergreifend zu speichern. Keine Kreditkarte erforderlich, keine versteckten Gebühren.
+          question: Ist der Schengen-Rechner kostenlos?
+        q2:
+          answer: Der 180-Tage-Zeitraum wird rückwärts von Ihrem aktuellen oder geplanten Ausreisedatum berechnet. Für jeden Tag, den Sie bleiben möchten, prüft der Rechner, wie viele Tage Sie bereits im Schengen-Raum während der vorherigen 180 Tage verbracht haben. Sie dürfen insgesamt nicht mehr als 90 Tage innerhalb dieses rollierenden Zeitraums überschreiten.
+          question: Wie wird der 180-Tage-Zeitraum berechnet?
+        q3:
+          answer: Nein, die 90/180-Regel ist eine rollierende Berechnung. Aus- und Wiedereinreise setzt Ihre 90-Tage-Zulassung nicht zurück. Sie müssen warten, bis Tage aus Ihren vorherigen Besuchen außerhalb des 180-Tage-Fensters fallen. Der Schengen-Rechner hilft Ihnen, genau zu verfolgen, wann Sie zurückkehren können.
+          question: Kann ich meine 90 Tage zurücksetzen, indem ich den Schengen-Raum verlasse?
+        q4:
+          answer: Nein, britische Staatsbürger benötigen kein Visum für Kurzaufenthalte (bis zu 90 Tage in einem beliebigen 180-Tage-Zeitraum) im Schengen-Raum. Ab Q4 2026 benötigen britische Staatsbürger jedoch eine ETIAS-Genehmigung (European Travel Information and Authorization System) vor der Reise.
+          question: Benötigen britische Staatsbürger nach dem Brexit ein Visum für den Schengen-Raum?
+        q5:
+          answer: Eine Überschreitung kann schwerwiegende Folgen haben, einschließlich Geldstrafen, Abschiebung, Einreiseverboten (typischerweise 1-5 Jahre) und Schwierigkeiten beim Erhalt zukünftiger Visa oder Reisegenehmigungen. Stellen Sie immer sicher, dass Sie die 90/180-Tage-Regel einhalten und ausreisen, bevor Sie Ihren erlaubten Aufenthalt überschreiten.
+          question: Was passiert, wenn ich meine 90 Tage im Schengen-Raum überschreite?
+        q6:
+          answer: Ab 2025 gibt es 29 Schengen-Länder, darunter Österreich, Belgien, Bulgarien, Kroatien, Tschechien, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Liechtenstein, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Rumänien, Slowakei, Slowenien, Spanien, Schweden und Schweiz. Bulgarien und Rumänien sind am 31. März 2024 vollständig beigetreten.
+          question: Welche Länder gehören 2025 zum Schengen-Raum?
+        q7:
+          answer: Ja, jeder Tag, an dem Sie sich physisch im Schengen-Raum befinden, zählt zu Ihrem 90-Tage-Limit, einschließlich Transittagen und Tagen, an denen Sie nur durch Flughäfen oder Bahnhöfe durchreisen. Der Ein- und Ausreisetag zählen beide als volle Tage.
+          question: Zählen Transittage zu meinem 90-Tage-Limit?
+        q8:
+          answer: ETIAS (European Travel Information and Authorization System) ist eine Vorab-Reisegenehmigung, die ab Q4 2026 für visumbefreite Reisende erforderlich ist. Bürger aus Ländern wie den USA, Großbritannien, Kanada, Australien und anderen, die derzeit kein Visum benötigen, werden eine ETIAS-Genehmigung benötigen. Es ist ähnlich wie das US-ESTA und kostet etwa 7 €, gültig für 3 Jahre.
+          question: Was ist ETIAS und wer benötigt es?
+        q9:
+          answer: Ja! Der Rechner unterstützt sowohl visumbefreite Reisende als auch solche mit kurzfristigen Schengen-Visa. Geben Sie einfach Ihre Visum-Details (Startdatum, Enddatum, Anzahl der Einreisen) und Ihren Reiseverlauf ein. Der Rechner verfolgt sowohl Ihr 90/180-Tage-Limit als auch Ihre visum-spezifischen Beschränkungen.
+          question: Kann ich den Schengen-Rechner verwenden, wenn ich ein Schengen-Visum habe?
+        title: Häufig gestellte Fragen
+      faq_link: Häufig gestellte Fragen
       field_definitions_link: Feldnamendefinitionen
       get_started: Jetzt loslegen
       how_to_use:

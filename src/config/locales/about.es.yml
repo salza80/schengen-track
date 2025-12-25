@@ -67,6 +67,39 @@ es:
       exempt_countries_list: Albania, Andorra, Antigua y Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia y Herzegovina, Brasil, Brunéi, Canadá, Chile, Colombia, Costa Rica, Dominica, El Salvador, Emiratos Árabes Unidos, Estados Unidos, Georgia, Granada, Guatemala, Honduras, Hong Kong, Israel, Japón, Kiribati, Kosovo, Macao, Malasia, Islas Marshall, Mauricio, México, Micronesia, Moldavia, Mónaco, Montenegro, Nauru, Nicaragua, Nueva Zelanda, Macedonia del Norte, Palaos, Panamá, Paraguay, Perú, Reino Unido, San Cristóbal y Nieves, Santa Lucía, San Vicente y las Granadinas, Samoa, San Marino, Serbia, Seychelles, Singapur, Islas Salomón, Corea del Sur, Taiwán, Timor-Leste, Tonga, Trinidad y Tobago, Tuvalu, Ucrania, Uruguay, Ciudad del Vaticano (Santa Sede) y Venezuela.
       exempt_countries_official_link: Reglamento oficial de la UE sobre requisitos de visado
       exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      faq:
+        q1:
+          answer: La regla de 90/180 días significa que puede permanecer en el Área Schengen hasta 90 días dentro de cualquier período de 180 días sin visa (si es de un país exento de visa). El período de 180 días es una ventana móvil que retrocede desde su fecha actual.
+          question: "¿Qué es la regla de 90/180 días de Schengen?"
+        q10:
+          answer: Sí, la Calculadora Schengen es completamente gratuita. Puede calcular sus estadías, agregar registros de viaje ilimitados e incluso registrarse para obtener una cuenta gratuita para guardar sus datos en todos los dispositivos. No se requiere tarjeta de crédito, sin tarifas ocultas.
+          question: "¿La Calculadora Schengen es gratuita?"
+        q2:
+          answer: El período de 180 días se calcula hacia atrás desde su fecha de salida actual o planificada. Por cada día que desee quedarse, la calculadora verifica cuántos días ya ha pasado en el Área Schengen durante los 180 días anteriores. No puede exceder 90 días en total dentro de este período móvil.
+          question: "¿Cómo se calcula el período de 180 días?"
+        q3:
+          answer: No, la regla de 90/180 es un cálculo móvil. Salir y volver a entrar no reinicia su asignación de 90 días. Debe esperar hasta que los días de sus visitas anteriores queden fuera de la ventana de 180 días. La Calculadora Schengen le ayuda a rastrear exactamente cuándo puede regresar.
+          question: "¿Puedo reiniciar mis 90 días saliendo del Área Schengen?"
+        q4:
+          answer: No, los ciudadanos del Reino Unido no necesitan visa para estadías cortas (hasta 90 días en cualquier período de 180 días) en el Área Schengen. Sin embargo, a partir del cuarto trimestre de 2026, los ciudadanos del Reino Unido necesitarán una aprobación ETIAS (Sistema Europeo de Información y Autorización de Viajes) antes de viajar.
+          question: "¿Los ciudadanos del Reino Unido necesitan visa para visitar el Área Schengen después del Brexit?"
+        q5:
+          answer: Exceder la estadía puede resultar en consecuencias graves que incluyen multas, deportación, prohibiciones de entrada (típicamente de 1 a 5 años) y dificultades para obtener visas o autorizaciones de viaje futuras. Siempre asegúrese de cumplir con la regla de 90/180 días y salir antes de exceder su estadía permitida.
+          question: "¿Qué sucede si excedo mis 90 días en el Área Schengen?"
+        q6:
+          answer: A partir de 2025, hay 29 países Schengen que incluyen Austria, Bélgica, Bulgaria, Croacia, República Checa, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Liechtenstein, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Rumanía, Eslovaquia, Eslovenia, España, Suecia y Suiza. Bulgaria y Rumanía se unieron completamente el 31 de marzo de 2024.
+          question: "¿Qué países están en el Área Schengen en 2025?"
+        q7:
+          answer: Sí, cualquier día en que esté físicamente presente en el Área Schengen cuenta para su límite de 90 días, incluidos los días de tránsito y los días en que simplemente pasa por aeropuertos o estaciones de tren. El día de entrada y el día de salida cuentan como días completos.
+          question: "¿Los días en tránsito cuentan para mi límite de 90 días?"
+        q8:
+          answer: ETIAS (Sistema Europeo de Información y Autorización de Viajes) es una autorización de viaje previa requerida para viajeros exentos de visa a partir del cuarto trimestre de 2026. Los ciudadanos de países como EE. UU., Reino Unido, Canadá, Australia y otros que actualmente no necesitan visa necesitarán aprobación ETIAS. Es similar al ESTA de EE. UU. y cuesta aproximadamente 7 €, válido por 3 años.
+          question: "¿Qué es ETIAS y quién lo necesita?"
+        q9:
+          answer: "¡Sí! La calculadora admite tanto viajeros exentos de visa como aquellos con visas Schengen de corta estadía. Simplemente ingrese los detalles de su visa (fecha de inicio, fecha de finalización, número de entradas) y su registro de viaje. La calculadora rastreará tanto su límite de 90/180 días como sus restricciones específicas de visa."
+          question: "¿Puedo usar la Calculadora Schengen si tengo una visa Schengen?"
+        title: Preguntas Frecuentes
+      faq_link: Preguntas Frecuentes
       field_definitions_link: Definiciones de Nombres de Campos
       get_started: Comienza Ahora
       how_to_use:

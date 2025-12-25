@@ -2,7 +2,7 @@
   %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navtabs", "aria-controls" => "navbar", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
     %span.navbar-toggler-icon
   %a.navbar-brand.px-3.px-sm-0{:href => visits_path(I18n.locale)}
-    = image_tag("logo.svg", alt: t('common.schengen_calculator'))
+    = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)
     %span.navbar-text.site-title
       = t('common.schengen')
       %span.d-none.d-lg-inline

@@ -51,19 +51,19 @@ html {
 #navtabs {
     .active {
       .nav-link {
-        border-bottom-color: $primary;
+        border-bottom-color: $link-color;  // Darker blue for WCAG AA contrast
         font-weight: bold;
-        color: $primary;  // Blue text for active page
+        color: $link-color;  // #0056b3 instead of #2196f3 for better contrast
         
-        // Make icon blue too
+        // Make icon darker blue too
         .fa, .fas, .far, .fab {
-          color: $primary;
+          color: $link-color;
         }
       }
     }
     .nav-link{
       &:hover {
-        border-color: $primary;
+        border-color: $link-color;
       }
     }
 }

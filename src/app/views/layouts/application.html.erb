@@ -178,11 +178,15 @@
 
 <%= render 'layouts/footer' %>
 
-<!-- Temporary mobile debugging console - staging only -->
-<% if request.host.include?('test.schengen-calculator.com') %>
-  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-  <script>eruda.init();</script>
-<% end %>
+<!-- Eruda mobile debugging console (131KB) -->
+<!-- Commented out to improve staging performance (saves ~200ms load time) -->
+<!-- To re-enable for debugging mobile issues, uncomment the lines below: -->
+<%# if request.host.include?('test.schengen-calculator.com') %>
+  <%#= tag.script src: "https://cdn.jsdelivr.net/npm/eruda" %>
+  <%#= tag.script do %>
+    <%# raw "eruda.init();" %>
+  <%# end %>
+<%# end %>
 
 </body>
 </html>

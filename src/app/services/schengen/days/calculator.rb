@@ -85,8 +85,9 @@ module Schengen
           @calculated_days[sd.the_date]=sd
           sd.continuous_days_count = calc_continuous_days_count(sd, i)
           if @user.nationality.visa_required == 'F'
-            # Freedom of movement - no day counting
+            # Freedom of movement: users who do not require a visa are not subject to Schengen day counting.
           else
+            # Visa required: perform Schengen day counting for this day.
             sd.schengen_days_count=calc_schengen_day_new_count(sd,i)
           end
           i+=1

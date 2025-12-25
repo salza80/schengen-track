@@ -10,23 +10,23 @@
       = t('common.calculator')
   .collapse.navbar-collapse{id: "navtabs"}
     %ul.navbar-nav.nav-tabs.mx-auto.navbar-light
-      %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'visits')) }
+      %li.nav-item.no-wrap{class: (active_if(controller: 'visits')) }
         %a.nav-link.btn-lg{href: visits_path(I18n.locale) }
           %span.fa.fa-plane{"aria-hidden": "true"}
           %span
             = t('common.trips')
       - unless current_user_or_guest_user&.visa_required?
-        %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'days'))}
+        %li.nav-item.no-wrap{class: (active_if(controller: 'days'))}
           %a.nav-link.btn-lg{href: days_path(locale: I18n.locale)}
             %span.fa.fa-calendar{"aria-hidden": "true"}
             %span
               = t('common.calendar')
-      %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'about'))}
+      %li.nav-item.no-wrap{class: (active_if(controller: 'about'))}
         %a.nav-link.btn-lg{href: about_path(locale: I18n.locale)}
           %span.fa.fa-info-circle{"aria-hidden": "true"}
           %span
             = t('common.about')
-      %li.nav-item.no-wrap{role: "navigation", class: (active_if(controller: 'blogs'))}
+      %li.nav-item.no-wrap{class: (active_if(controller: 'blogs'))}
         %a.nav-link.btn-lg{href: blog_index_path(locale: I18n.locale)}
           %span.fa.fa-book{"aria-hidden": "true"}
           %span

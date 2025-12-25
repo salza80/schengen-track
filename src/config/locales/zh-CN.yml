@@ -93,8 +93,8 @@ zh-CN:
     - :year
     - :month
     - :day
-  default_description: 免费的申根/欧洲90/180天计算器。输入您的国籍、旅行日期和目的地，申根计算器会为您完成其余工作。
-  default_title: 申根/欧洲短期旅游签证计算器
+  default_description: 使用我们的免费90/180天追踪器计算您的申根免签天数。追踪29个欧洲国家的滚动180天规则。立即开始规划您的欧洲之旅！
+  default_title: 申根计算器 | 90/180天规则追踪 | 免费
   errors:
     prohibited_saving_visa: "%{count}个错误导致无法保存此签证："
   helpers:

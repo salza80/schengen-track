@@ -88,8 +88,8 @@ es:
     - :day
     - :month
     - :year
-  default_description: Calculadora gratuita de 90/180 días de Schengen/Europa. Ingrese su nacionalidad, fechas de viaje y destino, y la calculadora de Schengen hará el resto.
-  default_title: Calculadora de Visa de Turista de Corta Estancia de Schengen / Europa
+  default_description: Calcule sus días sin visa Schengen con nuestro rastreador gratuito de 90/180 días. Siga la regla móvil de 180 días para 29 países europeos. ¡Comience a planificar su viaje a Europa hoy!
+  default_title: Calculadora Schengen | Regla 90/180 Días | Gratis
   errors:
     prohibited_saving_visa: "%{count} errores impidieron guardar este visado:"
   helpers:

@@ -5,7 +5,7 @@ class CountryTest < ActiveSupport::TestCase
   test 'should have the necessary required validators' do
     a = Country.new
     assert a.invalid?
-    assert_equal [:continent, :country_code, :name, :visa_required, :EU_member_state, :additional_visa_waiver, :old_schengen_calc], a.errors.attribute_names
+    assert_equal [:continent, :country_code, :name, :visa_required, :EU_member_state, :additional_visa_waiver], a.errors.attribute_names
   end
 
   test 'should return false to schengen? if no schengen start_date' do

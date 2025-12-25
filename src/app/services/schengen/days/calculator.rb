@@ -44,11 +44,7 @@ module Schengen
       end  
 
       def calc_type_desc
-        if @user.old_schengen_calc
-           "Old Calculation - 3 Month in and 6 Month Period"
-        else
-          "New Calculation - 90 days in last 180 days (rolling 180 days)"
-        end
+        "90 days in last 180 days (rolling 180 days)"
       end
       private
       def too_many_days?
@@ -68,8 +64,6 @@ module Schengen
         @calculated_days = {}
         return if @visits.empty?
         return if too_many_days?
-        count_180_day = 0
-        schengen_days_in_last_180=0
 
         v = 0    
         i = 0
@@ -91,9 +85,9 @@ module Schengen
           @calculated_days[sd.the_date]=sd
           sd.continuous_days_count = calc_continuous_days_count(sd, i)
           if @user.nationality.visa_required == 'F'
-          elsif @user.nationality.old_schengen_calc
-            schengen_days_in_last_180, count_180_day = calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
+            # Freedom of movement: users who do not require a visa are not subject to Schengen day counting.
           else
+            # Visa required: perform Schengen day counting for this day.
             sd.schengen_days_count=calc_schengen_day_new_count(sd,i)
           end
           i+=1
@@ -134,39 +128,8 @@ module Schengen
 
       def calc_max_remaining_days
         return if @user.nationality.visa_required == 'F'
- 
-        if @user.nationality.old_schengen_calc
-          calc_max_remaining_days_old
-        else
-          calc_max_remaining_days_new
-        end
+        calc_max_remaining_days_new
       end
-
-      def calc_max_remaining_days_old
-        #logic not right yet
-        prev = nil
-        @calculated_days.sort.reverse.each do |aday|
-          day = aday[1]
-          day.max_remaining_days =  90 - day.schengen_days_count
-          unless prev
-            prev = day
-            next
-          end
-         
-          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
-            @next_entry_days.unshift(prev)
-          end
-
-          if day.schengen?
-            if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days
-              @next_entry_days.unshift(prev)
-            end
-            return
-          end
-          prev = day
-        end 
-      end
-
 
       def calc_max_remaining_days_new
         prev = nil
@@ -219,23 +182,6 @@ module Schengen
 
       end
 
-      def calc_schengen_day_old_count(sd,i,schengen_days_in_last_180, count_180_day)
-        if (count_180_day > 0 || sd.schengen?)
-          count_180_day +=1
-        end
-        if count_180_day > 180
-          if sd.schengen?
-            schengen_days_in_last_180 += sd.schengen_day_int
-          else
-            count_180_day = 0
-            schengen_days_in_last_180 = sd.schengen_day_int
-          end
-        else
-          schengen_days_in_last_180 += sd.schengen_day_int
-        end
-        sd.schengen_days_count = schengen_days_in_last_180
-        [schengen_days_in_last_180,count_180_day]
-      end      
     end
 
     class SchengenDay

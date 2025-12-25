@@ -8,7 +8,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -20,7 +19,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -32,7 +30,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -44,7 +41,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -56,7 +52,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -68,7 +63,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -80,7 +74,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -92,7 +85,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -104,7 +96,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -116,7 +107,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -128,7 +118,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -140,7 +129,6 @@
 		<schengen_start_date>1997-12-01</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -152,7 +140,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -164,7 +151,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -176,7 +162,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -188,7 +173,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -200,7 +184,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -212,7 +195,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -224,7 +206,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -236,7 +217,6 @@
 		<schengen_start_date>1995-03-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -248,7 +228,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -260,7 +239,6 @@
 		<schengen_start_date>2025-01-01</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -272,7 +250,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -284,7 +261,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -296,7 +272,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -308,7 +283,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -320,7 +294,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -332,7 +305,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -344,7 +316,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -356,7 +327,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -368,7 +338,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -380,7 +349,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -392,7 +360,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -404,7 +371,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -416,7 +382,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -428,7 +393,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -440,7 +404,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -452,7 +415,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -464,7 +426,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -476,7 +437,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -488,7 +448,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -500,7 +459,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -512,7 +470,6 @@
 		<schengen_start_date>2008-12-12</schengen_start_date>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -524,7 +481,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -536,7 +492,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -548,7 +503,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -560,7 +514,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -572,7 +525,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -584,7 +536,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -596,7 +547,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -608,7 +558,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -620,7 +569,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -632,7 +580,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -644,7 +591,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -656,7 +602,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -668,7 +613,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -680,7 +624,6 @@
 		<schengen_start_date>1995-03-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886257" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-lang="en" data-currency="EUR" data-cc1="de"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -704,7 +647,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -716,7 +658,6 @@
 		<schengen_start_date>2001-03-25</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -728,7 +669,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -740,7 +680,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -752,7 +691,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -764,7 +702,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -776,7 +713,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -788,7 +724,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -800,7 +735,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -812,7 +746,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -824,7 +757,6 @@
 		<schengen_start_date>1995-03-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886284" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="es"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -848,7 +780,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -860,7 +791,6 @@
 		<schengen_start_date>2001-03-25</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -872,7 +802,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -884,7 +813,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -896,7 +824,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -908,7 +835,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -920,7 +846,6 @@
 		<schengen_start_date>1995-03-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886274" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="fr"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -944,7 +869,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -956,7 +880,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886282" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="gb"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -980,7 +903,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -992,7 +914,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1004,7 +925,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1016,7 +936,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1028,7 +947,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1040,7 +958,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1052,7 +969,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1064,7 +980,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1076,7 +991,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1088,7 +1002,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1100,7 +1013,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1112,7 +1024,6 @@
 		<schengen_start_date>2000-01-01</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886279" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="gr"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -1136,7 +1047,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1148,7 +1058,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1160,7 +1069,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1172,7 +1080,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1184,7 +1091,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1196,7 +1102,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1208,7 +1113,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1220,7 +1124,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1232,7 +1135,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1244,7 +1146,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1256,7 +1157,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1268,7 +1168,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1280,7 +1179,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1292,7 +1190,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1304,7 +1201,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1316,7 +1212,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1328,7 +1223,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1340,7 +1234,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1352,7 +1245,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1364,7 +1256,6 @@
 		<schengen_start_date>2001-03-25</schengen_start_date>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1376,7 +1267,6 @@
 		<schengen_start_date>1997-10-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886283" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="it"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -1400,7 +1290,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1412,7 +1301,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1424,7 +1312,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1436,7 +1323,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1448,7 +1334,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1460,7 +1345,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1472,7 +1356,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1484,7 +1367,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1496,7 +1378,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1508,7 +1389,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1520,7 +1400,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1532,7 +1411,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1544,7 +1422,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1556,7 +1433,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1568,7 +1444,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1580,7 +1455,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1592,7 +1466,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1604,7 +1477,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1616,7 +1488,6 @@
 		<schengen_start_date>2011-12-19</schengen_start_date>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1628,7 +1499,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1640,7 +1510,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1652,7 +1521,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1664,7 +1532,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1676,7 +1543,6 @@
 		<schengen_start_date>1995-03-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1688,7 +1554,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1700,7 +1565,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1712,7 +1576,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1724,7 +1587,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1736,7 +1598,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1748,7 +1609,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1760,7 +1620,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1772,7 +1631,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1784,7 +1642,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1796,7 +1653,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1808,7 +1664,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1820,7 +1675,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1832,7 +1686,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1844,7 +1697,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1856,7 +1708,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1868,7 +1719,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1880,7 +1730,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1892,7 +1741,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1904,7 +1752,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1916,7 +1763,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1928,7 +1774,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1940,7 +1785,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1952,7 +1796,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1964,7 +1807,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1976,7 +1818,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -1988,7 +1829,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2000,7 +1840,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2012,7 +1851,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2024,7 +1862,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2036,7 +1873,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2048,7 +1884,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2060,7 +1895,6 @@
 		<schengen_start_date>1995-03-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2072,7 +1906,6 @@
 		<schengen_start_date>2001-03-25</schengen_start_date>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2084,7 +1917,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2096,7 +1928,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2108,7 +1939,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2120,7 +1950,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2132,7 +1961,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2144,7 +1972,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2156,7 +1983,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2168,7 +1994,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2180,7 +2005,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2192,7 +2016,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2204,7 +2027,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2216,7 +2038,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886277" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="pl"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -2240,7 +2061,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2252,7 +2072,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2264,7 +2083,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2276,7 +2094,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2288,7 +2105,6 @@
 		<schengen_start_date>1995-03-26</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2300,7 +2116,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2312,7 +2127,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2324,7 +2138,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2336,7 +2149,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2348,7 +2160,6 @@
 		<schengen_start_date>2025-01-01</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2360,7 +2171,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2372,7 +2182,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2384,7 +2193,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2396,7 +2204,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2408,7 +2215,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2420,7 +2226,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>true</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2432,7 +2237,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2444,7 +2248,6 @@
 		<schengen_start_date>2001-03-25</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2456,7 +2259,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2468,7 +2270,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2480,7 +2281,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2492,7 +2292,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2504,7 +2303,6 @@
 		<schengen_start_date>2007-12-21</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2516,7 +2314,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2528,7 +2325,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2540,7 +2336,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2552,7 +2347,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2564,7 +2358,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2576,7 +2369,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2588,7 +2380,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2600,7 +2391,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2612,7 +2402,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2624,7 +2413,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2636,7 +2424,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2648,7 +2435,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2660,7 +2446,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2672,7 +2457,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2684,7 +2468,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2696,7 +2479,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2708,7 +2490,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2720,7 +2501,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2732,7 +2512,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2744,7 +2523,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2756,7 +2534,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2768,7 +2545,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2780,7 +2556,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2792,7 +2567,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2804,7 +2578,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2816,7 +2589,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2828,7 +2600,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2840,7 +2611,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html>&lt;ins class="bookingaff" data-aid="886281" data-target_aid="886202" data-prod="sbp" data-width="500" data-height="130" data-cc1="ua"&gt;
     &lt;!-- Anything inside will go away once widget is loaded. --&gt;
@@ -2864,7 +2634,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2876,7 +2645,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2888,7 +2656,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2900,7 +2667,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>true</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2912,7 +2678,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2924,7 +2689,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2936,7 +2700,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2948,7 +2711,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>A</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2960,7 +2722,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2972,7 +2733,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2984,7 +2744,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -2996,7 +2755,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3008,7 +2766,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3020,7 +2777,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3032,7 +2788,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3044,7 +2799,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3056,7 +2810,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3068,7 +2821,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3080,7 +2832,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>
@@ -3092,7 +2843,6 @@
 		<schengen_start_date/>
 		<EU_memeber_state>false</EU_memeber_state>
 		<visa_required>V</visa_required>
-		<old_schengen_calc>false</old_schengen_calc>
 		<additional_visa_waiver>false</additional_visa_waiver>
 		<affiliate_booking_html/>
 	</record>

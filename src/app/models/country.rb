@@ -5,7 +5,6 @@ class Country < ApplicationRecord
   validates :country_code, :name, :continent, :visa_required, presence: true
   validates_inclusion_of :EU_member_state,
                          :additional_visa_waiver,
-                         :old_schengen_calc,
                          in: [true, false]
 
   def self.with_booking_affiliate

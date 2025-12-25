@@ -78,43 +78,7 @@ class CalculatorTest < ActiveSupport::TestCase
     assert as.schengen_overstay?
   end
 
-  test 'test shengen days old calculation count' do
-    user = users(:OldCalcTest)
-    as =  Schengen::Calculator.new(user)
-    a = as.find_visit(visits(:oldcalc1).id)
-    assert_equal 1, a.schengen_days
-
-    a = as.find_visit(visits(:oldcalc2).id)
-    assert_equal 30, a.schengen_days
-    assert_equal 2, a.visa_entry_count
-
-    a = as.find_visit(visits(:oldcalc3).id)
-    assert_equal 30, a.schengen_days
-    assert_equal 2, a.visa_entry_count
-
-    a = as.find_visit(visits(:oldcalc4).id)
-    assert_equal 60, a.schengen_days
-
-    a = as.find_visit(visits(:oldcalc5).id)
-    assert_equal 85, a.schengen_days
-
-    a = as.find_visit(visits(:oldcalc6).id)
-    assert_equal 90, a.schengen_days
-    assert_equal 0, a.visa_overstay_days
-
-    a = as.find_visit(visits(:oldcalc7).id)
-    assert_equal 1, a.schengen_days
-  end
-
   test 'test shengen days when user is from schengen country' do
-    user = users(:OldCalcTest)
-    as = Schengen::Calculator.new(user)
-    a = as.find_visit(visits(:oldcalc1).id)
-    assert_equal 1, a.schengen_days
-
-    a = as.find_visit(visits(:oldcalc2).id)
-    assert_equal 30, a.schengen_days
-
     user = users(:EUPerson)
     as = Schengen::Calculator.new(user)
     a = as.find_visit(visits(:testeu1).id)

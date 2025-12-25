@@ -67,6 +67,62 @@ html {
   z-index: 1020; // Bootstrap's default sticky navbar z-index
 }
 
+// Fix contrast issues for accessibility (WCAG AA compliance)
+// Override Bootstrap's .navbar-light default colors for better contrast
+.navbar-light {
+  // Navbar text colors - darker for better contrast on light background
+  .navbar-text {
+    color: #212529 !important; // Dark gray instead of light gray
+  }
+  
+  .navbar-brand {
+    color: #212529 !important;
+    
+    .site-title {
+      color: #212529 !important;
+    }
+  }
+  
+  .nav-link {
+    color: #495057 !important; // Darker gray for better contrast
+    
+    &:hover, &:focus {
+      color: #212529 !important;
+    }
+  }
+  
+  .current-setting {
+    color: #212529 !important;
+    
+    a {
+      color: #007bff !important; // Primary blue for links
+      
+      &:hover {
+        color: #0056b3 !important;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Footer contrast fixes
+.footer.bg-light {
+  color: #212529 !important; // Dark text on light background
+  
+  a {
+    color: #007bff !important; // Primary blue for links
+    
+    &:hover {
+      color: #0056b3 !important;
+      text-decoration: underline;
+    }
+  }
+  
+  p {
+    color: #212529 !important;
+  }
+}
+
 .justify-right{
   justify-content: right;
 }
@@ -85,6 +141,21 @@ html {
 body {
   padding-top: 0px;
   margin-bottom: 60px;
+}
+
+// Global link contrast fixes for WCAG AA compliance
+// Ensure all links have sufficient contrast (4.5:1 minimum)
+a {
+  color: #0056b3; // Darker blue for better contrast on white
+  
+  &:hover, &:focus {
+    color: #003d82; // Even darker on hover
+    text-decoration: underline;
+  }
+  
+  &:visited {
+    color: #6610f2; // Purple for visited links (sufficient contrast)
+  }
 }
 .form-btn {
   min-width: 100px;

@@ -31,7 +31,9 @@
               %span 8 min read
         
         .article-hero
-          = image_tag("switzerland.jpg", class: "hero-image", alt: "Swiss Alps mountain landscape - Extended European travel guide for maximizing your 90 days in Schengen Area", loading: "eager")
+          %picture
+            %source{srcset: image_path("switzerland.webp"), type: "image/webp"}
+            = image_tag("switzerland.jpg", class: "hero-image", alt: "Swiss Alps mountain landscape - Extended European travel guide for maximizing your 90 days in Schengen Area", loading: "eager")
         
         .article-content
           %section.intro-section
@@ -60,7 +62,9 @@
             %p= t('blog.extendedTravel.accessibilityContent')
             
             .figure
-              = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "2025 Schengen Area map showing all 29 member countries including Bulgaria, Romania, and neighboring non-Schengen European countries", loading: "lazy")
+              %picture
+                %source{srcset: image_path("schengen-countries-map-2025.webp"), type: "image/webp"}
+                = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "2025 Schengen Area map showing all 29 member countries including Bulgaria, Romania, and neighboring non-Schengen European countries", loading: "lazy")
               %figcaption
                 Schengen Area and surrounding non-Schengen countries.
                 %br

@@ -117,7 +117,13 @@
 
 
   <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>
-  <%= favicon_link_tag asset_path('favicon.ico') %>
+  
+  <!-- Favicon links for all devices and browsers -->
+  <link rel="icon" type="image/x-icon" href="<%= asset_path('favicon.ico') %>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('favicon-32x32.png') %>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('favicon-16x16.png') %>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
+  
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>

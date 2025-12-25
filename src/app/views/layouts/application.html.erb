@@ -15,6 +15,10 @@
   <meta http-equiv="content-language" content="<%= I18n.locale %>">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="referrer-policy" content="no-referrer-when-downgrade">
+  <% if request.host.include?('test.') %>
+  <!-- Staging environment - prevent search engine indexing -->
+  <meta name="robots" content="noindex, nofollow">
+  <% end %>
   <meta name="description" content="<%= @meta_description || (content_for?(:description) ? yield(:description) : t('default_description')) %>" />
   <meta name="keywords" content="<%= t('keywords') %>">
   <meta property="og:type" content="<%= @og_type || 'website' %>" />

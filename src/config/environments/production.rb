@@ -30,6 +30,18 @@ Rails.application.configure do
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
+  # Compress JavaScript using Terser (modern minifier with ES6+ support)
+  # Configure with source maps for debugging and Lighthouse insights
+  config.assets.js_compressor = Terser.new(
+    compress: { passes: 2 },
+    mangle: true,
+    output: { comments: false }
+  )
+
+  # Generate source maps for minified assets
+  config.assets.debug = false
+  config.assets.digest = true
+
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 

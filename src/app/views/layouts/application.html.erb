@@ -114,9 +114,7 @@
   <!-- Default to English for unmatched locales -->
   <link rel="alternate" href="https://<%= request.host_with_port %>/" hreflang="x-default" />
 
-  <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>
-  <%= favicon_link_tag asset_path('favicon.ico') %>
-  
+  <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>  
   <!-- Load Google Fonts asynchronously to avoid render blocking -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" media="print" onload="this.media='all'; this.onload=null;">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"></noscript>

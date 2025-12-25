@@ -67,9 +67,10 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <div class="col-sm-12">
-          <%= f.submit t('sign_up_page.sign_up_button'), class: "btn btn-primary form-btn float-right" %>
+      <div class="form-group row mt-4">
+        <div class="col-12 d-flex justify-content-between">
+          <%= link_to t('common.cancel', default: 'Cancel'), about_path(locale: I18n.locale), class: "btn btn-secondary" %>
+          <%= f.submit t('sign_up_page.sign_up_button'), class: "btn btn-primary form-btn" %>
         </div>
       </div>
     <% end %>

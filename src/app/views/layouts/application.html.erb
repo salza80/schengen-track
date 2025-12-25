@@ -111,6 +111,11 @@
   <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>
   <%= favicon_link_tag asset_path('favicon.ico') %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <% if controller_name == 'days' %>
+    <%= stylesheet_link_tag 'calendar', media: 'all' %>
+  <% elsif controller_name == 'blogs' %>
+    <%= stylesheet_link_tag 'blog', media: 'all' %>
+  <% end %>
   <%= javascript_include_tag 'core' %>
   <% if controller_name == 'days' %>
     <%= javascript_include_tag 'calendar_bundle' %>

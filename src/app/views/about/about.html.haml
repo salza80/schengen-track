@@ -420,10 +420,10 @@
   $('body').scrollspy({ target: '.page-sidebar', offset: 130 })
   $('.page-sidebar li a').click(function(event) {
     event.preventDefault();
-    var target = $(this).attr('href');
-    var $target = $(target);
+    const target = $(this).attr('href');
+    const $target = $(target);
     if ($target.length) {
-      var scrollToPosition = $target.offset().top - 120;
+      const scrollToPosition = $target.offset().top - 120;
       $('html, body').animate({
         scrollTop: scrollToPosition
       }, 400);

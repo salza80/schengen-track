@@ -112,7 +112,7 @@
 
 :javascript
   // Structured data for SEO
-  var structuredData = {
+  const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "#{t('blog.extendedTravel.title')}",
@@ -134,22 +134,22 @@
     "description": "#{t('blog.extendedTravel.introduction').truncate(160)}"
   };
   
-  var script = document.createElement('script');
+  const script = document.createElement('script');
   script.type = 'application/ld+json';
   script.text = JSON.stringify(structuredData);
   document.head.appendChild(script);
 
   // Social media sharing functionality
   document.addEventListener('DOMContentLoaded', function() {
-    var pageUrl = encodeURIComponent(window.location.href);
-    var pageTitle = encodeURIComponent(document.title);
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
     
     // Share button click handlers
     document.querySelectorAll('.share-btn').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
-        var platform = this.getAttribute('data-share');
-        var shareUrl = '';
+        const platform = this.getAttribute('data-share');
+        let shareUrl = '';
         
         switch(platform) {
           case 'twitter':

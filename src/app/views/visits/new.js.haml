@@ -5,5 +5,5 @@
   $('#visitModal').modal('show');
 
   // Re-initialize cascade dropdowns after form is loaded
-  var country = #{@country_options.html_safe};
-  var CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');
+  const country = #{@country_options.html_safe};
+  const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');

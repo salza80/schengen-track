@@ -131,11 +131,11 @@
   <% elsif controller_name == 'blogs' %>
     <%= stylesheet_link_tag 'blog', media: 'all' %>
   <% end %>
-  <%= javascript_include_tag 'core' %>
+  <%= javascript_include_tag 'core', defer: true %>
   <% if controller_name == 'days' %>
-    <%= javascript_include_tag 'calendar_bundle' %>
+    <%= javascript_include_tag 'calendar_bundle', defer: true %>
   <% elsif controller_name == 'visits' || controller_name == 'visas' %>
-    <%= javascript_include_tag 'visits_bundle' %>
+    <%= javascript_include_tag 'visits_bundle', defer: true %>
   <% end %>
   <%= csrf_meta_tags %>
 </head>

@@ -3,7 +3,5 @@
   $('#visitModal .modal-body').html('#{j render("form")}');
   $('#visitModal .modal-title').text('#{t("visits.edit_title")}');
   $('#visitModal').modal('show');
-
-  // Re-initialize cascade dropdowns after form is loaded
-  const country = #{@country_options.html_safe};
-  const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');
+  
+  // Note: Cascade dropdowns are initialized by the script in _form.html.haml

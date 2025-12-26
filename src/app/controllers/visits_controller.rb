@@ -5,9 +5,9 @@ class VisitsController < ApplicationController
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
   
-  # Skip CSRF verification for .js GET requests (new, edit, for_date)
+  # Skip CSRF verification for .js GET requests (new, edit, for_date, max_stay_info)
   # These are safe read-only operations that need to work with AJAX
-  skip_before_action :verify_authenticity_token, only: [:new, :edit, :for_date], if: -> { request.format.js? || request.format.json? }
+  skip_before_action :verify_authenticity_token, only: [:new, :edit, :for_date, :max_stay_info], if: -> { request.format.js? || request.format.json? }
 
   # GET /visits
   # GET /visits.json
@@ -145,6 +145,91 @@ class VisitsController < ApplicationController
           schengen: v.schengen?
         }}
       }
+    end
+  end
+  
+  # GET /visits/max_stay_info?date=YYYY-MM-DD&country_id=X
+  # Returns max stay information for a given entry date and country
+  def max_stay_info
+    date = Date.parse(params[:date])
+    country = Country.find(params[:country_id])
+    
+    # Check if there's a next visit after this date
+    next_visits = current_user_or_guest_user.visits
+      .where('entry_date > ?', date)
+      .order(:entry_date)
+    
+    # Exclude the current visit being edited if visit_id is provided
+    if params[:visit_id].present?
+      next_visits = next_visits.where.not(id: params[:visit_id])
+    end
+    
+    next_visit = next_visits.first
+    next_visit_constraint_date = next_visit ? next_visit.entry_date - 1.day : nil
+    
+    # Check if this is a Schengen country and user requires visa counting
+    is_schengen = country.schengen?(date)
+    requires_counting = current_user_or_guest_user.nationality.visa_required != 'F'
+    
+    if is_schengen && requires_counting
+      # Calculate Schengen days limit
+      calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
+      day_info = calc.find_by_date(date)
+      
+      if day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
+        schengen_exit_date = date + (day_info.max_remaining_days - 1).days
+        
+        # Compare Schengen limit with next visit constraint
+        if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
+          # Next visit comes before Schengen limit
+          days_until_next = (next_visit.entry_date - date).to_i
+          render json: {
+            show: true,
+            max_days: days_until_next,
+            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+            constrained: true,
+            constraint_type: 'next_visit',
+            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+          }
+        else
+          # Schengen limit is the constraint (or no next visit)
+          render json: {
+            show: true,
+            max_days: day_info.max_remaining_days,
+            exit_date: schengen_exit_date.strftime('%b %d, %Y'),
+            constrained: true,
+            constraint_type: 'schengen'
+          }
+        end
+      else
+        # No Schengen days available, but might have next visit constraint
+        if next_visit_constraint_date
+          days_until_next = (next_visit.entry_date - date).to_i
+          render json: {
+            show: true,
+            max_days: days_until_next,
+            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+            constrained: true,
+            constraint_type: 'next_visit',
+            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+          }
+        else
+          render json: { show: false }
+        end
+      end
+    elsif next_visit_constraint_date
+      # Non-Schengen country but has next visit constraint
+      days_until_next = (next_visit.entry_date - date).to_i
+      render json: {
+        show: true,
+        max_days: days_until_next,
+        exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+        constrained: true,
+        constraint_type: 'next_visit',
+        next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+      }
+    else
+      render json: { show: false }
     end
   end
 

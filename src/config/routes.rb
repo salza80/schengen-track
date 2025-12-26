@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :visits do
       collection do
         get 'for_date' # Get visits for a specific date
+        get 'max_stay_info' # Get max stay info for entry date
       end
     end
     resources :visas, except: [:index, :show]

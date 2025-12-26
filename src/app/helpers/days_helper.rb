@@ -44,7 +44,10 @@ module DaysHelper
     
     # Schengen day count
     parts << "Days used: #{day.schengen_days_count}/90" if day.schengen_days_count
-    parts << "Can stay: #{day.max_remaining_days} more days" if day.max_remaining_days
+    if day.max_remaining_days
+      exit_date = (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y')
+      parts << "Can stay: #{day.max_remaining_days} more days until #{exit_date}"
+    end
 
     if day.overstay_days.positive?
       parts << "<span class='text-danger'>⚠️ SCHENGEN OVERSTAY: +#{day.overstay_days} days</span>"

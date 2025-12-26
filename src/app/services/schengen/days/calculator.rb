@@ -153,60 +153,67 @@ module Schengen
       end
 
       def calc_max_remaining_days_new
-        prev = nil
-        #track of last 180 days change
-        aTracker = Array.new(90,0)
-        @calculated_days.sort.reverse.each do |aday|
-          day = aday[1]
-          unless prev
-            day.max_remaining_days =  90 - day.schengen_days_count
-            prev = day
-            aTracker.unshift(0)
+        # Sort days chronologically (forward in time)
+        sorted_days = @calculated_days.sort_by { |date, day| date }
+        
+        # Calculate max_remaining_days for each day
+        sorted_days.each do |(date, day)|
+          # Skip if already at or over 90 days
+          if day.schengen_days_count >= 90
+            day.max_remaining_days = 0
             next
           end
-
-          if prev.schengen_days_count != day.schengen_days_count
-            aTracker.unshift(1)
-          else
-            aTracker.unshift(0)
-          end
-          aTracker.pop()
-
-         
           
-          if day.schengen_days_count==90
-            day.max_remaining_days=0
-          else
-            cnt = day.schengen_days_count
-            a=0
-            aTracker.each do |n|
-              cnt = cnt + 1 
-              cnt = cnt - n
-              a = a+1
-              break if cnt == 90
+          # Simulate staying consecutive days starting from this date
+          current_count = day.schengen_days_count
+          max_days = 0
+          
+          # Try staying for up to 90 days (or until we hit the limit)
+          0.upto(89) do |k|
+            simulated_date = date + k.days
+            
+            # Add 1 for staying this day
+            current_count += 1
+            
+            # Subtract the day that falls off the 180-day rolling window
+            day_falling_off_date = simulated_date - 180.days
+            falling_off_day = @calculated_days[day_falling_off_date]
+            if falling_off_day
+              current_count -= falling_off_day.schengen_day_int
             end
-            day.max_remaining_days =  a
-          end
-
-          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days && !prev.warning?
-            @next_entry_days.unshift(prev)
-          end
-
-          if day.schengen?
-            if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days && !prev.warning?
-              @next_entry_days.unshift(prev)
+            
+            # If we've exceeded 90 days, we can't stay this day (but could stay previous days)
+            if current_count > 90
+              max_days = k
+              break
             end
-            return
+            
+            # Otherwise we can stay at least this many days (including day k, so k+1 total)
+            max_days = k + 1
           end
-          prev = day
-
+          
+          day.max_remaining_days = max_days
         end
         
-        # Add the last day if it's a valid entry point (not in waiting period and has available days)
-        if prev && prev.max_remaining_days > 0 && !prev.warning?
-          @next_entry_days.unshift(prev)
+        # Build next_entry_days list - days when you should consider entering
+        prev_day = nil
+        sorted_days.each do |(date, day)|
+          # Skip if in Schengen, in warning period, or no days available
+          next if day.schengen? || day.warning? || day.max_remaining_days == 0
+          
+          # Only include future dates (today or later)
+          next if date < Date.today
+          
+          # Add to next_entry_days if this is a good entry point:
+          # - First day outside Schengen with available days, or
+          # - Previous day was in Schengen, or
+          # - max_remaining_days changed from previous day
+          if prev_day.nil? || prev_day.schengen? || prev_day.max_remaining_days != day.max_remaining_days
+            @next_entry_days << day
+          end
+          
+          prev_day = day
         end
-
       end
 
       def find_visa_for_date(date)

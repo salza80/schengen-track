@@ -14,13 +14,13 @@ en:
     legend_overstay: Overstay
     legend_safe: In Schengen (Safe)
     legend_waiting: Waiting Period
-    legend_warning: Near Limit (80+ days)
     max_days_reached: Peak
     max_remaining_days: Max remaining days - Is the maximum amount of time you can stay in the Schengen area if you re-enter on this day.
     need_help: Need help understanding the rule?
     next_entry_options: Earliest Re-entry Dates
     no_visits_this_year: No visits in %{year}
     overstay_na: N/A
+    overstay_tooltip: You have overstayed the 90/180 days
     page_title: Schengen 90/180 Day Calculator
     schengen_days_in_year: Days in Schengen
     schengen_no: 'No'
@@ -43,8 +43,10 @@ en:
       schengen_days_used_tooltip: The number of days inside the Schengen Area in the previous 180 days.
     until_date: until %{date}
     view_table: View in Table
+    visa_ok_tooltip: You have a valid visa as at today
     visa_status_label: Visa Status
     visa_status_ok: 'Visa Status: OK'
     visa_warning: Visa Required!
     visits_count: Visits
+    waiting_period_tooltip: Since you previously overstayed, a 180 day waiting period is in place.
     year_summary: "%{year} Summary"

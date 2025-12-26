@@ -134,6 +134,12 @@
     font-weight: 600;
   }
   
+  .day-visa-count {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
   .day-overstay,
   .day-wait {
     text-align: center;
@@ -168,6 +174,10 @@
   background-color: $calendar-waiting;
   color: $calendar-waiting-text;
   border: 2px solid darken($calendar-waiting, 10%) !important;
+  
+  .day-wait {
+    color: $calendar-waiting-text;
+  }
 }
 
 // Current day highlight (Option C: Background accent)

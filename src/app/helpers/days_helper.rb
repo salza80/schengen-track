@@ -10,7 +10,7 @@ module DaysHelper
     return 'waiting-period' if day.warning?
 
     if day.schengen?
-      day.schengen_days_count && day.schengen_days_count >= 80 ? 'in-schengen-warning' : 'in-schengen-safe'
+      'in-schengen-safe'
     else
       'outside-schengen'
     end

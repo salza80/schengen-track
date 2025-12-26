@@ -110,22 +110,25 @@ class DaysController < ApplicationController
               else
                 'safe'
               end,
-      last_calculated_date: today_day.the_date
+      last_calculated_date: today_day.the_date,
+      in_waiting_period: today_day.warning?,
+      outside_schengen: !today_day.schengen?
     }
     
-    # Add visa status for visa-required users
-    if current_user_or_guest_user.visa_required?
+    # Add visa status for visa-required users ONLY when in Schengen
+    if current_user_or_guest_user.visa_required? && today_day.schengen?
       if today_day.respond_to?(:visa_valid?) && today_day.respond_to?(:visa_entry_valid?)
-        visa_ok = today_day.visa_valid? && today_day.visa_entry_valid?
-        @status_summary[:visa_status] = visa_ok ? 'ok' : 'warning'
-        
-        # Determine specific visa issue type
-        if !visa_ok
-          if today_day.schengen? && today_day.visa.nil?
-            @status_summary[:visa_issue_type] = 'no_visa'
-          elsif !today_day.visa_entry_valid?
-            @status_summary[:visa_issue_type] = 'entry_limit_exceeded'
-          end
+        # Check if in Schengen without visa first
+        if today_day.visa.nil?
+          @status_summary[:visa_status] = 'warning'
+          @status_summary[:visa_issue_type] = 'no_visa'
+        elsif !today_day.visa_entry_valid?
+          @status_summary[:visa_status] = 'warning'
+          @status_summary[:visa_issue_type] = 'entry_limit_exceeded'
+        elsif !today_day.visa_valid?
+          @status_summary[:visa_status] = 'warning'
+        else
+          @status_summary[:visa_status] = 'ok'
         end
         
         # Add entry count display if visa has limited entries (regardless of whether exceeded)

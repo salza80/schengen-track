@@ -14,13 +14,13 @@ hi:
     legend_overstay: अधिक ठहराव
     legend_safe: Schengen में (सुरक्षित)
     legend_waiting: प्रतीक्षा अवधि
-    legend_warning: सीमा के निकट (80+ दिन)
     max_days_reached: शिखर
     max_remaining_days: अधिकतम शेष दिन - यदि आप इस दिन पर पुनः प्रवेश करें, तो आप शेंगेन क्षेत्र में रहने के लिए अधिकतम समय रख सकते हैं।
     need_help: नियम को समझने में मदद चाहिए?
     next_entry_options: सबसे पहली पुनः प्रवेश तिथियाँ
     no_visits_this_year: "%{year} में कोई यात्रा नहीं"
     overstay_na: N/A
+    overstay_tooltip: आपने 90/180 दिनों से अधिक रुके हैं
     page_title: शेंगेन 90/180 दिन कैलकुलेटर
     schengen_days_in_year: Schengen में दिन
     schengen_no: नहीं
@@ -43,8 +43,10 @@ hi:
       schengen_days_used_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में दिनों की संख्या।
     until_date: "%{date} तक"
     view_table: तालिका में देखें
+    visa_ok_tooltip: आज की तारीख तक आपके पास वैध वीजा है
     visa_status_label: वीज़ा स्थिति
     visa_status_ok: 'वीज़ा स्थिति: ठीक है'
     visa_warning: वीजा आवश्यक!
     visits_count: यात्राएं
+    waiting_period_tooltip: चूंकि आपने पहले अधिक समय तक रुके थे, इसलिए 180 दिन की प्रतीक्षा अवधि लागू है।
     year_summary: "%{year} सारांश"

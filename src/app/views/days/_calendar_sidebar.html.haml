@@ -16,8 +16,14 @@
             .h5.mb-0
               %strong= @status_summary[:current_days]
               %span.text-muted / 90
-              %span.badge.ml-2{class: status_badge_class(@status_summary[:status])}
+              %span.badge.ml-2{class: status_badge_class(@status_summary[:status]), title: (@status_summary[:status] == 'overstay' ? t('days.overstay_tooltip') : nil), data: (@status_summary[:status] == 'overstay' ? {toggle: 'tooltip', placement: 'top'} : {})}
+                - if @status_summary[:status] == 'overstay'
+                  %i.fa.fa-exclamation-triangle
                 = t("days.status_#{@status_summary[:status]}")
+              - if @status_summary[:in_waiting_period] && @status_summary[:outside_schengen]
+                %span.badge.badge-warning.ml-2{title: t('days.waiting_period_tooltip'), data: {toggle: 'tooltip', placement: 'top'}}
+                  %i.fa.fa-clock
+                  = t('days.legend_waiting')
           .mb-2
             %small.text-muted= t('days.days_remaining')
             .h5.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}
@@ -27,7 +33,7 @@
               %small.text-muted= t('days.visa_status_label')
               .h5.mb-0
                 - if @status_summary[:visa_status] == 'ok'
-                  %span.badge.badge-success
+                  %span.badge.badge-success{title: t('days.visa_ok_tooltip'), data: {toggle: 'tooltip', placement: 'top'}}
                     %i.fa.fa-check
                     = t('days.visa_status_ok')
                   - if @status_summary[:visa_entries_display]
@@ -56,9 +62,6 @@
       .legend-item.d-flex.align-items-center.mb-2
         .legend-color.in-schengen-safe.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
         %small= t('days.legend_safe')
-      .legend-item.d-flex.align-items-center.mb-2
-        .legend-color.in-schengen-warning.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
-        %small= t('days.legend_warning')
       .legend-item.d-flex.align-items-center.mb-2
         .legend-color.overstay.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
         %small= t('days.legend_overstay')

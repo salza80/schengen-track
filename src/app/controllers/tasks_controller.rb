@@ -28,7 +28,9 @@ class TasksController < ApplicationController
   end
 
   def guest_cleanup
+    max_batches = params[:max_batches]
     rake_guest_cleanup = "db:guest_cleanup"
+    rake_guest_cleanup += "[,#{max_batches}]" if max_batches.present?
     @success = system("rake #{rake_guest_cleanup}")
     render_json_response
   end

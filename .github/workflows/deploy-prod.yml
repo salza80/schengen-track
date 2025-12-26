@@ -110,33 +110,32 @@ jobs:
         run: |
           echo "Running database migrations on production..."
           response=$(curl -s "https://schengen-calculator.com/migrate?token=${{ secrets.TASK_PASSWORD }}")
-          echo "Migration response: $response"
           if echo "$response" | grep -q '"success":true'; then
             echo "✓ Migrations completed successfully"
           else
-            echo "⚠ Migration response: $response"
+            echo "⚠ Migration failed"
+            echo "$response"
           fi
 
       - name: Update countries data
         run: |
           echo "Updating countries data from XML..."
           response=$(curl -s "https://schengen-calculator.com/update_countries?token=${{ secrets.TASK_PASSWORD }}")
-          echo "Update countries response: $response"
           if echo "$response" | grep -q '"success":true'; then
             echo "✓ Countries data updated successfully"
           else
-            echo "⚠ Update countries response: $response"
+            echo "⚠ Countries update failed"
+            echo "$response"
           fi
 
       - name: Clean up guest users
         run: |
-          echo "Cleaning up old guest user accounts..."
-          response=$(curl -s "https://schengen-calculator.com/guest_cleanup?token=${{ secrets.TASK_PASSWORD }}")
-          echo "Guest cleanup response: $response"
+          echo "Cleaning up old guest user accounts (max 5 batches/500 users)..."
+          response=$(curl -s "https://schengen-calculator.com/guest_cleanup?token=${{ secrets.TASK_PASSWORD }}&max_batches=5")
           if echo "$response" | grep -q '"success":true'; then
             echo "✓ Guest cleanup completed successfully"
           else
-            echo "⚠ Guest cleanup response: $response"
+            echo "⚠ Guest cleanup failed"
           fi
       
       - name: Perform CloudFront Invalidation

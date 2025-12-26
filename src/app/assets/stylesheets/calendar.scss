@@ -171,6 +171,7 @@
 }
 
 // Current day highlight (Option C: Background accent)
+// Note: Critical warnings (overstay, visa issues) take precedence over current-day styling
 .day-cell.current-day {
   background-color: lighten($primary, 45%) !important;
   border: 2px solid $primary !important;
@@ -179,6 +180,32 @@
     color: $primary;
     font-weight: 900;
   }
+}
+
+// Override current-day styling for critical warning states
+.day-cell.current-day.overstay {
+  background-color: $calendar-overstay !important;
+  border: 3px solid darken($calendar-overstay, 15%) !important;
+  
+  .day-number {
+    color: $calendar-overstay-text;
+    font-weight: 900;
+  }
+}
+
+.day-cell.current-day.waiting-period {
+  background-color: $calendar-waiting !important;
+  border: 3px solid darken($calendar-waiting, 15%) !important;
+  
+  .day-number {
+    color: $calendar-waiting-text;
+    font-weight: 900;
+  }
+}
+
+// Optional: Also highlight current-day warnings more prominently
+.day-cell.current-day.in-schengen-warning {
+  border: 3px solid darken($calendar-warning, 15%) !important;
 }
 
 // Mobile responsive (updated for smaller cells)

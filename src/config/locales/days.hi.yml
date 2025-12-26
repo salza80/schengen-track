@@ -5,6 +5,7 @@ hi:
     days: दिन
     days_remaining: शेष दिन
     days_used: उपयोग किए गए दिन
+    entry_limit_exceeded: प्रवेश सीमा पार हो गई
     from_date_onwards: "%{date} से आगे"
     full_stay: पूरे 90 दिन!
     learn_about_rule: 90/180 दिन नियम के बारे में जानें
@@ -42,7 +43,8 @@ hi:
       schengen_days_used_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में दिनों की संख्या।
     until_date: "%{date} तक"
     view_table: तालिका में देखें
+    visa_status_label: वीज़ा स्थिति
     visa_status_ok: 'वीज़ा स्थिति: ठीक है'
-    visa_warning: वीज़ा समस्या
+    visa_warning: वीजा आवश्यक!
     visits_count: यात्राएं
     year_summary: "%{year} सारांश"

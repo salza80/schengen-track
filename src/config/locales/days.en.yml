@@ -5,6 +5,7 @@ en:
     days: days
     days_remaining: Days Remaining
     days_used: days used
+    entry_limit_exceeded: Entry Limit Exceeded
     from_date_onwards: From %{date} onwards
     full_stay: Full 90 days!
     learn_about_rule: Learn About the 90/180 Day Rule
@@ -42,7 +43,8 @@ en:
       schengen_days_used_tooltip: The number of days inside the Schengen Area in the previous 180 days.
     until_date: until %{date}
     view_table: View in Table
+    visa_status_label: Visa Status
     visa_status_ok: 'Visa Status: OK'
-    visa_warning: Visa Issue
+    visa_warning: Visa Required!
     visits_count: Visits
     year_summary: "%{year} Summary"

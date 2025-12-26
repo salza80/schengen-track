@@ -5,6 +5,7 @@ zh-CN:
     days: 天
     days_remaining: 剩余天数
     days_used: 已用天数
+    entry_limit_exceeded: 超出入境次数限制
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
     learn_about_rule: 了解90/180天规则
@@ -42,7 +43,8 @@ zh-CN:
       schengen_days_used_tooltip: 在过去180天内在申根区内的天数。
     until_date: 直到 %{date}
     view_table: 表格视图
+    visa_status_label: 签证状态
     visa_status_ok: 签证状态：正常
-    visa_warning: 签证问题
+    visa_warning: 需要签证！
     visits_count: 访问次数
     year_summary: "%{year}年摘要"

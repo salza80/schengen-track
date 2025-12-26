@@ -21,10 +21,10 @@ $blue:    #2196f3 !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
-$red:     #ff6b35 !default;  // Softer coral/orange instead of harsh red #e51c23
+$red:     #dc3545 !default;  // Standard Bootstrap red for danger states (matches overstay)
 $orange:  #fd7e14 !default;
-$yellow:  #ff9800 !default;
-$green:   #7bc043 !default;  // Darker lime green to match header green #d8ffa2
+$yellow:  #ffc107 !default;  // Warmer yellow - darker shade of calendar warning #fff3cd
+$green:   #7bc043 !default;  // Lime green family - darker version of header green #d8ffa2
 $teal:    #20c997 !default;
 $cyan:    #9c27b0 !default;
 

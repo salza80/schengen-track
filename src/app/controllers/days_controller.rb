@@ -119,9 +119,18 @@ class DaysController < ApplicationController
         visa_ok = today_day.visa_valid? && today_day.visa_entry_valid?
         @status_summary[:visa_status] = visa_ok ? 'ok' : 'warning'
         
+        # Determine specific visa issue type
+        if !visa_ok
+          if today_day.schengen? && today_day.visa.nil?
+            @status_summary[:visa_issue_type] = 'no_visa'
+          elsif !today_day.visa_entry_valid?
+            @status_summary[:visa_issue_type] = 'entry_limit_exceeded'
+          end
+        end
+        
         # Add entry count display if visa has limited entries (regardless of whether exceeded)
         if today_day.respond_to?(:has_limited_entries?) && today_day.has_limited_entries?
-          @status_summary[:visa_entries_display] = "#{today_day.visa_entry_count}/#{today_day.visa_entries_allowed} entries"
+          @status_summary[:visa_entries_display] = "#{today_day.visa_entry_count}/#{today_day.visa_entries_allowed}"
           
           # Add flag if entries exceeded
           if today_day.respond_to?(:visa_entry_count) && today_day.respond_to?(:visa_entries_allowed)

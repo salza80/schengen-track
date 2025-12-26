@@ -22,6 +22,27 @@
             %small.text-muted= t('days.days_remaining')
             .h5.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}
               %strong= @status_summary[:remaining_days]
+          - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
+            .mb-2.mt-3.pt-3.border-top
+              %small.text-muted= t('days.visa_status_label')
+              .h5.mb-0
+                - if @status_summary[:visa_status] == 'ok'
+                  %span.badge.badge-success
+                    %i.fa.fa-check
+                    = t('days.visa_status_ok')
+                  - if @status_summary[:visa_entries_display]
+                    %small.ml-2.text-muted
+                      = @status_summary[:visa_entries_display]
+                - elsif @status_summary[:visa_issue_type] == 'entry_limit_exceeded'
+                  - if @status_summary[:visa_entries_display]
+                    %strong.mr-2= @status_summary[:visa_entries_display]
+                  %span.badge.badge-danger
+                    %i.fa.fa-exclamation-triangle
+                    = t('days.entry_limit_exceeded')
+                - else
+                  %span.badge.badge-danger
+                    %i.fa.fa-exclamation-triangle
+                    = t('days.visa_warning')
   -# Legend
   .sidebar-section.card
     .card-header.bg-dark.text-white

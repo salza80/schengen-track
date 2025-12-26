@@ -5,6 +5,7 @@ tr:
     days: gün
     days_remaining: Kalan Günler
     days_used: kullanılan günler
+    entry_limit_exceeded: Giriş Limiti Aşıldı
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
     learn_about_rule: 90/180 Gün Kuralı Hakkında Bilgi Edinin
@@ -42,7 +43,8 @@ tr:
       schengen_days_used_tooltip: Önceki 180 gün içinde Schengen Alanı'nda geçirilen gün sayısı.
     until_date: "%{date} tarihine kadar"
     view_table: Tabloda Görüntüle
+    visa_status_label: Vize Durumu
     visa_status_ok: 'Vize Durumu: Tamam'
-    visa_warning: Vize Sorunu
+    visa_warning: Vize Gerekli!
     visits_count: Ziyaretler
     year_summary: "%{year} Özeti"

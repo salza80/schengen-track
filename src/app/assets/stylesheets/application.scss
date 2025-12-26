@@ -11,10 +11,6 @@
  * file per style scope.
  */
 
-// Override Bootstrap danger color BEFORE variables are loaded
-$red: #ff6b35;  // Softer coral/orange instead of harsh red
-$danger: #ff6b35;
-
 // import theme variables
 @import "_variables.scss";
 // import customisatons to theme
@@ -27,6 +23,22 @@ $danger: #ff6b35;
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)
 @import "about";
 @import "responsive_table";
+
+// Override badge colors to match calendar colors
+.badge-success {
+  background-color: $calendar-safe;
+  color: $calendar-safe-text;
+}
+
+.badge-warning {
+  background-color: $calendar-warning;
+  color: $calendar-warning-text;
+}
+
+.badge-danger {
+  background-color: $calendar-overstay;
+  color: $calendar-overstay-text;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */

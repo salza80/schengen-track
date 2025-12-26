@@ -9,7 +9,9 @@ module DaysHelper
     return 'overstay' if day.respond_to?(:visa_warning?) && day.visa_warning?
     return 'waiting-period' if day.warning?
 
-    if day.schengen?
+    if day.schengen? && day.schengen_days_count && day.schengen_days_count >= 80
+      'in-schengen-warning'
+    elsif day.schengen?
       'in-schengen-safe'
     else
       'outside-schengen'
@@ -44,7 +46,7 @@ module DaysHelper
     
     # Schengen day count
     parts << "Days used: #{day.schengen_days_count}/90" if day.schengen_days_count
-    if day.max_remaining_days
+    if day.max_remaining_days && day.the_date
       exit_date = (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y')
       parts << "Can stay: #{day.max_remaining_days} more days until #{exit_date}"
     end

@@ -113,6 +113,7 @@ class DaysHelperTest < ActionView::TestCase
       hasCountry?: true,
       country_name: 'Germany',
       stayed_country: country,
+      the_date: Date.new(2024, 1, 1),
       schengen_days_count: 60,
       max_remaining_days: 30,
       overstay_days: 0,

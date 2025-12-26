@@ -2,8 +2,10 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'active_support/testing/time_helpers'
 
 class ActiveSupport::TestCase
+  include ActiveSupport::Testing::TimeHelpers
   fixtures :all
 
   # Add more helper methods to be used by all tests here...

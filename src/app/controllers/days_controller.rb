@@ -42,7 +42,7 @@ class DaysController < ApplicationController
     
     @selected_year = requested_year
     
-    # Set month for scrolling
+    # Set month and day for scrolling
     # Only default to current month if:
     # 1. Month param is provided, OR
     # 2. Year is current year (or no year specified)
@@ -53,6 +53,9 @@ class DaysController < ApplicationController
     else
       @scroll_to_month = nil # Don't scroll if viewing a different year without month param
     end
+    
+    # Set specific day for scrolling and highlighting
+    @scroll_to_day = params[:day].to_i if params[:day].present?
     
     # Only show prev/next year buttons if within ±20 year range
     @prev_year = @selected_year - 1 if @selected_year > min_year

@@ -49,6 +49,10 @@
                   %span.badge.badge-danger
                     %i.fa.fa-exclamation-triangle
                     = t('days.visa_warning')
+          .text-center.mt-3
+            = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
+              %i.fa.fa-calendar.mr-1
+              = t('days.jump_to_today')
   -# Legend
   .sidebar-section.card
     .card-header.bg-dark.text-white
@@ -78,7 +82,7 @@
           = t('days.next_entry_options')
       .card-body.p-2
         - @next_entry_days.take(3).each do |day|
-          .next-entry-item.border-bottom.py-2.px-2
+          = link_to days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: "next-entry-item border-bottom py-2 px-2 d-block text-decoration-none", style: "cursor: pointer;" do
             .entry-date
               %strong.text-primary
                 = t('days.from_date_onwards', date: day.the_date.strftime('%b %d, %Y'))

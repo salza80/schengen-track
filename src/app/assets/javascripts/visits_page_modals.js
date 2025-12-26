@@ -100,10 +100,11 @@
         
         var year = $(this).data('entry-year');
         var month = $(this).data('entry-month');
+        var day = $(this).data('entry-day');
         var locale = $('html').attr('lang') || 'en';
         
         // Navigate to calendar page with year and month
-        window.location.href = '/' + locale + '/days?year=' + year + '&month=' + month;
+        window.location.href = '/' + locale + '/days?year=' + year + '&month=' + month + '&day=' + day;
       });
     },
     

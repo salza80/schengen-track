@@ -8,6 +8,7 @@ zh-CN:
     entry_limit_exceeded: 超出入境次数限制
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
+    jump_to_today: 跳转到今天
     learn_about_rule: 了解90/180天规则
     legend: 图例
     legend_outside: 申根区外

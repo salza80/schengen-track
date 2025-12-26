@@ -60,9 +60,9 @@ module Schengen
       end
 
       def end_date
-        # Always calculate through today or 180 days after last visit, whichever is later
+        # Always calculate through today or 190 days after last visit, whichever is later
         # This ensures status summary always has today's data
-        [Date.today, @visits.last.exit_date + 180.days].max
+        [Date.today, @visits.last.exit_date + 190.days].max
       end
 
       def generate_days
@@ -139,7 +139,7 @@ module Schengen
             sd.overstay_waiting = prev_sd.overstay_waiting + 1
           end
 
-          if sd.overstay_waiting > 180
+          if sd.overstay_waiting >= 180
             count=0
             sd.overstay_waiting=0
           end
@@ -161,6 +161,7 @@ module Schengen
           unless prev
             day.max_remaining_days =  90 - day.schengen_days_count
             prev = day
+            aTracker.unshift(0)
             next
           end
 
@@ -187,19 +188,24 @@ module Schengen
             day.max_remaining_days =  a
           end
 
-          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
+          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days && !prev.warning?
             @next_entry_days.unshift(prev)
           end
 
           if day.schengen?
-            if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days
+            if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days && !prev.warning?
               @next_entry_days.unshift(prev)
             end
             return
           end
           prev = day
 
-        end 
+        end
+        
+        # Add the last day if it's a valid entry point (not in waiting period and has available days)
+        if prev && prev.max_remaining_days > 0 && !prev.warning?
+          @next_entry_days.unshift(prev)
+        end
 
       end
 

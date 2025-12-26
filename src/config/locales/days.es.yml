@@ -8,6 +8,7 @@ es:
     entry_limit_exceeded: Límite de entradas excedido
     from_date_onwards: Desde %{date} en adelante
     full_stay: "¡90 días completos!"
+    jump_to_today: Ir a hoy
     learn_about_rule: Aprenda sobre la Regla de 90/180 Días
     legend: Leyenda
     legend_outside: Fuera de Schengen

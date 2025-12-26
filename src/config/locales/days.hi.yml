@@ -8,6 +8,7 @@ hi:
     entry_limit_exceeded: प्रवेश सीमा पार हो गई
     from_date_onwards: "%{date} से आगे"
     full_stay: पूरे 90 दिन!
+    jump_to_today: आज की तारीख पर जाएं
     learn_about_rule: 90/180 दिन नियम के बारे में जानें
     legend: संकेत
     legend_outside: Schengen के बाहर

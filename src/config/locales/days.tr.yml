@@ -8,6 +8,7 @@ tr:
     entry_limit_exceeded: Giriş Limiti Aşıldı
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
+    jump_to_today: Bugüne Git
     learn_about_rule: 90/180 Gün Kuralı Hakkında Bilgi Edinin
     legend: Açıklama
     legend_outside: Schengen Dışında

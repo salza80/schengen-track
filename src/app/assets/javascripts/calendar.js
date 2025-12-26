@@ -52,26 +52,56 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (scrollTarget) {
     var targetMonth = scrollTarget.getAttribute('data-month');
+    var targetDay = scrollTarget.getAttribute('data-day');
     
     if (targetMonth) {
-      // Try to find month element
-      var monthElement = document.querySelector('.calendar-month[data-month="' + targetMonth + '"]');
-      
-      if (monthElement) {
-        // Wait for page to fully render
-        setTimeout(function() {
-          // Offset for sticky header (year nav is ~80-100px)
-          var offset = 100;
-          var elementPosition = monthElement.getBoundingClientRect().top + window.pageYOffset;
-          var offsetPosition = elementPosition - offset;
-                    
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }, 500); // Increased delay to 500ms
+      // If specific day is provided, scroll to and highlight it
+      if (targetDay) {
+        var year = new URL(window.location.href).searchParams.get('year') || new Date().getFullYear();
+        var month = targetMonth.padStart(2, '0');
+        var day = targetDay.padStart(2, '0');
+        var targetDate = year + '-' + month + '-' + day;
+        var targetDayCell = document.querySelector('[data-date="' + targetDate + '"]');
+        
+        if (targetDayCell) {
+          setTimeout(function() {
+            // Scroll to the day cell
+            var offset = 150;
+            var elementPosition = targetDayCell.getBoundingClientRect().top + window.pageYOffset;
+            var offsetPosition = elementPosition - offset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+            
+            // Add flashing animation
+            targetDayCell.classList.add('highlight-day');
+            setTimeout(function() {
+              targetDayCell.classList.remove('highlight-day');
+            }, 3000);
+          }, 500);
+        }
       } else {
-        console.warn('Month element not found for month:', targetMonth);
+        // Just scroll to month
+        var monthElement = document.querySelector('.calendar-month[data-month="' + targetMonth + '"]');
+        
+        if (monthElement) {
+          // Wait for page to fully render
+          setTimeout(function() {
+            // Offset for sticky header (year nav is ~80-100px)
+            var offset = 100;
+            var elementPosition = monthElement.getBoundingClientRect().top + window.pageYOffset;
+            var offsetPosition = elementPosition - offset;
+                      
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }, 500); // Increased delay to 500ms
+        } else {
+          console.warn('Month element not found for month:', targetMonth);
+        }
       }
     }
   } else {

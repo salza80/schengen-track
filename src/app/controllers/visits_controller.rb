@@ -19,8 +19,12 @@ class VisitsController < ApplicationController
 
     calc = Schengen::Calculator.new(current_user_or_guest_user)
     @visits = calc.visits
-    @visas = current_user_or_guest_user.visas.all if current_user_or_guest_user.visa_required?
+    if current_user_or_guest_user.visa_required?
+      @visas = current_user_or_guest_user.visas.all
+    end
     @next_entry_days = calc.next_entry_days
+    setup_sidebar_data(calc)
+    @show_sidebar_legend = false
     
     # Set SEO meta tags for visits page
     set_visits_meta_tags
@@ -234,6 +238,57 @@ class VisitsController < ApplicationController
   end
 
   private
+    def setup_sidebar_data(calc)
+      @days = calc.calculated_days
+      @overstay = calc.schengen_overstay?
+      calculate_status_summary_for_visits
+    end
+
+    def calculate_status_summary_for_visits
+      return unless @days&.any?
+
+      today = Date.today
+      today_day = @days.find { |d| d.the_date == today } || @days.max_by(&:the_date)
+
+      @status_summary = {
+        current_days: today_day.schengen_days_count || 0,
+        max_days: 90,
+        remaining_days: [90 - (today_day.schengen_days_count || 0), 0].max,
+        status: if today_day.overstay?
+                  'overstay'
+                elsif (today_day.schengen_days_count || 0) >= 80
+                  'warning'
+                else
+                  'safe'
+                end,
+        last_calculated_date: today_day.the_date,
+        in_waiting_period: today_day.warning?,
+        outside_schengen: !today_day.schengen?
+      }
+
+      if current_user_or_guest_user.visa_required? && today_day.schengen?
+        if today_day.respond_to?(:visa_valid?) && today_day.respond_to?(:visa_entry_valid?)
+          if today_day.visa.nil?
+            @status_summary[:visa_status] = 'warning'
+            @status_summary[:visa_issue_type] = 'no_visa'
+          elsif !today_day.visa_entry_valid?
+            @status_summary[:visa_status] = 'warning'
+            @status_summary[:visa_issue_type] = 'entry_limit_exceeded'
+          elsif !today_day.visa_valid?
+            @status_summary[:visa_status] = 'warning'
+          else
+            @status_summary[:visa_status] = 'ok'
+          end
+
+          if today_day.respond_to?(:has_limited_entries?) && today_day.has_limited_entries?
+            @status_summary[:visa_entries_display] = "#{today_day.visa_entry_count}/#{today_day.visa_entries_allowed}"
+            if today_day.respond_to?(:visa_entry_count) && today_day.respond_to?(:visa_entries_allowed)
+              @status_summary[:visa_entries_exceeded] = today_day.visa_entry_count > today_day.visa_entries_allowed
+            end
+          end
+        end
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_visit
       @visit = current_user_or_guest_user.visits.find(params[:id])

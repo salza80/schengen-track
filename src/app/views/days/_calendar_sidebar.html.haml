@@ -1,4 +1,5 @@
-.calendar-sidebar.sticky-top{style: "top: 91px; max-height: calc(100vh - 111px); overflow-y: auto;"}
+- sticky_sidebar = local_assigns.fetch(:sticky_sidebar, true)
+.calendar-sidebar{class: (sticky_sidebar ? 'sticky-top' : nil), style: (sticky_sidebar ? "top: 91px; max-height: calc(100vh - 150px); overflow-y: auto; bottom: 60px;" : nil)}
   -# Status information (if available)
   - if @status_summary
     .sidebar-section.card.mb-2
@@ -54,7 +55,8 @@
               %i.fa.fa-calendar.mr-1
               = t('days.jump_to_today')
   -# Legend
-  .sidebar-section.card
+  - if @show_sidebar_legend.nil? || @show_sidebar_legend
+    .sidebar-section.card
     .card-header.bg-dark.text-white
       %h6.mb-0
         %i.fa.fa-palette

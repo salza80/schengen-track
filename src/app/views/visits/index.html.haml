@@ -10,37 +10,44 @@
   %p
     = t('visits.for_further_information', about_page_link: link_to(t('common.about_page'), about_path(locale: I18n.locale))).html_safe
 %br
-= render 'nextEntryDays'
-- if current_user_or_guest_user.visa_required?
-  %h2= t('visits.schengen_visa_list')
-  .row.py-1
-    .col-md-12.text-right
-      %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visa"}
-        %i.fa.fa-plus{"aria-hidden" => "true"}
-        =t('visits.add_visa')
-  .row
-    .col-md-12
-      = render 'visas/visalist'
-
-%h2= t('visits.travel_record')
-.row.py-1
-  .col.d-flex.align-items-center
-    - if @visits.count > 0
-      = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md" do
-        %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
-        = t('visits.export_to_csv')
-  .col-auto.ml-auto
-    %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visit"}
-      %i.fa.fa-plus{"aria-hidden" => "true"}
-      = t('visits.add_travel')
-
 .row
-  .col-md-12
-    = render 'visitlist'
-.row
-  .col-lg-10.col-md-12
-    .ad-block-limit
-      %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
+  .col-lg-9
+    - if current_user_or_guest_user.visa_required?
+      %h2= t('visits.schengen_visa_list')
+      .row.py-1
+        .col-md-12.text-right
+          %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visa"}
+            %i.fa.fa-plus{"aria-hidden" => "true"}
+            =t('visits.add_visa')
+      .row
+        .col-md-12
+          = render 'visas/visalist'
+
+    %h2= t('visits.travel_record')
+    .row.py-1
+      .col.d-flex.align-items-center
+        - if @visits.count > 0
+          = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md" do
+            %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
+            = t('visits.export_to_csv')
+      .col-auto.ml-auto
+        %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visit"}
+          %i.fa.fa-plus{"aria-hidden" => "true"}
+          = t('visits.add_travel')
+
+    .row
+      .col-md-12
+        = render 'visitlist'
+    .row
+      .col-lg-10.col-md-12
+        .ad-block-limit
+          %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
+  .col-lg-3.d-none.d-lg-block.mb-5{style: "padding-bottom: 220px;"}
+    = render 'days/calendar_sidebar'
+
+.row.d-lg-none.mt-2
+  .col-12
+    = render 'days/calendar_sidebar', sticky_sidebar: false
 
 -# Modal for adding/editing visits
 #visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1"}

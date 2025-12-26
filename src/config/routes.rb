@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     get 'create' => 'tasks#create'
     get 'seed' => 'tasks#seed'
     get 'update_countries' => 'tasks#update_countries'
+    get 'guest_cleanup' => 'tasks#guest_cleanup'
 
     devise_for :users, skip: :omniauth_callbacks, controllers: {
       registrations: 'users/registrations',

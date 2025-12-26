@@ -16,6 +16,7 @@ namespace :db do
     max_batches = args.max_batches ? args.max_batches.to_i : nil
     batches_processed = 0
     deleted_count = 0
+    remaining_count = 0
 
     ActiveRecord::Base.transaction do
       begin 
@@ -26,9 +27,9 @@ namespace :db do
           batches_processed += 1
           
           if max_batches && batches_processed >= max_batches
-            remaining = User.where("updated_at <= :limit AND guest=:istrue", { limit: args.limit_date, istrue: true }).count
-            puts "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining} old guest users remaining."
-            Rails.logger.info "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining} old guest users remaining."
+            remaining_count = User.where("updated_at <= :limit AND guest=:istrue", { limit: args.limit_date, istrue: true }).count
+            puts "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining_count} old guest users remaining."
+            Rails.logger.info "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining_count} old guest users remaining."
             break
           end
         end
@@ -38,6 +39,15 @@ namespace :db do
         puts 'Number of user accounts: ' + User.count.to_s
         puts 'Number of Visits:' + Visit.count.to_s
         puts 'Number of Visas: ' + Visa.count.to_s
+        
+        # Store stats in temp file for controller to read
+        stats = {
+          deleted: deleted_count,
+          batches: batches_processed,
+          remaining: remaining_count
+        }
+        File.write('/tmp/guest_cleanup_stats.json', stats.to_json)
+        
       rescue => e
         Rails.logger.warn 'An error occured in guest cleanup ' + e.message
         puts 'an error occured!'

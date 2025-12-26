@@ -32,7 +32,16 @@ class TasksController < ApplicationController
     rake_guest_cleanup = "db:guest_cleanup"
     rake_guest_cleanup += "[,#{max_batches}]" if max_batches.present?
     @success = system("rake #{rake_guest_cleanup}")
-    render_json_response
+    
+    # Read stats from temp file if available
+    stats_file = '/tmp/guest_cleanup_stats.json'
+    if @success && File.exist?(stats_file)
+      stats = JSON.parse(File.read(stats_file))
+      File.delete(stats_file) # Clean up
+      render json: { success: @success, deleted: stats['deleted'], batches: stats['batches'], remaining: stats['remaining'] }
+    else
+      render_json_response
+    end
   end
 
   private 

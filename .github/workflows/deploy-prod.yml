@@ -133,7 +133,14 @@ jobs:
           echo "Cleaning up old guest user accounts (max 5 batches/500 users)..."
           response=$(curl -s "https://schengen-calculator.com/guest_cleanup?token=${{ secrets.TASK_PASSWORD }}&max_batches=5")
           if echo "$response" | grep -q '"success":true'; then
+            deleted=$(echo "$response" | grep -o '"deleted":[0-9]*' | grep -o '[0-9]*')
+            batches=$(echo "$response" | grep -o '"batches":[0-9]*' | grep -o '[0-9]*')
+            remaining=$(echo "$response" | grep -o '"remaining":[0-9]*' | grep -o '[0-9]*')
             echo "✓ Guest cleanup completed successfully"
+            echo "  Deleted: $deleted users in $batches batches"
+            if [ "$remaining" != "0" ]; then
+              echo "  Remaining: $remaining old guest users (will be cleaned up in future deployments)"
+            fi
           else
             echo "⚠ Guest cleanup failed"
           fi

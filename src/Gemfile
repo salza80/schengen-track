@@ -46,7 +46,7 @@ gem 'minitest', '~> 5.22'  # Rails 7.1.x compatibility
 
 group :production do
   gem 'rails_12factor'
-  gem 'aws_lambda_ric'
+  gem 'aws_lambda_ric', '~> 3.1'
   gem 'aws-sdk-ssm', '~> 1'
 end
 

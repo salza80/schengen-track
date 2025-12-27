@@ -76,8 +76,6 @@ class ActionDispatch::IntegrationTest
     Capybara.use_default_driver
     Capybara.app_host = nil if ENV['CI']
   end
-    Capybara.use_default_driver
-  end
 
   def user_login
     visit new_user_session_path(locale: :en)

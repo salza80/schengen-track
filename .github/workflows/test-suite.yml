@@ -32,10 +32,6 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.ref }}
 
-      - name: Start containers
-        run: docker compose -f "docker-compose.yml" up -d
-        working-directory: src
-
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.2'

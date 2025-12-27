@@ -8,6 +8,10 @@ on:
     branches:
       - master
 
+concurrency:
+  group: deploy-staging-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     uses: ./.github/workflows/test-suite.yml

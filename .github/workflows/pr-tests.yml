@@ -1,10 +1,11 @@
-name: PR Tests
-
-on:
-  pull_request:
-    branches:
-      - master
-
-jobs:
-  tests:
-    uses: ./.github/workflows/test-suite.yml
+# Temporarily disabled - tests run via deploy-stage.yml
+# name: PR Tests
+#
+# on:
+#   pull_request:
+#     branches:
+#       - master
+#
+# jobs:
+#   tests:
+#     uses: ./.github/workflows/test-suite.yml

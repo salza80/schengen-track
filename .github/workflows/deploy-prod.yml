@@ -3,6 +3,10 @@ name: Deploy-Prod
 on:
   workflow_dispatch:
 
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: true
+
 jobs:
   tests:
     uses: ./.github/workflows/test-suite.yml

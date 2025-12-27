@@ -14,6 +14,12 @@ Capybara.server = :puma, { silent: true }
 # Locally, use 0.0.0.0 to allow external connections
 Capybara.server_host = ENV['CI'] ? '127.0.0.1' : '0.0.0.0'
 
+# In CI, explicitly set app_host so Selenium knows where to connect
+if ENV['CI']
+  Capybara.app_host = 'http://127.0.0.1'
+  Capybara.always_include_port = true
+end
+
 # Configure Selenium to use headless Chrome
 Capybara.register_driver :selenium_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -32,11 +38,6 @@ Capybara.register_driver :selenium_headless do |app|
   end
   
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
-end
-
-# Set app_host dynamically to use the actual Capybara server port
-Capybara.configure do |config|
-  config.always_include_port = true
 end
 
 class ActiveSupport::TestCase

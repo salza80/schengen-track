@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage (Portuguese) -->
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR</loc>
+    <priority>0.95</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  
+  <!-- Portuguese About Page -->
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about</loc>
+    <priority>0.90</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  
+  <!-- Portuguese Blog -->
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/blog/extended-schengen-stay</loc>
+    <priority>0.85</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  
+  <!-- Portuguese Top Nationality Pages (High traffic countries for Brazil) -->
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/brazilian</loc>
+    <priority>0.90</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/american</loc>
+    <priority>0.80</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/british</loc>
+    <priority>0.75</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/canadian</loc>
+    <priority>0.75</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/australian</loc>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/japanese</loc>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/south_korean</loc>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/singaporean</loc>
+    <priority>0.65</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/new_zealander</loc>
+    <priority>0.65</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/about/israeli</loc>
+    <priority>0.65</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  
+  <!-- Portuguese Secondary Pages -->
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/visits</loc>
+    <priority>0.30</priority>
+    <changefreq>never</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/disclaimer</loc>
+    <priority>0.10</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/privacy</loc>
+    <priority>0.10</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/pt-BR/datadeletion</loc>
+    <priority>0.05</priority>
+    <changefreq>never</changefreq>
+    <lastmod>2025-12-28</lastmod>
+  </url>
+
+</urlset>

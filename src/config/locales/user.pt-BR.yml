@@ -1,0 +1,21 @@
+---
+pt-BR:
+  log_in_page:
+    forgot_password: Esqueceu sua senha?
+    log_in_button: Entrar
+    log_in_with_facebook: Entrar com Facebook
+    not_registered: Ainda não está registrado?
+    register_link: Registrar
+    remember_me_label: Lembrar de mim
+    reset_password_link: Redefinir Senha
+    title: Entrar
+  my_details_page:
+    delete_account: Excluir Conta
+    delete_account_confirm: Tem certeza de que deseja excluir sua conta? Todos os seus dados serão perdidos. Esta ação não pode ser desfeita.
+  new_password_page:
+    reset: Enviar Redefinição
+  sign_up_page:
+    already_registered: Já está registrado?
+    log_in_link: Entrar
+    sign_up_button: Registrar
+    title: Registrar-se

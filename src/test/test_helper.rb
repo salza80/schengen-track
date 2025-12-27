@@ -11,7 +11,10 @@ Capybara.server = :puma, { silent: true }
 
 # Set server host but let Capybara pick a random available port
 Capybara.server_host = '0.0.0.0'
-Capybara.server_port = 3001 if ENV['CI']
+if ENV['CI']
+  Capybara.server_port = 3001
+  Capybara.app_host = 'http://0.0.0.0:3001'
+end
 
 # Configure Selenium to use headless Chrome
 Capybara.register_driver :selenium_headless do |app|

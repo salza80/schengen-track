@@ -220,7 +220,7 @@
     // Facebook SDK
     window.fbAsyncInit = function() {
       FB.init({
-        appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.secrets.facebook_id %>',
+        appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.credentials.facebook_id %>',
         autoLogAppEvents: true,
         xfbml: true,
         version: 'v19.0'

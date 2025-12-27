@@ -6,13 +6,13 @@
 #
 Sally:
   email: smclean17@gmail.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
   first_name: Sally
   last_name: Mclean
   nationality: Australia
 Test1:
   email: smclean17@hotmail.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
   first_name: Test1
   last_name: One
   nationality: Australia
@@ -21,22 +21,22 @@ Test2:
   last_name: Two
   nationality: Australia
   email: smclean17@test.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
 VisaRequiredUser:
   email: smclean17@testvr.com
   first_name: Visa
   last_name: Required
   nationality: India
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
 OldCalcTest:
   email: smclean17@testagaub.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
   first_name: Old
   last_name: calc
   nationality: Brazil
 BigVisits:
   email: smclean17@another.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
   first_name: Big
   last_name: Visits
   nationality: Australia
@@ -45,22 +45,22 @@ EUPerson:
   last_name: EU
   nationality: Germany
   email: smclean17@onemore.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
 MiniTest:
   first_name: Mini
   last_name: Test
   nationality: Australia
   email: smclean17@mini.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
 MaxRemaining:
   first_name: max
   last_name: remaining
   nationality: Australia
   email: smclean17@max.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa
 bugfix:
   first_name: bug
   last_name: fix
   nationality: Australia
   email: bug@test.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  encrypted_password: $2a$04$WUARVsQtv.nOt/ydiaPEZ.wKoGFkDFeqh9G9E5616MhvzRMZz6nBa

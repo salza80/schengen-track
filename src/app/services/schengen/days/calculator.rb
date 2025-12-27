@@ -5,12 +5,17 @@ module Schengen
     # calculates schengen days and continious days in schengen area
    
     class Calculator
+      # Maximum calculation span: ±20 years (20 past + 20 future = 40 years total)
+      MAX_CALCULATION_DAYS = 40.years.to_i
+      
       attr_reader :next_entry_days
       def initialize(user)
         @user = user
         @visits = @user.visits.to_a
         @calculated_days={}
         @next_entry_days=[]
+        @user_requires_visa = @user.visa_required?
+        @user_visas = @user_requires_visa ? @user.visas.schengen.to_a : []
         generate_days
       end
 
@@ -48,7 +53,8 @@ module Schengen
       end
       private
       def too_many_days?
-        end_date - begin_date > 5000
+        # With ±20 year cleanup (20 years past + 20 years future), max span is 40 years
+        end_date - begin_date > MAX_CALCULATION_DAYS
       end
 
       def begin_date
@@ -56,7 +62,9 @@ module Schengen
       end
 
       def end_date
-        @visits.last.exit_date + 360.days
+        # Always calculate through today or 190 days after last visit, whichever is later
+        # This ensures status summary always has today's data
+        [Date.today, @visits.last.exit_date + 190.days].max
       end
 
       def generate_days
@@ -84,6 +92,20 @@ module Schengen
 
           @calculated_days[sd.the_date]=sd
           sd.continuous_days_count = calc_continuous_days_count(sd, i)
+          
+          # Track visa information if user requires visa
+          if @user_requires_visa
+            sd.user_requires_visa = true
+            if sd.schengen?
+              # Find visa for this date
+              sd.visa = find_visa_for_date(sd.the_date)
+              if sd.visa
+                sd.visa_entries_allowed = sd.visa.no_entries
+                sd.visa_entry_count = calc_visa_entry_count(sd.the_date, sd.visa)
+              end
+            end
+          end
+          
           if @user.nationality.visa_required == 'F'
             # Freedom of movement: users who do not require a visa are not subject to Schengen day counting.
           else
@@ -91,7 +113,8 @@ module Schengen
             sd.schengen_days_count=calc_schengen_day_new_count(sd,i)
           end
           i+=1
-          break if visit.nil? && sd.schengen_days_count ==0
+          # Break early only if we've passed today AND no more visits with 0 Schengen days
+          break if visit.nil? && sd.schengen_days_count == 0 && date > Date.today
         end
        calc_max_remaining_days
       end
@@ -118,7 +141,7 @@ module Schengen
             sd.overstay_waiting = prev_sd.overstay_waiting + 1
           end
 
-          if sd.overstay_waiting > 180
+          if sd.overstay_waiting >= 180
             count=0
             sd.overstay_waiting=0
           end
@@ -132,64 +155,110 @@ module Schengen
       end
 
       def calc_max_remaining_days_new
-        prev = nil
-        #track of last 180 days change
-        aTracker = Array.new(90,0)
-        @calculated_days.sort.reverse.each do |aday|
-          day = aday[1]
-          unless prev
-            day.max_remaining_days =  90 - day.schengen_days_count
-            prev = day
+        # Sort days chronologically (forward in time)
+        sorted_days = @calculated_days.sort_by { |date, day| date }
+        
+        # Calculate max_remaining_days for each day
+        sorted_days.each do |(date, day)|
+          # Skip if already at or over 90 days
+          if day.schengen_days_count >= 90
+            day.max_remaining_days = 0
             next
           end
-
-          if prev.schengen_days_count != day.schengen_days_count
-            aTracker.unshift(1)
-          else
-            aTracker.unshift(0)
-          end
-          aTracker.pop()
-
-         
           
-          if day.schengen_days_count==90
-            day.max_remaining_days=0
-          else
-            cnt = day.schengen_days_count
-            a=0
-            aTracker.each do |n|
-              cnt = cnt + 1 
-              cnt = cnt - n
-              a = a+1
-              break if cnt == 90
+          # Simulate staying consecutive days starting from this date
+          current_count = day.schengen_days_count
+          max_days = 0
+          
+          # Try staying for up to 90 days (or until we hit the limit)
+          0.upto(89) do |k|
+            simulated_date = date + k.days
+            
+            # Add 1 for staying this day
+            current_count += 1
+            
+            # Subtract the day that falls off the 180-day rolling window
+            day_falling_off_date = simulated_date - 180.days
+            falling_off_day = @calculated_days[day_falling_off_date]
+            if falling_off_day
+              current_count -= falling_off_day.schengen_day_int
             end
-            day.max_remaining_days =  a
-          end
-
-          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
-            @next_entry_days.unshift(prev)
-          end
-
-          if day.schengen?
-            if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days
-              @next_entry_days.unshift(prev)
+            
+            # If we've exceeded 90 days, we can't stay this day (but could stay previous days)
+            if current_count > 90
+              max_days = k
+              break
             end
-            return
+            
+            # Otherwise we can stay at least this many days (including day k, so k+1 total)
+            max_days = k + 1
           end
-          prev = day
+          
+          day.max_remaining_days = max_days
+        end
+        
+        # Build next_entry_days list - days when you should consider entering
+        prev_day = nil
+        sorted_days.each do |(date, day)|
+          # Skip if in Schengen, in warning period, or no days available
+          next if day.schengen? || day.warning? || day.max_remaining_days == 0
+          
+          # Only include future dates (today or later)
+          next if date < Date.today
+          
+          # Add to next_entry_days if this is a good entry point:
+          # - First day outside Schengen with available days, or
+          # - Previous day was in Schengen, or
+          # - max_remaining_days changed from previous day
+          if prev_day.nil? || prev_day.schengen? || prev_day.max_remaining_days != day.max_remaining_days
+            @next_entry_days << day
+          end
+          
+          prev_day = day
+        end
+      end
 
-        end 
+      def find_visa_for_date(date)
+        return nil unless @user_requires_visa
+        @user_visas.find { |v| date.between?(v.start_date, v.end_date) }
+      end
 
+      def calc_visa_entry_count(current_date, visa)
+        return nil unless visa
+        
+        # Get all visits on this visa up to current date
+        visits_on_visa = []
+        @visits.each do |visit|
+          next unless visit.schengen?
+          next unless visit.entry_date <= current_date
+          
+          # Check if visit's entry date falls within visa period
+          visit_visa = find_visa_for_date(visit.entry_date)
+          visits_on_visa << visit if visit_visa == visa
+        end
+        
+        # Count distinct entries (consecutive visits = one entry)
+        count = 0
+        prev_visit = nil
+        visits_on_visa.sort_by(&:entry_date).each do |v|
+          # New entry if: first visit OR gap > 1 day after previous exit
+          if prev_visit.nil? || v.entry_date - prev_visit.exit_date > 1
+            count += 1
+          end
+          prev_visit = v
+        end
+        count
       end
 
     end
 
     class SchengenDay
-        attr_accessor :the_date, :entered_country, :stayed_country, :exited_country,  :schengen_days_count, :continuous_days_count, :overstay_waiting, :max_remaining_days, :notes
+        attr_accessor :the_date, :entered_country, :stayed_country, :exited_country,  :schengen_days_count, :continuous_days_count, :overstay_waiting, :max_remaining_days, :notes, :visa, :visa_entry_count, :visa_entries_allowed, :user_requires_visa
 
         def initialize(date)
           @the_date = date
           @overstay_waiting=0;
+          @user_requires_visa = false
         end
 
         def set_country(visit)
@@ -289,6 +358,32 @@ module Schengen
           return false if exited_country == entered_country
           return true unless entered_country
           return !entered_country.schengen?(the_date)
+        end
+
+        def user_requires_visa?
+          @user_requires_visa == true
+        end
+
+        def visa_valid?
+          return true unless user_requires_visa?
+          return false if schengen? && visa.nil?
+          return true unless visa
+          the_date.between?(visa.start_date, visa.end_date)
+        end
+
+        def visa_entry_valid?
+          return true unless visa_entries_allowed
+          return true if visa_entries_allowed == 0  # Unlimited
+          visa_entry_count <= visa_entries_allowed
+        end
+
+        def visa_warning?
+          return false unless user_requires_visa?
+          !visa_valid? || !visa_entry_valid?
+        end
+
+        def has_limited_entries?
+          visa_entries_allowed && visa_entries_allowed > 0
         end
 
         private

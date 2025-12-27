@@ -1,4 +1,6 @@
 class DaysController < ApplicationController
+  include VisitCleanup
+  
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
@@ -6,27 +8,44 @@ class DaysController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    if current_user_or_guest_user.visa_required? 
-      redirect_to visits_path
-    else
-      # Use full calculator (same as visits page)
-      calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
-      @days = calc.calculated_days
-      @overstay = calc.schengen_overstay?
-      @next_entry_days = calc.next_entry_days
-      
-      setup_calendar_view_infinite
-      calculate_status_summary if @days.any?
-    end
+    # Clean up old visits (beyond ±20 years)
+    cleanup_old_visits
+    
+    # Use full calculator (same as visits page)
+    calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
+    @days = calc.calculated_days
+    @overstay = calc.schengen_overstay?
+    @next_entry_days = calc.next_entry_days
+    
+    setup_calendar_view_infinite
+    calculate_status_summary if @days.any?
+    
+    # Set SEO meta tags for calendar page
+    set_days_meta_tags
   end
 
   private
   
   def setup_calendar_view_infinite
-    # Allow infinite year navigation with reasonable limits
-    @selected_year = (params[:year] || Date.today.year).to_i
+    # Calculate ±20 year bounds from today
+    min_year = Date.today.year - 20
+    max_year = Date.today.year + 20
     
-    # Set month for scrolling
+    # Get requested year (default to current year)
+    requested_year = (params[:year] || Date.today.year).to_i
+    
+    # If requested year is outside ±20 year range, redirect to closest valid year
+    if requested_year < min_year || requested_year > max_year
+      closest_year = requested_year.clamp(min_year, max_year)
+      redirect_params = { locale: I18n.locale, year: closest_year }
+      redirect_params[:month] = params[:month] if params[:month].present?
+      redirect_to days_path(redirect_params)
+      return
+    end
+    
+    @selected_year = requested_year
+    
+    # Set month and day for scrolling
     # Only default to current month if:
     # 1. Month param is provided, OR
     # 2. Year is current year (or no year specified)
@@ -38,12 +57,12 @@ class DaysController < ApplicationController
       @scroll_to_month = nil # Don't scroll if viewing a different year without month param
     end
     
-    # Set reasonable bounds (1900 - 2100) to prevent abuse
-    @selected_year = @selected_year.clamp(1900, 2100)
+    # Set specific day for scrolling and highlighting
+    @scroll_to_day = params[:day].to_i if params[:day].present?
     
-    # Always allow prev/next year navigation within bounds
-    @prev_year = @selected_year - 1 if @selected_year > 1900
-    @next_year = @selected_year + 1 if @selected_year < 2100
+    # Only show prev/next year buttons if within ±20 year range
+    @prev_year = @selected_year - 1 if @selected_year > min_year
+    @next_year = @selected_year + 1 if @selected_year < max_year
     
     # Filter days for this year (if any exist)
     year_days = @days.select { |d| d.the_date.year == @selected_year }
@@ -79,24 +98,56 @@ class DaysController < ApplicationController
   def calculate_status_summary
     return unless @days.any?
     
-    # Find today's day data, or the latest day if today is not in the range
+    # Always use today's date since calculator now extends to today
     today = Date.today
     today_day = @days.find { |d| d.the_date == today }
-    reference_day = today_day || @days.max_by(&:the_date)
+    
+    # Fallback to latest day if today isn't found (shouldn't happen with new logic)
+    today_day ||= @days.max_by(&:the_date)
     
     @status_summary = {
-      current_days: reference_day.schengen_days_count || 0,
+      current_days: today_day.schengen_days_count || 0,
       max_days: 90,
-      remaining_days: [90 - (reference_day.schengen_days_count || 0), 0].max,
-      status: if reference_day.overstay?
+      remaining_days: [90 - (today_day.schengen_days_count || 0), 0].max,
+      status: if today_day.overstay?
                 'overstay'
-              elsif (reference_day.schengen_days_count || 0) >= 80
+              elsif (today_day.schengen_days_count || 0) >= 80
                 'warning'
               else
                 'safe'
               end,
-      last_calculated_date: reference_day.the_date
+      last_calculated_date: today_day.the_date,
+      in_waiting_period: today_day.warning?,
+      outside_schengen: !today_day.schengen?
     }
+    
+    # Add visa status for visa-required users ONLY when in Schengen
+    if current_user_or_guest_user.visa_required? && today_day.schengen?
+      if today_day.respond_to?(:visa_valid?) && today_day.respond_to?(:visa_entry_valid?)
+        # Check if in Schengen without visa first
+        if today_day.visa.nil?
+          @status_summary[:visa_status] = 'warning'
+          @status_summary[:visa_issue_type] = 'no_visa'
+        elsif !today_day.visa_entry_valid?
+          @status_summary[:visa_status] = 'warning'
+          @status_summary[:visa_issue_type] = 'entry_limit_exceeded'
+        elsif !today_day.visa_valid?
+          @status_summary[:visa_status] = 'warning'
+        else
+          @status_summary[:visa_status] = 'ok'
+        end
+        
+        # Add entry count display if visa has limited entries (regardless of whether exceeded)
+        if today_day.respond_to?(:has_limited_entries?) && today_day.has_limited_entries?
+          @status_summary[:visa_entries_display] = "#{today_day.visa_entry_count}/#{today_day.visa_entries_allowed}"
+          
+          # Add flag if entries exceeded
+          if today_day.respond_to?(:visa_entry_count) && today_day.respond_to?(:visa_entries_allowed)
+            @status_summary[:visa_entries_exceeded] = today_day.visa_entry_count > today_day.visa_entries_allowed
+          end
+        end
+      end
+    end
   end
   
   def format_calendar_data(year_days, year)
@@ -158,6 +209,48 @@ class DaysController < ApplicationController
     end
     
     weeks
+  end
+  
+  def set_days_meta_tags
+    @meta_title = I18n.t('days.page_title') + ' | ' + I18n.t('common.schengen_calculator')
+    @meta_description = I18n.t('days.meta_description', default: I18n.t('default_description'))
+    @og_type = 'website'
+    @og_url = "https://#{request.host_with_port}#{request.path}"
+    image_path = view_context.asset_path('schengen_area_eu_countries.webp')
+    @og_image = "https://#{request.host_with_port}#{image_path}"
+    @og_site_name = "Schengen Calculator"
+    
+    # JSON-LD already exists in layout for days#index - enhance it with FAQ
+    @json_ld_faq = {
+      "@context" => "https://schema.org",
+      "@type" => "FAQPage",
+      "mainEntity" => [
+        {
+          "@type" => "Question",
+          "name" => "What is the Schengen 90/180 day rule?",
+          "acceptedAnswer" => {
+            "@type" => "Answer",
+            "text" => "The 90/180 day rule means you can stay in the Schengen Area for up to 90 days within any 180-day period. This is a rolling calculation - each day, the system looks back 180 days to count your stay."
+          }
+        },
+        {
+          "@type" => "Question",
+          "name" => "How do I track my Schengen days?",
+          "acceptedAnswer" => {
+            "@type" => "Answer",
+            "text" => "Use the calendar to view your past and future trips. Add your travel dates, and the calculator automatically tracks your days in the Schengen Area. Green days are safe, yellow means you're approaching the limit, and red indicates overstay."
+          }
+        },
+        {
+          "@type" => "Question",
+          "name" => "Which countries are in the Schengen Area?",
+          "acceptedAnswer" => {
+            "@type" => "Answer",
+            "text" => "The Schengen Area includes 29 European countries: Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and Switzerland."
+          }
+        }
+      ]
+    }
   end
   
 end

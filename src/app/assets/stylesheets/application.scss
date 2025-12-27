@@ -11,10 +11,6 @@
  * file per style scope.
  */
 
-// Override Bootstrap danger color BEFORE variables are loaded
-$red: #ff6b35;  // Softer coral/orange instead of harsh red
-$danger: #ff6b35;
-
 // import theme variables
 @import "_variables.scss";
 // import customisatons to theme
@@ -27,6 +23,23 @@ $danger: #ff6b35;
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)
 @import "about";
 @import "responsive_table";
+@import "calendar_status_card";
+
+// Override badge colors to match calendar colors
+.badge-success {
+  background-color: $calendar-safe;
+  color: $calendar-safe-text;
+}
+
+.badge-warning {
+  background-color: $calendar-warning;
+  color: $calendar-warning-text;
+}
+
+.badge-danger {
+  background-color: $calendar-overstay;
+  color: $calendar-overstay-text;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -38,8 +51,76 @@ html {
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding-top: 10px;
   z-index: 100; // Above sidebar (50) but below header (1020)
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: $gray-100;
+  font-size: 0.75rem;
+  
+  .footer-link {
+    color: $gray-700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 0.75rem;
+    // Minimum 48x48px touch target for accessibility
+    padding: 0.75rem 0.5rem;
+    min-height: 48px;
+    // Negative margin to prevent footer from growing
+    margin: -0.5rem 0;
+    
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+    }
+    
+    &:visited {
+      color: $gray-700;
+    }
+    
+    i {
+      font-size: 0.7rem;
+    }
+  }
+  
+  .language-selector-wrapper {
+    display: inline-flex;
+    align-items: center;
+    
+    .language-select {
+      width: auto;
+      min-width: 70px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      border: 1px solid $gray-400;
+      border-radius: 0.25rem;
+      background-color: white;
+      cursor: pointer;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+      }
+    }
+  }
+  
+  // Mobile optimizations
+  @media (max-width: 991px) {
+    .py-2 {
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+    }
+    
+    .footer-links .mx-2 {
+      margin-left: 0.25rem !important;
+      margin-right: 0.25rem !important;
+    }
+    
+    .mb-2 {
+      margin-bottom: 0.5rem !important;
+    }
+  }
 }
 
 .bg-md-header {       
@@ -48,38 +129,137 @@ html {
   }
 }
 
-#navtabs {
-    .nav-link {
-      transition: all 0.3s ease;  // Smooth transition for all properties
-      
-      &:hover {
-        border-color: $link-color;
-      }
-      
-      // Smooth transition for icons too
-      .fa, .fas, .far, .fab {
-        transition: color 0.3s ease;
-      }
+.navbar {
+  .nav-link {
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    
+    &:hover {
+      background-color: rgba($headerGreen, 0.2);
+      border-radius: 0.25rem;
     }
     
-    .active {
-      .nav-link {
-        background-color: $primary;  // Light blue background
-        color: white;  // White text
-        font-weight: bold;
-        border-radius: 0.25rem;  // Rounded corners for pill effect
-        
-        // Make icon white too
-        .fa, .fas, .far, .fab {
-          color: white;
-        }
+    i {
+      transition: color 0.3s ease;
+    }
+  }
+  
+  .nav-item.active {
+    .nav-link {
+      background-color: $headerGreen;
+      color: $dark;
+      font-weight: 500;
+      border-radius: 0.25rem;
+      border-bottom: 3px solid darken($headerGreen, 15%);
+      
+      i {
+        color: $dark;
       }
     }
+  }
+  
+  .site-title {
+    font-weight: 500;
+    margin-left: 0.75rem;
+    white-space: nowrap;
+  }
+  
+  .user-info {
+    line-height: 1.4;
+    padding: 0.5rem 1rem;
+    min-width: 120px;
+    
+    small {
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+    
+    .nationality-link {
+      color: $dark;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      max-width: 200px;
+      
+      &:hover {
+        color: $primary;
+        text-decoration: none;
+      }
+    }
+  }
+  
+  // Desktop - right aligned
+  @media (min-width: 768px) {
+    .user-info-item {
+      margin-right: 1rem;
+    }
+    
+    .user-info {
+      text-align: right;
+      padding: 0 0.5rem;
+    }
+  }
+  
+  // Mobile - full width, left aligned
+  @media (max-width: 767px) {
+    .navbar-collapse {
+      .user-info-item {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+      }
+      
+      .user-info {
+        text-align: left;
+        padding: 0.5rem 1rem;
+        
+        .user-name {
+          font-size: 0.85rem;
+          margin-bottom: 0.25rem;
+        }
+        
+        .nationality-link {
+          font-size: 1rem;
+          max-width: 100%;
+        }
+      }
+      
+      .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+        justify-content: center;
+      }
+    }
+  }
+  
+  .dropdown-menu {
+    min-width: 200px;
+    
+    .dropdown-item {
+      padding: 0.5rem 1rem;
+      
+      i {
+        width: 20px;
+        text-align: center;
+      }
+      
+      &:hover {
+        background-color: rgba($headerGreen, 0.2);
+      }
+    }
+  }
 }
 
 // Ensure sticky header stays on top
 .navbar.sticky-top {
   z-index: 1020; // Bootstrap's default sticky navbar z-index
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 // Accessibility contrast colors for navbar and links are now controlled
@@ -102,19 +282,9 @@ a.btn-light {
   color: #212529 !important; // Dark text on light backgrounds
 }
 
-.justify-right{
-  justify-content: right;
-}
-
 .table-danger {
-  color: $gray-900;
-}
-
-.facebook-buttons {
-  > div{
-    margin-left: 4px;
-    display: inline-block;
-  }
+  background-color: $calendar-overstay !important;
+  color: $calendar-overstay-text !important;
 }
 
 body {
@@ -138,11 +308,35 @@ body {
 // Global link contrast is now controlled by Bootstrap theme variables
 // in _bootstrap_custom.scss ($link-color, $link-hover-color)
 
+// Content links should be underlined for accessibility (distinguishable without color)
+// Exclude navigation, buttons, and UI elements
+.container-fluid:not(.navbar):not(.footer) p a:not(.btn),
+.about-section a:not(.btn),
+.blog-content a:not(.btn),
+.info-message a,
+.empty-state a:not(.btn) {
+  text-decoration: underline;
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 // Visited link color - scoped to content areas only (not nav/footer/buttons)
 // This prevents navigation links and buttons from turning purple after being clicked
-.container-fluid, .page-sidebar, .blog-content {
+.container-fluid:not(.footer .container-fluid), .page-sidebar, .blog-content {
   a:visited:not(.btn) {
     color: #6610f2; // Purple for visited links (sufficient contrast)
+  }
+}
+
+// Rounded corners for all cards and card headers (consistent with tables and buttons)
+.card {
+  border-radius: 0.375rem !important;
+  
+  .card-header {
+    border-top-left-radius: 0.375rem !important;
+    border-top-right-radius: 0.375rem !important;
   }
 }
 .form-btn {
@@ -158,15 +352,6 @@ body {
 .table-top-header {
   border: 1px;
   border-style: solid;
-
-}
-.current-setting{
-  margin: 0px;
-  min-width: 100px;
-}
-
-.panel-title{
-  font-size: 24px;
 }
 
 .modify-col {
@@ -188,6 +373,103 @@ input.form-control {
   margin-bottom: 10px;
 }
 
+.delete-warning {
+  background-color: lighten($calendar-overstay, 6%);
+  color: $calendar-overstay-text;
+  border-bottom: 1px solid darken($calendar-overstay, 5%);
+}
+
+// Custom button for add/create actions using lime green theme
+.btn-add {
+  background-color: $headerGreen;
+  border: 2px solid $headerGreen;
+  color: #2d5016;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+
+  &:hover,
+  &:focus {
+    background-color: darken($headerGreen, 5%);
+    border-color: darken($headerGreen, 5%);
+    color: #2d5016;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: darken($headerGreen, 10%);
+    border-color: darken($headerGreen, 10%);
+    color: #2d5016;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+  }
+}
+
+// Section headings with lime green accent
+.section-heading {
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  border-bottom: 3px solid $headerGreen;
+  font-weight: 500;
+  color: $gray-700;
+}
+
+// Empty state styling
+.empty-state {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background-color: $gray-100;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  
+  .empty-icon {
+    font-size: 2.5rem;
+    color: $gray-500;
+    margin-bottom: 0.75rem;
+  }
+  
+  h4 {
+    color: $gray-700;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    font-size: 1.25rem;
+  }
+  
+  p {
+    color: $gray-600;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    margin-top: 0.25rem;
+  }
+}
+
+.info-message {
+  background-color: lighten($headerGreen, 35%);
+  border-left: 4px solid $headerGreen;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  
+  p {
+    margin-bottom: 0.5rem;
+    color: $gray-700;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  a {
+    font-weight: 500;
+  }
+}
+
 .ad-block-limit{
   max-width: 800px;
 }
@@ -195,15 +477,6 @@ input.form-control {
   .amazon-item{
     margin-bottom: 10px;
   }
-}
-
-.banner-image {
-  width:100%;
-  height: 150px; 
-  object-fit: cover;
-  object-position: 25% 55%;
-  margin-bottom: 1em;
-  margin-top: 1em; 
 }
 
 // Delete confirmation modal styles

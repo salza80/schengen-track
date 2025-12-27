@@ -161,11 +161,20 @@
         "Visual calendar interface",
         "Multiple trip planning",
         "Visa holder support",
-        "6 language support (EN, DE, ES, HI, TR, ZH)",
+        "7 language support (EN, DE, ES, HI, TR, ZH, PT)",
         "Free account and data sync"
       ],
-      "inLanguage": ["en", "de", "es", "hi", "tr", "zh"]
+      "inLanguage": ["en", "de", "es", "hi", "tr", "zh", "pt"]
     }
+    </script>
+    <% if @json_ld_faq %>
+    <script type="application/ld+json">
+    <%= raw @json_ld_faq.to_json %>
+    </script>
+    <% end %>
+  <% elsif @json_ld_data %>
+    <script type="application/ld+json">
+    <%= raw @json_ld_data.to_json %>
     </script>
   <% end %>
 </head>
@@ -211,7 +220,7 @@
     // Facebook SDK
     window.fbAsyncInit = function() {
       FB.init({
-        appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.secrets.facebook_id %>',
+        appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.credentials.facebook_id %>',
         autoLogAppEvents: true,
         xfbml: true,
         version: 'v19.0'
@@ -228,16 +237,10 @@
 
     // Google AdSense
     const adsScript = document.createElement('script');
-    adsScript.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+    adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8290979932488448';
     adsScript.async = true;
+    adsScript.crossOrigin = 'anonymous';
     document.body.appendChild(adsScript);
-    
-    adsScript.onload = function() {
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-8290979932488448",
-        enable_page_level_ads: true
-      });
-    };
   }
 
   // Load scripts after page is fully loaded and user interacts

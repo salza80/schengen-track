@@ -76,6 +76,11 @@ module Schengen
         @day_calc.next_entry_days
      end
 
+    # Provide calendar data for sidebar/status blocks
+    def calculated_days
+      @day_calc&.calculated_days || []
+    end
+
     def schengen_overstay?
       return false unless @day_calc
       @day_calc.schengen_overstay?

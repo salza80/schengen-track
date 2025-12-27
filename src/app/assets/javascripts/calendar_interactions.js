@@ -10,7 +10,10 @@
       isSelecting: false,
       startDate: null,
       endDate: null,
-      selectedCells: []
+      selectedCells: [],
+      longPressTimer: null,
+      longPressTriggered: false,
+      isMobileDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0
     },
     
     // Store current visit ID for edit mode
@@ -28,8 +31,13 @@
       // Bind click handlers to day cells
       self.bindDayCellClicks();
       
-      // Bind drag-to-select handlers
-      self.bindDragToSelect();
+      // Bind mobile touch handlers for long press
+      if (self.state.isMobileDevice) {
+        self.bindMobileTouchHandlers();
+      } else {
+        // Bind drag-to-select handlers (desktop only)
+        self.bindDragToSelect();
+      }
       
       // Close context menu when clicking outside
       $(document).on('click', function(e) {
@@ -64,10 +72,53 @@
       var self = this;
       
       $(document).on('click', '.day-cell', function(e) {
+        // Skip if long press was triggered
+        if (self.state.longPressTriggered) {
+          self.state.longPressTriggered = false;
+          return;
+        }
+        
+        var $cell = $(this);
+        
+        // On mobile, first click shows tooltip, second click opens modal
+        if (self.state.isMobileDevice) {
+          var $tooltip = $cell.data('bs.tooltip');
+          
+          // Safely check if tooltip is shown
+          var isTooltipShown = false;
+          try {
+            isTooltipShown = $tooltip && $tooltip.tip && $tooltip.tip.classList.contains('show');
+          } catch (e) {
+            // Tooltip not initialized or structure changed
+            isTooltipShown = false;
+          }
+          
+          // If tooltip is not shown, show it
+          if (!isTooltipShown) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Hide all other tooltips
+            $('.day-cell').tooltip('hide');
+            
+            // Show this tooltip
+            $cell.tooltip('show');
+            
+            // Auto-hide after 3 seconds
+            setTimeout(function() {
+              $cell.tooltip('hide');
+            }, 3000);
+            
+            return;
+          }
+          
+          // If tooltip is already shown, proceed to open modal
+          $cell.tooltip('hide');
+        }
+        
         e.preventDefault();
         e.stopPropagation();
         
-        var $cell = $(this);
         var date = $cell.data('date');
         
         if (!date) return;
@@ -85,6 +136,67 @@
             self.showContextMenu($cell, visits);
           }
         });
+      });
+    },
+    
+    // Bind mobile touch handlers for long press
+    bindMobileTouchHandlers: function() {
+      var self = this;
+      var longPressDuration = 500; // milliseconds
+      
+      $(document).on('touchstart', '.day-cell', function(e) {
+        var $cell = $(this);
+        self.state.longPressTriggered = false;
+        
+        // Start long press timer
+        self.state.longPressTimer = setTimeout(function() {
+          self.state.longPressTriggered = true;
+          
+          // Vibrate if supported
+          if (navigator.vibrate) {
+            navigator.vibrate(50);
+          }
+          
+          // Hide tooltip if shown
+          $cell.tooltip('hide');
+          
+          // Trigger add/edit visit
+          var date = $cell.data('date');
+          if (!date) return;
+          
+          self.checkVisitsForDate(date, function(visits) {
+            if (visits.length === 0) {
+              self.openAddModal(date, date);
+            } else if (visits.length === 1) {
+              self.openEditModal(visits[0].id);
+            } else {
+              self.showContextMenu($cell, visits);
+            }
+          });
+        }, longPressDuration);
+        
+        // Visual feedback - add pressing class
+        $cell.addClass('long-pressing');
+      });
+      
+      $(document).on('touchend touchcancel', '.day-cell', function(e) {
+        // Clear timer
+        if (self.state.longPressTimer) {
+          clearTimeout(self.state.longPressTimer);
+          self.state.longPressTimer = null;
+        }
+        
+        // Remove visual feedback
+        $(this).removeClass('long-pressing');
+      });
+      
+      // Prevent default touch behavior on cells
+      $(document).on('touchmove', '.day-cell', function(e) {
+        if (self.state.longPressTimer) {
+          clearTimeout(self.state.longPressTimer);
+          self.state.longPressTimer = null;
+          $(this).removeClass('long-pressing');
+        }
       });
     },
     

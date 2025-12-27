@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :visits do
       collection do
         get 'for_date' # Get visits for a specific date
+        get 'max_stay_info' # Get max stay info for entry date
       end
     end
     resources :visas, except: [:index, :show]
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
     get 'create' => 'tasks#create'
     get 'seed' => 'tasks#seed'
     get 'update_countries' => 'tasks#update_countries'
+    get 'guest_cleanup' => 'tasks#guest_cleanup'
 
     devise_for :users, skip: :omniauth_callbacks, controllers: {
       registrations: 'users/registrations',

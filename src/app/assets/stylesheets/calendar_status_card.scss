@@ -1,0 +1,52 @@
+// Calendar status card styling for mobile
+.calendar-status-card {
+  // Larger badges for mobile
+  .badge-lg {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  // Status metrics styling
+  .status-metrics {
+    .metric-item {
+      small {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+      }
+    }
+  }
+  
+  // Gap utility for flexbox (fallback for older Bootstrap)
+  .gap-2 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  @media (min-width: 576px) {
+    .gap-2 {
+      gap: 0.5rem;
+      
+      > * + * {
+        margin-top: 0;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 575px) {
+    .card-body {
+      padding: 1rem !important;
+    }
+    
+    .h3 {
+      font-size: 2rem;
+    }
+    
+    .btn-sm {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+}

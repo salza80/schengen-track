@@ -1,23 +1,35 @@
-.responsive-table-container
-  %table.table.table-striped.table-bordered.table-hover.responsive-table
-    %caption= t('visas.list_caption')
-    %thead.bg-header
-      %tr
-        %th{ scope: "col"}= t('visas.columns.dates')
-        %th{ scope: "col"}= t('visas.columns.no_entries')
-        %th{ scope: "col", class: 'modify-col' }= t('visas.columns.modify')
-    %tbody
-      - @visas.each do |visa|
+- if @visas.empty?
+  .empty-state
+    .empty-icon
+      %i.fa.fa-passport
+    %h4= t('visas.no_visas')
+    %p= t('visas.add_first_visa_hint')
+    %button.btn.btn-add.btn-lg{"data-action" => "add-visa"}
+      %i.fa.fa-plus.mr-2
+      = t('visits.add_visa')
+- else
+  .responsive-table-container
+    %table.table.table-striped.table-bordered.table-hover.responsive-table
+      %caption= t('visas.list_caption')
+      %thead.bg-header
         %tr
-          %th{ scope: "row", class: 'bg-md-header'}
-            %span.no-wrap 
-              = visa.start_date.strftime(t('date.formats.default'))
-            = " #{t('visas.to')} "
-            %span.no-wrap
-              = visa.end_date.strftime(t('date.formats.default'))
-          %td{"data-title": t('visas.columns.no_entries')} 
-            = visa.no_entries
-          %td{"data-title": t('visas.columns.modify')} 
-            %a.edit-visa-link{href: "#", "data-visa-id" => visa.id}= t('common.edit')
-            = " / "
-            %a.delete-visa-link{href: "#", "data-visa-id" => visa.id, "data-delete-url" => visa_path(visa, locale: I18n.locale)}= t('common.delete')
+          %th{ scope: "col"}= t('visas.columns.dates')
+          %th{ scope: "col"}= t('visas.columns.no_entries')
+          %th{ scope: "col", class: 'modify-col' }= t('visas.columns.modify')
+      %tbody
+        - @visas.each do |visa|
+          %tr
+            %th{ scope: "row", class: 'bg-md-header'}
+              %span.no-wrap 
+                = visa.start_date.strftime(t('date.formats.default'))
+              = " #{t('visas.to')} "
+              %span.no-wrap
+                = visa.end_date.strftime(t('date.formats.default'))
+            %td{"data-title": t('visas.columns.no_entries')} 
+              = visa.no_entries
+            %td{"data-title": t('visas.columns.modify')} 
+              .action-buttons
+                %a.btn.btn-sm.btn-icon.edit-visa-link{href: "#", "data-visa-id" => visa.id, title: t('common.edit'), "aria-label": t('common.edit')}
+                  %i.fa.fa-pencil-alt
+                %a.btn.btn-sm.btn-icon.delete-visa-link{href: "#", "data-visa-id" => visa.id, "data-delete-url" => visa_path(visa, locale: I18n.locale), title: t('common.delete'), "aria-label": t('common.delete')}
+                  %i.fa.fa-trash

@@ -1,36 +1,60 @@
 - if @status_summary
-  .calendar-status-card.card.mb-3{class: "border-#{status_text_class(@status_summary[:status])}"}
+  .calendar-status-card.card.mb-3{class: "border-#{status_text_class(@status_summary[:status])}", role: "region", "aria-label": t('days.current_status')}
     .card-body.p-3
       -# Mobile layout (< md)
       .d-md-none
-        .status-current
-          %h5.mb-2
-            %i.fa{class: status_icon_class(@status_summary[:status])}
+        -# Header with date
+        .text-center.mb-3
+          %h5.mb-1
+            %i.fa{class: status_icon_class(@status_summary[:status]), "aria-hidden": "true"}
             = t('days.current_status')
-            %small.text-muted.ml-2
-              = t('common.as_of')
-              = Date.today.strftime('%B %d, %Y')
+          %small.text-muted
+            = t('common.as_of')
+            = Date.today.strftime('%b %d, %Y')
+        
+        -# Status badge (prominent)
+        .text-center.mb-3
+          %span.badge.badge-lg.px-3.py-2{class: status_badge_class(@status_summary[:status])}
+            = t("days.status_#{@status_summary[:status]}")
+        
+        -# Days information (two columns, compact)
+        .status-metrics.mb-3
           .row
-            .col-6
-              .status-numbers
-                %span.h4.mb-0
-                  %strong= @status_summary[:current_days]
-                  %span.text-muted / #{@status_summary[:max_days]}
-                %div
-                  %small= t('days.days_used')
-            .col-6
-              .status-remaining
-                %div
-                  %strong.h4{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
-                  %span.badge.ml-2{class: status_badge_class(@status_summary[:status])}
-                    = t("days.status_#{@status_summary[:status]}")
-                %div
-                  %small= t('days.days_remaining')
-          .row.mt-3
-            .col-12.text-center
-              = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
-                %i.fa.fa-list.mr-2{"aria-hidden" => "true"}
-                = t('days.view_table')
+            .col-6.text-center.border-right
+              %small.text-muted.d-block.mb-1= t('days.days_used')
+              .h3.mb-0
+                %strong= @status_summary[:current_days]
+              %small.text-muted / #{@status_summary[:max_days]}
+            
+            .col-6.text-center
+              %small.text-muted.d-block.mb-1= t('days.days_remaining')
+              .h3.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}
+                %strong= @status_summary[:remaining_days]
+        
+        -# Visa status (if applicable)
+        - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
+          .visa-status-info.text-center.mb-3.pb-3.border-bottom
+            - if @status_summary[:visa_status] == 'ok'
+              %span.badge.badge-success.px-3.py-2
+                %i.fa.fa-check
+                = t('days.visa_status_ok')
+            - else
+              %span.badge.badge-danger.px-3.py-2
+                %i.fa.fa-exclamation-triangle
+                = t('days.visa_warning')
+            - if @status_summary[:visa_entries_display]
+              %div.mt-2
+                %small{class: (@status_summary[:visa_entries_exceeded] ? 'text-danger font-weight-bold' : 'text-muted')}
+                  = @status_summary[:visa_entries_display]
+        
+        -# Action buttons (responsive stacking)
+        .d-flex.flex-column.flex-sm-row.justify-content-center.gap-2
+          = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm flex-grow-1" do
+            %i.fa.fa-list.mr-1{"aria-hidden" => "true"}
+            = t('days.view_table')
+          = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-primary btn-sm flex-grow-1" do
+            %i.fa.fa-calendar-day.mr-1{"aria-hidden" => "true"}
+            = t('days.jump_to_today')
       
       -# Desktop layout (>= md, < lg)
       .d-none.d-md-block.d-lg-none
@@ -59,3 +83,18 @@
               .remaining-number
                 %strong.h3{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
                 = t('days.days')
+          - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
+            .col-md-12.mt-3
+              .visa-status-info.text-center
+                - if @status_summary[:visa_status] == 'ok'
+                  %span.badge.badge-success
+                    %i.fa.fa-check
+                    = t('days.visa_status_ok')
+                - else
+                  %span.badge.badge-danger
+                    %i.fa.fa-exclamation-triangle
+                    = t('days.visa_warning')
+                - if @status_summary[:visa_entries_display]
+                  %small.ml-2{class: (@status_summary[:visa_entries_exceeded] ? 'text-danger font-weight-bold' : '')}
+                    = @status_summary[:visa_entries_display]
+

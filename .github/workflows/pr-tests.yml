@@ -1,38 +1,11 @@
-name: PR Tests
-
-on:
-  pull_request:
-    branches:
-      - master
-
-jobs:
-  tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Start containers
-        run: docker compose -f "docker-compose.yml" up -d
-        working-directory: src
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2.2'
-          bundler-cache: true
-          working-directory: src
-
-      - run: bundle exec rails db:create
-        working-directory: src
-
-      - run: bundle exec rails db:migrate
-        working-directory: src
-
-      - name: Check i18n translations
-        run: bundle exec rake i18n:check
-        working-directory: src
-
-      - name: Run tests
-        run: bundle exec rake test
-        working-directory: src
+# Temporarily disabled - tests run via deploy-stage.yml
+# name: PR Tests
+#
+# on:
+#   pull_request:
+#     branches:
+#       - master
+#
+# jobs:
+#   tests:
+#     uses: ./.github/workflows/test-suite.yml

@@ -2,45 +2,59 @@
 /   = raw @advertise_country.affiliate_booking_html
 -# - if !user_signed_in?
 -#   = render 'registerPrompt'
-- if @visits.count == 0
-  %p
-    = t('visits.start_using')
-  %p
-    = t('visits.dont_forget', nationality: current_user_or_guest_user.nationality.name, change_link: link_to(t('visits.change_link'), my_details_path(locale: I18n.locale))).html_safe
-  %p
-    = t('visits.for_further_information', about_page_link: link_to(t('common.about_page'), about_path(locale: I18n.locale))).html_safe
-%br
-= render 'nextEntryDays'
-- if current_user_or_guest_user.visa_required?
-  %h2= t('visits.schengen_visa_list')
-  .row.py-1
-    .col-md-12.text-right
-      %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visa"}
-        %i.fa.fa-plus{"aria-hidden" => "true"}
-        =t('visits.add_visa')
-  .row
-    .col-md-12
-      = render 'visas/visalist'
 
-%h2= t('visits.travel_record')
-.row.py-1
-  .col.d-flex.align-items-center
-    - if @visits.count > 0
-      = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md" do
-        %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
-        = t('visits.export_to_csv')
-  .col-auto.ml-auto
-    %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visit"}
-      %i.fa.fa-plus{"aria-hidden" => "true"}
-      = t('visits.add_travel')
+.row.mt-4
+  .col-lg-9
+    - if @visits.count == 0
+      .mb-4
+        %h1.h3.mb-3= t('visits.page_title')
+        %p.lead= t('visits.page_description')
+        %p.text-muted
+          = t('visits.nationality_set_to', nationality: current_user_or_guest_user.nationality.name, settings_link: link_to(t('visits.change_settings'), my_details_path(locale: I18n.locale))).html_safe
+    - else
+      %h1.sr-only= t('visits.page_title')
 
-.row
-  .col-md-12
-    = render 'visitlist'
-.row
-  .col-lg-10.col-md-12
-    .ad-block-limit
-      %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
+    - if current_user_or_guest_user.visa_required?
+      %h3.section-heading.mt-0
+        %i.fa.fa-passport.mr-2
+        = t('visits.schengen_visa_list')
+      - if @visas.any?
+        .row.py-1.mb-2
+          .col-md-12.text-right
+            %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visa", "aria-label": t('visits.add_visa')}
+              %i.fa.fa-plus{"aria-hidden" => "true"}
+              =t('visits.add_visa')
+      .row
+        .col-md-12
+          = render 'visas/visalist'
+
+    %h3.section-heading
+      %i.fa.fa-plane.mr-2
+      = t('visits.travel_record')
+    - if @visits.any?
+      .row.py-1.mb-2
+        .col-auto.ml-auto
+          - if @visits.count > 0
+            = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md mr-2", "aria-label": t('visits.export_to_csv') do
+              %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
+              = t('visits.export_to_csv')
+          %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit", "aria-label": t('visits.add_travel')}
+            %i.fa.fa-plus{"aria-hidden" => "true"}
+            = t('visits.add_travel')
+
+    .row
+      .col-md-12
+        = render 'visitlist'
+    .row
+      .col-lg-10.col-md-12
+        .ad-block-limit
+          %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
+  .col-lg-3.d-none.d-lg-block.mb-5{style: "padding-bottom: 220px;"}
+    = render 'days/calendar_sidebar'
+
+.row.d-lg-none.mt-2
+  .col-12
+    = render 'days/calendar_sidebar', sticky_sidebar: false
 
 -# Modal for adding/editing visits
 #visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1"}
@@ -53,12 +67,12 @@
       .modal-body
         -# Form will be loaded here via AJAX
       .modal-footer.d-flex.justify-content-between
-        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
         .ml-auto
-          %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+          %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
             %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
             = t('common.delete')
-          %button#saveVisitButton.btn.btn-primary{type: "button"}
+          %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": t('common.save')}
             %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
             = t('common.save')
 
@@ -82,11 +96,10 @@
             %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
             = t('common.save')
 
--# Modal for delete confirmation
 #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
   .modal-dialog{role: "document"}
     .modal-content
-      .modal-header.bg-danger.text-white
+      .modal-header.delete-warning
         %h5#deleteModalLabel.modal-title
           %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
           = t('common.confirm_delete')

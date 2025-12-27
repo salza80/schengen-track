@@ -1,6 +1,7 @@
 ---
 zh-CN:
   visas:
+    add_first_visa_hint: 添加您的申根签证信息
     add_visa: 添加签证
     columns:
       dates: 日期
@@ -8,4 +9,5 @@ zh-CN:
       no_entries: 无条目
     edit_title: 编辑申根签证
     list_caption: 用于计算的申根签证列表。
+    no_visas: 还没有签证
     to: 至

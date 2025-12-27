@@ -1,6 +1,7 @@
 ---
 en:
   visas:
+    add_first_visa_hint: Add your Schengen visa information
     add_visa: Add Visa
     columns:
       dates: Dates
@@ -8,4 +9,5 @@ en:
       no_entries: No Entries
     edit_title: Edit Schengen Visa
     list_caption: List of Schengen Visas to use for calculation.
+    no_visas: No visas yet
     to: to

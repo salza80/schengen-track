@@ -1,6 +1,6 @@
 = form_for @visit, html: { class: "form-horizontal" }, remote: true do |f|
   - if @visit.errors.any?
-    .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
+    .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
       %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
         %span{"aria-hidden" => "true"} &times;
       %strong
@@ -13,22 +13,30 @@
     .col-sm-2.my-auto
       = f.label :entry_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :entry_date, {}, { class: "form-control custom-select" }
+      = f.date_select :entry_date, {}, { class: "form-control custom-select", "aria-label": t('visits.entry_date') }
+  - unless current_user_or_guest_user.nationality.visa_required == 'F'
+    #entry-date-info.form-group.row{style: 'display: none;'}
+      .col-sm-2
+      .col-sm-10
+        .alert.alert-info.mb-0
+          %small
+            %strong Maximum stay:
+            %span#max-stay-info Loading...
   .form-group.row
     .col-sm-2.my-auto
       = f.label :exit_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :exit_date, {}, { class: "form-control custom-select" }
+      = f.date_select :exit_date, {}, { class: "form-control custom-select", "aria-label": t('visits.exit_date') }
   .form-group.row
     .col-sm-2.my-auto
       = f.label t('common.continent'), class: "col-form-label"
     .col-sm-10
-      = select_tag t('common.continent'), options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select"
+      = select_tag t('common.continent'), options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select", "aria-label": t('common.continent')
   .form-group.row
     .col-sm-2.my-auto
       = f.label :country, class: "col-form-label"
     .col-sm-10
-      = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select")
+      = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select", "aria-label": t('common.country'))
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
 %script
   != "(function() {"
@@ -39,6 +47,56 @@
   != "    }"
   != "    const country = #{@country_options};"
   != "    const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');"
+  != "    "
+  != "    // Handle entry date changes to show max remaining days"
+  != "    function updateMaxStayInfo() {"
+  != "      var year = $('#visit_entry_date_1i').val();"
+  != "      var month = $('#visit_entry_date_2i').val();"
+  != "      var day = $('#visit_entry_date_3i').val();"
+  != "      var countryId = $('#visit_country_id').val();"
+  != "      "
+  != "      if (!year || !month || !day || !countryId) return;"
+  != "      "
+  != "      var date = year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0');"
+  != "      var locale = $('html').attr('lang') || 'en';"
+  != "      var visitId = '#{@visit.persisted? ? @visit.id : ''}';"
+  != "      "
+  != "      var ajaxData = { date: date, country_id: countryId };"
+  != "      if (visitId) {"
+  != "        ajaxData.visit_id = visitId;"
+  != "      }"
+  != "      "
+  != "      $.ajax({"
+  != "        url: '/' + locale + '/visits/max_stay_info',"
+  != "        data: ajaxData,"
+  != "        success: function(data) {"
+  != "          if (data.show && data.max_days > 0) {"
+  != "            var message = data.max_days + ' days until ' + data.exit_date;"
+  != "            if (data.constrained) {"
+  != "              if (data.constraint_type === 'schengen') {"
+  != "                message += ' (limited by Schengen 90/180 rule)';"
+  != "              } else if (data.constraint_type === 'next_visit') {"
+  != "                message += ' (limited by next entry on ' + data.next_entry_date + ')';"
+  != "              }"
+  != "            }"
+  != "            $('#max-stay-info').html(message);"
+  != "            $('#entry-date-info').show();"
+  != "          } else {"
+  != "            $('#entry-date-info').hide();"
+  != "          }"
+  != "        },"
+  != "        error: function() {"
+  != "          $('#entry-date-info').hide();"
+  != "        }"
+  != "      });"
+  != "    }"
+  != "    "
+  != "    // Bind to entry date and country changes"
+  != "    $('#visit_entry_date_1i, #visit_entry_date_2i, #visit_entry_date_3i').on('change', updateMaxStayInfo);"
+  != "    $('#visit_country_id').on('change', updateMaxStayInfo);"
+  != "    "
+  != "    // Initial load"
+  != "    updateMaxStayInfo();"
   != "  }"
   != "  initCascade();"
   != "})();"

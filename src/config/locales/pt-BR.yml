@@ -1,0 +1,127 @@
+---
+pt-BR:
+  about:
+    meta_description: Aprenda a usar a calculadora gratuita de 90/180 dias Schengen. Entenda os requisitos de visto, rastreie suas estadias europeias e planeje viagens para 29 países Schengen.
+    page_title: Sobre a Calculadora Schengen
+  common:
+    about: Sobre
+    as_of: Em
+    back: Voltar
+    blog: Blog
+    calculator: Calculadora
+    calendar: Calendário
+    cancel: Cancelar
+    confirm_delete: Confirmar Exclusão
+    continent: Continente
+    country: País
+    data_deletion: Exclusão de Dados
+    delete: Excluir
+    delete_warning: Tem certeza de que deseja excluir isso? Esta ação não pode ser desfeita.
+    disclaimer: Aviso Legal
+    edit: Editar
+    edit_my_details: Editar Meus Detalhes
+    'false': 'Não'
+    home: Início
+    log_out: Sair
+    login: Entrar
+    multi_unlimited_entries: "(digite 0 para entradas múltiplas/ilimitadas)"
+    na: N/A
+    'no': 'Não'
+    no_days: Nº de Dias
+    of: de
+    privacy_policy: Política de Privacidade
+    save: Salvar
+    schengen: Schengen
+    schengen_calculator: Calculadora Schengen
+    to: até
+    trips: Viagens
+    'true': 'Sim'
+    visa: Visto
+    'yes': 'Sim'
+  date:
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
+    abbr_month_names:
+    -
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda-feira
+    - Terça-feira
+    - Quarta-feira
+    - Quinta-feira
+    - Sexta-feira
+    - Sábado
+    formats:
+      default: "%d-%m-%Y"
+      long: "%e de %B de %Y"
+      short: "%d de %b"
+    month_names:
+    -
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+  days:
+    meta_description: Calendário visual mostrando suas estadias na Área Schengen. Rastreie a regra de 90/180 dias com dias codificados por cores. Veja viagens passadas, planeje visitas futuras e monitore seus dias restantes na Europa.
+    page_title: Calendário Schengen
+  default_description: Calcule seus dias de isenção de visto Schengen com nossa ferramenta gratuita de rastreamento 90/180 dias. Rastreie a regra contínua de 180 dias para 29 países europeus. Comece a planejar sua viagem pela Europa hoje!
+  default_title: Calculadora Schengen | Rastreie a Regra 90/180 Dias | Calculadora de Visto Gratuita
+  errors:
+    prohibited_saving_visa: "%{count} erro impediu que este visto fosse salvo:"
+  helpers:
+    label:
+      user:
+        email: E-mail
+        first_name: Nome
+        last_name: Sobrenome
+        nationality: Nacionalidade
+        nationality_id: Nacionalidade
+        password: Senha
+        password_confirmation: Confirmação de senha
+      visa:
+        end_date: Data final
+        no_entries: Número de entradas
+        start_date: Data inicial
+      visit:
+        continent: Continente
+        country: País
+        entry_date: Data de entrada
+        exit_date: Data de saída
+  keywords: Schengen, Calculadora Schengen, 90 dias em 180, regra de 90 dias, calculadora de 180 dias, calculadora de 90 dias, Visto Schengen, Viagem, Visto Europa, Área Schengen, Zona Schengen
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%e de %B de %Y"
+      mid: "%e de %B de %Y"
+      short: "%d de %b de %Y"
+  title_with_content: Calculadora Gratuita de Visto Turístico de Curta Permanência Schengen / Europa para %{content}

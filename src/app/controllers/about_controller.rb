@@ -39,14 +39,51 @@ class AboutController < ApplicationController
   private
   
   def set_about_meta_tags
-    @meta_title = I18n.t('default_title')
-    @meta_description = I18n.t('default_description')
+    @meta_title = I18n.t('about.page_title', default: 'About') + ' | ' + I18n.t('common.schengen_calculator')
+    @meta_description = I18n.t('about.meta_description', default: I18n.t('default_description'))
     @og_type = 'website'
     @og_url = "https://#{request.host_with_port}#{request.path}"
     # Use schengen map image for about page
     image_path = view_context.asset_path('schengen_area_eu_countries.webp')
     @og_image = "https://#{request.host_with_port}#{image_path}"
     @og_site_name = "Schengen Calculator"
+    
+    # Add JSON-LD structured data for about page
+    @json_ld_data = {
+      "@context" => "https://schema.org",
+      "@type" => "AboutPage",
+      "name" => @meta_title,
+      "description" => @meta_description,
+      "url" => @og_url,
+      "breadcrumb" => {
+        "@type" => "BreadcrumbList",
+        "itemListElement" => [
+          {
+            "@type" => "ListItem",
+            "position" => 1,
+            "name" => "Home",
+            "item" => "https://#{request.host_with_port}/"
+          },
+          {
+            "@type" => "ListItem",
+            "position" => 2,
+            "name" => "About",
+            "item" => @og_url
+          }
+        ]
+      },
+      "mainEntity" => {
+        "@type" => "WebApplication",
+        "name" => I18n.t('common.schengen_calculator'),
+        "applicationCategory" => "UtilityApplication",
+        "operatingSystem" => "Any",
+        "offers" => {
+          "@type" => "Offer",
+          "price" => "0",
+          "priceCurrency" => "USD"
+        }
+      }
+    }
   end
   
   def set_page_meta_tags(page_name)

@@ -4,22 +4,27 @@ de:
     current_status: Aktueller Status
     days: Tage
     days_remaining: Verbleibende Tage
-    days_used: Tage verwendet
+    days_used: Verwendete Tage
+    entry_limit_exceeded: Einreisegrenze überschritten
     from_date_onwards: Ab %{date}
     full_stay: Volle 90 Tage!
+    go_to_visas: Zu Visa gehen
+    jump_to_today: Zu heute
     learn_about_rule: Mehr über die 90/180-Tage-Regel erfahren
     legend: Legende
     legend_outside: Außerhalb Schengen
     legend_overstay: Überschreitung
     legend_safe: Im Schengen (Sicher)
     legend_waiting: Wartezeit
-    legend_warning: Nahe am Limit (80+ Tage)
     max_days_reached: Höchststand
     max_remaining_days: Maximale verbleibende Tage - Ist die maximale Aufenthaltsdauer im Schengen-Raum, wenn Sie an diesem Tag erneut einreisen.
+    meta_description: Visueller Kalender zeigt Ihre Aufenthalte im Schengen-Raum. Verfolgen Sie die 90/180-Tage-Regel mit farbcodierten Tagen. Sehen Sie vergangene Reisen, planen Sie zukünftige Besuche und überwachen Sie Ihre verbleibenden Tage in Europa.
     need_help: Brauchen Sie Hilfe, die Regel zu verstehen?
     next_entry_options: Früheste Wiedereinreisetermine
+    no_visa_entered: Kein Visum eingegeben
     no_visits_this_year: Keine Besuche im Jahr %{year}
     overstay_na: N/A
+    overstay_tooltip: Sie haben die 90/180-Tage-Regel überschritten
     page_title: Schengen 90/180-Tage-Rechner
     schengen_days_in_year: Tage im Schengen
     schengen_no: Nein
@@ -42,5 +47,10 @@ de:
       schengen_days_used_tooltip: Die Anzahl der Tage im Schengen-Raum in den letzten 180 Tagen.
     until_date: bis %{date}
     view_table: In Tabelle anzeigen
+    visa_ok_tooltip: Sie haben ein gültiges Visum zum heutigen Tag
+    visa_status_label: Visumstatus
+    visa_status_ok: 'Visumstatus: OK'
+    visa_warning: Visum erforderlich!
     visits_count: Besuche
+    waiting_period_tooltip: Da Sie zuvor die Aufenthaltsdauer überschritten haben, gilt eine Wartezeit von 180 Tagen.
     year_summary: "%{year} Zusammenfassung"

@@ -1,6 +1,7 @@
 ---
 tr:
   visas:
+    add_first_visa_hint: Schengen vize bilgilerinizi ekleyin
     add_visa: Vize Ekle
     columns:
       dates: Tarihler
@@ -8,4 +9,5 @@ tr:
       no_entries: Giriş Yok
     edit_title: Schengen Vizesini Düzenle
     list_caption: Hesaplama için kullanılacak Schengen Vizelerinin Listesi.
+    no_visas: Henüz vize yok
     to: il

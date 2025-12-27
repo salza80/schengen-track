@@ -7,39 +7,4 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Start containers
-        run: docker compose -f "docker-compose.yml" up -d
-        working-directory: src
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2.2'
-          bundler-cache: true
-          working-directory: src
-
-      - name: Install Chrome for Selenium tests
-        run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-
-      - run: bundle exec rails db:create
-        working-directory: src
-
-      - run: bundle exec rails db:migrate
-        working-directory: src
-
-      - name: Check i18n translations
-        run: bundle exec rake i18n:check
-        working-directory: src
-
-      - name: Run tests
-        run: bundle exec rake test
-        working-directory: src
+    uses: ./.github/workflows/test-suite.yml

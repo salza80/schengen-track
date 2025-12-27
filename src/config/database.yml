@@ -19,8 +19,9 @@ development:
 test:
   <<: *default
   database: scheng_test
-  host: localhost
+  host: <%= ENV['CI'] ? '127.0.0.1' : 'localhost' %>
   port: 5432
+  password: <%= ENV['CI'] ? 'postgres' : 'root' %>
 
 # production:
 #   <<: *default

@@ -27,6 +27,7 @@ tr:
     edit_my_details: Bilgilerimi Düzenle
     'false': Hayır
     home: Ana Sayfa
+    legal: Yasal
     log_out: Çıkış yap
     login: Giriş yap
     multi_unlimited_entries: "(çoklu/sınırsız girişler için 0 girin)"

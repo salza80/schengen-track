@@ -22,6 +22,7 @@ es:
     edit_my_details: Editar mis datos
     'false': 'No'
     home: Inicio
+    legal: Legal
     log_out: Cerrar sesión
     login: Iniciar sesión
     multi_unlimited_entries: "(introduce 0 para entradas múltiples/ilimitadas)"

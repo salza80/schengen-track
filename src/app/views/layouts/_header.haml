@@ -26,11 +26,11 @@
           %i.fa.fa-book.mr-2{"aria-hidden": "true"}
           = t('common.blog')
     %ul.navbar-nav.ml-auto
+      %li.nav-item.user-info-item
+        .user-info
+          %small.text-muted.d-block.user-name= current_user_or_guest_user.full_name
+          = link_to current_user_or_guest_user.nationality.name, my_details_path(locale: I18n.locale), class: "nationality-link"
       - if user_signed_in?
-        %li.nav-item.user-info-item
-          .user-info
-            %small.text-muted.d-block.user-name= current_user.full_name
-            = link_to current_user.nationality.name, my_details_path(locale: I18n.locale), class: "nationality-link"
         %li.nav-item
           %a.btn.btn-outline-dark.btn-sm{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}
             %i.fa.fa-sign-out-alt.mr-2{"aria-hidden": "true"}
@@ -43,3 +43,16 @@
           = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2' do
             %i.fa.fa-sign-in-alt.mr-2
             = t('common.login')
+      / Legal links - visible only on mobile
+      %li.nav-item.d-md-none.mt-3.pt-3.border-top
+        %small.text-muted.d-block.mb-2.px-3= t('common.legal')
+        .legal-links-mobile
+          = link_to disclaimer_path(locale: I18n.locale), class: "d-block px-3 py-2 text-muted small" do
+            %i.fa.fa-file-text.mr-2
+            = t('common.disclaimer')
+          = link_to privacy_path(locale: I18n.locale), class: "d-block px-3 py-2 text-muted small" do
+            %i.fa.fa-shield-alt.mr-2
+            = t('common.privacy_policy')
+          = link_to datadeletion_path(locale: I18n.locale), class: "d-block px-3 py-2 text-muted small" do
+            %i.fa.fa-trash.mr-2
+            = t('common.data_deletion')

@@ -84,8 +84,17 @@
         if (self.state.isMobileDevice) {
           var $tooltip = $cell.data('bs.tooltip');
           
+          // Safely check if tooltip is shown
+          var isTooltipShown = false;
+          try {
+            isTooltipShown = $tooltip && $tooltip.tip && $tooltip.tip.classList.contains('show');
+          } catch (e) {
+            // Tooltip not initialized or structure changed
+            isTooltipShown = false;
+          }
+          
           // If tooltip is not shown, show it
-          if (!$tooltip || !$tooltip.tip || !$tooltip.tip.classList.contains('show')) {
+          if (!isTooltipShown) {
             e.preventDefault();
             e.stopPropagation();
             

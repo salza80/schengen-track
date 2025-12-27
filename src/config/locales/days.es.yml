@@ -4,7 +4,7 @@ es:
     current_status: Estado actual
     days: días
     days_remaining: Días restantes
-    days_used: días usados
+    days_used: Días Usados
     entry_limit_exceeded: Límite de entradas excedido
     from_date_onwards: Desde %{date} en adelante
     full_stay: "¡90 días completos!"

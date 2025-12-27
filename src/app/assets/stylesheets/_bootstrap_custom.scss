@@ -34,6 +34,10 @@ $calendar-warning-text: #856404 !default;
 $calendar-overstay-text: #721c24 !default;  // Dark red text, matches Bootstrap danger text
 $calendar-waiting-text: #856404 !default;
 
+// Override Bootstrap's danger color to match calendar overstay color
+$danger: $calendar-overstay !default;
+
 $theme-colors: (
-  "header": $headerGreen
+  "header": $headerGreen,
+  "danger": $danger
 );

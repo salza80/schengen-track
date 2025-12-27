@@ -16,7 +16,7 @@
       %h2= t('visits.schengen_visa_list')
       .row.py-1
         .col-md-12.text-right
-          %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visa"}
+          %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visa"}
             %i.fa.fa-plus{"aria-hidden" => "true"}
             =t('visits.add_visa')
       .row
@@ -31,7 +31,7 @@
             %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
             = t('visits.export_to_csv')
       .col-auto.ml-auto
-        %button.btn.btn-primary.btn-md.form-btn{"data-action" => "add-visit"}
+        %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit"}
           %i.fa.fa-plus{"aria-hidden" => "true"}
           = t('visits.add_travel')
 
@@ -89,11 +89,10 @@
             %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
             = t('common.save')
 
--# Modal for delete confirmation
-#deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
-  .modal-dialog{role: "document"}
-    .modal-content
-      .modal-header.bg-danger.text-white
+  #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog{role: "document"}
+      .modal-content
+        .modal-header.delete-warning
         %h5#deleteModalLabel.modal-title
           %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
           = t('common.confirm_delete')

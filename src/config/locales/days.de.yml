@@ -4,7 +4,7 @@ de:
     current_status: Aktueller Status
     days: Tage
     days_remaining: Verbleibende Tage
-    days_used: Tage verwendet
+    days_used: Verwendete Tage
     entry_limit_exceeded: Einreisegrenze überschritten
     from_date_onwards: Ab %{date}
     full_stay: Volle 90 Tage!

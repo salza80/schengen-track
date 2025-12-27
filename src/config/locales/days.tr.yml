@@ -4,7 +4,7 @@ tr:
     current_status: Mevcut Durum
     days: gün
     days_remaining: Kalan Günler
-    days_used: kullanılan günler
+    days_used: Kullanılan Günler
     entry_limit_exceeded: Giriş Limiti Aşıldı
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!

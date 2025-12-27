@@ -181,8 +181,8 @@ class VisitsController < ApplicationController
       day_info = calc.find_by_date(date)
       
       if day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
-        schengen_exit_date = date + (day_info.max_remaining_days - 1).days
-        
+        schengen_exit_date = date + day_info.max_remaining_days.days
+
         # Compare Schengen limit with next visit constraint
         if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
           # Next visit comes before Schengen limit

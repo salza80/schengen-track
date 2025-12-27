@@ -9,9 +9,7 @@ module DaysHelper
     return 'overstay' if day.respond_to?(:visa_warning?) && day.visa_warning?
     return 'waiting-period' if day.warning?
 
-    if day.schengen? && day.schengen_days_count && day.schengen_days_count >= 80
-      'in-schengen-warning'
-    elsif day.schengen?
+    if day.schengen?
       'in-schengen-safe'
     else
       'outside-schengen'

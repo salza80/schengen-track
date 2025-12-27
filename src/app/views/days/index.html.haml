@@ -64,7 +64,7 @@
   #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog{role: "document"}
       .modal-content
-        .modal-header.bg-danger.text-white
+        .modal-header.delete-warning
           %h5#deleteModalLabel.modal-title
             %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
             = t('common.confirm_delete')

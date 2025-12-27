@@ -4,7 +4,7 @@ en:
     current_status: Current Status
     days: days
     days_remaining: Days Remaining
-    days_used: days used
+    days_used: Days Used
     entry_limit_exceeded: Entry Limit Exceeded
     from_date_onwards: From %{date} onwards
     full_stay: Full 90 days!

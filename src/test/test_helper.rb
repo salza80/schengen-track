@@ -7,7 +7,7 @@ require 'active_support/testing/time_helpers'
 # Configure Capybara for JavaScript testing
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :selenium_headless
-Capybara.server = :puma, { Silent: true }
+Capybara.server = :puma, { :silent => true }
 
 # Set server host but let Capybara pick a random available port
 Capybara.server_host = '0.0.0.0'

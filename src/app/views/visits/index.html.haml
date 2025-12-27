@@ -13,8 +13,10 @@
 .row
   .col-lg-9
     - if current_user_or_guest_user.visa_required?
-      %h2= t('visits.schengen_visa_list')
-      .row.py-1
+      %h3.section-heading.mt-0
+        %i.fa.fa-passport.mr-2
+        = t('visits.schengen_visa_list')
+      .row.py-1.mb-2
         .col-md-12.text-right
           %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visa"}
             %i.fa.fa-plus{"aria-hidden" => "true"}
@@ -23,14 +25,15 @@
         .col-md-12
           = render 'visas/visalist'
 
-    %h2= t('visits.travel_record')
-    .row.py-1
-      .col.d-flex.align-items-center
+    %h3.section-heading
+      %i.fa.fa-plane.mr-2
+      = t('visits.travel_record')
+    .row.py-1.mb-2
+      .col-auto.ml-auto
         - if @visits.count > 0
-          = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md" do
+          = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md mr-2" do
             %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
             = t('visits.export_to_csv')
-      .col-auto.ml-auto
         %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit"}
           %i.fa.fa-plus{"aria-hidden" => "true"}
           = t('visits.add_travel')
@@ -89,10 +92,10 @@
             %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
             = t('common.save')
 
-  #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
-    .modal-dialog{role: "document"}
-      .modal-content
-        .modal-header.delete-warning
+#deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog{role: "document"}
+    .modal-content
+      .modal-header.delete-warning
         %h5#deleteModalLabel.modal-title
           %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
           = t('common.confirm_delete')

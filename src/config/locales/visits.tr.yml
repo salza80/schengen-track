@@ -40,10 +40,10 @@ tr:
     schengen_days_calculation: Schengen Günleri
     schengen_days_calculation_tooltip: Önceki 180 gün içinde Schengen Alanında geçirilen günlerin sayısı.
     schengen_days_overstay: Fazla Kalma Günleri
-    schengen_visa_list: Schengen Vize Listesi
+    schengen_visa_list: Vizeler
     start_using: Önceki ve gelecekteki seyahat planlarınızı ekleyerek Schengen Hesaplayıcıyı kullanmaya başlayın.
     travel_details: Seyahat Detayları
-    travel_record: Seyahat Kaydı
+    travel_record: Seyahatler
     visa_days_overstay: Vize Fazla Kalma
     visa_details: Vize Detayları
     visa_entry_count: Kullanılan Girişler

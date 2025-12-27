@@ -40,10 +40,10 @@ zh-CN:
     schengen_days_calculation: 申根天数
     schengen_days_calculation_tooltip: 过去180天内在申根区内的天数。
     schengen_days_overstay: 逾期停留天数
-    schengen_visa_list: 申根签证列表
+    schengen_visa_list: 签证
     start_using: 通过添加您的以往和即将到来的旅行计划开始使用申根计算器。
     travel_details: 旅行详情
-    travel_record: 旅行记录
+    travel_record: 行程
     visa_days_overstay: 签证逾期
     visa_details: 签证详情
     visa_entry_count: 使用的入境次数

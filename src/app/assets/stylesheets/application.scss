@@ -228,6 +228,16 @@ input.form-control {
   }
 }
 
+// Section headings with lime green accent
+.section-heading {
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  border-bottom: 3px solid $headerGreen;
+  font-weight: 500;
+  color: $gray-700;
+}
+
 .ad-block-limit{
   max-width: 800px;
 }

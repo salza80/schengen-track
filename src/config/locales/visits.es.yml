@@ -40,10 +40,10 @@ es:
     schengen_days_calculation: Días Schengen
     schengen_days_calculation_tooltip: El número de días dentro del Área Schengen en los últimos 180 días.
     schengen_days_overstay: Días de exceso
-    schengen_visa_list: Lista de Visas Schengen
+    schengen_visa_list: Visas
     start_using: Empieza a usar la Calculadora Schengen agregando tus planes de viaje anteriores y próximos.
     travel_details: Detalles del Viaje
-    travel_record: Registro de Viaje
+    travel_record: Viajes
     visa_days_overstay: Exceso de visa
     visa_details: Detalles de la Visa
     visa_entry_count: Entradas usadas

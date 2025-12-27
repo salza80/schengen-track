@@ -60,6 +60,11 @@ class ActionDispatch::IntegrationTest
   include ActionDispatch::TestProcess
 
   setup do
+    # In CI, set app_host to use 127.0.0.1 so Selenium can connect
+    if ENV['CI'] && Capybara.current_driver == Capybara.javascript_driver
+      Capybara.app_host = "http://127.0.0.1:#{Capybara.current_session.server.port}"
+    end
+    
     # Ensure server is running for each test
     if Capybara.current_driver == Capybara.javascript_driver
       Capybara.current_session.driver.browser
@@ -68,6 +73,9 @@ class ActionDispatch::IntegrationTest
 
   teardown do
     Capybara.reset_sessions!
+    Capybara.use_default_driver
+    Capybara.app_host = nil if ENV['CI']
+  end
     Capybara.use_default_driver
   end
 

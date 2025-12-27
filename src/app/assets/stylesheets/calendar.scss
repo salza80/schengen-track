@@ -291,9 +291,9 @@ html {
 
 // Calendar sidebar
 .calendar-sidebar {
-  z-index: 1; // Lower than footer (100)
+  z-index: 50; // Below footer (100)
   &.sticky-top {
-    z-index: 1;
+    z-index: 50;
   }
   
   // Smooth scrolling for sidebar content

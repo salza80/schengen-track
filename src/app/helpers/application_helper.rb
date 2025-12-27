@@ -21,12 +21,11 @@ module ApplicationHelper
     locales = Rails.application.config.i18n.available_locales
     current_locale = I18n.locale.to_sym
   
-    content_tag(:span) do
+    content_tag(:select, class: 'language-select form-control form-control-sm', onchange: 'window.location.href = this.value;') do
       locales.map do |locale|
-        content_tag(:span, class: locale == current_locale ? 'active' : '') do
-          link_to(locale.upcase, locale: locale)
-        end
-      end.join(" | ").html_safe
+        option_url = url_for(locale: locale)
+        content_tag(:option, locale.upcase, value: option_url, selected: locale == current_locale)
+      end.join.html_safe
     end
   end
 

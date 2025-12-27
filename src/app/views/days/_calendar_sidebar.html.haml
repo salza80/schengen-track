@@ -1,5 +1,5 @@
 - sticky_sidebar = local_assigns.fetch(:sticky_sidebar, true)
-.calendar-sidebar{class: (sticky_sidebar ? 'sticky-top' : nil), style: (sticky_sidebar ? "top: 100px; max-height: calc(100vh - 150px); overflow-y: auto; z-index: 1000;" : nil)}
+.calendar-sidebar{class: (sticky_sidebar ? 'sticky-top' : nil), style: (sticky_sidebar ? "top: 100px; max-height: calc(100vh - 150px); overflow-y: auto; z-index: 50;" : nil)}
   -# Status information (always show, with default values if no data)
   .sidebar-section.card.mb-2
     .card-header.bg-primary.text-white

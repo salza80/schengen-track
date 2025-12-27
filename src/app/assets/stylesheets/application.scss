@@ -54,7 +54,7 @@ html {
   z-index: 100; // Above sidebar (50) but below header (1020)
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: $gray-100;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   
   .footer-link {
     color: $gray-700;
@@ -62,20 +62,59 @@ html {
     transition: color 0.2s ease;
     white-space: nowrap;
     display: inline-block;
+    font-size: 0.75rem;
     
     &:hover {
       color: $primary;
       text-decoration: none;
     }
     
+    &:visited {
+      color: $gray-700;
+    }
+    
     i {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
   }
   
   .language-selector-wrapper {
     display: inline-flex;
     align-items: center;
+    
+    .language-select {
+      width: auto;
+      min-width: 70px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      border: 1px solid $gray-400;
+      border-radius: 0.25rem;
+      background-color: white;
+      cursor: pointer;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
+      }
+    }
+  }
+  
+  // Mobile optimizations
+  @media (max-width: 991px) {
+    .py-2 {
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+    }
+    
+    .footer-links .mx-2 {
+      margin-left: 0.25rem !important;
+      margin-right: 0.25rem !important;
+    }
+    
+    .mb-2 {
+      margin-bottom: 0.5rem !important;
+    }
   }
 }
 
@@ -233,7 +272,7 @@ body {
 
 // Visited link color - scoped to content areas only (not nav/footer/buttons)
 // This prevents navigation links and buttons from turning purple after being clicked
-.container-fluid, .page-sidebar, .blog-content {
+.container-fluid:not(.footer .container-fluid), .page-sidebar, .blog-content {
   a:visited:not(.btn) {
     color: #6610f2; // Purple for visited links (sufficient contrast)
   }

@@ -90,6 +90,8 @@
             %td{ "data-title": t('visits.schengen_days_overstay'), class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
               = visit.schengen_overstay_days
             %td{ "data-title": t('visits.modify') }
-              %a.edit-visit-link{href: "#", "data-visit-id" => visit.id}= t('common.edit')
-              = " / "
-              %a.delete-visit-link{href: "#", "data-visit-id" => visit.id, "data-delete-url" => visit_path(visit, locale: I18n.locale)}= t('common.delete')
+              .action-buttons
+                %a.btn.btn-sm.btn-icon.edit-visit-link{href: "#", "data-visit-id" => visit.id, title: t('common.edit'), "aria-label": t('common.edit')}
+                  %i.fa.fa-pencil-alt
+                %a.btn.btn-sm.btn-icon.delete-visit-link{href: "#", "data-visit-id" => visit.id, "data-delete-url" => visit_path(visit, locale: I18n.locale), title: t('common.delete'), "aria-label": t('common.delete')}
+                  %i.fa.fa-trash

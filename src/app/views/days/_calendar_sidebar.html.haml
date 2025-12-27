@@ -71,24 +71,24 @@
   -# Legend
   - if @show_sidebar_legend.nil? || @show_sidebar_legend
     .sidebar-section.card
-    .card-header.bg-dark.text-white
-      %h6.mb-0
-        %i.fa.fa-palette
-        = t('days.legend')
-    .card-body.p-2
-      .legend-item.d-flex.align-items-center.mb-2
-        .legend-color.outside-schengen.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
-        %small= t('days.legend_outside')
-      .legend-item.d-flex.align-items-center.mb-2
-        .legend-color.in-schengen-safe.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
-        %small= t('days.legend_safe')
-      .legend-item.d-flex.align-items-center.mb-2
-        .legend-color.overstay.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
-        %small= t('days.legend_overstay')
-      - if @overstay
-        .legend-item.d-flex.align-items-center
-          .legend-color.waiting-period.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
-          %small= t('days.legend_waiting')
+      .card-header.bg-dark.text-white
+        %h6.mb-0
+          %i.fa.fa-palette
+          = t('days.legend')
+      .card-body.p-2
+        .legend-item.d-flex.align-items-center.mb-2
+          .legend-color.outside-schengen.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+          %small= t('days.legend_outside')
+        .legend-item.d-flex.align-items-center.mb-2
+          .legend-color.in-schengen-safe.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+          %small= t('days.legend_safe')
+        .legend-item.d-flex.align-items-center.mb-2
+          .legend-color.overstay.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+          %small= t('days.legend_overstay')
+        - if @overstay
+          .legend-item.d-flex.align-items-center
+            .legend-color.waiting-period.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+            %small= t('days.legend_waiting')
   -# Next entry options
   - if @next_entry_days && @next_entry_days.any?
     .sidebar-section.card.mb-2

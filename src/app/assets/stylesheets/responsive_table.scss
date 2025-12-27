@@ -22,24 +22,28 @@ $bp-homer: 75em;
 }
 
 .responsive-table-container {
-  // margin: 5% 3%;
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  background: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin-bottom: 1.5rem;
   
   @media (min-width: $bp-bart) {
-    // margin: 2%;
-  }
-  
-  @media (min-width: $bp-homer) {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 }
 
 .responsive-table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 1.5em;
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
   
   @media (min-width: $bp-bart) {
     font-size: .9em; 
@@ -67,13 +71,23 @@ $bp-homer: 75em;
       height: auto;
       width: auto;
       overflow: auto;
+      background-color: $gray-100;
     }
     
     th {
       text-align: center;
+      font-weight: 600;
+      color: $gray-800;
+      padding: 0.75rem 0.5rem;
+      border-bottom: 1px solid $gray-200;
       
       &:first-of-type {
-        text-align: left; 
+        text-align: left;
+        border-top-left-radius: 0.5rem;
+      }
+      
+      &:last-of-type {
+        border-top-right-radius: 0.5rem;
       }
     }
   }
@@ -121,13 +135,21 @@ $bp-homer: 75em;
   }
   
   caption {
-    margin-bottom: 1em;
-    font-size: 1em;
-    font-weight: bold;
-    text-align: center;
+    padding: 1rem;
+    margin-bottom: 0;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: left;
+    color: $gray-800;
+    background-color: $gray-100;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-top: 1px solid $gray-200;
+    caption-side: bottom;
     
     @media (min-width: $bp-bart) {
-      font-size: 1.5em;
+      font-size: 1.25em;
+      padding: 1.25rem 1.5rem;
     }
   }
   
@@ -148,16 +170,28 @@ $bp-homer: 75em;
     
     tr {
       margin-bottom: 1em;
-      //border: 2px solid rgba(29,150,178,1);
+      background: white;
+      border: 1px solid $gray-200;
+      border-radius: 0.25rem;
       
       @media (min-width: $bp-bart) {
         // Undo display: block 
         display: table-row;
-        //border-width: 1px;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid rgba($gray-300, 0.5);
+        
+        &:hover {
+          background-color: rgba($primary, 0.02);
+        }
       }
       
       &:last-of-type {
-        margin-bottom: 0; 
+        margin-bottom: 0;
+        
+        @media (min-width: $bp-bart) {
+          border-bottom: none;
+        }
       }
     }
     
@@ -208,5 +242,72 @@ $bp-homer: 75em;
   
   &:hover {
     background-color: rgba(33, 150, 243, 0.1) !important; // Light blue hover - match primary color
+  }
+}
+
+// Action buttons container for proper spacing
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  
+  @media (max-width: $bp-bart) {
+    justify-content: flex-end;
+  }
+}
+
+// Icon button styling for edit/delete actions
+.btn-icon {
+  padding: 0.5rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  border: 1px solid $primary;
+  background: transparent;
+  color: $gray-600;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  
+  // Better touch targets for mobile (44x44px minimum)
+  @media (max-width: $bp-bart) {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.625rem;
+  }
+  
+  &:hover {
+    color: $primary;
+    background-color: rgba($primary, 0.1);
+    text-decoration: none;
+  }
+  
+  &:focus {
+    outline: 2px solid $primary;
+    outline-offset: 2px;
+  }
+  
+  &.delete-visit-link,
+  &.delete-visa-link {
+    border-color: $red;
+    
+    &:hover {
+      color: $red;
+      background-color: rgba($red, 0.1);
+    }
+    
+    &:focus {
+      outline-color: $red;
+    }
+  }
+  
+  i {
+    font-size: 1rem;
+    
+    @media (max-width: $bp-bart) {
+      font-size: 1.125rem;
+    }
   }
 }

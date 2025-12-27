@@ -28,6 +28,8 @@
             %td{"data-title": t('visas.columns.no_entries')} 
               = visa.no_entries
             %td{"data-title": t('visas.columns.modify')} 
-              %a.edit-visa-link{href: "#", "data-visa-id" => visa.id}= t('common.edit')
-              = " / "
-              %a.delete-visa-link{href: "#", "data-visa-id" => visa.id, "data-delete-url" => visa_path(visa, locale: I18n.locale)}= t('common.delete')
+              .action-buttons
+                %a.btn.btn-sm.btn-icon.edit-visa-link{href: "#", "data-visa-id" => visa.id, title: t('common.edit'), "aria-label": t('common.edit')}
+                  %i.fa.fa-pencil-alt
+                %a.btn.btn-sm.btn-icon.delete-visa-link{href: "#", "data-visa-id" => visa.id, "data-delete-url" => visa_path(visa, locale: I18n.locale), title: t('common.delete'), "aria-label": t('common.delete')}
+                  %i.fa.fa-trash

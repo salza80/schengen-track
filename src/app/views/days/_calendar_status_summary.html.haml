@@ -1,12 +1,12 @@
 - if @status_summary
-  .calendar-status-card.card.mb-3{class: "border-#{status_text_class(@status_summary[:status])}"}
+  .calendar-status-card.card.mb-3{class: "border-#{status_text_class(@status_summary[:status])}", role: "region", "aria-label": t('days.current_status')}
     .card-body.p-3
       -# Mobile layout (< md)
       .d-md-none
         -# Header with date
         .text-center.mb-3
           %h5.mb-1
-            %i.fa{class: status_icon_class(@status_summary[:status])}
+            %i.fa{class: status_icon_class(@status_summary[:status]), "aria-hidden": "true"}
             = t('days.current_status')
           %small.text-muted
             = t('common.as_of')

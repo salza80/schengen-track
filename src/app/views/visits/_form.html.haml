@@ -1,6 +1,6 @@
 = form_for @visit, html: { class: "form-horizontal" }, remote: true do |f|
   - if @visit.errors.any?
-    .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
+    .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
       %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
         %span{"aria-hidden" => "true"} &times;
       %strong
@@ -13,7 +13,7 @@
     .col-sm-2.my-auto
       = f.label :entry_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :entry_date, {}, { class: "form-control custom-select" }
+      = f.date_select :entry_date, {}, { class: "form-control custom-select", "aria-label": t('visits.entry_date') }
   - unless current_user_or_guest_user.nationality.visa_required == 'F'
     #entry-date-info.form-group.row{style: 'display: none;'}
       .col-sm-2
@@ -26,17 +26,17 @@
     .col-sm-2.my-auto
       = f.label :exit_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :exit_date, {}, { class: "form-control custom-select" }
+      = f.date_select :exit_date, {}, { class: "form-control custom-select", "aria-label": t('visits.exit_date') }
   .form-group.row
     .col-sm-2.my-auto
       = f.label t('common.continent'), class: "col-form-label"
     .col-sm-10
-      = select_tag t('common.continent'), options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select"
+      = select_tag t('common.continent'), options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select", "aria-label": t('common.continent')
   .form-group.row
     .col-sm-2.my-auto
       = f.label :country, class: "col-form-label"
     .col-sm-10
-      = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select")
+      = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select", "aria-label": t('common.country'))
     / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
 %script
   != "(function() {"

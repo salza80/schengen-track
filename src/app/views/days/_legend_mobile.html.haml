@@ -1,7 +1,7 @@
-.calendar-legend-mobile.card.mb-3
+.calendar-legend-mobile.card.mb-3{role: "region", "aria-label": t('days.legend')}
   .card-body.p-2
     %h6.text-center.mb-2
-      %i.fa.fa-palette
+      %i.fa.fa-palette{"aria-hidden": "true"}
       = t('days.legend')
     .legend-pills.d-flex.flex-wrap.justify-content-center
       %span.badge.badge-pill.px-3.py-2.m-1{class: "outside-schengen"}

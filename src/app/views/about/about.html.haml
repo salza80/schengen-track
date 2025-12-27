@@ -8,10 +8,10 @@
 
 .row
   .col-lg-4{:role => "complementary"}
-    %nav.page-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}}
+    %nav.page-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}, "aria-label": t('about.about.contents_title')}
       %h4.title
         = t('about.about.contents_title')
-      %ul.nav.flex-column.page-sidenav
+      %ul.nav.flex-column.page-sidenav{role: "list"}
         %li
           = link_to t('about.about.introduction'), "#intro", {:class => "text-dark"}
         %li
@@ -73,7 +73,7 @@
       %p.mb-4
         = t('about.about.calculator_description')
       .text-center.mb-4
-        = link_to t('about.about.get_started'), get_started_path, class: "btn btn-primary btn-lg"
+        = link_to t('about.about.get_started'), get_started_path, class: "btn btn-primary btn-lg", "aria-label": t('about.about.get_started')
       %br
       %p.mb-4
         = t('about.about.useful_for_planning')
@@ -162,12 +162,12 @@
           = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt'), class: "form-label sr-only"
           = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
       .text-center.mb-4
-        = link_to t('about.about.button_text'), get_started_path, class: "btn btn-primary btn-lg"
+        = link_to t('about.about.button_text'), get_started_path, class: "btn btn-primary btn-lg", "aria-label": t('about.about.button_text')
       .ad-block.mb-4
         %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
       %p.mb-4
         = t('about.about.blog_link_intro')
-        = link_to t('blog.extendedTravel.title'), blog_path(locale: I18n.locale, slug: 'extended-schengen-stay')
+        = link_to t('blog.extendedTravel.title'), blog_path(locale: I18n.locale, slug: 'extended-schengen-stay'), "aria-label": t('blog.extendedTravel.title')
 
       %h2#faq.mb-4
         = t('about.about.faq.title')

@@ -11,11 +11,11 @@
           %small.d-block.mt-1
             = t('common.as_of')
             = Date.today.strftime('%B %d, %Y')
-        = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-light btn-sm d-flex align-items-center" do
-          %i.fa.fa-calendar.mr-1.flex-shrink-0
+        = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-light btn-sm d-flex align-items-center", "aria-label": t('days.jump_to_today') do
+          %i.fa.fa-calendar.mr-1.flex-shrink-0{"aria-hidden": "true"}
           %span= t('days.jump_to_today')
     .card-body.p-3
-      .status-info
+      .status-info{"aria-live": "polite", "aria-atomic": "true"}
         .mb-2
           %small.text-muted= t('days.days_used')
           .h5.mb-0
@@ -41,8 +41,8 @@
             .d-flex.justify-content-between.align-items-center.mb-2
               %small.text-muted= t('days.visa_status_label')
               - if controller_name != 'visits'
-                = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
-                  %i.fa.fa-passport.mr-1
+                = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm", "aria-label": t('days.go_to_visas') do
+                  %i.fa.fa-passport.mr-1{"aria-hidden": "true"}
                   = t('days.go_to_visas')
             - if @status_summary && @status_summary[:visa_status]
               .h5.mb-0

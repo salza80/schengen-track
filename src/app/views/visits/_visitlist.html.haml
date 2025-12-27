@@ -1,11 +1,11 @@
 - if @visits.empty?
   .empty-state
     .empty-icon
-      %i.fa.fa-plane
+      %i.fa.fa-plane{"aria-hidden" => "true"}
     %h4= t('visits.no_trips')
     %p= t('visits.add_first_trip_hint')
-    %button.btn.btn-add.btn-lg{"data-action" => "add-visit"}
-      %i.fa.fa-plus.mr-2
+    %button.btn.btn-add.btn-lg{"data-action" => "add-visit", "aria-label": t('visits.add_travel')}
+      %i.fa.fa-plus.mr-2{"aria-hidden" => "true"}
       = t('visits.add_travel')
 - else
   .responsive-table-container
@@ -91,7 +91,7 @@
               = visit.schengen_overstay_days
             %td{ "data-title": t('visits.modify') }
               .action-buttons
-                %a.btn.btn-sm.btn-icon.edit-visit-link{href: "#", "data-visit-id" => visit.id, title: t('common.edit'), "aria-label": t('common.edit')}
-                  %i.fa.fa-pencil-alt
-                %a.btn.btn-sm.btn-icon.delete-visit-link{href: "#", "data-visit-id" => visit.id, "data-delete-url" => visit_path(visit, locale: I18n.locale), title: t('common.delete'), "aria-label": t('common.delete')}
-                  %i.fa.fa-trash
+                %a.btn.btn-sm.btn-icon.edit-visit-link{href: "#", "data-visit-id" => visit.id, title: t('common.edit'), "aria-label": "#{t('common.edit')} #{visit.country.name} #{t('visits.travel_record')}"}
+                  %i.fa.fa-pencil-alt{"aria-hidden": "true"}
+                %a.btn.btn-sm.btn-icon.delete-visit-link{href: "#", "data-visit-id" => visit.id, "data-delete-url" => visit_path(visit, locale: I18n.locale), title: t('common.delete'), "aria-label": "#{t('common.delete')} #{visit.country.name} #{t('visits.travel_record')}"}
+                  %i.fa.fa-trash{"aria-hidden": "true"}

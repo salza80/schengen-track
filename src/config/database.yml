@@ -3,7 +3,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   username: postgres
-  password: root
+  password: <%= ENV['CI'] ? 'postgres' : 'root' %>
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
@@ -11,7 +11,7 @@ default: &default
 development:
   <<: *default
   database: scheng_development
-  host: localhost
+  host: <%= ENV['CI'] ? '127.0.0.1' : 'localhost' %>
   port: 5432
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

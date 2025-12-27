@@ -237,16 +237,10 @@
 
     // Google AdSense
     const adsScript = document.createElement('script');
-    adsScript.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+    adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8290979932488448';
     adsScript.async = true;
+    adsScript.crossOrigin = 'anonymous';
     document.body.appendChild(adsScript);
-    
-    adsScript.onload = function() {
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-8290979932488448",
-        enable_page_level_ads: true
-      });
-    };
   }
 
   // Load scripts after page is fully loaded and user interacts

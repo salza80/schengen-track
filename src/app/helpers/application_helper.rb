@@ -39,8 +39,8 @@ module ApplicationHelper
       end.join.html_safe
     end
     
-    # Hidden links for search engine crawlers
-    seo_links = content_tag(:div, class: 'language-links-seo', style: 'position:absolute;left:-9999px;', 'aria-hidden': 'true') do
+    # Hidden links for search engine crawlers (visually hidden but accessible to screen readers)
+    seo_links = content_tag(:div, class: 'language-links-seo', style: 'position:absolute;left:-9999px;') do
       locales.map do |locale|
         next if locale == current_locale
         link_url = url_for(locale: locale)

@@ -87,15 +87,22 @@ html {
     display: inline-flex;
     align-items: center;
     
+    .fa-globe {
+      font-size: 1.25rem;
+    }
+    
     .language-select {
       width: auto;
-      min-width: 70px;
-      padding: 0.25rem 0.5rem;
-      font-size: 0.75rem;
+      min-width: 120px;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      height: auto;
       border: 1px solid $gray-400;
       border-radius: 0.25rem;
       background-color: white;
       cursor: pointer;
+      vertical-align: middle;
       
       &:focus {
         outline: none;

@@ -277,20 +277,9 @@ a.btn-light {
   color: #212529 !important; // Dark text on light backgrounds
 }
 
-.justify-right{
-  justify-content: right;
-}
-
 .table-danger {
   background-color: $calendar-overstay !important;
   color: $calendar-overstay-text !important;
-}
-
-.facebook-buttons {
-  > div{
-    margin-left: 4px;
-    display: inline-block;
-  }
 }
 
 body {
@@ -344,15 +333,6 @@ body {
 .table-top-header {
   border: 1px;
   border-style: solid;
-
-}
-.current-setting{
-  margin: 0px;
-  min-width: 100px;
-}
-
-.panel-title{
-  font-size: 24px;
 }
 
 .modify-col {
@@ -472,15 +452,6 @@ input.form-control {
   .amazon-item{
     margin-bottom: 10px;
   }
-}
-
-.banner-image {
-  width:100%;
-  height: 150px; 
-  object-fit: cover;
-  object-position: 25% 55%;
-  margin-bottom: 1em;
-  margin-top: 1em; 
 }
 
 // Delete confirmation modal styles

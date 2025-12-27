@@ -431,28 +431,6 @@ html {
   }
 }
 
-// Empty calendar message
-.empty-calendar-message {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: #6c757d;
-  
-  h4 {
-    margin-bottom: 1rem;
-  }
-  
-  p {
-    font-size: 1.1rem;
-    margin-bottom: 0;
-  }
-  
-  .icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
-  }
-}
-
 // ============================================================================
 // Visit Highlight Animations
 // ============================================================================
@@ -527,7 +505,6 @@ html {
 }
 
 // Smooth transition when highlight is removed
-.calendar-day-cell,
 .day-cell {
   transition: border 0.3s ease, transform 0.3s ease;
 }

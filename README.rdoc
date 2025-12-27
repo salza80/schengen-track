@@ -61,7 +61,7 @@ All configuration is accessed via the <tt>AppConfig</tt> class:
 
 This provides:
 * Type safety - misspell a method and get an error
-* Single source of truth - all config keys defined in config/initializers/app_config.rb
+* Single source of truth - all config keys defined in lib/app_config.rb
 * Consistent API across development and production
 * No deprecated Rails.application.secrets usage
 

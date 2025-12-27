@@ -6,6 +6,9 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Load AppConfig early so it's available in initializers
+require_relative '../lib/app_config'
+
 module SchengenTrack
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -15,6 +18,10 @@ module SchengenTrack
 
     # Disable deprecated secrets.yml loading - we use ENV variables via AppConfig
     config.read_encrypted_secrets = false
+    
+    # Load AppConfig before initializers so it's available in environment configs
+    config.autoload_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('lib')
     
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       html_tag

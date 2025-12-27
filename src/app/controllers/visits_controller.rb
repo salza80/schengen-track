@@ -306,13 +306,46 @@ class VisitsController < ApplicationController
     end
     
     def set_visits_meta_tags
-      @meta_title = I18n.t('default_title')
-      @meta_description = I18n.t('default_description')
+      # More specific title for visits page
+      @meta_title = I18n.t('visits.page_title') + ' | ' + I18n.t('common.schengen_calculator')
+      @meta_description = I18n.t('visits.meta_description', default: I18n.t('default_description'))
       @og_type = 'website'
       @og_url = "https://#{request.host_with_port}#{request.path}"
       # Use schengen map image for visits page
       image_path = view_context.asset_path('schengen_area_eu_countries.webp')
       @og_image = "https://#{request.host_with_port}#{image_path}"
       @og_site_name = "Schengen Calculator"
+      
+      # Structured data for visits page
+      @json_ld_data = {
+        "@context" => "https://schema.org",
+        "@type" => "WebPage",
+        "name" => @meta_title,
+        "description" => @meta_description,
+        "url" => @og_url,
+        "breadcrumb" => {
+          "@type" => "BreadcrumbList",
+          "itemListElement" => [
+            {
+              "@type" => "ListItem",
+              "position" => 1,
+              "name" => "Home",
+              "item" => "https://#{request.host_with_port}/"
+            },
+            {
+              "@type" => "ListItem",
+              "position" => 2,
+              "name" => I18n.t('visits.page_title'),
+              "item" => @og_url
+            }
+          ]
+        },
+        "mainEntity" => {
+          "@type" => "SoftwareApplication",
+          "name" => I18n.t('common.schengen_calculator'),
+          "applicationCategory" => "UtilityApplication",
+          "description" => I18n.t('visits.page_description', default: I18n.t('default_description'))
+        }
+      }
     end
 end

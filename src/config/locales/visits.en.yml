@@ -24,6 +24,7 @@ en:
     exits_tooltip: Indicates if a Visa for the period of travel been entered.
     export_to_csv: Export to CSV
     list_caption: List of countries visited or that you have visited in the last 180 days, and are planning to visit in the future.
+    meta_description: Track and manage all your Schengen Area visits. Monitor compliance with the 90/180 day rule, add past trips, plan future travel, and calculate remaining days.
     modify: Modify
     multi: Multi
     nationality_set_to: Your nationality is set to %{nationality}. %{settings_link} if needed.

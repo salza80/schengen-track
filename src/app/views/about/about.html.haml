@@ -39,6 +39,21 @@
                 = link_to "Schengen requirements for " + @country.nationality_plural, "#nationality", {:class => "text-dark"}
         %li
           = link_to t('about.about.faq_link'), "#faq", {:class => "text-dark"}
+          %ul.nav.flex-column
+            %li
+              = link_to t('about.about.faq.q1.question'), "#faq-q1", {:class => "text-dark"}
+            %li
+              = link_to t('about.about.faq.q2.question'), "#faq-q2", {:class => "text-dark"}
+            %li
+              = link_to t('about.about.faq.q3.question'), "#faq-q3", {:class => "text-dark"}
+            %li
+              = link_to t('about.about.faq.q4.question'), "#faq-q4", {:class => "text-dark"}
+            %li
+              = link_to t('about.about.faq.q5.question'), "#faq-q5", {:class => "text-dark"}
+            %li
+              = link_to t('about.about.faq.q6.question'), "#faq-q6", {:class => "text-dark"}
+            %li
+              = link_to t('about.about.faq.q7.question'), "#faq-q7", {:class => "text-dark"}
         %li
           = link_to t('about.about.how_to_use_link'), "#how", {:class => "text-dark"}
           %ul.nav.flex-column
@@ -158,43 +173,43 @@
         = t('about.about.faq.title')
       
       .faq-section
-        .faq-item
+        .faq-item#faq-q1
           %h3.faq-question
             = t('about.about.faq.q1.question')
           .faq-answer
             %p= t('about.about.faq.q1.answer')
         
-        .faq-item
+        .faq-item#faq-q2
           %h3.faq-question
             = t('about.about.faq.q2.question')
           .faq-answer
             %p= t('about.about.faq.q2.answer')
         
-        .faq-item
+        .faq-item#faq-q3
           %h3.faq-question
             = t('about.about.faq.q3.question')
           .faq-answer
             %p= t('about.about.faq.q3.answer')
         
-        .faq-item
+        .faq-item#faq-q4
           %h3.faq-question
             = t('about.about.faq.q4.question')
           .faq-answer
             %p= t('about.about.faq.q4.answer')
         
-        .faq-item
+        .faq-item#faq-q5
           %h3.faq-question
             = t('about.about.faq.q5.question')
           .faq-answer
             %p= t('about.about.faq.q5.answer')
         
-        .faq-item
+        .faq-item#faq-q6
           %h3.faq-question
             = t('about.about.faq.q6.question')
           .faq-answer
             %p= t('about.about.faq.q6.answer')
         
-        .faq-item
+        .faq-item#faq-q7
           %h3.faq-question
             = t('about.about.faq.q7.question')
           .faq-answer

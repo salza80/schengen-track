@@ -18,6 +18,7 @@ tr:
     legend_waiting: Bekleme Süresi
     max_days_reached: Zirve
     max_remaining_days: Maksimum kalan günler - Bu günde yeniden girdiğinizde Schengen alanında kalabileceğiniz maksimum süre.
+    meta_description: Schengen Bölgesi konaklamalarınızı gösteren görsel takvim. Renk kodlu günlerle 90/180 gün kuralını takip edin. Geçmiş gezileri görün, gelecek ziyaretleri planlayın ve Avrupa'daki kalan günlerinizi izleyin.
     need_help: Kuralı anlamak için yardıma mı ihtiyacınız var?
     next_entry_options: En Erken Yeniden Giriş Tarihleri
     no_visa_entered: Vize girilmedi

@@ -167,6 +167,15 @@
       "inLanguage": ["en", "de", "es", "hi", "tr", "zh"]
     }
     </script>
+    <% if @json_ld_faq %>
+    <script type="application/ld+json">
+    <%= raw @json_ld_faq.to_json %>
+    </script>
+    <% end %>
+  <% elsif @json_ld_data %>
+    <script type="application/ld+json">
+    <%= raw @json_ld_data.to_json %>
+    </script>
   <% end %>
 </head>
 <body>

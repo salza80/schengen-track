@@ -18,6 +18,7 @@ zh-CN:
     legend_waiting: 等待期
     max_days_reached: 峰值
     max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
+    meta_description: 显示您申根区逗留的可视化日历。使用颜色编码的日期追踪90/180天规则。查看过去的旅行、计划未来的访问并监控您在欧洲的剩余天数。
     need_help: 需要帮助理解规则吗？
     next_entry_options: 最早再入境日期
     no_visa_entered: 未输入签证

@@ -24,6 +24,7 @@ zh-CN:
     exits_tooltip: 指示是否已输入了旅行期间的签证。
     export_to_csv: 导出为 CSV
     list_caption: 过去180天内访问或计划访问的国家列表。
+    meta_description: 追踪和管理您的所有申根区访问。监控遵守90/180天规则，添加过去的旅行，计划未来的旅行并计算剩余天数。
     modify: 修改
     multi: 多次
     nationality_set_to: 您的国籍设置为 %{nationality}。如有需要，%{settings_link}。

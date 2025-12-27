@@ -19,6 +19,9 @@ class DaysController < ApplicationController
     
     setup_calendar_view_infinite
     calculate_status_summary if @days.any?
+    
+    # Set SEO meta tags for calendar page
+    set_days_meta_tags
   end
 
   private
@@ -206,6 +209,48 @@ class DaysController < ApplicationController
     end
     
     weeks
+  end
+  
+  def set_days_meta_tags
+    @meta_title = I18n.t('days.page_title') + ' | ' + I18n.t('common.schengen_calculator')
+    @meta_description = I18n.t('days.meta_description', default: I18n.t('default_description'))
+    @og_type = 'website'
+    @og_url = "https://#{request.host_with_port}#{request.path}"
+    image_path = view_context.asset_path('schengen_area_eu_countries.webp')
+    @og_image = "https://#{request.host_with_port}#{image_path}"
+    @og_site_name = "Schengen Calculator"
+    
+    # JSON-LD already exists in layout for days#index - enhance it with FAQ
+    @json_ld_faq = {
+      "@context" => "https://schema.org",
+      "@type" => "FAQPage",
+      "mainEntity" => [
+        {
+          "@type" => "Question",
+          "name" => "What is the Schengen 90/180 day rule?",
+          "acceptedAnswer" => {
+            "@type" => "Answer",
+            "text" => "The 90/180 day rule means you can stay in the Schengen Area for up to 90 days within any 180-day period. This is a rolling calculation - each day, the system looks back 180 days to count your stay."
+          }
+        },
+        {
+          "@type" => "Question",
+          "name" => "How do I track my Schengen days?",
+          "acceptedAnswer" => {
+            "@type" => "Answer",
+            "text" => "Use the calendar to view your past and future trips. Add your travel dates, and the calculator automatically tracks your days in the Schengen Area. Green days are safe, yellow means you're approaching the limit, and red indicates overstay."
+          }
+        },
+        {
+          "@type" => "Question",
+          "name" => "Which countries are in the Schengen Area?",
+          "acceptedAnswer" => {
+            "@type" => "Answer",
+            "text" => "The Schengen Area includes 29 European countries: Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and Switzerland."
+          }
+        }
+      ]
+    }
   end
   
 end

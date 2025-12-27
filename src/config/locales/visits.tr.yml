@@ -24,6 +24,7 @@ tr:
     exits_tooltip: Seyahat dönemi için Vize girilmiş mi?
     export_to_csv: CSV'ye Aktar
     list_caption: Son 180 gün içinde ziyaret edilen veya ziyaret edilen ve gelecekte ziyaret etmeyi planladığınız ülkelerin listesi.
+    meta_description: Tüm Schengen Bölgesi ziyaretlerinizi takip edin ve yönetin. 90/180 gün kuralına uygunluğu izleyin, geçmiş gezileri ekleyin, gelecek seyahatleri planlayın ve kalan günleri hesaplayın.
     modify: Düzenle
     multi: Çoklu
     nationality_set_to: Uyruğunuz %{nationality} olarak ayarlanmıştır. Gerekirse %{settings_link}.

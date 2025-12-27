@@ -1,5 +1,8 @@
 ---
 tr:
+  about:
+    meta_description: Ücretsiz Schengen 90/180 gün hesaplayıcısını nasıl kullanacağınızı öğrenin. Vize gereksinimlerini anlayın, Avrupa konaklamalarınızı takip edin ve 29 Schengen ülkesine seyahat planlayın.
+    page_title: Schengen Hesaplayıcı Hakkında
   activerecord:
     models:
       user:

@@ -24,7 +24,6 @@ en:
     no_visits_this_year: No visits in %{year}
     overstay_na: N/A
     overstay_tooltip: You have overstayed the 90/180 days
-    page_title: Schengen 90/180 Day Calculator
     schengen_days_in_year: Days in Schengen
     schengen_no: 'No'
     schengen_yes: 'Yes'

@@ -24,6 +24,7 @@ es:
     exits_tooltip: Indica si se ha ingresado a un Visado para el período del viaje.
     export_to_csv: Exportar a CSV
     list_caption: Lista de países visitados o que has visitado en los últimos 180 días, y que planeas visitar en el futuro.
+    meta_description: Rastrea y administra todas tus visitas al Área Schengen. Monitorea el cumplimiento de la regla de 90/180 días, agrega viajes pasados, planifica viajes futuros y calcula los días restantes.
     modify: Modificar
     multi: Múltiple
     nationality_set_to: Tu nacionalidad está configurada como %{nationality}. %{settings_link} si es necesario.
@@ -32,7 +33,7 @@ es:
     no_trips: Aún no hay viajes
     number_of_days_tooltip: El número de días de esta visita.
     number_of_entries_tooltip: El número de entradas permitidas en esta Visa.
-    page_description: Rastrea tus viajes al Área Schengen y monitorea tu cumplimiento con la regla de 90/180 días. Agrega tus visitas pasadas y próximas para ver cuántos días te quedan.
+    page_description: Rastreas tus viajes al Área Schengen y monitorea tu cumplimiento con la regla de 90/180 días. Agrega tus visitas pasadas y próximas para ver cuántos días te quedan.
     page_title: Rastrea tus Visitas Schengen
     reenter_info: Si vuelves a ingresar al Área Schengen el %{date}, puedes quedarte por %{max_days} %{day_plural} hasta el %{end_date}.
     register_now: "¡Regístrate ahora"

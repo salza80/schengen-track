@@ -18,6 +18,7 @@ es:
     legend_waiting: Período de espera
     max_days_reached: Máximo
     max_remaining_days: Días máximos restantes - Es el tiempo máximo que puedes permanecer en el área Schengen si vuelves a entrar en este día.
+    meta_description: Calendario visual que muestra sus estadías en el Área Schengen. Rastree la regla 90/180 días con días codificados por colores. Vea viajes pasados, planifique visitas futuras y monitoree sus días restantes en Europa.
     need_help: "¿Necesita ayuda para entender la regla?"
     next_entry_options: Fechas de reingreso más tempranas
     no_visa_entered: No se ha ingresado visa

@@ -112,6 +112,19 @@
     z-index: 10;
   }
   
+  // Mobile long-press visual feedback
+  &.long-pressing {
+    animation: longPressAnimation 0.5s ease-in-out;
+    transform: scale(0.95);
+    box-shadow: 0 0 0 3px rgba($primary, 0.3);
+  }
+  
+  // Selecting state (for drag selection on desktop)
+  &.selecting {
+    background-color: rgba($primary, 0.2) !important;
+    border: 2px solid $primary !important;
+  }
+  
   .day-number {
     font-weight: bold;
     font-size: 1rem;
@@ -517,6 +530,41 @@ html {
 .calendar-day-cell,
 .day-cell {
   transition: border 0.3s ease, transform 0.3s ease;
+}
+
+// Mobile long press animation
+@keyframes longPressAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}
+
+// Mobile tooltip improvements
+@media (max-width: 767px) {
+  .tooltip {
+    // Make tooltips larger and easier to read on mobile
+    .tooltip-inner {
+      max-width: 300px;
+      font-size: 0.95rem;
+      padding: 0.75rem;
+      text-align: left;
+    }
+    
+    // Ensure tooltip is above other elements
+    z-index: 1060;
+  }
+  
+  // Disable hover effects on mobile
+  .day-cell:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 // ============================================================================

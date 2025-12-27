@@ -11,10 +11,6 @@ Capybara.server = :puma, { silent: true }
 
 # Set server host but let Capybara pick a random available port
 Capybara.server_host = '0.0.0.0'
-if ENV['CI']
-  # In CI, use 127.0.0.1 in app_host for Selenium to connect
-  Capybara.app_host = 'http://127.0.0.1'
-end
 
 # Configure Selenium to use headless Chrome
 Capybara.register_driver :selenium_headless do |app|
@@ -26,14 +22,19 @@ Capybara.register_driver :selenium_headless do |app|
   options.add_argument('--disable-site-isolation-trials')
   options.add_argument('--disable-web-security')
   options.add_argument('--window-size=1400,1000')
-  options.add_argument('--remote-debugging-port=9222')
   
   # In CI, use container IP address
   if ENV['CI']
     options.add_argument('--disable-setuid-sandbox')
+    options.add_argument('--remote-debugging-port=9222')
   end
   
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+
+# Set app_host dynamically to use the actual Capybara server port
+Capybara.configure do |config|
+  config.always_include_port = true
 end
 
 class ActiveSupport::TestCase

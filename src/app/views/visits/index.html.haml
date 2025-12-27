@@ -38,6 +38,9 @@
             = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md mr-2", "aria-label": t('visits.export_to_csv') do
               %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
               = t('visits.export_to_csv')
+            = link_to days_path(locale: I18n.locale), class: "btn btn-outline-primary btn-md mr-2", "aria-label": t('common.calendar') do
+              %i.fa.fa-calendar.mr-2{"aria-hidden" => "true"}
+              = t('common.calendar')
           %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit", "aria-label": t('visits.add_travel')}
             %i.fa.fa-plus{"aria-hidden" => "true"}
             = t('visits.add_travel')
@@ -47,7 +50,7 @@
         = render 'visitlist'
     .row
       .col-lg-10.col-md-12
-        .ad-block-limit
+        .ad-block-limit.d-none.d-md-block
           %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
   .col-lg-3.d-none.d-lg-block.mb-5{style: "padding-bottom: 220px;"}
     = render 'days/calendar_sidebar'

@@ -8,6 +8,7 @@ es:
     entry_limit_exceeded: Límite de entradas excedido
     from_date_onwards: Desde %{date} en adelante
     full_stay: "¡90 días completos!"
+    go_to_visas: Ir a visas
     jump_to_today: Ir a hoy
     learn_about_rule: Aprenda sobre la Regla de 90/180 Días
     legend: Leyenda
@@ -19,6 +20,7 @@ es:
     max_remaining_days: Días máximos restantes - Es el tiempo máximo que puedes permanecer en el área Schengen si vuelves a entrar en este día.
     need_help: "¿Necesita ayuda para entender la regla?"
     next_entry_options: Fechas de reingreso más tempranas
+    no_visa_entered: No se ha ingresado visa
     no_visits_this_year: Sin visitas en %{year}
     overstay_na: N/A
     overstay_tooltip: Ha excedido los 90/180 días

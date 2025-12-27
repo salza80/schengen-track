@@ -1,6 +1,7 @@
 ---
 hi:
   visas:
+    add_first_visa_hint: अपनी शेंगेन वीज़ा जानकारी जोड़ें
     add_visa: वीज़ा जोड़ें
     columns:
       dates: तारीखें
@@ -8,4 +9,5 @@ hi:
       no_entries: कोई एंट्री नहीं
     edit_title: शेंगेन वीज़ा संपादित करें
     list_caption: कैलकुलेशन के लिए शेंगेन वीज़ा की सूची।
+    no_visas: अभी तक कोई वीज़ा नहीं
     to: तक

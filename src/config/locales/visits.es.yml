@@ -2,10 +2,11 @@
 es:
   visits:
     about_page_link: página Acerca de
+    add_first_trip_hint: Comience a rastrear sus visitas Schengen
     add_record: Agregar un Registro de Viaje
     add_travel: Agregar Viaje
     add_visa: Agregar visa
-    change_link: cámbialo ahora aquí
+    change_settings: Cambiar configuración
     country: País
     dates: Fechas
     day_plural:
@@ -16,21 +17,23 @@ es:
     days_outside_schengen_zone: " fuera de la Zona Schengen"
     days_overstay: Días Excedidos
     days_overstay_tooltip: El número de días dentro del Área Schengen no permitidos por la Visa Ingresada.
-    dont_forget: No olvides también seleccionar tu nacionalidad, que actualmente está establecida en %{nationality}. Si esto no es correcto, %{change_link} o más tarde siguiendo el enlace en la esquina superior derecha de esta página.
     edit_title: Editar un Registro de Viaje
     entry_date: Fecha de Entrada
     exit_date: Fecha de Salida
     exits: Salidas
     exits_tooltip: Indica si se ha ingresado a un Visado para el período del viaje.
     export_to_csv: Exportar a CSV
-    for_further_information: Para más información, lee el %{about_page_link}.
     list_caption: Lista de países visitados o que has visitado en los últimos 180 días, y que planeas visitar en el futuro.
     modify: Modificar
     multi: Múltiple
+    nationality_set_to: Tu nacionalidad está configurada como %{nationality}. %{settings_link} si es necesario.
     no_days: Núm. Días
     no_entries: Núm. Entradas
+    no_trips: Aún no hay viajes
     number_of_days_tooltip: El número de días de esta visita.
     number_of_entries_tooltip: El número de entradas permitidas en esta Visa.
+    page_description: Rastrea tus viajes al Área Schengen y monitorea tu cumplimiento con la regla de 90/180 días. Agrega tus visitas pasadas y próximas para ver cuántos días te quedan.
+    page_title: Rastrea tus Visitas Schengen
     reenter_info: Si vuelves a ingresar al Área Schengen el %{date}, puedes quedarte por %{max_days} %{day_plural} hasta el %{end_date}.
     register_now: "¡Regístrate ahora"
     save_travel_plans: para guardar tus planes de viaje!
@@ -41,7 +44,6 @@ es:
     schengen_days_calculation_tooltip: El número de días dentro del Área Schengen en los últimos 180 días.
     schengen_days_overstay: Días de exceso
     schengen_visa_list: Visas
-    start_using: Empieza a usar la Calculadora Schengen agregando tus planes de viaje anteriores y próximos.
     travel_details: Detalles del Viaje
     travel_record: Viajes
     visa_days_overstay: Exceso de visa

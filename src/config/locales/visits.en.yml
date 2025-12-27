@@ -2,10 +2,11 @@
 en:
   visits:
     about_page_link: About page
+    add_first_trip_hint: Start tracking your Schengen visits
     add_record: Add a Travel Record
     add_travel: Add Travel
     add_visa: Add Visa
-    change_link: change it now here
+    change_settings: Change settings
     country: Country
     dates: Dates
     day_plural:
@@ -16,21 +17,23 @@ en:
     days_outside_schengen_zone: " outside Schengen Zone"
     days_overstay: Days Overstay
     days_overstay_tooltip: The number of days inside the Schengen Area not allowed by the Visa's Entered.
-    dont_forget: Don't forget to also select your nationality, which is currently set to %{nationality}. If this is not correct, %{change_link} or later by following the link in the top right corner of this page.
     edit_title: Edit a Travel Record
     entry_date: Entry date
     exit_date: Exit date
     exits: Exits
     exits_tooltip: Indicates if a Visa for the period of travel been entered.
     export_to_csv: Export to CSV
-    for_further_information: For further information, read the %{about_page_link}.
     list_caption: List of countries visited or that you have visited in the last 180 days, and are planning to visit in the future.
     modify: Modify
     multi: Multi
+    nationality_set_to: Your nationality is set to %{nationality}. %{settings_link} if needed.
     no_days: No Days
     no_entries: No. Entries
+    no_trips: No trips yet
     number_of_days_tooltip: The number of days of this visit.
-    number_of_entries_tooltip: The number entries allowed on this Visa.
+    number_of_entries_tooltip: The number of entries allowed on this Visa.
+    page_description: Track your trips to the Schengen Area and monitor your compliance with the 90/180 day rule. Add your past and upcoming visits to see how many days you have remaining.
+    page_title: Track Your Schengen Visits
     reenter_info: If you re-enter the Schengen Area on the %{date}, you can stay for %{max_days} %{day_plural} until %{end_date}.
     register_now: Register now
     save_travel_plans: to save your travel plans!
@@ -41,7 +44,6 @@ en:
     schengen_days_calculation_tooltip: The number of days inside the Schengen Area in the previous 180 days.
     schengen_days_overstay: Overstay Days
     schengen_visa_list: Visas
-    start_using: Start using the Schengen Calculator by adding your previous and upcoming travel plans.
     travel_details: Travel Details
     travel_record: Trips
     visa_days_overstay: Visa Overstay

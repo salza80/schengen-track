@@ -8,7 +8,8 @@ tr:
     entry_limit_exceeded: Giriş Limiti Aşıldı
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
-    jump_to_today: Bugüne Git
+    go_to_visas: Vizelere git
+    jump_to_today: Bugüne git
     learn_about_rule: 90/180 Gün Kuralı Hakkında Bilgi Edinin
     legend: Açıklama
     legend_outside: Schengen Dışında
@@ -19,6 +20,7 @@ tr:
     max_remaining_days: Maksimum kalan günler - Bu günde yeniden girdiğinizde Schengen alanında kalabileceğiniz maksimum süre.
     need_help: Kuralı anlamak için yardıma mı ihtiyacınız var?
     next_entry_options: En Erken Yeniden Giriş Tarihleri
+    no_visa_entered: Vize girilmedi
     no_visits_this_year: "%{year} yılında ziyaret yok"
     overstay_na: Uygun Değil
     overstay_tooltip: 90/180 günü aştınız

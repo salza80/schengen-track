@@ -2,25 +2,28 @@
 /   = raw @advertise_country.affiliate_booking_html
 -# - if !user_signed_in?
 -#   = render 'registerPrompt'
-- if @visits.count == 0
-  %p
-    = t('visits.start_using')
-  %p
-    = t('visits.dont_forget', nationality: current_user_or_guest_user.nationality.name, change_link: link_to(t('visits.change_link'), my_details_path(locale: I18n.locale))).html_safe
-  %p
-    = t('visits.for_further_information', about_page_link: link_to(t('common.about_page'), about_path(locale: I18n.locale))).html_safe
-%br
+
 .row
   .col-lg-9
+    - if @visits.count == 0
+      .mb-4
+        %h1.h3.mb-3= t('visits.page_title')
+        %p.lead= t('visits.page_description')
+        %p.text-muted
+          = t('visits.nationality_set_to', nationality: current_user_or_guest_user.nationality.name, settings_link: link_to(t('visits.change_settings'), my_details_path(locale: I18n.locale))).html_safe
+    - else
+      %h1.sr-only= t('visits.page_title')
+
     - if current_user_or_guest_user.visa_required?
       %h3.section-heading.mt-0
         %i.fa.fa-passport.mr-2
         = t('visits.schengen_visa_list')
-      .row.py-1.mb-2
-        .col-md-12.text-right
-          %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visa"}
-            %i.fa.fa-plus{"aria-hidden" => "true"}
-            =t('visits.add_visa')
+      - if @visas.any?
+        .row.py-1.mb-2
+          .col-md-12.text-right
+            %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visa"}
+              %i.fa.fa-plus{"aria-hidden" => "true"}
+              =t('visits.add_visa')
       .row
         .col-md-12
           = render 'visas/visalist'
@@ -28,15 +31,16 @@
     %h3.section-heading
       %i.fa.fa-plane.mr-2
       = t('visits.travel_record')
-    .row.py-1.mb-2
-      .col-auto.ml-auto
-        - if @visits.count > 0
-          = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md mr-2" do
-            %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
-            = t('visits.export_to_csv')
-        %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit"}
-          %i.fa.fa-plus{"aria-hidden" => "true"}
-          = t('visits.add_travel')
+    - if @visits.any?
+      .row.py-1.mb-2
+        .col-auto.ml-auto
+          - if @visits.count > 0
+            = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md mr-2" do
+              %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
+              = t('visits.export_to_csv')
+          %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit"}
+            %i.fa.fa-plus{"aria-hidden" => "true"}
+            = t('visits.add_travel')
 
     .row
       .col-md-12

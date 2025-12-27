@@ -8,7 +8,8 @@ hi:
     entry_limit_exceeded: प्रवेश सीमा पार हो गई
     from_date_onwards: "%{date} से आगे"
     full_stay: पूरे 90 दिन!
-    jump_to_today: आज की तारीख पर जाएं
+    go_to_visas: वीज़ा पर जाएं
+    jump_to_today: आज पर जाएं
     learn_about_rule: 90/180 दिन नियम के बारे में जानें
     legend: संकेत
     legend_outside: Schengen के बाहर
@@ -19,6 +20,7 @@ hi:
     max_remaining_days: अधिकतम शेष दिन - यदि आप इस दिन पर पुनः प्रवेश करें, तो आप शेंगेन क्षेत्र में रहने के लिए अधिकतम समय रख सकते हैं।
     need_help: नियम को समझने में मदद चाहिए?
     next_entry_options: सबसे पहली पुनः प्रवेश तिथियाँ
+    no_visa_entered: कोई वीज़ा दर्ज नहीं किया गया
     no_visits_this_year: "%{year} में कोई यात्रा नहीं"
     overstay_na: N/A
     overstay_tooltip: आपने 90/180 दिनों से अधिक रुके हैं

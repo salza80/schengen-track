@@ -8,7 +8,8 @@ zh-CN:
     entry_limit_exceeded: 超出入境次数限制
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
-    jump_to_today: 跳转到今天
+    go_to_visas: 前往签证
+    jump_to_today: 前往今天
     learn_about_rule: 了解90/180天规则
     legend: 图例
     legend_outside: 申根区外
@@ -19,6 +20,7 @@ zh-CN:
     max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
     need_help: 需要帮助理解规则吗？
     next_entry_options: 最早再入境日期
+    no_visa_entered: 未输入签证
     no_visits_this_year: "%{year}年无访问"
     overstay_na: 不适用
     overstay_tooltip: 您已超过90/180天规定

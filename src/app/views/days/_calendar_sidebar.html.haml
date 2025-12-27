@@ -1,22 +1,27 @@
 - sticky_sidebar = local_assigns.fetch(:sticky_sidebar, true)
-.calendar-sidebar{class: (sticky_sidebar ? 'sticky-top' : nil), style: (sticky_sidebar ? "top: 91px; max-height: calc(100vh - 150px); overflow-y: auto; bottom: 60px;" : nil)}
-  -# Status information (if available)
-  - if @status_summary
-    .sidebar-section.card.mb-2
-      .card-header.bg-primary.text-white
-        %h6.mb-0
-          %i.fa.fa-chart-line
-          = t('days.current_status')
-        %small.d-block.mt-1
-          = t('common.as_of')
-          = Date.today.strftime('%B %d, %Y')
-      .card-body.p-3
-        .status-info
-          .mb-2
-            %small.text-muted= t('days.days_used')
-            .h5.mb-0
-              %strong= @status_summary[:current_days]
-              %span.text-muted / 90
+.calendar-sidebar{class: (sticky_sidebar ? 'sticky-top' : nil), style: (sticky_sidebar ? "top: 100px; max-height: calc(100vh - 150px); overflow-y: auto; z-index: 1000;" : nil)}
+  -# Status information (always show, with default values if no data)
+  .sidebar-section.card.mb-2
+    .card-header.bg-primary.text-white
+      .d-flex.justify-content-between.align-items-start
+        .flex-grow-1.mr-3
+          %h6.mb-0
+            %i.fa.fa-chart-line
+            = t('days.current_status')
+          %small.d-block.mt-1
+            = t('common.as_of')
+            = Date.today.strftime('%B %d, %Y')
+        = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-light btn-sm d-flex align-items-center" do
+          %i.fa.fa-calendar.mr-1.flex-shrink-0
+          %span= t('days.jump_to_today')
+    .card-body.p-3
+      .status-info
+        .mb-2
+          %small.text-muted= t('days.days_used')
+          .h5.mb-0
+            %strong= @status_summary ? @status_summary[:current_days] : 0
+            %span.text-muted / 90
+            - if @status_summary
               %span.badge.ml-2{class: status_badge_class(@status_summary[:status]), title: (@status_summary[:status] == 'overstay' ? t('days.overstay_tooltip') : nil), data: (@status_summary[:status] == 'overstay' ? {toggle: 'tooltip', placement: 'top'} : {})}
                 - if @status_summary[:status] == 'overstay'
                   %i.fa.fa-exclamation-triangle
@@ -25,13 +30,21 @@
                 %span.badge.badge-warning.ml-2{title: t('days.waiting_period_tooltip'), data: {toggle: 'tooltip', placement: 'top'}}
                   %i.fa.fa-clock
                   = t('days.legend_waiting')
-          .mb-2
-            %small.text-muted= t('days.days_remaining')
-            .h5.mb-0{class: "text-#{status_text_class(@status_summary[:status])}"}
-              %strong= @status_summary[:remaining_days]
-          - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
-            .mb-2.mt-3.pt-3.border-top
+            - else
+              %span.badge.badge-success.ml-2= t("days.status_safe")
+        .mb-2
+          %small.text-muted= t('days.days_remaining')
+          .h5.mb-0{class: @status_summary ? "text-#{status_text_class(@status_summary[:status])}" : "text-success"}
+            %strong= @status_summary ? @status_summary[:remaining_days] : 90
+        - if current_user_or_guest_user.visa_required?
+          .mb-2.mt-3.pt-3.border-top
+            .d-flex.justify-content-between.align-items-center.mb-2
               %small.text-muted= t('days.visa_status_label')
+              - if controller_name != 'visits'
+                = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
+                  %i.fa.fa-passport.mr-1
+                  = t('days.go_to_visas')
+            - if @status_summary && @status_summary[:visa_status]
               .h5.mb-0
                 - if @status_summary[:visa_status] == 'ok'
                   %span.badge.badge-success{title: t('days.visa_ok_tooltip'), data: {toggle: 'tooltip', placement: 'top'}}
@@ -50,10 +63,11 @@
                   %span.badge.badge-danger
                     %i.fa.fa-exclamation-triangle
                     = t('days.visa_warning')
-          .text-center.mt-3
-            = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
-              %i.fa.fa-calendar.mr-1
-              = t('days.jump_to_today')
+            - else
+              .h5.mb-0
+                %span.badge.badge-info
+                  %i.fa.fa-info-circle
+                  = t('days.no_visa_entered')
   -# Legend
   - if @show_sidebar_legend.nil? || @show_sidebar_legend
     .sidebar-section.card

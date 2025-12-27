@@ -49,8 +49,8 @@ namespace :db do
         File.write('/tmp/guest_cleanup_stats.json', stats.to_json)
         
       rescue => e
-        Rails.logger.warn 'An error occured in guest cleanup ' + e.message
-        puts 'an error occured!'
+        Rails.logger.warn 'An error occurred in guest cleanup ' + e.message
+        puts 'an error occurred!'
         puts e.message
       end
     end

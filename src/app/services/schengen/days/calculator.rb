@@ -5,6 +5,9 @@ module Schengen
     # calculates schengen days and continious days in schengen area
    
     class Calculator
+      # Maximum calculation span: ±20 years (20 past + 20 future = 40 years total)
+      MAX_CALCULATION_DAYS = 40.years.to_i
+      
       attr_reader :next_entry_days
       def initialize(user)
         @user = user
@@ -50,9 +53,8 @@ module Schengen
       end
       private
       def too_many_days?
-        # 40 years = ~14,600 days
-        # With ±20 year cleanup, max realistic span is ~20 years
-        end_date - begin_date > 14600
+        # With ±20 year cleanup (20 years past + 20 years future), max span is 40 years
+        end_date - begin_date > MAX_CALCULATION_DAYS
       end
 
       def begin_date

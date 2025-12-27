@@ -9,6 +9,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_cell_class returns outside-schengen for non-schengen days" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       schengen?: false,
       danger?: false,
       warning?: false
@@ -19,6 +20,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_cell_class returns in-schengen-safe for safe days" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       schengen?: true,
       schengen_days_count: 45,
       danger?: false,
@@ -30,6 +32,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_cell_class returns in-schengen-warning for days over 80" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       schengen?: true,
       schengen_days_count: 85,
       danger?: false,
@@ -41,6 +44,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_cell_class returns overstay for danger days" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       schengen?: true,
       schengen_days_count: 95,
       danger?: true,
@@ -52,6 +56,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_cell_class returns waiting-period for warning days" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       schengen?: false,
       danger?: false,
       warning?: true
@@ -67,6 +72,7 @@ class DaysHelperTest < ActionView::TestCase
   test "day_tooltip includes country name" do
     country = OpenStruct.new(name: 'France')
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'France',
       stayed_country: country,
@@ -82,6 +88,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_tooltip includes days used" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: false,
       schengen_days_count: 45,
       max_remaining_days: nil,
@@ -95,6 +102,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_tooltip includes overstay warning" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: false,
       schengen_days_count: nil,
       max_remaining_days: nil,
@@ -183,6 +191,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_cell_class returns overstay for visa violation" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       schengen?: true,
       schengen_days_count: 45,
       danger?: false,
@@ -195,6 +204,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_cell_class prioritizes visa warning over safe" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       schengen?: true,
       schengen_days_count: 30,
       danger?: false,
@@ -208,6 +218,7 @@ class DaysHelperTest < ActionView::TestCase
   test "day_tooltip includes visa valid status" do
     visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'France',
       user_requires_visa?: true,
@@ -228,6 +239,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_tooltip shows no visa warning" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'Germany',
       user_requires_visa?: true,
@@ -248,6 +260,7 @@ class DaysHelperTest < ActionView::TestCase
   test "day_tooltip shows visa entries when limited" do
     visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'Italy',
       user_requires_visa?: true,
@@ -271,6 +284,7 @@ class DaysHelperTest < ActionView::TestCase
   test "day_tooltip shows entry limit exceeded" do
     visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'Spain',
       user_requires_visa?: true,
@@ -295,6 +309,7 @@ class DaysHelperTest < ActionView::TestCase
   test "day_tooltip shows both visa and schengen overstay" do
     visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 12, 31))
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'France',
       user_requires_visa?: true,
@@ -319,6 +334,7 @@ class DaysHelperTest < ActionView::TestCase
   test "day_tooltip shows outside visa period" do
     visa = OpenStruct.new(start_date: Date.new(2024, 1, 1), end_date: Date.new(2024, 6, 30))
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'Germany',
       user_requires_visa?: true,
@@ -338,6 +354,7 @@ class DaysHelperTest < ActionView::TestCase
   
   test "day_tooltip does not show visa info for non-schengen days" do
     day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
       country_name: 'Australia',
       user_requires_visa?: true,

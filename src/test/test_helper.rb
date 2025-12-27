@@ -4,6 +4,21 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'active_support/testing/time_helpers'
 
+# Configure Capybara for JavaScript testing
+Capybara.default_driver = :rack_test
+Capybara.javascript_driver = :selenium_headless
+
+# Configure Selenium to use headless Chrome
+Capybara.register_driver :selenium_headless do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--headless')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+  options.add_argument('--disable-gpu')
+  
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+
 class ActiveSupport::TestCase
   include ActiveSupport::Testing::TimeHelpers
   fixtures :all
@@ -28,25 +43,32 @@ class ActionDispatch::IntegrationTest
 
   teardown do
     Capybara.reset!
+    Capybara.use_default_driver
   end
 
   def user_login
     visit new_user_session_path(locale: :en)
-    within("//form[@id='login']") do
-      fill_in 'Email', with: 'smclean17@gmail.com'
-      fill_in 'Password', with: 'password'
-      click_button 'Log in'
-    end
-    assert has_content?('Sally Mclean')
+    fill_in 'Email', with: 'smclean17@gmail.com'
+    fill_in 'Password', with: 'password'
+    click_button 'Log in'
+    assert_text 'Sally Mclean'
   end
 
   def visa_user_login
     visit new_user_session_path(locale: :en)
-    within("//form[@id='login']") do
-      fill_in 'Email', with: 'smclean17@testvr.com'
-      fill_in 'Password', with: 'password'
-      click_button 'Log in'
-    end
-    assert has_content?('Visa Required')
+    fill_in 'Email', with: 'smclean17@testvr.com'
+    fill_in 'Password', with: 'password'
+    click_button 'Log in'
+    assert_text 'Visa Required'
+  end
+end
+
+# Base class for JavaScript-enabled integration tests
+class JavascriptIntegrationTest < ActionDispatch::IntegrationTest
+  def setup
+    Capybara.current_driver = Capybara.javascript_driver
+    # Set a desktop viewport size so navigation is visible
+    Capybara.page.driver.browser.manage.window.resize_to(1400, 1000)
+    super
   end
 end

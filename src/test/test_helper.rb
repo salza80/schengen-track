@@ -7,6 +7,9 @@ require 'active_support/testing/time_helpers'
 # Configure Capybara for JavaScript testing
 Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :selenium_headless
+Capybara.server = :puma, { Silent: true }
+Capybara.server_host = '127.0.0.1'
+Capybara.app_host = "http://#{Capybara.server_host}"
 
 # Configure Selenium to use headless Chrome
 Capybara.register_driver :selenium_headless do |app|
@@ -15,6 +18,8 @@ Capybara.register_driver :selenium_headless do |app|
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-dev-shm-usage')
   options.add_argument('--disable-gpu')
+  options.add_argument('--disable-site-isolation-trials')
+  options.add_argument('--window-size=1400,1000')
   
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
@@ -67,8 +72,6 @@ end
 class JavascriptIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     Capybara.current_driver = Capybara.javascript_driver
-    # Set a desktop viewport size so navigation is visible
-    Capybara.page.driver.browser.manage.window.resize_to(1400, 1000)
     super
   end
 end

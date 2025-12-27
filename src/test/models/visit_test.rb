@@ -98,5 +98,83 @@ class VisitTest < ActiveSupport::TestCase
     assert_equal 1, b.count
   end
 
+  # ====================
+  # Date Range Validation Tests
+  # ====================
+
+  test 'should reject entry_date more than 20 years in past' do
+    user = users(:Sally)
+    visit = user.visits.build(
+      country: countries(:Germany),
+      entry_date: Date.today - 21.years,
+      exit_date: Date.today - 21.years + 5.days
+    )
+    
+    assert visit.invalid?
+    assert visit.errors[:entry_date].any?
+    assert_match /must be within 20 years/, visit.errors[:entry_date].first
+  end
+
+  test 'should reject entry_date more than 20 years in future' do
+    user = users(:Sally)
+    visit = user.visits.build(
+      country: countries(:Germany),
+      entry_date: Date.today + 21.years,
+      exit_date: Date.today + 21.years + 5.days
+    )
+    
+    assert visit.invalid?
+    assert visit.errors[:entry_date].any?
+    assert_match /must be within 20 years/, visit.errors[:entry_date].first
+  end
+
+  test 'should reject exit_date more than 20 years in past' do
+    user = users(:Sally)
+    visit = user.visits.build(
+      country: countries(:Germany),
+      entry_date: Date.today - 21.years,
+      exit_date: Date.today - 21.years + 5.days
+    )
+    
+    assert visit.invalid?
+    assert visit.errors[:exit_date].any?
+    assert_match /must be within 20 years/, visit.errors[:exit_date].first
+  end
+
+  test 'should reject exit_date more than 20 years in future' do
+    user = users(:Sally)
+    visit = user.visits.build(
+      country: countries(:Germany),
+      entry_date: Date.today + 21.years,
+      exit_date: Date.today + 21.years + 5.days
+    )
+    
+    assert visit.invalid?
+    assert visit.errors[:exit_date].any?
+    assert_match /must be within 20 years/, visit.errors[:exit_date].first
+  end
+
+  test 'should accept dates within 20 years' do
+    user = users(:Sally)
+    visit = user.visits.build(
+      country: countries(:Germany),
+      entry_date: Date.today - 10.years,
+      exit_date: Date.today - 10.years + 5.days
+    )
+    
+    assert visit.valid?
+  end
+
+  test 'should accept dates at exactly 20 years boundary' do
+    user = users(:Sally)
+    visit = user.visits.build(
+      country: countries(:Germany),
+      entry_date: Date.today - 20.years,
+      exit_date: Date.today - 20.years + 5.days
+    )
+    
+    assert visit.valid?
+  end
+
   
 end

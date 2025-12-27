@@ -1,6 +1,7 @@
 ---
 de:
   visas:
+    add_first_visa_hint: Fügen Sie Ihre Schengen-Visuminformationen hinzu
     add_visa: Visum hinzufügen
     columns:
       dates: Daten
@@ -8,4 +9,5 @@ de:
       no_entries: Keine Einträge
     edit_title: Schengen-Visum bearbeiten
     list_caption: Liste der Schengen-Visa zur Verwendung für die Berechnung.
+    no_visas: Noch keine Visa
     to: bis

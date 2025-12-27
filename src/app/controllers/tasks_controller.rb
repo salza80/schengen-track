@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries]
-  before_action :check_deployment_window, only: [:migrate, :update_countries]
+  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup]
+  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup]
   
   # GET /tasks/migrations
   def migrate
@@ -25,6 +25,23 @@ class TasksController < ApplicationController
     rake_update_countries = "db:update_countries"
     @success = system("rake #{rake_update_countries}")
     render_json_response
+  end
+
+  def guest_cleanup
+    max_batches = params[:max_batches]
+    rake_guest_cleanup = "db:guest_cleanup"
+    rake_guest_cleanup += "[,#{max_batches}]" if max_batches.present?
+    @success = system("rake #{rake_guest_cleanup}")
+    
+    # Read stats from temp file if available
+    stats_file = '/tmp/guest_cleanup_stats.json'
+    if @success && File.exist?(stats_file)
+      stats = JSON.parse(File.read(stats_file))
+      File.delete(stats_file) # Clean up
+      render json: { success: @success, deleted: stats['deleted'], batches: stats['batches'], remaining: stats['remaining'] }
+    else
+      render_json_response
+    end
   end
 
   private 

@@ -28,8 +28,8 @@
         
         .article-hero
           %picture
-            %source{srcset: image_path("switzerland.webp"), type: "image/webp"}
-            = image_tag("switzerland.jpg", class: "hero-image", alt: "Swiss Alps mountain landscape - Extended European travel guide for maximizing your 90 days in Schengen Area", loading: "eager", width: 1080, height: 810)
+            %source{srcset: "#{image_path('switzerland-400w.webp')} 400w, #{image_path('switzerland-800w.webp')} 800w, #{image_path('switzerland.webp')} 1080w", type: "image/webp", sizes: "(max-width: 576px) 100vw, (max-width: 992px) 50vw, 350px"}
+            = image_tag("switzerland.jpg", class: "hero-image", alt: "Swiss Alps mountain landscape - Extended European travel guide for maximizing your 90 days in Schengen Area", loading: "eager", fetchpriority: "high", width: 1080, height: 810, srcset: "#{image_path('switzerland-400w.jpg')} 400w, #{image_path('switzerland-800w.jpg')} 800w, #{image_path('switzerland.jpg')} 1080w", sizes: "(max-width: 576px) 100vw, (max-width: 992px) 50vw, 350px")
         
         .article-content
           %section.intro-section
@@ -59,8 +59,8 @@
             
             .figure
               %picture
-                %source{srcset: image_path("schengen-countries-map-2025.webp"), type: "image/webp"}
-                = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "2025 Schengen Area map showing all 29 member countries including Bulgaria, Romania, and neighboring non-Schengen European countries", loading: "lazy", width: 1600, height: 1365)
+                %source{srcset: "#{image_path('schengen-countries-map-2025-400w.webp')} 400w, #{image_path('schengen-countries-map-2025-800w.webp')} 800w, #{image_path('schengen-countries-map-2025.webp')} 1600w", type: "image/webp", sizes: "(max-width: 576px) 100vw, (max-width: 992px) 50vw, 350px"}
+                = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "2025 Schengen Area map showing all 29 member countries including Bulgaria, Romania, and neighboring non-Schengen European countries", loading: "lazy", width: 1600, height: 1365, srcset: "#{image_path('schengen-countries-map-2025-400w.png')} 400w, #{image_path('schengen-countries-map-2025-800w.png')} 800w, #{image_path('schengen-countries-map-2025.png')} 1600w", sizes: "(max-width: 576px) 100vw, (max-width: 992px) 50vw, 350px")
               %figcaption
                 Schengen Area and surrounding non-Schengen countries.
                 %br

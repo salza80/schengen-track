@@ -1,5 +1,8 @@
 ---
 zh-CN:
+  about:
+    meta_description: 了解如何使用免费的申根90/180天计算器。理解签证要求、追踪您的欧洲逗留并计划前往29个申根国家的旅行。
+    page_title: 关于申根计算器
   activerecord:
     models:
       user:
@@ -7,7 +10,6 @@ zh-CN:
         other: 用户
   common:
     about: 关于
-    about_page: 关于页面
     as_of: 截至
     back: 返回
     blog: 博客

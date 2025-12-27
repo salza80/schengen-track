@@ -4,22 +4,27 @@ tr:
     current_status: Mevcut Durum
     days: gün
     days_remaining: Kalan Günler
-    days_used: kullanılan günler
+    days_used: Kullanılan Günler
+    entry_limit_exceeded: Giriş Limiti Aşıldı
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
+    go_to_visas: Vizelere git
+    jump_to_today: Bugüne git
     learn_about_rule: 90/180 Gün Kuralı Hakkında Bilgi Edinin
     legend: Açıklama
     legend_outside: Schengen Dışında
     legend_overstay: Süre Aşımı
     legend_safe: Schengen'de (Güvenli)
     legend_waiting: Bekleme Süresi
-    legend_warning: Limite Yakın (80+ gün)
     max_days_reached: Zirve
     max_remaining_days: Maksimum kalan günler - Bu günde yeniden girdiğinizde Schengen alanında kalabileceğiniz maksimum süre.
+    meta_description: Schengen Bölgesi konaklamalarınızı gösteren görsel takvim. Renk kodlu günlerle 90/180 gün kuralını takip edin. Geçmiş gezileri görün, gelecek ziyaretleri planlayın ve Avrupa'daki kalan günlerinizi izleyin.
     need_help: Kuralı anlamak için yardıma mı ihtiyacınız var?
     next_entry_options: En Erken Yeniden Giriş Tarihleri
+    no_visa_entered: Vize girilmedi
     no_visits_this_year: "%{year} yılında ziyaret yok"
     overstay_na: Uygun Değil
+    overstay_tooltip: 90/180 günü aştınız
     page_title: Schengen 90/180 Gün Hesaplayıcı
     schengen_days_in_year: Schengen'de Günler
     schengen_no: Hayır
@@ -42,5 +47,10 @@ tr:
       schengen_days_used_tooltip: Önceki 180 gün içinde Schengen Alanı'nda geçirilen gün sayısı.
     until_date: "%{date} tarihine kadar"
     view_table: Tabloda Görüntüle
+    visa_ok_tooltip: Bugün itibariyle geçerli bir vizeniz var
+    visa_status_label: Vize Durumu
+    visa_status_ok: 'Vize Durumu: Tamam'
+    visa_warning: Vize Gerekli!
     visits_count: Ziyaretler
+    waiting_period_tooltip: Daha önce süre aşımı yaptığınız için 180 günlük bir bekleme süresi uygulanmaktadır.
     year_summary: "%{year} Özeti"

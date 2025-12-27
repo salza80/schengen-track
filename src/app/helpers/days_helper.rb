@@ -4,11 +4,18 @@
 module DaysHelper
   # Returns CSS class for day cell based on status
   def day_cell_class(day)
+    # Check for critical violations first
     return 'overstay' if day.danger?
+    return 'overstay' if day.respond_to?(:visa_warning?) && day.visa_warning?
     return 'waiting-period' if day.warning?
 
     if day.schengen?
-      day.schengen_days_count && day.schengen_days_count >= 80 ? 'in-schengen-warning' : 'in-schengen-safe'
+      # Warning threshold: 80+ days used
+      if day.schengen_days_count && day.schengen_days_count >= 80
+        'in-schengen-warning'
+      else
+        'in-schengen-safe'
+      end
     else
       'outside-schengen'
     end
@@ -19,11 +26,36 @@ module DaysHelper
     parts = []
 
     parts << "<strong>#{day.country_name}</strong>" if day.hasCountry?
+    
+    # Visa information (if applicable)
+    if day.respond_to?(:user_requires_visa?) && day.user_requires_visa?
+      if day.schengen?
+        if day.visa.nil?
+          parts << "<span class='text-danger'>⚠️ NO VISA</span>"
+        elsif !day.visa_valid?
+          parts << "<span class='text-danger'>⚠️ Outside visa period</span>"
+        else
+          parts << "<span class='text-success'>✓ Valid visa</span>"
+          if day.has_limited_entries?
+            if day.visa_entry_valid?
+              parts << "Entries: #{day.visa_entry_count}/#{day.visa_entries_allowed}"
+            else
+              parts << "<span class='text-danger'>⚠️ Entry limit exceeded: #{day.visa_entry_count}/#{day.visa_entries_allowed}</span>"
+            end
+          end
+        end
+      end
+    end
+    
+    # Schengen day count
     parts << "Days used: #{day.schengen_days_count}/90" if day.schengen_days_count
-    parts << "Can stay: #{day.max_remaining_days} more days" if day.max_remaining_days
+    if day.max_remaining_days && day.the_date
+      exit_date = (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y')
+      parts << "Can stay: #{day.max_remaining_days} more days until <span style='white-space: nowrap;'>#{exit_date}</span>"
+    end
 
     if day.overstay_days.positive?
-      parts << "<span class='text-danger'>⚠️ OVERSTAY: +#{day.overstay_days} days</span>"
+      parts << "<span class='text-danger'>⚠️ SCHENGEN OVERSTAY: +#{day.overstay_days} days</span>"
     end
 
     parts << "<span class='text-warning'>⏱ Wait: #{day.remaining_wait} days</span>" if day.remaining_wait

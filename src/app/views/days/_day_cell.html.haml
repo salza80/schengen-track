@@ -9,12 +9,18 @@
     .day-count
       %small
         %strong= day.schengen_days_count
-        %span.text-muted /90
+        %span.text-muted /90 days
+
+  - if day.respond_to?(:has_limited_entries?) && day.has_limited_entries?
+    .day-visa-count
+      %small
+        %strong= day.visa_entry_count
+        %span.text-muted /#{day.visa_entries_allowed} entries
 
   - if day.overstay_days.positive?
     .day-overstay
-      %small.text-danger +#{day.overstay_days}
+      %small.text-danger +#{day.overstay_days} days
 
   - if day.remaining_wait
     .day-wait
-      %small.text-warning ⏱#{180 - day.remaining_wait}
+      %small ⏱#{180 - day.remaining_wait} days

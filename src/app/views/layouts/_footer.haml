@@ -1,22 +1,27 @@
-%footer.footer.bg-light.footer-fixed-bottom
-  .container.text-center
-    %p
-      %span.fa.fa-copyright{"aria-hidden" => "true"}
-      = t('common.schengen_calculator')
-      |
-      = link_to t('common.disclaimer'), disclaimer_path(locale: I18n.locale)
-      |
-      = link_to t('common.privacy_policy'), privacy_path(locale: I18n.locale)
-      |
-      = link_to t('common.data_deletion'), datadeletion_path(locale: I18n.locale)
-      |
-      %span.facebook-buttons
-        -# %span.like
-        -#   %span.fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
-        %span.share
-          %span.fb-share-button.visible-xs-block{ "data-href": "https://schengen-calculator.com", "data-layout": "button" }
-      |
-      = language_selector
+%footer.footer.bg-light
+  .container-fluid
+    .row.align-items-center.py-2.justify-content-between
+      .col-auto.text-center.text-lg-left.mb-2.mb-lg-0
+        %span.text-muted.text-nowrap
+          %i.fa.fa-copyright.mr-1{"aria-hidden" => "true"}
+          = "#{Time.current.year} #{t('common.schengen_calculator')}"
+      .col.text-center.mb-2.mb-lg-0
+        %nav.footer-links{"aria-label": "Legal"}
+          = link_to disclaimer_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+            %i.fa.fa-file-text.mr-1
+            = t('common.disclaimer')
+          %span.mx-2.text-muted ·
+          = link_to privacy_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+            %i.fa.fa-shield-alt.mr-1
+            = t('common.privacy_policy')
+          %span.mx-2.text-muted ·
+          = link_to datadeletion_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+            %i.fa.fa-trash.mr-1
+            = t('common.data_deletion')
+      .col-auto.text-center.text-lg-right.mb-2.mb-lg-0
+        .language-selector-wrapper
+          %i.fa.fa-globe.mr-2.text-primary
+          = language_selector
 %script{:type => "application/ld+json"}
   {
   "@context": "http://schema.org",
@@ -24,18 +29,8 @@
   "url": "https://schengen-calculator.com",
   "logo": "https://schengen-calculator.com/med.png"
   }
-%script
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-67599800-1', 'auto');
-  ga('set', 'userId', #{current_user_or_guest_user.id}); 
-  -# ga('create', 'UA-67599800-1', { 'userId': #{current_user.id} })
-  ga('send', 'pageview');
-
-  / Google tag (gtag.js)
+/ Google tag (gtag.js)
 %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=G-E9CCZDHLJF"}
 :javascript
   window.dataLayer = window.dataLayer || [];
@@ -43,6 +38,3 @@
   gtag('js', new Date());
 
   gtag('config', 'G-E9CCZDHLJF');
-
-
-

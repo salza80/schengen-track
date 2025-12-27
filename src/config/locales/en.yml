@@ -1,8 +1,10 @@
 ---
 en:
+  about:
+    meta_description: Learn how to use the free Schengen 90/180 day calculator. Understand visa requirements, track your European stays, and plan trips to 29 Schengen countries.
+    page_title: About Schengen Calculator
   common:
     about: About
-    about_page: About page
     as_of: As of
     back: Back
     blog: Blog
@@ -89,6 +91,9 @@ en:
     - :year
     - :month
     - :day
+  days:
+    meta_description: Visual calendar showing your Schengen Area stays. Track the 90/180 day rule with color-coded days. See past trips, plan future visits, and monitor your remaining days in Europe.
+    page_title: Schengen Calendar
   default_description: Calculate your Schengen visa-free days with our free 90/180 day tracker. Track the rolling 180-day rule for 29 European countries. Start planning your Europe trip today!
   default_title: Schengen Calculator | Track 90/180 Day Rule | Free Visa Calculator
   errors:

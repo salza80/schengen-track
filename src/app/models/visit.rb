@@ -4,6 +4,7 @@ class Visit < ApplicationRecord
   validates :country, :user, :entry_date, presence: true
   validate :entry_date_must_be_less_than_exit
   validate :dates_must_not_overlap
+  validate :dates_must_be_within_reasonable_range
   
   default_scope { order('entry_date ASC, exit_date ASC') }
 
@@ -152,5 +153,18 @@ class Visit < ApplicationRecord
   def dates_must_not_overlap
     return unless date_overlap?
     errors.add(:base, 'the entry and exit dates should not overlap with an existing travel dates.')
+  end
+
+  def dates_must_be_within_reasonable_range
+    cutoff_past = Date.today - 20.years
+    cutoff_future = Date.today + 20.years
+
+    if entry_date.present? && (entry_date < cutoff_past || entry_date > cutoff_future)
+      errors.add(:entry_date, 'must be within 20 years of today')
+    end
+
+    if exit_date.present? && (exit_date < cutoff_past || exit_date > cutoff_future)
+      errors.add(:exit_date, 'must be within 20 years of today')
+    end
   end
 end

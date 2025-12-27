@@ -2,7 +2,7 @@
   - @next_entry_days.each do |day|
     %p.alert.alert-info
       = t('visits.reenter_info', 
-          date: day.the_date.strftime("%B %d, %Y"), 
+          date: link_to(day.the_date.strftime("%B %d, %Y"), days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day)), 
           max_days: day.max_remaining_days, 
           day_plural: t('visits.day_plural', count: day.max_remaining_days),
-          end_date: (day.the_date + (day.max_remaining_days - 1).days).strftime("%B %d, %Y"))
+          end_date: (day.the_date + (day.max_remaining_days - 1).days).strftime("%B %d, %Y")).html_safe

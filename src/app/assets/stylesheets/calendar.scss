@@ -112,6 +112,19 @@
     z-index: 10;
   }
   
+  // Mobile long-press visual feedback
+  &.long-pressing {
+    animation: longPressAnimation 0.5s ease-in-out;
+    transform: scale(0.95);
+    box-shadow: 0 0 0 3px rgba($primary, 0.3);
+  }
+  
+  // Selecting state (for drag selection on desktop)
+  &.selecting {
+    background-color: rgba($primary, 0.2) !important;
+    border: 2px solid $primary !important;
+  }
+  
   .day-number {
     font-weight: bold;
     font-size: 1rem;
@@ -129,6 +142,12 @@
   }
   
   .day-count {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .day-visa-count {
     text-align: center;
     font-size: 0.75rem;
     font-weight: 600;
@@ -168,9 +187,14 @@
   background-color: $calendar-waiting;
   color: $calendar-waiting-text;
   border: 2px solid darken($calendar-waiting, 10%) !important;
+  
+  .day-wait {
+    color: $calendar-waiting-text;
+  }
 }
 
 // Current day highlight (Option C: Background accent)
+// Note: Critical warnings (overstay, visa issues) take precedence over current-day styling
 .day-cell.current-day {
   background-color: lighten($primary, 45%) !important;
   border: 2px solid $primary !important;
@@ -179,6 +203,32 @@
     color: $primary;
     font-weight: 900;
   }
+}
+
+// Override current-day styling for critical warning states
+.day-cell.current-day.overstay {
+  background-color: $calendar-overstay !important;
+  border: 3px solid darken($calendar-overstay, 15%) !important;
+  
+  .day-number {
+    color: $calendar-overstay-text;
+    font-weight: 900;
+  }
+}
+
+.day-cell.current-day.waiting-period {
+  background-color: $calendar-waiting !important;
+  border: 3px solid darken($calendar-waiting, 15%) !important;
+  
+  .day-number {
+    color: $calendar-waiting-text;
+    font-weight: 900;
+  }
+}
+
+// Optional: Also highlight current-day warnings more prominently
+.day-cell.current-day.in-schengen-warning {
+  border: 3px solid darken($calendar-warning, 15%) !important;
 }
 
 // Mobile responsive (updated for smaller cells)
@@ -254,7 +304,10 @@ html {
 
 // Calendar sidebar
 .calendar-sidebar {
-  z-index: 50; // Lower than header (which should be around 100+)
+  z-index: 50; // Below footer (100)
+  &.sticky-top {
+    z-index: 50;
+  }
   
   // Smooth scrolling for sidebar content
   scrollbar-width: thin;
@@ -378,28 +431,6 @@ html {
   }
 }
 
-// Empty calendar message
-.empty-calendar-message {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: #6c757d;
-  
-  h4 {
-    margin-bottom: 1rem;
-  }
-  
-  p {
-    font-size: 1.1rem;
-    margin-bottom: 0;
-  }
-  
-  .icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
-  }
-}
-
 // ============================================================================
 // Visit Highlight Animations
 // ============================================================================
@@ -450,10 +481,67 @@ html {
   z-index: 10; // Ensure it appears above other cells
 }
 
+// Gold pulse animation for highlighted days (jump to today, next entry dates)
+@keyframes highlightPulseGold {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+    transform: scale(1.02);
+  }
+  100% { 
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    transform: scale(1);
+  }
+}
+
+.highlight-day {
+  animation: highlightPulseGold 1s ease-in-out 3;
+  border: 2px solid #ffc107 !important;
+  position: relative;
+  z-index: 10; // Ensure it appears above other cells
+}
+
 // Smooth transition when highlight is removed
-.calendar-day-cell,
 .day-cell {
   transition: border 0.3s ease, transform 0.3s ease;
+}
+
+// Mobile long press animation
+@keyframes longPressAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}
+
+// Mobile tooltip improvements
+@media (max-width: 767px) {
+  .tooltip {
+    // Make tooltips larger and easier to read on mobile
+    .tooltip-inner {
+      max-width: 300px;
+      font-size: 0.95rem;
+      padding: 0.75rem;
+      text-align: left;
+    }
+    
+    // Ensure tooltip is above other elements
+    z-index: 1060;
+  }
+  
+  // Disable hover effects on mobile
+  .day-cell:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 // ============================================================================

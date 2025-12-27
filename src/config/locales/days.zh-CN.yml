@@ -5,21 +5,26 @@ zh-CN:
     days: 天
     days_remaining: 剩余天数
     days_used: 已用天数
+    entry_limit_exceeded: 超出入境次数限制
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
+    go_to_visas: 前往签证
+    jump_to_today: 前往今天
     learn_about_rule: 了解90/180天规则
     legend: 图例
     legend_outside: 申根区外
     legend_overstay: 超期停留
     legend_safe: 在申根区（安全）
     legend_waiting: 等待期
-    legend_warning: 接近限制（80天以上）
     max_days_reached: 峰值
     max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
+    meta_description: 显示您申根区逗留的可视化日历。使用颜色编码的日期追踪90/180天规则。查看过去的旅行、计划未来的访问并监控您在欧洲的剩余天数。
     need_help: 需要帮助理解规则吗？
     next_entry_options: 最早再入境日期
+    no_visa_entered: 未输入签证
     no_visits_this_year: "%{year}年无访问"
     overstay_na: 不适用
+    overstay_tooltip: 您已超过90/180天规定
     page_title: 申根90/180天计算器
     schengen_days_in_year: 在申根区的天数
     schengen_no: 否
@@ -42,5 +47,10 @@ zh-CN:
       schengen_days_used_tooltip: 在过去180天内在申根区内的天数。
     until_date: 直到 %{date}
     view_table: 表格视图
+    visa_ok_tooltip: 您截至今天拥有有效签证
+    visa_status_label: 签证状态
+    visa_status_ok: 签证状态：正常
+    visa_warning: 需要签证！
     visits_count: 访问次数
+    waiting_period_tooltip: 由于您之前超期停留，现在需要等待180天。
     year_summary: "%{year}年摘要"

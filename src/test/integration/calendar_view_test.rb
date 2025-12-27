@@ -117,4 +117,84 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     assert has_content?('Outside Schengen'), "Should have legend item"
     assert has_content?('In Schengen (Safe)'), "Should have legend item"
   end
+  
+  # ====================
+  # F. Visa-Required User Calendar Tests
+  # ====================
+  
+  test "visa-required user can access calendar view" do
+    # Login as VisaRequiredUser
+    visa_user_login
+    
+    # Navigate to days page
+    visit days_path(locale: 'en', year: 2012)
+    
+    # Should NOT be redirected to visits page
+    assert_not current_path.include?('visits'), "Should not redirect to visits page"
+    assert has_css?('.calendar-month'), "Should show calendar"
+  end
+  
+  test "visa-required user sees calendar with visit data" do
+    visa_user_login
+    
+    # Visit year with two-entry visa visits (2012)
+    visit days_path(locale: 'en', year: 2012)
+    
+    # Should see calendar display
+    assert has_css?('.day-cell'), "Should have day cells"
+    assert has_css?('.calendar-year-summary'), "Should show year summary"
+  end
+  
+  test "visa-required user sees overstay styling for missing visa" do
+    visa_user_login
+    
+    # Visit year with no visa (2016)
+    visit days_path(locale: 'en', year: 2016, month: 2)
+    
+    # Days with visits but no visa should show as overstay
+    assert has_css?('.calendar-cell.overstay'), "Should show overstay styling for missing visa"
+  end
+  
+  test "non-visa user calendar unchanged" do
+    # Login as regular user (Sally)
+    user_login
+    
+    visit days_path(locale: 'en', year: 2014)
+    
+    # Should work as before - no visa information
+    assert has_css?('.calendar-month'), "Should show calendar"
+    assert has_css?('.day-cell'), "Should show day cells"
+  end
+  
+  test "visa-required user can see calendar link in header" do
+    visa_user_login
+    
+    # Visit any page
+    visit visits_path(locale: 'en')
+    
+    # Should see Calendar link in navigation
+    within('nav.navbar') do
+      assert has_link?('Calendar'), "Should show Calendar link in header for visa-required users"
+    end
+  end
+  
+  test "visa-required user visit rows are clickable (have proper attributes)" do
+    visa_user_login
+    
+    # Visit the visits page
+    visit visits_path(locale: 'en')
+    
+    # Verify visit rows have clickable class and data attributes
+    assert has_css?('tr.clickable-visit-row'), "Should have clickable visit rows"
+    
+    # Get first visit row
+    first_row = first('tr.clickable-visit-row')
+    
+    # Verify it has the data-clickable-row attribute set to 'true'
+    assert first_row['data-clickable-row'] == 'true', "Should have data-clickable-row='true'"
+    
+    # Verify it has year and month data attributes for navigation
+    assert first_row['data-entry-year'].present?, "Should have data-entry-year attribute"
+    assert first_row['data-entry-month'].present?, "Should have data-entry-month attribute"
+  end
 end

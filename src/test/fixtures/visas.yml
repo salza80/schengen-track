@@ -30,3 +30,19 @@ two:
   no_entries: 2
   user: VisaRequiredUser
   visa_type: S
+
+# Visa that spans across two calendar years
+long_visa:
+  start_date: 2015-06-01
+  end_date: 2016-02-28
+  no_entries: 3
+  user: VisaRequiredUser
+  visa_type: S
+
+# Visa with single entry for edge case testing
+strict_single:
+  start_date: 2017-01-01
+  end_date: 2017-12-31
+  no_entries: 1
+  user: VisaRequiredUser
+  visa_type: S

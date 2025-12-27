@@ -141,6 +141,21 @@ export class HttpApiConstruct extends Construct {
       enableAcceptEncodingGzip: true
     })
 
+    // Cache policy for authenticated user pages to enable text compression (Brotli/Gzip) without actual caching
+    // This solves Lighthouse "Document request latency" warnings by compressing HTML/CSS/JS responses
+    // TTL is set to 0-1 seconds so CloudFront applies compression but doesn't cache dynamic content
+    // Respects session cookies to ensure user-specific content is always fresh
+    const authenticatedUserCachePolicy = new cloudfront.CachePolicy(this, "authenticatedUserCache", {
+      headerBehavior: cloudfront.CacheHeaderBehavior.allowList('Origin'),
+      cookieBehavior: cloudfront.CacheCookieBehavior.allowList('_schengen_track_session'),
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
+      enableAcceptEncodingBrotli: true,
+      enableAcceptEncodingGzip: true,
+      minTtl: cdk.Duration.seconds(0),
+      maxTtl: cdk.Duration.seconds(1),
+      defaultTtl: cdk.Duration.seconds(0)
+    })
+
     //stop browser caching files that are cached in cloudfront to ensure invalidation works
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
       removeHeaders: ['Set-Cookie'],
@@ -209,7 +224,7 @@ export class HttpApiConstruct extends Construct {
         origin: origin,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-        cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+        cachePolicy: authenticatedUserCachePolicy,
         originRequestPolicy: customOriginRequestPolicy,
         functionAssociations
       },

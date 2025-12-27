@@ -2,10 +2,11 @@
 hi:
   visits:
     about_page_link: विवरण पृष्ठ
+    add_first_trip_hint: अपनी शेंगेन यात्राओं को ट्रैक करना शुरू करें
     add_record: यात्रा रिकॉर्ड जोड़ें
     add_travel: यात्रा जोड़ें
     add_visa: वीज़ा जोड़ें
-    change_link: यहां इसे बदलें
+    change_settings: सेटिंग्स बदलें
     country: देश
     dates: तारीखें
     day_plural:
@@ -16,21 +17,24 @@ hi:
     days_outside_schengen_zone: " शेंगेन क्षेत्र के बाहर"
     days_overstay: अधिक दिन
     days_overstay_tooltip: वीजा द्वारा अनुमति नहीं दी गई शेंगेन क्षेत्र में बिताए गए दिनों की संख्या।
-    dont_forget: अपनी राष्ट्रीयता का चयन भी करें, जो वर्तमान में %{nationality} पर सेट है। यदि यह सही नहीं है, %{change_link} या बाद में इस पृष्ठ के शीर्ष दाएं कोने में दिए गए लिंक का पालन करके इसे बदलें।
     edit_title: यात्रा रिकॉर्ड संपादित करें
     entry_date: प्रवेश तिथि
     exit_date: निकास तिथि
     exits: निकास
     exits_tooltip: क्या यात्रा की अवधि के लिए वीजा दर्ज किया गया है।
     export_to_csv: CSV में निर्यात करें
-    for_further_information: अधिक जानकारी के लिए, %{about_page_link} पढ़ें।
     list_caption: पिछले 180 दिनों में यात्रा की गई या जिन देशों की आपने यात्रा की है और भविष्य में यात्रा करने की योजना बना रखी है।
+    meta_description: अपनी सभी शेंगेन क्षेत्र यात्राओं को ट्रैक और प्रबंधित करें। 90/180 दिन के नियम के अनुपालन की निगरानी करें, पिछली यात्राएं जोड़ें, भविष्य की यात्रा की योजना बनाएं और शेष दिनों की गणना करें।
     modify: संशोधित करें
     multi: बहु
+    nationality_set_to: आपकी राष्ट्रीयता %{nationality} पर सेट है। यदि आवश्यक हो तो %{settings_link}।
     no_days: कोई दिन नहीं
     no_entries: कोई प्रवेश नहीं
+    no_trips: अभी तक कोई यात्रा नहीं
     number_of_days_tooltip: इस यात्रा के दिनों की संख्या।
-    number_of_entries_tooltip: इस वीजा पर अनुमति दी गई प्रवेशों की संख्या।
+    number_of_entries_tooltip: इस वीज़ा पर अनुमति दी गई प्रवेशों की संख्या।
+    page_description: शेंगेन क्षेत्र में अपनी यात्राओं को ट्रैक करें और 90/180 दिन के नियम के साथ अपने अनुपालन की निगरानी करें। बचे हुए दिनों को देखने के लिए अपनी पिछली और आगामी यात्राओं को जोड़ें।
+    page_title: अपनी शेंगेन यात्राओं को ट्रैक करें
     reenter_info: यदि आप %{date} को शेंगेन क्षेत्र में फिर से प्रवेश करते हैं, तो आप %{max_days} %{day_plural} तक %{end_date} तक रह सकते हैं।
     register_now: अभी पंजीकरण करें
     save_travel_plans: अपनी यात्रा योजना सहेजें!
@@ -40,10 +44,9 @@ hi:
     schengen_days_calculation: शेंगेन दिन
     schengen_days_calculation_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में बिताए गए दिनों की संख्या।
     schengen_days_overstay: अधिक रुकने के दिन
-    schengen_visa_list: शेंगेन वीजा सूची
-    start_using: पिछली और आगामी यात्रा योजनाओं को जोड़कर शेंगेन कैलकुलेटर का उपयोग करना शुरू करें।
+    schengen_visa_list: वीज़ा
     travel_details: यात्रा विवरण
-    travel_record: यात्रा रिकॉर्ड
+    travel_record: यात्राएं
     visa_days_overstay: वीज़ा अधिक रुकना
     visa_details: वीजा विवरण
     visa_entry_count: प्रवेश उपयोग

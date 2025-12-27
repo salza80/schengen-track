@@ -5,21 +5,26 @@ hi:
     days: दिन
     days_remaining: शेष दिन
     days_used: उपयोग किए गए दिन
+    entry_limit_exceeded: प्रवेश सीमा पार हो गई
     from_date_onwards: "%{date} से आगे"
     full_stay: पूरे 90 दिन!
+    go_to_visas: वीज़ा पर जाएं
+    jump_to_today: आज पर जाएं
     learn_about_rule: 90/180 दिन नियम के बारे में जानें
     legend: संकेत
     legend_outside: Schengen के बाहर
     legend_overstay: अधिक ठहराव
     legend_safe: Schengen में (सुरक्षित)
     legend_waiting: प्रतीक्षा अवधि
-    legend_warning: सीमा के निकट (80+ दिन)
     max_days_reached: शिखर
     max_remaining_days: अधिकतम शेष दिन - यदि आप इस दिन पर पुनः प्रवेश करें, तो आप शेंगेन क्षेत्र में रहने के लिए अधिकतम समय रख सकते हैं।
+    meta_description: आपके शेंगेन क्षेत्र प्रवास दिखाने वाला विज़ुअल कैलेंडर। रंग-कोडित दिनों के साथ 90/180 दिन नियम को ट्रैक करें। पिछली यात्राएं देखें, भविष्य की यात्राओं की योजना बनाएं और यूरोप में अपने शेष दिनों की निगरानी करें।
     need_help: नियम को समझने में मदद चाहिए?
     next_entry_options: सबसे पहली पुनः प्रवेश तिथियाँ
+    no_visa_entered: कोई वीज़ा दर्ज नहीं किया गया
     no_visits_this_year: "%{year} में कोई यात्रा नहीं"
     overstay_na: N/A
+    overstay_tooltip: आपने 90/180 दिनों से अधिक रुके हैं
     page_title: शेंगेन 90/180 दिन कैलकुलेटर
     schengen_days_in_year: Schengen में दिन
     schengen_no: नहीं
@@ -42,5 +47,10 @@ hi:
       schengen_days_used_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में दिनों की संख्या।
     until_date: "%{date} तक"
     view_table: तालिका में देखें
+    visa_ok_tooltip: आज की तारीख तक आपके पास वैध वीजा है
+    visa_status_label: वीज़ा स्थिति
+    visa_status_ok: 'वीज़ा स्थिति: ठीक है'
+    visa_warning: वीजा आवश्यक!
     visits_count: यात्राएं
+    waiting_period_tooltip: चूंकि आपने पहले अधिक समय तक रुके थे, इसलिए 180 दिन की प्रतीक्षा अवधि लागू है।
     year_summary: "%{year} सारांश"

@@ -7,7 +7,7 @@
 .calendar-view-container
   -# Hidden data element for scroll target
   - if @scroll_to_month
-    #calendar-scroll-target{data: {month: @scroll_to_month}, style: 'display:none'}
+    #calendar-scroll-target{data: {month: @scroll_to_month, day: @scroll_to_day}, style: 'display:none'}
   
   -# Status summary (mobile & desktop)
   = render 'calendar_status_summary'
@@ -46,25 +46,25 @@
         .modal-body
           -# Form will be loaded here via AJAX
         .modal-footer.d-flex.justify-content-between
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
           .ml-auto
-            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none"}
+            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none", "aria-label": t('common.delete')}
               %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
               = t('common.delete')
-            %button#saveVisitButton.btn.btn-primary{type: "button"}
+            %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": t('common.save')}
               %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
               = t('common.save')
   
   -# Context menu for days with multiple visits
-  #visitContextMenu.context-menu{style: "display: none"}
-    %ul.list-unstyled.mb-0
+  #visitContextMenu.context-menu{style: "display: none", role: "menu", "aria-label": t('visits.travel_record')}
+    %ul.list-unstyled.mb-0{role: "list"}
       -# Will be populated dynamically via JavaScript
 
   -# Modal for delete confirmation
   #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog{role: "document"}
       .modal-content
-        .modal-header.bg-danger.text-white
+        .modal-header.delete-warning
           %h5#deleteModalLabel.modal-title
             %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
             = t('common.confirm_delete')
@@ -73,7 +73,7 @@
         .modal-body
           %p#deleteModalMessage= t('common.delete_warning')
         .modal-footer
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
-          %a#deleteConfirmButton.btn.btn-danger{href: "#"}
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
+          %a#deleteConfirmButton.btn.btn-danger{href: "#", "aria-label": t('common.delete')}
             %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
             = t('common.delete')

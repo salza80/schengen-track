@@ -20,14 +20,35 @@ module ApplicationHelper
   def language_selector
     locales = Rails.application.config.i18n.available_locales
     current_locale = I18n.locale.to_sym
+    
+    locale_names = {
+      en: 'English',
+      de: 'Deutsch',
+      es: 'Español',
+      hi: 'हिन्दी',
+      tr: 'Türkçe',
+      'zh-CN': '中文'
+    }
   
-    content_tag(:span) do
+    # Return both dropdown (for users) and hidden links (for SEO)
+    dropdown = content_tag(:select, class: 'language-select form-control form-control-sm', onchange: 'window.location.href = this.value;', 'aria-label': 'Select language') do
       locales.map do |locale|
-        content_tag(:span, class: locale == current_locale ? 'active' : '') do
-          link_to(locale.upcase, locale: locale)
-        end
-      end.join(" | ").html_safe
+        option_url = url_for(locale: locale)
+        locale_display = "#{locale.to_s.upcase} - #{locale_names[locale.to_sym]}"
+        content_tag(:option, locale_display, value: option_url, selected: locale == current_locale)
+      end.join.html_safe
     end
+    
+    # Hidden links for search engine crawlers (visually hidden but accessible to screen readers)
+    seo_links = content_tag(:div, class: 'language-links-seo', style: 'position:absolute;left:-9999px;') do
+      locales.map do |locale|
+        next if locale == current_locale
+        link_url = url_for(locale: locale)
+        link_to(locale_names[locale.to_sym] || locale.to_s.upcase, link_url, hreflang: locale.to_s, lang: locale.to_s)
+      end.compact.join(' | ').html_safe
+    end
+    
+    dropdown + seo_links
   end
 
   # Generate breadcrumb JSON-LD structured data

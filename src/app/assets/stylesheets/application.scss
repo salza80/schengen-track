@@ -23,6 +23,7 @@
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)
 @import "about";
 @import "responsive_table";
+@import "calendar_status_card";
 
 // Override badge colors to match calendar colors
 .badge-success {
@@ -59,6 +60,8 @@ html {
     color: $gray-700;
     text-decoration: none;
     transition: color 0.2s ease;
+    white-space: nowrap;
+    display: inline-block;
     
     &:hover {
       color: $primary;

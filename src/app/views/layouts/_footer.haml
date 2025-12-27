@@ -1,24 +1,24 @@
 %footer.footer.bg-light
   .container
     .row.align-items-center.py-2
-      .col-md-4.text-center.text-md-left.mb-2.mb-md-0
+      .col-lg-4.text-center.text-lg-left.mb-2.mb-lg-0
         %span.text-muted
           %i.fa.fa-copyright.mr-1{"aria-hidden" => "true"}
           = "#{Time.current.year} #{t('common.schengen_calculator')}"
-      .col-md-4.text-center.mb-2.mb-md-0
+      .col-lg-4.text-center.mb-2.mb-lg-0
         %nav.footer-links{"aria-label": "Legal"}
-          = link_to disclaimer_path(locale: I18n.locale), class: "footer-link" do
+          = link_to disclaimer_path(locale: I18n.locale), class: "footer-link text-nowrap" do
             %i.fa.fa-file-text.mr-1
             = t('common.disclaimer')
           %span.mx-2.text-muted ·
-          = link_to privacy_path(locale: I18n.locale), class: "footer-link" do
+          = link_to privacy_path(locale: I18n.locale), class: "footer-link text-nowrap" do
             %i.fa.fa-shield-alt.mr-1
             = t('common.privacy_policy')
           %span.mx-2.text-muted ·
-          = link_to datadeletion_path(locale: I18n.locale), class: "footer-link" do
+          = link_to datadeletion_path(locale: I18n.locale), class: "footer-link text-nowrap" do
             %i.fa.fa-trash.mr-1
             = t('common.data_deletion')
-      .col-md-4.text-center.text-md-right
+      .col-lg-4.text-center.text-lg-right
         .language-selector-wrapper
           %i.fa.fa-globe.mr-2.text-muted
           = language_selector

@@ -12,8 +12,6 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    puts Rails.application.secrets.facebook_id
-    
     # Clean up old visits (beyond ±20 years)
     cleanup_old_visits
 

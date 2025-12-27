@@ -50,8 +50,30 @@ html {
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding-top: 10px;
   z-index: 100; // Above sidebar (50) but below header (1020)
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: $gray-100;
+  font-size: 0.875rem;
+  
+  .footer-link {
+    color: $gray-700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+    }
+    
+    i {
+      font-size: 0.8rem;
+    }
+  }
+  
+  .language-selector-wrapper {
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 .bg-md-header {       
@@ -60,38 +82,93 @@ html {
   }
 }
 
-#navtabs {
-    .nav-link {
-      transition: all 0.3s ease;  // Smooth transition for all properties
-      
-      &:hover {
-        border-color: $link-color;
-      }
-      
-      // Smooth transition for icons too
-      .fa, .fas, .far, .fab {
-        transition: color 0.3s ease;
-      }
+.navbar {
+  .nav-link {
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    
+    &:hover {
+      background-color: rgba($headerGreen, 0.2);
+      border-radius: 0.25rem;
     }
     
-    .active {
-      .nav-link {
-        background-color: $primary;  // Light blue background
-        color: white;  // White text
-        font-weight: bold;
-        border-radius: 0.25rem;  // Rounded corners for pill effect
-        
-        // Make icon white too
-        .fa, .fas, .far, .fab {
-          color: white;
-        }
+    i {
+      transition: color 0.3s ease;
+    }
+  }
+  
+  .nav-item.active {
+    .nav-link {
+      background-color: $headerGreen;
+      color: $dark;
+      font-weight: 500;
+      border-radius: 0.25rem;
+      border-bottom: 3px solid darken($headerGreen, 15%);
+      
+      i {
+        color: $dark;
       }
     }
+  }
+  
+  .site-title {
+    font-weight: 500;
+    margin-left: 0.75rem;
+    white-space: nowrap;
+  }
+  
+  .user-info {
+    line-height: 1.4;
+    padding: 0 0.5rem;
+    min-width: 120px;
+    
+    small {
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+    
+    .nationality-link {
+      color: $dark;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      max-width: 200px;
+      
+      &:hover {
+        color: $primary;
+        text-decoration: none;
+      }
+    }
+  }
+  
+  .dropdown-menu {
+    min-width: 200px;
+    
+    .dropdown-item {
+      padding: 0.5rem 1rem;
+      
+      i {
+        width: 20px;
+        text-align: center;
+      }
+      
+      &:hover {
+        background-color: rgba($headerGreen, 0.2);
+      }
+    }
+  }
 }
 
 // Ensure sticky header stays on top
 .navbar.sticky-top {
   z-index: 1020; // Bootstrap's default sticky navbar z-index
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 // Accessibility contrast colors for navbar and links are now controlled

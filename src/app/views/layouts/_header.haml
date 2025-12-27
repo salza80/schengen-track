@@ -1,43 +1,45 @@
-%nav.navbar.navbar-expand-sm.navbar-light.bg-light.sticky-top.justify-content-start
-  %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navtabs", "aria-controls" => "navbar", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
-    %span.navbar-toggler-icon
-  %a.navbar-brand.px-3.px-sm-0{:href => visits_path(I18n.locale)}
+%nav.navbar.navbar-expand-md.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation"}
+  %a.navbar-brand.px-3.px-md-0{:href => visits_path(I18n.locale)}
     = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)
     %span.navbar-text.site-title
       = t('common.schengen')
-      %span.d-none.d-lg-inline
-        = t('common.visa')
+      = t('common.visa')
       = t('common.calculator')
-  .collapse.navbar-collapse{id: "navtabs"}
-    %ul.navbar-nav.nav-tabs.mx-auto.navbar-light
-      %li.nav-item.no-wrap{class: (active_if(controller: 'visits')) }
-        %a.nav-link.btn-lg{href: visits_path(I18n.locale) }
-          %span.fa.fa-plane{"aria-hidden": "true"}
-          %span
-            = t('common.trips')
-      %li.nav-item.no-wrap{class: (active_if(controller: 'days'))}
-        %a.nav-link.btn-lg{href: days_path(locale: I18n.locale)}
-          %span.fa.fa-calendar{"aria-hidden": "true"}
-          %span
-            = t('common.calendar')
-      %li.nav-item.no-wrap{class: (active_if(controller: 'about'))}
-        %a.nav-link.btn-lg{href: about_path(locale: I18n.locale)}
-          %span.fa.fa-info-circle{"aria-hidden": "true"}
-          %span
-            = t('common.about')
-      %li.nav-item.no-wrap{class: (active_if(controller: 'blogs'))}
-        %a.nav-link.btn-lg{href: blog_index_path(locale: I18n.locale)}
-          %span.fa.fa-book{"aria-hidden": "true"}
-          %span
-            = t('common.blog')
-  .navbar-nav
-    - if current_user_or_guest_user
-      %p.current-setting.navbar-text.pr-2
-        = current_user_or_guest_user.full_name
-        %br
-        = link_to current_user_or_guest_user.nationality.name, my_details_path(locale: I18n.locale)
-  .form-inline.ml-auto
-    - if user_signed_in?
-      = button_to t('common.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-primary log-in-link', form: { style: 'display: inline-block;' }
-    - else 
-      = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary'
+  %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navbarContent", "aria-controls" => "navbarContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
+    %span.navbar-toggler-icon
+  .collapse.navbar-collapse{id: "navbarContent"}
+    %ul.navbar-nav.nav-tabs.mx-auto
+      %li.nav-item{class: (active_if(controller: 'visits')) }
+        %a.nav-link{href: visits_path(I18n.locale) }
+          %i.fa.fa-plane.mr-2{"aria-hidden": "true"}
+          = t('common.trips')
+      %li.nav-item{class: (active_if(controller: 'days'))}
+        %a.nav-link{href: days_path(locale: I18n.locale)}
+          %i.fa.fa-calendar.mr-2{"aria-hidden": "true"}
+          = t('common.calendar')
+      %li.nav-item{class: (active_if(controller: 'about'))}
+        %a.nav-link{href: about_path(locale: I18n.locale)}
+          %i.fa.fa-info-circle.mr-2{"aria-hidden": "true"}
+          = t('common.about')
+      %li.nav-item{class: (active_if(controller: 'blogs'))}
+        %a.nav-link{href: blog_index_path(locale: I18n.locale)}
+          %i.fa.fa-book.mr-2{"aria-hidden": "true"}
+          = t('common.blog')
+    %ul.navbar-nav.ml-auto
+      - if user_signed_in?
+        %li.nav-item.d-flex.align-items-center.mr-3
+          .user-info.text-right
+            %small.text-muted.d-block= current_user.full_name
+            = link_to current_user.nationality.name, my_details_path(locale: I18n.locale), class: "nationality-link"
+        %li.nav-item
+          %a.btn.btn-outline-dark.btn-sm.ml-2{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;"}
+            %i.fa.fa-sign-out-alt.mr-2
+            = t('common.log_out')
+          %form#logout-form{action: destroy_user_session_path, method: :post, style: "display: none;"}
+            = hidden_field_tag :_method, :delete
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+      - else
+        %li.nav-item
+          = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2' do
+            %i.fa.fa-sign-in-alt.mr-2
+            = t('common.login')

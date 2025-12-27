@@ -114,8 +114,7 @@
   -# Help and resources link
   .sidebar-section.card.mt-2
     .card-body.text-center.py-3
-      %small.text-muted= t('days.need_help')
-      %div
-        = link_to about_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm mt-2" do
-          %i.fa.fa-question-circle.mr-1
-          = t('days.learn_about_rule')
+      %small.text-muted.d-block.mb-2= t('days.need_help')
+      = link_to about_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
+        %i.fa.fa-question-circle.mr-1
+        = t('days.learn_about_rule')

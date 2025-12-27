@@ -24,6 +24,10 @@ $bp-homer: 75em;
 .responsive-table-container {
   // margin: 5% 3%;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
   @media (min-width: $bp-bart) {
     // margin: 2%;
   }
@@ -34,6 +38,7 @@ $bp-homer: 75em;
 
 .responsive-table {
   width: 100%;
+  max-width: 100%;
   margin-bottom: 1.5em;
   
   @media (min-width: $bp-bart) {

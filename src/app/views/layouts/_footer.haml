@@ -1,22 +1,27 @@
-%footer.footer.bg-light.footer-fixed-bottom
-  .container.text-center
-    %p
-      %span.fa.fa-copyright{"aria-hidden" => "true"}
-      = t('common.schengen_calculator')
-      |
-      = link_to t('common.disclaimer'), disclaimer_path(locale: I18n.locale)
-      |
-      = link_to t('common.privacy_policy'), privacy_path(locale: I18n.locale)
-      |
-      = link_to t('common.data_deletion'), datadeletion_path(locale: I18n.locale)
-      |
-      %span.facebook-buttons
-        -# %span.like
-        -#   %span.fb-like.visible-xs-block{ "data-action": "like", "data-href": "https://www.facebook.com/schengencalculator", "data-layout": "button", "data-share": "false", "data-show-faces": "false"}
-        %span.share
-          %span.fb-share-button.visible-xs-block{ "data-href": "https://schengen-calculator.com", "data-layout": "button" }
-      |
-      = language_selector
+%footer.footer.bg-light
+  .container
+    .row.align-items-center.py-2
+      .col-md-4.text-center.text-md-left.mb-2.mb-md-0
+        %span.text-muted
+          %i.fa.fa-copyright.mr-1{"aria-hidden" => "true"}
+          = "#{Time.current.year} #{t('common.schengen_calculator')}"
+      .col-md-4.text-center.mb-2.mb-md-0
+        %nav.footer-links{"aria-label": "Legal"}
+          = link_to disclaimer_path(locale: I18n.locale), class: "footer-link" do
+            %i.fa.fa-file-text.mr-1
+            = t('common.disclaimer')
+          %span.mx-2.text-muted ·
+          = link_to privacy_path(locale: I18n.locale), class: "footer-link" do
+            %i.fa.fa-shield-alt.mr-1
+            = t('common.privacy_policy')
+          %span.mx-2.text-muted ·
+          = link_to datadeletion_path(locale: I18n.locale), class: "footer-link" do
+            %i.fa.fa-trash.mr-1
+            = t('common.data_deletion')
+      .col-md-4.text-center.text-md-right
+        .language-selector-wrapper
+          %i.fa.fa-globe.mr-2.text-muted
+          = language_selector
 %script{:type => "application/ld+json"}
   {
   "@context": "http://schema.org",
@@ -33,6 +38,3 @@
   gtag('js', new Date());
 
   gtag('config', 'G-E9CCZDHLJF');
-
-
-

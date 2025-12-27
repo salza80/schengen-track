@@ -27,13 +27,13 @@
           = t('common.blog')
     %ul.navbar-nav.ml-auto
       - if user_signed_in?
-        %li.nav-item.d-flex.align-items-center.mr-3
-          .user-info.text-right
-            %small.text-muted.d-block= current_user.full_name
+        %li.nav-item.user-info-item
+          .user-info
+            %small.text-muted.d-block.user-name= current_user.full_name
             = link_to current_user.nationality.name, my_details_path(locale: I18n.locale), class: "nationality-link"
         %li.nav-item
-          %a.btn.btn-outline-dark.btn-sm.ml-2{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;"}
-            %i.fa.fa-sign-out-alt.mr-2
+          %a.btn.btn-outline-dark.btn-sm{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}
+            %i.fa.fa-sign-out-alt.mr-2{"aria-hidden": "true"}
             = t('common.log_out')
           %form#logout-form{action: destroy_user_session_path, method: :post, style: "display: none;"}
             = hidden_field_tag :_method, :delete

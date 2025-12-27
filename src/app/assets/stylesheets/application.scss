@@ -162,7 +162,7 @@ html {
   
   .user-info {
     line-height: 1.4;
-    padding: 0 0.5rem;
+    padding: 0.5rem 1rem;
     min-width: 120px;
     
     small {
@@ -185,6 +185,50 @@ html {
       &:hover {
         color: $primary;
         text-decoration: none;
+      }
+    }
+  }
+  
+  // Desktop - right aligned
+  @media (min-width: 768px) {
+    .user-info-item {
+      margin-right: 1rem;
+    }
+    
+    .user-info {
+      text-align: right;
+      padding: 0 0.5rem;
+    }
+  }
+  
+  // Mobile - full width, left aligned
+  @media (max-width: 767px) {
+    .navbar-collapse {
+      .user-info-item {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+      }
+      
+      .user-info {
+        text-align: left;
+        padding: 0.5rem 1rem;
+        
+        .user-name {
+          font-size: 0.85rem;
+          margin-bottom: 0.25rem;
+        }
+        
+        .nationality-link {
+          font-size: 1rem;
+          max-width: 100%;
+        }
+      }
+      
+      .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+        justify-content: center;
       }
     }
   }

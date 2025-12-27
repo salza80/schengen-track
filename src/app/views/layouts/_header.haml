@@ -29,7 +29,7 @@
       %li.nav-item.user-info-item
         .user-info
           %small.text-muted.d-block.user-name= current_user_or_guest_user.full_name
-          = link_to current_user_or_guest_user.nationality.name, my_details_path(locale: I18n.locale), class: "nationality-link"
+          = link_to (current_user_or_guest_user.nationality&.name || ''), my_details_path(locale: I18n.locale), class: "nationality-link"
       - if user_signed_in?
         %li.nav-item
           %a.btn.btn-outline-dark.btn-sm{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}

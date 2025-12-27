@@ -154,16 +154,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Only scroll to current day if we're NOT scrolling to a specific month
     if (!scrollTarget) {
-      setTimeout(function() {
-        var yOffset = -150; // Offset for sticky header
-        var y = currentDayCell.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        
-        // Only scroll if current day is not visible
-        var rect = currentDayCell.getBoundingClientRect();
-        if (rect.top < 0 || rect.bottom > window.innerHeight) {
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      }, 500);
+      // Use requestAnimationFrame to batch layout reads and avoid forced reflow
+      requestAnimationFrame(function() {
+        setTimeout(function() {
+          // Batch all layout reads together
+          var rect = currentDayCell.getBoundingClientRect();
+          var yOffset = -150; // Offset for sticky header
+          var y = rect.top + window.pageYOffset + yOffset;
+          
+          // Only scroll if current day is not visible
+          if (rect.top < 0 || rect.bottom > window.innerHeight) {
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }, 500);
+      });
     }
   }
 });

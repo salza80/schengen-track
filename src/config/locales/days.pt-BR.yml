@@ -1,0 +1,54 @@
+---
+pt-BR:
+  days:
+    current_status: Status Atual
+    days: dias
+    days_remaining: Dias Restantes
+    days_used: Dias Usados
+    entry_limit_exceeded: Limite de Entradas Excedido
+    from_date_onwards: A partir de %{date}
+    full_stay: 90 dias completos!
+    go_to_visas: Ir para Vistos
+    jump_to_today: Ir para Hoje
+    learn_about_rule: Saiba Mais Sobre a Regra 90/180 Dias
+    legend: Legenda
+    legend_outside: Fora de Schengen
+    legend_overstay: Permanência Excessiva
+    legend_safe: Em Schengen (Seguro)
+    legend_waiting: Período de Espera
+    max_days_reached: Pico
+    max_remaining_days: Dias máximos restantes - É o tempo máximo que você pode permanecer na área Schengen se reentrar neste dia.
+    need_help: Precisa de ajuda para entender a regra?
+    next_entry_options: Datas de Reentrada Mais Próximas
+    no_visa_entered: Nenhum visto inserido
+    no_visits_this_year: Nenhuma visita em %{year}
+    overstay_na: N/A
+    overstay_tooltip: Você excedeu os 90/180 dias
+    schengen_days_in_year: Dias em Schengen
+    schengen_no: 'Não'
+    schengen_yes: 'Sim'
+    status_overstay: Permanência Excessiva
+    status_safe: Seguro
+    status_warning: Aviso
+    stay_for_days: Pode ficar %{days} dias
+    table_caption: Lista de dias no Cálculo Schengen com detalhes de visita e cálculo.
+    table_headers:
+      country: País
+      date: Data
+      max_remaining_days: Dias Máximos Restantes
+      max_remaining_days_tooltip: O número de dias que você pode ficar na Área Schengen se entrar neste dia.
+      overstay_days: Dias de Permanência Excessiva
+      overstay_wait: Espera para Reentrada
+      overstay_wait_tooltip: Espera para Reentrada após Permanência Excessiva (dias)
+      schengen_area: Área Schengen
+      schengen_days_used: Dias Schengen Usados
+      schengen_days_used_tooltip: O número de dias dentro da Área Schengen nos últimos 180 dias.
+    until_date: até %{date}
+    view_table: Ver em Tabela
+    visa_ok_tooltip: Você tem um visto válido hoje
+    visa_status_label: Status do Visto
+    visa_status_ok: 'Status do Visto: OK'
+    visa_warning: Visto Necessário!
+    visits_count: Visitas
+    waiting_period_tooltip: Como você excedeu anteriormente, um período de espera de 180 dias está em vigor.
+    year_summary: Resumo de %{year}

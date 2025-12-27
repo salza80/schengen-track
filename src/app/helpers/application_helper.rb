@@ -27,7 +27,8 @@ module ApplicationHelper
       es: 'Español',
       hi: 'हिन्दी',
       tr: 'Türkçe',
-      'zh-CN': '中文'
+      'zh-CN': '中文',
+      'pt-BR': 'Português'
     }
   
     # Return both dropdown (for users) and hidden links (for SEO)

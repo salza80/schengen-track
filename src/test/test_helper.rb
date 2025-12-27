@@ -9,15 +9,12 @@ Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :selenium_headless
 Capybara.server = :puma, { silent: true }
 
-# Set server host
-# In CI, use 127.0.0.1 so Selenium can connect to it
-# Locally, use 0.0.0.0 to allow external connections
-Capybara.server_host = ENV['CI'] ? '127.0.0.1' : '0.0.0.0'
-
-# In CI, explicitly set app_host so Selenium knows where to connect
+# In CI, bind to 127.0.0.1 and set explicit app_host
 if ENV['CI']
-  Capybara.app_host = 'http://127.0.0.1'
-  Capybara.always_include_port = true
+  Capybara.server_host = '127.0.0.1'
+  Capybara.server_port = 3000 + ENV['TEST_ENV_NUMBER'].to_i
+else
+  Capybara.server_host = '0.0.0.0'
 end
 
 # Configure Selenium to use headless Chrome

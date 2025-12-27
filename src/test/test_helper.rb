@@ -9,8 +9,10 @@ Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :selenium_headless
 Capybara.server = :puma, { silent: true }
 
-# Set server host but let Capybara pick a random available port
-Capybara.server_host = '0.0.0.0'
+# Set server host
+# In CI, use 127.0.0.1 so Selenium can connect to it
+# Locally, use 0.0.0.0 to allow external connections
+Capybara.server_host = ENV['CI'] ? '127.0.0.1' : '0.0.0.0'
 
 # Configure Selenium to use headless Chrome
 Capybara.register_driver :selenium_headless do |app|
@@ -60,11 +62,6 @@ class ActionDispatch::IntegrationTest
   include ActionDispatch::TestProcess
 
   setup do
-    # In CI, set app_host to use 127.0.0.1 so Selenium can connect
-    if ENV['CI'] && Capybara.current_driver == Capybara.javascript_driver
-      Capybara.app_host = "http://127.0.0.1:#{Capybara.current_session.server.port}"
-    end
-    
     # Ensure server is running for each test
     if Capybara.current_driver == Capybara.javascript_driver
       Capybara.current_session.driver.browser
@@ -74,7 +71,6 @@ class ActionDispatch::IntegrationTest
   teardown do
     Capybara.reset_sessions!
     Capybara.use_default_driver
-    Capybara.app_host = nil if ENV['CI']
   end
 
   def user_login

@@ -111,8 +111,8 @@ Rails.application.configure do
     :address        => 'smtp-relay.brevo.com',
     :port           => '587',
     :authentication => :plain,
-    :user_name      => Rails.application.secrets.brevo_login,
-    :password       => Rails.application.secrets.brevo_password,
+    :user_name      => AppConfig.brevo_login,
+    :password       => AppConfig.brevo_password,
     :domain         => 'schengen-calculator.com',
     :enable_starttls_auto => true
   }

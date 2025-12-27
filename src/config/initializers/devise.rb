@@ -313,12 +313,12 @@ Devise.setup do |config|
 
   # config.omniauth :facebook, 'xxx', 'xxx', callback_url: 'http://localhost:3000/auth/facebook/callback'
 
-  config.secret_key = Rails.application.secrets.secret_key_base if Rails.env.production?  
+  config.secret_key = AppConfig.secret_key_base if Rails.env.production?  
 
   config.omniauth :facebook,
-    Rails.application.secrets.facebook_id,
-    Rails.application.secrets.facebook_secret,
-    callback_url: Rails.env.production? ? Rails.application.secrets.facebook_callback_url : 'http://localhost:3000/users/auth/facebook/callback',
+    AppConfig.facebook_id,
+    AppConfig.facebook_secret,
+    callback_url: Rails.env.production? ? AppConfig.facebook_callback_url : 'http://localhost:3000/users/auth/facebook/callback',
     scope: 'email,public_profile',
     info_fields: 'email,first_name,last_name',
     token_params: { parse: :json },

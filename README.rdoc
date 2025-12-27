@@ -11,6 +11,7 @@ Live site can be found here: http://www.schengen-calculator.com
 == System Dependencies
 * Database: PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
 * Ruby version 3.2.2, source: https://www.ruby-lang.org/en/documentation/installation/
+* Rails version 7.1.5, source: https://rubyonrails.org/
 
 
 == Application setup
@@ -20,12 +21,49 @@ To develop locally, rails can be setup normally in the /src folder
 * Install docker, docker desktop
 in /src Folder
 * run docker-compose up (to run postgres container)
-* Set required Environment Variables
+* Configure secrets for development (see Configuration Management section below)
 * run command <tt>`bundle install`</tt>
 * Database setup
   * run command <tt>`./bin/rake db:create`</tt>
   * run command <tt>`./bin/rake db:migrate`</tt>
   * run command <tt>`./bin/rake db:seed`</tt>
+
+
+== Configuration Management
+
+The application uses a custom AppConfig wrapper to manage secrets and environment variables consistently across all environments.
+
+=== Development & Test Environments
+
+Secrets are stored in <tt>config/secrets.yml</tt> (not committed to production). This file is automatically loaded into ENV variables at boot time.
+
+Example secrets.yml structure:
+  development:
+    secret_key_base: your-dev-key
+    facebook_id: 'your-dev-id'
+    facebook_secret: 'your-dev-secret'
+    facebook_callback_url: 'http://localhost:3000/users/auth/facebook/callback'
+    aws_access_key_id: 'your-dev-key'
+    aws_secret_key: 'your-dev-secret'
+    brevo_login: 'your-dev-email'
+    brevo_password: 'your-dev-password'
+
+=== Production Environment
+
+Production secrets are stored in AWS Systems Manager Parameter Store and injected as environment variables during Lambda deployment (see Deployment section below).
+
+=== Accessing Configuration
+
+All configuration is accessed via the <tt>AppConfig</tt> class:
+  AppConfig.facebook_id
+  AppConfig.facebook_secret
+  AppConfig.secret_key_base
+
+This provides:
+* Type safety - misspell a method and get an error
+* Single source of truth - all config keys defined in config/initializers/app_config.rb
+* Consistent API across development and production
+* No deprecated Rails.application.secrets usage
 
 
 == Country Data Management
@@ -57,7 +95,7 @@ Note: Direct database modifications to country data will be overwritten on the n
 
 == Translation Management (i18n)
 
-The application supports 6 languages: English (en), German (de), Spanish (es), Hindi (hi), Turkish (tr), and Chinese Simplified (zh-CN).
+The application supports 7 languages: English (en), German (de), Spanish (es), Hindi (hi), Turkish (tr), Chinese Simplified (zh-CN), and Portuguese Brazilian (pt-BR).
 
 Translation validation is powered by the i18n-tasks gem (https://github.com/glebm/i18n-tasks), which provides intelligent scanning and validation of translation keys.
 
@@ -101,8 +139,8 @@ The hook blocks commits if any translation issues are found. Bypass with:
 
 === Translation Files
 All translations are stored in src/config/locales/:
-* Main files: en.yml, de.yml, es.yml, hi.yml, tr.yml, zh-CN.yml
-* Namespaced files: days.*.yml, visits.*.yml, blog.*.yml, about.*.yml, etc.
+* Main files: en.yml, de.yml, es.yml, hi.yml, tr.yml, zh-CN.yml, pt-BR.yml
+* Namespaced files: days.*.yml, visits.*.yml, blog.*.yml, about.*.yml, countries.*.yml, devise.*.yml, user.*.yml, visas.*.yml
 
 Configuration: src/config/i18n-tasks.yml
 
@@ -209,16 +247,22 @@ To configure Facebook Login, you must set up your Facebook App at https://develo
   * public_profile - Access user's public profile (name)
 
 === Environment Variables / Parameter Store
-The following Facebook credentials must be configured:
+
+The application uses AWS Systems Manager Parameter Store for production secrets. The following parameters must be configured:
+
 * FACEBOOK_ID - Your Facebook App ID
 * FACEBOOK_SECRET - Your Facebook App Secret
-* FACEBOOK_CALLBACK_URL - Production OAuth callback URL (production only)
+* FACEBOOK_CALLBACK_URL - Production OAuth callback URL
+* SECRET_KEY_BASE - Rails secret key base (generate with: <tt>rails secret</tt>)
+* RAILS_MASTER_KEY - Rails credentials master key
+* DB_URL - PostgreSQL database connection string
+* BREVO_LOGIN - Brevo SMTP username
+* BREVO_PASSWORD - Brevo SMTP password
+* TASK_PASSWORD - Password for automated deployment tasks
 
-=== Troubleshooting Facebook Login
-* Mobile Login Issues: Ensure Facebook App settings include all domains and OAuth redirect URIs
-* API Version Warnings: Update client_options in config/initializers/devise.rb to the latest version
-* Callback Errors: Verify OAuth redirect URIs in Facebook App match exactly (including https://)
+These parameters are loaded as environment variables in the Lambda function and accessed via <tt>AppConfig</tt> throughout the application (e.g., <tt>AppConfig.facebook_id</tt>).
 
+For development and test environments, these values are stored in <tt>config/secrets.yml</tt> and automatically loaded into ENV variables (see Configuration Management section).
 
 == Deployment
 * Automatic deployment to AWS lambda / cloudfront via CDK and Github Actions
@@ -231,9 +275,11 @@ In aws create the nessessary application paramaters in AWS Paramater Store which
   SECRET_KEY_BASE: getParam('secret_key_base'),
   FACEBOOK_ID: getParam('facebook_id'),
   FACEBOOK_SECRET: getParam('facebook_secret'),
+  FACEBOOK_CALLBACK_URL: getParam('facebook_callback_url'),
   BREVO_LOGIN: getParam('brevo_login'),
   BREVO_PASSWORD: getParam('brevo_password'),
-  TASK_PASSWORD: getParam('task_password')
+  TASK_PASSWORD: getParam('task_password'),
+  DOMAIN: customDomain (automatically set by CDK, no SSM parameter needed)
 
 The following secrets are required in github secrets. See aws documentation for setting up a deployment user role with least privileges.
 One approach: Attempt deploy with no permissions, then add permissions that fail until deploy passes.

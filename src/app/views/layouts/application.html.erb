@@ -182,19 +182,19 @@
 
 <%= render 'layouts/header' %>
 
-<div class="container-fluid">
+<main class="container-fluid">
   <div class="row">
-    <div class="col-lg-9">
+    <div class="col-md-9">
       <div class="notice">
         <%= render 'layouts/notice' %>
       </div>
       <%= yield %>
     </div>
-    <div class="col-lg-3">
+    <div class="col-md-3 d-none d-md-block">
       <%= render 'layouts/agoda' %>
     </div>
   </div>
-</div>
+</main>
 
 <%= render 'layouts/footer' %>
 
@@ -220,7 +220,7 @@
     // Facebook SDK
     window.fbAsyncInit = function() {
       FB.init({
-        appId: '<%= ENV['FACEBOOK_ID'] || Rails.application.credentials.facebook_id %>',
+        appId: '<%= AppConfig.facebook_id %>',
         autoLogAppEvents: true,
         xfbml: true,
         version: 'v19.0'

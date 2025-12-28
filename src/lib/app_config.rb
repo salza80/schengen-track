@@ -5,7 +5,9 @@
 class AppConfig
   class << self
     def secret_key_base
-      fetch_required('SECRET_KEY_BASE')
+      # During asset precompilation, allow dummy value
+      ENV['SECRET_KEY_BASE'] || ENV['SECRET_KEY_BASE_DUMMY'] || 
+        (raise "Missing required environment variable: SECRET_KEY_BASE")
     end
 
     def facebook_id

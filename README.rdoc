@@ -11,7 +11,7 @@ Live site can be found here: http://www.schengen-calculator.com
 == System Dependencies
 * Database: PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
 * Ruby version 3.2.2, source: https://www.ruby-lang.org/en/documentation/installation/
-* Rails version 7.1.5, source: https://rubyonrails.org/
+* Rails version 7.1.5.2, source: https://rubyonrails.org/
 
 
 == Application setup

@@ -3,7 +3,8 @@
     = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)
     %span.navbar-text.site-title
       = t('common.schengen')
-      = t('common.visa')
+      %span.d-none.d-md-inline
+        = t('common.visa')
       = t('common.calculator')
   %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navbarContent", "aria-controls" => "navbarContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
     %span.navbar-toggler-icon

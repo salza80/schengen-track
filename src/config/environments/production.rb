@@ -28,7 +28,8 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress CSS using a preprocessor.
-  config.assets.css_compressor = :sass
+  # Use CSSO for CSS compression (Bootstrap 4.6.2+ compatible, replaces :sass)
+  config.assets.css_compressor = :csso
 
   # Compress JavaScript using Terser (modern minifier with ES6+ support)
   # Configure with source maps for debugging and Lighthouse insights
@@ -110,8 +111,8 @@ Rails.application.configure do
     :address        => 'smtp-relay.brevo.com',
     :port           => '587',
     :authentication => :plain,
-    :user_name      => Rails.application.secrets.brevo_login,
-    :password       => Rails.application.secrets.brevo_password,
+    :user_name      => AppConfig.brevo_login,
+    :password       => AppConfig.brevo_password,
     :domain         => 'schengen-calculator.com',
     :enable_starttls_auto => true
   }

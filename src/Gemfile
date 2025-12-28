@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 7.1.2', '< 8.0'
+gem 'rails', '~> 7.1.5', '>= 7.1.5.2'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.1'
+# Use SassC for SCSS stylesheets (modern C-based Sass compiler)
+gem 'sassc-rails'
+# Use CSSO for CSS compression (alternative to Sass compressor for Bootstrap 4.6.2+ compatibility)
+gem 'csso-rails'
 # Use Terser as compressor for JavaScript assets (modern minifier, supports ES6+)
 gem 'terser'
 
@@ -16,27 +18,35 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 # gem 'sdoc', group: :doc
 
-gem 'haml-rails', '~> 2.0.0'
-gem 'bootstrap', '4.2.1'
-gem "font-awesome-sass", "~> 6.5.1"
+gem 'haml-rails', '~> 3.0'
+gem 'bootstrap', '~> 4.6', '>= 4.6.2'
+gem "font-awesome-sass", "~> 6.7"
 gem "devise", ">= 4.9.2"
-gem 'nokogiri'
+gem 'nokogiri', '>= 1.18.10'
 gem 'geocoder'
 gem 'omniauth-facebook'
-gem 'puma', "=6.2.2"
+gem 'puma', '~> 6.4', '>= 6.4.3'
 gem 'amazon-ecs'
 gem 'staccato'
 gem 'pg'
 gem 'listen'
 gem "webpacker", '>= 6.0.0.rc.6'
 gem "sprockets-rails"
-gem 'bourbon'
 gem 'autoprefixer-rails'
 gem 'canonical-rails'
 
+# Security-critical dependency version constraints
+gem 'rack', '~> 2.2', '>= 2.2.20'
+gem 'rails-html-sanitizer', '>= 1.6.2'
+gem 'net-imap', '>= 0.5.7'
+gem 'uri', '>= 0.13.3'
+gem 'webrick', '>= 1.8.2'
+gem 'thor', '>= 1.4.0'
+gem 'minitest', '~> 5.22'  # Rails 7.1.x compatibility
+
 group :production do
   gem 'rails_12factor'
-  gem 'aws_lambda_ric'
+  gem 'aws_lambda_ric', '~> 3.1'
   gem 'aws-sdk-ssm', '~> 1'
 end
 

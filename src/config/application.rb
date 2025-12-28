@@ -6,6 +6,9 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Load AppConfig early so it's available in initializers
+require_relative '../lib/app_config'
+
 module SchengenTrack
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -13,6 +16,9 @@ module SchengenTrack
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
     config.i18n.available_locales = [:en, :de, :es, :tr, :'zh-CN', :hi, :'pt-BR']
 
+    # Disable Rails encrypted secrets (secrets.yml.enc); AppConfig loads secrets.yml manually in non-production
+    config.read_encrypted_secrets = false
+    
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       html_tag
     }

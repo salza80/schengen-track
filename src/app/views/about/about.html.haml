@@ -58,8 +58,6 @@
           = link_to t('about.about.how_to_use_link'), "#how", {:class => "text-dark"}
           %ul.nav.flex-column
             %li
-              = link_to t('about.about.step_by_step_link'), "#steps", {:class => "text-dark"}
-            %li
               = link_to t('about.about.limitations_link'), "#limitations", {:class => "text-dark"}
             %li
               = link_to t('about.about.field_definitions_link'), "#definitions", {:class => "text-dark"}
@@ -403,6 +401,10 @@
         %strong
           = t('about.about.definitions.visits_travel_record.visa_days_over_stay')
         = t('about.about.definitions.visits_travel_record.visa_days_over_stay_description')
+      %p.mb-4
+        %strong
+          = t('about.about.definitions.visits_travel_record.overstay')
+        = t('about.about.definitions.visits_travel_record.overstay_description')
       %h4.mb-4
         = t('about.about.definitions.short_stay_schengen_visa_record.title')
       %p.mb-4  

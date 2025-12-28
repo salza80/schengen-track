@@ -56,6 +56,12 @@ html {
   background-color: $gray-100;
   font-size: 0.75rem;
   
+  .footer-copyright {
+    @media (max-width: 767px) {
+      font-size: 0.7rem;
+    }
+  }
+  
   .footer-link {
     color: $gray-700;
     text-decoration: none;
@@ -89,6 +95,10 @@ html {
     
     .fa-globe {
       font-size: 1.25rem;
+      
+      @media (max-width: 767px) {
+        font-size: 1rem;
+      }
     }
     
     .language-select {
@@ -103,6 +113,12 @@ html {
       background-color: white;
       cursor: pointer;
       vertical-align: middle;
+      
+      @media (max-width: 767px) {
+        min-width: 100px;
+        padding: 0.375rem 0.5rem;
+        font-size: 0.875rem;
+      }
       
       &:focus {
         outline: none;

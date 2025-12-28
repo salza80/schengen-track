@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'haml-rails', '~> 2.0.0'
 gem 'bootstrap', '~> 4.6', '>= 4.6.2'
-gem "font-awesome-sass", "~> 6.5.1"
+gem "font-awesome-sass", "~> 6.7"
 gem "devise", ">= 4.9.2"
 gem 'nokogiri', '>= 1.18.10'
 gem 'geocoder'

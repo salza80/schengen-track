@@ -19,10 +19,6 @@ module SchengenTrack
     # Disable deprecated secrets.yml loading - we use ENV variables via AppConfig
     config.read_encrypted_secrets = false
     
-    # Load AppConfig before initializers so it's available in environment configs
-    config.autoload_paths << Rails.root.join('lib')
-    config.eager_load_paths << Rails.root.join('lib')
-    
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       html_tag
     }

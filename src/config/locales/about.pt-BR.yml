@@ -45,6 +45,8 @@ pt-BR:
           visa: 'Visto:'
           visa_days_over_stay: 'Visa Dias de Permanência Excessiva:'
           visa_days_over_stay_description: O número de dias na Área Schengen sem permissão do seu visto. Você não inseriu um visto, você saiu após a data final do visto, ou você entrou na Área Schengen mais vezes do que o permitido no Visto.
+          overstay: 'Permanência Excessiva:'
+          overstay_description: Se você ultrapassar o tempo permitido do seu visto Schengen, a calculadora imporá um período de espera completo de 180 dias antes que você possa entrar novamente. É fortemente aconselhado não entrar novamente na Área Schengen durante este período.
           visa_description: Isso se relaciona apenas a um Visto Schengen de Curta Permanência Simples/Múltiplo pessoas que requerem um Visto antes da entrada. Se você estiver isento deste requisito, as opções de Visto não aparecerão. Lembre-se de selecionar sua Nacionalidade no canto superior direito da página!
       disclaimer:
         description: Por favor, leia o %{link} antes de usar a Calculadora Schengen.

@@ -39,6 +39,8 @@ tr:
           exit_date_description: Ülkeden çıkış yaptığınız gün
           no_entries: 'Giriş Yok:'
           no_entries_description: Schengen Bölgesine giriş/tekrar giriş yaptığınız kez sayısı. (Bir Schengen ülkesinden diğerine geçiş, tekrar giriş olarak kabul edilmez, ancak bir Schengen Ülkesinden çıkış yapılıp bir sonrakine giriş yapılan arasında bir gün veya daha fazla bir süre varsa, hesap makinesi, Schengen Bölgesinden çıktığınızı ve bunu tekrar giriş olarak sayacağını varsayar.
+          overstay: 'Aşırı Kalış:'
+          overstay_description: Schengen vizenizin izin verilen süresini aşarsanız, hesap makinesi tekrar giriş yapabilmeniz için tam 180 günlük bir bekleme süresi uygulayacaktır. Bu süre içinde Schengen Bölgesine tekrar girmemeniz şiddetle tavsiye edilir.
           schengen_area: 'Schengen Bölgesi:'
           schengen_area_description: Evet = Schengen Bölgesindedir; Hayır = Schengen Bölgesinde değildir
           title: Ziyaretler/Seyahat Kaydı
@@ -152,7 +154,6 @@ tr:
       non_eu_visa_requirement: AB dışındaki herhangi bir ülkenin vatandaşıysanız, seyahatten önce bir Vize başvurmanız gerekir. Vize, geçerlilik süresini ve izin verilen giriş sayısını (çoklu giriş - sınırsız) belirtecektir. Lütfen unutmayın ki, "herhangi bir 180 günlük dönemde 90 gün" kuralı, Vize başlangıç ve bitiş tarihlerinden bağımsız olarak geçerlidir. Schengen hesap makinesini vize bilgilerinizi girmek ve izin verilen kalış sürenizi hesaplamak için kullanabilirsiniz.
       schengen_area_description: Schengen Bölgesi, iç sınırlara sahip olmayan 29 Avrupa ülkesinden oluşur. Vatandaşlar ve birçok AB dışı vatandaş, iş insanı ve turist, sınır kontrolleri olmaksızın serbestçe dolaşabilir. 1985'ten beri, neredeyse tüm AB ülkelerini ve birkaç ilişkili olmayan AB dışı ülkeyi kapsamıştır.
       schengen_area_link: Schengen Bölgesi Nedir
-      step_by_step_link: Adım Adım
       title: Schengen 90/180 Hesap Makinesi Hakkında
       travelling_in_schengen: Schengen Bölgesi'nde Seyahat
       travelling_link: Schengen Bölgesi'nde Seyahat

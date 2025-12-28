@@ -39,6 +39,8 @@ es:
           exit_date_description: El día en que sales del país
           no_entries: 'Sin Entradas:'
           no_entries_description: Número de veces que has ingresado / reingresado al Área de Schengen. (moverse de un país Schengen a otro no se considera un reingreso, sin embargo, si hay más de un día entre salir de un país Schengen y entrar en el siguiente, la calculadora asumirá que has salido del Área de Schengen y lo contará como un reingreso.
+          overstay: 'Exceso de Estadía:'
+          overstay_description: Si excedes la duración permitida de tu visa Schengen, la calculadora impondrá un período de espera completo de 180 días antes de que puedas reingresar. Se recomienda encarecidamente no reingresar al Área de Schengen durante este período.
           schengen_area: 'Área de Schengen:'
           schengen_area_description: Sí = Está en el Área de Schengen; No = No está en el Área de Schengen
           title: Visitas/Registro de Viaje
@@ -152,7 +154,6 @@ es:
       non_eu_visa_requirement: Si eres de cualquier otro país (fuera de la UE), deberás solicitar una Visa antes de viajar. La visa especificará la duración de su validez y el número de entradas (de múltiples entradas - ilimitadas) que se permiten. Ten en cuenta que los "90 días en cualquier período de 180 días" aún se aplican independientemente de las fechas de inicio y finalización de la visa. Utiliza la calculadora de Schengen para ingresar los detalles de tu visa y para ayudarte a calcular la duración permitida de tu estadía.
       schengen_area_description: El Área de Schengen comprende 29 países europeos sin fronteras internas. Los ciudadanos, así como muchos no ciudadanos de la UE, empresarios y turistas, pueden circular libremente sin enfrentar controles fronterizos. Desde 1985, ha crecido para incluir casi todos los estados de la UE y algunos países no pertenecientes a la UE asociados.
       schengen_area_link: "¿Qué es el Área de Schengen?"
-      step_by_step_link: Paso a Paso
       title: Acerca de Calculadora Schengen 90/180
       travelling_in_schengen: Viajar en el Área de Schengen
       travelling_link: Viajar en el Área de Schengen

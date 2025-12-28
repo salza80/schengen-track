@@ -39,6 +39,8 @@ zh-CN:
           exit_date_description: 您离开该国的日期
           no_entries: 无入境次数：
           no_entries_description: 您进入/重新进入申根区的次数。（从一个申根国家到另一个申根国家的移动不被视为重新进入，但是如果两个申根国家之间的出境和入境日期之间有超过一天的间隔，计算器将假定您已经离开了申根区，并将其视为重新进入。
+          overstay: 逾期停留：
+          overstay_description: 如果您超过申根签证允许的停留时间，计算器将强制实施完整的180天等待期，然后您才能重新进入。强烈建议在此期间不要重新进入申根区。
           schengen_area: 申根区：
           schengen_area_description: 是 = 在申根区内；否 = 不在申根区内
           title: 访问/旅行记录
@@ -152,7 +154,6 @@ zh-CN:
       non_eu_visa_requirement: 如果您来自欧盟之外的任何其他国家，您需要在旅行前申请签证。签证将指明其有效期和允许的入境次数（多次入境-无限制）。请注意，“180天内的任何90天”规则仍然适用，无论签证开始和结束日期如何。使用申根计算器输入您的签证详细信息，并帮助计算您允许停留的时间长度。
       schengen_area_description: 申根区由29个欧洲国家组成，没有内部边界。公民以及许多非欧盟国家的商人和游客可以在没有面临边境检查的情况下自由流动。自1985年以来，它已扩展到几乎所有欧盟成员国和一些关联的非欧盟国家。
       schengen_area_link: 什么是申根区
-      step_by_step_link: 逐步指南
       title: 关于申根90/180签证计算器
       travelling_in_schengen: 在申根区旅行
       travelling_link: 在申根区旅行

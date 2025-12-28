@@ -39,6 +39,8 @@ en:
           exit_date_description: The day you exit the Country
           no_entries: 'No Entries:'
           no_entries_description: Number of times you have entered / re-entered the Schengen Area. (moving from one Schengen country to another is not considered a re-entry, however if there is more than one day between exiting a country Schengen Country and entering the next, the calculator will assume you have exited the Schengen Area and will count it as a re-entry.
+          overstay: 'Overstay:'
+          overstay_description: If you overstay your Schengen visa allowance, the calculator will impose a full 180-day waiting period before you can re-enter. It is strongly advised not to re-enter the Schengen Area during this period.
           schengen_area: 'Schengen Area:'
           schengen_area_description: Yes = Is in the Schengen Area; No = Is not in the Schengen Area
           title: Visits/Travel Record
@@ -154,7 +156,6 @@ en:
       non_eu_visa_requirement: If you are from any other country (outside of the EU), you will need to apply for a Visa before you travel. The visa will specify the length of time it is valid, and the number of entries (of multi entry – unlimited) that are allowed. Please note that the “90 days in any 180 day period” still applies regardless of the Visa beginning and end dates. Use the Schengen calculator to enter your visa details, and to help calculate your allowed length of stay.
       schengen_area_description: The Schengen Area comprises 29 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
       schengen_area_link: What is the Schengen Area
-      step_by_step_link: Step by Step
       title: About Schengen 90/180 Calculator
       travelling_in_schengen: Travelling in the Schengen Area
       travelling_link: Travelling in the Schengen Area

@@ -6,7 +6,7 @@ unless Rails.env.production?
   secrets_file = Rails.root.join('config', 'secrets.yml')
   
   if File.exist?(secrets_file)
-    secrets = YAML.load_file(secrets_file, aliases: true)[Rails.env]
+    secrets = YAML.safe_load_file(secrets_file, aliases: true)[Rails.env]
     
     secrets.each do |key, value|
       ENV[key.upcase] ||= value.to_s

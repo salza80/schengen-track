@@ -5,39 +5,53 @@
 class AppConfig
   class << self
     def secret_key_base
-      ENV['SECRET_KEY_BASE']
+      fetch_required('SECRET_KEY_BASE')
     end
 
     def facebook_id
-      ENV['FACEBOOK_ID']
+      fetch_optional('FACEBOOK_ID')
     end
 
     def facebook_secret
-      ENV['FACEBOOK_SECRET']
+      fetch_optional('FACEBOOK_SECRET')
     end
 
     def facebook_callback_url
-      ENV['FACEBOOK_CALLBACK_URL']
+      fetch_optional('FACEBOOK_CALLBACK_URL')
     end
 
     def aws_access_key_id
-      ENV['AWS_ACCESS_KEY_ID']
+      fetch_optional('AWS_ACCESS_KEY_ID')
     end
 
     def aws_secret_key
-      ENV['AWS_SECRET_KEY']
+      fetch_optional('AWS_SECRET_KEY')
     end
 
     def brevo_login
-      ENV['BREVO_LOGIN']
+      fetch_optional('BREVO_LOGIN')
     end
 
     def brevo_password
-      ENV['BREVO_PASSWORD']
+      fetch_optional('BREVO_PASSWORD')
     end
 
     def task_password
-      ENV['TASK_PASSWORD']
+      fetch_optional('TASK_PASSWORD')
+    end
+
+    private
+
+    def fetch_required(key)
+      value = ENV[key]
+      if value.nil? || value.empty?
+        raise "Missing required environment variable: #{key}"
+      end
+      value
+    end
+
+    def fetch_optional(key)
+      ENV[key]
     end
   end
 end

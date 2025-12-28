@@ -16,7 +16,7 @@ module SchengenTrack
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
     config.i18n.available_locales = [:en, :de, :es, :tr, :'zh-CN', :hi, :'pt-BR']
 
-    # Disable deprecated secrets.yml loading - we use ENV variables via AppConfig
+    # Disable Rails encrypted secrets (secrets.yml.enc); AppConfig loads secrets.yml manually in non-production
     config.read_encrypted_secrets = false
     
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 

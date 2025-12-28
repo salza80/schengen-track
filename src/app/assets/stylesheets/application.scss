@@ -386,6 +386,10 @@ input.form-control {
   padding: 1rem;
 }
 
+select.form-control, select.custom-select {
+  padding: 1rem;
+}
+
 .date-form-group>select{
   width: auto;
   display: inline;

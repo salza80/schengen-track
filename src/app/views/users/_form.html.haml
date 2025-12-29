@@ -1,25 +1,26 @@
+- person = @primary_person || @user
 = form_for @user, url: my_details_path, :html => {:class => "form-horizontal"} do |f|
-  - if @user.errors.any?
+  - if person.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this person from being saved:"
+      %h2= "#{pluralize(person.errors.count, "error")} prohibited this person from being saved:"
       %ul
-        - @user.errors.full_messages.each do |msg|
+        - person.errors.full_messages.each do |msg|
           %li= msg
   .form-group.row
     .col-sm-2.my-auto
       = f.label :first_name, class: "col-form-label"
     .col-sm-10
-      = f.text_field :first_name, :class => "form-control"
+      = f.text_field :first_name, value: person.first_name, :class => "form-control"
   .form-group.row
     .col-sm-2.my-auto
       = f.label :last_name, class: "col-form-label"
     .col-sm-10
-      = f.text_field :last_name, :class => "form-control"
+      = f.text_field :last_name, value: person.last_name, :class => "form-control"
   .form-group.row
     .col-sm-2.my-auto
       = f.label :nationality_id, class: "col-form-label"
     .col-sm-10
-      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name,{}, {:class => "form-control custom-select"})
+      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name, {selected: person.nationality_id}, {:class => "form-control custom-select"})
   .actions
     .form-group.row
       .col-sm-12

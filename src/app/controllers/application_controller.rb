@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # skip_before_action :verify_authenticity_token
 
-  helper_method :current_user_or_guest_user, :amazon
+  helper_method :current_user_or_guest_user, :current_person, :amazon
   # around_action :switch_locale
 
   before_action :set_locale_from_params
@@ -41,6 +41,17 @@ class ApplicationController < ActionController::Base
   def current_user_or_guest_user
     current_user || guest_user
   end
+
+  def current_person
+    # Find person by session ID if it belongs to current user
+    person = Person.find_by(id: session[:current_person_id], user: current_user_or_guest_user) if session[:current_person_id]
+    
+    # Fall back to primary person or first person
+    person ||= current_user_or_guest_user.people.find_by(is_primary: true)
+    person ||= current_user_or_guest_user.people.first
+    
+    person
+  end
   
   private
 
@@ -67,6 +78,16 @@ class ApplicationController < ActionController::Base
     user.nationality = default_guest_country
     user.save(validate: false)
     user.reload
+    
+    # Auto-create primary person for guest user
+    Person.create!(
+      user: user,
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality_id: user.nationality_id,
+      is_primary: true
+    )
+    
     user
   end
 

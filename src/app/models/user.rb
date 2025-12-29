@@ -2,8 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   belongs_to :nationality, class_name: 'Country'
-  has_many :visits, dependent: :destroy
-  has_many :visas, dependent: :destroy
+  has_many :people, dependent: :destroy
   validates :first_name, :last_name, :nationality, presence: true
 
   devise :database_authenticatable, :registerable,

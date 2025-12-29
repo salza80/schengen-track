@@ -11,6 +11,12 @@ Rails.application.routes.draw do
     end
     resources :visas, except: [:index, :show]
     resources :days, only: [:index]
+    resources :people do
+      member do
+        post :set_current
+        post :make_primary
+      end
+    end
     
     get 'my_details' => 'users#edit'
     put 'my_details' => 'users#update'

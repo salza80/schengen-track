@@ -7,19 +7,19 @@ module VisitCleanup
   private
 
   def cleanup_old_visits
-    return unless current_user_or_guest_user
+    return unless current_person
 
     cutoff_past = Date.today - 20.years
     cutoff_future = Date.today + 20.years
 
-    deleted_count = current_user_or_guest_user.visits
-                                               .where('entry_date < :past OR exit_date > :future',
-                                                      past: cutoff_past,
-                                                      future: cutoff_future)
-                                               .delete_all
+    deleted_count = current_person.visits
+                                   .where('entry_date < :past OR exit_date > :future',
+                                          past: cutoff_past,
+                                          future: cutoff_future)
+                                   .delete_all
 
     if deleted_count.positive?
-      Rails.logger.info "Cleaned up #{deleted_count} old visits for user #{current_user_or_guest_user.id}"
+      Rails.logger.info "Cleaned up #{deleted_count} old visits for person #{current_person.id}"
     end
   end
 end

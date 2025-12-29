@@ -10,11 +10,11 @@
         %h1.h3.mb-3= t('visits.page_title')
         %p.lead= t('visits.page_description')
         %p.text-muted
-          = t('visits.nationality_set_to', nationality: current_user_or_guest_user.nationality.name, settings_link: link_to(t('visits.change_settings'), my_details_path(locale: I18n.locale))).html_safe
+          = t('visits.nationality_set_to', nationality: current_person.nationality.name, settings_link: link_to(t('visits.change_settings'), my_details_path(locale: I18n.locale))).html_safe
     - else
       %h1.sr-only= t('visits.page_title')
 
-    - if current_user_or_guest_user.visa_required?
+    - if current_person.visa_required?
       %h3.section-heading.mt-0
         %i.fa.fa-passport.mr-2
         = t('visits.schengen_visa_list')

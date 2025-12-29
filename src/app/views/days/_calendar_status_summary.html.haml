@@ -32,7 +32,7 @@
                 %strong= @status_summary[:remaining_days]
         
         -# Visa status (if applicable)
-        - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
+        - if current_person.visa_required? && @status_summary[:visa_status]
           .visa-status-info.text-center.mb-3.pb-3.border-bottom
             - if @status_summary[:visa_status] == 'ok'
               %span.badge.badge-success.px-3.py-2
@@ -83,7 +83,7 @@
               .remaining-number
                 %strong.h3{class: "text-#{status_text_class(@status_summary[:status])}"}= @status_summary[:remaining_days]
                 = t('days.days')
-          - if current_user_or_guest_user.visa_required? && @status_summary[:visa_status]
+          - if current_person.visa_required? && @status_summary[:visa_status]
             .col-md-12.mt-3
               .visa-status-info.text-center
                 - if @status_summary[:visa_status] == 'ok'

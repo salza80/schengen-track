@@ -1,0 +1,99 @@
+.row.mt-4
+  .col-lg-9
+    %h1.h3.mb-3
+      %i.fa.fa-users.mr-2
+      Manage People
+
+    - if @people.count == 1
+      .alert.alert-info
+        %i.fa.fa-info-circle.mr-2
+        You currently have one person. Add more to track travel plans for multiple people or scenarios.
+
+    .row.py-1.mb-3
+      .col-auto.ml-auto
+        = link_to new_person_path(locale: I18n.locale), class: "btn btn-add btn-md" do
+          %i.fa.fa-plus.mr-2
+          Add new person
+
+    - if @people.empty?
+      .empty-state
+        .empty-icon
+          %i.fa.fa-users
+        %h4 No people found
+        %p Add your first person to start tracking travel plans
+        = link_to new_person_path(locale: I18n.locale), class: "btn btn-add btn-lg" do
+          %i.fa.fa-plus.mr-2
+          Add new person
+    - else
+      .responsive-table-container
+        %table.table.table-striped.table-bordered.table-hover.responsive-table
+          %caption People you are tracking travel plans for
+          %thead.bg-header
+            %tr
+              %th{scope: "col"} Name
+              %th{scope: "col"} Nationality
+              %th{scope: "col"} Status
+              %th{scope: "col", class: 'modify-col'} Actions
+          %tbody
+            - @people.each do |person|
+              %tr{class: (person == current_person ? 'table-active' : ''), data: {person_url: (set_current_person_path(person) unless person == current_person)}, style: (person == current_person ? '' : 'cursor: pointer;')}
+                %th{scope: "row", class: 'bg-md-header'}
+                  = person.full_name
+                %td{"data-title": "Nationality"}
+                  = person.nationality&.name || 'Not set'
+                %td{"data-title": "Status", onclick: "event.stopPropagation();"}
+                  - if person == current_person
+                    %span.badge.badge-success.mr-2 Active
+                  - if person.is_primary
+                    %span.badge.badge-info Primary
+                  - else
+                    = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: "Make primary", "aria-label": "Make #{person.full_name} primary", form: { style: "display: inline;" } do
+                      Make primary
+                %td{"data-title": "Actions", onclick: "event.stopPropagation();"}
+                  .action-buttons
+                    = link_to edit_person_path(person, locale: I18n.locale), class: "btn btn-sm btn-icon", title: "Edit", "aria-label": "Edit #{person.full_name}" do
+                      %i.fa.fa-pencil-alt{"aria-hidden": "true"}
+                    - unless person.is_primary && person.user.people.count == 1
+                      = link_to person_path(person, locale: I18n.locale), method: :delete, data: {confirm: "Are you sure you want to delete #{person.full_name}?"}, class: "btn btn-sm btn-icon delete-person-link", title: "Delete", "aria-label": "Delete #{person.full_name}" do
+                        %i.fa.fa-trash{"aria-hidden": "true"}
+
+    .row
+      .col-lg-10.col-md-12
+        .ad-block-limit.d-none.d-md-block
+          %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
+  .col-lg-3.d-none.d-lg-block.mb-5{style: "padding-bottom: 220px;"}
+    = render 'days/calendar_sidebar', show_legend: false
+
+.row.d-lg-none.mt-2
+  .col-12
+    = render 'days/calendar_sidebar', sticky_sidebar: false, show_legend: false
+
+:javascript
+  (adsbygoogle = window.adsbygoogle || []).push({});
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('table tbody tr[data-person-url]');
+    
+    rows.forEach(function(row) {
+      row.addEventListener('click', function(e) {
+        const url = row.dataset.personUrl;
+        if (url) {
+          // Create and submit a form for POST request
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = url;
+          
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+          const csrfInput = document.createElement('input');
+          csrfInput.type = 'hidden';
+          csrfInput.name = 'authenticity_token';
+          csrfInput.value = csrfToken;
+          form.appendChild(csrfInput);
+          
+          document.body.appendChild(form);
+          form.submit();
+        }
+      });
+    });
+  });

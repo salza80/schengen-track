@@ -1,7 +1,7 @@
 class Visit < ApplicationRecord
   belongs_to :country
-  belongs_to :user
-  validates :country, :user, :entry_date, presence: true
+  belongs_to :person
+  validates :country, :person, :entry_date, presence: true
   validate :entry_date_must_be_less_than_exit
   validate :dates_must_not_overlap
   validate :dates_must_be_within_reasonable_range
@@ -10,11 +10,11 @@ class Visit < ApplicationRecord
 
   # initialise a new visit
 
-  def self.with_default(user)
+  def self.with_default(person)
     # register_oauth_with_matching_email(auth)
     new do |v|
-      v.user = user
-      v.entry_date = user.visits.last.exit_date unless user.visits.empty?
+      v.person = person
+      v.entry_date = person.visits.last.exit_date unless person.visits.empty?
       v.exit_date  = v.entry_date + 1.day unless v.entry_date.nil?
     end
   end
@@ -32,7 +32,7 @@ class Visit < ApplicationRecord
 
   # get all previous visits
   def previous_visits
-    user.visits.where('entry_date <= ? and id <> ?', entry_date, id)
+    person.visits.where('entry_date <= ? and id <> ?', entry_date, id)
   end
   
   # get all previous visits in the schengen zone only
@@ -42,14 +42,14 @@ class Visit < ApplicationRecord
 
   # get previous visits in the last 180 days
   def previous_180_days_visits
-    user.visits.find_by_date((entry_date - 180.days), exit_date).select { |v| v.id != self.id && v.schengen? && v.entry_date <= entry_date }
+    person.visits.find_by_date((entry_date - 180.days), exit_date).select { |v| v.id != self.id && v.schengen? && v.entry_date <= entry_date }
   end
 
   # Methods applicable when VISA is required
 
   #check if a visa is required before entry
   def visa_required?
-    user.visa_required? && schengen?
+    person.visa_required? && schengen?
   end
 
  
@@ -67,15 +67,15 @@ class Visit < ApplicationRecord
 
   # get the schengen visa for this visit
   def schengen_visa
-    return nil unless user.visa_required?
-    visa = user.visas.find_schengen_visa(entry_date, exit_date)
-    visa = user.visas.find_schengen_visa(entry_date, nil) unless visa
+    return nil unless person.visa_required?
+    visa = person.visas.find_schengen_visa(entry_date, exit_date)
+    visa = person.visas.find_schengen_visa(entry_date, nil) unless visa
     visa
   end
   
   #get all previous visits on the current visa
   def previous_visits_on_current_visa
-    return previous_visits unless user.visa_required?
+    return previous_visits unless person.visa_required?
     return Visit.none unless visa_exists?
     visa = schengen_visa
     previous_visits.select { |v| v.schengen_visa == visa }
@@ -91,7 +91,7 @@ class Visit < ApplicationRecord
   end
   # check if visa has been overstayed by number of entry limit
   def visa_entry_overstay?
-    return false unless user.visa_required? && schengen?
+    return false unless person.visa_required? && schengen?
     return true unless visa_exists?
     visa = schengen_visa
     visa.no_entries != 0 && visa_entry_count > visa.no_entries
@@ -134,8 +134,8 @@ class Visit < ApplicationRecord
   end
 
   def date_overlap?
-    return false unless user
-    vis = user.visits.find_by_date(entry_date, exit_date)
+    return false unless person
+    vis = person.visits.find_by_date(entry_date, exit_date)
     vis = vis.select { |v|  v != self && v.exit_date != entry_date && v.entry_date != exit_date }
     vis.count > 0
   end

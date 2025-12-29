@@ -9,13 +9,13 @@ module Schengen
       MAX_CALCULATION_DAYS = 40.years.to_i
       
       attr_reader :next_entry_days
-      def initialize(user)
-        @user = user
-        @visits = @user.visits.to_a
+      def initialize(person)
+        @person = person
+        @visits = @person.visits.to_a
         @calculated_days={}
         @next_entry_days=[]
-        @user_requires_visa = @user.visa_required?
-        @user_visas = @user_requires_visa ? @user.visas.schengen.to_a : []
+        @person_requires_visa = @person.visa_required?
+        @person_visas = @person_requires_visa ? @person.visas.schengen.to_a : []
         generate_days
       end
 
@@ -68,7 +68,7 @@ module Schengen
       end
 
       def generate_days
-        return unless @user
+        return unless @person
         @calculated_days = {}
         return if @visits.empty?
         return if too_many_days?
@@ -93,8 +93,8 @@ module Schengen
           @calculated_days[sd.the_date]=sd
           sd.continuous_days_count = calc_continuous_days_count(sd, i)
           
-          # Track visa information if user requires visa
-          if @user_requires_visa
+          # Track visa information if person requires visa
+          if @person_requires_visa
             sd.user_requires_visa = true
             if sd.schengen?
               # Find visa for this date
@@ -106,7 +106,7 @@ module Schengen
             end
           end
           
-          if @user.nationality.visa_required == 'F'
+          if @person.nationality.visa_required == 'F'
             # Freedom of movement: users who do not require a visa are not subject to Schengen day counting.
           else
             # Visa required: perform Schengen day counting for this day.
@@ -150,7 +150,7 @@ module Schengen
       end
 
       def calc_max_remaining_days
-        return if @user.nationality.visa_required == 'F'
+        return if @person.nationality.visa_required == 'F'
         calc_max_remaining_days_new
       end
 

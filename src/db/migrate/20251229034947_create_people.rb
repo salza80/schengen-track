@@ -14,15 +14,22 @@ class CreatePeople < ActiveRecord::Migration[7.1]
     reversible do |dir|
       dir.up do
         User.reset_column_information
-        User.find_each do |user|
-          Person.create!(
-            user_id: user.id,
-            first_name: user.first_name.presence || 'Guest',
-            last_name: user.last_name,
-            nationality_id: user.nationality_id,
-            is_primary: true
-          )
+        
+        # Use bulk insert for better performance
+        people_data = User.pluck(:id, :first_name, :last_name, :nationality_id, :created_at, :updated_at).map do |user_id, first_name, last_name, nationality_id, created_at, updated_at|
+          {
+            user_id: user_id,
+            first_name: first_name.presence || 'Guest',
+            last_name: last_name,
+            nationality_id: nationality_id,
+            is_primary: true,
+            created_at: created_at || Time.current,
+            updated_at: updated_at || Time.current
+          }
         end
+        
+        # Insert all people at once (much faster than individual creates)
+        Person.insert_all(people_data) if people_data.any?
       end
     end
   end

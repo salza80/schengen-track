@@ -179,7 +179,9 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     get visits_path
     assert_response :success
     
-    # Visas don't have an index page, so we just verify the visa exists in the database
+    # Verify the visa exists in the database for the new user
+    new_user.reload
+    assert_equal 1, new_user.people.first.visas.count, "Visa should exist in the database for the new user"
     # The visa would be visible on the visits page calendar view
   end
 

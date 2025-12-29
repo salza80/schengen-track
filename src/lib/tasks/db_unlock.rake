@@ -6,42 +6,68 @@ namespace :db do
     if connection.adapter_name == 'PostgreSQL'
       puts "Checking for migration advisory locks..."
       
-      # Query for all advisory locks currently held
-      # Rails uses pg_try_advisory_lock with a specific key for migrations
-      locks_query = <<-SQL
+      # First, show ALL advisory locks
+      all_locks_query = <<-SQL
         SELECT 
           locktype, 
           classid, 
           objid, 
           pid,
-          pg_terminate_backend(pid) as terminated
-        FROM pg_locks 
-        WHERE locktype = 'advisory' 
-          AND database = (SELECT oid FROM pg_database WHERE datname = current_database())
-          AND pid != pg_backend_pid();
+          state,
+          query
+        FROM pg_locks l
+        LEFT JOIN pg_stat_activity a ON l.pid = a.pid
+        WHERE locktype = 'advisory';
       SQL
       
-      begin
-        locks = connection.execute(locks_query)
-        
-        if locks.any?
-          puts "Found #{locks.count} advisory lock(s) from other sessions"
-          locks.each do |lock|
-            puts "  - Terminated process #{lock['pid']} (classid: #{lock['classid']}, objid: #{lock['objid']})"
-          end
-          puts "✓ Terminated #{locks.count} process(es) holding advisory locks"
-        else
-          puts "✓ No advisory locks found from other sessions"
+      all_locks = connection.execute(all_locks_query)
+      
+      if all_locks.any?
+        puts "Found #{all_locks.count} advisory lock(s) in database:"
+        all_locks.each do |lock|
+          puts "  - PID: #{lock['pid']}, State: #{lock['state']}, ClassID: #{lock['classid']}, ObjID: #{lock['objid']}"
         end
-      rescue => e
-        puts "⚠ Could not terminate locks: #{e.message}"
-        puts "Attempting to unlock specific migration lock..."
         
-        # As fallback, try to unlock the specific lock Rails uses
-        # Rails generates the lock key from the database name
-        connection.execute("SELECT pg_advisory_unlock_all();")
-        puts "✓ Released all advisory locks for current session"
+        # Try to terminate all advisory lock holders except ourselves
+        terminate_query = <<-SQL
+          SELECT 
+            pid,
+            pg_terminate_backend(pid) as terminated
+          FROM pg_locks 
+          WHERE locktype = 'advisory' 
+            AND pid != pg_backend_pid();
+        SQL
+        
+        terminated = connection.execute(terminate_query)
+        if terminated.any?
+          puts "✓ Terminated #{terminated.count} process(es) holding advisory locks"
+        else
+          puts "⚠ No processes to terminate (all locks are from current session)"
+        end
+      else
+        puts "✓ No advisory locks found in database"
       end
+      
+      # Also try the nuclear option - cancel any long-running queries
+      long_queries = <<-SQL
+        SELECT 
+          pid,
+          now() - query_start AS duration,
+          state,
+          query,
+          pg_cancel_backend(pid) as cancelled
+        FROM pg_stat_activity
+        WHERE state != 'idle'
+          AND query LIKE '%db:migrate%'
+          AND pid != pg_backend_pid()
+          AND now() - query_start > interval '30 seconds';
+      SQL
+      
+      cancelled = connection.execute(long_queries)
+      if cancelled.any?
+        puts "Cancelled #{cancelled.count} long-running migration queries"
+      end
+      
     else
       puts "Advisory lock clearing is only supported for PostgreSQL"
     end

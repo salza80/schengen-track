@@ -13,7 +13,7 @@ class CreatePeople < ActiveRecord::Migration[7.1]
       end
     end
     
-    # Note: Data migration moved to separate rake task (db:migrate_people_data)
-    # This allows for batched processing and better timeout handling
+    # Data migration is handled in MoveVisitsAndVisasToPeople
+    # (db/migrate/20251229035005_move_visits_and_visas_to_people.rb)
   end
 end

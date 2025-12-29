@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     
     get 'unlock_migrations' => 'tasks#unlock_migrations'
     get 'migrate' => 'tasks#migrate'
+    get 'migrate_people_data' => 'tasks#migrate_people_data'
     get 'create' => 'tasks#create'
     get 'seed' => 'tasks#seed'
     get 'update_countries' => 'tasks#update_countries'

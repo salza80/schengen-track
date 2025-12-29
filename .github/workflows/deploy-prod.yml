@@ -97,6 +97,18 @@ jobs:
             echo "$response" | jq '.' || echo "$response"
             exit 1
           fi
+          
+          echo "Migrating people data in batches..."
+          response=$(curl -s "https://schengen-calculator.com/migrate_people_data?token=${{ secrets.TASK_PASSWORD }}&batch_size=500")
+          if echo "$response" | grep -q '"success":true'; then
+            echo "✓ People data migration completed"
+            echo "$response" | jq -r '"Migrated: \(.migrated) users in \(.batches) batches"' || echo "$response"
+          else
+            echo "⚠ People data migration failed"
+            echo "Response:"
+            echo "$response" | jq '.' || echo "$response"
+            exit 1
+          fi
 
       - name: Update countries data
         run: |

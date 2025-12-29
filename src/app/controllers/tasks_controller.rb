@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations]
-  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations]
+  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data]
+  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data]
   
   # GET /tasks/unlock_migrations
   def unlock_migrations
@@ -18,6 +18,31 @@ class TasksController < ApplicationController
     @success = $?.success?
     @output = output
     render_json_response_with_output
+  end
+  
+  # GET /tasks/migrate_people_data
+  def migrate_people_data
+    batch_size = params[:batch_size] || '500'
+    rake_migrate_people = "db:migrate_people_data BATCH_SIZE=#{batch_size}"
+    output = `rake #{rake_migrate_people} 2>&1`
+    @success = $?.success?
+    
+    # Read stats from temp file if available
+    stats_file = '/tmp/people_migration_stats.json'
+    if @success && File.exist?(stats_file)
+      stats = JSON.parse(File.read(stats_file))
+      File.delete(stats_file) # Clean up
+      render json: { 
+        success: @success, 
+        total_users: stats['total_users'],
+        migrated: stats['migrated'], 
+        batches: stats['batches'],
+        output: output
+      }
+    else
+      @output = output
+      render_json_response_with_output
+    end
   end
   
   def create

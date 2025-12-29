@@ -16,23 +16,27 @@ class TasksController < ApplicationController
   def unlock_and_migrate
     combined_output = []
     
-    # Step 1: Unlock
-    combined_output << "=== Unlocking migration locks ==="
-    rake_unlock = "db:unlock"
-    unlock_output = `rake #{rake_unlock} 2>&1`
-    combined_output << unlock_output
-    unlock_success = $?.success?
-    
-    unless unlock_success
-      @success = false
-      @output = combined_output.join("\n")
-      render_json_response_with_output
-      return
+    # Step 1: Quick unlock - just terminate other connections, no diagnostics
+    combined_output << "=== Terminating stale connections ==="
+    begin
+      connection = ActiveRecord::Base.connection
+      if connection.adapter_name == 'PostgreSQL'
+        # Terminate ALL other connections to force release any locks
+        terminate_query = <<-SQL
+          SELECT pg_terminate_backend(pid)
+          FROM pg_stat_activity
+          WHERE datname = current_database()
+            AND pid != pg_backend_pid();
+        SQL
+        terminated = connection.execute(terminate_query)
+        combined_output << "Terminated #{terminated.count} connection(s)"
+      end
+    rescue => e
+      combined_output << "Warning during unlock: #{e.message}"
     end
     
-    # Step 2: Wait briefly for locks to clear
-    combined_output << "\n=== Waiting 2 seconds for locks to clear ==="
-    sleep 2
+    # Step 2: Brief wait
+    sleep 1
     
     # Step 3: Migrate
     combined_output << "\n=== Running migrations ==="

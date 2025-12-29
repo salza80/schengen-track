@@ -42,7 +42,12 @@ f.close
 c = Country.find_by(country_code: 'AU')
 user = User.new(email:'smclean17@hotmail.com', password:'password', password_confirmation: 'password', first_name:'Sally', last_name:'Mclean', nationality: c)
 user.save!
+
+# Get the primary person created by the after_create callback
+person = user.people.find_by(is_primary: true)
+
+# Create visits for the person
 de = Country.find_by(country_code: 'DE')
 cz = Country.find_by(country_code: 'CZ')
-Visit.create(entry_date: '2013/1/1', exit_date: '2013/2/1', country: de, user: user)
-Visit.create(entry_date: '2013/4/2', exit_date: '2013/5/2', country: cz, user: user)
+Visit.create(entry_date: '2013/1/1', exit_date: '2013/2/1', country: de, person: person)
+Visit.create(entry_date: '2013/4/2', exit_date: '2013/5/2', country: cz, person: person)

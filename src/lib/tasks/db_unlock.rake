@@ -6,68 +6,62 @@ namespace :db do
     if connection.adapter_name == 'PostgreSQL'
       puts "Checking for migration advisory locks..."
       
-      # First, show ALL advisory locks
-      all_locks_query = <<-SQL
-        SELECT 
-          l.locktype, 
-          l.classid, 
-          l.objid, 
-          l.pid,
-          a.state,
-          a.query
-        FROM pg_locks l
-        LEFT JOIN pg_stat_activity a ON l.pid = a.pid
-        WHERE l.locktype = 'advisory';
-      SQL
-      
-      all_locks = connection.execute(all_locks_query)
-      
-      if all_locks.any?
-        puts "Found #{all_locks.count} advisory lock(s) in database:"
-        all_locks.each do |lock|
-          puts "  - PID: #{lock['pid']}, State: #{lock['state']}, ClassID: #{lock['classid']}, ObjID: #{lock['objid']}"
-        end
-        
-        # Try to terminate all advisory lock holders except ourselves
-        terminate_query = <<-SQL
-          SELECT 
-            l.pid,
-            pg_terminate_backend(l.pid) as terminated
-          FROM pg_locks l
-          WHERE l.locktype = 'advisory' 
-            AND l.pid != pg_backend_pid();
-        SQL
-        
-        terminated = connection.execute(terminate_query)
-        if terminated.any?
-          puts "✓ Terminated #{terminated.count} process(es) holding advisory locks"
-        end
-      else
-        puts "No advisory locks visible in current query"
-      end
-      
-      # Force unlock the specific Rails migration lock
-      # Rails uses a lock based on a hash of the database name
-      # We'll try to unlock it even if we don't see it
-      puts "\nAttempting to force-unlock Rails migration lock..."
-      
-      # Calculate the lock key Rails uses (based on ActiveRecord code)
+      # Calculate the lock key Rails uses
       db_name = connection.current_database
-      # Rails uses Zlib.crc32 on the database name
       require 'zlib'
       lock_id = Zlib.crc32(db_name)
       
       puts "Database: #{db_name}, Lock ID: #{lock_id}"
       
-      # Try to unlock it (won't error if not locked)
-      begin
-        connection.execute("SELECT pg_advisory_unlock(#{lock_id})")
-        puts "✓ Attempted to unlock migration lock #{lock_id}"
-      rescue => e
-        puts "Note: #{e.message}"
+      # Find processes holding THIS specific lock
+      specific_lock_query = <<-SQL
+        SELECT 
+          l.pid,
+          a.state,
+          a.query,
+          now() - a.state_change AS duration,
+          pg_terminate_backend(l.pid) as terminated
+        FROM pg_locks l
+        LEFT JOIN pg_stat_activity a ON l.pid = a.pid
+        WHERE l.locktype = 'advisory' 
+          AND l.objid = #{lock_id}
+          AND l.pid != pg_backend_pid();
+      SQL
+      
+      terminated = connection.execute(specific_lock_query)
+      
+      if terminated.any?
+        puts "Found and terminated #{terminated.count} process(es) holding migration lock:"
+        terminated.each do |proc|
+          puts "  - PID: #{proc['pid']}, State: #{proc['state']}, Duration: #{proc['duration']}"
+        end
+        puts "✓ Migration lock released"
+      else
+        puts "No processes found holding the migration lock"
+        
+        # Show ALL advisory locks for debugging
+        all_locks_query = <<-SQL
+          SELECT 
+            l.locktype, 
+            l.classid, 
+            l.objid, 
+            l.pid,
+            a.state
+          FROM pg_locks l
+          LEFT JOIN pg_stat_activity a ON l.pid = a.pid
+          WHERE l.locktype = 'advisory';
+        SQL
+        
+        all_locks = connection.execute(all_locks_query)
+        if all_locks.any?
+          puts "\nAll advisory locks in database:"
+          all_locks.each do |lock|
+            puts "  - PID: #{lock['pid']}, ObjID: #{lock['objid']}, State: #{lock['state']}"
+          end
+        end
       end
       
-      # Also terminate any connections that are idle in transaction for too long
+      # Also terminate any idle-in-transaction connections
       idle_in_transaction = <<-SQL
         SELECT 
           pid,
@@ -77,12 +71,12 @@ namespace :db do
         FROM pg_stat_activity
         WHERE state = 'idle in transaction'
           AND pid != pg_backend_pid()
-          AND now() - state_change > interval '5 minutes';
+          AND now() - state_change > interval '2 minutes';
       SQL
       
       terminated_idle = connection.execute(idle_in_transaction)
       if terminated_idle.any?
-        puts "Terminated #{terminated_idle.count} idle-in-transaction connections"
+        puts "\nTerminated #{terminated_idle.count} idle-in-transaction connections"
       end
       
     else

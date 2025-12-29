@@ -30,16 +30,16 @@
               = t('days.schengen_yes')
             - else
               = t('days.schengen_no')
-          %td{ "data-title": "#{t('days.table_headers.schengen_days_used_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'warning' if day.warning?}"}
+          %td{ "data-title": "#{t('days.table_headers.schengen_days_used_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?}"}
             = day.schengen_days_count || "-"
             - if day.remaining_wait
               *
-          %td{ "data-title": "#{t('days.table_headers.max_remaining_days_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'warning' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}
+          %td{ "data-title": "#{t('days.table_headers.max_remaining_days_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}
             = day.max_remaining_days || "-"
           -if @overstay
-            %td{"data-title": "#{t('days.table_headers.overstay_days')}", class: "#{'danger' if day.danger?} #{'warning' if day.warning?}"}
+            %td{"data-title": "#{t('days.table_headers.overstay_days')}", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?}"}
               = day.overstay_days 
-            %td{"data-title": "#{t('days.table_headers.overstay_wait_tooltip')}", class: "#{'danger' if day.danger?} #{'warning' if day.warning?}"}
+            %td{"data-title": "#{t('days.table_headers.overstay_wait_tooltip')}", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?}"}
               - if day.remaining_wait
                 = day.remaining_wait
                 *

@@ -398,10 +398,34 @@ body {
   }
 }
 
+.next-entry-link-text {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.1rem;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: darken($primary, 10%);
+    text-decoration-color: darken($primary, 10%);
+  }
+
+  &:visited {
+    color: $primary;
+    text-decoration-color: $primary;
+  }
+}
+
+.next-entry-item:hover .next-entry-link-text {
+  color: darken($primary, 10%);
+  text-decoration-color: darken($primary, 10%);
+}
+
 // Visited link color - scoped to content areas only (not nav/footer/buttons)
 // This prevents navigation links and buttons from turning purple after being clicked
 .container-fluid:not(.footer .container-fluid), .page-sidebar, .blog-content {
-  a:visited:not(.btn) {
+  a:visited:not(.btn):not(.next-entry-link-text) {
     color: #6610f2; // Purple for visited links (sufficient contrast)
   }
 }

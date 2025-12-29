@@ -79,14 +79,7 @@ class ApplicationController < ActionController::Base
     user.save(validate: false)
     user.reload
     
-    # Auto-create primary person for guest user
-    Person.create!(
-      user: user,
-      first_name: 'Guest',
-      last_name: 'User',
-      nationality_id: user.nationality_id,
-      is_primary: true
-    )
+    # Primary person is automatically created by User's after_create callback
     
     user
   end

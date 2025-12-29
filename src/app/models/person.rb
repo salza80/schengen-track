@@ -9,6 +9,7 @@ class Person < ApplicationRecord
 
   scope :ordered, -> { order(is_primary: :desc).order(Arel.sql("LOWER(COALESCE(first_name, '') || ' ' || COALESCE(last_name, ''))")) }
 
+  before_destroy :prevent_primary_person_deletion
   before_destroy :prevent_last_person_deletion
 
   def full_name
@@ -24,6 +25,13 @@ class Person < ApplicationRecord
   end
 
   private
+
+  def prevent_primary_person_deletion
+    if is_primary
+      errors.add(:base, "Cannot delete the primary person. Please make another person primary first.")
+      throw(:abort)
+    end
+  end
 
   def prevent_last_person_deletion
     if user.people.count == 1

@@ -10,7 +10,7 @@
         %h1.h3.mb-3= t('visits.page_title')
         %p.lead= t('visits.page_description')
         %p.text-muted
-          = t('visits.nationality_set_to', nationality: current_person.nationality.name, settings_link: link_to(t('visits.change_settings'), my_details_path(locale: I18n.locale))).html_safe
+          = t('visits.nationality_set_to', nationality: current_person.nationality.name, settings_link: link_to(t('visits.change_settings'), edit_person_path(current_person, locale: I18n.locale))).html_safe
     - else
       %h1.sr-only= t('visits.page_title')
 

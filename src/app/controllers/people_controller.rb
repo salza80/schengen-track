@@ -40,7 +40,9 @@ class PeopleController < ApplicationController
   end
 
   def destroy
-    if @person.destroy
+    if @person.is_primary
+      redirect_to people_path, alert: 'Cannot delete the primary person. Please make another person primary first.'
+    elsif @person.destroy
       redirect_to people_path, notice: 'Person was successfully deleted.'
     else
       redirect_to people_path, alert: @person.errors.full_messages.join(', ')

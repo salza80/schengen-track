@@ -10,6 +10,10 @@
         You currently have one person. Add more to track travel plans for multiple people or scenarios.
 
     .row.py-1.mb-3
+      .col-auto
+        = link_to my_details_path(locale: I18n.locale), class: "btn btn-outline-primary btn-md" do
+          %i.fa.fa-user-cog.mr-2
+          = t('common.manage_account')
       .col-auto.ml-auto
         = link_to new_person_path(locale: I18n.locale), class: "btn btn-add btn-md" do
           %i.fa.fa-plus.mr-2
@@ -53,8 +57,8 @@
                   .action-buttons
                     = link_to edit_person_path(person, locale: I18n.locale), class: "btn btn-sm btn-icon", title: "Edit", "aria-label": "Edit #{person.full_name}" do
                       %i.fa.fa-pencil-alt{"aria-hidden": "true"}
-                    - unless person.is_primary && person.user.people.count == 1
-                      = link_to person_path(person, locale: I18n.locale), method: :delete, data: {confirm: "Are you sure you want to delete #{person.full_name}?"}, class: "btn btn-sm btn-icon delete-person-link", title: "Delete", "aria-label": "Delete #{person.full_name}" do
+                    - unless person.is_primary
+                      %a.btn.btn-sm.btn-icon.delete-person-link{href: "#", data: {delete_url: person_path(person, locale: I18n.locale), person_name: person.full_name}, title: "Delete", "aria-label": "Delete #{person.full_name}"}
                         %i.fa.fa-trash{"aria-hidden": "true"}
 
     .row
@@ -68,11 +72,30 @@
   .col-12
     = render 'days/calendar_sidebar', sticky_sidebar: false, show_legend: false
 
+-# Modal for delete confirmation
+#deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog{role: "document"}
+    .modal-content
+      .modal-header.delete-warning
+        %h5#deleteModalLabel.modal-title
+          %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
+          = t('common.confirm_delete')
+        %button.close.text-white{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} &times;
+      .modal-body
+        %p#deleteModalMessage= t('common.delete_warning')
+      .modal-footer
+        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        %a#deleteConfirmButton.btn.btn-danger{href: "#"}
+          %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
+          = t('common.delete')
+
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
 
 :javascript
   document.addEventListener('DOMContentLoaded', function() {
+    // Handle row clicks to switch person
     const rows = document.querySelectorAll('table tbody tr[data-person-url]');
     
     rows.forEach(function(row) {
@@ -94,6 +117,53 @@
           document.body.appendChild(form);
           form.submit();
         }
+      });
+    });
+    
+    // Handle delete button clicks
+    const deleteButtons = document.querySelectorAll('.delete-person-link');
+    const $modal = $('#deleteModal');
+    const $confirmButton = $('#deleteConfirmButton');
+    
+    deleteButtons.forEach(function(button) {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const deleteUrl = button.dataset.deleteUrl;
+        const personName = button.dataset.personName;
+        
+        // Update modal message with person name
+        $('#deleteModalMessage').text('Are you sure you want to delete ' + personName + '? This action cannot be undone.');
+        
+        // Show the modal
+        $modal.modal('show');
+        
+        // Handle delete confirmation click
+        $confirmButton.off('click').on('click', function(e) {
+          e.preventDefault();
+          
+          // Create a form to submit the DELETE request
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = deleteUrl;
+          
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+          const csrfInput = document.createElement('input');
+          csrfInput.type = 'hidden';
+          csrfInput.name = 'authenticity_token';
+          csrfInput.value = csrfToken;
+          form.appendChild(csrfInput);
+          
+          const methodInput = document.createElement('input');
+          methodInput.type = 'hidden';
+          methodInput.name = '_method';
+          methodInput.value = 'delete';
+          form.appendChild(methodInput);
+          
+          document.body.appendChild(form);
+          form.submit();
+        });
       });
     });
   });

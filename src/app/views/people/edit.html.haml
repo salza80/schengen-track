@@ -1,5 +1,9 @@
 .container-fluid.mt-4
-  %h1 Edit Person
+  .d-flex.justify-content-between.align-items-center.mb-3
+    %h1.mb-0 Edit Person
+    = link_to people_path(locale: I18n.locale), class: 'btn btn-outline-primary' do
+      %i.fa.fa-users.mr-2
+      Manage People
 
   = render 'form'
 

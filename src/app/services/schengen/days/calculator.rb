@@ -219,8 +219,8 @@ module Schengen
       end
 
       def find_visa_for_date(date)
-        return nil unless @user_requires_visa
-        @user_visas.find { |v| date.between?(v.start_date, v.end_date) }
+        return nil unless @person_requires_visa
+        @person_visas.find { |v| date.between?(v.start_date, v.end_date) }
       end
 
       def calc_visa_entry_count(current_date, visa)

@@ -6,7 +6,7 @@ class VisitTest < ActiveSupport::TestCase
   test 'should have the necessary required validators' do
     a = Visit.new
     assert a.invalid?
-    assert_equal [:country, :user, :entry_date], a.errors.attribute_names
+    assert_equal [:country, :person, :entry_date], a.errors.attribute_names
   end
 
   test 'no_days including entry and exit date' do
@@ -77,18 +77,18 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'test find by date range' do
-    user = users(:Sally)
-    a = user.visits.find_by_date('2014-03-20', '2014-03-22')
+    person = people(:sally_person)
+    a = person.visits.find_by_date('2014-03-20', '2014-03-22')
     assert_equal 2, a.count
-    a = user.visits.find_by_date('2010-03-09', nil)
+    a = person.visits.find_by_date('2010-03-09', nil)
     assert_equal 3, a.count
-    a = user.visits.find_by_date('2014-03-27', nil)
+    a = person.visits.find_by_date('2014-03-27', nil)
     assert_equal 2, a.count
-    a = user.visits.find_by_date(nil, '2014-03-27')
+    a = person.visits.find_by_date(nil, '2014-03-27')
     assert_equal 3, a.count
-    a = user.visits.find_by_date(nil, '2014-03-26')
+    a = person.visits.find_by_date(nil, '2014-03-26')
     assert_equal 2, a.count
-    a = user.visits.find_by_date(nil, nil)
+    a = person.visits.find_by_date(nil, nil)
     assert_equal 0, a.count
   end
 
@@ -103,8 +103,8 @@ class VisitTest < ActiveSupport::TestCase
   # ====================
 
   test 'should reject entry_date more than 20 years in past' do
-    user = users(:Sally)
-    visit = user.visits.build(
+    person = people(:sally_person)
+    visit = person.visits.build(
       country: countries(:Germany),
       entry_date: Date.today - 21.years,
       exit_date: Date.today - 21.years + 5.days
@@ -116,8 +116,8 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'should reject entry_date more than 20 years in future' do
-    user = users(:Sally)
-    visit = user.visits.build(
+    person = people(:sally_person)
+    visit = person.visits.build(
       country: countries(:Germany),
       entry_date: Date.today + 21.years,
       exit_date: Date.today + 21.years + 5.days
@@ -129,8 +129,8 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'should reject exit_date more than 20 years in past' do
-    user = users(:Sally)
-    visit = user.visits.build(
+    person = people(:sally_person)
+    visit = person.visits.build(
       country: countries(:Germany),
       entry_date: Date.today - 21.years,
       exit_date: Date.today - 21.years + 5.days
@@ -142,8 +142,8 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'should reject exit_date more than 20 years in future' do
-    user = users(:Sally)
-    visit = user.visits.build(
+    person = people(:sally_person)
+    visit = person.visits.build(
       country: countries(:Germany),
       entry_date: Date.today + 21.years,
       exit_date: Date.today + 21.years + 5.days
@@ -155,8 +155,8 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'should accept dates within 20 years' do
-    user = users(:Sally)
-    visit = user.visits.build(
+    person = people(:sally_person)
+    visit = person.visits.build(
       country: countries(:Germany),
       entry_date: Date.today - 10.years,
       exit_date: Date.today - 10.years + 5.days
@@ -166,8 +166,8 @@ class VisitTest < ActiveSupport::TestCase
   end
 
   test 'should accept dates at exactly 20 years boundary' do
-    user = users(:Sally)
-    visit = user.visits.build(
+    person = people(:sally_person)
+    visit = person.visits.build(
       country: countries(:Germany),
       entry_date: Date.today - 20.years,
       exit_date: Date.today - 20.years + 5.days

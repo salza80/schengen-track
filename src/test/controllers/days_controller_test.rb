@@ -182,6 +182,14 @@ class DaysControllerTest < ActionController::TestCase
       last_name: 'Visits',
       nationality: countries(:Australia)
     )
+    # Create a person for the user
+    Person.create!(
+      user: user,
+      first_name: 'No',
+      last_name: 'Visits',
+      nationality: countries(:Australia),
+      is_primary: true
+    )
     sign_in user
     
     get :index, params: { locale: 'en' }
@@ -237,6 +245,14 @@ class DaysControllerTest < ActionController::TestCase
       first_name: 'No',
       last_name: 'Status',
       nationality: countries(:Australia)
+    )
+    # Create a person for the user
+    Person.create!(
+      user: user,
+      first_name: 'No',
+      last_name: 'Status',
+      nationality: countries(:Australia),
+      is_primary: true
     )
     sign_in user
     
@@ -418,7 +434,7 @@ class DaysControllerTest < ActionController::TestCase
     sign_in users(:Sally)
     
     # Create a visit 21 years ago (bypassing validation for test)
-    old_visit = users(:Sally).visits.new(
+    old_visit = people(:sally_person).visits.new(
       country: countries(:Germany),
       entry_date: Date.today - 21.years,
       exit_date: Date.today - 21.years + 5.days
@@ -437,7 +453,7 @@ class DaysControllerTest < ActionController::TestCase
     sign_in users(:Sally)
     
     # Create a visit 21 years in future (bypassing validation for test)
-    future_visit = users(:Sally).visits.new(
+    future_visit = people(:sally_person).visits.new(
       country: countries(:Germany),
       entry_date: Date.today + 21.years,
       exit_date: Date.today + 21.years + 5.days
@@ -456,7 +472,7 @@ class DaysControllerTest < ActionController::TestCase
     sign_in users(:Sally)
     
     # Create a visit 10 years ago (should be kept)
-    recent_visit = users(:Sally).visits.create!(
+    recent_visit = people(:sally_person).visits.create!(
       country: countries(:Germany),
       entry_date: Date.today - 10.years,
       exit_date: Date.today - 10.years + 5.days

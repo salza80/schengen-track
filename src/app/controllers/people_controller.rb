@@ -24,7 +24,7 @@ class PeopleController < ApplicationController
       
       redirect_to people_path, notice: 'Person was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class PeopleController < ApplicationController
     if @person.update(person_params)
       redirect_to people_path, notice: 'Person was successfully updated.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

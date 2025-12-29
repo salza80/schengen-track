@@ -39,9 +39,14 @@ class UsersControllerTest < ActionController::TestCase
   test "should update person" do
     login
     primary_person = @user.people.find_by(is_primary: true)
-    patch :update, params: { person: { first_name: 'Updated', last_name: 'Name', nationality_id: primary_person.nationality_id }}
+    patch :update, params: { user: { first_name: 'Updated', last_name: 'Name', nationality_id: @user.nationality_id }}
     assert_redirected_to visits_path
+    
+    # Check both user and primary person are updated
+    @user.reload
     primary_person.reload
+    assert_equal 'Updated', @user.first_name
+    assert_equal 'Name', @user.last_name
     assert_equal 'Updated', primary_person.first_name
     assert_equal 'Name', primary_person.last_name
   end

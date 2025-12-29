@@ -10,19 +10,19 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @primary_person.update(person_params)
-        # Keep User fields in sync for backwards compatibility
-        @user.update_columns(
-          first_name: @primary_person.first_name,
-          last_name: @primary_person.last_name,
-          nationality_id: @primary_person.nationality_id
+      if @user.update(user_params)
+        # Sync User fields to primary person to keep them in sync
+        @primary_person.update_columns(
+          first_name: @user.first_name,
+          last_name: @user.last_name,
+          nationality_id: @user.nationality_id
         )
         
         format.html { redirect_to visits_path, notice: 'Your details were successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
-        format.json { render json: @primary_person.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def person_params
-      params.require(:person).permit(:first_name, :last_name, :nationality_id)
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :nationality_id)
     end
 end

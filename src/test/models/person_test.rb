@@ -81,10 +81,10 @@ class PersonTest < ActiveSupport::TestCase
     # Delete the alternative person first
     people(:sally_person_alt).destroy
     
-    # Now try to delete the last person
+    # Now try to delete the last person (who is also primary)
     assert_not person.destroy
     assert person.errors[:base].any?
-    assert_match /Cannot delete your only person/, person.errors[:base].first
+    assert_match /Cannot delete the primary person/, person.errors[:base].first
   end
 
   test 'should allow deleting person if not the last one' do
@@ -97,13 +97,17 @@ class PersonTest < ActiveSupport::TestCase
     visit_count = person.visits.count
     assert visit_count > 0
     
-    # Create another person for the same user so we can delete this one
-    Person.create!(
+    # Create another person for the same user and make them primary
+    new_person = Person.create!(
       user: person.user,
       first_name: 'Another',
       nationality: countries(:Australia),
       is_primary: false
     )
+    
+    # Make the new person primary so we can delete test1_person
+    person.update!(is_primary: false)
+    new_person.update!(is_primary: true)
     
     person.destroy
     assert_equal 0, Visit.where(person_id: person.id).count
@@ -114,13 +118,17 @@ class PersonTest < ActiveSupport::TestCase
     visa_count = person.visas.count
     assert visa_count > 0
     
-    # Create another person for the same user so we can delete this one
-    Person.create!(
+    # Create another person for the same user and make them primary
+    new_person = Person.create!(
       user: person.user,
       first_name: 'Another',
       nationality: countries(:Australia),
       is_primary: false
     )
+    
+    # Make the new person primary so we can delete visa_required_person
+    person.update!(is_primary: false)
+    new_person.update!(is_primary: true)
     
     person.destroy
     assert_equal 0, Visa.where(person_id: person.id).count

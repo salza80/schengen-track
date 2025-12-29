@@ -1,9 +1,9 @@
-= form_for @primary_person, url: my_details_path, method: :patch, html: {class: "form-horizontal"} do |f|
-  - if @primary_person.errors.any?
+= form_for @user, url: my_details_path, method: :patch, html: {class: "form-horizontal"} do |f|
+  - if @user.errors.any?
     #error_explanation.alert.alert-danger
-      %h4= "#{pluralize(@primary_person.errors.count, "error")} prohibited this from being saved:"
+      %h4= "#{pluralize(@user.errors.count, "error")} prohibited this from being saved:"
       %ul
-        - @primary_person.errors.full_messages.each do |msg|
+        - @user.errors.full_messages.each do |msg|
           %li= msg
   
   .form-group.row

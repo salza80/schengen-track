@@ -41,31 +41,48 @@ namespace :db do
         terminated = connection.execute(terminate_query)
         if terminated.any?
           puts "✓ Terminated #{terminated.count} process(es) holding advisory locks"
-        else
-          puts "⚠ No processes to terminate (all locks are from current session)"
         end
       else
-        puts "✓ No advisory locks found in database"
+        puts "No advisory locks visible in current query"
       end
       
-      # Also try the nuclear option - cancel any long-running queries
-      long_queries = <<-SQL
+      # Force unlock the specific Rails migration lock
+      # Rails uses a lock based on a hash of the database name
+      # We'll try to unlock it even if we don't see it
+      puts "\nAttempting to force-unlock Rails migration lock..."
+      
+      # Calculate the lock key Rails uses (based on ActiveRecord code)
+      db_name = connection.current_database
+      # Rails uses Zlib.crc32 on the database name
+      require 'zlib'
+      lock_id = Zlib.crc32(db_name)
+      
+      puts "Database: #{db_name}, Lock ID: #{lock_id}"
+      
+      # Try to unlock it (won't error if not locked)
+      begin
+        connection.execute("SELECT pg_advisory_unlock(#{lock_id})")
+        puts "✓ Attempted to unlock migration lock #{lock_id}"
+      rescue => e
+        puts "Note: #{e.message}"
+      end
+      
+      # Also terminate any connections that are idle in transaction for too long
+      idle_in_transaction = <<-SQL
         SELECT 
           pid,
-          now() - query_start AS duration,
+          now() - state_change AS duration,
           state,
-          query,
-          pg_cancel_backend(pid) as cancelled
+          pg_terminate_backend(pid) as terminated
         FROM pg_stat_activity
-        WHERE state != 'idle'
-          AND query LIKE '%db:migrate%'
+        WHERE state = 'idle in transaction'
           AND pid != pg_backend_pid()
-          AND now() - query_start > interval '30 seconds';
+          AND now() - state_change > interval '5 minutes';
       SQL
       
-      cancelled = connection.execute(long_queries)
-      if cancelled.any?
-        puts "Cancelled #{cancelled.count} long-running migration queries"
+      terminated_idle = connection.execute(idle_in_transaction)
+      if terminated_idle.any?
+        puts "Terminated #{terminated_idle.count} idle-in-transaction connections"
       end
       
     else

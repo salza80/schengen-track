@@ -8,18 +8,10 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def destroy
-    @user.destroy
-    sign_out
-    redirect_to root_path, notice: 'Your account has been successfully deleted.'
-  end
-
-  
   def update
-    # Update primary person with form data
     respond_to do |format|
       if @primary_person.update(person_params)
-        # Keep User fields in sync during transition period
+        # Keep User fields in sync for backwards compatibility
         @user.update_columns(
           first_name: @primary_person.first_name,
           last_name: @primary_person.last_name,
@@ -35,6 +27,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    # Manually destroy all people (and their visits/visas via dependent: :delete_all) 
+    # to avoid the prevent_last_person_deletion callback
+    @user.people.each do |person|
+      person.visits.delete_all
+      person.visas.delete_all
+    end
+    @user.people.delete_all
+    @user.destroy
+    
+    sign_out
+    redirect_to root_path, notice: 'Your account has been successfully deleted.'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -48,6 +53,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-       params.require(:user).permit(:first_name, :last_name, :nationality_id)
+      params.require(:person).permit(:first_name, :last_name, :nationality_id)
     end
 end

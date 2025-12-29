@@ -17,7 +17,7 @@
     <loc>https://schengen-calculator.com/about</loc>
     <priority>0.95</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2025-12-24</lastmod>
+    <lastmod>2025-12-29</lastmod>
   </url>
   
   <!-- English Blog -->
@@ -113,7 +113,7 @@
     <loc>https://schengen-calculator.com/datadeletion</loc>
     <priority>0.05</priority>
     <changefreq>never</changefreq>
-    <lastmod>2025-12-24</lastmod>
+    <lastmod>2025-12-29</lastmod>
   </url>
 
 </urlset>

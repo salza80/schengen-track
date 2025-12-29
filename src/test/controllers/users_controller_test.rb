@@ -38,8 +38,23 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should update person" do
     login
-    patch :update, params: { user: { first_name: @user.first_name, last_name: @user.last_name, nationality_id: @user.nationality_id }}
+    primary_person = @user.people.find_by(is_primary: true)
+    patch :update, params: { person: { first_name: 'Updated', last_name: 'Name', nationality_id: primary_person.nationality_id }}
     assert_redirected_to visits_path
+    primary_person.reload
+    assert_equal 'Updated', primary_person.first_name
+    assert_equal 'Name', primary_person.last_name
+  end
+
+  test "should destroy user account" do
+    login
+    people_count = @user.people.count
+    assert_difference('User.count', -1) do
+      assert_difference('Person.count', -people_count) do
+        delete :destroy
+      end
+    end
+    assert_redirected_to root_path
   end
 
   # test "should destroy person" do

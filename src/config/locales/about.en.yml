@@ -105,6 +105,9 @@ en:
       field_definitions_link: Field Name Definitions
       get_started: Get Started Now
       how_to_use:
+        people:
+          description: You can track trips for multiple people using the same account. Use the person switcher at the top of the page to add and switch between different travelers. Each person can have their own nationality, trips, and visa information. This is useful for families or when managing travel for multiple individuals.
+          title: 'Multiple People:'
         step_1:
           description: Select your Nationality. You can change this at the top of the page in the header.
           title: 'Step 1:'
@@ -169,9 +172,10 @@ en:
     datadeletion:
       conclusion: Your account and all data will be deleted. This action can not be undone.
       step1: Log in to your account
-      step2: Go to your account settings by selecting your nationality in the top right corner of the page
-      step3: Click on the 'Delete Account' button
-      step4: Confirm that you want to delete your account
+      step2: Click on your name in the person switcher at the top of the page
+      step3: Select 'Manage Account' from the dropdown menu
+      step4: Click on the 'Delete Account' button at the bottom of the page
+      step5: Confirm that you want to delete your account
       subtitle: How to delete your data
       title: Data Deletion Policy
     disclaimer:

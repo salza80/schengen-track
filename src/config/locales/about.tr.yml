@@ -105,6 +105,9 @@ tr:
       field_definitions_link: Alan Adı Tanımları
       get_started: Şimdi Başlayın
       how_to_use:
+        people:
+          description: Aynı hesabı kullanarak birden fazla kişi için seyahatleri takip edebilirsiniz. Farklı gezginler eklemek ve aralarında geçiş yapmak için sayfanın üst kısmındaki kişi değiştiricisini kullanın. Her kişinin kendi uyruğu, seyahatleri ve vize bilgileri olabilir. Bu, aileler veya birden fazla kişi için seyahat yönetirken kullanışlıdır.
+          title: 'Birden Fazla Kişi:'
         step_1:
           description: Uyruğunuzu seçin. Bunun için sayfanın üst kısmındaki başlık kısmını kullanabilirsiniz.
           title: 'Adım 1:'
@@ -167,9 +170,10 @@ tr:
     datadeletion:
       conclusion: Hesabınız ve tüm verileriniz silinecektir. Bu işlem geri alınamaz.
       step1: Hesabınıza giriş yapın
-      step2: Sayfanın sağ üst köşesindeki uyruğunuzu seçerek hesap ayarlarına gidin
-      step3: "'Hesabı Sil' düğmesine tıklayın"
-      step4: Hesabınızı silmek istediğinizi onaylayın
+      step2: Sayfanın üst kısmındaki kişi değiştiricisinde adınıza tıklayın
+      step3: Açılır menüden 'Hesabı Yönet'i seçin
+      step4: Sayfanın alt kısmındaki 'Hesabı Sil' düğmesine tıklayın
+      step5: Hesabınızı silmek istediğinizi onaylayın
       subtitle: Verilerinizi nasıl silebilirsiniz
       title: Veri Silme Politikası
     disclaimer:

@@ -1,26 +1,36 @@
-- person = @primary_person || @user
-= form_for @user, url: my_details_path, :html => {:class => "form-horizontal"} do |f|
-  - if person.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(person.errors.count, "error")} prohibited this person from being saved:"
+= form_for @primary_person, url: my_details_path, method: :patch, html: {class: "form-horizontal"} do |f|
+  - if @primary_person.errors.any?
+    #error_explanation.alert.alert-danger
+      %h4= "#{pluralize(@primary_person.errors.count, "error")} prohibited this from being saved:"
       %ul
-        - person.errors.full_messages.each do |msg|
+        - @primary_person.errors.full_messages.each do |msg|
           %li= msg
+  
   .form-group.row
     .col-sm-2.my-auto
       = f.label :first_name, class: "col-form-label"
     .col-sm-10
-      = f.text_field :first_name, value: person.first_name, :class => "form-control"
+      = f.text_field :first_name, class: "form-control"
+  
   .form-group.row
     .col-sm-2.my-auto
       = f.label :last_name, class: "col-form-label"
     .col-sm-10
-      = f.text_field :last_name, value: person.last_name, :class => "form-control"
+      = f.text_field :last_name, class: "form-control"
+  
   .form-group.row
     .col-sm-2.my-auto
-      = f.label :nationality_id, class: "col-form-label"
+      = label_tag :email, "Email", class: "col-form-label"
     .col-sm-10
-      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name, {selected: person.nationality_id}, {:class => "form-control custom-select"})
+      = text_field_tag :email, @user.email, class: "form-control", disabled: true
+      %small.text-muted To change your email, please contact support.
+  
+  .form-group.row
+    .col-sm-2.my-auto
+      = f.label :nationality_id, "Nationality", class: "col-form-label"
+    .col-sm-10
+      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name, {}, {class: "form-control custom-select"})
+  
   .actions
     .form-group.row
       .col-sm-12

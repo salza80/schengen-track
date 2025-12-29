@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     end
     
     get 'my_details' => 'users#edit'
-    put 'my_details' => 'users#update'
     patch 'my_details' => 'users#update'
     delete 'my_details' => 'users#destroy', as: 'delete_account'
     get 'user' => 'users#show'

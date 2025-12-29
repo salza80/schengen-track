@@ -5,7 +5,8 @@ class CreateVisits < ActiveRecord::Migration[5.1]
       t.date :exit_date
       t.integer :schengen_days
       t.references :country, index: true
-      t.references :person
+      t.references :user
+      # Note: person_id is added later in 20251229035005_move_visits_and_visas_to_people.rb
 
       t.timestamps null: false
     end

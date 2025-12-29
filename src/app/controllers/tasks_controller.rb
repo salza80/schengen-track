@@ -1,6 +1,15 @@
 class TasksController < ApplicationController
-  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data]
-  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data]
+  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data, :fix_people_migration]
+  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data, :fix_people_migration]
+  
+  # GET /tasks/fix_people_migration
+  def fix_people_migration
+    rake_fix = "db:fix_people_migration"
+    output = `rake #{rake_fix} 2>&1`
+    @success = $?.success?
+    @output = output
+    render_json_response_with_output
+  end
   
   # GET /tasks/unlock_migrations
   def unlock_migrations

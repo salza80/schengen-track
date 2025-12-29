@@ -92,6 +92,10 @@ jobs:
       
       - name: Run database migrations
         run: |
+          echo "Checking and fixing migration status..."
+          fix_response=$(curl -s "https://test.schengen-calculator.com/fix_people_migration?token=${{ secrets.TASK_PASSWORD }}")
+          echo "$fix_response" | jq '.' || echo "$fix_response"
+          
           echo "Unlocking any stale migration locks..."
           unlock_response=$(curl -s "https://test.schengen-calculator.com/unlock_migrations?token=${{ secrets.TASK_PASSWORD }}")
           echo "$unlock_response" | jq '.' || echo "$unlock_response"

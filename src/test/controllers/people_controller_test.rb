@@ -109,7 +109,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to people_url(locale: 'en')
-    assert_match /Cannot delete your only person/, flash[:alert]
+    assert_match /Cannot delete the primary person/, flash[:alert]
   end
 
   test 'should set current person' do

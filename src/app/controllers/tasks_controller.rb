@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data, :fix_people_migration]
-  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data, :fix_people_migration]
+  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data, :fix_people_migration, :unlock_and_migrate]
+  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations, :migrate_people_data, :fix_people_migration, :unlock_and_migrate]
   
   # GET /tasks/fix_people_migration
   def fix_people_migration
@@ -8,6 +8,41 @@ class TasksController < ApplicationController
     output = `rake #{rake_fix} 2>&1`
     @success = $?.success?
     @output = output
+    render_json_response_with_output
+  end
+  
+  # GET /tasks/unlock_and_migrate
+  # Combines unlock and migrate in a single Lambda invocation to avoid race conditions
+  def unlock_and_migrate
+    combined_output = []
+    
+    # Step 1: Unlock
+    combined_output << "=== Unlocking migration locks ==="
+    rake_unlock = "db:unlock"
+    unlock_output = `rake #{rake_unlock} 2>&1`
+    combined_output << unlock_output
+    unlock_success = $?.success?
+    
+    unless unlock_success
+      @success = false
+      @output = combined_output.join("\n")
+      render_json_response_with_output
+      return
+    end
+    
+    # Step 2: Wait briefly for locks to clear
+    combined_output << "\n=== Waiting 2 seconds for locks to clear ==="
+    sleep 2
+    
+    # Step 3: Migrate
+    combined_output << "\n=== Running migrations ==="
+    rake_migrate = "db:migrate"
+    migrate_output = `rake #{rake_migrate} 2>&1`
+    combined_output << migrate_output
+    migrate_success = $?.success?
+    
+    @success = migrate_success
+    @output = combined_output.join("\n")
     render_json_response_with_output
   end
   

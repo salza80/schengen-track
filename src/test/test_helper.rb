@@ -9,12 +9,10 @@ Capybara.default_driver = :rack_test
 Capybara.javascript_driver = :selenium_headless
 Capybara.server = :puma, { silent: true }
 
-# In CI, bind to 127.0.0.1 and set explicit app_host
+# Bind to 127.0.0.1 for both local and CI
+Capybara.server_host = '127.0.0.1'
 if ENV['CI']
-  Capybara.server_host = '127.0.0.1'
   Capybara.server_port = 3000 + ENV['TEST_ENV_NUMBER'].to_i
-else
-  Capybara.server_host = '0.0.0.0'
 end
 
 # Configure Selenium to use headless Chrome
@@ -34,7 +32,10 @@ Capybara.register_driver :selenium_headless do |app|
     options.add_argument('--remote-debugging-port=9222')
   end
   
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  # Use selenium manager to automatically handle chromedriver
+  service = Selenium::WebDriver::Service.chrome
+  
+  Capybara::Selenium::Driver.new(app, browser: :chrome, service: service, options: options)
 end
 
 class ActiveSupport::TestCase
@@ -94,6 +95,13 @@ end
 class JavascriptIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     Capybara.current_driver = Capybara.javascript_driver
+    # Explicitly set app_host to match the server host
+    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}" if Capybara.server_port
+    super
+  end
+  
+  def teardown
+    Capybara.app_host = nil
     super
   end
 end

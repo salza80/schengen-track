@@ -9,6 +9,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook]
 
+  after_create :create_primary_person
+
   def full_name
     [first_name, last_name].join(' ').strip
   end
@@ -21,10 +23,22 @@ class User < ApplicationRecord
     nationality.visa_required == 'V'
   end
 
-  #used on omniauth signup
+  # used on omniauth signup
   def copy_from(user)
-    user.visits.each do |v|
-      self.visits << v.dup
+    # Copy visits from the guest user's primary person to this user's primary person
+    return unless user
+    
+    # Get the guest user's primary person (or first person)
+    guest_person = user.people.where(is_primary: true).first || user.people.first
+    return unless guest_person
+    
+    # Get this user's primary person
+    my_person = self.people.where(is_primary: true).first || self.people.first
+    return unless my_person
+    
+    # Copy visits
+    guest_person.visits.each do |v|
+      my_person.visits << v.dup
     end
   end
 
@@ -85,5 +99,16 @@ class User < ApplicationRecord
 
   def is_guest?
     self.guest
+  end
+
+  private
+
+  def create_primary_person
+    people.create!(
+      first_name: first_name,
+      last_name: last_name,
+      nationality_id: nationality_id,
+      is_primary: true
+    )
   end
 end

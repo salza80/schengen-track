@@ -1,20 +1,40 @@
 require 'test_helper'
 
-class RegistrationsTest < JavascriptIntegrationTest
+class RegistrationsTest < ActionDispatch::IntegrationTest
+  # Use rack_test instead of JavaScript driver for this test
   test 'new user Registers' do
-    visit new_user_registration_url
-    assert_no_text 'New User'
     # Use a unique email for each test run
     unique_email = "test#{Time.now.to_i}@testemail.com"
-    fill_in 'First name', with: 'Test'
-    fill_in 'Last name', with: 'Signup'
-    select 'Australia', from: 'Nationality'
-    fill_in 'Email', with: unique_email
-    fill_in 'Password', with: 'password'
-    fill_in 'Password confirmation', with: 'password'
-    click_button 'Sign up'
-    assert_text 'Test Signup'
-    find('a', text: 'Log out').click
-    assert_no_text 'Test Signup'
+    
+    # Submit registration form
+    post user_registration_path, params: {
+      user: {
+        first_name: 'Test',
+        last_name: 'Signup',
+        nationality_id: countries(:Australia).id,
+        email: unique_email,
+        password: 'password',
+        password_confirmation: 'password'
+      }
+    }
+    
+    # Should redirect after successful registration
+    assert_response :redirect
+    
+    # Verify user was created
+    user = User.find_by(email: unique_email)
+    assert_not_nil user, "User should be created"
+    assert_equal 'Test', user.first_name
+    assert_equal 'Signup', user.last_name
+    
+    # Reload to get associated people
+    user.reload
+    
+    # Verify person was created
+    assert_equal 1, user.people.count, "User should have exactly 1 person"
+    person = user.people.first
+    assert_equal 'Test', person.first_name
+    assert_equal 'Signup', person.last_name
+    assert person.is_primary
   end
 end

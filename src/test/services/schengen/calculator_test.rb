@@ -19,19 +19,6 @@ class CalculatorTest < ActiveSupport::TestCase
     assert_equal 0, a.schengen_overstay_days
     a = as.find_visit(visits(:testvisit4).id)
     assert_equal 92, a.schengen_days
-
-
-    
-    # visits(:testvisit2).destroy
-    # a = Visit.find_by(entry_date: '2014-04-30', user: people(:test1_person))
-    # assert_equal 92, a.schengen_days
-    # assert_equal 2, a.schengen_overstay_days
-    # visits(:testvisit1).destroy
-    # a = visits(:testvisit4)
-    # assert_equal 32, a.schengen_days
-    # a = visits(:testvisit5)
-    # assert_equal 10, a.schengen_days
- 
   end
 
   test 'no_days_continuous in schengen' do

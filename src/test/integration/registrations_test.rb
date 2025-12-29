@@ -7,7 +7,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       first_name: 'Guest',
       last_name: 'User',
       nationality_id: countries(:India).id,
-      email: "guest_#{Time.now.to_i}@example.com",
+      email: "guest_#{SecureRandom.hex(8)}@example.com",
       password: 'password',
       guest: true
     )
@@ -26,7 +26,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     )
     
     # Use a unique email for the new user
-    unique_email = "test#{Time.now.to_i}@testemail.com"
+    unique_email = "test#{SecureRandom.hex(8)}@testemail.com"
     
     # Create the new user programmatically (simulating what the controller does)
     new_user = User.create!(
@@ -129,7 +129,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal 1, guest_person.visas.count, "Guest should have 1 visa"
     
     # Step 6: Register a new account
-    unique_email = "integration_test_#{Time.now.to_i}@example.com"
+    unique_email = "integration_test_#{SecureRandom.hex(8)}@example.com"
     post user_registration_path, params: {
       user: {
         first_name: 'Integration',

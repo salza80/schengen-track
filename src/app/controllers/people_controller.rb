@@ -18,8 +18,8 @@ class PeopleController < ApplicationController
     if @person.save
       # Track analytics when users create additional people (not primary)
       if current_user_or_guest_user.people.count > 1
-        # TODO: Add analytics tracking here
-        # Analytics.track(current_user_or_guest_user.id, 'additional_person_created')
+        tracker = Staccato.tracker('UA-67599800-1', current_user_or_guest_user.id)
+        tracker.event(category: 'people', action: 'create_additional_person', label: 'multi_person_tracking', value: 1)
       end
       
       redirect_to people_path, notice: 'Person was successfully created.'
@@ -51,7 +51,7 @@ class PeopleController < ApplicationController
 
   def set_current
     session[:current_person_id] = @person.id
-    redirect_back(fallback_location: root_path, notice: "Switched to #{@person.full_name}")
+    redirect_back_or_to root_path, notice: "Switched to #{@person.full_name}"
   end
 
   def make_primary
@@ -61,7 +61,7 @@ class PeopleController < ApplicationController
     # Make this person primary
     @person.update(is_primary: true)
     
-    redirect_back(fallback_location: people_path, notice: "#{@person.full_name} is now your primary person")
+    redirect_back_or_to people_path, notice: "#{@person.full_name} is now your primary person"
   end
 
   private

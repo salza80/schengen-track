@@ -51,7 +51,7 @@
                   - if person.is_primary
                     %span.badge.badge-info Primary
                   - else
-                    = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: "Make primary", "aria-label": "Make #{person.full_name} primary", form: { style: "display: inline;" } do
+                    = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: "Make primary", "aria-label": "Make #{person.full_name} primary", form: { class: "d-inline" } do
                       Make primary
                 %td{"data-title": "Actions", onclick: "event.stopPropagation();"}
                   .action-buttons

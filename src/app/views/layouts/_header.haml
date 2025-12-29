@@ -33,7 +33,7 @@
           %small.person-nationality= current_person.nationality&.name || 'Not set'
         .dropdown-menu.dropdown-menu-md-right{"aria-labelledby": "personDropdown"}
           - current_user_or_guest_user.people.ordered.each do |person|
-            = link_to set_current_person_path(person), method: :post, class: "dropdown-item #{'active' if person == current_person}" do
+            = link_to set_current_person_path(person), method: :post, class: ['dropdown-item', ('active' if person == current_person)] do
               - if person == current_person
                 %i.fa.fa-check.mr-2{"aria-hidden": "true"}
               - else

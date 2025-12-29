@@ -5,8 +5,10 @@ class TasksController < ApplicationController
   # GET /tasks/migrations
   def migrate
     rake_migrate = "db:migrate"
-    @success = system("rake #{rake_migrate}")
-    render_json_response
+    output = `rake #{rake_migrate} 2>&1`
+    @success = $?.success?
+    @output = output
+    render_json_response_with_output
   end
   
   def create
@@ -87,6 +89,12 @@ class TasksController < ApplicationController
 
   def render_json_response
     render json: { success: @success }
+  end
+
+  def render_json_response_with_output
+    response = { success: @success }
+    response[:output] = @output if @output.present?
+    render json: response
   end
 
   def render_json_response_unauthorized

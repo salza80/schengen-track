@@ -90,7 +90,9 @@ jobs:
             echo "✓ Migrations completed successfully"
           else
             echo "⚠ Migration failed"
-            echo "$response"
+            echo "Response:"
+            echo "$response" | jq '.' || echo "$response"
+            exit 1
           fi
 
       - name: Update countries data

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get 'privacy' => 'about#privacy'
     get 'datadeletion' => 'about#datadeletion'
     
+    get 'unlock_migrations' => 'tasks#unlock_migrations'
     get 'migrate' => 'tasks#migrate'
     get 'create' => 'tasks#create'
     get 'seed' => 'tasks#seed'

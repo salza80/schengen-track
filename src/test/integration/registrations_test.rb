@@ -182,4 +182,51 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     # Visas don't have an index page, so we just verify the visa exists in the database
     # The visa would be visible on the visits page calendar view
   end
+
+  test 'user with no people gets one created automatically on login' do
+    # Create a user manually without triggering the after_create callback
+    user = User.new(
+      first_name: 'Test',
+      last_name: 'NoPerson',
+      nationality_id: countries(:Australia).id,
+      email: "no_person_#{SecureRandom.hex(8)}@example.com",
+      password: 'password123',
+      password_confirmation: 'password123',
+      guest: false
+    )
+    
+    # Skip the callback that creates the primary person
+    user.save!(validate: false)
+    user.people.delete_all # Ensure no people exist
+    user.reload
+    
+    # Verify user has no people
+    assert_equal 0, user.people.count, "User should have no people initially"
+    
+    # Log in as this user
+    post user_session_path, params: {
+      user: { email: user.email, password: 'password123' }
+    }
+    assert_response :redirect
+    follow_redirect!
+    
+    # Navigate to the visits page (this will trigger current_user_or_guest_user)
+    get visits_path
+    assert_response :success
+    
+    # Reload user and verify a person was created
+    user.reload
+    assert_equal 1, user.people.count, "User should have 1 person after login"
+    
+    # Verify the person has correct data
+    person = user.people.first
+    assert_not_nil person, "Person should exist"
+    assert_equal 'Test', person.first_name
+    assert_equal 'NoPerson', person.last_name
+    assert_equal countries(:Australia).id, person.nationality_id
+    assert person.is_primary, "Person should be marked as primary"
+    
+    # Verify we can access the person
+    assert_equal person, user.people.find_by(is_primary: true)
+  end
 end

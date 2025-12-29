@@ -106,6 +106,21 @@ class User < ApplicationRecord
     self.guest
   end
 
+  # Ensure user has at least one person record
+  # Creates a primary person from user data if none exist
+  def ensure_primary_person
+    return if people.exists?
+    
+    Rails.logger.warn("User #{id} has no people - creating primary person from user data")
+    
+    people.create!(
+      first_name: first_name.presence || 'User',
+      last_name: last_name,
+      nationality_id: nationality_id,
+      is_primary: true
+    )
+  end
+
   private
 
   def create_primary_person

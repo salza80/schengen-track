@@ -39,7 +39,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_or_guest_user
-    current_user || guest_user
+    user = current_user || guest_user
+    # Ensure user always has at least one person
+    user.ensure_primary_person if user
+    user
   end
 
   def current_person

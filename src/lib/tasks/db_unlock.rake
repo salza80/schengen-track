@@ -9,15 +9,15 @@ namespace :db do
       # First, show ALL advisory locks
       all_locks_query = <<-SQL
         SELECT 
-          locktype, 
-          classid, 
-          objid, 
-          pid,
-          state,
-          query
+          l.locktype, 
+          l.classid, 
+          l.objid, 
+          l.pid,
+          a.state,
+          a.query
         FROM pg_locks l
         LEFT JOIN pg_stat_activity a ON l.pid = a.pid
-        WHERE locktype = 'advisory';
+        WHERE l.locktype = 'advisory';
       SQL
       
       all_locks = connection.execute(all_locks_query)
@@ -31,11 +31,11 @@ namespace :db do
         # Try to terminate all advisory lock holders except ourselves
         terminate_query = <<-SQL
           SELECT 
-            pid,
-            pg_terminate_backend(pid) as terminated
-          FROM pg_locks 
-          WHERE locktype = 'advisory' 
-            AND pid != pg_backend_pid();
+            l.pid,
+            pg_terminate_backend(l.pid) as terminated
+          FROM pg_locks l
+          WHERE l.locktype = 'advisory' 
+            AND l.pid != pg_backend_pid();
         SQL
         
         terminated = connection.execute(terminate_query)

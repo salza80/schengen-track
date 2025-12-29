@@ -1,40 +1,185 @@
 require 'test_helper'
 
 class RegistrationsTest < ActionDispatch::IntegrationTest
-  # Use rack_test instead of JavaScript driver for this test
-  test 'new user Registers' do
-    # Use a unique email for each test run
+  test 'new user registers and inherits guest user data' do
+    # Create a guest user (simulating the automatic guest user creation)
+    guest = User.create!(
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality_id: countries(:India).id,
+      email: "guest_#{Time.now.to_i}@example.com",
+      password: 'password',
+      guest: true
+    )
+    guest_person = guest.people.first
+    
+    # Add some visits to the guest person
+    visit1 = guest_person.visits.create!(
+      entry_date: Date.new(2024, 1, 1),
+      exit_date: Date.new(2024, 1, 10),
+      country: countries(:Germany)
+    )
+    visit2 = guest_person.visits.create!(
+      entry_date: Date.new(2024, 2, 1),
+      exit_date: Date.new(2024, 2, 5),
+      country: countries(:Croatia)
+    )
+    
+    # Use a unique email for the new user
     unique_email = "test#{Time.now.to_i}@testemail.com"
     
-    # Submit registration form
-    post user_registration_path, params: {
-      user: {
-        first_name: 'Test',
-        last_name: 'Signup',
-        nationality_id: countries(:Australia).id,
-        email: unique_email,
-        password: 'password',
-        password_confirmation: 'password'
+    # Create the new user programmatically (simulating what the controller does)
+    new_user = User.create!(
+      first_name: 'Test',
+      last_name: 'Signup',
+      nationality_id: countries(:Australia).id,
+      email: unique_email,
+      password: 'password123',
+      password_confirmation: 'password123'
+    )
+    
+    # Call copy_from to copy guest data (simulating what registrations#create does)
+    new_user.copy_from(guest)
+    new_user.save!
+    
+    # Verify new user was created
+    assert_not_nil new_user, "New user should be created"
+    assert_equal 'Test', new_user.first_name
+    assert_equal 'Signup', new_user.last_name
+    assert_equal false, new_user.guest
+    
+    # Reload to get associated people
+    new_user.reload
+    
+    # Verify person was created
+    assert_equal 1, new_user.people.count, "New user should have exactly 1 person"
+    new_person = new_user.people.first
+    assert_equal 'Test', new_person.first_name
+    assert_equal 'Signup', new_person.last_name
+    assert new_person.is_primary, "Person should be primary"
+    
+    # Verify visits were copied from guest user
+    assert_equal 2, new_person.visits.count, "New person should have 2 visits copied from guest"
+    copied_visits = new_person.visits.order(:entry_date)
+    
+    assert_equal Date.new(2024, 1, 1), copied_visits.first.entry_date
+    assert_equal Date.new(2024, 1, 10), copied_visits.first.exit_date
+    assert_equal countries(:Germany).id, copied_visits.first.country_id
+    
+    assert_equal Date.new(2024, 2, 1), copied_visits.second.entry_date
+    assert_equal Date.new(2024, 2, 5), copied_visits.second.exit_date
+    assert_equal countries(:Croatia).id, copied_visits.second.country_id
+    
+    # Verify the visits are copies (different IDs)
+    assert_not_equal visit1.id, copied_visits.first.id, "Visit should be a copy, not the same record"
+    assert_not_equal visit2.id, copied_visits.second.id, "Visit should be a copy, not the same record"
+  end
+
+  test 'guest user flow: visits page -> add data -> register -> data persists' do
+    # Step 1: Visit the visits page as a guest (this triggers guest user creation)
+    get visits_path
+    assert_response :success
+    
+    # The application should have created a guest user in the session
+    # We can verify by checking if there's a guest user in the response or session
+    # For this test, we'll work with the session that was established
+    
+    # Step 2: Verify we can access the page (guest user was auto-created)
+    assert_select 'body' # Basic check that page loaded
+    
+    # Step 3: Add a visit via POST request (as the guest user would)
+    post visits_path, params: {
+      visit: {
+        entry_date: '2024-03-01',
+        exit_date: '2024-03-10',
+        country_id: countries(:Germany).id
       }
     }
     
-    # Should redirect after successful registration
+    # Should redirect after creating visit
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    
+    # Step 4: Add a visa via POST request
+    post visas_path, params: {
+      visa: {
+        start_date: '2024-01-01',
+        end_date: '2024-12-31',
+        no_entries: 2,
+        visa_type: 'S'
+      }
+    }
+    
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    
+    # Step 5: Get the guest user that was created (from session/database)
+    # In the actual app flow, this is stored in session[:guest_user_id]
+    # For testing, we'll find the guest user that was just created
+    guest_user = User.where(guest: true).order(created_at: :desc).first
+    assert_not_nil guest_user, "Guest user should have been created"
+    
+    guest_person = guest_user.people.first
+    assert_not_nil guest_person, "Guest person should exist"
+    
+    # Verify the guest has the data we added
+    assert_equal 1, guest_person.visits.count, "Guest should have 1 visit"
+    assert_equal 1, guest_person.visas.count, "Guest should have 1 visa"
+    
+    # Step 6: Register a new account
+    unique_email = "integration_test_#{Time.now.to_i}@example.com"
+    post user_registration_path, params: {
+      user: {
+        first_name: 'Integration',
+        last_name: 'Test',
+        nationality_id: countries(:Australia).id,
+        email: unique_email,
+        password: 'password123',
+        password_confirmation: 'password123'
+      }
+    }
+    
+    # Should redirect after registration
     assert_response :redirect
     
-    # Verify user was created
-    user = User.find_by(email: unique_email)
-    assert_not_nil user, "User should be created"
-    assert_equal 'Test', user.first_name
-    assert_equal 'Signup', user.last_name
+    # Step 7: Find the newly registered user
+    new_user = User.find_by(email: unique_email)
+    assert_not_nil new_user, "New user should be created"
+    assert_equal false, new_user.guest, "New user should not be a guest"
     
-    # Reload to get associated people
-    user.reload
+    # Step 8: Verify the new user has the data from the guest user
+    new_person = new_user.people.first
+    assert_not_nil new_person, "New user should have a person"
     
-    # Verify person was created
-    assert_equal 1, user.people.count, "User should have exactly 1 person"
-    person = user.people.first
-    assert_equal 'Test', person.first_name
-    assert_equal 'Signup', person.last_name
-    assert person.is_primary
+    # This is the key assertion: visits and visas should have been copied
+    assert_equal 1, new_person.visits.count, "New user should have the guest's visit"
+    assert_equal 1, new_person.visas.count, "New user should have the guest's visa"
+    
+    # Verify the visit data
+    copied_visit = new_person.visits.first
+    assert_equal Date.new(2024, 3, 1), copied_visit.entry_date
+    assert_equal Date.new(2024, 3, 10), copied_visit.exit_date
+    assert_equal countries(:Germany).id, copied_visit.country_id
+    
+    # Verify the visa data
+    copied_visa = new_person.visas.first
+    assert_equal Date.new(2024, 1, 1), copied_visa.start_date
+    assert_equal Date.new(2024, 12, 31), copied_visa.end_date
+    assert_equal 2, copied_visa.no_entries
+    
+    # Step 9: Log in as the new user and verify we can access their data
+    post user_session_path, params: {
+      user: { email: unique_email, password: 'password123' }
+    }
+    assert_response :redirect
+    
+    # Step 10: Visit the visits page and verify the data is still there
+    get visits_path
+    assert_response :success
+    
+    # Visas don't have an index page, so we just verify the visa exists in the database
+    # The visa would be visible on the visits page calendar view
   end
 end

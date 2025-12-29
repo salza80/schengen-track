@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
   # used on omniauth signup
   def copy_from(user)
-    # Copy visits from the guest user's primary person to this user's primary person
+    # Copy visits and visas from the guest user's primary person to this user's primary person
     return unless user
     
     # Get the guest user's primary person (or first person)
@@ -39,6 +39,11 @@ class User < ApplicationRecord
     # Copy visits
     guest_person.visits.each do |v|
       my_person.visits << v.dup
+    end
+    
+    # Copy visas
+    guest_person.visas.each do |v|
+      my_person.visas << v.dup
     end
   end
 

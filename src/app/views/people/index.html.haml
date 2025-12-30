@@ -58,7 +58,7 @@
                     = link_to edit_person_path(person, locale: I18n.locale), class: "btn btn-sm btn-icon", title: t('common.edit'), "aria-label": t('people.index.table.actions.edit_aria', name: person.full_name) do
                       %i.fa.fa-pencil-alt{"aria-hidden": "true"}
                     - unless person.is_primary
-                      %a.btn.btn-sm.btn-icon.delete-person-link{href: "#", data: {delete_url: person_path(person, locale: I18n.locale), person_name: person.full_name, delete_message: t('people.index.delete_person_warning', person: person.full_name)}, title: t('common.delete'), "aria-label": t('people.index.table.actions.delete_aria', name: person.full_name)}
+                      %a.btn.btn-sm.btn-icon.delete-person-link{href: "#", data: {delete_url: person_path(person, locale: I18n.locale), delete_message: t('people.index.delete_person_warning', person: person.full_name)}, title: t('common.delete'), "aria-label": t('people.index.table.actions.delete_aria', name: person.full_name)}
                         %i.fa.fa-trash{"aria-hidden": "true"}
 
     .row

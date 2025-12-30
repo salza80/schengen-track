@@ -75,5 +75,7 @@ class Country < ApplicationRecord
   def translated_value_for(key, locale)
     return I18n.t(key, locale: locale) if I18n.exists?(key, locale)
     nil
+  rescue I18n::MissingTranslationData
+    nil
   end
 end

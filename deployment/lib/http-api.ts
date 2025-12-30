@@ -272,12 +272,14 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    new cdk.CfnOutput(this, 'CloudFrontUrl', {
+    const cloudFrontUrlOutput = new cdk.CfnOutput(this, 'CloudFrontUrl', {
       value: cloudfrontDist.domainName!,
     });
+    cloudFrontUrlOutput.overrideLogicalId('CloudFrontUrl');
 
-    new cdk.CfnOutput(this, 'OpsLambdaFunctionName', {
+    const opsLambdaNameOutput = new cdk.CfnOutput(this, 'OpsLambdaFunctionName', {
       value: opsFunction.functionName,
     });
+    opsLambdaNameOutput.overrideLogicalId('OpsLambdaFunctionName');
   }
 }

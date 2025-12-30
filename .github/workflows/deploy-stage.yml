@@ -92,15 +92,41 @@ jobs:
       
       - name: Run database migrations
         run: |
-          echo "Running database migrations on staging..."
-          response=$(curl -s "https://test.schengen-calculator.com/migrate?token=${{ secrets.TASK_PASSWORD }}")
-          if echo "$response" | grep -q '"success":true'; then
-            echo "✓ Migrations completed successfully"
-          else
-            echo "⚠ Migration failed"
-            echo "$response"
+          echo "Checking and fixing migration status..."
+          fix_response=$(curl -s "https://test.schengen-calculator.com/fix_people_migration?token=${{ secrets.TASK_PASSWORD }}")
+          echo "$fix_response" | jq '.' || echo "$fix_response"
+          
+          echo "Running migrations (with automatic unlock in same invocation)..."
+          # Use combined endpoint to unlock and migrate in a single Lambda invocation
+          # This prevents race conditions from separate invocations
+          max_attempts=3
+          attempt=1
+          success=false
+          
+          while [ $attempt -le $max_attempts ] && [ "$success" = "false" ]; do
+            if [ $attempt -gt 1 ]; then
+              wait_time=$((attempt * 3))
+              echo "Retry attempt $attempt of $max_attempts (waiting ${wait_time}s)..."
+              sleep $wait_time
+            fi
+            
+            response=$(curl -s "https://test.schengen-calculator.com/unlock_and_migrate?token=${{ secrets.TASK_PASSWORD }}")
+            if echo "$response" | grep -q '"success":true'; then
+              echo "✓ Migrations completed successfully"
+              success=true
+            else
+              echo "⚠ Migration attempt $attempt failed"
+              echo "Response:"
+              echo "$response" | jq '.' || echo "$response"
+              attempt=$((attempt + 1))
+            fi
+          done
+          
+          if [ "$success" = "false" ]; then
+            echo "❌ Migration failed after $max_attempts attempts"
+            exit 1
           fi
-
+          
       - name: Update countries data
         run: |
           echo "Updating countries data from XML..."

@@ -1,6 +1,6 @@
 class Visa < ApplicationRecord
-  belongs_to :user
-  validates :start_date, :end_date, :user, :visa_type, :no_entries, presence: true
+  belongs_to :person
+  validates :start_date, :end_date, :person, :visa_type, :no_entries, presence: true
   validates :visa_type, inclusion: { in: %w(R S), message: "%{value} is not a valid visa type" }
   validate :start_date_must_be_less_than_end
   validate :dates_must_not_overlap
@@ -36,8 +36,8 @@ class Visa < ApplicationRecord
   end
   
   def date_overlap?
-    return false unless user
-    vis = user.visas.find_visa_by_date(start_date, end_date)
+    return false unless person
+    vis = person.visas.find_visa_by_date(start_date, end_date)
     vis = vis.select { |v| v.visa_type == visa_type && v.id != id && v.end_date != start_date && v.start_date != end_date }
     vis.count > 0
   end

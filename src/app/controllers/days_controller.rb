@@ -12,7 +12,7 @@ class DaysController < ApplicationController
     cleanup_old_visits
     
     # Use full calculator (same as visits page)
-    calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
+    calc = Schengen::Days::Calculator.new(current_person)
     @days = calc.calculated_days
     @overstay = calc.schengen_overstay?
     @next_entry_days = calc.next_entry_days
@@ -75,7 +75,7 @@ class DaysController < ApplicationController
   end
   
   def calculate_year_summary(year_days, year)
-    visits_in_year = current_user_or_guest_user.visits.where(
+    visits_in_year = current_person.visits.where(
       '(entry_date >= ? AND entry_date <= ?) OR (exit_date >= ? AND exit_date <= ?) OR (entry_date <= ? AND exit_date >= ?)',
       Date.new(year, 1, 1), Date.new(year, 12, 31),
       Date.new(year, 1, 1), Date.new(year, 12, 31),
@@ -122,7 +122,7 @@ class DaysController < ApplicationController
     }
     
     # Add visa status for visa-required users ONLY when in Schengen
-    if current_user_or_guest_user.visa_required? && today_day.schengen?
+    if current_person.visa_required? && today_day.schengen?
       if today_day.respond_to?(:visa_valid?) && today_day.respond_to?(:visa_entry_valid?)
         # Check if in Schengen without visa first
         if today_day.visa.nil?

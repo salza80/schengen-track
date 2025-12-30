@@ -1,25 +1,36 @@
-= form_for @user, url: my_details_path, :html => {:class => "form-horizontal"} do |f|
+= form_for @user, url: my_details_path, method: :patch, html: {class: "form-horizontal"} do |f|
   - if @user.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this person from being saved:"
+    #error_explanation.alert.alert-danger
+      %h4= "#{pluralize(@user.errors.count, "error")} prohibited this from being saved:"
       %ul
         - @user.errors.full_messages.each do |msg|
           %li= msg
+  
   .form-group.row
     .col-sm-2.my-auto
       = f.label :first_name, class: "col-form-label"
     .col-sm-10
-      = f.text_field :first_name, :class => "form-control"
+      = f.text_field :first_name, class: "form-control"
+  
   .form-group.row
     .col-sm-2.my-auto
       = f.label :last_name, class: "col-form-label"
     .col-sm-10
-      = f.text_field :last_name, :class => "form-control"
+      = f.text_field :last_name, class: "form-control"
+  
   .form-group.row
     .col-sm-2.my-auto
-      = f.label :nationality_id, class: "col-form-label"
+      = label_tag :email, "Email", class: "col-form-label"
     .col-sm-10
-      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name,{}, {:class => "form-control custom-select"})
+      = text_field_tag :email, @user.email, class: "form-control", disabled: true
+      %small.text-muted To change your email, please contact support.
+  
+  .form-group.row
+    .col-sm-2.my-auto
+      = f.label :nationality_id, "Nationality", class: "col-form-label"
+    .col-sm-10
+      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name, {}, {class: "form-control custom-select"})
+  
   .actions
     .form-group.row
       .col-sm-12

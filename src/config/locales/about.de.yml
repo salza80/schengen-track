@@ -105,6 +105,9 @@ de:
       field_definitions_link: Feldnamendefinitionen
       get_started: Jetzt loslegen
       how_to_use:
+        people:
+          description: Sie können Reisen für mehrere Personen mit demselben Konto verfolgen. Verwenden Sie den Personenwechsler oben auf der Seite, um verschiedene Reisende hinzuzufügen und zwischen ihnen zu wechseln. Jede Person kann ihre eigene Nationalität, Reisen und Visuminformationen haben. Dies ist nützlich für Familien oder bei der Verwaltung von Reisen für mehrere Personen.
+          title: 'Mehrere Personen:'
         step_1:
           description: Wählen Sie Ihre Nationalität aus. Sie können dies oben auf der Seite im Header ändern.
           title: 'Schritt 1:'
@@ -167,9 +170,10 @@ de:
     datadeletion:
       conclusion: Ihr Konto und alle Daten werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.
       step1: Melden Sie sich in Ihrem Konto an
-      step2: Gehen Sie zu Ihren Kontoeinstellungen, indem Sie Ihre Nationalität in der oberen rechten Ecke der Seite auswählen
-      step3: Klicken Sie auf die Schaltfläche 'Konto löschen'
-      step4: Bestätigen Sie, dass Sie Ihr Konto löschen möchten
+      step2: Klicken Sie oben auf der Seite auf Ihren Namen im Personenwechsler
+      step3: Wählen Sie 'Konto verwalten' aus dem Dropdown-Menü
+      step4: Klicken Sie unten auf der Seite auf die Schaltfläche 'Konto löschen'
+      step5: Bestätigen Sie, dass Sie Ihr Konto löschen möchten
       subtitle: Wie Sie Ihre Daten löschen können
       title: Datenschutzrichtlinie
     disclaimer:

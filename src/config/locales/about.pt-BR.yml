@@ -122,6 +122,9 @@ pt-BR:
           description: To save your travel record, Register and Log In. Your existing “Guest” data will be copied to your new account. You can register with the Schengen Calculator, or use Facebook to Login and Register.
           optional: true
           title: 'Step 5: (optional)'
+        people:
+          title: 'Múltiplas Pessoas:'
+          description: Você pode rastrear viagens para várias pessoas usando a mesma conta. Use o seletor de pessoas no topo da página para adicionar e alternar entre diferentes viajantes. Cada pessoa pode ter sua própria nacionalidade, viagens e informações de visto. Isso é útil para famílias ou ao gerenciar viagens para várias pessoas.
         title: Como usar a Calculadora Schengen
       how_to_use_link: Como usar a Calculadora Schengen
       introduction: Introdução
@@ -170,9 +173,10 @@ pt-BR:
     datadeletion:
       conclusion: Sua conta e todos os dados serão excluídos. Esta ação não pode ser desfeita.
       step1: Faça login na sua conta
-      step2: Vá para as configurações da sua conta selecionando sua nacionalidade no canto superior direito da página
-      step3: Clique no botão 'Excluir Conta'
-      step4: Confirme que você deseja excluir sua conta
+      step2: Clique no seu nome no seletor de pessoas no topo da página
+      step3: Selecione 'Gerenciar Conta' no menu suspenso
+      step4: Clique no botão 'Excluir Conta' na parte inferior da página
+      step5: Confirme que você deseja excluir sua conta
       subtitle: Como excluir seus dados
       title: Política de Exclusão de Dados
     disclaimer:

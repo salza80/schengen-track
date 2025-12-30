@@ -22,7 +22,19 @@ namespace :db do
       begin 
         # delete all guest users over 7 days old or up to the limit_date passed in.
         User.where("updated_at <= :limit AND guest=:istrue", { limit: args.limit_date, istrue: true }).select(:id).find_in_batches(batch_size: 100) do | ids |
-          User.includes(:visits, :visas).where(id: ids).destroy_all
+          # For guest users, we bypass the prevent_last_person_deletion callback
+          # by deleting people and their associations directly without callbacks
+          user_ids = ids.map(&:id)
+          
+          # Delete visits and visas through people (using delete_all to skip callbacks)
+          person_ids = Person.where(user_id: user_ids).pluck(:id)
+          Visit.where(person_id: person_ids).delete_all
+          Visa.where(person_id: person_ids).delete_all
+          Person.where(id: person_ids).delete_all
+          
+          # Now delete the users
+          User.where(id: user_ids).delete_all
+          
           deleted_count += ids.size
           batches_processed += 1
           

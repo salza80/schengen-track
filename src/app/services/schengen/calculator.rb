@@ -6,9 +6,9 @@ module Schengen
   class Calculator
 
     attr_reader :visits
-    def initialize(user)
-      @user = user
-      @visits = @user.visits.to_a.collect { |v| SchengenDecorator.new(v) }
+    def initialize(person)
+      @person = person
+      @visits = @person.visits.to_a.collect { |v| SchengenDecorator.new(v) }
       calculate_by_days
     end
 
@@ -21,7 +21,7 @@ module Schengen
         header << "Country"
         header << "In Shengen Area"
         header << "No Days"
-        if @user.visa_required?
+        if @person.visa_required?
           header << "Visa Exists"
           header << "No. Entries"
           header << "Visa Overstay"
@@ -37,7 +37,7 @@ module Schengen
           row << visit.country.name
           row << visit.schengen? ? "Yes" : "No"
           row << visit.no_days
-          if @user.visa_required?
+          if @person.visa_required?
             if visit.schengen? == false
               row << "NA"
             elsif visit.visa_exists?
@@ -96,12 +96,12 @@ module Schengen
     end
 
     def calculate_by_days
-      return unless @user
+      return unless @person
       return if @visits.empty?
-      if @user.nationality.visa_required == 'F'
+      if @person.nationality.visa_required == 'F'
         zero_schengen
       else
-        @day_calc = Schengen::Days::Calculator.new(@user)
+        @day_calc = Schengen::Days::Calculator.new(@person)
         @visits.each do |v|
           last_day = @day_calc.find_by_date(v.exit_date)
           v.schengen_days = last_day.schengen_days_for_visit(v)

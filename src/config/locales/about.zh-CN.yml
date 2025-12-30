@@ -105,6 +105,9 @@ zh-CN:
       field_definitions_link: 字段名称定义
       get_started: 立即开始
       how_to_use:
+        people:
+          description: 您可以使用同一账户追踪多人的行程。使用页面顶部的人员切换器添加和切换不同的旅行者。每个人可以拥有自己的国籍、行程和签证信息。这对于家庭或管理多人旅行非常有用。
+          title: 多人追踪：
         step_1:
           description: 选择您的国籍。您可以在页面顶部的页眉中更改此选项。
           title: 步骤 1：
@@ -167,9 +170,10 @@ zh-CN:
     datadeletion:
       conclusion: 您的账户和所有数据将被删除。此操作无法撤销。
       step1: 登录您的账户
-      step2: 通过在页面右上角选择您的国籍，进入您的账户设置
-      step3: 点击“删除账户”按钮
-      step4: 确认您要删除您的账户
+      step2: 点击页面顶部人员切换器中的您的姓名
+      step3: 从下拉菜单中选择"管理账户"
+      step4: 点击页面底部的"删除账户"按钮
+      step5: 确认您要删除您的账户
       subtitle: 如何删除您的数据
       title: 数据删除政策
     disclaimer:

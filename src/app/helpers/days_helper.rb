@@ -9,16 +9,9 @@ module DaysHelper
     return 'overstay' if day.respond_to?(:visa_warning?) && day.visa_warning?
     return 'waiting-period' if day.warning?
 
-    if day.schengen?
-      # Warning threshold: 80+ days used
-      if day.schengen_days_count && day.schengen_days_count >= 80
-        'in-schengen-warning'
-      else
-        'in-schengen-safe'
-      end
-    else
-      'outside-schengen'
-    end
+    return 'in-schengen-safe' if day.schengen?
+
+    'outside-schengen'
   end
 
   # Generates tooltip text for day cell

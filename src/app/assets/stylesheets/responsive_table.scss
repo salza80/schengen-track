@@ -289,7 +289,8 @@ $bp-homer: 75em;
   }
   
   &.delete-visit-link,
-  &.delete-visa-link {
+  &.delete-visa-link,
+  &.delete-person-link {
     border-color: $red;
     
     &:hover {

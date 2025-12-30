@@ -15,10 +15,10 @@ class VisitsController < ApplicationController
     # Clean up old visits (beyond ±20 years)
     cleanup_old_visits
 
-    calc = Schengen::Calculator.new(current_user_or_guest_user)
+    calc = Schengen::Calculator.new(current_person)
     @visits = calc.visits
-    if current_user_or_guest_user.visa_required?
-      @visas = current_user_or_guest_user.visas.all
+    if current_person.visa_required?
+      @visas = current_person.visas.all
     end
     @next_entry_days = calc.next_entry_days
     setup_sidebar_data(calc)
@@ -45,7 +45,7 @@ class VisitsController < ApplicationController
 
   # GET /visits/new
   def new
-    @visit = Visit.with_default(current_user_or_guest_user)
+    @visit = Visit.with_default(current_person)
     
     # Support pre-filling dates from calendar clicks
     if params[:entry_date]
@@ -75,7 +75,7 @@ class VisitsController < ApplicationController
   # POST /visits
   # POST /visits.json
   def create
-    @visit = current_user_or_guest_user.visits.build(visit_params) 
+    @visit = current_person.visits.build(visit_params) 
     respond_to do |format|
       if @visit.save
         format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
@@ -134,7 +134,7 @@ class VisitsController < ApplicationController
   # Returns all visits that include the specified date (for calendar context menu)
   def for_date
     date = Date.parse(params[:date])
-    visits = current_user_or_guest_user.visits.find_by_date(date, date)
+    visits = current_person.visits.find_by_date(date, date)
     
     respond_to do |format|
       format.json { 
@@ -157,7 +157,7 @@ class VisitsController < ApplicationController
     country = Country.find(params[:country_id])
     
     # Check if there's a next visit after this date
-    next_visits = current_user_or_guest_user.visits
+    next_visits = current_person.visits
       .where('entry_date > ?', date)
       .order(:entry_date)
     
@@ -171,11 +171,11 @@ class VisitsController < ApplicationController
     
     # Check if this is a Schengen country and user requires visa counting
     is_schengen = country.schengen?(date)
-    requires_counting = current_user_or_guest_user.nationality.visa_required != 'F'
+    requires_counting = current_person.nationality.visa_required != 'F'
     
     if is_schengen && requires_counting
       # Calculate Schengen days limit
-      calc = Schengen::Days::Calculator.new(current_user_or_guest_user)
+      calc = Schengen::Days::Calculator.new(current_person)
       day_info = calc.find_by_date(date)
       
       if day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
@@ -264,7 +264,7 @@ class VisitsController < ApplicationController
         outside_schengen: !today_day.schengen?
       }
 
-      if current_user_or_guest_user.visa_required? && today_day.schengen?
+      if current_person.visa_required? && today_day.schengen?
         if today_day.respond_to?(:visa_valid?) && today_day.respond_to?(:visa_entry_valid?)
           if today_day.visa.nil?
             @status_summary[:visa_status] = 'warning'
@@ -289,7 +289,7 @@ class VisitsController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_visit
-      @visit = current_user_or_guest_user.visits.find(params[:id])
+      @visit = current_person.visits.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

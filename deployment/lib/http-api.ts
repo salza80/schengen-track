@@ -33,16 +33,27 @@ export class HttpApiConstruct extends Construct {
     super(scope, id);
 
     // Rails HTTP API container image with AWS Lambda Ruby Runtime Interface Client
-    const apiContainerImage = lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../src'), {
+    const imageAssetPath = path.join(__dirname, '../../src');
+    const baseImageProps = {
       //platform: Platform.LINUX_ARM64,
       platform: Platform.LINUX_AMD64,
       ignoreMode: cdk.IgnoreMode.DOCKER,
-
       entrypoint: [
         '/usr/local/bundle/bin/aws_lambda_ric',
       ],
+    };
+
+    const apiContainerImage = lambda.DockerImageCode.fromImageAsset(imageAssetPath, {
+      ...baseImageProps,
       cmd: [
         'lambda_http.handler',
+      ],
+    });
+
+    const opsContainerImage = lambda.DockerImageCode.fromImageAsset(imageAssetPath, {
+      ...baseImageProps,
+      cmd: [
+        'lambda_tasks.handler',
       ],
     });
   
@@ -83,6 +94,15 @@ export class HttpApiConstruct extends Construct {
       environment: apiContainerEnvironment,
 
       timeout: cdk.Duration.minutes(1),
+      tracing: lambda.Tracing.ACTIVE,
+    });
+
+    const opsFunction = new lambda.DockerImageFunction(this, 'OpsFunction', {
+      architecture: lambda.Architecture.X86_64,
+      memorySize: 2048,
+      code: opsContainerImage,
+      environment: apiContainerEnvironment,
+      timeout: cdk.Duration.minutes(15),
       tracing: lambda.Tracing.ACTIVE,
     });
 
@@ -252,8 +272,14 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    new cdk.CfnOutput(this, 'CloudFrontUrl', {
+    const cloudFrontUrlOutput = new cdk.CfnOutput(this, 'CloudFrontUrl', {
       value: cloudfrontDist.domainName!,
     });
+    cloudFrontUrlOutput.overrideLogicalId('CloudFrontUrl');
+
+    const opsLambdaNameOutput = new cdk.CfnOutput(this, 'OpsLambdaFunctionName', {
+      value: opsFunction.functionName,
+    });
+    opsLambdaNameOutput.overrideLogicalId('OpsLambdaFunctionName');
   }
 }

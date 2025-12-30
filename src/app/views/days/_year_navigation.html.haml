@@ -1,13 +1,16 @@
 .calendar-year-nav{class: position == 'top' ? 'sticky-top bg-white shadow-sm' : 'bg-light', role: "navigation", "aria-label": "Year navigation"}
-  .d-flex.align-items-center.py-3
+  - rtl_layout = I18n.locale.to_s.start_with?('ar')
+  - prev_icon_classes = ['fa', 'fa-chevron-left']
+  - next_icon_classes = ['fa', 'fa-chevron-right']
+  .d-flex.align-items-center.py-3{dir: (rtl_layout ? 'ltr' : nil)}
     .flex-fill.text-left
       - if @prev_year
         = link_to days_path(locale: I18n.locale, year: @prev_year), class: 'btn btn-outline-primary btn-prev-year', "aria-label": "Previous year #{@prev_year}" do
-          %i.fa.fa-chevron-left{"aria-hidden": "true"}
+          %i{class: prev_icon_classes.join(' '), "aria-hidden": "true"}
           = @prev_year
       - else
         %button.btn.btn-outline-secondary{disabled: true, "aria-label": "No previous year available"}
-          %i.fa.fa-chevron-left{"aria-hidden": "true"}
+          %i{class: prev_icon_classes.join(' '), "aria-hidden": "true"}
 
     .flex-fill.text-center
       %h3.mb-0{"aria-current": "page"}
@@ -18,7 +21,7 @@
       - if @next_year
         = link_to days_path(locale: I18n.locale, year: @next_year), class: 'btn btn-outline-primary btn-next-year', "aria-label": "Next year #{@next_year}" do
           = @next_year
-          %i.fa.fa-chevron-right{"aria-hidden": "true"}
+          %i{class: next_icon_classes.join(' '), "aria-hidden": "true"}
       - else
         %button.btn.btn-outline-secondary{disabled: true, "aria-label": "No next year available"}
-          %i.fa.fa-chevron-right{"aria-hidden": "true"}
+          %i{class: next_icon_classes.join(' '), "aria-hidden": "true"}

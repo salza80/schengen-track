@@ -18,22 +18,22 @@ module DaysHelper
   def day_tooltip(day)
     parts = []
 
-    parts << "<strong>#{day.country_name}</strong>" if day.hasCountry?
+    parts << content_tag(:strong, day.country_name) if day.hasCountry?
     
     # Visa information (if applicable)
     if day.respond_to?(:user_requires_visa?) && day.user_requires_visa?
       if day.schengen?
         if day.visa.nil?
-          parts << "<span class='text-danger'>⚠️ NO VISA</span>"
+          parts << content_tag(:span, "⚠️ #{t('days.tooltip.no_visa')}", class: 'text-danger')
         elsif !day.visa_valid?
-          parts << "<span class='text-danger'>⚠️ Outside visa period</span>"
+          parts << content_tag(:span, "⚠️ #{t('days.tooltip.outside_visa')}", class: 'text-danger')
         else
-          parts << "<span class='text-success'>✓ Valid visa</span>"
+          parts << content_tag(:span, "✓ #{t('days.tooltip.valid_visa')}", class: 'text-success')
           if day.has_limited_entries?
             if day.visa_entry_valid?
-              parts << "Entries: #{day.visa_entry_count}/#{day.visa_entries_allowed}"
+              parts << t('days.tooltip.entries', count: day.visa_entry_count, total: day.visa_entries_allowed)
             else
-              parts << "<span class='text-danger'>⚠️ Entry limit exceeded: #{day.visa_entry_count}/#{day.visa_entries_allowed}</span>"
+              parts << content_tag(:span, "⚠️ #{t('days.tooltip.entries_exceeded', count: day.visa_entry_count, total: day.visa_entries_allowed)}", class: 'text-danger')
             end
           end
         end
@@ -41,19 +41,20 @@ module DaysHelper
     end
     
     # Schengen day count
-    parts << "Days used: #{day.schengen_days_count}/90" if day.schengen_days_count
+    parts << t('days.tooltip.days_used', count: day.schengen_days_count) if day.schengen_days_count
     if day.max_remaining_days && day.the_date
-      exit_date = (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y')
-      parts << "Can stay: #{day.max_remaining_days} more days until <span style='white-space: nowrap;'>#{exit_date}</span>"
+      exit_date = l(day.the_date + (day.max_remaining_days - 1).days, format: :long)
+      exit_date_span = content_tag(:span, exit_date, style: 'white-space: nowrap;')
+      parts << t('days.tooltip.can_stay_html', days: day.max_remaining_days, date: exit_date_span).html_safe
     end
 
     if day.overstay_days.positive?
-      parts << "<span class='text-danger'>⚠️ SCHENGEN OVERSTAY: +#{day.overstay_days} days</span>"
+      parts << content_tag(:span, "⚠️ #{t('days.tooltip.overstay', days: day.overstay_days)}", class: 'text-danger')
     end
 
-    parts << "<span class='text-warning'>⏱ Wait: #{day.remaining_wait} days</span>" if day.remaining_wait
+    parts << content_tag(:span, "⏱ #{t('days.tooltip.wait', days: day.remaining_wait)}", class: 'text-warning') if day.remaining_wait
 
-    parts.join('<br>')
+    safe_join(parts, tag.br)
   end
 
   # Extracts 2-letter ISO code from day's country

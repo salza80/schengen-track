@@ -10,7 +10,7 @@
             = t('days.current_status')
           %small.text-muted
             = t('common.as_of')
-            = Date.today.strftime('%b %d, %Y')
+            = l(Date.today, format: :long)
         
         -# Status badge (prominent)
         .text-center.mb-3
@@ -66,7 +66,7 @@
                 = t('days.current_status')
                 %small.text-muted.ml-2
                   = t('common.as_of')
-                  = Date.today.strftime('%B %d, %Y')
+                  = l(Date.today, format: :long)
               .status-numbers.mb-2
                 %span.h4.mb-0
                   %strong= @status_summary[:current_days]

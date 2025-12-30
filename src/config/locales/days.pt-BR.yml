@@ -52,3 +52,13 @@ pt-BR:
     visits_count: Visitas
     waiting_period_tooltip: Como você excedeu anteriormente, um período de espera de 180 dias está em vigor.
     year_summary: Resumo de %{year}
+    tooltip:
+      no_visa: Sem visto
+      outside_visa: Fora do período do visto
+      valid_visa: Visto válido
+      entries: "Entradas: %{count}/%{total}"
+      entries_exceeded: "Limite de entradas excedido: %{count}/%{total}"
+      days_used: "Dias usados: %{count}/90"
+      can_stay_html: "Pode ficar por mais %{days} dias até %{date}"
+      overstay: "EXCESSO NO SCHENGEN: +%{days} dias"
+      wait: "Espera: %{days} dias"

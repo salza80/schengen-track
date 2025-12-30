@@ -18,13 +18,13 @@
           .article-meta
             .meta-item
               %i.fa.fa-user
-              %span Schengen Calculator
+              %span= t('common.schengen_calculator')
             .meta-item
               %i.fa.fa-calendar
-              %time{datetime: "2024-01-15"} January 15, 2024
+              %time{datetime: "2024-01-15"}= l(Date.new(2024, 1, 15), format: :long)
             .meta-item
               %i.fa.fa-clock-o
-              %span 8 min read
+              %span= t('blog.index.reading_time', minutes: 8)
         
         .article-hero
           %picture
@@ -62,13 +62,15 @@
                 %source{srcset: "#{image_path('schengen-countries-map-2025-400w.webp')} 400w, #{image_path('schengen-countries-map-2025-800w.webp')} 800w, #{image_path('schengen-countries-map-2025.webp')} 1600w", type: "image/webp", sizes: "(max-width: 576px) 100vw, (max-width: 992px) 50vw, 350px"}
                 = image_tag("schengen-countries-map-2025.png", class: "img-fluid", alt: "2025 Schengen Area map showing all 29 member countries including Bulgaria, Romania, and neighboring non-Schengen European countries", loading: "lazy", width: 1600, height: 1365, srcset: "#{image_path('schengen-countries-map-2025-400w.png')} 400w, #{image_path('schengen-countries-map-2025-800w.png')} 800w, #{image_path('schengen-countries-map-2025.png')} 1600w", sizes: "(max-width: 576px) 100vw, (max-width: 992px) 50vw, 350px")
               %figcaption
-                Schengen Area and surrounding non-Schengen countries.
+                = t('blog.extendedTravel.mapCaption')
                 %br
                 %small
-                  Map by Evan Centanni,
-                  = link_to "Political Geography Now", "https://www.polgeonow.com/2020/03/what-is-schengen-list-countries-map.html", target: "_blank", rel: "noopener"
-                  \. License:
-                  = link_to "CC BY-SA", "https://creativecommons.org/licenses/by-sa/3.0/deed.en", target: "_blank", rel: "noopener"
+                  = t('blog.extendedTravel.mapCredit_prefix', author: 'Evan Centanni')
+                  = link_to t('blog.extendedTravel.mapCredit_source'), "https://www.polgeonow.com/2020/03/what-is-schengen-list-countries-map.html", target: "_blank", rel: "noopener"
+                  = '. '
+                  = t('blog.extendedTravel.mapLicense_label')
+                  = ' '
+                  = link_to t('blog.extendedTravel.mapLicense_name'), "https://creativecommons.org/licenses/by-sa/3.0/deed.en", target: "_blank", rel: "noopener"
           
           %section
             %h2= t('blog.extendedTravel.maximizingTitle')
@@ -87,7 +89,7 @@
             .cta-box
               %h3
                 %i.fa.fa-calculator
-                Ready to Plan Your Extended European Adventure?
+                = t('blog.extendedTravel.ctaTitle')
               %p= t('blog.extendedTravel.schengenButtonIntro')
               = link_to visits_path(locale: I18n.locale), class: "cta-button" do
                 = t('blog.extendedTravel.schengenButtonTitle')
@@ -102,7 +104,7 @@
         
         %footer.article-footer
           .share-section
-            %h4 Share this article
+            %h4= t('blog.extendedTravel.shareHeading')
             .share-buttons
               %a.share-btn.x-twitter{href: "#", target: "_blank", rel: "noopener", data: {share: "twitter"}}
                 %i.fa-brands.fa-x-twitter

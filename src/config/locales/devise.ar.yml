@@ -1,0 +1,148 @@
+---
+ar:
+  activerecord:
+    attributes:
+      user:
+        confirmation_sent_at: "تاريخ إرسال التأكيد"
+        confirmation_token: "رمز التأكيد"
+        confirmed_at: "تاريخ التأكيد"
+        created_at: "تاريخ الإنشاء"
+        current_password: "كلمة المرور الحالية"
+        current_sign_in_at: "آخر تسجيل دخول"
+        current_sign_in_ip: "عنوان IP لآخر دخول"
+        email: "البريد الإلكتروني"
+        encrypted_password: "كلمة المرور المشفّرة"
+        failed_attempts: "محاولات فاشلة"
+        last_sign_in_at: "وقت آخر دخول"
+        last_sign_in_ip: "عنوان IP لآخر دخول"
+        locked_at: "تاريخ الإقفال"
+        password: "كلمة المرور"
+        password_confirmation: "تأكيد كلمة المرور"
+        remember_created_at: "تاريخ إنشاء التذكّر"
+        remember_me: "تذكرني"
+        reset_password_sent_at: "تاريخ إرسال استعادة كلمة المرور"
+        reset_password_token: "رمز استعادة كلمة المرور"
+        sign_in_count: "عدد مرات الدخول"
+        unconfirmed_email: "بريد إلكتروني غير مؤكد"
+        unlock_token: "رمز إلغاء القفل"
+        updated_at: "تاريخ التحديث"
+    models:
+      user:
+        one: "مستخدم"
+        other: "مستخدمون"
+  devise:
+    confirmations:
+      confirmed: "تم تأكيد بريدك الإلكتروني بنجاح."
+      new:
+        resend_confirmation_instructions: "إعادة إرسال تعليمات التأكيد"
+      send_instructions: "ستصلك رسالة بريد إلكتروني تحتوي على تعليمات تأكيد بريدك خلال دقائق."
+      send_paranoid_instructions: "إذا كان بريدك موجوداً لدينا، فستتلقى رسالة لتأكيده خلال دقائق."
+    failure:
+      already_authenticated: "أنت مسجّل دخول بالفعل."
+      inactive: "حسابك غير مفعّل بعد."
+      invalid: "بيانات %{authentication_keys} أو كلمة المرور غير صحيحة."
+      last_attempt: "تبقّت محاولة واحدة قبل قفل الحساب."
+      locked: "تم قفل حسابك."
+      not_found_in_database: "بيانات %{authentication_keys} أو كلمة المرور غير صحيحة."
+      timeout: "انتهت جلستك. يرجى تسجيل الدخول من جديد."
+      unauthenticated: "يجب تسجيل الدخول أو إنشاء حساب للمتابعة."
+      unconfirmed: "يجب تأكيد بريدك الإلكتروني قبل المتابعة."
+    mailer:
+      confirmation_instructions:
+        action: "تأكيد حسابي"
+        greeting: "مرحباً %{recipient}!"
+        instruction: "يمكنك تأكيد بريدك الإلكتروني عبر الرابط التالي:"
+        subject: "تعليمات التأكيد"
+      email_changed:
+        greeting: "مرحباً %{recipient}!"
+        message: "نخطرك بأنه تم تغيير بريدك إلى %{email}."
+        message_unconfirmed: "نخطرك بأنه سيتم تغيير بريدك إلى %{email}."
+        subject: "تم تغيير البريد الإلكتروني"
+      password_change:
+        greeting: "مرحباً %{recipient}!"
+        message: "نخطرك بأنه تم تغيير كلمة مرورك."
+        subject: "تم تغيير كلمة المرور"
+      reset_password_instructions:
+        action: "تغيير كلمة المرور"
+        greeting: "مرحباً %{recipient}!"
+        instruction: "طلب شخص ما رابطاً لتغيير كلمة مرورك. يمكنك القيام بذلك من خلال الرابط أدناه."
+        instruction_2: "إذا لم تطلب ذلك، فتجاهل هذه الرسالة."
+        instruction_3: "لن تتغير كلمة مرورك حتى تتبع الرابط وتنشئ كلمة جديدة."
+        subject: "تعليمات استعادة كلمة المرور"
+      unlock_instructions:
+        action: "إلغاء قفل حسابي"
+        greeting: "مرحباً %{recipient}!"
+        instruction: "انقر الرابط التالي لإلغاء قفل حسابك:"
+        message: "تم قفل حسابك بسبب عدد كبير من محاولات الدخول الفاشلة."
+        subject: "تعليمات إلغاء القفل"
+    omniauth_callbacks:
+      failure: "تعذر تسجيل الدخول عبر %{kind} بسبب \"%{reason}\"."
+      success: "تم تسجيل الدخول بنجاح عبر %{kind}."
+    passwords:
+      edit:
+        change_my_password: "تغيير كلمة المرور"
+        change_your_password: "غيّر كلمة المرور"
+        confirm_new_password: "تأكيد كلمة المرور الجديدة"
+        new_password: "كلمة المرور الجديدة"
+      new:
+        forgot_your_password: "هل نسيت كلمة المرور؟"
+        send_me_reset_password_instructions: "أرسل تعليمات إعادة الضبط"
+      no_token: "لا يمكنك الوصول إلى هذه الصفحة دون رابط استعادة صالح."
+      send_instructions: "ستصلك رسالة بريد إلكتروني لإعادة ضبط كلمة المرور خلال دقائق."
+      send_paranoid_instructions: "إذا كان بريدك موجوداً لدينا، فستتلقى رابط الاستعادة قريباً."
+      updated: "تم تغيير كلمة مرورك بنجاح وتم تسجيل دخولك."
+      updated_not_active: "تم تغيير كلمة مرورك بنجاح."
+    registrations:
+      destroyed: "إلى اللقاء! تم إلغاء حسابك بنجاح."
+      edit:
+        are_you_sure: "هل أنت متأكد؟"
+        cancel_my_account: "إلغاء الحساب"
+        currently_waiting_confirmation_for_email: "بانتظار تأكيد: %{email}"
+        leave_blank_if_you_don_t_want_to_change_it: "اترك الحقل فارغاً إذا لم ترغب في تغييره"
+        title: "تعديل %{resource}"
+        unhappy: "غير راضٍ؟"
+        update: "تحديث"
+        we_need_your_current_password_to_confirm_your_changes: "نحتاج كلمة مرورك الحالية لتأكيد التعديلات"
+      new:
+        sign_up: "إنشاء حساب"
+      signed_up: "مرحباً! تم إنشاء حسابك بنجاح."
+      signed_up_but_inactive: "تم إنشاء الحساب بنجاح لكن لا يمكن تسجيل الدخول لأن الحساب غير مفعّل بعد."
+      signed_up_but_locked: "تم إنشاء الحساب بنجاح لكن لا يمكن تسجيل الدخول لأنه مقفل."
+      signed_up_but_unconfirmed: "تم إرسال رابط تأكيد إلى بريدك. يرجى اتباعه لتفعيل الحساب."
+      update_needs_confirmation: "تم تحديث حسابك، لكن نحتاج لتأكيد البريد الجديد. تحقق من بريدك."
+      updated: "تم تحديث حسابك بنجاح."
+      updated_but_not_signed_in: "تم تحديث حسابك، لكن عليك تسجيل الدخول مجدداً بعد تغيير كلمة المرور."
+    sessions:
+      already_signed_out: "تم تسجيل الخروج بالفعل."
+      new:
+        sign_in: "تسجيل الدخول"
+      signed_in: "تم تسجيل الدخول بنجاح."
+      signed_out: "تم تسجيل الخروج بنجاح."
+    shared:
+      links:
+        back: "رجوع"
+        didn_t_receive_confirmation_instructions: "لم تصلك تعليمات التأكيد؟"
+        didn_t_receive_unlock_instructions: "لم تصلك تعليمات إلغاء القفل؟"
+        forgot_your_password: "هل نسيت كلمة المرور؟"
+        sign_in: "تسجيل الدخول"
+        sign_in_with_provider: "تسجيل الدخول عبر %{provider}"
+        sign_up: "إنشاء حساب"
+      minimum_password_length:
+        one: "(%{count} حرف كحد أدنى)"
+        other: "(%{count} أحرف كحد أدنى)"
+    unlocks:
+      new:
+        resend_unlock_instructions: "إعادة إرسال تعليمات إلغاء القفل"
+      send_instructions: "ستصلك رسالة بريد إلكتروني لإلغاء القفل خلال دقائق."
+      send_paranoid_instructions: "إذا كان حسابك موجوداً، فستتلقى تعليمات إلغاء القفل قريباً."
+      unlocked: "تم إلغاء قفل حسابك. يرجى تسجيل الدخول."
+  errors:
+    messages:
+      already_confirmed: "تم تأكيده مسبقاً، جرّب تسجيل الدخول"
+      confirmation_period_expired: "يجب التأكيد خلال %{period}، يرجى طلب رابط جديد"
+      expired: "انتهت صلاحيته، يرجى طلب رابط جديد"
+      not_found: "غير موجود"
+      not_locked: "لم يكن مقفلاً"
+      not_saved:
+        one: "مُنع حفظ %{resource} بسبب خطأ واحد:"
+        other: "%{count} أخطاء منعت حفظ %{resource}:"

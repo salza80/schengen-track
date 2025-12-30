@@ -16,7 +16,13 @@ en:
         description: A country with a unique blend of history, architecture, and natural beauty.
       - name: Morocco
         description: Offering a taste of North Africa, Morocco is known for its vibrant markets, historic cities, and diverse landscapes.
+      ctaTitle: Ready to Plan Your Extended European Adventure?
       introduction: Embarking on a European odyssey is a dream for many, but the 90-day limit within the Schengen Area often leaves travelers yearning for more. Fear not, fellow explorer, as we unveil the secrets to legally extend your European journey beyond the typical 90-day span. Before diving into strategic planning, it's crucial to familiarize yourself with countries outside the Schengen Area. Here, we'll list some key nations, such as Ireland, the United Kingdom, Montenegro, Belarus, and Morocco, that can become pivotal in maximizing your time in Europe.
+      mapCaption: Schengen Area and surrounding non-Schengen countries.
+      mapCredit_prefix: Map by %{author},
+      mapCredit_source: Political Geography Now
+      mapLicense_label: 'License:'
+      mapLicense_name: CC BY-SA
       maximizingContent: 'Now that you''re acquainted with non-Schengen countries, strategic planning becomes essential:'
       maximizingContentContinued: |
         <p> <strong>Commence in a Schengen Hub:</strong> Begin your journey in a Schengen country of your choice, such as Paris, Italy, or Spain. Spend the initial weeks immersing yourself in the local culture and surroundings.</p>
@@ -30,6 +36,7 @@ en:
       schengenAboutLink: about Schengen Calculator page
       schengenButtonIntro: You can use the Schengen Calculator to both plan and keep track of your travels on the road. Just enter the dates you enter, and exit each country, and it does the rest, calculating your total days in the Schengen Area, how many remaining days, and at what date you can re-enter and for how long to extend your stay. Happy planning and stay secure knowing you are not overstaying your visa.
       schengenButtonTitle: Get started with the Schengen Calculator
+      shareHeading: Share this article
       title: How to Stay in Europe Longer Than 90 Days (Legally)
       understanding90Content: Keep in mind that the 90 in 180-day rule operates on a rolling basis. To illustrate, suppose you enter the Schengen Area on January 1st and stay until March 30th, utilizing your full 90 days. If you re-enter on June 1st, you have another 90 days at your disposal. The key is to make sure that, on any given day within the area, you haven't exceeded 90 days in the last 180 days. It's a continuous calculation that you can understand to optimise your stay without violating the rule.
       understandingContent: The Schengen Area comprises 29 European countries, offering a seamless travel experience without internal borders. However, the 90/180 rule mandates that within any 180-day period, your stay in the Schengen Area cannot exceed 90 days. This rule operates on a rolling basis, meaning each day counts towards your total stay.

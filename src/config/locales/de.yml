@@ -6,6 +6,7 @@ de:
     page_title: Über Schengen-Rechner
   common:
     about: Über uns
+    add_person: Neue Person hinzufügen
     as_of: Stand
     back: Zurück
     blog: Blog
@@ -20,6 +21,7 @@ de:
     delete_warning: Sind Sie sicher, dass Sie dies löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.
     disclaimer: Haftungsausschluss
     edit: Bearbeiten
+    edit_current_person: Aktuelle Person bearbeiten
     edit_my_details: Meine Angaben bearbeiten
     'false': Nein
     home: Startseite
@@ -27,11 +29,13 @@ de:
     log_out: Abmelden
     login: Anmelden
     manage_account: Konto verwalten
+    manage_people: Personen verwalten
     multi_unlimited_entries: "(0 eingeben für mehrere/unbegrenzte Einträge)"
     na: N/A
     'no': Nein
     no_days: Anzahl der Tage
     of: von
+    person_not_set: Nicht festgelegt
     privacy_policy: Datenschutzbestimmungen
     save: Speichern
     schengen: Schengen
@@ -75,6 +79,7 @@ de:
     formats:
       default: "%d.%m.%Y"
       long: "%e. %B %Y"
+      month_year: "%B %Y"
       short: "%e. %b"
     month_names:
     -
@@ -94,12 +99,23 @@ de:
     - :day
     - :month
     - :year
+  days:
+    day_cell:
+      days_unit: Tage
+      entries_unit: Einreisen
+      overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
+      wait: "⏱%{count} %{unit}"
   default_description: Berechnen Sie Ihre visafreien Schengen-Tage mit unserem kostenlosen 90/180-Tage-Tracker. Verfolgen Sie die rollende 180-Tage-Regel für 29 europäische Länder. Planen Sie jetzt Ihre Europareise!
   default_title: Schengen Rechner | 90/180-Tage-Regel Tracker | Kostenlos
   errors:
     prohibited_saving_visa: "%{count} Fehler verhinderten das Speichern dieses Visums:"
   helpers:
     label:
+      person:
+        first_name: Vorname
+        last_name: Nachname
+        nationality_id: Nationalität
       user:
         email: E-Mail
         first_name: Vorname
@@ -118,6 +134,40 @@ de:
         entry_date: Einreisedatum
         exit_date: Ausreisedatum
   keywords: Schengen, Schengen-Rechner, 90 Tage in 180, 90-Tage-Regel, 180-Tage-Rechner, 90-Tage-Rechner, Schengen-Visum, Reisen, Europa-Visum, Schengen-Gebiet, Schengen-Zone
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} Fehler hat verhindert, dass diese Person gespeichert wurde:"
+          other: "%{count} Fehler haben verhindert, dass diese Person gespeichert wurde:"
+      nationality_placeholder: Nationalität auswählen
+      optional_hint: Optional
+      required_hint: Erforderlich
+    index:
+      delete_person_warning: Möchten Sie %{person} wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
+      empty_state:
+        description: Fügen Sie Ihre erste Person hinzu, um Reisepläne zu verfolgen.
+        title: Keine Personen gefunden
+      single_person_notice: Sie haben derzeit eine Person. Fügen Sie weitere hinzu, um Reisepläne für mehrere Personen oder Szenarien zu verfolgen.
+      table:
+        actions:
+          delete_aria: "%{name} löschen"
+          edit_aria: "%{name} bearbeiten"
+        badges:
+          active: Aktiv
+          primary: Primär
+        caption: Personen, für die Sie Reisepläne verfolgen
+        columns:
+          actions: Aktionen
+          name: Name
+          nationality: Nationalität
+          status: Status
+        make_primary:
+          aria: Setzt %{name} als primär fest
+          label: Als primär festlegen
+          title: Als primär festlegen
+    new:
+      title: Neue Person hinzufügen
   time:
     formats:
       default: "%a, %d. %b %Y %H:%M:%S %z"

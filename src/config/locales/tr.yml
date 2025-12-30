@@ -10,6 +10,7 @@ tr:
         other: Kullanıcılar
   common:
     about: Hakkında
+    add_person: Yeni kişi ekle
     as_of: İtibariyle
     back: Geri
     blog: Blog
@@ -24,6 +25,7 @@ tr:
     delete_warning: Bunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
     disclaimer: Açıklama
     edit: Düzenle
+    edit_current_person: Geçerli kişiyi düzenle
     edit_my_details: Bilgilerimi Düzenle
     'false': Hayır
     home: Ana Sayfa
@@ -31,11 +33,13 @@ tr:
     log_out: Çıkış yap
     login: Giriş yap
     manage_account: Hesabı Yönet
+    manage_people: Kişileri yönet
     multi_unlimited_entries: "(çoklu/sınırsız girişler için 0 girin)"
     na: Yok
     'no': Hayır
     no_days: Gün Sayısı
     of: toplam
+    person_not_set: Belirtilmedi
     privacy_policy: Gizlilik Politikası
     save: Kaydet
     schengen: Schengen
@@ -79,6 +83,7 @@ tr:
     formats:
       default: "%d.%m.%Y"
       long: "%e %B %Y"
+      month_year: "%B %Y"
       short: "%e %b"
     month_names:
     -
@@ -98,6 +103,13 @@ tr:
     - :day
     - :month
     - :year
+  days:
+    day_cell:
+      days_unit: gün
+      entries_unit: giriş
+      overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
+      wait: "⏱%{count} %{unit}"
   default_description: Ücretsiz 90/180 gün takipçimizle Schengen vizesiz günlerinizi hesaplayın. 29 Avrupa ülkesi için kayan 180 gün kuralını takip edin. Avrupa gezinizi bugün planlayın!
   default_title: Schengen Hesaplayıcı | 90/180 Gün Kuralı | Ücretsiz
   errors:
@@ -108,6 +120,10 @@ tr:
     prohibited_saving_visa: "%{count} hata, bu vizenin kaydedilmesini engelledi:"
   helpers:
     label:
+      person:
+        first_name: Ad
+        last_name: Soyad
+        nationality_id: Milliyet
       user:
         email: E-posta
         first_name: Ad
@@ -126,6 +142,40 @@ tr:
         entry_date: Giriş tarihi
         exit_date: Çıkış tarihi
   keywords: Schengen, Schengen Hesaplayıcı, 90 gün içinde 180, 90 gün kuralı, 180 gün hesaplayıcı, 90 gün hesap makinesi, Schengen Vizesi, Seyahat, Avrupa Vizesi, Schengen Alanı, Schengen Bölgesi
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} hata bu kişinin kaydedilmesini engelledi:"
+          other: "%{count} hata bu kişinin kaydedilmesini engelledi:"
+      nationality_placeholder: Milliyet seçin
+      optional_hint: İsteğe bağlı
+      required_hint: Zorunlu
+    index:
+      delete_person_warning: "%{person} kişisini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+      empty_state:
+        description: Seyahat planlarını takip etmeye başlamak için ilk kişinizi ekleyin.
+        title: Kişi bulunamadı
+      single_person_notice: Şu anda bir kişiniz var. Birden fazla kişi veya senaryo için seyahat planlarını takip etmek üzere daha fazlasını ekleyin.
+      table:
+        actions:
+          delete_aria: "%{name} kişisini sil"
+          edit_aria: "%{name} kişisini düzenle"
+        badges:
+          active: Aktif
+          primary: Birincil
+        caption: Seyahat planlarını takip ettiğiniz kişiler
+        columns:
+          actions: İşlemler
+          name: İsim
+          nationality: Milliyet
+          status: Durum
+        make_primary:
+          aria: "%{name} kişisini birincil yap"
+          label: Birincil yap
+          title: Birincil yap
+    new:
+      title: Yeni kişi ekle
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"

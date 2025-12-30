@@ -167,12 +167,18 @@ class DaysController < ApplicationController
       months << {
         month: month_num,
         year: year,
-        month_name: month_start.strftime('%B %Y'),
+        month_name: localized_month_name(month_start),
         weeks: weeks
       }
     end
     
     months
+  end
+
+  def localized_month_name(date)
+    I18n.l(date, format: :month_year)
+  rescue I18n::MissingTranslationData
+    date.strftime('%B %Y')
   end
   
   def build_weeks(month_start, month_end, month_days)

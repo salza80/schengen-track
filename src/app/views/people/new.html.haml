@@ -1,7 +1,7 @@
 .container-fluid.mt-4
-  %h1 Add New Person
+  %h1= t('people.new.title')
 
   = render 'form'
 
   .mt-3
-    = link_to 'Back', people_path, class: 'btn btn-secondary'
+    = link_to t('common.back'), people_path, class: 'btn btn-secondary'

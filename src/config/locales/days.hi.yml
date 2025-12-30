@@ -45,6 +45,16 @@ hi:
       schengen_area: शेंगेन क्षेत्र
       schengen_days_used: उपयोग किए गए Schengen दिन
       schengen_days_used_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में दिनों की संख्या।
+    tooltip:
+      can_stay_html: आप %{date} तक %{days} दिन और रह सकते हैं
+      days_used: 'उपयोग किए गए दिन: %{count}/90'
+      entries: 'प्रवेश: %{count}/%{total}'
+      entries_exceeded: 'प्रवेश सीमा पार: %{count}/%{total}'
+      no_visa: कोई वीज़ा नहीं
+      outside_visa: वीज़ा अवधि के बाहर
+      overstay: 'शेंगेन ओवरस्टे: +%{days} दिन'
+      valid_visa: मान्य वीज़ा
+      wait: 'प्रतीक्षा: %{days} दिन'
     until_date: "%{date} तक"
     view_table: तालिका में देखें
     visa_ok_tooltip: आज की तारीख तक आपके पास वैध वीजा है

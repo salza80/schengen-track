@@ -5,6 +5,7 @@ en:
     page_title: About Schengen Calculator
   common:
     about: About
+    add_person: Add new person
     as_of: As of
     back: Back
     blog: Blog
@@ -19,6 +20,7 @@ en:
     delete_warning: Are you sure you want to delete this? This action cannot be undone.
     disclaimer: Disclaimer
     edit: Edit
+    edit_current_person: Edit current person
     edit_my_details: Edit My Details
     'false': 'No'
     home: Home
@@ -26,11 +28,13 @@ en:
     log_out: Log out
     login: Log in
     manage_account: Manage Account
+    manage_people: Manage people
     multi_unlimited_entries: "(enter 0 for multi/unlimited entries)"
     na: N/A
     'no': 'No'
     no_days: No. Days
     of: of
+    person_not_set: Not set
     privacy_policy: Privacy Policy
     save: Save
     schengen: Schengen
@@ -74,6 +78,7 @@ en:
     formats:
       default: "%Y-%m-%d"
       long: "%B %e, %Y"
+      month_year: "%B %Y"
       short: "%b %d"
     month_names:
     -
@@ -94,6 +99,12 @@ en:
     - :month
     - :day
   days:
+    day_cell:
+      days_unit: days
+      entries_unit: entries
+      overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
+      wait: "⏱%{count} %{unit}"
     meta_description: Visual calendar showing your Schengen Area stays. Track the 90/180 day rule with color-coded days. See past trips, plan future visits, and monitor your remaining days in Europe.
     page_title: Schengen Calendar
   default_description: Calculate your Schengen visa-free days with our free 90/180 day tracker. Track the rolling 180-day rule for 29 European countries. Start planning your Europe trip today!
@@ -102,6 +113,10 @@ en:
     prohibited_saving_visa: "%{count} error prohibited this visa from being saved:"
   helpers:
     label:
+      person:
+        first_name: First name
+        last_name: Last name
+        nationality_id: Nationality
       user:
         email: Email
         first_name: First name
@@ -120,6 +135,40 @@ en:
         entry_date: Entry date
         exit_date: Exit date
   keywords: Schengen, Schengen Calculator,90 days in 180, 90 day rule, 180 day calculator, 90 day calculator, Schengen Visa, Travel, Europe Visa, Schengen Area, Schengen Zone
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} error prevented this person from being saved:"
+          other: "%{count} errors prevented this person from being saved:"
+      nationality_placeholder: Select nationality
+      optional_hint: Optional
+      required_hint: Required
+    index:
+      delete_person_warning: Are you sure you want to delete %{person}? This action cannot be undone.
+      empty_state:
+        description: Add your first person to start tracking travel plans.
+        title: No people found
+      single_person_notice: You currently have one person. Add more to track travel plans for multiple people or scenarios.
+      table:
+        actions:
+          delete_aria: Delete %{name}
+          edit_aria: Edit %{name}
+        badges:
+          active: Active
+          primary: Primary
+        caption: People you are tracking travel plans for
+        columns:
+          actions: Actions
+          name: Name
+          nationality: Nationality
+          status: Status
+        make_primary:
+          aria: Make %{name} primary
+          label: Make primary
+          title: Make primary
+    new:
+      title: Add New Person
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"

@@ -7,6 +7,9 @@ require 'nokogiri'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Visit.delete_all
+Visa.delete_all
+Person.delete_all
 User.destroy_all
 Country.delete_all
 Continent.delete_all

@@ -2,12 +2,12 @@
   .col-lg-9
     %h1.h3.mb-3
       %i.fa.fa-users.mr-2
-      Manage People
+      = t('common.manage_people')
 
     - if @people.count == 1
       .alert.alert-info
         %i.fa.fa-info-circle.mr-2
-        You currently have one person. Add more to track travel plans for multiple people or scenarios.
+        = t('people.index.single_person_notice')
 
     .row.py-1.mb-3
       .col-auto
@@ -17,48 +17,48 @@
       .col-auto.ml-auto
         = link_to new_person_path(locale: I18n.locale), class: "btn btn-add btn-md" do
           %i.fa.fa-plus.mr-2
-          Add new person
+          = t('common.add_person')
 
     - if @people.empty?
       .empty-state
         .empty-icon
           %i.fa.fa-users
-        %h4 No people found
-        %p Add your first person to start tracking travel plans
+        %h4= t('people.index.empty_state.title')
+        %p= t('people.index.empty_state.description')
         = link_to new_person_path(locale: I18n.locale), class: "btn btn-add btn-lg" do
           %i.fa.fa-plus.mr-2
-          Add new person
+          = t('common.add_person')
     - else
       .responsive-table-container
         %table.table.table-striped.table-bordered.table-hover.responsive-table
-          %caption People you are tracking travel plans for
+          %caption= t('people.index.table.caption')
           %thead.bg-header
             %tr
-              %th{scope: "col"} Name
-              %th{scope: "col"} Nationality
-              %th{scope: "col"} Status
-              %th{scope: "col", class: 'modify-col'} Actions
+              %th{scope: "col"}= t('people.index.table.columns.name')
+              %th{scope: "col"}= t('people.index.table.columns.nationality')
+              %th{scope: "col"}= t('people.index.table.columns.status')
+              %th{scope: "col", class: 'modify-col'}= t('people.index.table.columns.actions')
           %tbody
             - @people.each do |person|
               %tr{class: (person == current_person ? 'table-active' : ''), data: {person_url: (set_current_person_path(person) unless person == current_person)}, style: (person == current_person ? '' : 'cursor: pointer;')}
                 %th{scope: "row", class: 'bg-md-header'}
                   = person.full_name
-                %td{"data-title": "Nationality"}
-                  = person.nationality&.name || 'Not set'
-                %td{"data-title": "Status", onclick: "event.stopPropagation();"}
+                %td{"data-title": t('people.index.table.columns.nationality')}
+                  = person.nationality&.localized_name || t('common.person_not_set')
+                %td{"data-title": t('people.index.table.columns.status'), onclick: "event.stopPropagation();"}
                   - if person == current_person
-                    %span.badge.badge-success.mr-2 Active
+                    %span.badge.badge-success.mr-2= t('people.index.table.badges.active')
                   - if person.is_primary
-                    %span.badge.badge-info Primary
+                    %span.badge.badge-info= t('people.index.table.badges.primary')
                   - else
-                    = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: "Make primary", "aria-label": "Make #{person.full_name} primary", form: { class: "d-inline" } do
-                      Make primary
-                %td{"data-title": "Actions", onclick: "event.stopPropagation();"}
+                    = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: t('people.index.table.make_primary.title'), "aria-label": t('people.index.table.make_primary.aria', name: person.full_name), form: { class: "d-inline" } do
+                      = t('people.index.table.make_primary.label')
+                %td{"data-title": t('people.index.table.columns.actions'), onclick: "event.stopPropagation();"}
                   .action-buttons
-                    = link_to edit_person_path(person, locale: I18n.locale), class: "btn btn-sm btn-icon", title: "Edit", "aria-label": "Edit #{person.full_name}" do
+                    = link_to edit_person_path(person, locale: I18n.locale), class: "btn btn-sm btn-icon", title: t('common.edit'), "aria-label": t('people.index.table.actions.edit_aria', name: person.full_name) do
                       %i.fa.fa-pencil-alt{"aria-hidden": "true"}
                     - unless person.is_primary
-                      %a.btn.btn-sm.btn-icon.delete-person-link{href: "#", data: {delete_url: person_path(person, locale: I18n.locale), person_name: person.full_name}, title: "Delete", "aria-label": "Delete #{person.full_name}"}
+                      %a.btn.btn-sm.btn-icon.delete-person-link{href: "#", data: {delete_url: person_path(person, locale: I18n.locale), person_name: person.full_name, delete_message: t('people.index.delete_person_warning', person: person.full_name)}, title: t('common.delete'), "aria-label": t('people.index.table.actions.delete_aria', name: person.full_name)}
                         %i.fa.fa-trash{"aria-hidden": "true"}
 
     .row
@@ -131,10 +131,10 @@
         e.stopPropagation();
         
         const deleteUrl = button.dataset.deleteUrl;
-        const personName = button.dataset.personName;
+        const deleteMessage = button.dataset.deleteMessage;
         
-        // Update modal message with person name
-        $('#deleteModalMessage').text('Are you sure you want to delete ' + personName + '? This action cannot be undone.');
+        // Update modal message with localized text
+        $('#deleteModalMessage').text(deleteMessage);
         
         // Show the modal
         $modal.modal('show');

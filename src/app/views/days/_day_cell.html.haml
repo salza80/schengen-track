@@ -9,18 +9,18 @@
     .day-count
       %small
         %strong= day.schengen_days_count
-        %span.text-muted /90 days
+        %span.text-muted= t('days.day_cell.per_limit', limit: 90, unit: t('days.day_cell.days_unit'))
 
   - if day.respond_to?(:has_limited_entries?) && day.has_limited_entries?
     .day-visa-count
       %small
         %strong= day.visa_entry_count
-        %span.text-muted /#{day.visa_entries_allowed} entries
+        %span.text-muted= t('days.day_cell.per_limit', limit: day.visa_entries_allowed, unit: t('days.day_cell.entries_unit'))
 
   - if day.overstay_days.positive?
     .day-overstay
-      %small.text-danger +#{day.overstay_days} days
+      %small.text-danger= t('days.day_cell.overstay', count: day.overstay_days, unit: t('days.day_cell.days_unit'))
 
   - if day.remaining_wait
     .day-wait
-      %small ⏱#{180 - day.remaining_wait} days
+      %small= t('days.day_cell.wait', count: 180 - day.remaining_wait, unit: t('days.day_cell.days_unit'))

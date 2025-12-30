@@ -45,6 +45,16 @@ zh-CN:
       schengen_area: 申根区
       schengen_days_used: 已用申根天数
       schengen_days_used_tooltip: 在过去180天内在申根区内的天数。
+    tooltip:
+      can_stay_html: 可再停留 %{days} 天，直到 %{date}
+      days_used: 已用天数：%{count}/90
+      entries: 入境次数：%{count}/%{total}
+      entries_exceeded: 入境次数超限：%{count}/%{total}
+      no_visa: 无签证
+      outside_visa: 超出签证有效期
+      overstay: 申根逗留超限：+%{days} 天
+      valid_visa: 签证有效
+      wait: 等待：%{days} 天
     until_date: 直到 %{date}
     view_table: 表格视图
     visa_ok_tooltip: 您截至今天拥有有效签证

@@ -5,7 +5,7 @@ class VisaTest < ActiveSupport::TestCase
   test 'should have the necessary required validators' do
     a = Visa.new
     assert a.invalid?
-    assert_equal [:user, :start_date, :end_date, :visa_type, :no_entries], a.errors.attribute_names
+    assert_equal [:person, :start_date, :end_date, :visa_type, :no_entries], a.errors.attribute_names
   end
 
 
@@ -42,14 +42,14 @@ class VisaTest < ActiveSupport::TestCase
   end
 
   test 'find visa for specified entry and exit dates' do
-    u = users(:VisaRequiredUser)
-    visa = u.visas.find_schengen_visa(DateTime.new(2011,1,1), DateTime.new(2012,4,4))
+    person = people(:visa_required_person)
+    visa = person.visas.find_schengen_visa(DateTime.new(2011,1,1), DateTime.new(2012,4,4))
     assert_equal  DateTime.new(2011,1,1), visa.start_date
-    visa  =  u.visas.find_schengen_visa(DateTime.new(2010,1,1), DateTime.new(2010,4,4))
+    visa  =  person.visas.find_schengen_visa(DateTime.new(2010,1,1), DateTime.new(2010,4,4))
  
     assert_equal DateTime.new(2010,1,1), visa.start_date
     
-    visa = u.visas.find_schengen_visa(DateTime.new(2011,2,2), nil)
+    visa = person.visas.find_schengen_visa(DateTime.new(2011,2,2), nil)
 
     assert_equal DateTime.new(2011,1,1), visa.start_date
     assert_equal 0, visa.no_entries

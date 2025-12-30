@@ -1,0 +1,79 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+sally_person:
+  user: Sally
+  first_name: Sally
+  last_name: Mclean
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: true
+
+test1_person:
+  user: Test1
+  first_name: Test1
+  last_name: One
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: true
+
+test2_person:
+  user: Test2
+  first_name: Test2
+  last_name: Two
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: true
+
+visa_required_person:
+  user: VisaRequiredUser
+  first_name: Visa
+  last_name: Required
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:India) %>
+  is_primary: true
+
+old_calc_person:
+  user: OldCalcTest
+  first_name: Old
+  last_name: calc
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Brazil) %>
+  is_primary: true
+
+big_visits_person:
+  user: BigVisits
+  first_name: Big
+  last_name: Visits
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: true
+
+eu_person:
+  user: EUPerson
+  first_name: From
+  last_name: EU
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Germany) %>
+  is_primary: true
+
+mini_test_person:
+  user: MiniTest
+  first_name: Mini
+  last_name: Test
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: true
+
+# Additional person for testing multiple people per user
+sally_person_alt:
+  user: Sally
+  first_name: Sally
+  last_name: Alternative
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: false
+
+max_remaining_person:
+  user: MaxRemaining
+  first_name: max
+  last_name: remaining
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: true
+
+bugfix_person:
+  user: bugfix
+  first_name: bug
+  last_name: fix
+  nationality_id: <%= ActiveRecord::FixtureSet.identify(:Australia) %>
+  is_primary: true

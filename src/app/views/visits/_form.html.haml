@@ -14,7 +14,7 @@
       = f.label :entry_date, class: "col-form-label"
     .col-sm-10.date-form-group
       = f.date_select :entry_date, {}, { class: "form-control custom-select", "aria-label": t('visits.entry_date') }
-  - unless current_user_or_guest_user.nationality.visa_required == 'F'
+  - unless current_person.nationality.visa_required == 'F'
     #entry-date-info.form-group.row{style: 'display: none;'}
       .col-sm-2
       .col-sm-10

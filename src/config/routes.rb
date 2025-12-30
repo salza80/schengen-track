@@ -11,9 +11,14 @@ Rails.application.routes.draw do
     end
     resources :visas, except: [:index, :show]
     resources :days, only: [:index]
+    resources :people do
+      member do
+        post :set_current
+        post :make_primary
+      end
+    end
     
     get 'my_details' => 'users#edit'
-    put 'my_details' => 'users#update'
     patch 'my_details' => 'users#update'
     delete 'my_details' => 'users#destroy', as: 'delete_account'
     get 'user' => 'users#show'
@@ -25,6 +30,9 @@ Rails.application.routes.draw do
     get 'privacy' => 'about#privacy'
     get 'datadeletion' => 'about#datadeletion'
     
+    get 'fix_people_migration' => 'tasks#fix_people_migration'
+    get 'unlock_migrations' => 'tasks#unlock_migrations'
+    get 'unlock_and_migrate' => 'tasks#unlock_and_migrate'
     get 'migrate' => 'tasks#migrate'
     get 'create' => 'tasks#create'
     get 'seed' => 'tasks#seed'

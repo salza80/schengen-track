@@ -1,4 +1,5 @@
 - sticky_sidebar = local_assigns.fetch(:sticky_sidebar, true)
+- show_legend = local_assigns.fetch(:show_legend, true)
 .calendar-sidebar{class: (sticky_sidebar ? 'sticky-top' : nil), style: (sticky_sidebar ? "top: 100px; max-height: calc(100vh - 150px); overflow-y: auto; z-index: 50;" : nil)}
   -# Status information (always show, with default values if no data)
   .sidebar-section.card.mb-2
@@ -36,7 +37,7 @@
           %small.text-muted= t('days.days_remaining')
           .h5.mb-0{class: @status_summary ? "text-#{status_text_class(@status_summary[:status])}" : "text-success"}
             %strong= @status_summary ? @status_summary[:remaining_days] : 90
-        - if current_user_or_guest_user.visa_required?
+        - if current_person.visa_required?
           .mb-2.mt-3.pt-3.border-top
             .d-flex.justify-content-between.align-items-center.mb-2
               %small.text-muted= t('days.visa_status_label')
@@ -69,7 +70,7 @@
                   %i.fa.fa-info-circle
                   = t('days.no_visa_entered')
   -# Legend
-  - if @show_sidebar_legend.nil? || @show_sidebar_legend
+  - if show_legend && (@show_sidebar_legend.nil? || @show_sidebar_legend)
     .sidebar-section.card
       .card-header.bg-dark.text-white
         %h6.mb-0
@@ -98,10 +99,11 @@
           = t('days.next_entry_options')
       .card-body.p-2
         - @next_entry_days.each do |day|
-          = link_to days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: "next-entry-item border-bottom py-2 px-2 d-block text-decoration-none", style: "cursor: pointer;" do
+          .next-entry-item.border-bottom.py-2.px-2
             .entry-date
-              %strong.text-primary
-                = t('days.from_date_onwards', date: day.the_date.strftime('%b %d, %Y'))
+              = link_to days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: "d-inline-block next-entry-link-text" do
+                %strong.text-primary
+                  = t('days.from_date_onwards', date: day.the_date.strftime('%b %d, %Y'))
             .entry-duration
               %small
                 = t('days.stay_for_days', days: day.max_remaining_days)

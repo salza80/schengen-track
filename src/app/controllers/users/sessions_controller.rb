@@ -12,6 +12,8 @@ class Users::SessionsController < Devise::SessionsController
       # After successful authentication, update the cache cookie
       # This happens after Devise's session regeneration, so it's safe
       if resource.persisted?
+        # Reset current_person to primary on login
+        session[:current_person_id] = nil
         set_cache_cookie
       end
     end

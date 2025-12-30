@@ -52,6 +52,74 @@ jobs:
         run: cdk deploy SchengTrackProd --require-approval never
         working-directory: ./deployment
 
+      - name: Resolve Ops Lambda Function
+        id: ops_lambda
+        run: |
+          STACK_NAME="SchengTrackProd"
+          OPS_FUNCTION_NAME=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].Outputs[?OutputKey=='OpsLambdaFunctionName'].OutputValue" --output text)
+          if [ -z "$OPS_FUNCTION_NAME" ] || [ "$OPS_FUNCTION_NAME" = "None" ]; then
+            echo "Failed to resolve Ops Lambda function name"
+            exit 1
+          fi
+          echo "ops_function_name=$OPS_FUNCTION_NAME" >> $GITHUB_OUTPUT
+
+      - name: Run database migrations
+        env:
+          OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
+        run: |
+          set -euo pipefail
+          invoke_ops_lambda() {
+            local payload="$1"
+            local description="$2"
+            echo "Invoking ${description} via ops Lambda..."
+            aws lambda invoke \
+              --function-name "$OPS_FUNCTION_NAME" \
+              --payload "$payload" \
+              --cli-binary-format raw-in-base64-out \
+              /tmp/ops-response.json >/tmp/ops-invoke.log
+            cat /tmp/ops-response.json
+            jq -e '.body | fromjson | select(.success == true)' /tmp/ops-response.json >/dev/null
+            echo "✓ ${description} completed"
+          }
+
+          invoke_ops_lambda '{"command":"fix_people_migration"}' "Fix people migration metadata"
+          invoke_ops_lambda '{"command":"unlock_and_migrate"}' "Database migrations"
+
+      - name: Update countries data
+        env:
+          OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
+        run: |
+          set -euo pipefail
+          aws lambda invoke \
+            --function-name "$OPS_FUNCTION_NAME" \
+            --payload '{"command":"update_countries"}' \
+            --cli-binary-format raw-in-base64-out \
+            /tmp/update-countries.json >/tmp/update-countries.log
+          cat /tmp/update-countries.json
+          jq -e '.body | fromjson | select(.success == true)' /tmp/update-countries.json >/dev/null
+          echo "✓ Countries data updated successfully"
+
+      - name: Clean up guest users
+        env:
+          OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
+        run: |
+          set -euo pipefail
+          aws lambda invoke \
+            --function-name "$OPS_FUNCTION_NAME" \
+            --payload '{"command":"guest_cleanup","params":{"max_batches":5}}' \
+            --cli-binary-format raw-in-base64-out \
+            /tmp/guest-cleanup.json >/tmp/guest-cleanup.log
+          cat /tmp/guest-cleanup.json
+          jq -e '.body | fromjson | select(.success == true)' /tmp/guest-cleanup.json >/dev/null
+          stats=$(jq -r '.body | fromjson | .stats // empty' /tmp/guest-cleanup.json)
+          if [ -n "$stats" ]; then
+            deleted=$(echo "$stats" | jq -r '.deleted // 0')
+            batches=$(echo "$stats" | jq -r '.batches // 0')
+            remaining=$(echo "$stats" | jq -r '.remaining // 0')
+            echo "Deleted: $deleted users in $batches batches"
+            echo "Remaining: $remaining"
+          fi
+
   cacheInvalidate:
     runs-on: ubuntu-latest
     needs: deploy
@@ -82,44 +150,6 @@ jobs:
             --overwrite
           echo "✓ Deployment timestamp set to: $current_time"
       
-      - name: Run database migrations
-        run: |
-          echo "Running database migrations on production..."
-          response=$(curl -s "https://schengen-calculator.com/migrate?token=${{ secrets.TASK_PASSWORD }}")
-          if echo "$response" | grep -q '"success":true'; then
-            echo "✓ Migrations completed successfully"
-          else
-            echo "⚠ Migration failed"
-            echo "$response"
-          fi
-
-      - name: Update countries data
-        run: |
-          echo "Updating countries data from XML..."
-          response=$(curl -s "https://schengen-calculator.com/update_countries?token=${{ secrets.TASK_PASSWORD }}")
-          if echo "$response" | grep -q '"success":true'; then
-            echo "✓ Countries data updated successfully"
-          else
-            echo "⚠ Countries update failed"
-            echo "$response"
-          fi
-
-      - name: Clean up guest users
-        run: |
-          echo "Cleaning up old guest user accounts (max 5 batches/500 users)..."
-          response=$(curl -s "https://schengen-calculator.com/guest_cleanup?token=${{ secrets.TASK_PASSWORD }}&max_batches=5")
-          if echo "$response" | grep -q '"success":true'; then
-            deleted=$(echo "$response" | grep -o '"deleted":[0-9]*' | grep -o '[0-9]*')
-            batches=$(echo "$response" | grep -o '"batches":[0-9]*' | grep -o '[0-9]*')
-            remaining=$(echo "$response" | grep -o '"remaining":[0-9]*' | grep -o '[0-9]*')
-            echo "✓ Guest cleanup completed successfully"
-            echo "  Deleted: $deleted users in $batches batches"
-            if [ "$remaining" != "0" ]; then
-              echo "  Remaining: $remaining old guest users (will be cleaned up in future deployments)"
-            fi
-          else
-            echo "⚠ Guest cleanup failed"
-          fi
       
       - name: Perform CloudFront Invalidation
         id: cloudfront_invalidation

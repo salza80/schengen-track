@@ -105,6 +105,9 @@ es:
       field_definitions_link: Definiciones de Nombres de Campos
       get_started: Comienza Ahora
       how_to_use:
+        people:
+          description: Puedes rastrear viajes para varias personas usando la misma cuenta. Usa el selector de personas en la parte superior de la página para agregar y cambiar entre diferentes viajeros. Cada persona puede tener su propia nacionalidad, viajes e información de visa. Esto es útil para familias o al administrar viajes para varias personas.
+          title: 'Múltiples Personas:'
         step_1:
           description: Selecciona tu Nacionalidad. Puedes cambiar esto en la parte superior de la página en el encabezado.
           title: 'Paso 1:'
@@ -167,9 +170,10 @@ es:
     datadeletion:
       conclusion: Tu cuenta y todos los datos serán eliminados. Esta acción no se puede deshacer.
       step1: Inicia sesión en tu cuenta
-      step2: Ve a la configuración de tu cuenta seleccionando tu nacionalidad en la esquina superior derecha de la página
-      step3: Haz clic en el botón 'Eliminar cuenta'
-      step4: Confirma que deseas eliminar tu cuenta
+      step2: Haz clic en tu nombre en el selector de personas en la parte superior de la página
+      step3: Selecciona 'Gestionar cuenta' del menú desplegable
+      step4: Haz clic en el botón 'Eliminar cuenta' en la parte inferior de la página
+      step5: Confirma que deseas eliminar tu cuenta
       subtitle: Cómo eliminar tus datos
       title: Política de Eliminación de Datos
     disclaimer:

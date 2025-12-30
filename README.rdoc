@@ -150,51 +150,9 @@ Configuration: src/config/i18n-tasks.yml
 3. Search for [TRANSLATE] and replace with actual translations
 4. Commit changes (pre-commit hook will validate)
 
-=== Technical Details
-The i18n-tasks gem uses AST (Abstract Syntax Tree) parsing to intelligently detect translation usage:
-
-Automatic detection of:
-* Static calls: t('key'), I18n.t('key'), I18n.translate('key')
-* Rails form helpers: f.label :field_name → helpers.label.model.field_name
-* Model attributes: User.human_attribute_name(:email)
-* Dynamic patterns: I18n.t!("#{country_code}_name") - configured to match XX_name, XX_nationality, XX_nationality_plural
-
-Scans these directories:
-* Views (app/views/**/*.haml)
-* Controllers (app/controllers/**/*.rb)
-* Helpers (app/helpers/**/*.rb)
-* Models (app/models/**/*.rb)
-* Mailers (app/mailers/**/*.rb)
-* JavaScript (app/assets/javascripts/**/*.js)
-
-For advanced usage and configuration, see: https://github.com/glebm/i18n-tasks
-
 === Handling Undetectable Translation Keys
 
 Some translation keys cannot be automatically detected by i18n-tasks because they're used in non-standard ways:
-
-==== Common Scenarios:
-1. Keys used as parameter names (not translation lookups):
-     t('page.title', optional: true)
-   The 'optional' key stores the value 'true' but isn't a t() call itself
-
-2. Keys used as model/controller variable names:
-     @year_summary = calculate_summary()
-   The variable name matches a translation key but isn't translating
-
-3. Keys used as interpolation parameters:
-     t('message', about_link: link_to(...))
-   The 'about_link' parameter name matches a key but isn't looked up
-
-4. Keys accessed as attributes or dynamic lookups:
-     day.max_remaining_days
-
-==== Solution: Whitelist in i18n-tasks.yml
-
-Add these keys to config/i18n-tasks.yml under ignore_unused:
-
-  ignore_unused:
-    - 'your.special.key'  # Brief explanation why it's actually used
 
 Current whitelisted keys (as of last cleanup):
 * about.about.how_to_use.step_5.optional - Used as 'optional: true' parameter
@@ -237,15 +195,6 @@ To configure Facebook Login, you must set up your Facebook App at https://develo
   * https://test.schengen-calculator.com/users/auth/facebook/callback
   * http://localhost:3000/users/auth/facebook/callback (for development)
 
-==== 3. API Version (Settings → Advanced)
-* Upgrade API Version to v19.0 or later
-* Facebook requires periodic API version upgrades
-
-==== 4. Required Permissions
-* Default permissions (automatically approved):
-  * email - Access user's email address
-  * public_profile - Access user's public profile (name)
-
 === Environment Variables / Parameter Store
 
 The application uses AWS Systems Manager Parameter Store for production secrets. The following parameters must be configured:
@@ -265,70 +214,33 @@ These parameters are loaded as environment variables in the Lambda function and 
 For development and test environments, these values are stored in <tt>config/secrets.yml</tt> and automatically loaded into ENV variables (see Configuration Management section).
 
 == Deployment
-* Automatic deployment to AWS lambda / cloudfront via CDK and Github Actions
-* CDK Deployment code is in /deployment directory
+* Automatic deployment to AWS Lambda / CloudFront via CDK and GitHub Actions
+* CDK application code lives in the /deployment directory
 
-To set up a new aws deployment:
-In aws create the nessessary application paramaters in AWS Paramater Store which are used on deployment to set the lambda environment Variables:
-  RAILS_MASTER_KEY: getParam('rails_master_key'),
-  DB_URL: getParam('db_url'),
-  SECRET_KEY_BASE: getParam('secret_key_base'),
-  FACEBOOK_ID: getParam('facebook_id'),
-  FACEBOOK_SECRET: getParam('facebook_secret'),
-  FACEBOOK_CALLBACK_URL: getParam('facebook_callback_url'),
-  BREVO_LOGIN: getParam('brevo_login'),
-  BREVO_PASSWORD: getParam('brevo_password'),
-  TASK_PASSWORD: getParam('task_password'),
-  DOMAIN: customDomain (automatically set by CDK, no SSM parameter needed)
+To provision a new environment:
+* Create the required SSM parameters referenced in deployment/lib/http-api.ts (db_url, rails_master_key, secret_key_base, facebook credentials, brevo credentials, task_password, etc.)
+* Bootstrap CDK in the target account/region (`cdk bootstrap aws://ACCOUNT/eu-central-1`)
+* Populate GitHub repository secrets:
+  * AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_DEFAULT_REGION
+  * TASK_PASSWORD (used by the on-demand TasksController endpoints during incidents)
 
-The following secrets are required in github secrets. See aws documentation for setting up a deployment user role with least privileges.
-One approach: Attempt deploy with no permissions, then add permissions that fail until deploy passes.
-  AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY
-  AWS_DEFAULT_REGION
-  TASK_PASSWORD (used for automated migration and data update API calls during deployment)
+=== GitHub Actions workflow
 
-The GitHub Actions deployment IAM user requires these permissions:
-* Standard CDK deployment permissions (Lambda, API Gateway, CloudFront, IAM, etc.)
-* SSM Parameter Store write permission for deployment timestamp (see deployment/iam-policy-ssm-deployment-timestamp.json)
+Two workflows drive deployments:
+* Deploy-Staging (push to master) → deploys the `RailsLambdaStack` stack
+* Deploy-Prod (manual dispatch) → deploys the `SchengTrackProd` stack
 
-=== Automated Database Updates on Deployment
+Each workflow performs the following steps in the `deploy` job:
+1. `cdk deploy` for the appropriate stack
+2. Resolve the `OpsLambdaFunctionName` CloudFormation output
+3. Invoke the Ops Lambda to run:
+   * `db:fix_people_migration` (prod only safety check)
+   * `db:migrate`
+   * `db:update_countries`
+   * `db:guest_cleanup` (limited batches)
 
-The deployment workflows automatically run database migrations and country data updates via API endpoints after each deployment:
+After application and database tasks succeed, the `cacheInvalidate` job updates `/schengen/deployment-timestamp`, issues a CloudFront invalidation, and pre-warms key URLs.
 
-1. <tt>db:migrate</tt> - Runs pending database schema migrations
-   * API endpoint: <tt>/migrate?token=TASK_PASSWORD</tt>
-   * Purpose: Apply structural database changes (tables, columns, indexes)
-   * Runs automatically on every staging and production deployment
+=== Manual task execution
 
-2. <tt>db:update_countries</tt> - Updates country data from XML files
-   * API endpoint: <tt>/update_countries?token=TASK_PASSWORD</tt>
-   * Purpose: Sync country data (names, Schengen dates, visa requirements) from db/data/countries.xml
-   * Runs automatically on every staging and production deployment
-
-Deployment order:
-1. Deploy application code to Lambda
-2. Set deployment timestamp in Parameter Store
-3. Run database migrations (db:migrate)
-4. Update countries data (db:update_countries)
-5. Invalidate CloudFront cache
-6. Recache main URLs
-
-This ensures the database is updated before the cache is cleared, preventing inconsistencies.
-
-=== Security: Time-Limited Deployment Endpoints
-
-For security, the <tt>/migrate</tt> and <tt>/update_countries</tt> endpoints are only accessible within 1 hour of deployment:
-
-* During deployment, a timestamp is written to AWS Parameter Store (<tt>/schengen/deployment-timestamp</tt>)
-* The endpoints check this timestamp and reject requests with 403 Forbidden if more than 1 hour has elapsed
-* This prevents unauthorized access even if the TASK_PASSWORD token is compromised
-* The Lambda function has IAM permissions to read the deployment timestamp from Parameter Store
-* In development mode, the time restriction is disabled for local testing
-
-This security mechanism ensures that sensitive database operations can only be triggered during active deployment windows.
-
-
-
-
-
+During incidents you can still call the Rails TasksController endpoints with `TASK_PASSWORD`, but routine deployments should rely on the Ops Lambda execution path to avoid CloudFront timeout limits and to keep migrations tightly coupled with the deploy job.

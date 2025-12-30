@@ -2,13 +2,14 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   belongs_to :nationality, class_name: 'Country'
-  has_many :visits, dependent: :destroy
-  has_many :visas, dependent: :destroy
+  has_many :people, dependent: :delete_all
   validates :first_name, :last_name, :nationality, presence: true
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook]
+
+  after_create :create_primary_person
 
   def full_name
     [first_name, last_name].join(' ').strip
@@ -22,10 +23,27 @@ class User < ApplicationRecord
     nationality.visa_required == 'V'
   end
 
-  #used on omniauth signup
+  # used on omniauth signup
   def copy_from(user)
-    user.visits.each do |v|
-      self.visits << v.dup
+    # Copy visits and visas from the guest user's primary person to this user's primary person
+    return unless user
+    
+    # Get the guest user's primary person (or first person)
+    guest_person = user.people.where(is_primary: true).first || user.people.first
+    return unless guest_person
+    
+    # Get this user's primary person
+    my_person = self.people.where(is_primary: true).first || self.people.first
+    return unless my_person
+    
+    # Copy visits
+    guest_person.visits.each do |v|
+      my_person.visits << v.dup
+    end
+    
+    # Copy visas
+    guest_person.visas.each do |v|
+      my_person.visas << v.dup
     end
   end
 
@@ -86,5 +104,31 @@ class User < ApplicationRecord
 
   def is_guest?
     self.guest
+  end
+
+  # Ensure user has at least one person record
+  # Creates a primary person from user data if none exist
+  def ensure_primary_person
+    return if people.exists?
+    
+    Rails.logger.warn("User #{id} has no people - creating primary person from user data")
+    
+    people.create!(
+      first_name: first_name.presence || 'User',
+      last_name: last_name,
+      nationality_id: nationality_id,
+      is_primary: true
+    )
+  end
+
+  private
+
+  def create_primary_person
+    people.create!(
+      first_name: first_name,
+      last_name: last_name,
+      nationality_id: nationality_id,
+      is_primary: true
+    )
   end
 end

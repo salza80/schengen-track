@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_24_225119) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_29_035005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_24_225119) do
     t.index ["country_code"], name: "index_countries_on_country_code", unique: true
   end
 
+  create_table "people", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "first_name", null: false
+    t.string "last_name"
+    t.bigint "nationality_id"
+    t.boolean "is_primary", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nationality_id"], name: "index_people_on_nationality_id"
+    t.index ["user_id"], name: "index_people_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -97,7 +109,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_24_225119) do
     t.text "visa_type"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.integer "user_id"
+    t.bigint "person_id", null: false
+    t.index ["person_id"], name: "index_visas_on_person_id"
   end
 
   create_table "visits", force: :cascade do |t|
@@ -106,14 +119,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_24_225119) do
     t.bigint "country_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.integer "user_id"
+    t.bigint "person_id", null: false
     t.index ["country_id"], name: "index_visits_on_country_id"
+    t.index ["person_id"], name: "index_visits_on_person_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "countries", "continents"
-  add_foreign_key "visas", "users"
+  add_foreign_key "people", "countries", column: "nationality_id"
+  add_foreign_key "people", "users"
+  add_foreign_key "visas", "people"
   add_foreign_key "visits", "countries"
-  add_foreign_key "visits", "users"
+  add_foreign_key "visits", "people"
 end

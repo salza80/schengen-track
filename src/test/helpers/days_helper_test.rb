@@ -30,7 +30,7 @@ class DaysHelperTest < ActionView::TestCase
     assert_equal 'in-schengen-safe', day_cell_class(day)
   end
   
-  test "day_cell_class returns in-schengen-warning for days over 80" do
+  test "day_cell_class remains in-schengen-safe for days over 80" do
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       schengen?: true,
@@ -39,7 +39,7 @@ class DaysHelperTest < ActionView::TestCase
       warning?: false
     )
     
-    assert_equal 'in-schengen-warning', day_cell_class(day)
+    assert_equal 'in-schengen-safe', day_cell_class(day)
   end
   
   test "day_cell_class returns overstay for danger days" do

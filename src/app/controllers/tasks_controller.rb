@@ -1,12 +1,71 @@
 class TasksController < ApplicationController
-  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup]
-  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup]
+  before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :fix_people_migration, :unlock_and_migrate]
+  before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations, :fix_people_migration, :unlock_and_migrate]
+  
+  # GET /tasks/fix_people_migration
+  def fix_people_migration
+    rake_fix = "db:fix_people_migration"
+    output = `rake #{rake_fix} 2>&1`
+    @success = $?.success?
+    @output = output
+    render_json_response_with_output
+  end
+  
+  # GET /tasks/unlock_and_migrate
+  # Combines unlock and migrate in a single Lambda invocation to avoid race conditions
+  def unlock_and_migrate
+    combined_output = []
+    
+    # Step 1: Quick unlock - just terminate other connections, no diagnostics
+    combined_output << "=== Terminating stale connections ==="
+    begin
+      connection = ActiveRecord::Base.connection
+      if connection.adapter_name == 'PostgreSQL'
+        # Terminate ALL other connections to force release any locks
+        terminate_query = <<-SQL
+          SELECT pg_terminate_backend(pid)
+          FROM pg_stat_activity
+          WHERE datname = current_database()
+            AND pid != pg_backend_pid();
+        SQL
+        terminated = connection.execute(terminate_query)
+        combined_output << "Terminated #{terminated.count} connection(s)"
+      end
+    rescue => e
+      combined_output << "Warning during unlock: #{e.message}"
+    end
+    
+    # Step 2: Brief wait
+    sleep 1
+    
+    # Step 3: Migrate
+    combined_output << "\n=== Running migrations ==="
+    rake_migrate = "db:migrate"
+    migrate_output = `rake #{rake_migrate} 2>&1`
+    combined_output << migrate_output
+    migrate_success = $?.success?
+    
+    @success = migrate_success
+    @output = combined_output.join("\n")
+    render_json_response_with_output
+  end
+  
+  # GET /tasks/unlock_migrations
+  def unlock_migrations
+    rake_unlock = "db:unlock"
+    output = `rake #{rake_unlock} 2>&1`
+    @success = $?.success?
+    @output = output
+    render_json_response_with_output
+  end
   
   # GET /tasks/migrations
   def migrate
     rake_migrate = "db:migrate"
-    @success = system("rake #{rake_migrate}")
-    render_json_response
+    output = `rake #{rake_migrate} 2>&1`
+    @success = $?.success?
+    @output = output
+    render_json_response_with_output
   end
   
   def create
@@ -87,6 +146,12 @@ class TasksController < ApplicationController
 
   def render_json_response
     render json: { success: @success }
+  end
+
+  def render_json_response_with_output
+    response = { success: @success }
+    response[:output] = @output if @output.present?
+    render json: response
   end
 
   def render_json_response_unauthorized

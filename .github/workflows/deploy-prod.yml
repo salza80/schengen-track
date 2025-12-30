@@ -37,6 +37,17 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
 
+      - name: Resolve Ops Lambda Function
+        id: ops_lambda
+        run: |
+          STACK_NAME="SchengTrackProd"
+          OPS_FUNCTION_NAME=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].Outputs[?OutputKey=='OpsLambdaFunctionName'].OutputValue" --output text)
+          if [ -z "$OPS_FUNCTION_NAME" ] || [ "$OPS_FUNCTION_NAME" = "None" ]; then
+            echo "Failed to resolve Ops Lambda function name"
+            exit 1
+          fi
+          echo "ops_function_name=$OPS_FUNCTION_NAME" >> $GITHUB_OUTPUT
+
       - name: Install CDK
         run: npm install -g aws-cdk@latest
 
@@ -83,80 +94,60 @@ jobs:
           echo "✓ Deployment timestamp set to: $current_time"
       
       - name: Run database migrations
+        env:
+          OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
         run: |
-          echo "Checking and fixing migration status..."
-          fix_response=$(curl -s "https://schengen-calculator.com/fix_people_migration?token=${{ secrets.TASK_PASSWORD }}")
-          echo "$fix_response" | jq '.' || echo "$fix_response"
-          
-          echo "Running migrations (with automatic unlock in same invocation)..."
-          # Use combined endpoint to unlock and migrate in a single Lambda invocation
-          # This prevents race conditions from separate invocations
-          max_attempts=3
-          attempt=1
-          success=false
-          
-          while [ $attempt -le $max_attempts ] && [ "$success" = "false" ]; do
-            if [ $attempt -gt 1 ]; then
-              wait_time=$((attempt * 3))
-              echo "Retry attempt $attempt of $max_attempts (waiting ${wait_time}s)..."
-              sleep $wait_time
-            fi
-            
-            response=$(curl -s "https://schengen-calculator.com/unlock_and_migrate?token=${{ secrets.TASK_PASSWORD }}")
-            if echo "$response" | grep -q '"success":true'; then
-              echo "✓ Migrations completed successfully"
-              success=true
-            else
-              echo "⚠ Migration attempt $attempt failed"
-              echo "Response:"
-              echo "$response" | jq '.' || echo "$response"
-              attempt=$((attempt + 1))
-            fi
-          done
-          
-          if [ "$success" = "false" ]; then
-            echo "❌ Migration failed after $max_attempts attempts"
-            exit 1
-          fi
-          
-          echo "Migrating people data in batches..."
-          response=$(curl -s "https://schengen-calculator.com/migrate_people_data?token=${{ secrets.TASK_PASSWORD }}&batch_size=500")
-          if echo "$response" | grep -q '"success":true'; then
-            echo "✓ People data migration completed"
-            echo "$response" | jq -r '"Migrated: \(.migrated) users in \(.batches) batches"' || echo "$response"
-          else
-            echo "⚠ People data migration failed"
-            echo "Response:"
-            echo "$response" | jq '.' || echo "$response"
-            exit 1
-          fi
+          set -euo pipefail
+          invoke_ops_lambda() {
+            local payload="$1"
+            local description="$2"
+            echo "Invoking ${description} via ops Lambda..."
+            aws lambda invoke \
+              --function-name "$OPS_FUNCTION_NAME" \
+              --payload "$payload" \
+              --cli-binary-format raw-in-base64-out \
+              /tmp/ops-response.json >/tmp/ops-invoke.log
+            cat /tmp/ops-response.json
+            jq -e '.body | fromjson | select(.success == true)' /tmp/ops-response.json >/dev/null
+            echo "✓ ${description} completed"
+          }
+
+          invoke_ops_lambda '{"command":"fix_people_migration"}' "Fix people migration metadata"
+          invoke_ops_lambda '{"command":"unlock_and_migrate"}' "Database migrations"
 
       - name: Update countries data
+        env:
+          OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
         run: |
-          echo "Updating countries data from XML..."
-          response=$(curl -s "https://schengen-calculator.com/update_countries?token=${{ secrets.TASK_PASSWORD }}")
-          if echo "$response" | grep -q '"success":true'; then
-            echo "✓ Countries data updated successfully"
-          else
-            echo "⚠ Countries update failed"
-            echo "$response"
-          fi
+          set -euo pipefail
+          aws lambda invoke \
+            --function-name "$OPS_FUNCTION_NAME" \
+            --payload '{"command":"update_countries"}' \
+            --cli-binary-format raw-in-base64-out \
+            /tmp/update-countries.json >/tmp/update-countries.log
+          cat /tmp/update-countries.json
+          jq -e '.body | fromjson | select(.success == true)' /tmp/update-countries.json >/dev/null
+          echo "✓ Countries data updated successfully"
 
       - name: Clean up guest users
+        env:
+          OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
         run: |
-          echo "Cleaning up old guest user accounts (max 5 batches/500 users)..."
-          response=$(curl -s "https://schengen-calculator.com/guest_cleanup?token=${{ secrets.TASK_PASSWORD }}&max_batches=5")
-          if echo "$response" | grep -q '"success":true'; then
-            deleted=$(echo "$response" | grep -o '"deleted":[0-9]*' | grep -o '[0-9]*')
-            batches=$(echo "$response" | grep -o '"batches":[0-9]*' | grep -o '[0-9]*')
-            remaining=$(echo "$response" | grep -o '"remaining":[0-9]*' | grep -o '[0-9]*')
-            echo "✓ Guest cleanup completed successfully"
-            echo "  Deleted: $deleted users in $batches batches"
-            if [ "$remaining" != "0" ]; then
-              echo "  Remaining: $remaining old guest users (will be cleaned up in future deployments)"
-            fi
-          else
-            echo "⚠ Guest cleanup failed"
+          set -euo pipefail
+          aws lambda invoke \
+            --function-name "$OPS_FUNCTION_NAME" \
+            --payload '{"command":"guest_cleanup","params":{"max_batches":5}}' \
+            --cli-binary-format raw-in-base64-out \
+            /tmp/guest-cleanup.json >/tmp/guest-cleanup.log
+          cat /tmp/guest-cleanup.json
+          jq -e '.body | fromjson | select(.success == true)' /tmp/guest-cleanup.json >/dev/null
+          stats=$(jq -r '.body | fromjson | .stats // empty' /tmp/guest-cleanup.json)
+          if [ -n "$stats" ]; then
+            deleted=$(echo "$stats" | jq -r '.deleted // 0')
+            batches=$(echo "$stats" | jq -r '.batches // 0')
+            remaining=$(echo "$stats" | jq -r '.remaining // 0')
+            echo "Deleted: $deleted users in $batches batches"
+            echo "Remaining: $remaining"
           fi
       
       - name: Perform CloudFront Invalidation

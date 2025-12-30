@@ -102,7 +102,7 @@ export class HttpApiConstruct extends Construct {
       memorySize: 2048,
       code: opsContainerImage,
       environment: apiContainerEnvironment,
-      timeout: cdk.Duration.minutes(5),
+      timeout: cdk.Duration.minutes(15),
       tracing: lambda.Tracing.ACTIVE,
     });
 

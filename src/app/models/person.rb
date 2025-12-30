@@ -11,6 +11,7 @@ class Person < ApplicationRecord
 
   before_destroy :prevent_primary_person_deletion
   before_destroy :prevent_last_person_deletion
+  before_save :ensure_single_primary_for_user, if: :becoming_primary?
 
   def full_name
     [first_name, last_name].compact.join(' ')
@@ -25,6 +26,14 @@ class Person < ApplicationRecord
   end
 
   private
+
+  def becoming_primary?
+    will_save_change_to_is_primary? && is_primary? && user.present?
+  end
+
+  def ensure_single_primary_for_user
+    user.people.where.not(id: id).where(is_primary: true).update_all(is_primary: false)
+  end
 
   def prevent_primary_person_deletion
     if is_primary

@@ -133,4 +133,32 @@ class PersonTest < ActiveSupport::TestCase
     person.destroy
     assert_equal 0, Visa.where(person_id: person.id).count
   end
+
+  test 'promoting a person to primary demotes other primary people for the user' do
+    primary = people(:sally_person)
+    alternate = people(:sally_person_alt)
+
+    assert primary.is_primary
+    assert_not alternate.is_primary
+
+    alternate.update!(is_primary: true)
+
+    assert alternate.reload.is_primary
+    assert_not primary.reload.is_primary
+  end
+
+  test 'creating a new primary person clears the previous primary flag' do
+    user = users(:Sally)
+
+    new_person = Person.create!(
+      user: user,
+      first_name: 'Newest',
+      nationality: countries(:Australia),
+      is_primary: true
+    )
+
+    assert new_person.reload.is_primary
+    assert_not people(:sally_person).reload.is_primary
+  end
+
 end

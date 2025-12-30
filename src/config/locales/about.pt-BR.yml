@@ -10,7 +10,9 @@ pt-BR:
         second_paragraph: Atualmente, a calculadora Schengen não leva em conta Acordos Adicionais de Isenção de Visto. Por favor, faça sua própria pesquisa sobre isso.
       additional_visa_waiver_link: Acordos Adicionais de Isenção de Visto
       blog_link_intro: 'Para alguma inspiração sobre como usar a calculadora para uma viagem prolongada pela Europa:'
-      button_text: Vá para a Calculadora Schengen para começar
+      button_text: Abrir o Calendário Schengen
+      calendar_highlight: Veja tudo de uma vez com o Calendário Schengen interativo.
+      calendar_secondary_cta: Cartões de dias em cores mostram dias usados, seguros e em espera e oferecem atalhos rápidos para adicionar ou ajustar visitas.
       calculation_description:
         paragraph: Todos os viajantes usam o cálculo padrão Schengen para determinar o tempo de permanência permitido. Isso é definido como "90 dias em qualquer período de 180 dias". A calculadora Schengen leva isso em conta, para que você possa usá-la para experimentar datas de entrada e saída para maximizar sua estadia.
       calculator_description: A Calculadora Schengen calcula o tempo de permanência que você tem permissão para viajar na Área Schengen com um visto Schengen de curta duração. Você pode usá-la para acompanhar ou prever todas as suas visitas dentro da Área Schengen para saber quantos dias você tem restantes antes de ter que sair.
@@ -103,8 +105,9 @@ pt-BR:
         title: Perguntas Frequentes
       faq_link: Perguntas Frequentes
       field_definitions_link: Definições de Nomes de Campos
-      get_started: Comece Agora
+      get_started: Veja o calendário para começar
       how_to_use:
+        entry_methods_note: Busca precisão? Use a tabela de visitas para registrar datas exatas de entrada e saída ou clique em qualquer dia do calendário para adicionar ou ajustar uma viagem - as duas visões permanecem sincronizadas.
         step_1:
           description: Select your Nationality. You can change this at the top of the page in the header.
           title: 'Step 1:'

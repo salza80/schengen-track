@@ -10,10 +10,12 @@ es:
         second_paragraph: Actualmente, la calculadora de Schengen no tiene en cuenta los Acuerdos de Exención de Visa Adicionales. Por favor, investiga más sobre esto por tu cuenta.
       additional_visa_waiver_link: Acuerdos de Exención de Visa Adicionales
       blog_link_intro: 'Para algo de inspiración sobre cómo usar la calculadora para un viaje prolongado por Europa:'
-      button_text: Ir a la Calculadora de Schengen para comenzar
+      button_text: Abrir el Calendario Schengen
       calculation_description:
         paragraph: Todos los viajeros usan el cálculo estándar de Schengen para determinar su duración de estadía permitida. Esto se define como "90 días en cualquier período de 180 días". La calculadora de Schengen tiene esto en cuenta, por lo que puedes usarla para experimentar con las fechas de entrada y salida y maximizar tu estadía.
       calculator_description: La Calculadora de Schengen calcula la duración de la estadía permitida para viajar en el Área de Schengen con una visa de corta duración. Puedes usarla para llevar un registro o prever todas tus visitas dentro del Área de Schengen, así sabrás cuántos días te quedan antes de tener que salir.
+      calendar_highlight: Visualiza todo de un vistazo con el Calendario Schengen interactivo.
+      calendar_secondary_cta: Las tarjetas de días codificadas por color muestran días usados, seguros y en espera, y te dan accesos rápidos para agregar o ajustar visitas.
       contents_title: Contenidos
       countries_in_schengen: 'Los países en el área de Schengen incluyen son: Austria, Bélgica, Bulgaria, Croacia, República Checa, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Rumania, Eslovaquia, Eslovenia, España, Suecia, Suiza.'
       definitions:
@@ -103,8 +105,9 @@ es:
         title: Preguntas Frecuentes
       faq_link: Preguntas Frecuentes
       field_definitions_link: Definiciones de Nombres de Campos
-      get_started: Comienza Ahora
+      get_started: Mira el calendario para comenzar
       how_to_use:
+        entry_methods_note: "¿Prefieres precisión? Usa la tabla de visitas para fechas exactas de entrada y salida o haz clic en cualquier día del calendario para agregar o ajustar un viaje; ambas vistas permanecen sincronizadas."
         people:
           description: Puedes rastrear viajes para varias personas usando la misma cuenta. Usa el selector de personas en la parte superior de la página para agregar y cambiar entre diferentes viajeros. Cada persona puede tener su propia nacionalidad, viajes e información de visa. Esto es útil para familias o al administrar viajes para varias personas.
           title: 'Múltiples Personas:'

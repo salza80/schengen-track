@@ -10,10 +10,12 @@ de:
         second_paragraph: Derzeit berücksichtigt der Schengen-Rechner keine zusätzlichen Visabefreiungsabkommen. Bitte recherchieren Sie dies selbst weiter.
       additional_visa_waiver_link: Zusätzliche Visabefreiungsabkommen
       blog_link_intro: 'Für etwas Inspiration zur Verwendung des Rechners für eine ausgedehnte Reise in Europa:'
-      button_text: Gehen Sie zum Schengen-Rechner, um loszulegen
+      button_text: Öffnen Sie den Schengen-Kalender
       calculation_description:
         paragraph: Alle Reisenden verwenden die Standard-Schengen-Berechnung, um ihre erlaubte Aufenthaltsdauer zu bestimmen. Diese ist definiert als "90 Tage in jedem 180-Tage-Zeitraum". Der Schengen-Rechner berücksichtigt dies, sodass Sie damit experimentieren können, um Ein- und Ausreisedaten zu optimieren und Ihren Aufenthalt zu maximieren.
       calculator_description: Der Schengen-Rechner berechnet die Aufenthaltsdauer, die Sie mit einem kurzfristigen Schengen-Visum im Schengen-Raum reisen dürfen. Sie können ihn nutzen, um alle Ihre Besuche im Schengen-Raum zu verfolgen oder vorherzusagen, damit Sie wissen, wie viele Tage Ihnen bleiben, bevor Sie abreisen müssen.
+      calendar_highlight: Behalten Sie mit dem interaktiven Schengen-Kalender alle Reisen auf einen Blick im Griff.
+      calendar_secondary_cta: Farbcodierte Tageskarten zeigen verbrauchte, sichere und wartende Tage und bieten schnelle Links, um Besuche hinzuzufügen oder anzupassen.
       contents_title: Inhalt
       countries_in_schengen: 'Die Länder im Schengen-Raum sind: Österreich, Belgien, Bulgarien, Kroatien, Tschechische Republik, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Rumänien, Slowakei, Slowenien, Spanien, Schweden, Schweiz.'
       definitions:
@@ -103,8 +105,9 @@ de:
         title: Häufig gestellte Fragen
       faq_link: Häufig gestellte Fragen
       field_definitions_link: Feldnamendefinitionen
-      get_started: Jetzt loslegen
+      get_started: Kalender ansehen und loslegen
       how_to_use:
+        entry_methods_note: Sie mögen es exakt? Nutzen Sie die Besuchstabelle für präzise Ein- und Ausreisedaten oder klicken Sie im Kalender auf einen Tag, um eine Reise hinzuzufügen oder zu ändern - beide Ansichten bleiben synchron.
         people:
           description: Sie können Reisen für mehrere Personen mit demselben Konto verfolgen. Verwenden Sie den Personenwechsler oben auf der Seite, um verschiedene Reisende hinzuzufügen und zwischen ihnen zu wechseln. Jede Person kann ihre eigene Nationalität, Reisen und Visuminformationen haben. Dies ist nützlich für Familien oder bei der Verwaltung von Reisen für mehrere Personen.
           title: 'Mehrere Personen:'

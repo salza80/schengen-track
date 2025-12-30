@@ -88,8 +88,6 @@ jobs:
             jq -e '.body | fromjson | select(.success == true)' /tmp/ops-response.json >/dev/null
             echo "✓ ${description} completed"
           }
-
-          invoke_ops_lambda '{"command":"fix_people_migration"}' "Fix people migration metadata"
           invoke_ops_lambda '{"command":"unlock_and_migrate"}' "Database migrations"
 
       - name: Update countries data

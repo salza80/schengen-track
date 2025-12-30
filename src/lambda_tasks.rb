@@ -15,3 +15,8 @@ module LambdaTasks
     { statusCode: 500, body: JSON.generate(error_response) }
   end
 end
+
+# Shim for AWS Lambda handler lookup
+def handler(event:, context:)
+  LambdaTasks.handler(event: event, context: context)
+end

@@ -109,20 +109,21 @@ class VisitsController < ApplicationController
   # DELETE /visits/1
   # DELETE /visits/1.json
   def destroy
-    # Store entry date before destroying for calendar redirect
-    entry_year = @visit.entry_date.year
-    entry_month = @visit.entry_date.month
-    
     @visit.destroy
     
     respond_to do |format|
       format.html { 
-        # If came from calendar view, redirect back to calendar
-        if request.referer&.include?('/days')
+        # If return_to parameter is present (from calendar page), redirect there
+        if params[:return_to].present? && params[:return_to].include?('/days')
+          redirect_to params[:return_to], notice: 'Visit was successfully deleted.'
+        # Otherwise check referer for backwards compatibility
+        elsif request.referer&.include?('/days')
+          entry_year = @visit.entry_date.year
+          entry_month = @visit.entry_date.month
           redirect_to days_path(locale: I18n.locale, year: entry_year, month: entry_month), 
                       notice: 'Visit was successfully deleted.'
         else
-          # Otherwise redirect to visits list
+          # Default: redirect to visits list
           redirect_to visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
         end
       }

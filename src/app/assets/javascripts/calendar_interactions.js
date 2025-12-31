@@ -393,6 +393,13 @@
           'value': csrfToken
         }));
         
+        // Add return_to parameter with current URL to preserve calendar state
+        $form.append($('<input>', {
+          'type': 'hidden',
+          'name': 'return_to',
+          'value': window.location.pathname + window.location.search
+        }));
+        
         // Submit the form
         $('body').append($form);
         $form.submit();

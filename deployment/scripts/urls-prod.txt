@@ -48,6 +48,12 @@ schengen-calculator.com/hi/about/American
 schengen-calculator.com/hi/about/indian
 schengen-calculator.com/hi/about/Sri%20Lankan
 schengen-calculator.com/hi/blog/extended-schengen-stay
+schengen-calculator.com/pt-BR
+schengen-calculator.com/pt-BR/about
+schengen-calculator.com/pt-BR/about/Brazilian
+schengen-calculator.com/pt-BR/about/Portuguese
+schengen-calculator.com/pt-BR/about/American
+schengen-calculator.com/pt-BR/blog/extended-schengen-stay
 schengen-calculator.com/ar
 schengen-calculator.com/ar/about
 schengen-calculator.com/ar/about/Saudi%20Arabian

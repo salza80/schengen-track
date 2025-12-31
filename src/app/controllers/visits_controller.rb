@@ -362,7 +362,8 @@ class VisitsController < ApplicationController
         }
         format.json { render json: { error: 'Visit not found' }, status: :not_found }
         format.js { 
-          render js: "alert('Visit not found'); window.location.reload();"
+          flash[:alert] = 'Visit not found or you do not have permission to access it.'
+          render js: "window.location.href = '#{visits_path(locale: I18n.locale)}';"
         }
       end
     end

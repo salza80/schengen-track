@@ -5,6 +5,9 @@ class VisitsController < ApplicationController
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
   
+  # Handle RecordNotFound errors (e.g., visit doesn't belong to current person)
+  rescue_from ActiveRecord::RecordNotFound, with: :visit_not_found
+  
   # Skip CSRF verification for .js GET requests (new, edit, for_date, max_stay_info)
   # These are safe read-only operations that need to work with AJAX
   skip_before_action :verify_authenticity_token, only: [:new, :edit, :for_date, :max_stay_info], if: -> { request.format.js? || request.format.json? }
@@ -109,6 +112,10 @@ class VisitsController < ApplicationController
   # DELETE /visits/1
   # DELETE /visits/1.json
   def destroy
+    # Store entry date before destroying for fallback redirect
+    entry_year = @visit.entry_date.year
+    entry_month = @visit.entry_date.month
+    
     @visit.destroy
     
     respond_to do |format|
@@ -118,8 +125,6 @@ class VisitsController < ApplicationController
           redirect_to params[:return_to], notice: 'Visit was successfully deleted.'
         # Otherwise check referer for backwards compatibility
         elsif request.referer&.include?('/days')
-          entry_year = @visit.entry_date.year
-          entry_month = @visit.entry_date.month
           redirect_to days_path(locale: I18n.locale, year: entry_year, month: entry_month), 
                       notice: 'Visit was successfully deleted.'
         else
@@ -346,5 +351,19 @@ class VisitsController < ApplicationController
           "description" => I18n.t('visits.page_description', default: I18n.t('default_description'))
         }
       }
+    end
+    
+    # Handle visit not found (doesn't exist or doesn't belong to current person)
+    def visit_not_found
+      respond_to do |format|
+        format.html { 
+          redirect_to visits_path(locale: I18n.locale), 
+                      alert: 'Visit not found or you do not have permission to access it.'
+        }
+        format.json { render json: { error: 'Visit not found' }, status: :not_found }
+        format.js { 
+          render js: "alert('Visit not found'); window.location.reload();"
+        }
+      end
     end
 end

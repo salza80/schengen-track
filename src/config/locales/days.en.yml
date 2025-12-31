@@ -43,6 +43,16 @@ en:
       schengen_area: Schengen Area
       schengen_days_used: Schengen Days Used
       schengen_days_used_tooltip: The number of days inside the Schengen Area in the previous 180 days.
+    tooltip:
+      can_stay_html: 'Can stay: %{days} more days until %{date}'
+      days_used: 'Days used: %{count}/90'
+      entries: 'Entries: %{count}/%{total}'
+      entries_exceeded: 'Entry limit exceeded: %{count}/%{total}'
+      no_visa: NO VISA
+      outside_visa: Outside visa period
+      overstay: 'SCHENGEN OVERSTAY: +%{days} days'
+      valid_visa: Valid visa
+      wait: 'Wait: %{days} days'
     until_date: until %{date}
     view_table: View in Table
     visa_ok_tooltip: You have a valid visa as at today

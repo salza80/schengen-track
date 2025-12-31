@@ -10,10 +10,12 @@ zh-CN:
         second_paragraph: 目前，申根计算器不考虑额外的签证豁免协议。请通过自己的研究进行跟进。
       additional_visa_waiver_link: 额外签证豁免协议
       blog_link_intro: 有关在欧洲进行长时间旅行并使用计算器的一些灵感：
-      button_text: 前往申根计算器立即开始
+      button_text: 打开申根日历
       calculation_description:
         paragraph: 所有旅客都使用标准申根计算来确定其允许的停留时间。这被定义为"任何180天期间内的90天"。申根计算器考虑了这一点，因此您可以尝试入境和出境日期以最大化您的停留时间。
       calculator_description: 申根签证计算器可以计算您在申根地区持短期申根签证期间允许停留的时间长度。您可以使用它来跟踪或预测您在申根地区内所有的访问，以便知道在您必须离开之前剩余多少天。
+      calendar_highlight: 通过交互式申根日历一眼掌握所有计划。
+      calendar_secondary_cta: 按颜色区分的日期卡会显示已用、可用和等待中的天数，并提供快速链接来添加或调整行程。
       contents_title: 目录
       countries_in_schengen: 申根区的国家包括：奥地利、比利时、保加利亚、克罗地亚、捷克共和国、丹麦、爱沙尼亚、芬兰、法国、德国、希腊、匈牙利、冰岛、意大利、拉脱维亚、立陶宛、卢森堡、马耳他、荷兰、挪威、波兰、葡萄牙、罗马尼亚、斯洛伐克、斯洛文尼亚、西班牙、瑞典、瑞士。
       definitions:
@@ -103,8 +105,9 @@ zh-CN:
         title: 常见问题
       faq_link: 常见问题
       field_definitions_link: 字段名称定义
-      get_started: 立即开始
+      get_started: 查看日历即可开始
       how_to_use:
+        entry_methods_note: 想要精确？使用访问表录入准确的入境和离境日期，或在日历上点击任何一天来添加或调整行程，两种视图始终保持同步。
         people:
           description: 您可以使用同一账户追踪多人的行程。使用页面顶部的人员切换器添加和切换不同的旅行者。每个人可以拥有自己的国籍、行程和签证信息。这对于家庭或管理多人旅行非常有用。
           title: 多人追踪：

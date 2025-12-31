@@ -11,7 +11,7 @@
             = t('days.current_status')
           %small.d-block.mt-1
             = t('common.as_of')
-            = Date.today.strftime('%B %d, %Y')
+            = l(Date.today, format: :long)
         = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-light btn-sm d-flex align-items-center", "aria-label": t('days.jump_to_today') do
           %i.fa.fa-calendar.mr-1.flex-shrink-0{"aria-hidden": "true"}
           %span= t('days.jump_to_today')
@@ -103,7 +103,7 @@
             .entry-date
               = link_to days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: "d-inline-block next-entry-link-text" do
                 %strong.text-primary
-                  = t('days.from_date_onwards', date: day.the_date.strftime('%b %d, %Y'))
+                  = t('days.from_date_onwards', date: l(day.the_date, format: :long))
             .entry-duration
               %small
                 = t('days.stay_for_days', days: day.max_remaining_days)
@@ -111,7 +111,7 @@
                   %span.badge.badge-success.ml-1= t('days.full_stay')
             .entry-until
               %small.text-muted
-                = t('days.until_date', date: (day.the_date + (day.max_remaining_days - 1).days).strftime('%b %d, %Y'))
+                = t('days.until_date', date: l(day.the_date + (day.max_remaining_days - 1).days, format: :long))
   
   -# Help and resources link
   .sidebar-section.card.mt-2

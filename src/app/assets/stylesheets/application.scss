@@ -368,6 +368,76 @@ body {
   margin-bottom: 60px;
 }
 
+// RTL helpers for Arabic locale
+html[dir='rtl'] {
+  body {
+    font-family: 'Tajawal', 'Cairo', 'Roboto', sans-serif;
+  }
+
+  .navbar .nav-link,
+  .navbar .dropdown-item,
+  .dropdown-menu {
+    text-align: right;
+  }
+
+  .navbar .person-switcher .dropdown-toggle {
+    text-align: right;
+  }
+
+  .language-selector-wrapper .language-select {
+    direction: ltr;
+    text-align: right;
+  }
+
+  .ml-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .mr-auto {
+    margin-right: 0 !important;
+    margin-left: auto !important;
+  }
+
+  .mr-1 {
+    margin-right: 0 !important;
+    margin-left: 0.25rem !important;
+  }
+
+  .mr-2 {
+    margin-right: 0 !important;
+    margin-left: 0.5rem !important;
+  }
+
+  .mr-3 {
+    margin-right: 0 !important;
+    margin-left: 1rem !important;
+  }
+
+  .mr-4 {
+    margin-right: 0 !important;
+    margin-left: 1.5rem !important;
+  }
+
+  .ml-1 {
+    margin-left: 0 !important;
+    margin-right: 0.25rem !important;
+  }
+
+  .ml-2 {
+    margin-left: 0 !important;
+    margin-right: 0.5rem !important;
+  }
+
+  .text-left {
+    text-align: right !important;
+  }
+
+  .text-right {
+    text-align: left !important;
+  }
+}
+
 // Screen reader only content (visually hidden but accessible)
 .sr-only-heading {
   position: absolute;

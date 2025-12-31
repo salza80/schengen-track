@@ -27,25 +27,20 @@ class Country < ApplicationRecord
   end
 
   def name
-    begin
-      return super if I18n.locale == :en
-      translatedName = I18n.t!("#{country_code}_name")
-      return translatedName unless translatedName.empty?
-    rescue I18n::MissingTranslationData
-      puts "No name translation found for #{country_code}_name"
-    end
-    return super
+    return self[:name] if I18n.locale == :en
+    localized_name
+  end
+
+  def localized_name(locale = I18n.locale)
+    key = "#{country_code}_name"
+    translated_value_for(key, locale) || translated_value_for(key, I18n.default_locale) || self[:name]
   end
 
   def nationality_translated
-    begin
-      return super if I18n.locale == :en
-      translatedNationality = I18n.t!("#{country_code}_nationality")
-      return translatedNationality unless translatedNationality.empty?
-    rescue I18n::MissingTranslationData
-      puts "No name translation found for #{country_code}_nationality"
-    end
-    return super
+    return self[:nationality] if I18n.locale == :en
+
+    key = "#{country_code}_nationality"
+    translated_value_for(key, I18n.locale) || translated_value_for(key, I18n.default_locale) || self[:nationality]
   end
 
   def nationality_english
@@ -53,13 +48,8 @@ class Country < ApplicationRecord
   end
 
   def nationality_plural
-    begin
-      plural = I18n.t!("#{country_code}_nationality_plural")
-      return plural unless plural.empty?
-    rescue I18n::MissingTranslationData
-      puts "No plural found for #{country_code}_nationality_plural"
-    end
-    return name
+    key = "#{country_code}_nationality_plural"
+    translated_value_for(key, I18n.locale) || translated_value_for(key, I18n.default_locale) || name
   end
 
   def schengen?(use_date = Time.now)
@@ -78,5 +68,14 @@ class Country < ApplicationRecord
     else
       return nil
     end
+  end
+
+  private
+
+  def translated_value_for(key, locale)
+    return I18n.t(key, locale: locale) if I18n.exists?(key, locale)
+    nil
+  rescue I18n::MissingTranslationData
+    nil
   end
 end

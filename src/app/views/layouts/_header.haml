@@ -1,7 +1,8 @@
-%nav.navbar.navbar-expand-md.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation"}
+- rtl_layout = rtl_locale?
+%nav.navbar.navbar-expand-md.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation", dir: (rtl_layout ? 'ltr' : nil)}
   %a.navbar-brand.px-3.px-md-0{:href => visits_path(I18n.locale)}
     = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)
-    %span.navbar-text.site-title
+    %span.navbar-text.site-title{dir: "auto"}
       = t('common.schengen')
       %span.d-none.d-md-inline
         = t('common.visa')
@@ -26,11 +27,11 @@
         %a.nav-link{href: blog_index_path(locale: I18n.locale)}
           %i.fa.fa-book.mr-2{"aria-hidden": "true"}
           = t('common.blog')
-    %ul.navbar-nav.ml-auto
+    %ul.navbar-nav.ml-auto.text-right
       %li.nav-item.dropdown.person-switcher
         %a#personDropdown.nav-link.dropdown-toggle.d-md-flex.flex-column.align-items-md-end{href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
-          %span.person-name= current_person.full_name
-          %small.person-nationality= current_person.nationality&.name || 'Not set'
+          %span.person-name{dir: "auto"}= current_person.full_name
+          %small.person-nationality{dir: "auto"}= current_person.nationality&.localized_name || t('common.person_not_set')
         .dropdown-menu.dropdown-menu-md-right{"aria-labelledby": "personDropdown"}
           - current_user_or_guest_user.people.ordered.each do |person|
             = link_to set_current_person_path(person), method: :post, class: ['dropdown-item', ('active' if person == current_person)] do
@@ -40,18 +41,18 @@
                 %span.mr-4
               .d-inline-block
                 %div= person.full_name
-                %small.text-muted.d-block= person.nationality&.name
+                %small.text-muted.d-block= person.nationality&.localized_name || t('common.person_not_set')
           .d-none.d-md-block
             = link_to new_person_path(locale: I18n.locale), class: "dropdown-item" do
               %i.fa.fa-plus.mr-2{"aria-hidden": "true"}
-              Add new person
+              = t('common.add_person')
             .dropdown-divider
             = link_to people_path(locale: I18n.locale), class: "dropdown-item" do
               %i.fa.fa-users.mr-2{"aria-hidden": "true"}
-              Manage people
+              = t('common.manage_people')
             = link_to edit_person_path(current_person, locale: I18n.locale), class: "dropdown-item" do
               %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
-              Edit current person
+              = t('common.edit_current_person')
             .dropdown-divider
             = link_to my_details_path(locale: I18n.locale), class: "dropdown-item" do
               %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
@@ -59,21 +60,21 @@
       %li.nav-item.d-md-none
         = link_to new_person_path(locale: I18n.locale), class: "nav-link" do
           %i.fa.fa-plus.mr-2{"aria-hidden": "true"}
-          Add new person
+          = t('common.add_person')
       %li.nav-item.d-md-none
         = link_to people_path(locale: I18n.locale), class: "nav-link" do
           %i.fa.fa-users.mr-2{"aria-hidden": "true"}
-          Manage people
+          = t('common.manage_people')
       %li.nav-item.d-md-none
         = link_to edit_person_path(current_person, locale: I18n.locale), class: "nav-link" do
           %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
-          Edit current person
+          = t('common.edit_current_person')
       %li.nav-item.d-md-none
         = link_to my_details_path(locale: I18n.locale), class: "nav-link" do
           %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
           = t('common.manage_account')
       - if user_signed_in?
-        %li.nav-item.d-flex.align-items-center
+        %li.nav-item.d-flex.align-items-center.justify-content-end
           %a.btn.btn-outline-dark.btn-sm{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}
             %i.fa.fa-sign-out-alt.mr-2{"aria-hidden": "true"}
             = t('common.log_out')
@@ -81,7 +82,7 @@
             = hidden_field_tag :_method, :delete
             = hidden_field_tag :authenticity_token, form_authenticity_token
       - else
-        %li.nav-item.d-flex.align-items-center
+        %li.nav-item.d-flex.align-items-center.justify-content-end
           = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2' do
             %i.fa.fa-sign-in-alt.mr-2
             = t('common.login')

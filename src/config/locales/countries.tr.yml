@@ -2,19 +2,19 @@
 tr:
   AD_name: Andorra
   AD_nationality: Andorralı
-  AD_nationality_plural: Andorrans
+  AD_nationality_plural: Andorralılar
   AE_name: Birleşik Arap Emirlikleri
   AE_nationality: Emirli
-  AE_nationality_plural: Emirians
+  AE_nationality_plural: Emirliler
   AF_name: Afganistan
   AF_nationality: Afgan
   AF_nationality_plural: Afganlar
   AG_name: Antigua ve Barbuda
   AG_nationality: Antigualı
-  AG_nationality_plural: Antiguans
+  AG_nationality_plural: Antigualılar
   AI_name: Anguilla
   AI_nationality: Anguillalı
-  AI_nationality_plural: Anguillans
+  AI_nationality_plural: Anguillalılar
   AL_name: Arnavutluk
   AL_nationality: Arnavut
   AL_nationality_plural: Arnavutlar
@@ -76,8 +76,8 @@ tr:
   BJ_nationality: Beninli
   BJ_nationality_plural: Beninliler
   BL_name: Saint Barthelemy
-  BL_nationality: Barthélemois
-  BL_nationality_plural: Barthélemois
+  BL_nationality: Barthélemoisler
+  BL_nationality_plural: Barthélemoisler
   BM_name: Bermuda
   BM_nationality: Bermuda'lı
   BM_nationality_plural: Bermudalılar
@@ -358,7 +358,7 @@ tr:
   KM_nationality: Komorlu
   KM_nationality_plural: Komorlular
   KN_name: Saint Kitts ve Nevis
-  KN_nationality: Kittian
+  KN_nationality: Kitsli
   KN_nationality_plural: Kittis
   KP_name: Kuzey Kore
   KP_nationality: Kuzey Koreli
@@ -383,10 +383,10 @@ tr:
   LB_nationality_plural: Lübnanlılar
   LC_name: Saint Lucia
   LC_nationality: Saint Lucian
-  LC_nationality_plural: Saint Lucians
+  LC_nationality_plural: Saint Lucialılar
   LI_name: Lihtenştayn
   LI_nationality: Lihtenştaynlı
-  LI_nationality_plural: Liechtensteiners
+  LI_nationality_plural: Lihtenştaynlılar
   LK_name: Sri Lanka
   LK_nationality: Sri Lankalı
   LK_nationality_plural: Sri Lankalılar
@@ -538,8 +538,8 @@ tr:
   PL_nationality: Polonyalı
   PL_nationality_plural: Polonyalılar
   PM_name: Saint Pierre ve Miquelon
-  PM_nationality: Saint-Pierrais
-  PM_nationality_plural: Saint-Pierrais
+  PM_nationality: Saint Pierreliler
+  PM_nationality_plural: Saint Pierreliler
   PN_name: Pitcairn Adaları
   PN_nationality: Pitcairn Adalı
   PN_nationality_plural: Pitcairn Adalıları
@@ -725,7 +725,7 @@ tr:
   VN_nationality_plural: Vietnamlılar
   VU_name: Vanuatu
   VU_nationality: Ni-Vanuatulu
-  VU_nationality_plural: Ni-Vanuatu
+  VU_nationality_plural: Vanuatulular
   WF_name: Wallis ve Futuna
   WF_nationality: Wallis ve Futuna Adalı
   WF_nationality_plural: Wallis ve Futuna Adalıları
@@ -740,7 +740,7 @@ tr:
   YE_nationality_plural: Yemenliler
   YT_name: Mayotte
   YT_nationality: Mahoralı
-  YT_nationality_plural: Mahorans
+  YT_nationality_plural: Mayotteliler
   ZA_name: Güney Afrika
   ZA_nationality: Güney Afrikalı
   ZA_nationality_plural: Güney Afrikalılar

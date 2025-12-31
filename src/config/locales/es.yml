@@ -5,6 +5,7 @@ es:
     page_title: Acerca de la Calculadora Schengen
   common:
     about: Sobre nosotros
+    add_person: Agregar nueva persona
     as_of: A partir de
     back: Atrás
     blog: Blog
@@ -19,6 +20,7 @@ es:
     delete_warning: "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer."
     disclaimer: Descargo de responsabilidad
     edit: Editar
+    edit_current_person: Editar persona actual
     edit_my_details: Editar mis datos
     'false': 'No'
     home: Inicio
@@ -26,11 +28,13 @@ es:
     log_out: Cerrar sesión
     login: Iniciar sesión
     manage_account: Gestionar cuenta
+    manage_people: Administrar personas
     multi_unlimited_entries: "(introduce 0 para entradas múltiples/ilimitadas)"
     na: N/A
     'no': 'No'
     no_days: Número de Días
     of: de
+    person_not_set: Sin definir
     privacy_policy: Política de Privacidad
     save: Guardar
     schengen: Schengen
@@ -40,6 +44,14 @@ es:
     'true': Sí
     visa: Visa
     'yes': Sí
+  continents:
+    africa: África
+    antarctica: Antártida
+    asia: Asia
+    europe: Europa
+    north_america: América del Norte
+    oceania: Oceanía
+    south_america: América del Sur
   date:
     abbr_day_names:
     - dom
@@ -74,6 +86,7 @@ es:
     formats:
       default: "%d/%m/%Y"
       long: "%e de %B de %Y"
+      month_year: "%B de %Y"
       short: "%e %b"
     month_names:
     -
@@ -93,12 +106,23 @@ es:
     - :day
     - :month
     - :year
+  days:
+    day_cell:
+      days_unit: días
+      entries_unit: entradas
+      overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
+      wait: "⏱%{count} %{unit}"
   default_description: Calcule sus días sin visa Schengen con nuestro rastreador gratuito de 90/180 días. Siga la regla móvil de 180 días para 29 países europeos. ¡Comience a planificar su viaje a Europa hoy!
   default_title: Calculadora Schengen | Regla 90/180 Días | Gratis
   errors:
     prohibited_saving_visa: "%{count} errores impidieron guardar este visado:"
   helpers:
     label:
+      person:
+        first_name: Nombre
+        last_name: Apellido
+        nationality_id: Nacionalidad
       user:
         email: Correo electrónico
         first_name: Nombre
@@ -117,6 +141,40 @@ es:
         entry_date: Fecha de entrada
         exit_date: Fecha de salida
   keywords: Schengen, Calculadora Schengen, 90 días en 180, regla de los 90 días, calculadora de 180 días, calculadora de 90 días, Visa Schengen, Viaje, Visa de Europa, Área Schengen, Zona Schengen
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} error impidió guardar a esta persona:"
+          other: "%{count} errores impidieron guardar a esta persona:"
+      nationality_placeholder: Selecciona una nacionalidad
+      optional_hint: Opcional
+      required_hint: Obligatorio
+    index:
+      delete_person_warning: "¿Estás seguro de que deseas eliminar a %{person}? Esta acción no se puede deshacer."
+      empty_state:
+        description: Agrega tu primera persona para comenzar a seguir planes de viaje.
+        title: No se encontraron personas
+      single_person_notice: Actualmente tienes una persona. Agrega más para seguir planes de viaje para varias personas o escenarios.
+      table:
+        actions:
+          delete_aria: Eliminar a %{name}
+          edit_aria: Editar a %{name}
+        badges:
+          active: Activa
+          primary: Principal
+        caption: Personas para las que sigues planes de viaje
+        columns:
+          actions: Acciones
+          name: Nombre
+          nationality: Nacionalidad
+          status: Estado
+        make_primary:
+          aria: Convertir a %{name} en principal
+          label: Convertir en principal
+          title: Convertir en principal
+    new:
+      title: Agregar nueva persona
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"

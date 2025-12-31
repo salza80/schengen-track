@@ -37,4 +37,13 @@ test.schengen-calculator.com/zh-CN/blog/extended-schengen-stay
 test.schengen-calculator.com/hi
 test.schengen-calculator.com/hi/about
 test.schengen-calculator.com/hi/blog/extended-schengen-stay
+test.schengen-calculator.com/pt-BR
+test.schengen-calculator.com/pt-BR/about
+test.schengen-calculator.com/pt-BR/about/Brazilian
+test.schengen-calculator.com/pt-BR/blog/extended-schengen-stay
+test.schengen-calculator.com/ar
+test.schengen-calculator.com/ar/about
+test.schengen-calculator.com/ar/about/Egyptian
+test.schengen-calculator.com/ar/about/Saudi%20Arabian
+test.schengen-calculator.com/ar/blog/extended-schengen-stay
 

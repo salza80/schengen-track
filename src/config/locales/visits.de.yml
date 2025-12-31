@@ -24,6 +24,10 @@ de:
     exits_tooltip: Gibt an, ob ein Visum für den Reisezeitraum eingegeben wurde.
     export_to_csv: Exportieren als CSV
     list_caption: Liste der besuchten Länder oder Länder, die Sie in den letzten 180 Tagen besucht haben und in Zukunft besuchen möchten.
+    max_stay_days_until: "%{days} Tage bis %{date}"
+    max_stay_label: 'Maximaler Aufenthalt:'
+    max_stay_next_visit_constraint: "(begrenzt durch nächste Einreise am %{date})"
+    max_stay_schengen_constraint: "(begrenzt durch Schengen 90/180-Regel)"
     meta_description: Verfolgen und verwalten Sie alle Ihre Schengen-Raum-Besuche. Überwachen Sie die Einhaltung der 90/180-Tage-Regel, fügen Sie vergangene Reisen hinzu, planen Sie zukünftige Reisen und berechnen Sie die verbleibenden Tage.
     modify: Ändern
     multi: Mehrfach

@@ -1,0 +1,186 @@
+---
+ar:
+  about:
+    meta_description: "تعرّف على كيفية استخدام حاسبة شنغن المجانية لقاعدة ٩٠/١٨٠ يوماً. افهم متطلبات التأشيرات، وتتبع إقاماتك الأوروبية، وخطّط لرحلاتك إلى ٢٩ دولة في منطقة شنغن."
+    page_title: "عن حاسبة شنغن"
+  common:
+    about: "حول"
+    as_of: "اعتباراً من"
+    back: "رجوع"
+    blog: "مدونة"
+    calculator: "حاسبة"
+    calendar: "التقويم"
+    cancel: "إلغاء"
+    confirm_delete: "تأكيد الحذف"
+    continent: "قارة"
+    country: "دولة"
+    data_deletion: "حذف البيانات"
+    delete: "حذف"
+    delete_warning: "هل أنت متأكد من رغبتك في حذف هذا السجل؟ لا يمكن التراجع عن هذا الإجراء."
+    disclaimer: "إخلاء المسؤولية"
+    edit: "تعديل"
+    edit_my_details: "تعديل بياناتي"
+    'false': "لا"
+    home: "الرئيسية"
+    legal: "روابط قانونية"
+    log_out: "تسجيل الخروج"
+    login: "تسجيل الدخول"
+    manage_account: "إدارة الحساب"
+    manage_people: "إدارة الأشخاص"
+    add_person: "إضافة شخص جديد"
+    edit_current_person: "تعديل الشخص الحالي"
+    person_not_set: "غير محدد"
+    multi_unlimited_entries: "(أدخل 0 للدخول المتعدد/غير المحدود)"
+    na: "غير متوفر"
+    'no': "لا"
+    no_days: "عدد الأيام"
+    of: "من"
+    privacy_policy: "سياسة الخصوصية"
+    save: "حفظ"
+    schengen: "شنغن"
+    schengen_calculator: "حاسبة شنغن"
+    to: "إلى"
+    trips: "الرحلات"
+    'true': "نعم"
+    visa: "تأشيرة"
+    'yes': "نعم"
+  continents:
+    asia: "آسيا"
+    europe: "أوروبا"
+    africa: "أفريقيا"
+    north_america: "أمريكا الشمالية"
+    oceania: "أوقيانوسيا"
+    south_america: "أمريكا الجنوبية"
+    antarctica: "القارة القطبية الجنوبية"
+  date:
+    abbr_day_names:
+    - "أحد"
+    - "إثن"
+    - "ثلث"
+    - "أرب"
+    - "خمس"
+    - "جمع"
+    - "سبت"
+    abbr_month_names:
+    -
+    - "ينا"
+    - "فبر"
+    - "مار"
+    - "أبر"
+    - "ماي"
+    - "يون"
+    - "يول"
+    - "أغس"
+    - "سبت"
+    - "أكت"
+    - "نوف"
+    - "ديس"
+    day_names:
+    - "الأحد"
+    - "الإثنين"
+    - "الثلاثاء"
+    - "الأربعاء"
+    - "الخميس"
+    - "الجمعة"
+    - "السبت"
+    formats:
+      default: "%Y-%m-%d"
+      long: "%e %B %Y"
+      short: "%b %d"
+      month_year: "%B %Y"
+    month_names:
+    -
+    - "يناير"
+    - "فبراير"
+    - "مارس"
+    - "أبريل"
+    - "مايو"
+    - "يونيو"
+    - "يوليو"
+    - "أغسطس"
+    - "سبتمبر"
+    - "أكتوبر"
+    - "نوفمبر"
+    - "ديسمبر"
+    order:
+    - :year
+    - :month
+    - :day
+  days:
+    day_cell:
+      days_unit: "يوم"
+      entries_unit: "دخول"
+      per_limit: "/%{limit} %{unit}"
+      overstay: "+%{count} %{unit}"
+      wait: "⏱%{count} %{unit}"
+    meta_description: "عرض تقويمي مرئي لإقامتك في منطقة شنغن. تتبّع قاعدة ٩٠/١٨٠ يوماً باستخدام ألوان واضحة، وراجع الرحلات السابقة، وخطّط للزيارات القادمة، وتابع الأيام المتبقية لك في أوروبا."
+    page_title: "تقويم شنغن"
+  default_description: "احسب أيام إقامتك المسموح بها في شنغن باستخدام متعقب قاعدة ٩٠/١٨٠ يوماً المجاني. تتبّع قاعدة ١٨٠ يوماً المتجددة لـ ٢٩ دولة أوروبية وابدأ التخطيط لرحلتك إلى أوروبا اليوم."
+  default_title: "حاسبة شنغن | تتبّع قاعدة ٩٠/١٨٠ يوماً | أداة مجانية"
+  errors:
+    prohibited_saving_visa: "%{count} خطأ منع حفظ هذه التأشيرة:"
+  helpers:
+    label:
+      user:
+        email: "البريد الإلكتروني"
+        first_name: "الاسم الأول"
+        last_name: "اسم العائلة"
+        nationality: "الجنسية"
+        nationality_id: "الجنسية"
+        password: "كلمة المرور"
+        password_confirmation: "تأكيد كلمة المرور"
+      person:
+        first_name: "الاسم الأول"
+        last_name: "اسم العائلة"
+        nationality_id: "الجنسية"
+      visa:
+        end_date: "تاريخ الانتهاء"
+        no_entries: "عدد الدخولات"
+        start_date: "تاريخ البدء"
+      visit:
+        continent: "القارة"
+        country: "الدولة"
+        entry_date: "تاريخ الدخول"
+        exit_date: "تاريخ الخروج"
+  keywords: "شنغن، حاسبة شنغن، قاعدة ٩٠ يوماً من أصل ١٨٠، حاسبة ١٨٠ يوماً، تأشيرة شنغن، سفر، أوروبا"
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} خطأ منع حفظ هذا الشخص:"
+          other: "%{count} أخطاء منعت حفظ هذا الشخص:"
+      nationality_placeholder: "اختر الجنسية"
+      optional_hint: "اختياري"
+      required_hint: "إلزامي"
+    new:
+      title: "إضافة شخص جديد"
+    index:
+      single_person_notice: "لديك حالياً شخص واحد. أضف المزيد لتتبع خطط السفر لعدة أشخاص أو سيناريوهات."
+      empty_state:
+        title: "لم يتم العثور على أشخاص"
+        description: "أضف أول شخص لبدء تتبع خطط السفر."
+      table:
+        caption: "الأشخاص الذين تتابع خطط سفرهم"
+        columns:
+          name: "الاسم"
+          nationality: "الجنسية"
+          status: "الحالة"
+          actions: "الإجراءات"
+        badges:
+          active: "نشط"
+          primary: "أساسي"
+        make_primary:
+          label: "اجعله أساسياً"
+          title: "اجعله أساسياً"
+          aria: "اجعل %{name} الشخص الأساسي"
+        actions:
+          edit_aria: "تعديل %{name}"
+          delete_aria: "حذف %{name}"
+      delete_person_warning: "هل أنت متأكد من رغبتك في حذف %{person}؟ لا يمكن التراجع عن هذا الإجراء."
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%e %B %Y"
+      mid: "%e %B %Y"
+      short: "%b %-d, %Y"
+  title_with_content: "حاسبة إقامة شنغن/أوروبا القصيرة لـ %{content}"

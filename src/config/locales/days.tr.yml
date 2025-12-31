@@ -45,6 +45,16 @@ tr:
       schengen_area: Schengen Alanı
       schengen_days_used: Kullanılan Schengen Günleri
       schengen_days_used_tooltip: Önceki 180 gün içinde Schengen Alanı'nda geçirilen gün sayısı.
+    tooltip:
+      can_stay_html: "%{date} tarihine kadar %{days} gün daha kalabilirsiniz"
+      days_used: 'Kullanılan gün: %{count}/90'
+      entries: 'Girişler: %{count}/%{total}'
+      entries_exceeded: 'Giriş sınırı aşıldı: %{count}/%{total}'
+      no_visa: Vize yok
+      outside_visa: Vize süresi dışında
+      overstay: 'SCHENGEN AŞIMI: +%{days} gün'
+      valid_visa: Geçerli vize
+      wait: 'Bekleme: %{days} gün'
     until_date: "%{date} tarihine kadar"
     view_table: Tabloda Görüntüle
     visa_ok_tooltip: Bugün itibariyle geçerli bir vizeniz var

@@ -1,10 +1,18 @@
 module ApplicationHelper
+  # List of RTL (Right-to-Left) locales
+  RTL_LOCALES = [:ar].freeze
+
   def title(page_title)
     content_for(:title) { page_title.titleize }
   end
 
   def active_if(options)
     'active' if params.merge(options) == params
+  end
+
+  # Check if the current locale uses RTL layout
+  def rtl_locale?
+    RTL_LOCALES.include?(I18n.locale)
   end
 
   def get_started_path
@@ -28,7 +36,8 @@ module ApplicationHelper
       hi: 'हिन्दी',
       tr: 'Türkçe',
       'zh-CN': '中文',
-      'pt-BR': 'Português'
+      'pt-BR': 'Português',
+      ar: 'العربية'
     }
   
     # Return both dropdown (for users) and hidden links (for SEO)

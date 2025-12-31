@@ -10,10 +10,12 @@ tr:
         second_paragraph: Şu anda, Schengen hesap makinesi Ek Vize Muafiyet Anlaşmalarını dikkate almamaktadır. Lütfen bununla ilgili kendi araştırmanızı yapın.
       additional_visa_waiver_link: Ek Vize Muafiyet Anlaşmaları
       blog_link_intro: 'Avrupa''da uzun bir seyahat için hesap makinesini nasıl kullanabileceğiniz konusunda biraz ilham almak için:'
-      button_text: Başlamak için Schengen Hesap Makinesine Git
+      button_text: Schengen Takvimini Aç
       calculation_description:
         paragraph: Tüm gezginler, izin verilen kalma sürelerini belirlemek için standart Schengen hesaplamasını kullanır. Bu, "herhangi bir 180 günlük dönemde 90 gün" olarak tanımlanır. Schengen hesap makinesi bunu dikkate alır, bu nedenle giriş ve çıkış tarihlerini deneyerek kalışınızı maksimize edebilirsiniz.
       calculator_description: Schengen Hesap Makinesi, kısa süreli Schengen vizesi ile Schengen Bölgesi'nde seyahat etme hakkınızı hesaplar. Schengen Bölgesi içindeki tüm ziyaretlerinizi takip etmek veya tahmin etmek için kullanabilirsiniz, böylece ne zaman ayrılmanız gerektiğini bilirsiniz.
+      calendar_highlight: Etkileşimli Schengen Takvimi ile her şeyi tek bakışta görün.
+      calendar_secondary_cta: Renk kodlu gün kartları kullanılan, güvenli ve bekleme günlerini gösterir ve ziyaret eklemek ya da düzenlemek için hızlı bağlantılar sunar.
       contents_title: İçindekiler
       countries_in_schengen: 'Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç, İsviçre.'
       definitions:
@@ -103,8 +105,9 @@ tr:
         title: Sıkça Sorulan Sorular
       faq_link: Sıkça Sorulan Sorular
       field_definitions_link: Alan Adı Tanımları
-      get_started: Şimdi Başlayın
+      get_started: Başlamak için takvimi görüntüleyin
       how_to_use:
+        entry_methods_note: Hassasiyet mi istiyorsunuz? Tam giriş ve çıkış tarihleri için Ziyaretler tablosunu kullanın veya takvimde herhangi bir güne tıklayarak bir seyahat ekleyip düzenleyin - iki görünüm de senkron kalır.
         people:
           description: Aynı hesabı kullanarak birden fazla kişi için seyahatleri takip edebilirsiniz. Farklı gezginler eklemek ve aralarında geçiş yapmak için sayfanın üst kısmındaki kişi değiştiricisini kullanın. Her kişinin kendi uyruğu, seyahatleri ve vize bilgileri olabilir. Bu, aileler veya birden fazla kişi için seyahat yönetirken kullanışlıdır.
           title: 'Birden Fazla Kişi:'

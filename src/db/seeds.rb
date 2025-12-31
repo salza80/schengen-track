@@ -7,6 +7,9 @@ require 'nokogiri'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Delete in order respecting foreign key constraints
+# Person has dependent: :delete_all for visits and visas, so destroying Person will cascade
+Person.destroy_all
 User.destroy_all
 Country.delete_all
 Continent.delete_all

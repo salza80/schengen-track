@@ -20,7 +20,7 @@
       .col-sm-10
         .alert.alert-info.mb-0
           %small
-            %strong Maximum stay:
+            %strong= t('visits.max_stay_label')
             %span#max-stay-info Loading...
   .form-group.row
     .col-sm-2.my-auto
@@ -48,6 +48,13 @@
   != "    const country = #{@country_options};"
   != "    const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');"
   != "    "
+  != "    // Translation strings"
+  != "    const i18n = {"
+  != "      schengenConstraint: '#{j t('visits.max_stay_schengen_constraint')}',"
+  != "      nextVisitConstraint: '#{j t('visits.max_stay_next_visit_constraint', date: '__DATE__')}'.replace('__DATE__', ''),"
+  != "      daysUntil: '#{j t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__')}'.replace('__DAYS__', '').replace('__DATE__', '')"
+  != "    };"
+  != "    "
   != "    // Handle entry date changes to show max remaining days"
   != "    function updateMaxStayInfo() {"
   != "      var year = $('#visit_entry_date_1i').val();"
@@ -71,12 +78,12 @@
   != "        data: ajaxData,"
   != "        success: function(data) {"
   != "          if (data.show && data.max_days > 0) {"
-  != "            var message = data.max_days + ' days until ' + data.exit_date;"
+  != "            var message = i18n.daysUntil.replace('__DAYS__', data.max_days).replace('__DATE__', data.exit_date);"
   != "            if (data.constrained) {"
   != "              if (data.constraint_type === 'schengen') {"
-  != "                message += ' (limited by Schengen 90/180 rule)';"
+  != "                message += ' ' + i18n.schengenConstraint;"
   != "              } else if (data.constraint_type === 'next_visit') {"
-  != "                message += ' (limited by next entry on ' + data.next_entry_date + ')';"
+  != "                message += ' ' + i18n.nextVisitConstraint.replace('__DATE__', data.next_entry_date);"
   != "              }"
   != "            }"
   != "            $('#max-stay-info').html(message);"

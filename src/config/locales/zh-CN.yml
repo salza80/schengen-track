@@ -10,6 +10,7 @@ zh-CN:
         other: 用户
   common:
     about: 关于
+    add_person: 添加新人员
     as_of: 截至
     back: 返回
     blog: 博客
@@ -24,6 +25,7 @@ zh-CN:
     delete_warning: 您确定要删除吗？此操作无法撤销。
     disclaimer: 免责声明
     edit: 编辑
+    edit_current_person: 编辑当前人员
     edit_my_details: 编辑我的详细信息
     'false': 否
     home: 首页
@@ -31,11 +33,13 @@ zh-CN:
     log_out: 登出
     login: 登录
     manage_account: 管理账户
+    manage_people: 管理人员
     multi_unlimited_entries: "(输入0表示多次/无限次入境)"
     na: 不适用
     'no': 否
     no_days: 无日
     of: 的
+    person_not_set: 未设置
     privacy_policy: 隐私政策
     save: 保存
     schengen: 申根
@@ -45,6 +49,14 @@ zh-CN:
     'true': 是
     visa: 签证
     'yes': 是
+  continents:
+    africa: 非洲
+    antarctica: 南极洲
+    asia: 亚洲
+    europe: 欧洲
+    north_america: 北美洲
+    oceania: 大洋洲
+    south_america: 南美洲
   date:
     abbr_day_names:
     - 周日
@@ -79,6 +91,7 @@ zh-CN:
     formats:
       default: "%Y年%m月%d日"
       long: "%Y年%B%d日"
+      month_year: "%Y年%B"
       short: "%m月%d日"
     month_names:
     -
@@ -98,12 +111,23 @@ zh-CN:
     - :year
     - :month
     - :day
+  days:
+    day_cell:
+      days_unit: 天
+      entries_unit: 次入境
+      overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
+      wait: "⏱%{count} %{unit}"
   default_description: 使用我们的免费90/180天追踪器计算您的申根免签天数。追踪29个欧洲国家的滚动180天规则。立即开始规划您的欧洲之旅！
   default_title: 申根计算器 | 90/180天规则追踪 | 免费
   errors:
     prohibited_saving_visa: "%{count}个错误导致无法保存此签证："
   helpers:
     label:
+      person:
+        first_name: 名字
+        last_name: 姓氏
+        nationality_id: 国籍
       user:
         email: 邮箱
         first_name: 名字
@@ -122,6 +146,40 @@ zh-CN:
         entry_date: 入境日期
         exit_date: 出境日期
   keywords: 申根, 申根签证计算器, 180天内90天, 90天规则, 180天计算器, 90天计算器, 申根签证, 旅行, 欧洲签证, 申根区, 申根区域
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} 个错误导致此人员无法保存："
+          other: "%{count} 个错误导致此人员无法保存："
+      nationality_placeholder: 选择国籍
+      optional_hint: 可选
+      required_hint: 必填
+    index:
+      delete_person_warning: 确定要删除%{person}吗？此操作无法撤销。
+      empty_state:
+        description: 添加第一位人员，开始跟踪出行计划。
+        title: 未找到人员
+      single_person_notice: 当前只有一个人员。添加更多以便为多个人或场景跟踪出行计划。
+      table:
+        actions:
+          delete_aria: 删除%{name}
+          edit_aria: 编辑%{name}
+        badges:
+          active: 活跃
+          primary: 主要
+        caption: 您正在跟踪出行计划的人员
+        columns:
+          actions: 操作
+          name: 姓名
+          nationality: 国籍
+          status: 状态
+        make_primary:
+          aria: 将%{name}设为主要
+          label: 设为主要
+          title: 设为主要
+    new:
+      title: 添加新人员
   time:
     formats:
       default: "%Y年%B%e日"

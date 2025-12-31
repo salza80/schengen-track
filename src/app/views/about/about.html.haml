@@ -70,9 +70,12 @@
         = t('about.about.title')
       %p.mb-4
         = t('about.about.calculator_description')
-      .text-center.mb-4
-        = link_to t('about.about.get_started'), get_started_path, class: "btn btn-primary btn-lg", "aria-label": t('about.about.get_started')
-      %br
+      %p.mb-3
+        = t('about.about.calendar_highlight')
+      .text-center.mb-2
+        = link_to t('about.about.get_started'), days_path(locale: I18n.locale), class: "btn btn-primary btn-lg", "aria-label": t('about.about.get_started')
+      %p.mb-4
+        = t('about.about.calendar_secondary_cta')
       %p.mb-4
         = t('about.about.useful_for_planning')
       %h2#brexit.mb-4
@@ -160,7 +163,7 @@
           = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt'), class: "form-label sr-only"
           = collection_select(:user, :nationality_id, Country.outside_schengen.order_by_name, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt')}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
       .text-center.mb-4
-        = link_to t('about.about.button_text'), get_started_path, class: "btn btn-primary btn-lg", "aria-label": t('about.about.button_text')
+        = link_to t('about.about.button_text'), days_path(locale: I18n.locale), class: "btn btn-primary btn-lg", "aria-label": t('about.about.button_text')
       .ad-block.mb-4
         %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
       %p.mb-4
@@ -343,6 +346,8 @@
         = t('about.about.how_to_use.step_3.description_1')
         %br
         = t('about.about.how_to_use.step_3.description_2')
+      %p.mb-4.text-muted
+        = t('about.about.how_to_use.entry_methods_note')
       %h3.mb-4
         = t('about.about.how_to_use.step_4.title')
       %p.mb-4
@@ -430,7 +435,7 @@
       %h3#updated.mb-4
         = t('about.about.last_updated.title')
       %p.mb-4
-        = t('about.about.last_updated.description', date: l(Time.new(2025, 12, 24), format: :mid))
+        = t('about.about.last_updated.description', date: l(Time.new(2026, 1, 1), format: :mid))
 :javascript
   // Initialize scrollspy and smooth scroll after page load
   // This runs AFTER deferred scripts (core.js with jQuery) have loaded

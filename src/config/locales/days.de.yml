@@ -45,6 +45,16 @@ de:
       schengen_area: Schengen-Raum
       schengen_days_used: Genutzte Schengen-Tage
       schengen_days_used_tooltip: Die Anzahl der Tage im Schengen-Raum in den letzten 180 Tagen.
+    tooltip:
+      can_stay_html: 'Aufenthalt möglich: %{days} weitere Tage bis %{date}'
+      days_used: 'Genutzte Tage: %{count}/90'
+      entries: 'Einreisen: %{count}/%{total}'
+      entries_exceeded: 'Einreisegrenze überschritten: %{count}/%{total}'
+      no_visa: Kein Visum
+      outside_visa: Außerhalb des Visumszeitraums
+      overstay: 'SCHENGEN-ÜBERZUG: +%{days} Tage'
+      valid_visa: Gültiges Visum
+      wait: 'Wartezeit: %{days} Tage'
     until_date: bis %{date}
     view_table: In Tabelle anzeigen
     visa_ok_tooltip: Sie haben ein gültiges Visum zum heutigen Tag

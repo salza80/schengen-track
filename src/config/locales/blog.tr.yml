@@ -16,7 +16,13 @@ tr:
         description: Tarihin, mimarinin ve doğal güzelliğin eşsiz bir karışımına sahip bir ülke.
       - name: Fas
         description: Kuzey Afrika'nın tadını çıkaran Fas, canlı pazarları, tarihi şehirleri ve çeşitli manzaralarıyla tanınır.
+      ctaTitle: Uzatılmış Avrupa maceranızı planlamaya hazır mısınız?
       introduction: Avrupa seyahati birçok insanın hayalidir, ancak Schengen Alanı'ndaki 90 günlük sınırlama sık ​​sık seyahat edenleri daha fazlasını istemeye yönlendirir. Korkmayın, yol arkadaşı, Avrupa yolculuğunuzu tipik 90 günlük sürenin ötesine yasal olarak uzatmanın sırlarını açığa çıkarıyoruz. Stratejik planlamaya dalmadan önce, Schengen Alanı dışındaki ülkelerle tanışmanız önemlidir. Burada, İrlanda, Birleşik Krallık, Karadağ, Belarus ve Fas gibi anahtar ulusları listeliyoruz; bunlar Avrupa'daki zamanınızı maksimize etmek için önemli olabilir.
+      mapCaption: Schengen Bölgesi ve çevresindeki Schengen dışı ülkeler.
+      mapCredit_prefix: 'Harita: %{author},'
+      mapCredit_source: Political Geography Now
+      mapLicense_label: 'Lisans:'
+      mapLicense_name: CC BY-SA
       maximizingContent: 'Şimdi Schengen dışındaki ülkelerle tanıştığınıza göre, stratejik planlama esastır:'
       maximizingContentContinued: |
         <p> <strong>Bir Schengen Merkezinden Başlayın:</strong> Paris, İtalya veya İspanya gibi tercih ettiğiniz bir Schengen ülkesinde yolculuğunuza başlayın. İlk haftaları yerel kültüre ve çevreye dalmakla geçirin.</p>
@@ -30,6 +36,7 @@ tr:
       schengenAboutLink: Hakkında Schengen Hesap Makinesi sayfasına
       schengenButtonIntro: Yoldayken seyahatlerinizi planlamak ve takip etmek için Schengen Hesap Makinesi'ni kullanabilirsiniz. Sadece her ülkeye giriş ve çıkış tarihlerinizi girin, gerisini o yapar, toplam kalışınızı, kalan günlerinizi ve tekrar ne zaman girebileceğinizi ve kalışınızı nasıl uzatabileceğinizi hesaplar. Mutlu planlar ve vizenizi aşmadığınızdan emin olarak güvenli kalın.
       schengenButtonTitle: Schengen Hesap Makinesi ile başlayın
+      shareHeading: Bu yazıyı paylaş
       title: Avrupa'da 90 Günden Fazla Nasıl Kalınır (Yasal Olarak)
       understanding90Content: 90 günlük 180 gün kuralının bir devirli hesaplamada işlediğini unutmayın. İllüstrasyon yapmak için, Schengen Alanı'na 1 Ocak'ta girip 30 Mart'ta tam 90 gün kullanarak kalırsanız, 1 Haziran'da yeniden girerseniz, başka 90 gününüz olur. Önemli olan, herhangi bir günde, son 180 günde 90 günü aşmadığınızdan emin olmaktır. Bu kuralı ihlal etmeden kalışınızı optimize etmek için anlayabileceğiniz sürekli bir hesaplamadır.
       understandingContent: Schengen Alanı, iç sınırlar olmadan sorunsuz bir seyahat deneyimi sunan 29 Avrupa ülkesinden oluşur. Ancak, 90/180 kuralı, herhangi bir 180 günlük dönem içinde Schengen Alanı'nda kalışınızın 90 günü aşamayacağını zorunlu kılar. Bu kural, bir devirli hesaplamada işler, her gün toplam kalışınıza katkıda bulunur.

@@ -1,27 +1,50 @@
 %footer.footer.bg-light
   .container-fluid
     .row.align-items-center.py-2.justify-content-between
-      .col-auto.text-center.text-lg-left
-        %span.text-muted.text-nowrap.footer-copyright
-          %i.fa.fa-copyright.mr-1{"aria-hidden" => "true"}
-          = "#{Time.current.year} #{t('common.schengen_calculator')}"
-      .col.text-center.mb-2.mb-lg-0.d-none.d-md-block
-        %nav.footer-links{"aria-label": "Legal"}
-          = link_to disclaimer_path(locale: I18n.locale), class: "footer-link text-nowrap" do
-            %i.fa.fa-file-text.mr-1
-            = t('common.disclaimer')
-          %span.mx-2.text-muted ·
-          = link_to privacy_path(locale: I18n.locale), class: "footer-link text-nowrap" do
-            %i.fa.fa-shield-alt.mr-1
-            = t('common.privacy_policy')
-          %span.mx-2.text-muted ·
-          = link_to datadeletion_path(locale: I18n.locale), class: "footer-link text-nowrap" do
-            %i.fa.fa-trash.mr-1
-            = t('common.data_deletion')
-      .col-auto.text-center.text-lg-right
-        .language-selector-wrapper
-          %i.fa.fa-globe.mr-2.text-primary.d-none.d-md-inline
-          = language_selector
+      - if rtl_locale?
+        .col-auto.text-center.text-lg-right
+          .language-selector-wrapper
+            %i.fa.fa-globe.mr-2.text-primary.d-none.d-md-inline
+            = language_selector
+        .col.text-center.mb-2.mb-lg-0.d-none.d-md-block
+          %nav.footer-links{"aria-label": "Legal"}
+            = link_to disclaimer_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+              %i.fa.fa-file-text.mr-1
+              = t('common.disclaimer')
+            %span.mx-2.text-muted ·
+            = link_to privacy_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+              %i.fa.fa-shield-alt.mr-1
+              = t('common.privacy_policy')
+            %span.mx-2.text-muted ·
+            = link_to datadeletion_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+              %i.fa.fa-trash.mr-1
+              = t('common.data_deletion')
+        .col-auto.text-center.text-lg-left
+          %span.text-muted.text-nowrap.footer-copyright
+            %i.fa.fa-copyright.mr-1{"aria-hidden" => "true"}
+            = "#{Time.current.year} #{t('common.schengen_calculator')}"
+      - else
+        .col-auto.text-center.text-lg-left
+          %span.text-muted.text-nowrap.footer-copyright
+            %i.fa.fa-copyright.mr-1{"aria-hidden" => "true"}
+            = "#{Time.current.year} #{t('common.schengen_calculator')}"
+        .col.text-center.mb-2.mb-lg-0.d-none.d-md-block
+          %nav.footer-links{"aria-label": "Legal"}
+            = link_to disclaimer_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+              %i.fa.fa-file-text.mr-1
+              = t('common.disclaimer')
+            %span.mx-2.text-muted ·
+            = link_to privacy_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+              %i.fa.fa-shield-alt.mr-1
+              = t('common.privacy_policy')
+            %span.mx-2.text-muted ·
+            = link_to datadeletion_path(locale: I18n.locale), class: "footer-link text-nowrap" do
+              %i.fa.fa-trash.mr-1
+              = t('common.data_deletion')
+        .col-auto.text-center.text-lg-right
+          .language-selector-wrapper
+            %i.fa.fa-globe.mr-2.text-primary.d-none.d-md-inline
+            = language_selector
 %script{:type => "application/ld+json"}
   {
   "@context": "http://schema.org",

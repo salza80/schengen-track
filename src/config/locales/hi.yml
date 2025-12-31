@@ -21,6 +21,7 @@ hi:
     page_title: शेंगेन कैलकुलेटर के बारे में
   common:
     about: के बारे में
+    add_person: नया व्यक्ति जोड़ें
     as_of: की तिथि से
     back: वापस
     blog: ब्लॉग
@@ -35,6 +36,7 @@ hi:
     delete_warning: क्या आप वाकई इसे हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।
     disclaimer: अस्वीकरण
     edit: संपादित करें
+    edit_current_person: वर्तमान व्यक्ति संपादित करें
     edit_my_details: मेरा विवरण संपादित करें
     'false': नहीं
     home: होम
@@ -42,11 +44,13 @@ hi:
     log_out: लॉग आउट
     login: लॉग इन
     manage_account: खाता प्रबंधित करें
+    manage_people: लोगों का प्रबंधन करें
     multi_unlimited_entries: "(बहु/असीमित प्रवेश के लिए 0 दर्ज करें)"
     na: उपलब्ध नहीं
     'no': नहीं
     no_days: दिनों की संख्या
     of: का
+    person_not_set: निर्धारित नहीं
     privacy_policy: गोपनीयता नीति
     save: सहेजें
     schengen: शेंगेन
@@ -56,6 +60,14 @@ hi:
     'true': हाँ
     visa: वीज़ा
     'yes': हाँ
+  continents:
+    africa: अफ्रीका
+    antarctica: अंटार्कटिका
+    asia: एशिया
+    europe: यूरोप
+    north_america: उत्तरी अमेरिका
+    oceania: ओशियानिया
+    south_america: दक्षिणी अमेरिका
   date:
     abbr_day_names:
     - रवि
@@ -90,6 +102,7 @@ hi:
     formats:
       default: "%d/%m/%Y"
       long: "%e %B %Y"
+      month_year: "%B %Y"
       short: "%e %b"
     month_names:
     -
@@ -109,12 +122,23 @@ hi:
     - :day
     - :month
     - :year
+  days:
+    day_cell:
+      days_unit: दिन
+      entries_unit: प्रवेश
+      overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
+      wait: "⏱%{count} %{unit}"
   default_description: हमारे मुफ्त 90/180 दिन ट्रैकर से अपने शेंगेन वीज़ा-मुक्त दिनों की गणना करें। 29 यूरोपीय देशों के लिए रोलिंग 180-दिन के नियम को ट्रैक करें। आज ही अपनी यूरोप यात्रा की योजना शुरू करें!
   default_title: शेंगेन कैलकुलेटर | 90/180 दिन नियम | मुफ़्त
   errors:
     prohibited_saving_visa: "%{count} त्रुटि के कारण इस वीज़ा को सहेजना निषेध है:"
   helpers:
     label:
+      person:
+        first_name: पहला नाम
+        last_name: अंतिम नाम
+        nationality_id: राष्ट्रीयता
       user:
         email: ईमेल
         first_name: पहला नाम
@@ -136,6 +160,40 @@ hi:
   my_details_page:
     delete_account: खाता हटाएं
     delete_account_confirm: क्या आप वाकई अपना खाता हटाना चाहते हैं? आपका सभी डेटा खो जाएगा। इस कार्य को पूर्ववत नहीं किया जा सकता।
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} त्रुटि के कारण इस व्यक्ति को सहेजा नहीं जा सका:"
+          other: "%{count} त्रुटियों के कारण इस व्यक्ति को सहेजा नहीं जा सका:"
+      nationality_placeholder: राष्ट्रीयता चुनें
+      optional_hint: ऐच्छिक
+      required_hint: अनिवार्य
+    index:
+      delete_person_warning: क्या आप वाकई %{person} को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।
+      empty_state:
+        description: यात्रा योजनाएँ ट्रैक करना शुरू करने के लिए अपना पहला व्यक्ति जोड़ें।
+        title: कोई व्यक्ति नहीं मिला
+      single_person_notice: वर्तमान में आपके पास एक व्यक्ति है। कई लोगों या परिदृश्यों की यात्रा योजनाओं को ट्रैक करने के लिए और जोड़ें।
+      table:
+        actions:
+          delete_aria: "%{name} को हटाएं"
+          edit_aria: "%{name} को संपादित करें"
+        badges:
+          active: सक्रिय
+          primary: प्राथमिक
+        caption: वे लोग जिनके लिए आप यात्रा योजनाएँ ट्रैक कर रहे हैं
+        columns:
+          actions: कार्रवाइयाँ
+          name: नाम
+          nationality: राष्ट्रीयता
+          status: स्थिति
+        make_primary:
+          aria: "%{name} को प्राथमिक बनाएं"
+          label: प्राथमिक बनाएं
+          title: प्राथमिक बनाएं
+    new:
+      title: नया व्यक्ति जोड़ें
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"

@@ -10,10 +10,12 @@ en:
         second_paragraph: Currently, the Schengen calculator does not take into account Additional Visa Waiver agreements. Please follow up on this with your own research.
       additional_visa_waiver_link: Additional Visa Waiver agreements
       blog_link_intro: 'For some inspiration on using the calculator for an extended travel in Europe:'
-      button_text: Go to Schengen Calculator to get started
+      button_text: Open the Schengen Calendar
       calculation_description:
         paragraph: All travelers use the standard Schengen calculation to determine their allowed length of stay. This is defined as "90 days in any 180-day period". The Schengen calculator takes this into account, so you can use it to experiment with entry and exit dates to maximize your stay.
       calculator_description: The Schengen Calculator calculates the length of stay you are allowed to travel in the Schengen Area on a short term Schengen visa. You can use it to keep track, or forecast all of your visits inside the Schengen Area so you know how many days you have remaining before you have to leave.
+      calendar_highlight: See everything at a glance with the interactive Schengen Calendar.
+      calendar_secondary_cta: Color-coded day cards show used, safe, and waiting days and give you quick links to add or adjust visits.
       contents_title: Contents
       countries_in_schengen: 'The countries in the Schengen area include are: Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, Switzerland.'
       definitions:
@@ -103,8 +105,9 @@ en:
         title: Frequently Asked Questions
       faq_link: Frequently Asked Questions
       field_definitions_link: Field Name Definitions
-      get_started: Get Started Now
+      get_started: View the calendar to get started
       how_to_use:
+        entry_methods_note: Prefer precision? Use the Visits table for exact entry/exit dates, or click any day in the calendar to add or adjust a trip—both views stay in sync.
         people:
           description: You can track trips for multiple people using the same account. Use the person switcher at the top of the page to add and switch between different travelers. Each person can have their own nationality, trips, and visa information. This is useful for families or when managing travel for multiple individuals.
           title: 'Multiple People:'

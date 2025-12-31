@@ -24,6 +24,10 @@ es:
     exits_tooltip: Indica si se ha ingresado a un Visado para el período del viaje.
     export_to_csv: Exportar a CSV
     list_caption: Lista de países visitados o que has visitado en los últimos 180 días, y que planeas visitar en el futuro.
+    max_stay_days_until: "%{days} días hasta %{date}"
+    max_stay_label: 'Estancia máxima:'
+    max_stay_next_visit_constraint: "(limitado por próxima entrada el %{date})"
+    max_stay_schengen_constraint: "(limitado por regla Schengen 90/180)"
     meta_description: Rastrea y administra todas tus visitas al Área Schengen. Monitorea el cumplimiento de la regla de 90/180 días, agrega viajes pasados, planifica viajes futuros y calcula los días restantes.
     modify: Modificar
     multi: Múltiple

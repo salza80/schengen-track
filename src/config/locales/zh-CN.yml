@@ -49,6 +49,14 @@ zh-CN:
     'true': 是
     visa: 签证
     'yes': 是
+  continents:
+    africa: 非洲
+    antarctica: 南极洲
+    asia: 亚洲
+    europe: 欧洲
+    north_america: 北美洲
+    oceania: 大洋洲
+    south_america: 南美洲
   date:
     abbr_day_names:
     - 周日

@@ -60,6 +60,14 @@ hi:
     'true': हाँ
     visa: वीज़ा
     'yes': हाँ
+  continents:
+    africa: अफ्रीका
+    antarctica: अंटार्कटिका
+    asia: एशिया
+    europe: यूरोप
+    north_america: उत्तरी अमेरिका
+    oceania: ओशियानिया
+    south_america: दक्षिणी अमेरिका
   date:
     abbr_day_names:
     - रवि

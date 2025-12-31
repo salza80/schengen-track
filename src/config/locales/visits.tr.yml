@@ -24,6 +24,10 @@ tr:
     exits_tooltip: Seyahat dönemi için Vize girilmiş mi?
     export_to_csv: CSV'ye Aktar
     list_caption: Son 180 gün içinde ziyaret edilen veya ziyaret edilen ve gelecekte ziyaret etmeyi planladığınız ülkelerin listesi.
+    max_stay_days_until: "%{date} tarihine kadar %{days} gün"
+    max_stay_label: 'Maksimum konuşma süresi:'
+    max_stay_next_visit_constraint: "(%{date} tarihindeki sonraki giriş ile sınırlı)"
+    max_stay_schengen_constraint: "(Schengen 90/180 kuralı ile sınırlı)"
     meta_description: Tüm Schengen Bölgesi ziyaretlerinizi takip edin ve yönetin. 90/180 gün kuralına uygunluğu izleyin, geçmiş gezileri ekleyin, gelecek seyahatleri planlayın ve kalan günleri hesaplayın.
     modify: Düzenle
     multi: Çoklu

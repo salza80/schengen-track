@@ -162,6 +162,8 @@ ignore_unused:
   - '*_name'
   - '*_nationality'
   - '*_nationality_plural'
+  # Continent names are dynamically looked up in Continent model
+  - 'continents.*'
   # Keys used as parameter values, variable names, or interpolation params (not direct t() calls)
   # These are legitimately used but i18n-tasks scanner can't detect them
   - 'about.about.how_to_use.step_5.optional'  # Used as 'optional: true' parameter

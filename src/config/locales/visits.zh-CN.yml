@@ -24,6 +24,10 @@ zh-CN:
     exits_tooltip: 指示是否已输入了旅行期间的签证。
     export_to_csv: 导出为 CSV
     list_caption: 过去180天内访问或计划访问的国家列表。
+    max_stay_days_until: 直到%{date}还有%{days}天
+    max_stay_label: 最长停留时间：
+    max_stay_next_visit_constraint: "（受%{date}下次入境限制）"
+    max_stay_schengen_constraint: "（受申根 90/180 规则限制）"
     meta_description: 追踪和管理您的所有申根区访问。监控遵守90/180天规则，添加过去的旅行，计划未来的旅行并计算剩余天数。
     modify: 修改
     multi: 多次

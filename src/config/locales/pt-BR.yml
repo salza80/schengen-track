@@ -43,6 +43,14 @@ pt-BR:
     'true': 'Sim'
     visa: Visto
     'yes': 'Sim'
+  continents:
+    asia: Ásia
+    europe: Europa
+    africa: África
+    north_america: América do Norte
+    oceania: Oceania
+    south_america: América do Sul
+    antarctica: Antártida
   date:
     abbr_day_names:
     - Dom

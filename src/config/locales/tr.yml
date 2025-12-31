@@ -49,6 +49,14 @@ tr:
     'true': Evet
     visa: Vize
     'yes': Evet
+  continents:
+    africa: Afrika
+    antarctica: Antarktika
+    asia: Asya
+    europe: Avrupa
+    north_america: Kuzey Amerika
+    oceania: Okyanusya
+    south_america: Güney Amerika
   date:
     abbr_day_names:
     - Paz

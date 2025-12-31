@@ -69,15 +69,25 @@
           %span{"aria-hidden" => "true"} &times;
       .modal-body
         -# Form will be loaded here via AJAX
-      .modal-footer.d-flex.justify-content-between
-        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
-        .ml-auto
-          %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
-            %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
-            = t('common.delete')
-          %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": t('common.save')}
-            %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
-            = t('common.save')
+      .modal-footer.d-flex
+        - if I18n.locale == :ar
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
+          .mr-auto
+            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
+              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+              = t('common.delete')
+            %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": t('common.save')}
+              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              = t('common.save')
+        - else
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
+          .ml-auto
+            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
+              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+              = t('common.delete')
+            %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": t('common.save')}
+              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              = t('common.save')
 
 -# Modal for adding/editing visas
 #visaModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visaModalLabel", role: "dialog", tabindex: "-1"}
@@ -89,15 +99,25 @@
           %span{"aria-hidden" => "true"} &times;
       .modal-body
         -# Form will be loaded here via AJAX
-      .modal-footer.d-flex.justify-content-between
-        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
-        .ml-auto
-          %button#deleteVisaButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
-            %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
-            = t('common.delete')
-          %button#saveVisaButton.btn.btn-primary{type: "button"}
-            %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
-            = t('common.save')
+      .modal-footer.d-flex
+        - if I18n.locale == :ar
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+          .mr-auto
+            %button#deleteVisaButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+              = t('common.delete')
+            %button#saveVisaButton.btn.btn-primary{type: "button"}
+              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              = t('common.save')
+        - else
+          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+          .ml-auto
+            %button#deleteVisaButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
+              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+              = t('common.delete')
+            %button#saveVisaButton.btn.btn-primary{type: "button"}
+              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              = t('common.save')
 
 #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
   .modal-dialog{role: "document"}

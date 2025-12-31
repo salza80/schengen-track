@@ -44,6 +44,14 @@ ar:
     'true': "نعم"
     visa: "تأشيرة"
     'yes': "نعم"
+  continents:
+    asia: "آسيا"
+    europe: "أوروبا"
+    africa: "أفريقيا"
+    north_america: "أمريكا الشمالية"
+    oceania: "أوقيانوسيا"
+    south_america: "أمريكا الجنوبية"
+    antarctica: "القارة القطبية الجنوبية"
   date:
     abbr_day_names:
     - "أحد"

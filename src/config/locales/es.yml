@@ -44,6 +44,14 @@ es:
     'true': Sí
     visa: Visa
     'yes': Sí
+  continents:
+    africa: África
+    antarctica: Antártida
+    asia: Asia
+    europe: Europa
+    north_america: América del Norte
+    oceania: Oceanía
+    south_america: América del Sur
   date:
     abbr_day_names:
     - dom

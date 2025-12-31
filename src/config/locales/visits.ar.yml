@@ -52,3 +52,7 @@ ar:
     visa_entry_count: "عدد الدخولات المستخدمة"
     visa_exists: "توجد تأشيرة"
     visa_required: "التأشيرة مطلوبة!"
+    max_stay_days_until: "%{days} يوم حتى %{date}"
+    max_stay_schengen_constraint: "(محدد بقاعدة شنغن 90/180)"
+    max_stay_next_visit_constraint: "(محدد بدخول لاحق في %{date})"
+    max_stay_label: "الحد الأقصى للإقامة:"

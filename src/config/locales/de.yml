@@ -45,6 +45,14 @@ de:
     'true': Ja
     visa: Visum
     'yes': Ja
+  continents:
+    africa: Afrika
+    antarctica: Antarktis
+    asia: Asien
+    europe: Europa
+    north_america: Nordamerika
+    oceania: Ozeanien
+    south_america: Südamerika
   date:
     abbr_day_names:
     - So

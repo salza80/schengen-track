@@ -1,4 +1,4 @@
-- rtl_layout = I18n.locale.to_s.start_with?('ar')
+- rtl_layout = rtl_locale?
 %nav.navbar.navbar-expand-md.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation", dir: (rtl_layout ? 'ltr' : nil)}
   %a.navbar-brand.px-3.px-md-0{:href => visits_path(I18n.locale)}
     = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)

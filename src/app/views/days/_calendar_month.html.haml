@@ -2,7 +2,7 @@
   .month-header
     %h4.text-center.mb-0= month[:month_name]
 
-  - rtl_layout = I18n.locale.to_s.start_with?('ar')
+  - rtl_layout = rtl_locale?
 
   .calendar-grid{dir: (rtl_layout ? 'ltr' : nil)}
     -# Day headers (S M T W T F S)

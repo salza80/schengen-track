@@ -1,7 +1,11 @@
 - unless current_person.visa_required? || @next_entry_days.nil?
   - @next_entry_days.each do |day|
-    - entry_date = l(day.the_date, format: :long)
-    - end_date = l(day.the_date + (day.max_remaining_days - 1).days, format: :long)
+    - begin
+      - entry_date = l(day.the_date, format: :long)
+      - end_date = l(day.the_date + (day.max_remaining_days - 1).days, format: :long)
+    - rescue I18n::MissingTranslationData
+      - entry_date = day.the_date.strftime('%B %e, %Y')
+      - end_date = (day.the_date + (day.max_remaining_days - 1).days).strftime('%B %e, %Y')
     - message = t(
         'visits.reenter_info',
         date: '__DATE__',

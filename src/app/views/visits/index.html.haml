@@ -70,7 +70,7 @@
       .modal-body
         -# Form will be loaded here via AJAX
       .modal-footer.d-flex
-        - if I18n.locale == :ar
+        - if rtl_locale?
           %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
           .mr-auto
             %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
@@ -100,7 +100,7 @@
       .modal-body
         -# Form will be loaded here via AJAX
       .modal-footer.d-flex
-        - if I18n.locale == :ar
+        - if rtl_locale?
           %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
           .mr-auto
             %button#deleteVisaButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}

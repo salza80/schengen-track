@@ -41,7 +41,9 @@ module DaysHelper
     end
     
     # Schengen day count
-    parts << t('days.tooltip.days_used', count: day.schengen_days_count) if day.schengen_days_count
+    if day.schengen_days_count
+      parts << t('days.tooltip.days_used', count: day.schengen_days_count, default: "Days used: #{day.schengen_days_count}/90")
+    end
     if day.max_remaining_days && day.the_date
       exit_date = l(day.the_date + (day.max_remaining_days - 1).days, format: :long)
       exit_date_span = content_tag(:span, exit_date, style: 'white-space: nowrap;')

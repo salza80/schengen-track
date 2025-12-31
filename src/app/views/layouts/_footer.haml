@@ -1,7 +1,7 @@
 %footer.footer.bg-light
   .container-fluid
     .row.align-items-center.py-2.justify-content-between
-      - if I18n.locale == :ar
+      - if rtl_locale?
         .col-auto.text-center.text-lg-right
           .language-selector-wrapper
             %i.fa.fa-globe.mr-2.text-primary.d-none.d-md-inline

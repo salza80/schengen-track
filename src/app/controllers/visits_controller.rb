@@ -121,7 +121,7 @@ class VisitsController < ApplicationController
     respond_to do |format|
       format.html { 
         # If return_to parameter is present (from calendar page), redirect there
-        if params[:return_to].present? && params[:return_to].include?('/days')
+        if params[:return_to].present? && safe_redirect_path?(params[:return_to])
           redirect_to params[:return_to], notice: 'Visit was successfully deleted.'
         # Otherwise check referer for backwards compatibility
         elsif request.referer&.include?('/days')
@@ -366,5 +366,31 @@ class VisitsController < ApplicationController
           render js: "window.location.href = '#{visits_path(locale: I18n.locale)}';"
         }
       end
+    end
+
+    # Validate redirect path to prevent open redirect vulnerabilities
+    # Only allows relative paths within the application
+    def safe_redirect_path?(path)
+      return false if path.blank?
+      
+      # Parse the URI
+      uri = URI.parse(path)
+      
+      # Reject if it has a scheme (http://, https://, //, javascript:, etc.)
+      return false if uri.scheme.present?
+      
+      # Reject if it has a host (//example.com/path)
+      return false if uri.host.present?
+      
+      # Only allow paths starting with /
+      return false unless path.start_with?('/')
+      
+      # Optionally: whitelist specific paths (uncomment to enforce)
+      # allowed_paths = ['/days', '/visits', '/people', '/visas', '/about', '/blog']
+      # return false unless allowed_paths.any? { |allowed| path.start_with?("#{allowed}") || path.start_with?("/#{I18n.locale}#{allowed}") }
+      
+      true
+    rescue URI::InvalidURIError
+      false
     end
 end

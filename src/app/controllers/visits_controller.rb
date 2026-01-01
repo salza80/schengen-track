@@ -390,7 +390,10 @@ class VisitsController < ApplicationController
       return false unless path.start_with?('/')
       
       # Whitelist specific application paths for defense-in-depth
-      # This prevents redirects to any internal path the user doesn't explicitly need
+      # Using start_with? intentionally allows sub-paths and query params:
+      #   ✓ /days/2024/12
+      #   ✓ /en/days?year=2025&month=1&day=15
+      #   ✓ /visits/123/edit
       allowed_paths = ['/days', '/visits', '/people', '/visas']
       I18n.available_locales.each do |locale|
         allowed_paths += ["/#{locale}/days", "/#{locale}/visits", "/#{locale}/people", "/#{locale}/visas"]

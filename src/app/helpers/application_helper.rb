@@ -107,15 +107,28 @@ module ApplicationHelper
   # Minified in all environments to catch issues early
   # See app/assets/stylesheets/critical.css for readable source with comments
   def critical_css
-    @critical_css ||= begin
-      css_content = File.read(Rails.root.join('app/assets/stylesheets/critical.css'))
-      
-      # Minify: remove comments and collapse whitespace
-      # Test this in development to catch any CSS syntax issues early
-      css_content.gsub(/\/\*.*?\*\//m, '')       # Remove /* comments */
-                 .gsub(/\s+/, ' ')                # Collapse whitespace
-                 .gsub(/\s*([{}:;,])\s*/, '\1')  # Remove space around punctuation
-                 .strip
+    # In production, cache the result in Rails.cache since file never changes
+    # In development, use instance variable to allow file changes during development
+    cache_key = 'critical_css_minified'
+    
+    if Rails.env.production?
+      Rails.cache.fetch(cache_key) do
+        minify_critical_css
+      end
+    else
+      @critical_css ||= minify_critical_css
     end
+  end
+
+  private
+
+  def minify_critical_css
+    css_content = File.read(Rails.root.join('app/assets/stylesheets/critical.css'))
+    
+    # Minify: remove comments and collapse whitespace
+    css_content.gsub(/\/\*.*?\*\//m, '')       # Remove /* comments */
+               .gsub(/\s+/, ' ')                # Collapse whitespace
+               .gsub(/\s*([{}:;,])\s*/, '\1')  # Remove space around punctuation
+               .strip
   end
 end

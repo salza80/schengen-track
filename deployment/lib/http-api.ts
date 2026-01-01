@@ -11,7 +11,6 @@ import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 import { createRedirectFunction } from './createRedirectFunction';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
-import * as ecr from 'aws-cdk-lib/aws-ecr';
 
 import * as path from 'path';
 // import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
@@ -115,20 +114,6 @@ export class HttpApiConstruct extends Construct {
         `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter/schengen/deployment-timestamp`
       ]
     }));
-
-    // Configure ECR lifecycle policy to clean up old images
-    // This will keep the 5 most recent images and delete older ones
-    const ecrRepository = ecr.Repository.fromRepositoryName(
-      this,
-      'CDKAssetsRepository',
-      `cdk-hnb659fds-container-assets-${Stack.of(this).account}-${Stack.of(this).region}`
-    );
-
-    ecrRepository.addLifecycleRule({
-      description: 'Keep only the 5 most recent images',
-      maxImageCount: 5,
-      rulePriority: 1,
-    });
 
     // AWS API Gateway HTTP API using Rails as Lambda proxy integration
     // overwrite host header with domain, as it will come from cloudfront and rails requires it for security xss checks.

@@ -2,6 +2,7 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { RailsLambdaStack } from '../lib/rails-lambda-stack';
+import { EcrLifecycleConstruct } from '../lib/ecr-lifecycle';
 
 const app = new cdk.App();
 const region = 'eu-central-1';
@@ -37,6 +38,13 @@ const account = '360298971790';
 
  new RailsLambdaStack(app, 'RailsLambdaStack', stagingProps);
  new RailsLambdaStack(app, 'SchengTrackProd', productonProps);
+
+ // ECR lifecycle policy - only create once since repository is shared between staging and production
+ const ecrStack = new cdk.Stack(app, 'EcrLifecycleStack', {
+   env: { account, region },
+   description: 'ECR lifecycle policy for CDK asset repository'
+ });
+ new EcrLifecycleConstruct(ecrStack, 'EcrLifecycle');
 
 
 // new RailsLambdaStack(app, 'RailsLambdaStack', {

@@ -18,12 +18,13 @@
     .col-sm-10
       = f.text_field :last_name, class: "form-control"
   
-  .form-group.row
-    .col-sm-2.my-auto
-      = label_tag :email, "Email", class: "col-form-label"
-    .col-sm-10
-      = text_field_tag :email, @user.email, class: "form-control", disabled: true
-      %small.text-muted To change your email, please contact support.
+  - unless @user.is_guest?
+    .form-group.row
+      .col-sm-2.my-auto
+        = label_tag :email, "Email", class: "col-form-label"
+      .col-sm-10
+        = text_field_tag :email, @user.email, class: "form-control", disabled: true
+        %small.text-muted To change your email, please contact support.
   
   .form-group.row
     .col-sm-2.my-auto

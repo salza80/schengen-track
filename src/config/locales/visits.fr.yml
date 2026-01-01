@@ -1,0 +1,58 @@
+---
+fr:
+  visits:
+    about_page_link: page À propos
+    add_first_trip_hint: Commencez à suivre vos visites Schengen
+    add_record: Ajouter un enregistrement de voyage
+    add_travel: Ajouter un voyage
+    add_visa: Ajouter un visa
+    change_settings: Modifier les paramètres
+    country: Pays
+    dates: Dates
+    day_plural:
+      one: jour
+      other: jours
+    days: jours
+    days_in_schengen_zone: " dans la zone Schengen"
+    days_outside_schengen_zone: " hors de la zone Schengen"
+    days_overstay: Jours de dépassement
+    days_overstay_tooltip: Le nombre de jours dans l'espace Schengen non autorisés par le visa saisi.
+    edit_title: Modifier un enregistrement de voyage
+    entry_date: Date d'entrée
+    exit_date: Date de sortie
+    exits: Sorties
+    exits_tooltip: Indique si un visa a été saisi pour la période du voyage.
+    export_to_csv: Exporter en CSV
+    list_caption: Liste des pays visités ou que vous avez visités au cours des 180 derniers jours, et que vous prévoyez de visiter à l'avenir.
+    max_stay_days_until: "%{days} jours jusqu'au %{date}"
+    max_stay_label: 'Séjour maximum :'
+    max_stay_next_visit_constraint: "(limité par la prochaine entrée le %{date})"
+    max_stay_schengen_constraint: "(limité par la règle Schengen 90/180)"
+    meta_description: Suivez et gérez toutes vos visites dans l'espace Schengen. Surveillez la conformité avec la règle 90/180 jours, ajoutez des voyages passés, planifiez des voyages futurs et calculez les jours restants.
+    modify: Modifier
+    multi: Multiple
+    nationality_set_to: Votre nationalité est définie comme %{nationality}. %{settings_link} si nécessaire.
+    no_days: Nbre jours
+    no_entries: Nbre entrées
+    no_trips: Pas encore de voyages
+    number_of_days_tooltip: Le nombre de jours de cette visite.
+    number_of_entries_tooltip: Le nombre d'entrées autorisées sur ce visa.
+    page_description: Suivez vos voyages dans l'espace Schengen et surveillez votre conformité avec la règle 90/180 jours. Ajoutez vos visites passées et à venir pour voir combien de jours il vous reste.
+    page_title: Suivez vos visites Schengen
+    reenter_info: Si vous rentrez dans l'espace Schengen le %{date}, vous pouvez rester %{max_days} %{day_plural} jusqu'au %{end_date}.
+    register_now: "Inscrivez-vous maintenant"
+    save_travel_plans: pour sauvegarder vos plans de voyage !
+    schengen_area: Espace Schengen
+    schengen_area_tooltip: Indique si le pays de cette visite est inclus dans l'espace Schengen.
+    schengen_days: Jours dans l'espace Schengen
+    schengen_days_calculation: Jours Schengen
+    schengen_days_calculation_tooltip: Le nombre de jours dans l'espace Schengen au cours des 180 derniers jours.
+    schengen_days_overstay: Jours de dépassement
+    schengen_visa_list: Visas
+    travel_details: Détails du voyage
+    travel_record: Voyages
+    visa_days_overstay: Dépassement de visa
+    visa_details: Détails du visa
+    visa_entry_count: Entrées utilisées
+    visa_exists: Visa existant
+    visa_required: "Visa requis !"

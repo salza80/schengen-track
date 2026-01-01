@@ -124,19 +124,23 @@ class VisitsController < ApplicationController
         if request.referer.present?
           begin
             referer_uri = URI.parse(request.referer)
-            referer_path = referer_uri.path
-            referer_query = referer_uri.query
             
-            # Check if coming from calendar page
-            if referer_path.include?('/days')
-              # Reconstruct the full calendar URL with query params
-              redirect_url = referer_path
-              redirect_url += "?#{referer_query}" if referer_query.present?
+            # Only process referer if it's from our own domain (not external)
+            if referer_uri.host.nil? || referer_uri.host == request.host
+              referer_path = referer_uri.path
+              referer_query = referer_uri.query
               
-              # Validate it's a safe redirect
-              if safe_redirect_path?(redirect_url)
-                redirect_to redirect_url, notice: 'Visit was successfully deleted.'
-                return
+              # Check if coming from calendar page
+              if referer_path.include?('/days')
+                # Reconstruct the full calendar URL with query params
+                redirect_url = referer_path
+                redirect_url += "?#{referer_query}" if referer_query.present?
+                
+                # Validate it's a safe redirect
+                if safe_redirect_path?(redirect_url)
+                  redirect_to redirect_url, notice: 'Visit was successfully deleted.'
+                  return
+                end
               end
             end
           rescue URI::InvalidURIError

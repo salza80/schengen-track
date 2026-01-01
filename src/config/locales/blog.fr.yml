@@ -2,47 +2,47 @@
 fr:
   blog:
     extendedTravel:
-      accessibilityContent: Ces pays hors de l'espace Schengen ne sont pas seulement des ajouts passionnants à votre itinéraire, mais ils sont également très accessibles depuis l'Europe. Qu'il s'agisse d'un vol court, d'un train de nuit ou d'un voyage en ferry, ces destinations sont bien connectées, ce qui en fait des étapes pratiques dans votre aventure européenne prolongée.
-      conclusionContent: Armé d'une planification stratégique et d'une compréhension claire des réglementations Schengen, vous pouvez transformer votre rêve européen en une réalité durable. Plongez dans la riche diversité de l'Europe tout en restant dans les limites légales de votre visa touristique Schengen. Voici une aventure prolongée remplie de moments inoubliables !
+      accessibilityContent: "Ces pays hors de l'espace Schengen ne sont pas seulement des ajouts passionnants à votre itinéraire, mais ils sont également très accessibles depuis l'Europe. Qu'il s'agisse d'un vol court, d'un train de nuit ou d'un voyage en ferry, ces destinations sont bien connectées, ce qui en fait des étapes pratiques dans votre aventure européenne prolongée."
+      conclusionContent: "Armé d'une planification stratégique et d'une compréhension claire des réglementations Schengen, vous pouvez transformer votre rêve européen en une réalité durable. Plongez dans la riche diversité de l'Europe tout en restant dans les limites légales de votre visa touristique Schengen. Voici une aventure prolongée remplie de moments inoubliables !"
       conclusionTitle: Conclusion
       countries:
       - name: Irlande
-        description: Une destination captivante avec une histoire riche et des paysages impressionnants.
+        description: "Une destination captivante avec une histoire riche et des paysages impressionnants."
       - name: Royaume-Uni
-        description: Explorez l'Angleterre, l'Écosse, le Pays de Galles et l'Irlande du Nord pour une expérience culturelle diversifiée.
+        description: "Explorez l'Angleterre, l'Écosse, le Pays de Galles et l'Irlande du Nord pour une expérience culturelle diversifiée."
       - name: Monténégro
-        description: Connu pour son littoral pittoresque et ses villes historiques.
+        description: "Connu pour son littoral pittoresque et ses villes historiques."
       - name: Biélorussie
-        description: Un pays avec un mélange unique d'histoire, d'architecture et de beauté naturelle.
+        description: "Un pays avec un mélange unique d'histoire, d'architecture et de beauté naturelle."
       - name: Maroc
-        description: Offrant un avant-goût de l'Afrique du Nord, le Maroc est connu pour ses marchés vibrants, ses villes historiques et ses paysages diversifiés.
+        description: "Offrant un avant-goût de l'Afrique du Nord, le Maroc est connu pour ses marchés vibrants, ses villes historiques et ses paysages diversifiés."
       ctaTitle: "Prêt à planifier votre aventure européenne prolongée ?"
-      introduction: Se lancer dans une odyssée européenne est un rêve pour beaucoup, mais la limite de 90 jours dans l'espace Schengen laisse souvent les voyageurs désireux d'en profiter davantage. Ne craignez rien, cher explorateur, car nous révélons les secrets pour prolonger légalement votre voyage européen au-delà de la période typique de 90 jours. Avant de vous plonger dans la planification stratégique, il est crucial de vous familiariser avec les pays hors de l'espace Schengen. Ici, nous énumérerons quelques nations clés, comme l'Irlande, le Royaume-Uni, le Monténégro, la Biélorussie et le Maroc, qui peuvent devenir des pièces maîtresses pour maximiser votre temps en Europe.
-      mapCaption: Espace Schengen et pays voisins hors Schengen.
-      mapCredit_prefix: Carte de %{author},
+      introduction: "Se lancer dans une odyssée européenne est un rêve pour beaucoup, mais la limite de 90 jours dans l'espace Schengen laisse souvent les voyageurs désireux d'en profiter davantage. Ne craignez rien, cher explorateur, car nous révélons les secrets pour prolonger légalement votre voyage européen au-delà de la période typique de 90 jours. Avant de vous plonger dans la planification stratégique, il est crucial de vous familiariser avec les pays hors de l'espace Schengen. Ici, nous énumérerons quelques nations clés, comme l'Irlande, le Royaume-Uni, le Monténégro, la Biélorussie et le Maroc, qui peuvent devenir des pièces maîtresses pour maximiser votre temps en Europe."
+      mapCaption: "Espace Schengen et pays voisins hors Schengen."
+      mapCredit_prefix: "Carte de %{author},"
       mapCredit_source: Political Geography Now
-      mapLicense_label: 'Licence :'
+      mapLicense_label: "Licence :"
       mapLicense_name: CC BY-SA
-      maximizingContent: 'Maintenant que vous êtes familiarisé avec les pays hors de l'espace Schengen, la planification stratégique devient essentielle :'
+      maximizingContent: "Maintenant que vous êtes familiarisé avec les pays hors de l'espace Schengen, la planification stratégique devient essentielle :"
       maximizingContentContinued: |
         <p> <strong>Commencez dans un Centre Schengen :</strong> Commencez votre voyage dans un pays Schengen de votre choix, comme Paris, l'Italie ou l'Espagne. Consacrez les premières semaines à vous immerger dans la culture locale et les environs.</p>
 
         <p> <strong>Intermède Non Schengen :</strong> Faites un détour vers un pays non Schengen, en profitant de votre connaissance de destinations comme l'Irlande ou le Royaume-Uni pour une partie substantielle de votre voyage.</p>
 
-        <p> <strong>Explorez et Sortez de l'Espace Schengen :</strong> Revenez dans l'espace Schengen pour un autre segment de votre voyage. Explorez des pays comme la France ou l'Italie, en vous assurant de quitter l'espace Schengen avant votre limite de 90 jours.
-      maximizingTitle: Maximiser votre Séjour Européen
-      nearbyContent: 'Avant de vous plonger dans vos plans de voyage, familiarisez-vous avec les pays facilement accessibles hors de l'espace Schengen. Ces nations jouent un rôle crucial dans l'extension de votre aventure européenne. Quelques exemples clés incluent :'
-      nearbyTitle: Pays Voisins Hors de l'Espace Schengen
-      repeatPatternContent: Continuez ce modèle tout au long de vos voyages, en tissant stratégiquement à l'intérieur et à l'extérieur de l'espace Schengen. Optimisez votre temps dans les pays non Schengen comme le Monténégro, la Biélorussie et le Maroc pour prolonger votre séjour européen.
-      schengenAboutIntro: 'Pour en savoir plus sur le Calculateur et obtenir plus d'informations sur l'espace Schengen, consultez la '
-      schengenAboutLink: page À propos du Calculateur Schengen
-      schengenButtonIntro: Vous pouvez utiliser le Calculateur Schengen à la fois pour planifier et suivre vos voyages en temps réel. Entrez simplement les dates d'entrée et de sortie de chaque pays, et il fait le reste, calculant vos jours totaux dans l'espace Schengen, combien de jours restants et à quelle date vous pouvez rentrer à nouveau et pour combien de temps prolonger votre séjour. Bonne planification et restez tranquille en sachant que vous ne dépassez pas votre visa.
-      schengenButtonTitle: Commencer avec le Calculateur Schengen
-      shareHeading: Partagez cet article
-      title: Comment rester en Europe plus de 90 jours (légalement)
-      understanding90Content: Gardez à l'esprit que la règle de 90 jours sur 180 jours fonctionne de manière continue. Pour illustrer, supposons que vous entriez dans l'espace Schengen le 1er janvier et restiez jusqu'au 30 mars, utilisant vos 90 jours complets. Si vous revenez le 1er juin, vous avez 90 autres jours à votre disposition. La clé est de vous assurer que, à n'importe quel jour donné dans la zone, vous n'avez pas dépassé 90 jours au cours des 180 derniers jours. C'est un calcul continu que vous pouvez comprendre pour optimiser votre séjour sans violer la règle.
-      understandingContent: L'espace Schengen comprend 29 pays européens, offrant une expérience de voyage sans frontières internes. Cependant, la règle de 90/180 stipule que dans toute période de 180 jours, votre séjour dans l'espace Schengen ne peut pas dépasser 90 jours. Cette règle fonctionne de manière continue, ce qui signifie que chaque jour compte pour votre séjour total.
-      understandingTitle: 'Comprendre l'Espace Schengen et la Règle de 90/180 :'
+        <p> <strong>Explorez et Sortez de l'Espace Schengen :</strong> Revenez dans l'espace Schengen pour un autre segment de votre voyage. Explorez des pays comme la France ou l'Italie, en vous assurant de quitter l'espace Schengen avant votre limite de 90 jours.</p>
+      maximizingTitle: "Maximiser votre Séjour Européen"
+      nearbyContent: "Avant de vous plonger dans vos plans de voyage, familiarisez-vous avec les pays facilement accessibles hors de l'espace Schengen. Ces nations jouent un rôle crucial dans l'extension de votre aventure européenne. Quelques exemples clés incluent :"
+      nearbyTitle: "Pays Voisins Hors de l'Espace Schengen"
+      repeatPatternContent: "Continuez ce modèle tout au long de vos voyages, en tissant stratégiquement à l'intérieur et à l'extérieur de l'espace Schengen. Optimisez votre temps dans les pays non Schengen comme le Monténégro, la Biélorussie et le Maroc pour prolonger votre séjour européen."
+      schengenAboutIntro: "Pour en savoir plus sur le Calculateur et obtenir plus d'informations sur l'espace Schengen, consultez la "
+      schengenAboutLink: "page À propos du Calculateur Schengen"
+      schengenButtonIntro: "Vous pouvez utiliser le Calculateur Schengen à la fois pour planifier et suivre vos voyages en temps réel. Entrez simplement les dates d'entrée et de sortie de chaque pays, et il fait le reste, calculant vos jours totaux dans l'espace Schengen, combien de jours restants et à quelle date vous pouvez rentrer à nouveau et pour combien de temps prolonger votre séjour. Bonne planification et restez tranquille en sachant que vous ne dépassez pas votre visa."
+      schengenButtonTitle: "Commencer avec le Calculateur Schengen"
+      shareHeading: "Partagez cet article"
+      title: "Comment rester en Europe plus de 90 jours (légalement)"
+      understanding90Content: "Gardez à l'esprit que la règle de 90 jours sur 180 jours fonctionne de manière continue. Pour illustrer, supposons que vous entriez dans l'espace Schengen le 1er janvier et restiez jusqu'au 30 mars, utilisant vos 90 jours complets. Si vous revenez le 1er juin, vous avez 90 autres jours à votre disposition. La clé est de vous assurer que, à n'importe quel jour donné dans la zone, vous n'avez pas dépassé 90 jours au cours des 180 derniers jours. C'est un calcul continu que vous pouvez comprendre pour optimiser votre séjour sans violer la règle."
+      understandingContent: "L'espace Schengen comprend 29 pays européens, offrant une expérience de voyage sans frontières internes. Cependant, la règle de 90/180 stipule que dans toute période de 180 jours, votre séjour dans l'espace Schengen ne peut pas dépasser 90 jours. Cette règle fonctionne de manière continue, ce qui signifie que chaque jour compte pour votre séjour total."
+      understandingTitle: "Comprendre l'Espace Schengen et la Règle de 90/180 :"
     index:
       reading_time: "%{minutes} min de lecture"
-      title: Articles du Blog
+      title: "Articles du Blog"

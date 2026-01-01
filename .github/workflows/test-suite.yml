@@ -38,24 +38,6 @@ jobs:
           bundler-cache: true
           working-directory: src
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-          cache-dependency-path: src/yarn.lock
-
-      - name: Install JavaScript dependencies
-        run: yarn install --frozen-lockfile
-        working-directory: src
-
-      - name: Compile test assets
-        run: bundle exec rails shakapacker:compile
-        working-directory: src
-        env:
-          NODE_ENV: test
-          RAILS_ENV: test
-
       - name: Install Chrome and ChromeDriver for Selenium tests
         uses: browser-actions/setup-chrome@v1
         with:

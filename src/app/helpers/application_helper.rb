@@ -125,10 +125,12 @@ module ApplicationHelper
   def minify_critical_css
     css_content = File.read(Rails.root.join('app/assets/stylesheets/critical.css'))
     
-    # Minify: remove comments and collapse whitespace
-    css_content.gsub(/\/\*.*?\*\//m, '')       # Remove /* comments */
-               .gsub(/\s+/, ' ')                # Collapse whitespace
-               .gsub(/\s*([{}:;,])\s*/, '\1')  # Remove space around punctuation
-               .strip
+    # Use CSSO (CSS Optimizer) for proper minification
+    # This handles edge cases like strings with special chars, preserves valid CSS
+    Csso.optimize(css_content)
+  rescue => e
+    # Fallback to unminified if CSSO fails
+    Rails.logger.warn("Failed to minify critical CSS: #{e.message}")
+    css_content
   end
 end

@@ -378,7 +378,6 @@ class VisitsController < ApplicationController
       # While URI.parse would catch these, explicit early rejection is clearer and faster
       return false if path.start_with?('//')
       
-      # Parse the URI
       uri = URI.parse(path)
       
       # Reject if it has a scheme (http://, https://, javascript:, etc.)

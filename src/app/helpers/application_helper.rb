@@ -102,4 +102,20 @@ module ApplicationHelper
     # Return both navigation and schema
     content + breadcrumb_schema(breadcrumbs)
   end
+
+  # Inline critical CSS with minification in production
+  def critical_css
+    css_content = File.read(Rails.root.join('app/assets/stylesheets/critical.css'))
+    
+    if Rails.env.production?
+      # Minify: remove comments, newlines, excess whitespace
+      css_content.gsub(/\/\*.*?\*\//m, '')  # Remove comments
+                 .gsub(/\s+/, ' ')          # Collapse whitespace
+                 .gsub(/\s*([{}:;,])\s*/, '\1')  # Remove space around punctuation
+                 .strip
+    else
+      # Development: keep readable
+      css_content
+    end
+  end
 end

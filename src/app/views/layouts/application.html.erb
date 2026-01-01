@@ -16,17 +16,8 @@
   <!-- Preload critical assets -->
   <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
   
-  <!-- Critical CSS for LCP optimization - inline to eliminate render delay -->
-  <style>
-    .lead{font-size:1.25rem;font-weight:300;line-height:1.6}
-    .h3,.h1{margin-bottom:.5rem;font-weight:500;line-height:1.2}
-    .h3{font-size:1.75rem}
-    .h1{font-size:2.5rem}
-    .mb-3{margin-bottom:1rem!important}
-    .mb-4{margin-bottom:1.5rem!important}
-    .mt-4{margin-top:1.5rem!important}
-    .text-muted{color:#6c757d!important}
-  </style>
+  <!-- Critical CSS for LCP optimization - inlined to eliminate render delay -->
+  <style><%= critical_css.html_safe %></style>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

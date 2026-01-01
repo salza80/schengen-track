@@ -50,33 +50,33 @@ fr:
     mailer:
       confirmation_instructions:
         action: Confirmer mon compte
-        greeting: "Bienvenue %{recipient} !"
-        instruction: "Vous pouvez confirmer l'adresse courriel de votre compte via ce lien :"
+        greeting: Bienvenue %{recipient} !
+        instruction: 'Vous pouvez confirmer l''adresse courriel de votre compte via ce lien :'
         subject: Instructions de confirmation
       email_changed:
-        greeting: "Bonjour %{recipient} !"
+        greeting: Bonjour %{recipient} !
         message: Nous vous contactons pour vous informer que votre courriel a été changé en %{email}.
         message_unconfirmed: Nous vous contactons pour vous informer que votre courriel est en cours de changement vers %{email}.
         subject: Courriel modifié
       password_change:
-        greeting: "Bonjour %{recipient} !"
+        greeting: Bonjour %{recipient} !
         message: Nous vous contactons pour vous informer que votre mot de passe a été modifié.
         subject: Mot de passe modifié
       reset_password_instructions:
         action: Changer mon mot de passe
-        greeting: "Bonjour %{recipient} !"
+        greeting: Bonjour %{recipient} !
         instruction: Quelqu'un a demandé un lien pour changer votre mot de passe, ce qui peut être fait via le lien suivant.
         instruction_2: Si vous n'avez pas fait cette demande, veuillez ignorer ce courriel.
         instruction_3: Votre mot de passe ne sera pas modifié tant que vous n'aurez pas accédé au lien et créé un nouveau mot de passe.
         subject: Instructions de réinitialisation du mot de passe
       unlock_instructions:
         action: Déverrouiller mon compte
-        greeting: "Bonjour %{recipient} !"
-        instruction: "Cliquez sur le lien suivant pour déverrouiller votre compte :"
+        greeting: Bonjour %{recipient} !
+        instruction: 'Cliquez sur le lien suivant pour déverrouiller votre compte :'
         message: Votre compte a été verrouillé en raison d'un nombre excessif de tentatives de connexion infructueuses.
         subject: Instructions de déverrouillage
     omniauth_callbacks:
-      failure: "Vous n'avez pas été autorisé sur le compte %{kind} car \"%{reason}\"."
+      failure: Vous n'avez pas été autorisé sur le compte %{kind} car "%{reason}".
       success: Vous avez été autorisé avec succès sur le compte %{kind}.
     passwords:
       edit:
@@ -85,7 +85,7 @@ fr:
         confirm_new_password: Confirmez le nouveau mot de passe
         new_password: Nouveau mot de passe
       new:
-        forgot_your_password: "Mot de passe oublié ?"
+        forgot_your_password: Mot de passe oublié ?
         send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
       no_token: Vous ne pouvez pas accéder à cette page si ce n'est via un lien de réinitialisation de mot de passe. Si vous venez d'un courriel de réinitialisation, assurez-vous d'avoir utilisé l'URL complète.
       send_instructions: Vous allez recevoir un courriel avec des instructions sur la façon de réinitialiser votre mot de passe dans quelques minutes.
@@ -93,14 +93,14 @@ fr:
       updated: Votre mot de passe a été modifié avec succès. Vous êtes maintenant connecté.
       updated_not_active: Votre mot de passe a été modifié.
     registrations:
-      destroyed: "Au revoir ! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt."
+      destroyed: Au revoir ! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt.
       edit:
-        are_you_sure: "Êtes-vous sûr ?"
+        are_you_sure: Êtes-vous sûr ?
         cancel_my_account: Supprimer mon compte
-        currently_waiting_confirmation_for_email: "En attente de confirmation pour : %{email}"
+        currently_waiting_confirmation_for_email: 'En attente de confirmation pour : %{email}'
         leave_blank_if_you_don_t_want_to_change_it: laissez vide si vous ne souhaitez pas le changer
         title: Modifier %{resource}
-        unhappy: "Mécontent ?"
+        unhappy: Mécontent ?
         update: Mettre à jour
         we_need_your_current_password_to_confirm_your_changes: nous avons besoin de votre mot de passe actuel pour confirmer les modifications
       new:
@@ -121,9 +121,9 @@ fr:
     shared:
       links:
         back: Retour
-        didn_t_receive_confirmation_instructions: "Vous n'avez pas reçu les instructions de confirmation ?"
-        didn_t_receive_unlock_instructions: "Vous n'avez pas reçu les instructions de déverrouillage ?"
-        forgot_your_password: "Mot de passe oublié ?"
+        didn_t_receive_confirmation_instructions: Vous n'avez pas reçu les instructions de confirmation ?
+        didn_t_receive_unlock_instructions: Vous n'avez pas reçu les instructions de déverrouillage ?
+        forgot_your_password: Mot de passe oublié ?
         sign_in: Se connecter
         sign_in_with_provider: Se connecter avec %{provider}
         sign_up: S'inscrire
@@ -144,5 +144,5 @@ fr:
       not_found: n'a pas été trouvé
       not_locked: n'était pas verrouillé
       not_saved:
-        one: "Une erreur s'est produite lors de l'enregistrement de %{resource} :"
+        one: 'Une erreur s''est produite lors de l''enregistrement de %{resource} :'
         other: "%{count} erreurs se sont produites lors de l'enregistrement de %{resource} :"

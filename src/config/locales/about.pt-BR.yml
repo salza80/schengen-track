@@ -11,11 +11,11 @@ pt-BR:
       additional_visa_waiver_link: Acordos Adicionais de Isenção de Visto
       blog_link_intro: 'Para alguma inspiração sobre como usar a calculadora para uma viagem prolongada pela Europa:'
       button_text: Abrir o Calendário Schengen
-      calendar_highlight: Veja tudo de uma vez com o Calendário Schengen interativo.
-      calendar_secondary_cta: Cartões de dias em cores mostram dias usados, seguros e em espera e oferecem atalhos rápidos para adicionar ou ajustar visitas.
       calculation_description:
         paragraph: Todos os viajantes usam o cálculo padrão Schengen para determinar o tempo de permanência permitido. Isso é definido como "90 dias em qualquer período de 180 dias". A calculadora Schengen leva isso em conta, para que você possa usá-la para experimentar datas de entrada e saída para maximizar sua estadia.
       calculator_description: A Calculadora Schengen calcula o tempo de permanência que você tem permissão para viajar na Área Schengen com um visto Schengen de curta duração. Você pode usá-la para acompanhar ou prever todas as suas visitas dentro da Área Schengen para saber quantos dias você tem restantes antes de ter que sair.
+      calendar_highlight: Veja tudo de uma vez com o Calendário Schengen interativo.
+      calendar_secondary_cta: Cartões de dias em cores mostram dias usados, seguros e em espera e oferecem atalhos rápidos para adicionar ou ajustar visitas.
       contents_title: Conteúdo
       countries_in_schengen: 'Os países na área Schengen incluem: Áustria, Bélgica, Bulgária, Croácia, República Tcheca, Dinamarca, Estônia, Finlândia, França, Alemanha, Grécia, Hungria, Islândia, Itália, Letônia, Lituânia, Luxemburgo, Malta, Países Baixos, Noruega, Polônia, Portugal, Romênia, Eslováquia, Eslovênia, Espanha, Suécia, Suíça.'
       definitions:
@@ -41,14 +41,14 @@ pt-BR:
           exit_date_description: O dia em que você sai do País
           no_entries: 'Nº de Entradas:'
           no_entries_description: Número de vezes que você entrou / reentrou na Área Schengen. (mover-se de um país Schengen para outro não é considerado uma reentrada, no entanto, se houver mais de um dia entre sair de um País Schengen e entrar no próximo, a calculadora assumirá que você saiu da Área Schengen e contará isso como uma reentrada.
+          overstay: 'Permanência Excessiva:'
+          overstay_description: Se você ultrapassar o tempo permitido do seu visto Schengen, a calculadora imporá um período de espera completo de 180 dias antes que você possa entrar novamente. É fortemente aconselhado não entrar novamente na Área Schengen durante este período.
           schengen_area: 'Área Schengen:'
           schengen_area_description: Sim = Está na Área Schengen; Não = Não está na Área Schengen
           title: Registro de Visitas/Viagens
           visa: 'Visto:'
           visa_days_over_stay: 'Visa Dias de Permanência Excessiva:'
           visa_days_over_stay_description: O número de dias na Área Schengen sem permissão do seu visto. Você não inseriu um visto, você saiu após a data final do visto, ou você entrou na Área Schengen mais vezes do que o permitido no Visto.
-          overstay: 'Permanência Excessiva:'
-          overstay_description: Se você ultrapassar o tempo permitido do seu visto Schengen, a calculadora imporá um período de espera completo de 180 dias antes que você possa entrar novamente. É fortemente aconselhado não entrar novamente na Área Schengen durante este período.
           visa_description: Isso se relaciona apenas a um Visto Schengen de Curta Permanência Simples/Múltiplo pessoas que requerem um Visto antes da entrada. Se você estiver isento deste requisito, as opções de Visto não aparecerão. Lembre-se de selecionar sua Nacionalidade no canto superior direito da página!
       disclaimer:
         description: Por favor, leia o %{link} antes de usar a Calculadora Schengen.
@@ -108,6 +108,9 @@ pt-BR:
       get_started: Veja o calendário para começar
       how_to_use:
         entry_methods_note: Busca precisão? Use a tabela de visitas para registrar datas exatas de entrada e saída ou clique em qualquer dia do calendário para adicionar ou ajustar uma viagem - as duas visões permanecem sincronizadas.
+        people:
+          description: Você pode rastrear viagens para várias pessoas usando a mesma conta. Use o seletor de pessoas no topo da página para adicionar e alternar entre diferentes viajantes. Cada pessoa pode ter sua própria nacionalidade, viagens e informações de visto. Isso é útil para famílias ou ao gerenciar viagens para várias pessoas.
+          title: 'Múltiplas Pessoas:'
         step_1:
           description: Select your Nationality. You can change this at the top of the page in the header.
           title: 'Step 1:'
@@ -125,9 +128,6 @@ pt-BR:
           description: To save your travel record, Register and Log In. Your existing “Guest” data will be copied to your new account. You can register with the Schengen Calculator, or use Facebook to Login and Register.
           optional: true
           title: 'Step 5: (optional)'
-        people:
-          title: 'Múltiplas Pessoas:'
-          description: Você pode rastrear viagens para várias pessoas usando a mesma conta. Use o seletor de pessoas no topo da página para adicionar e alternar entre diferentes viajantes. Cada pessoa pode ter sua própria nacionalidade, viagens e informações de visto. Isso é útil para famílias ou ao gerenciar viagens para várias pessoas.
         title: Como usar a Calculadora Schengen
       how_to_use_link: Como usar a Calculadora Schengen
       introduction: Introdução
@@ -162,7 +162,6 @@ pt-BR:
       non_eu_visa_requirement: If you are from any other country (outside of the EU), you will need to apply for a Visa before you travel. The visa will specify the length of time it is valid, and the number of entries (of multi entry – unlimited) that are allowed. Please note that the “90 days in any 180 day period” still applies regardless of the Visa beginning and end dates. Use the Schengen calculator to enter your visa details, and to help calculate your allowed length of stay.
       schengen_area_description: The Schengen Area comprises 29 European countries without internal borders. Citizens, as well as many non-EU nationals, business people, and tourists, can freely circulate without facing border checks. Since 1985, it has expanded to include almost all EU states and a few associated non-EU countries.
       schengen_area_link: O que é a Área Schengen
-      step_by_step_link: Step by Step
       title: Sobre a Calculadora Schengen 90/180
       travelling_in_schengen: Travelling in the Schengen Area
       travelling_link: Travelling in the Schengen Area

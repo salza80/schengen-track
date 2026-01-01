@@ -1,21 +1,21 @@
 ---
 ar:
   log_in_page:
-    forgot_password: "هل نسيت كلمة المرور؟"
-    log_in_button: "تسجيل الدخول"
-    log_in_with_facebook: "تسجيل الدخول عبر فيسبوك"
-    not_registered: "لست مسجلاً بعد؟"
-    register_link: "إنشاء حساب"
-    remember_me_label: "تذكرني"
-    reset_password_link: "إعادة ضبط كلمة المرور"
-    title: "تسجيل الدخول"
+    forgot_password: هل نسيت كلمة المرور؟
+    log_in_button: تسجيل الدخول
+    log_in_with_facebook: تسجيل الدخول عبر فيسبوك
+    not_registered: لست مسجلاً بعد؟
+    register_link: إنشاء حساب
+    remember_me_label: تذكرني
+    reset_password_link: إعادة ضبط كلمة المرور
+    title: تسجيل الدخول
   my_details_page:
-    delete_account: "حذف الحساب"
-    delete_account_confirm: "هل أنت متأكد من رغبتك في حذف حسابك؟ ستفقد جميع بياناتك ولا يمكن التراجع عن هذا الإجراء."
+    delete_account: حذف الحساب
+    delete_account_confirm: هل أنت متأكد من رغبتك في حذف حسابك؟ ستفقد جميع بياناتك ولا يمكن التراجع عن هذا الإجراء.
   new_password_page:
-    reset: "إرسال رابط إعادة الضبط"
+    reset: إرسال رابط إعادة الضبط
   sign_up_page:
-    already_registered: "هل لديك حساب بالفعل؟"
-    log_in_link: "تسجيل الدخول"
-    sign_up_button: "إنشاء حساب"
-    title: "التسجيل"
+    already_registered: هل لديك حساب بالفعل؟
+    log_in_link: تسجيل الدخول
+    sign_up_button: إنشاء حساب
+    title: التسجيل

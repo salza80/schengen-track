@@ -16,7 +16,13 @@ pt-BR:
         description: Um país com uma mistura única de história, arquitetura e beleza natural.
       - name: Marrocos
         description: Oferecendo um sabor do Norte da África, Marrocos é conhecido por seus mercados vibrantes, cidades históricas e paisagens diversas.
+      ctaTitle: Pronto para planejar sua aventura europeia estendida?
       introduction: Embarcar em uma odisseia europeia é um sonho para muitos, mas o limite de 90 dias dentro da Área Schengen frequentemente deixa os viajantes desejando mais. Não tema, companheiro explorador, pois revelamos os segredos para estender legalmente sua jornada europeia além dos típicos 90 dias. Antes de mergulhar no planejamento estratégico, é crucial se familiarizar com os países fora da Área Schengen. Aqui, listaremos algumas nações-chave, como Irlanda, Reino Unido, Montenegro, Belarus e Marrocos, que podem se tornar fundamentais para maximizar seu tempo na Europa.
+      mapCaption: Área Schengen e países vizinhos fora do bloco.
+      mapCredit_prefix: Mapa por %{author},
+      mapCredit_source: Political Geography Now
+      mapLicense_label: 'Licença:'
+      mapLicense_name: CC BY-SA
       maximizingContent: 'Agora que você está familiarizado com os países não-Schengen, o planejamento estratégico torna-se essencial:'
       maximizingContentContinued: |
         <p> <strong>Comece em um Hub Schengen:</strong> Inicie sua jornada em um país Schengen de sua escolha, como Paris, Itália ou Espanha. Passe as semanas iniciais mergulhando na cultura e arredores locais.</p>
@@ -28,15 +34,9 @@ pt-BR:
       repeatPatternContent: Continue esse padrão ao longo de suas viagens, tecendo estrategicamente dentro e fora da Área Schengen. Otimize seu tempo em países não-Schengen como Montenegro, Belarus e Marrocos para estender sua estadia europeia.
       schengenAboutIntro: 'Para ler mais sobre a Calculadora e obter mais informações sobre a Área Schengen, consulte a '
       schengenAboutLink: página sobre a Calculadora Schengen
-      ctaTitle: "Pronto para planejar sua aventura europeia estendida?"
-      schengenButtonIntro: "Você pode usar a Calculadora Schengen para planejar e acompanhar suas viagens durante a estrada. Basta inserir as datas em que você entra e sai de cada país, e ela faz o resto, calculando seus dias totais na Área Schengen, quantos dias restantes e em que data você pode reentrar e por quanto tempo para estender sua estadia. Bom planejamento e fique seguro sabendo que não está excedendo seu visto."
-      schengenButtonTitle: "Comece com a Calculadora Schengen"
-      mapCaption: "Área Schengen e países vizinhos fora do bloco."
-      mapCredit_prefix: "Mapa por %{author},"
-      mapCredit_source: "Political Geography Now"
-      mapLicense_label: "Licença:"
-      mapLicense_name: "CC BY-SA"
-      shareHeading: "Compartilhe este artigo"
+      schengenButtonIntro: Você pode usar a Calculadora Schengen para planejar e acompanhar suas viagens durante a estrada. Basta inserir as datas em que você entra e sai de cada país, e ela faz o resto, calculando seus dias totais na Área Schengen, quantos dias restantes e em que data você pode reentrar e por quanto tempo para estender sua estadia. Bom planejamento e fique seguro sabendo que não está excedendo seu visto.
+      schengenButtonTitle: Comece com a Calculadora Schengen
+      shareHeading: Compartilhe este artigo
       title: Como Ficar na Europa Mais de 90 Dias (Legalmente)
       understanding90Content: Tenha em mente que a regra de 90 em 180 dias opera de forma contínua. Para ilustrar, suponha que você entre na Área Schengen em 1º de janeiro e fique até 30 de março, utilizando seus 90 dias completos. Se você reentrar em 1º de junho, você tem outros 90 dias à sua disposição. A chave é garantir que, em qualquer dia dentro da área, você não tenha excedido 90 dias nos últimos 180 dias. É um cálculo contínuo que você pode entender para otimizar sua estadia sem violar a regra.
       understandingContent: A Área Schengen compreende 29 países europeus, oferecendo uma experiência de viagem sem fronteiras internas. No entanto, a regra 90/180 determina que dentro de qualquer período de 180 dias, sua estadia na Área Schengen não pode exceder 90 dias. Esta regra opera de forma contínua, o que significa que cada dia conta para sua estadia total.

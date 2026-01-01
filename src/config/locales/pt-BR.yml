@@ -5,6 +5,7 @@ pt-BR:
     page_title: Sobre a Calculadora Schengen
   common:
     about: Sobre
+    add_person: Adicionar nova pessoa
     as_of: Em
     back: Voltar
     blog: Blog
@@ -19,38 +20,38 @@ pt-BR:
     delete_warning: Tem certeza de que deseja excluir isso? Esta ação não pode ser desfeita.
     disclaimer: Aviso Legal
     edit: Editar
-    edit_my_details: Editar Meus Detalhes
-    manage_account: Gerenciar Conta
-    manage_people: Gerenciar pessoas
-    add_person: Adicionar nova pessoa
     edit_current_person: Editar pessoa atual
-    person_not_set: Não definido
-    'false': 'Não'
+    edit_my_details: Editar Meus Detalhes
+    'false': Não
     home: Início
+    legal: Legal
     log_out: Sair
     login: Entrar
+    manage_account: Gerenciar Conta
+    manage_people: Gerenciar pessoas
     multi_unlimited_entries: "(digite 0 para entradas múltiplas/ilimitadas)"
     na: N/A
-    'no': 'Não'
+    'no': Não
     no_days: Nº de Dias
     of: de
+    person_not_set: Não definido
     privacy_policy: Política de Privacidade
     save: Salvar
     schengen: Schengen
     schengen_calculator: Calculadora Schengen
     to: até
     trips: Viagens
-    'true': 'Sim'
+    'true': Sim
     visa: Visto
-    'yes': 'Sim'
+    'yes': Sim
   continents:
+    africa: África
+    antarctica: Antártida
     asia: Ásia
     europe: Europa
-    africa: África
     north_america: América do Norte
     oceania: Oceania
     south_america: América do Sul
-    antarctica: Antártida
   date:
     abbr_day_names:
     - Dom
@@ -85,8 +86,8 @@ pt-BR:
     formats:
       default: "%d-%m-%Y"
       long: "%e de %B de %Y"
-      short: "%d de %b"
       month_year: "%B de %Y"
+      short: "%d de %b"
     month_names:
     -
     - Janeiro
@@ -109,8 +110,8 @@ pt-BR:
     day_cell:
       days_unit: dias
       entries_unit: entradas
-      per_limit: "/%{limit} %{unit}"
       overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
       wait: "⏱%{count} %{unit}"
     meta_description: Calendário visual mostrando suas estadias na Área Schengen. Rastreie a regra de 90/180 dias com dias codificados por cores. Veja viagens passadas, planeje visitas futuras e monitore seus dias restantes na Europa.
     page_title: Calendário Schengen
@@ -120,6 +121,10 @@ pt-BR:
     prohibited_saving_visa: "%{count} erro impediu que este visto fosse salvo:"
   helpers:
     label:
+      person:
+        first_name: Nome
+        last_name: Sobrenome
+        nationality_id: Nacionalidade
       user:
         email: E-mail
         first_name: Nome
@@ -128,10 +133,6 @@ pt-BR:
         nationality_id: Nacionalidade
         password: Senha
         password_confirmation: Confirmação de senha
-      person:
-        first_name: Nome
-        last_name: Sobrenome
-        nationality_id: Nacionalidade
       visa:
         end_date: Data final
         no_entries: Número de entradas
@@ -151,31 +152,31 @@ pt-BR:
       nationality_placeholder: Selecione uma nacionalidade
       optional_hint: Opcional
       required_hint: Obrigatório
-    new:
-      title: Adicionar nova pessoa
     index:
-      single_person_notice: Atualmente você tem uma pessoa. Adicione mais para acompanhar planos de viagem para várias pessoas ou cenários.
+      delete_person_warning: Tem certeza de que deseja excluir %{person}? Esta ação não pode ser desfeita.
       empty_state:
-        title: Nenhuma pessoa encontrada
         description: Adicione sua primeira pessoa para começar a acompanhar os planos de viagem.
+        title: Nenhuma pessoa encontrada
+      single_person_notice: Atualmente você tem uma pessoa. Adicione mais para acompanhar planos de viagem para várias pessoas ou cenários.
       table:
-        caption: Pessoas para as quais você acompanha planos de viagem
-        columns:
-          name: Nome
-          nationality: Nacionalidade
-          status: Status
-          actions: Ações
+        actions:
+          delete_aria: Excluir %{name}
+          edit_aria: Editar %{name}
         badges:
           active: Ativo
           primary: Principal
+        caption: Pessoas para as quais você acompanha planos de viagem
+        columns:
+          actions: Ações
+          name: Nome
+          nationality: Nacionalidade
+          status: Status
         make_primary:
+          aria: Tornar %{name} principal
           label: Tornar principal
           title: Tornar principal
-          aria: Tornar %{name} principal
-        actions:
-          edit_aria: Editar %{name}
-          delete_aria: Excluir %{name}
-      delete_person_warning: Tem certeza de que deseja excluir %{person}? Esta ação não pode ser desfeita.
+    new:
+      title: Adicionar nova pessoa
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"

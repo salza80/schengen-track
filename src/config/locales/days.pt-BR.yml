@@ -25,8 +25,8 @@ pt-BR:
     overstay_na: N/A
     overstay_tooltip: Você excedeu os 90/180 dias
     schengen_days_in_year: Dias em Schengen
-    schengen_no: 'Não'
-    schengen_yes: 'Sim'
+    schengen_no: Não
+    schengen_yes: Sim
     status_overstay: Permanência Excessiva
     status_safe: Seguro
     status_warning: Aviso
@@ -43,6 +43,16 @@ pt-BR:
       schengen_area: Área Schengen
       schengen_days_used: Dias Schengen Usados
       schengen_days_used_tooltip: O número de dias dentro da Área Schengen nos últimos 180 dias.
+    tooltip:
+      can_stay_html: Pode ficar por mais %{days} dias até %{date}
+      days_used: 'Dias usados: %{count}/90'
+      entries: 'Entradas: %{count}/%{total}'
+      entries_exceeded: 'Limite de entradas excedido: %{count}/%{total}'
+      no_visa: Sem visto
+      outside_visa: Fora do período do visto
+      overstay: 'EXCESSO NO SCHENGEN: +%{days} dias'
+      valid_visa: Visto válido
+      wait: 'Espera: %{days} dias'
     until_date: até %{date}
     view_table: Ver em Tabela
     visa_ok_tooltip: Você tem um visto válido hoje
@@ -52,13 +62,3 @@ pt-BR:
     visits_count: Visitas
     waiting_period_tooltip: Como você excedeu anteriormente, um período de espera de 180 dias está em vigor.
     year_summary: Resumo de %{year}
-    tooltip:
-      no_visa: Sem visto
-      outside_visa: Fora do período do visto
-      valid_visa: Visto válido
-      entries: "Entradas: %{count}/%{total}"
-      entries_exceeded: "Limite de entradas excedido: %{count}/%{total}"
-      days_used: "Dias usados: %{count}/90"
-      can_stay_html: "Pode ficar por mais %{days} dias até %{date}"
-      overstay: "EXCESSO NO SCHENGEN: +%{days} dias"
-      wait: "Espera: %{days} dias"

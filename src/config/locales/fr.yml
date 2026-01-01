@@ -1,0 +1,184 @@
+---
+fr:
+  about:
+    meta_description: Apprenez à utiliser le calculateur gratuit Schengen 90/180 jours. Comprenez les exigences de visa, suivez vos séjours européens et planifiez des voyages dans 29 pays Schengen.
+    page_title: À propos du Calculateur Schengen
+  common:
+    about: À propos
+    add_person: Ajouter une nouvelle personne
+    as_of: À partir de
+    back: Retour
+    blog: Blog
+    calculator: Calculateur
+    calendar: Calendrier
+    cancel: Annuler
+    confirm_delete: Confirmer la suppression
+    continent: Continent
+    country: Pays
+    data_deletion: Suppression des données
+    delete: Supprimer
+    delete_warning: Êtes-vous sûr de vouloir supprimer ceci ? Cette action ne peut pas être annulée.
+    disclaimer: Avertissement
+    edit: Modifier
+    edit_current_person: Modifier la personne actuelle
+    edit_my_details: Modifier mes détails
+    'false': 'Non'
+    home: Accueil
+    legal: Légal
+    log_out: Se déconnecter
+    login: Se connecter
+    manage_account: Gérer le compte
+    manage_people: Gérer les personnes
+    multi_unlimited_entries: "(entrez 0 pour entrées multiples/illimitées)"
+    na: N/A
+    'no': 'Non'
+    no_days: Nombre de jours
+    of: de
+    person_not_set: Non défini
+    privacy_policy: Politique de confidentialité
+    save: Enregistrer
+    schengen: Schengen
+    schengen_calculator: Calculateur Schengen
+    to: à
+    trips: Voyages
+    'true': Oui
+    visa: Visa
+    'yes': Oui
+  continents:
+    africa: Afrique
+    antarctica: Antarctique
+    asia: Asie
+    europe: Europe
+    north_america: Amérique du Nord
+    oceania: Océanie
+    south_america: Amérique du Sud
+  date:
+    abbr_day_names:
+    - dim
+    - lun
+    - mar
+    - mer
+    - jeu
+    - ven
+    - sam
+    abbr_month_names:
+    -
+    - jan
+    - fév
+    - mar
+    - avr
+    - mai
+    - juin
+    - juil
+    - août
+    - sep
+    - oct
+    - nov
+    - déc
+    day_names:
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
+    formats:
+      default: "%d/%m/%Y"
+      long: "%e %B %Y"
+      month_year: "%B %Y"
+      short: "%e %b"
+    month_names:
+    -
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
+    order:
+    - :day
+    - :month
+    - :year
+  days:
+    day_cell:
+      days_unit: jours
+      entries_unit: entrées
+      overstay: "+%{count} %{unit}"
+      per_limit: "/%{limit} %{unit}"
+      wait: "⏱%{count} %{unit}"
+  default_description: Calculez vos jours sans visa Schengen avec notre traqueur gratuit 90/180 jours. Suivez la règle mobile des 180 jours pour 29 pays européens. Commencez à planifier votre voyage en Europe aujourd'hui !
+  default_title: Calculateur Schengen | Règle 90/180 jours | Gratuit
+  errors:
+    prohibited_saving_visa: "%{count} erreur a empêché l'enregistrement de ce visa :"
+  helpers:
+    label:
+      person:
+        first_name: Prénom
+        last_name: Nom
+        nationality_id: Nationalité
+      user:
+        email: Courriel
+        first_name: Prénom
+        last_name: Nom
+        nationality: Nationalité
+        nationality_id: Nationalité
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+      visa:
+        end_date: Date de fin
+        no_entries: Nombre d'entrées
+        start_date: Date de début
+      visit:
+        continent: Continent
+        country: Pays
+        entry_date: Date d'entrée
+        exit_date: Date de sortie
+  keywords: Schengen, Calculateur Schengen, 90 jours sur 180, règle des 90 jours, calculateur 180 jours, calculateur 90 jours, Visa Schengen, Voyage, Visa Europe, Espace Schengen, Zone Schengen
+  people:
+    form:
+      errors:
+        heading:
+          one: "%{count} erreur a empêché l'enregistrement de cette personne :"
+          other: "%{count} erreurs ont empêché l'enregistrement de cette personne :"
+      nationality_placeholder: Sélectionnez une nationalité
+      optional_hint: Optionnel
+      required_hint: Obligatoire
+    index:
+      delete_person_warning: Êtes-vous sûr de vouloir supprimer %{person} ? Cette action ne peut pas être annulée.
+      empty_state:
+        description: Ajoutez votre première personne pour commencer à suivre les plans de voyage.
+        title: Aucune personne trouvée
+      single_person_notice: Vous avez actuellement une personne. Ajoutez-en d'autres pour suivre les plans de voyage de plusieurs personnes ou scénarios.
+      table:
+        actions:
+          delete_aria: Supprimer %{name}
+          edit_aria: Modifier %{name}
+        badges:
+          active: Actif
+          primary: Principal
+        caption: Personnes pour lesquelles vous suivez les plans de voyage
+        columns:
+          actions: Actions
+          name: Nom
+          nationality: Nationalité
+          status: Statut
+        make_primary:
+          aria: Rendre %{name} principal
+          label: Rendre principal
+          title: Rendre principal
+    new:
+      title: Ajouter une nouvelle personne
+  time:
+    formats:
+      default: "%a %d %b %Y %H:%M:%S %z"
+      long: "%e %B %Y"
+      mid: "%e %B %Y"
+      short: "%e %b %Y"
+  title_with_content: Calculateur gratuit de visa touristique de court séjour Schengen / Europe pour %{content}

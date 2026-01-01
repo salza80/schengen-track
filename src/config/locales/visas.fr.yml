@@ -1,0 +1,13 @@
+---
+fr:
+  visas:
+    add_first_visa_hint: Ajoutez vos informations de visa Schengen
+    add_visa: Ajouter un visa
+    columns:
+      dates: Dates
+      modify: Modifier
+      no_entries: Sans entrées
+    edit_title: Modifier le visa Schengen
+    list_caption: Liste des visas Schengen à utiliser dans le calcul.
+    no_visas: Pas encore de visas
+    to: à

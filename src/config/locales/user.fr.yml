@@ -1,0 +1,21 @@
+---
+fr:
+  log_in_page:
+    forgot_password: "Mot de passe oublié ?"
+    log_in_button: Se connecter
+    log_in_with_facebook: Se connecter avec Facebook
+    not_registered: "Pas encore inscrit ?"
+    register_link: S'inscrire
+    remember_me_label: Se souvenir de moi
+    reset_password_link: Réinitialiser le mot de passe
+    title: Se connecter
+  my_details_page:
+    delete_account: Supprimer le compte
+    delete_account_confirm: "Êtes-vous sûr de vouloir supprimer votre compte ? Toutes vos données seront perdues. Cette action ne peut pas être annulée."
+  new_password_page:
+    reset: Envoyer la réinitialisation
+  sign_up_page:
+    already_registered: "Déjà inscrit ?"
+    log_in_link: Se connecter
+    sign_up_button: S'inscrire
+    title: S'inscrire

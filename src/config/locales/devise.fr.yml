@@ -1,0 +1,148 @@
+---
+fr:
+  activerecord:
+    attributes:
+      user:
+        confirmation_sent_at: Confirmation envoyée le
+        confirmation_token: Code de confirmation
+        confirmed_at: Confirmé le
+        created_at: Créé le
+        current_password: Mot de passe actuel
+        current_sign_in_at: Date de connexion actuelle
+        current_sign_in_ip: IP de connexion actuelle
+        email: Email
+        encrypted_password: Mot de passe chiffré
+        failed_attempts: Tentatives échouées
+        last_sign_in_at: Date de dernière connexion
+        last_sign_in_ip: IP de dernière connexion
+        locked_at: Date de verrouillage
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        remember_created_at: Date de 'Se souvenir de moi'
+        remember_me: Se souvenir de moi
+        reset_password_sent_at: Date d'envoi du code de réinitialisation
+        reset_password_token: Code de réinitialisation du mot de passe
+        sign_in_count: Nombre de connexions
+        unconfirmed_email: Email non confirmé
+        unlock_token: Code de déverrouillage
+        updated_at: Mis à jour le
+    models:
+      user:
+        one: Utilisateur
+        other: Utilisateurs
+  devise:
+    confirmations:
+      confirmed: Votre compte a été confirmé avec succès.
+      new:
+        resend_confirmation_instructions: Renvoyer les instructions de confirmation
+      send_instructions: Vous allez recevoir un email avec des instructions pour confirmer votre compte dans quelques minutes.
+      send_paranoid_instructions: Si votre email existe dans notre base de données, vous recevrez un email avec des instructions pour confirmer votre compte dans quelques minutes.
+    failure:
+      already_authenticated: Vous êtes déjà connecté.
+      inactive: Votre compte n'a pas encore été activé.
+      invalid: "%{authentication_keys} ou mot de passe invalide."
+      last_attempt: Vous avez encore une tentative avant que votre compte ne soit verrouillé.
+      locked: Votre compte est verrouillé.
+      not_found_in_database: "%{authentication_keys} ou mot de passe invalide."
+      timeout: Votre session a expiré. Veuillez vous reconnecter pour continuer.
+      unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
+      unconfirmed: Vous devez confirmer votre compte pour continuer.
+    mailer:
+      confirmation_instructions:
+        action: Confirmer mon compte
+        greeting: "Bienvenue %{recipient}!"
+        instruction: 'Vous pouvez confirmer l'email de votre compte via ce lien:'
+        subject: Instructions de confirmation
+      email_changed:
+        greeting: "Bonjour %{recipient}! "
+        message: Nous vous contactons pour vous informer que votre email a été changé en %{email}.
+        message_unconfirmed: Nous vous contactons pour vous informer que votre email est en cours de changement vers %{email}.
+        subject: Email changé
+      password_change:
+        greeting: "Bonjour %{recipient}!"
+        message: Nous vous contactons pour vous informer que votre mot de passe a été changé.
+        subject: Mot de passe changé
+      reset_password_instructions:
+        action: Changer mon mot de passe
+        greeting: "Bonjour %{recipient}!"
+        instruction: Quelqu'un a demandé un lien pour changer votre mot de passe, ce qui peut être effectué via le lien suivant.
+        instruction_2: Si vous ne l'avez pas demandé, veuillez ignorer cet email.
+        instruction_3: Votre mot de passe ne sera pas changé tant que vous n'aurez pas accédé au lien et créé un nouveau mot de passe.
+        subject: Instructions de récupération du mot de passe
+      unlock_instructions:
+        action: Déverrouiller mon compte
+        greeting: "Bonjour %{recipient}!"
+        instruction: 'Cliquez sur le lien suivant pour déverrouiller votre compte:'
+        message: Votre compte a été verrouillé en raison d'un nombre excessif de tentatives de connexion infructueuses.
+        subject: Instructions de déverrouillage
+    omniauth_callbacks:
+      failure: Vous n'avez pas été autorisé sur le compte %{kind} car "%{reason}".
+      success: Vous avez été autorisé avec succès sur le compte %{kind}.
+    passwords:
+      edit:
+        change_my_password: Changer mon mot de passe
+        change_your_password: Changez votre mot de passe
+        confirm_new_password: Confirmez le nouveau mot de passe
+        new_password: Nouveau mot de passe
+      new:
+        forgot_your_password: "Avez-vous oublié votre mot de passe?"
+        send_me_reset_password_instructions: Envoyez-moi les instructions pour réinitialiser mon mot de passe
+      no_token: Vous ne pouvez pas accéder à cette page autrement que par un lien de réinitialisation de mot de passe. Si vous venez d'un email de réinitialisation de mot de passe, veuillez vous assurer que l'URL saisie est complète.
+      send_instructions: Vous allez recevoir un email avec des instructions sur la façon de réinitialiser votre mot de passe dans quelques minutes.
+      send_paranoid_instructions: Si votre email existe dans notre base de données, vous recevrez un email avec des instructions sur la façon de réinitialiser votre mot de passe dans votre boîte de réception.
+      updated: Votre mot de passe a été changé. Vous êtes maintenant connecté.
+      updated_not_active: Votre mot de passe a été changé.
+    registrations:
+      destroyed: "Au revoir! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt."
+      edit:
+        are_you_sure: "Êtes-vous sûr?"
+        cancel_my_account: Annuler mon compte
+        currently_waiting_confirmation_for_email: 'En attente de confirmation pour: %{email} '
+        leave_blank_if_you_don_t_want_to_change_it: laisser vide si vous ne souhaitez pas le changer
+        title: Modifier %{resource}
+        unhappy: "Mécontent?"
+        update: Mettre à jour
+        we_need_your_current_password_to_confirm_your_changes: nous avons besoin de votre mot de passe actuel pour confirmer les modifications
+      new:
+        sign_up: S'inscrire
+      signed_up: Bienvenue. Votre compte a été créé.
+      signed_up_but_inactive: Votre compte a été créé avec succès. Cependant, nous n'avons pas pu vous connecter car votre compte n'est pas encore activé.
+      signed_up_but_locked: Votre compte a été créé avec succès. Cependant, nous n'avons pas pu vous connecter car votre compte est verrouillé.
+      signed_up_but_unconfirmed: Un message avec un lien de confirmation a été envoyé à votre adresse email. Ouvrez le lien pour activer votre compte.
+      update_needs_confirmation: Vous avez mis à jour votre compte avec succès, mais il est nécessaire de confirmer votre nouvel email. Veuillez vérifier votre courrier et suivre le lien de confirmation pour finaliser la vérification du nouvel email.
+      updated: Votre compte a été mis à jour.
+      updated_but_not_signed_in: Votre compte a été mis à jour avec succès, mais comme votre mot de passe a été changé, vous devez vous reconnecter
+    sessions:
+      already_signed_out: Session terminée.
+      new:
+        sign_in: Se connecter
+      signed_in: Session démarrée.
+      signed_out: Session terminée.
+    shared:
+      links:
+        back: Retour
+        didn_t_receive_confirmation_instructions: "Vous n'avez pas reçu les instructions de confirmation?"
+        didn_t_receive_unlock_instructions: "Vous n'avez pas reçu les instructions de déverrouillage?"
+        forgot_your_password: "Avez-vous oublié votre mot de passe?"
+        sign_in: Se connecter
+        sign_in_with_provider: Se connecter avec %{provider}
+        sign_up: S'inscrire
+      minimum_password_length:
+        one: "(%{count} caractère minimum)"
+        other: "(%{count} caractères minimum)"
+    unlocks:
+      new:
+        resend_unlock_instructions: Renvoyer les instructions de déverrouillage
+      send_instructions: Vous allez recevoir des instructions pour déverrouiller votre compte dans quelques minutes.
+      send_paranoid_instructions: Si votre compte existe, vous allez recevoir des instructions pour déverrouiller votre compte dans quelques minutes.
+      unlocked: Votre compte a été déverrouillé. Vous pouvez maintenant vous connecter.
+  errors:
+    messages:
+      already_confirmed: a déjà été confirmé, veuillez essayer de vous connecter
+      confirmation_period_expired: doit être confirmé dans les %{period}, veuillez en demander un nouveau
+      expired: a expiré, veuillez en demander un nouveau
+      not_found: n'a pas été trouvé
+      not_locked: n'était pas verrouillé
+      not_saved:
+        one: 'Une erreur est survenue lors de l'enregistrement de %{resource}:'
+        other: '%{count} erreurs sont survenues lors de l'enregistrement de %{resource}:'

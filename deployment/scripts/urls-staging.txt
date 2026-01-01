@@ -46,4 +46,9 @@ test.schengen-calculator.com/ar/about
 test.schengen-calculator.com/ar/about/Egyptian
 test.schengen-calculator.com/ar/about/Saudi%20Arabian
 test.schengen-calculator.com/ar/blog/extended-schengen-stay
+test.schengen-calculator.com/fr
+test.schengen-calculator.com/fr/about
+test.schengen-calculator.com/fr/about/French
+test.schengen-calculator.com/fr/about/Belgian
+test.schengen-calculator.com/fr/blog/extended-schengen-stay
 

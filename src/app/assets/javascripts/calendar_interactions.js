@@ -378,10 +378,15 @@
         console.log('[DELETE DEBUG] Confirm button clicked');
         e.preventDefault();
         
+        // Add return_to as query parameter to the URL (DELETE requests don't send body params)
+        var returnTo = window.location.pathname + window.location.search;
+        var deleteUrlWithReturn = deleteUrl + '?return_to=' + encodeURIComponent(returnTo);
+        console.log('[DELETE DEBUG] Delete URL with return_to:', deleteUrlWithReturn);
+        
         // Create a form to submit the DELETE request
         var $form = $('<form>', {
           'method': 'POST',
-          'action': deleteUrl
+          'action': deleteUrlWithReturn
         });
         
         // Add CSRF token
@@ -396,15 +401,6 @@
           'type': 'hidden',
           'name': 'authenticity_token',
           'value': csrfToken
-        }));
-        
-        // Add return_to parameter with current URL to preserve calendar state
-        var returnTo = window.location.pathname + window.location.search;
-        console.log('[DELETE DEBUG] Adding return_to:', returnTo);
-        $form.append($('<input>', {
-          'type': 'hidden',
-          'name': 'return_to',
-          'value': returnTo
         }));
         
         // Submit the form

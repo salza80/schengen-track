@@ -103,6 +103,9 @@ def handler(event:, context:)
   requestTimeEpoch = requestContext['timeEpoch']
 
   rawQueryString = event['rawQueryString']
+  puts "[LAMBDA DEBUG] rawQueryString from API Gateway: #{rawQueryString.inspect}"
+  puts "[LAMBDA DEBUG] Full path: #{path}"
+  
   cookies = event['cookies'] || []
 
   requestHeaders = event.fetch('headers')

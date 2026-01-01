@@ -389,9 +389,13 @@ class VisitsController < ApplicationController
       # Only allow paths starting with /
       return false unless path.start_with?('/')
       
-      # Optionally: whitelist specific paths (uncomment to enforce)
-      # allowed_paths = ['/days', '/visits', '/people', '/visas', '/about', '/blog']
-      # return false unless allowed_paths.any? { |allowed| path.start_with?("#{allowed}") || path.start_with?("/#{I18n.locale}#{allowed}") }
+      # Whitelist specific application paths for defense-in-depth
+      # This prevents redirects to any internal path the user doesn't explicitly need
+      allowed_paths = ['/days', '/visits', '/people', '/visas']
+      I18n.available_locales.each do |locale|
+        allowed_paths += ["/#{locale}/days", "/#{locale}/visits", "/#{locale}/people", "/#{locale}/visas"]
+      end
+      return false unless allowed_paths.any? { |allowed| path.start_with?(allowed) }
       
       true
     rescue URI::InvalidURIError

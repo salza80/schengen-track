@@ -35,6 +35,23 @@ class CalculatorTest < ActiveSupport::TestCase
     end
   end
 
+  test 'next_entry_days starts from after last visit exit date' do
+    person = people(:max_remaining_person)
+    # Travel to a date before the last visit ends
+    travel_to Date.new(2017, 1, 15) do
+      as = Schengen::Days::Calculator.new(person)
+      # Last visit ends on June 10, 2017
+      # next_entry_days should start from June 11, 2017 (day after last exit)
+      # not from today (Jan 15, 2017)
+      assert_not_nil as.next_entry_days
+      if as.next_entry_days.any?
+        first_entry_day = as.next_entry_days.first
+        assert first_entry_day.the_date >= Date.new(2017, 6, 11),
+               "First next_entry_day should be on or after June 11 (day after last visit), but was #{first_entry_day.the_date}"
+      end
+    end
+  end
+
 
   test 'no_days_continuous  by day in schengen' do
     person = people(:test1_person)

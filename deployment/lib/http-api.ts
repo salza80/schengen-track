@@ -252,8 +252,8 @@ export class HttpApiConstruct extends Construct {
       additionalBehaviors: {
         "/users/*": authFlowBehavior,
         "/*/users/*": authFlowBehavior,
-        "assets/*": publicAssetsCacheBehavior,
-        "packs/*": publicAssetsCacheBehavior,
+        "/assets/*": publicAssetsCacheBehavior,
+        "/packs/*": publicAssetsCacheBehavior,
         "/": publicCacheByCountryGuestBehavior,
         "/en": publicCacheByCountryGuestBehavior,
         "/de": publicCacheByCountryGuestBehavior,

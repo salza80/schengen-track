@@ -24,6 +24,10 @@ pt-BR:
     exits_tooltip: Indica se um Visto para o período de viagem foi inserido.
     export_to_csv: Exportar para CSV
     list_caption: Lista de países visitados ou que você visitou nos últimos 180 dias e que planeja visitar no futuro.
+    max_stay_days_until: "%{days} dias até %{date}"
+    max_stay_label: 'Permanência máxima:'
+    max_stay_next_visit_constraint: "(limitado pela próxima entrada em %{date})"
+    max_stay_schengen_constraint: "(limitado pela regra Schengen 90/180)"
     meta_description: Rastreie e gerencie todas as suas visitas à Área Schengen. Monitore a conformidade com a regra de 90/180 dias, adicione viagens passadas, planeje viagens futuras e calcule os dias restantes.
     modify: Modificar
     multi: Multi
@@ -52,7 +56,3 @@ pt-BR:
     visa_entry_count: Entradas Usadas
     visa_exists: Visto Existe
     visa_required: Visto Necessário!
-    max_stay_days_until: "%{days} dias até %{date}"
-    max_stay_schengen_constraint: "(limitado pela regra Schengen 90/180)"
-    max_stay_next_visit_constraint: "(limitado pela próxima entrada em %{date})"
-    max_stay_label: "Permanência máxima:"

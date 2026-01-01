@@ -22,7 +22,7 @@ fr:
     edit: Modifier
     edit_current_person: Modifier la personne actuelle
     edit_my_details: Modifier mes détails
-    'false': 'Non'
+    'false': Non
     home: Accueil
     legal: Légal
     log_out: Se déconnecter
@@ -31,11 +31,12 @@ fr:
     manage_people: Gérer les personnes
     multi_unlimited_entries: "(entrez 0 pour entrées multiples/illimitées)"
     na: N/A
-    'no': 'Non'
+    'no': Non
     no_days: Nombre de jours
     of: de
     person_not_set: Non défini
     privacy_policy: Politique de confidentialité
+    register_to_save: Inscrivez-vous pour sauvegarder vos plans
     save: Enregistrer
     schengen: Schengen
     schengen_calculator: Calculateur Schengen

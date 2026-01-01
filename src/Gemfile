@@ -30,7 +30,7 @@ gem 'amazon-ecs'
 gem 'staccato'
 gem 'pg'
 gem 'listen'
-gem "webpacker", '>= 6.0.0.rc.6'
+gem "shakapacker", "~> 8.0"
 gem "sprockets-rails"
 gem 'autoprefixer-rails'
 gem 'canonical-rails'
@@ -61,4 +61,4 @@ group :development, :test do
   gem 'pry'
   gem 'i18n-tasks', '~> 1.0.12'
 end
-ruby '3.2.2'
+ruby '3.3.6'

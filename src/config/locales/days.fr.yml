@@ -7,7 +7,7 @@ fr:
     days_used: Jours utilisés
     entry_limit_exceeded: Limite d'entrées dépassée
     from_date_onwards: À partir du %{date}
-    full_stay: "90 jours complets !"
+    full_stay: 90 jours complets !
     go_to_visas: Aller aux visas
     jump_to_today: Aller à aujourd'hui
     learn_about_rule: En savoir plus sur la règle 90/180 jours
@@ -19,7 +19,7 @@ fr:
     max_days_reached: Maximum
     max_remaining_days: Jours maximum restants - C'est le temps maximum que vous pouvez rester dans l'espace Schengen si vous entrez à nouveau ce jour-là.
     meta_description: Calendrier visuel montrant vos séjours dans l'espace Schengen. Suivez la règle 90/180 jours avec des jours codés par couleur. Voyez les voyages passés, planifiez les visites futures et surveillez vos jours restants en Europe.
-    need_help: "Besoin d'aide pour comprendre la règle ?"
+    need_help: Besoin d'aide pour comprendre la règle ?
     next_entry_options: Dates de rentrée les plus précoces
     no_visa_entered: Aucun visa saisi
     no_visits_this_year: Aucune visite en %{year}
@@ -27,7 +27,7 @@ fr:
     overstay_tooltip: Vous avez dépassé les 90/180 jours
     page_title: Calculateur de jours Schengen 90/180
     schengen_days_in_year: Jours dans Schengen
-    schengen_no: 'Non'
+    schengen_no: Non
     schengen_yes: Oui
     status_overstay: Dépassement
     status_safe: Sûr
@@ -46,21 +46,21 @@ fr:
       schengen_days_used: Jours Schengen utilisés
       schengen_days_used_tooltip: Le nombre de jours dans l'espace Schengen au cours des 180 derniers jours.
     tooltip:
-      can_stay_html: "Vous pouvez rester %{days} jours de plus jusqu'au %{date}"
-      days_used: "Jours utilisés : %{count}/90"
-      entries: "Entrées : %{count}/%{total}"
-      entries_exceeded: "Limite d'entrées dépassée : %{count}/%{total}"
+      can_stay_html: Vous pouvez rester %{days} jours de plus jusqu'au %{date}
+      days_used: 'Jours utilisés : %{count}/90'
+      entries: 'Entrées : %{count}/%{total}'
+      entries_exceeded: 'Limite d''entrées dépassée : %{count}/%{total}'
       no_visa: Pas de visa
       outside_visa: En dehors de la période de visa
-      overstay: "DÉPASSEMENT SCHENGEN : +%{days} jours"
+      overstay: 'DÉPASSEMENT SCHENGEN : +%{days} jours'
       valid_visa: Visa valide
-      wait: "Attente : %{days} jours"
+      wait: 'Attente : %{days} jours'
     until_date: jusqu'au %{date}
     view_table: Voir en tableau
     visa_ok_tooltip: Vous avez un visa valide à la date d'aujourd'hui
     visa_status_label: Statut du visa
     visa_status_ok: 'Statut du visa : OK'
-    visa_warning: "Visa requis !"
+    visa_warning: Visa requis !
     visits_count: Visites
     waiting_period_tooltip: Étant donné que vous avez précédemment dépassé votre séjour, une période d'attente de 180 jours s'applique.
     year_summary: Résumé de %{year}

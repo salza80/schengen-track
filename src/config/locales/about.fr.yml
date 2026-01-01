@@ -74,40 +74,40 @@ fr:
       faq:
         q1:
           answer: La règle des 90/180 jours signifie que vous pouvez séjourner dans l'espace Schengen jusqu'à 90 jours sur toute période de 180 jours sans visa (si vous êtes originaire d'un pays exempté de visa). La période de 180 jours est une fenêtre glissante qui recule à partir de votre date actuelle.
-          question: "Qu'est-ce que la règle des 90/180 jours de Schengen ?"
+          question: Qu'est-ce que la règle des 90/180 jours de Schengen ?
         q10:
           answer: Oui, la calculatrice Schengen est entièrement gratuite. Vous pouvez calculer vos séjours, ajouter un nombre illimité d'enregistrements de voyage et même vous inscrire pour un compte gratuit afin de sauvegarder vos données sur tous les appareils. Aucune carte de crédit requise, aucun frais caché.
-          question: "La calculatrice Schengen est-elle gratuite ?"
+          question: La calculatrice Schengen est-elle gratuite ?
         q2:
           answer: La période de 180 jours est calculée rétroactivement à partir de votre date de sortie actuelle ou prévue. Pour chaque jour où vous souhaitez rester, la calculatrice vérifie combien de jours vous avez déjà passés dans l'espace Schengen au cours des 180 jours précédents. Vous ne pouvez pas dépasser 90 jours au total dans cette période glissante.
-          question: "Comment la période de 180 jours est-elle calculée ?"
+          question: Comment la période de 180 jours est-elle calculée ?
         q3:
           answer: Non, la règle des 90/180 est un calcul glissant. Sortir et revenir ne réinitialise pas votre allocation de 90 jours. Vous devez attendre que les jours de vos visites précédentes sortent de la fenêtre de 180 jours. La calculatrice Schengen vous aide à suivre exactement quand vous pouvez revenir.
-          question: "Puis-je réinitialiser mes 90 jours en quittant l'espace Schengen ?"
+          question: Puis-je réinitialiser mes 90 jours en quittant l'espace Schengen ?
         q4:
           answer: Non, les citoyens britanniques n'ont pas besoin de visa pour les séjours de courte durée (jusqu'à 90 jours sur toute période de 180 jours) dans l'espace Schengen. Cependant, à partir du quatrième trimestre 2026, les citoyens britanniques auront besoin d'une approbation ETIAS (système européen d'information et d'autorisation de voyage) avant de voyager.
-          question: "Les citoyens britanniques ont-ils besoin d'un visa pour visiter l'espace Schengen après le Brexit ?"
+          question: Les citoyens britanniques ont-ils besoin d'un visa pour visiter l'espace Schengen après le Brexit ?
         q5:
           answer: Le dépassement de séjour peut entraîner de graves conséquences, notamment des amendes, l'expulsion, des interdictions d'entrée (généralement de 1 à 5 ans) et des difficultés à obtenir des visas ou des autorisations de voyage futurs. Assurez-vous toujours de respecter la règle des 90/180 jours et de partir avant de dépasser votre séjour autorisé.
-          question: "Que se passe-t-il si je dépasse mes 90 jours dans l'espace Schengen ?"
+          question: Que se passe-t-il si je dépasse mes 90 jours dans l'espace Schengen ?
         q6:
           answer: Depuis 2025, il y a 29 pays Schengen qui comprennent l'Autriche, la Belgique, la Bulgarie, la Croatie, la République tchèque, le Danemark, l'Estonie, la Finlande, la France, l'Allemagne, la Grèce, la Hongrie, l'Islande, l'Italie, la Lettonie, le Liechtenstein, la Lituanie, le Luxembourg, Malte, les Pays-Bas, la Norvège, la Pologne, le Portugal, la Roumanie, la Slovaquie, la Slovénie, l'Espagne, la Suède et la Suisse. La Bulgarie et la Roumanie ont rejoint pleinement le 31 mars 2024.
-          question: "Quels pays font partie de l'espace Schengen en 2025 ?"
+          question: Quels pays font partie de l'espace Schengen en 2025 ?
         q7:
           answer: Oui, tout jour où vous êtes physiquement présent dans l'espace Schengen compte pour votre limite de 90 jours, y compris les jours de transit et les jours où vous passez simplement par les aéroports ou les gares. Le jour d'entrée et le jour de sortie comptent comme des jours complets.
-          question: "Les jours de transit comptent-ils pour ma limite de 90 jours ?"
+          question: Les jours de transit comptent-ils pour ma limite de 90 jours ?
         q8:
           answer: L'ETIAS (système européen d'information et d'autorisation de voyage) est une autorisation de voyage préalable requise pour les voyageurs exemptés de visa à partir du quatrième trimestre 2026. Les citoyens de pays comme les États-Unis, le Royaume-Uni, le Canada, l'Australie et d'autres qui n'ont actuellement pas besoin de visa auront besoin d'une approbation ETIAS. C'est similaire à l'ESTA américain et coûte environ 7 €, valable pendant 3 ans.
-          question: "Qu'est-ce que l'ETIAS et qui en a besoin ?"
+          question: Qu'est-ce que l'ETIAS et qui en a besoin ?
         q9:
-          answer: "Oui ! La calculatrice prend en charge à la fois les voyageurs exemptés de visa et ceux qui ont des visas Schengen de court séjour. Entrez simplement les détails de votre visa (date de début, date de fin, nombre d'entrées) et votre enregistrement de voyage. La calculatrice suivra à la fois votre limite de 90/180 jours et vos restrictions de visa spécifiques."
-          question: "Puis-je utiliser la calculatrice Schengen si j'ai un visa Schengen ?"
+          answer: Oui ! La calculatrice prend en charge à la fois les voyageurs exemptés de visa et ceux qui ont des visas Schengen de court séjour. Entrez simplement les détails de votre visa (date de début, date de fin, nombre d'entrées) et votre enregistrement de voyage. La calculatrice suivra à la fois votre limite de 90/180 jours et vos restrictions de visa spécifiques.
+          question: Puis-je utiliser la calculatrice Schengen si j'ai un visa Schengen ?
         title: Questions fréquemment posées
       faq_link: Questions fréquemment posées
       field_definitions_link: Définitions des noms de champs
       get_started: Consultez le calendrier pour commencer
       how_to_use:
-        entry_methods_note: "Vous préférez la précision ? Utilisez le tableau des visites pour les dates exactes d'entrée et de sortie ou cliquez sur n'importe quel jour du calendrier pour ajouter ou ajuster un voyage ; les deux vues restent synchronisées."
+        entry_methods_note: Vous préférez la précision ? Utilisez le tableau des visites pour les dates exactes d'entrée et de sortie ou cliquez sur n'importe quel jour du calendrier pour ajouter ou ajuster un voyage ; les deux vues restent synchronisées.
         people:
           description: Vous pouvez suivre les voyages de plusieurs personnes en utilisant le même compte. Utilisez le sélecteur de personnes en haut de la page pour ajouter et basculer entre différents voyageurs. Chaque personne peut avoir sa propre nationalité, ses voyages et ses informations de visa. C'est utile pour les familles ou lors de la gestion des voyages de plusieurs personnes.
           title: 'Plusieurs personnes :'
@@ -159,7 +159,7 @@ fr:
       new_rules_from: Nouvelles règles à partir du %{date}
       non_eu_visa_requirement: Si vous êtes d'un autre pays (hors UE), vous devrez demander un visa avant de voyager. Le visa précisera la durée de sa validité et le nombre d'entrées (à entrées multiples - illimitées) autorisées. Notez que les « 90 jours sur toute période de 180 jours » s'appliquent toujours indépendamment des dates de début et de fin du visa. Utilisez la calculatrice Schengen pour entrer les détails de votre visa et pour vous aider à calculer la durée de séjour autorisée.
       schengen_area_description: L'espace Schengen comprend 29 pays européens sans frontières intérieures. Les citoyens, ainsi que de nombreux non-citoyens de l'UE, hommes d'affaires et touristes, peuvent circuler librement sans faire face à des contrôles frontaliers. Depuis 1985, il s'est élargi pour inclure presque tous les États de l'UE et certains pays non membres de l'UE associés.
-      schengen_area_link: "Qu'est-ce que l'espace Schengen ?"
+      schengen_area_link: Qu'est-ce que l'espace Schengen ?
       title: À propos de la calculatrice Schengen 90/180
       travelling_in_schengen: Voyager dans l'espace Schengen
       travelling_link: Voyager dans l'espace Schengen
@@ -169,7 +169,7 @@ fr:
       useful_for_planning: C'est particulièrement utile pour planifier des voyages en Europe qui dépasseront probablement 90 jours. En voyageant et en passant du temps à l'intérieur et à l'extérieur de l'espace Schengen de manière stratégique, vous pouvez prolonger vos voyages. Si vous voyagez fréquemment entre les pays, il peut être difficile de suivre combien de temps vous avez passé dans l'espace Schengen, de vous souvenir quels pays sont dans l'espace Schengen et de calculer quand vous pouvez revenir après avoir passé du temps à l'extérieur. Entrez simplement votre nationalité, vos voyages passés et prévus dans la calculatrice, et elle s'occupera du reste.
       visa_requirements: Exigences de visa
       visa_requirements_link: Exigences de visa
-      what_is_schengen: "Qu'est-ce que l'espace Schengen ?"
+      what_is_schengen: Qu'est-ce que l'espace Schengen ?
     datadeletion:
       conclusion: Votre compte et toutes les données seront supprimés. Cette action ne peut pas être annulée.
       step1: Connectez-vous à votre compte
@@ -194,9 +194,9 @@ fr:
         « 90 jours sur toute période de 180 jours […] ». « La date d'entrée est considérée comme le premier jour de séjour sur le territoire des États membres et la date de sortie comme le dernier jour de séjour sur le territoire des États membres. Les périodes de séjour autorisées au titre d'un titre de séjour ou d'un visa de long séjour ne sont pas prises en compte dans le calcul de la durée du séjour sur le territoire des États membres. »
         Voir %{european_commision_link} pour plus d'informations.
       european_commision_link: Commission européenne
-      length_of_stay_calculation_title: "Comment les %{nationality_plural} calculent-ils leur durée de séjour autorisée ?"
+      length_of_stay_calculation_title: Comment les %{nationality_plural} calculent-ils leur durée de séjour autorisée ?
       no_additional_visa_waiver_description: Non. %{country} n'a aucun accord d'exonération de visa supplémentaire avec les pays de l'espace Schengen.
-      schengen_visa_requirement_title: "Les %{nationality_plural} doivent-ils demander un visa touristique Schengen avant d'entrer ?"
+      schengen_visa_requirement_title: Les %{nationality_plural} doivent-ils demander un visa touristique Schengen avant d'entrer ?
       tourist_travel_requirements_title: Exigences d'entrée et de durée de séjour touristique Schengen / Europe pour les %{nationality_plural}
       visa_exempt: Non. Les personnes de %{country} sont exemptées d'obtenir un visa Schengen avant d'entrer.
       visa_not_required: Non. Les personnes de %{country} ont la liberté de circulation au sein de l'UE.
@@ -223,7 +223,7 @@ fr:
       privacy_responsibilities_content: 'Pour aider à protéger votre vie privée, assurez-vous de :'
       privacy_responsibilities_title: Vos responsabilités en matière de confidentialité
       questions_comments_content: Si vous avez des questions ou des commentaires sur la politique de confidentialité de la calculatrice Schengen, envoyez un e-mail à support@company'sname.com ou contactez-nous via l'une des méthodes décrites sur la page À propos sur l'URL du site Web de l'entreprise. Merci d'avoir choisi la calculatrice Schengen !
-      questions_comments_title: "Des questions ou des commentaires ?"
+      questions_comments_title: Des questions ou des commentaires ?
       responsibilities_list:
       - ne pas partager votre identifiant utilisateur ou mot de passe avec quelqu'un d'autre
       - vous déconnecter du site Web de la calculatrice Schengen lorsque vous avez terminé

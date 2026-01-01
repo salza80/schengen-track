@@ -54,9 +54,14 @@
               %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
               = t('common.edit_current_person')
             .dropdown-divider
-            = link_to my_details_path(locale: I18n.locale), class: "dropdown-item" do
-              %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
-              = t('common.manage_account')
+            - if user_signed_in?
+              = link_to my_details_path(locale: I18n.locale), class: "dropdown-item" do
+                %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
+                = t('common.manage_account')
+            - else
+              = link_to new_user_registration_path(locale: I18n.locale), class: "dropdown-item text-primary font-weight-bold" do
+                %i.fa.fa-user-plus.mr-2{"aria-hidden": "true"}
+                = t('common.register_to_save')
       %li.nav-item.d-md-none
         = link_to new_person_path(locale: I18n.locale), class: "nav-link" do
           %i.fa.fa-plus.mr-2{"aria-hidden": "true"}
@@ -69,10 +74,16 @@
         = link_to edit_person_path(current_person, locale: I18n.locale), class: "nav-link" do
           %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
           = t('common.edit_current_person')
-      %li.nav-item.d-md-none
-        = link_to my_details_path(locale: I18n.locale), class: "nav-link" do
-          %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
-          = t('common.manage_account')
+      - if user_signed_in?
+        %li.nav-item.d-md-none
+          = link_to my_details_path(locale: I18n.locale), class: "nav-link" do
+            %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
+            = t('common.manage_account')
+      - else
+        %li.nav-item.d-md-none
+          = link_to new_user_registration_path(locale: I18n.locale), class: "nav-link text-primary font-weight-bold" do
+            %i.fa.fa-user-plus.mr-2{"aria-hidden": "true"}
+            = t('common.register_to_save')
       - if user_signed_in?
         %li.nav-item.d-flex.align-items-center.justify-content-end
           %a.btn.btn-outline-dark.btn-sm{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}

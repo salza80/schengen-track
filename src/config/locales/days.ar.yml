@@ -1,64 +1,64 @@
 ---
 ar:
   days:
-    current_status: "الحالة الحالية"
-    days: "أيام"
-    days_remaining: "الأيام المتبقية"
-    days_used: "الأيام المستخدمة"
-    entry_limit_exceeded: "تم تجاوز حد الدخول"
-    from_date_onwards: "اعتباراً من %{date}"
-    full_stay: "٩٠ يوماً كاملة!"
-    go_to_visas: "الانتقال إلى التأشيرات"
-    jump_to_today: "اذهب إلى اليوم"
-    learn_about_rule: "تعرّف على قاعدة ٩٠/١٨٠ يوماً"
-    legend: "الدليل اللوني"
-    legend_outside: "خارج شنغن"
-    legend_overstay: "إقامة زائدة"
-    legend_safe: "داخل شنغن (آمن)"
-    legend_waiting: "فترة الانتظار"
-    max_days_reached: "الحد الأقصى"
-    max_remaining_days: "الحد الأقصى للأيام المتبقية هو أطول مدة يمكنك قضاؤها داخل شنغن إذا دخلت في هذا اليوم."
-    need_help: "هل تحتاج إلى مساعدة لفهم القاعدة؟"
-    next_entry_options: "أقرب تواريخ لإعادة الدخول"
-    no_visa_entered: "لم يتم إدخال تأشيرة"
-    no_visits_this_year: "لا توجد زيارات في %{year}"
-    overstay_na: "غير متوفر"
-    overstay_tooltip: "لقد تجاوزت حد ٩٠/١٨٠ يوماً"
-    schengen_days_in_year: "أيام داخل شنغن"
-    schengen_no: "لا"
-    schengen_yes: "نعم"
-    status_overstay: "إقامة زائدة"
-    status_safe: "آمن"
-    status_warning: "تحذير"
-    stay_for_days: "يمكنك البقاء %{days} يومًا"
-    table_caption: "جدول تفصيلي لأيام التقويم داخل وخارج شنغن مع الزيارات والحسابات."
+    current_status: الحالة الحالية
+    days: أيام
+    days_remaining: الأيام المتبقية
+    days_used: الأيام المستخدمة
+    entry_limit_exceeded: تم تجاوز حد الدخول
+    from_date_onwards: اعتباراً من %{date}
+    full_stay: ٩٠ يوماً كاملة!
+    go_to_visas: الانتقال إلى التأشيرات
+    jump_to_today: اذهب إلى اليوم
+    learn_about_rule: تعرّف على قاعدة ٩٠/١٨٠ يوماً
+    legend: الدليل اللوني
+    legend_outside: خارج شنغن
+    legend_overstay: إقامة زائدة
+    legend_safe: داخل شنغن (آمن)
+    legend_waiting: فترة الانتظار
+    max_days_reached: الحد الأقصى
+    max_remaining_days: الحد الأقصى للأيام المتبقية هو أطول مدة يمكنك قضاؤها داخل شنغن إذا دخلت في هذا اليوم.
+    need_help: هل تحتاج إلى مساعدة لفهم القاعدة؟
+    next_entry_options: أقرب تواريخ لإعادة الدخول
+    no_visa_entered: لم يتم إدخال تأشيرة
+    no_visits_this_year: لا توجد زيارات في %{year}
+    overstay_na: غير متوفر
+    overstay_tooltip: لقد تجاوزت حد ٩٠/١٨٠ يوماً
+    schengen_days_in_year: أيام داخل شنغن
+    schengen_no: لا
+    schengen_yes: نعم
+    status_overstay: إقامة زائدة
+    status_safe: آمن
+    status_warning: تحذير
+    stay_for_days: يمكنك البقاء %{days} يومًا
+    table_caption: جدول تفصيلي لأيام التقويم داخل وخارج شنغن مع الزيارات والحسابات.
     table_headers:
-      country: "الدولة"
-      date: "التاريخ"
-      max_remaining_days: "الحد الأقصى للأيام المتبقية"
-      max_remaining_days_tooltip: "عدد الأيام التي يمكنك قضاؤها داخل شنغن إذا دخلت في هذا اليوم."
-      overstay_days: "أيام الإقامة الزائدة"
-      overstay_wait: "مدة الانتظار"
-      overstay_wait_tooltip: "أيام الانتظار قبل إعادة الدخول بعد الإقامة الزائدة"
-      schengen_area: "منطقة شنغن"
-      schengen_days_used: "أيام شنغن المستخدمة"
-      schengen_days_used_tooltip: "عدد الأيام التي قضيتها داخل شنغن خلال آخر ١٨٠ يوماً."
-    until_date: "حتى %{date}"
-    view_table: "عرض في جدول"
-    visa_ok_tooltip: "لديك تأشيرة سارية حتى اليوم"
-    visa_status_label: "حالة التأشيرة"
-    visa_status_ok: "حالة التأشيرة: صالحة"
-    visa_warning: "التأشيرة مطلوبة!"
-    visits_count: "الزيارات"
-    waiting_period_tooltip: "بسبب الإقامة الزائدة السابقة، تم تطبيق فترة انتظار قدرها ١٨٠ يوماً."
-    year_summary: "ملخص %{year}"
+      country: الدولة
+      date: التاريخ
+      max_remaining_days: الحد الأقصى للأيام المتبقية
+      max_remaining_days_tooltip: عدد الأيام التي يمكنك قضاؤها داخل شنغن إذا دخلت في هذا اليوم.
+      overstay_days: أيام الإقامة الزائدة
+      overstay_wait: مدة الانتظار
+      overstay_wait_tooltip: أيام الانتظار قبل إعادة الدخول بعد الإقامة الزائدة
+      schengen_area: منطقة شنغن
+      schengen_days_used: أيام شنغن المستخدمة
+      schengen_days_used_tooltip: عدد الأيام التي قضيتها داخل شنغن خلال آخر ١٨٠ يوماً.
     tooltip:
-      no_visa: "لا توجد تأشيرة"
-      outside_visa: "خارج فترة التأشيرة"
-      valid_visa: "تأشيرة صالحة"
-      entries: "عدد الدخولات: %{count}/%{total}"
-      entries_exceeded: "تم تجاوز حد الدخول: %{count}/%{total}"
-      days_used: "الأيام المستخدمة: %{count}/٩٠"
-      can_stay_html: "يمكنك البقاء %{days} يوماً إضافية حتى %{date}"
-      overstay: "إقامة زائدة في شنغن: +%{days} يوم"
-      wait: "انتظار: %{days} يوم"
+      can_stay_html: يمكنك البقاء %{days} يوماً إضافية حتى %{date}
+      days_used: 'الأيام المستخدمة: %{count}/٩٠'
+      entries: 'عدد الدخولات: %{count}/%{total}'
+      entries_exceeded: 'تم تجاوز حد الدخول: %{count}/%{total}'
+      no_visa: لا توجد تأشيرة
+      outside_visa: خارج فترة التأشيرة
+      overstay: 'إقامة زائدة في شنغن: +%{days} يوم'
+      valid_visa: تأشيرة صالحة
+      wait: 'انتظار: %{days} يوم'
+    until_date: حتى %{date}
+    view_table: عرض في جدول
+    visa_ok_tooltip: لديك تأشيرة سارية حتى اليوم
+    visa_status_label: حالة التأشيرة
+    visa_status_ok: 'حالة التأشيرة: صالحة'
+    visa_warning: التأشيرة مطلوبة!
+    visits_count: الزيارات
+    waiting_period_tooltip: بسبب الإقامة الزائدة السابقة، تم تطبيق فترة انتظار قدرها ١٨٠ يوماً.
+    year_summary: ملخص %{year}

@@ -40,7 +40,7 @@ fr:
     page_description: Suivez vos voyages dans l'espace Schengen et surveillez votre conformité avec la règle 90/180 jours. Ajoutez vos visites passées et à venir pour voir combien de jours il vous reste.
     page_title: Suivez vos visites Schengen
     reenter_info: Si vous rentrez dans l'espace Schengen le %{date}, vous pouvez rester %{max_days} %{day_plural} jusqu'au %{end_date}.
-    register_now: "Inscrivez-vous maintenant"
+    register_now: Inscrivez-vous maintenant
     save_travel_plans: pour sauvegarder vos plans de voyage !
     schengen_area: Espace Schengen
     schengen_area_tooltip: Indique si le pays de cette visite est inclus dans l'espace Schengen.
@@ -55,4 +55,4 @@ fr:
     visa_details: Détails du visa
     visa_entry_count: Entrées utilisées
     visa_exists: Visa existant
-    visa_required: "Visa requis !"
+    visa_required: Visa requis !

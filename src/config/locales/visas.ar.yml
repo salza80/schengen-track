@@ -1,13 +1,13 @@
 ---
 ar:
   visas:
-    add_first_visa_hint: "أضف معلومات تأشيرتك الخاصة بشنغن"
-    add_visa: "إضافة تأشيرة"
+    add_first_visa_hint: أضف معلومات تأشيرتك الخاصة بشنغن
+    add_visa: إضافة تأشيرة
     columns:
-      dates: "التواريخ"
-      modify: "تعديل"
-      no_entries: "عدد الدخولات"
-    edit_title: "تعديل تأشيرة شنغن"
-    list_caption: "قائمة التأشيرات المستخدمة في حساباتك."
-    no_visas: "لا توجد تأشيرات بعد"
-    to: "إلى"
+      dates: التواريخ
+      modify: تعديل
+      no_entries: عدد الدخولات
+    edit_title: تعديل تأشيرة شنغن
+    list_caption: قائمة التأشيرات المستخدمة في حساباتك.
+    no_visas: لا توجد تأشيرات بعد
+    to: إلى

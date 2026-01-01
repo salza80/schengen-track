@@ -107,17 +107,9 @@ module ApplicationHelper
   # Minified in all environments to catch issues early
   # See app/assets/stylesheets/critical.css for readable source with comments
   def critical_css
-    # In production, cache the result in Rails.cache since file never changes
-    # In development, use instance variable to allow file changes during development
-    cache_key = 'critical_css_minified'
-    
-    if Rails.env.production?
-      Rails.cache.fetch(cache_key) do
-        minify_critical_css
-      end
-    else
-      @critical_css ||= minify_critical_css
-    end
+    # Cache at class level to persist across requests in same Lambda container
+    # Lambda containers handle many requests, so this avoids re-reading/minifying each time
+    @@critical_css ||= minify_critical_css
   end
 
   private

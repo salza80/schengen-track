@@ -63,5 +63,12 @@ schengen-calculator.com/ar/about/Moroccan
 schengen-calculator.com/ar/about/Jordanian
 schengen-calculator.com/ar/about/Lebanese
 schengen-calculator.com/ar/blog/extended-schengen-stay
+schengen-calculator.com/fr
+schengen-calculator.com/fr/about
+schengen-calculator.com/fr/about/French
+schengen-calculator.com/fr/about/Belgian
+schengen-calculator.com/fr/about/Swiss
+schengen-calculator.com/fr/about/Canadian
+schengen-calculator.com/fr/blog/extended-schengen-stay
 
 

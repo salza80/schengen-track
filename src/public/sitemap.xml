@@ -32,4 +32,8 @@
     <loc>https://schengen-calculator.com/sitemap-ar.xml</loc>
     <lastmod>2026-01-01</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>https://schengen-calculator.com/sitemap-fr.xml</loc>
+    <lastmod>2026-01-01</lastmod>
+  </sitemap>
 </sitemapindex>

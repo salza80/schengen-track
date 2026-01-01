@@ -15,7 +15,7 @@ module SchengenTrack
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
-    config.i18n.available_locales = [:en, :de, :es, :tr, :'zh-CN', :hi, :'pt-BR', :ar]
+    config.i18n.available_locales = [:en, :de, :es, :tr, :'zh-CN', :hi, :'pt-BR', :ar, :fr]
     config.i18n.fallbacks = [:en]
 
     # Disable Rails encrypted secrets (secrets.yml.enc); AppConfig loads secrets.yml manually in non-production

@@ -30,7 +30,6 @@ gem 'amazon-ecs'
 gem 'staccato'
 gem 'pg'
 gem 'listen'
-gem "shakapacker", "~> 8.0"
 gem "sprockets-rails"
 gem 'autoprefixer-rails'
 gem 'canonical-rails'

@@ -113,20 +113,23 @@ class VisitsControllerTest < ActionController::TestCase
     refute controller.send(:safe_redirect_path?, 'ht!tp://invalid')
   end
 
-  # Test destroy redirect with return_to parameter
-  test 'destroy redirects to calendar when return_to parameter is valid' do
-    delete :destroy, params: { id: @visit, return_to: '/en/days?year=2025&month=1' }
+  # Test destroy redirect with referer header
+  test 'destroy redirects to calendar when referer is calendar page' do
+    @request.headers['HTTP_REFERER'] = 'http://test.host/en/days?year=2025&month=1'
+    delete :destroy, params: { id: @visit }
     assert_redirected_to '/en/days?year=2025&month=1'
   end
 
-  test 'destroy ignores malicious return_to parameter' do
-    delete :destroy, params: { id: @visit, return_to: 'http://evil.com/days' }
+  test 'destroy ignores malicious referer' do
+    @request.headers['HTTP_REFERER'] = 'http://evil.com/days'
+    delete :destroy, params: { id: @visit }
     # Should fall back to default redirect
     assert_redirected_to visits_path
   end
 
-  test 'destroy ignores return_to parameter to non-whitelisted path' do
-    delete :destroy, params: { id: @visit, return_to: '/admin' }
+  test 'destroy ignores referer to non-whitelisted path' do
+    @request.headers['HTTP_REFERER'] = 'http://test.host/admin'
+    delete :destroy, params: { id: @visit }
     # Should fall back to default redirect
     assert_redirected_to visits_path
   end

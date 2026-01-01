@@ -103,19 +103,19 @@ module ApplicationHelper
     content + breadcrumb_schema(breadcrumbs)
   end
 
-  # Inline critical CSS with minification in production
+  # Inline critical CSS for above-the-fold rendering
+  # Minified in all environments to catch issues early
+  # See app/assets/stylesheets/critical.css for readable source with comments
   def critical_css
-    css_content = File.read(Rails.root.join('app/assets/stylesheets/critical.css'))
-    
-    if Rails.env.production?
-      # Minify: remove comments, newlines, excess whitespace
-      css_content.gsub(/\/\*.*?\*\//m, '')  # Remove comments
-                 .gsub(/\s+/, ' ')          # Collapse whitespace
+    @critical_css ||= begin
+      css_content = File.read(Rails.root.join('app/assets/stylesheets/critical.css'))
+      
+      # Minify: remove comments and collapse whitespace
+      # Test this in development to catch any CSS syntax issues early
+      css_content.gsub(/\/\*.*?\*\//m, '')       # Remove /* comments */
+                 .gsub(/\s+/, ' ')                # Collapse whitespace
                  .gsub(/\s*([{}:;,])\s*/, '\1')  # Remove space around punctuation
                  .strip
-    else
-      # Development: keep readable
-      css_content
     end
   end
 end

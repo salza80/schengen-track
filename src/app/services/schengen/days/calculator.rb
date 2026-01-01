@@ -198,13 +198,17 @@ module Schengen
         end
         
         # Build next_entry_days list - days when you should consider entering
+        # Start from after the last entered visit (not today)
+        last_visit_date = @visits.any? ? @visits.max_by(&:exit_date)&.exit_date : Date.today
+        start_date = [last_visit_date + 1.day, Date.today].max
+        
         prev_day = nil
         sorted_days.each do |(date, day)|
           # Skip if in Schengen, in warning period, or no days available
           next if day.schengen? || day.warning? || day.max_remaining_days == 0
           
-          # Only include future dates (today or later)
-          next if date < Date.today
+          # Only include dates after the last visit
+          next if date < start_date
           
           # Add to next_entry_days if this is a good entry point:
           # - First day outside Schengen with available days, or

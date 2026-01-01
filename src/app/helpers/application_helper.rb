@@ -102,4 +102,27 @@ module ApplicationHelper
     # Return both navigation and schema
     content + breadcrumb_schema(breadcrumbs)
   end
+
+  # Inline critical CSS for above-the-fold rendering
+  # Minified in all environments to catch issues early
+  # See app/assets/stylesheets/critical.css for readable source with comments
+  def critical_css
+    # Cache at class level to persist across requests in same Lambda container
+    # Lambda containers handle many requests, so this avoids re-reading/minifying each time
+    @@critical_css ||= minify_critical_css
+  end
+
+  private
+
+  def minify_critical_css
+    css_content = File.read(Rails.root.join('app/assets/stylesheets/critical.css'))
+    
+    # Use CSSO (CSS Optimizer) for proper minification
+    # This handles edge cases like strings with special chars, preserves valid CSS
+    Csso.optimize(css_content)
+  rescue => e
+    # Fallback to unminified if CSSO fails
+    Rails.logger.warn("Failed to minify critical CSS: #{e.message}")
+    css_content
+  end
 end

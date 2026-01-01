@@ -5,6 +5,9 @@ class VisitsController < ApplicationController
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
   
+  # Handle RecordNotFound errors (e.g., visit doesn't belong to current person)
+  rescue_from ActiveRecord::RecordNotFound, with: :visit_not_found
+  
   # Skip CSRF verification for .js GET requests (new, edit, for_date, max_stay_info)
   # These are safe read-only operations that need to work with AJAX
   skip_before_action :verify_authenticity_token, only: [:new, :edit, :for_date, :max_stay_info], if: -> { request.format.js? || request.format.json? }
@@ -109,7 +112,7 @@ class VisitsController < ApplicationController
   # DELETE /visits/1
   # DELETE /visits/1.json
   def destroy
-    # Store entry date before destroying for calendar redirect
+    # Store entry date before destroying for fallback redirect
     entry_year = @visit.entry_date.year
     entry_month = @visit.entry_date.month
     
@@ -117,14 +120,36 @@ class VisitsController < ApplicationController
     
     respond_to do |format|
       format.html { 
-        # If came from calendar view, redirect back to calendar
-        if request.referer&.include?('/days')
-          redirect_to days_path(locale: I18n.locale, year: entry_year, month: entry_month), 
-                      notice: 'Visit was successfully deleted.'
-        else
-          # Otherwise redirect to visits list
-          redirect_to visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
+        # Try to redirect back to referer if it's from calendar page
+        if request.referer.present?
+          begin
+            referer_uri = URI.parse(request.referer)
+            
+            # Only process referer if it's from our own domain (not external)
+            if referer_uri.host.nil? || referer_uri.host == request.host
+              referer_path = referer_uri.path
+              referer_query = referer_uri.query
+              
+              # Check if coming from calendar page
+              if referer_path.include?('/days')
+                # Reconstruct the full calendar URL with query params
+                redirect_url = referer_path
+                redirect_url += "?#{referer_query}" if referer_query.present?
+                
+                # Validate it's a safe redirect
+                if safe_redirect_path?(redirect_url)
+                  redirect_to redirect_url, notice: 'Visit was successfully deleted.'
+                  return
+                end
+              end
+            end
+          rescue URI::InvalidURIError
+            # Invalid referer, fall through to default
+          end
         end
+        
+        # Default fallback: redirect to visits list
+        redirect_to visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
       }
       format.json { head :no_content }
     end
@@ -152,9 +177,9 @@ class VisitsController < ApplicationController
   
   # GET /visits/max_stay_info?date=YYYY-MM-DD&country_id=X
   # Returns max stay information for a given entry date and country
+  # If country_id is not provided, assumes Schengen country
   def max_stay_info
     date = Date.parse(params[:date])
-    country = Country.find(params[:country_id])
     
     # Check if there's a next visit after this date
     next_visits = current_person.visits
@@ -169,8 +194,15 @@ class VisitsController < ApplicationController
     next_visit = next_visits.first
     next_visit_constraint_date = next_visit ? next_visit.entry_date - 1.day : nil
     
-    # Check if this is a Schengen country and user requires visa counting
-    is_schengen = country.schengen?(date)
+    # If no country selected, assume Schengen
+    # If country selected, check if it's actually Schengen
+    if params[:country_id].present?
+      country = Country.find(params[:country_id])
+      is_schengen = country.schengen?(date)
+    else
+      is_schengen = true # Assume Schengen if no country selected
+    end
+    
     requires_counting = current_person.nationality.visa_required != 'F'
     
     if is_schengen && requires_counting
@@ -179,7 +211,9 @@ class VisitsController < ApplicationController
       day_info = calc.find_by_date(date)
       
       if day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
-        schengen_exit_date = date + day_info.max_remaining_days.days
+        # Exit date is entry date + (max_remaining_days - 1) because we count inclusively
+        # E.g., if you can stay 88 days: entry on day 1, exit on day 88 = entry + 87 days
+        schengen_exit_date = date + (day_info.max_remaining_days - 1).days
 
         # Compare Schengen limit with next visit constraint
         if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
@@ -189,6 +223,7 @@ class VisitsController < ApplicationController
             show: true,
             max_days: days_until_next,
             exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
             constrained: true,
             constraint_type: 'next_visit',
             next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
@@ -199,6 +234,7 @@ class VisitsController < ApplicationController
             show: true,
             max_days: day_info.max_remaining_days,
             exit_date: schengen_exit_date.strftime('%b %d, %Y'),
+            exit_date_iso: schengen_exit_date.strftime('%Y-%m-%d'),
             constrained: true,
             constraint_type: 'schengen'
           }
@@ -211,6 +247,7 @@ class VisitsController < ApplicationController
             show: true,
             max_days: days_until_next,
             exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
             constrained: true,
             constraint_type: 'next_visit',
             next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
@@ -226,6 +263,7 @@ class VisitsController < ApplicationController
         show: true,
         max_days: days_until_next,
         exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+        exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
         constrained: true,
         constraint_type: 'next_visit',
         next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
@@ -345,5 +383,58 @@ class VisitsController < ApplicationController
           "description" => I18n.t('visits.page_description', default: I18n.t('default_description'))
         }
       }
+    end
+    
+    # Handle visit not found (doesn't exist or doesn't belong to current person)
+    def visit_not_found
+      respond_to do |format|
+        format.html { 
+          redirect_to visits_path(locale: I18n.locale), 
+                      alert: 'Visit not found or you do not have permission to access it.'
+        }
+        format.json { render json: { error: 'Visit not found' }, status: :not_found }
+        format.js { 
+          flash[:alert] = 'Visit not found or you do not have permission to access it.'
+          url = visits_path(locale: I18n.locale)
+          render js: "window.location.href = #{url.to_json};"
+        }
+      end
+    end
+
+    # Validate redirect path to prevent open redirect vulnerabilities
+    # Only allows relative paths within the application
+    def safe_redirect_path?(path)
+      return false if path.blank?
+      
+      # Reject protocol-relative URLs before parsing (defense-in-depth)
+      # While URI.parse would catch these, explicit early rejection is clearer and faster
+      return false if path.start_with?('//')
+      
+      uri = URI.parse(path)
+      
+      # Reject if it has a scheme (http://, https://, javascript:, etc.)
+      return false if uri.scheme.present?
+      
+      # Reject if it has a host
+      return false if uri.host.present?
+      
+      # Only allow paths starting with /
+      return false unless path.start_with?('/')
+      
+      # Whitelist specific application paths for defense-in-depth
+      # Using start_with? intentionally allows sub-paths and query params:
+      #   ✓ /days/2024/12
+      #   ✓ /en/days?year=2025&month=1&day=15
+      #   ✓ /visits/123/edit
+      allowed_paths = ['/days', '/visits', '/people', '/visas']
+      I18n.available_locales.each do |locale|
+        allowed_paths += ["/#{locale}/days", "/#{locale}/visits", "/#{locale}/people", "/#{locale}/visas"]
+      end
+      
+      return false unless allowed_paths.any? { |allowed| path.start_with?(allowed) }
+      
+      true
+    rescue URI::InvalidURIError
+      false
     end
 end

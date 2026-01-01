@@ -674,6 +674,14 @@ select.form-control, select.custom-select {
   }
 }
 
+// Visa modal - always show scrollbar when content overflows
+#visaModal {
+  .modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
+  }
+}
+
 // Shared sidebar navigation (used by about and blog pages)
 // Moved here to avoid duplication between about.scss and blog.scss bundles
 nav.page-sidebar {

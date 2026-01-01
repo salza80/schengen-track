@@ -393,7 +393,7 @@
           'value': csrfToken
         }));
         
-        // Submit the form
+        // Submit the form (will redirect back using referer)
         $('body').append($form);
         $form.submit();
       });

@@ -412,7 +412,7 @@ html {
 #visitModal {
   .modal-body {
     max-height: calc(100vh - 200px);
-    overflow-y: auto;
+    overflow-y: scroll; // Always show scrollbar so users know they can scroll
   }
   
   .form-horizontal {

@@ -133,7 +133,8 @@ export class HttpApiConstruct extends Construct {
         'Access-Control-Request-Method', 
         'Access-Control-Request-Headers',
         'Accept',
-        'X-Requested-With'
+        'X-Requested-With',
+        'Referer'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),

@@ -15,6 +15,9 @@
   
   <!-- Preload critical assets -->
   <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
+  
+  <!-- Critical CSS for LCP optimization - inlined to eliminate render delay -->
+  <style><%= critical_css.html_safe %></style>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -128,9 +131,11 @@
   
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <% if controller_name == 'days' %>
-    <%= stylesheet_link_tag 'calendar', media: 'all' %>
+    <link rel="preload" href="<%= asset_path('calendar.css') %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><%= stylesheet_link_tag 'calendar', media: 'all' %></noscript>
   <% elsif controller_name == 'blogs' %>
-    <%= stylesheet_link_tag 'blog', media: 'all' %>
+    <link rel="preload" href="<%= asset_path('blog.css') %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><%= stylesheet_link_tag 'blog', media: 'all' %></noscript>
   <% end %>
   <%= javascript_include_tag 'core', defer: true %>
   <% if controller_name == 'days' %>

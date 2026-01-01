@@ -99,13 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
               behavior: 'smooth'
             });
           }, 500); // Increased delay to 500ms
-        } else {
-          console.warn('Month element not found for month:', targetMonth);
         }
       }
     }
-  } else {
-    console.log('No scroll target found - will use default behavior');
   }
   
   // Initialize Bootstrap tooltips on day cells (only if Bootstrap is available)
@@ -118,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
           boundary: 'window'
         });
       } catch(e) {
-        console.warn('Tooltip initialization failed:', e);
         return null;
       }
     });

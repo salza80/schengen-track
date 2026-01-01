@@ -158,9 +158,9 @@ class VisitsController < ApplicationController
   
   # GET /visits/max_stay_info?date=YYYY-MM-DD&country_id=X
   # Returns max stay information for a given entry date and country
+  # If country_id is not provided, assumes Schengen country
   def max_stay_info
     date = Date.parse(params[:date])
-    country = Country.find(params[:country_id])
     
     # Check if there's a next visit after this date
     next_visits = current_person.visits
@@ -175,8 +175,15 @@ class VisitsController < ApplicationController
     next_visit = next_visits.first
     next_visit_constraint_date = next_visit ? next_visit.entry_date - 1.day : nil
     
-    # Check if this is a Schengen country and user requires visa counting
-    is_schengen = country.schengen?(date)
+    # If no country selected, assume Schengen
+    # If country selected, check if it's actually Schengen
+    if params[:country_id].present?
+      country = Country.find(params[:country_id])
+      is_schengen = country.schengen?(date)
+    else
+      is_schengen = true # Assume Schengen if no country selected
+    end
+    
     requires_counting = current_person.nationality.visa_required != 'F'
     
     if is_schengen && requires_counting
@@ -185,7 +192,9 @@ class VisitsController < ApplicationController
       day_info = calc.find_by_date(date)
       
       if day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
-        schengen_exit_date = date + day_info.max_remaining_days.days
+        # Exit date is entry date + (max_remaining_days - 1) because we count inclusively
+        # E.g., if you can stay 88 days: entry on day 1, exit on day 88 = entry + 87 days
+        schengen_exit_date = date + (day_info.max_remaining_days - 1).days
 
         # Compare Schengen limit with next visit constraint
         if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
@@ -195,6 +204,7 @@ class VisitsController < ApplicationController
             show: true,
             max_days: days_until_next,
             exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
             constrained: true,
             constraint_type: 'next_visit',
             next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
@@ -205,6 +215,7 @@ class VisitsController < ApplicationController
             show: true,
             max_days: day_info.max_remaining_days,
             exit_date: schengen_exit_date.strftime('%b %d, %Y'),
+            exit_date_iso: schengen_exit_date.strftime('%Y-%m-%d'),
             constrained: true,
             constraint_type: 'schengen'
           }
@@ -217,6 +228,7 @@ class VisitsController < ApplicationController
             show: true,
             max_days: days_until_next,
             exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
             constrained: true,
             constraint_type: 'next_visit',
             next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
@@ -232,6 +244,7 @@ class VisitsController < ApplicationController
         show: true,
         max_days: days_until_next,
         exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+        exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
         constrained: true,
         constraint_type: 'next_visit',
         next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')

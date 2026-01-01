@@ -60,8 +60,10 @@
       // Bind modal Delete button
       $('#deleteVisitButton').on('click', function(e) {
         e.preventDefault();
+        console.log('[DELETE DEBUG] Delete button clicked, currentVisitId:', self.currentVisitId);
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        console.log('[DELETE DEBUG] Delete URL:', deleteUrl);
         $('#visitModal').modal('hide');
         self.openDeleteModal(deleteUrl);
       });
@@ -359,6 +361,7 @@
     
     // Open delete confirmation modal
     openDeleteModal: function(deleteUrl) {
+      console.log('[DELETE DEBUG] openDeleteModal called with URL:', deleteUrl);
       var $modal = $('#deleteModal');
       var $confirmButton = $('#deleteConfirmButton');
       
@@ -372,6 +375,7 @@
       
       // Handle delete confirmation click
       $confirmButton.off('click').on('click', function(e) {
+        console.log('[DELETE DEBUG] Confirm button clicked');
         e.preventDefault();
         
         // Create a form to submit the DELETE request
@@ -382,6 +386,7 @@
         
         // Add CSRF token
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        console.log('[DELETE DEBUG] CSRF token:', csrfToken ? 'found' : 'missing');
         $form.append($('<input>', {
           'type': 'hidden',
           'name': '_method',
@@ -394,13 +399,16 @@
         }));
         
         // Add return_to parameter with current URL to preserve calendar state
+        var returnTo = window.location.pathname + window.location.search;
+        console.log('[DELETE DEBUG] Adding return_to:', returnTo);
         $form.append($('<input>', {
           'type': 'hidden',
           'name': 'return_to',
-          'value': window.location.pathname + window.location.search
+          'value': returnTo
         }));
         
         // Submit the form
+        console.log('[DELETE DEBUG] Submitting form');
         $('body').append($form);
         $form.submit();
       });

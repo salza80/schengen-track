@@ -37,8 +37,9 @@ ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_ENV="production" \
     BUNDLE_WITHOUT="development"
 
-# Touch JavaScript files to force asset fingerprint regeneration
-RUN find app/assets/javascripts -type f -exec touch {} \;
+# Touch JavaScript files and clear asset cache to force fingerprint regeneration
+RUN find app/assets/javascripts -type f -exec touch {} \; && \
+    rm -rf public/assets/* tmp/cache/assets
 
 RUN NODE_OPTIONS=--openssl-legacy-provider SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 

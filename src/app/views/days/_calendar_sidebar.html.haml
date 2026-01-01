@@ -113,6 +113,12 @@
               %small.text-muted
                 = t('days.until_date', date: l(day.the_date + (day.max_remaining_days - 1).days, format: :long))
   
+  -# Buy Me a Coffee
+  .sidebar-section.card.mt-2
+    .card-body.text-center.py-3
+      %a{href: "https://www.buymeacoffee.com/smclean17d", target: "_blank", rel: "noopener"}
+        %img{src: "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", alt: "Buy Me A Coffee", style: "height: 50px; width: auto;"}
+  
   -# Help and resources link
   .sidebar-section.card.mt-2
     .card-body.text-center.py-3
@@ -120,3 +126,4 @@
       = link_to about_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
         %i.fa.fa-question-circle.mr-1
         = t('days.learn_about_rule')
+

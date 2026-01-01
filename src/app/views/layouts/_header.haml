@@ -97,6 +97,10 @@
           = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2' do
             %i.fa.fa-sign-in-alt.mr-2
             = t('common.login')
+      / Buy Me a Coffee - visible only on mobile
+      %li.nav-item.d-md-none.mt-3.text-center
+        = link_to "https://www.buymeacoffee.com/smclean17d", target: "_blank", rel: "noopener noreferrer", "aria-label": "Buy me a coffee" do
+          = image_tag "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", alt: "Buy Me A Coffee", style: "height: 40px; width: auto;"
       / Legal links - visible only on mobile
       %li.nav-item.d-md-none.mt-3.pt-3.border-top
         %small.text-muted.d-block.mb-2.px-3= t('common.legal')

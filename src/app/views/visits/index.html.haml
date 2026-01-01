@@ -8,7 +8,7 @@
     - if @visits.count == 0
       .mb-4
         %h1.h3.mb-3= t('visits.page_title')
-        %p.lead{fetchpriority: 'high'}= t('visits.page_description')
+        %p.lead= t('visits.page_description')
         %p.text-muted
           = t('visits.nationality_set_to', nationality: current_person.nationality.name, settings_link: link_to(t('visits.change_settings'), edit_person_path(current_person, locale: I18n.locale))).html_safe
     - else

@@ -140,10 +140,10 @@
   
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <% if controller_name == 'days' %>
-    <%= stylesheet_link_tag 'calendar', media: 'print', onload: "this.media='all'; this.onload=null;" %>
+    <link rel="preload" href="<%= asset_path('calendar.css') %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><%= stylesheet_link_tag 'calendar', media: 'all' %></noscript>
   <% elsif controller_name == 'blogs' %>
-    <%= stylesheet_link_tag 'blog', media: 'print', onload: "this.media='all'; this.onload=null;" %>
+    <link rel="preload" href="<%= asset_path('blog.css') %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><%= stylesheet_link_tag 'blog', media: 'all' %></noscript>
   <% end %>
   <%= javascript_include_tag 'core', defer: true %>

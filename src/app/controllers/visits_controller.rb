@@ -374,7 +374,8 @@ class VisitsController < ApplicationController
     def safe_redirect_path?(path)
       return false if path.blank?
       
-      # Reject protocol-relative URLs before parsing
+      # Reject protocol-relative URLs before parsing (defense-in-depth)
+      # While URI.parse would catch these, explicit early rejection is clearer and faster
       return false if path.start_with?('//')
       
       # Parse the URI
@@ -383,7 +384,7 @@ class VisitsController < ApplicationController
       # Reject if it has a scheme (http://, https://, javascript:, etc.)
       return false if uri.scheme.present?
       
-      # Reject if it has a host (//example.com/path)
+      # Reject if it has a host
       return false if uri.host.present?
       
       # Only allow paths starting with /

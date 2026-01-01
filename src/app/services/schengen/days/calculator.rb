@@ -199,7 +199,7 @@ module Schengen
         
         # Build next_entry_days list - days when you should consider entering
         # Start from after the last entered visit (not today)
-        last_visit_date = @visits.any? ? @visits.map(&:exit_date).max : Date.today
+        last_visit_date = @visits.any? ? @visits.max_by(&:exit_date)&.exit_date : Date.today
         start_date = [last_visit_date + 1.day, Date.today].max
         
         prev_day = nil

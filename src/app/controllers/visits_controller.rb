@@ -363,7 +363,8 @@ class VisitsController < ApplicationController
         format.json { render json: { error: 'Visit not found' }, status: :not_found }
         format.js { 
           flash[:alert] = 'Visit not found or you do not have permission to access it.'
-          render js: "window.location.href = '#{visits_path(locale: I18n.locale)}';"
+          url = visits_path(locale: I18n.locale)
+          render js: "window.location.href = #{url.to_json};"
         }
       end
     end
@@ -373,10 +374,13 @@ class VisitsController < ApplicationController
     def safe_redirect_path?(path)
       return false if path.blank?
       
+      # Reject protocol-relative URLs before parsing
+      return false if path.start_with?('//')
+      
       # Parse the URI
       uri = URI.parse(path)
       
-      # Reject if it has a scheme (http://, https://, //, javascript:, etc.)
+      # Reject if it has a scheme (http://, https://, javascript:, etc.)
       return false if uri.scheme.present?
       
       # Reject if it has a host (//example.com/path)

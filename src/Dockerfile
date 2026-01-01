@@ -37,6 +37,9 @@ ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_ENV="production" \
     BUNDLE_WITHOUT="development"
 
+# Install JavaScript dependencies
+RUN yarn install --frozen-lockfile --production
+
 # Touch JavaScript files and clear asset cache to force fingerprint regeneration
 RUN find app/assets/javascripts -type f -exec touch {} \; && \
     rm -rf public/assets/* tmp/cache/assets

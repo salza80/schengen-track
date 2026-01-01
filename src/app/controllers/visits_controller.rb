@@ -129,6 +129,7 @@ class VisitsController < ApplicationController
                       notice: 'Visit was successfully deleted.'
         else
           # Default: redirect to visits list
+          Rails.logger.info "[REDIRECT DEBUG] return_to: #{params[:return_to].inspect}, safe?: #{params[:return_to].present? ? safe_redirect_path?(params[:return_to]) : 'N/A'}"
           redirect_to visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
         end
       }
@@ -387,20 +388,34 @@ class VisitsController < ApplicationController
     def safe_redirect_path?(path)
       return false if path.blank?
       
+      Rails.logger.info "[SAFE_REDIRECT] Checking path: #{path.inspect}"
+      
       # Reject protocol-relative URLs before parsing (defense-in-depth)
       # While URI.parse would catch these, explicit early rejection is clearer and faster
-      return false if path.start_with?('//')
+      if path.start_with?('//')
+        Rails.logger.info "[SAFE_REDIRECT] REJECTED: protocol-relative URL"
+        return false
+      end
       
       uri = URI.parse(path)
       
       # Reject if it has a scheme (http://, https://, javascript:, etc.)
-      return false if uri.scheme.present?
+      if uri.scheme.present?
+        Rails.logger.info "[SAFE_REDIRECT] REJECTED: has scheme #{uri.scheme}"
+        return false
+      end
       
       # Reject if it has a host
-      return false if uri.host.present?
+      if uri.host.present?
+        Rails.logger.info "[SAFE_REDIRECT] REJECTED: has host #{uri.host}"
+        return false
+      end
       
       # Only allow paths starting with /
-      return false unless path.start_with?('/')
+      unless path.start_with?('/')
+        Rails.logger.info "[SAFE_REDIRECT] REJECTED: doesn't start with /"
+        return false
+      end
       
       # Whitelist specific application paths for defense-in-depth
       # Using start_with? intentionally allows sub-paths and query params:
@@ -411,7 +426,11 @@ class VisitsController < ApplicationController
       I18n.available_locales.each do |locale|
         allowed_paths += ["/#{locale}/days", "/#{locale}/visits", "/#{locale}/people", "/#{locale}/visas"]
       end
-      return false unless allowed_paths.any? { |allowed| path.start_with?(allowed) }
+      
+      matched = allowed_paths.any? { |allowed| path.start_with?(allowed) }
+      Rails.logger.info "[SAFE_REDIRECT] Whitelist check: #{matched}, allowed_paths sample: #{allowed_paths.first(5).inspect}"
+      
+      return false unless matched
       
       true
     rescue URI::InvalidURIError

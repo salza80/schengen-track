@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builder stage
-FROM public.ecr.aws/docker/library/ruby:3.2.2-slim as builder
+FROM public.ecr.aws/docker/library/ruby:3.2.2-slim AS builder
 WORKDIR /app
 
 RUN apt-get update -qq && \
@@ -36,6 +36,9 @@ ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_SERVE_STATIC_FILES="true" \
     RAILS_ENV="production" \
     BUNDLE_WITHOUT="development"
+
+# Touch JavaScript files to force asset fingerprint regeneration
+RUN find app/assets/javascripts -type f -exec touch {} \;
 
 RUN NODE_OPTIONS=--openssl-legacy-provider SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builder stage
-FROM public.ecr.aws/docker/library/ruby:3.2.2-slim AS builder
+FROM public.ecr.aws/docker/library/ruby:3.3.6-slim AS builder
 WORKDIR /app
 
 RUN apt-get update -qq && \
@@ -13,7 +13,7 @@ COPY Gemfile Gemfile.lock /app/
 RUN bundle install
 
 # Final stage
-FROM public.ecr.aws/docker/library/ruby:3.2.2-slim
+FROM public.ecr.aws/docker/library/ruby:3.3.6-slim
 WORKDIR /app
 
 RUN apt-get update -qq && apt-get upgrade -y -qq

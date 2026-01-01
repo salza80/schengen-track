@@ -61,4 +61,4 @@ group :development, :test do
   gem 'pry'
   gem 'i18n-tasks', '~> 1.0.12'
 end
-ruby '3.2.2'
+ruby '3.3.6'

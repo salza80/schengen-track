@@ -120,18 +120,32 @@ class VisitsController < ApplicationController
     
     respond_to do |format|
       format.html { 
-        # If return_to parameter is present (from calendar page), redirect there
-        if params[:return_to].present? && safe_redirect_path?(params[:return_to])
-          redirect_to params[:return_to], notice: 'Visit was successfully deleted.'
-        # Otherwise check referer for backwards compatibility
-        elsif request.referer&.include?('/days')
-          redirect_to days_path(locale: I18n.locale, year: entry_year, month: entry_month), 
-                      notice: 'Visit was successfully deleted.'
-        else
-          # Default: redirect to visits list
-          Rails.logger.info "[REDIRECT DEBUG] return_to: #{params[:return_to].inspect}, safe?: #{params[:return_to].present? ? safe_redirect_path?(params[:return_to]) : 'N/A'}"
-          redirect_to visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
+        # Try to redirect back to referer if it's from calendar page
+        if request.referer.present?
+          begin
+            referer_uri = URI.parse(request.referer)
+            referer_path = referer_uri.path
+            referer_query = referer_uri.query
+            
+            # Check if coming from calendar page
+            if referer_path.include?('/days')
+              # Reconstruct the full calendar URL with query params
+              redirect_url = referer_path
+              redirect_url += "?#{referer_query}" if referer_query.present?
+              
+              # Validate it's a safe redirect
+              if safe_redirect_path?(redirect_url)
+                redirect_to redirect_url, notice: 'Visit was successfully deleted.'
+                return
+              end
+            end
+          rescue URI::InvalidURIError
+            # Invalid referer, fall through to default
+          end
         end
+        
+        # Default fallback: redirect to visits list
+        redirect_to visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
       }
       format.json { head :no_content }
     end
@@ -388,34 +402,20 @@ class VisitsController < ApplicationController
     def safe_redirect_path?(path)
       return false if path.blank?
       
-      Rails.logger.info "[SAFE_REDIRECT] Checking path: #{path.inspect}"
-      
       # Reject protocol-relative URLs before parsing (defense-in-depth)
       # While URI.parse would catch these, explicit early rejection is clearer and faster
-      if path.start_with?('//')
-        Rails.logger.info "[SAFE_REDIRECT] REJECTED: protocol-relative URL"
-        return false
-      end
+      return false if path.start_with?('//')
       
       uri = URI.parse(path)
       
       # Reject if it has a scheme (http://, https://, javascript:, etc.)
-      if uri.scheme.present?
-        Rails.logger.info "[SAFE_REDIRECT] REJECTED: has scheme #{uri.scheme}"
-        return false
-      end
+      return false if uri.scheme.present?
       
       # Reject if it has a host
-      if uri.host.present?
-        Rails.logger.info "[SAFE_REDIRECT] REJECTED: has host #{uri.host}"
-        return false
-      end
+      return false if uri.host.present?
       
       # Only allow paths starting with /
-      unless path.start_with?('/')
-        Rails.logger.info "[SAFE_REDIRECT] REJECTED: doesn't start with /"
-        return false
-      end
+      return false unless path.start_with?('/')
       
       # Whitelist specific application paths for defense-in-depth
       # Using start_with? intentionally allows sub-paths and query params:
@@ -427,10 +427,7 @@ class VisitsController < ApplicationController
         allowed_paths += ["/#{locale}/days", "/#{locale}/visits", "/#{locale}/people", "/#{locale}/visas"]
       end
       
-      matched = allowed_paths.any? { |allowed| path.start_with?(allowed) }
-      Rails.logger.info "[SAFE_REDIRECT] Whitelist check: #{matched}, allowed_paths sample: #{allowed_paths.first(5).inspect}"
-      
-      return false unless matched
+      return false unless allowed_paths.any? { |allowed| path.start_with?(allowed) }
       
       true
     rescue URI::InvalidURIError

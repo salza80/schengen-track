@@ -60,10 +60,8 @@
       // Bind modal Delete button
       $('#deleteVisitButton').on('click', function(e) {
         e.preventDefault();
-        console.log('[DELETE DEBUG] Delete button clicked, currentVisitId:', self.currentVisitId);
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
-        console.log('[DELETE DEBUG] Delete URL:', deleteUrl);
         $('#visitModal').modal('hide');
         self.openDeleteModal(deleteUrl);
       });
@@ -361,7 +359,6 @@
     
     // Open delete confirmation modal
     openDeleteModal: function(deleteUrl) {
-      console.log('[DELETE DEBUG] openDeleteModal called with URL:', deleteUrl);
       var $modal = $('#deleteModal');
       var $confirmButton = $('#deleteConfirmButton');
       
@@ -375,23 +372,16 @@
       
       // Handle delete confirmation click
       $confirmButton.off('click').on('click', function(e) {
-        console.log('[DELETE DEBUG] Confirm button clicked');
         e.preventDefault();
-        
-        // Add return_to as query parameter to the URL (DELETE requests don't send body params)
-        var returnTo = window.location.pathname + window.location.search;
-        var deleteUrlWithReturn = deleteUrl + '?return_to=' + encodeURIComponent(returnTo);
-        console.log('[DELETE DEBUG] Delete URL with return_to:', deleteUrlWithReturn);
         
         // Create a form to submit the DELETE request
         var $form = $('<form>', {
           'method': 'POST',
-          'action': deleteUrlWithReturn
+          'action': deleteUrl
         });
         
         // Add CSRF token
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        console.log('[DELETE DEBUG] CSRF token:', csrfToken ? 'found' : 'missing');
         $form.append($('<input>', {
           'type': 'hidden',
           'name': '_method',
@@ -403,8 +393,7 @@
           'value': csrfToken
         }));
         
-        // Submit the form
-        console.log('[DELETE DEBUG] Submitting form');
+        // Submit the form (will redirect back using referer)
         $('body').append($form);
         $form.submit();
       });

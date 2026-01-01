@@ -20,10 +20,10 @@ RUN apt-get update -qq && apt-get upgrade -y -qq
 
 RUN apt-get install -y -qq curl bash libpq-dev
 
-ENV NODE_VERSION v18.19.0
+ENV NODE_VERSION v20.18.1
 
 # Install Node.js directly
-RUN curl -o- https://deb.nodesource.com/setup_18.x | bash - \
+RUN curl -o- https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y -qq nodejs
 
 RUN npm install -g npm@10.2.5

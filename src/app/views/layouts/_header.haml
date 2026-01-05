@@ -34,14 +34,15 @@
           %small.person-nationality{dir: "auto"}= current_person.nationality&.localized_name || t('common.person_not_set')
         .dropdown-menu.dropdown-menu-md-right{"aria-labelledby": "personDropdown"}
           - current_user_or_guest_user.people.ordered.each do |person|
-            = link_to set_current_person_path(person), method: :post, class: ['dropdown-item', ('active' if person == current_person)] do
-              - if person == current_person
-                %i.fa.fa-check.mr-2{"aria-hidden": "true"}
-              - else
-                %span.mr-4
-              .d-inline-block
-                %div= person.full_name
-                %small.text-muted.d-block= person.nationality&.localized_name || t('common.person_not_set')
+            = button_to set_current_person_path(person), method: :post, class: ['dropdown-item', 'text-left', ('active' if person == current_person)], form: { class: 'dropdown-item-form w-100', data: { turbo: false } } do
+              %span.d-flex.align-items-start
+                - if person == current_person
+                  %i.fa.fa-check.mr-2{"aria-hidden": "true"}
+                - else
+                  %span.mr-4
+                .d-inline-block.text-left
+                  %div= person.full_name
+                  %small.text-muted.d-block= person.nationality&.localized_name || t('common.person_not_set')
           .d-none.d-md-block
             = link_to new_person_path(locale: I18n.locale), class: "dropdown-item" do
               %i.fa.fa-plus.mr-2{"aria-hidden": "true"}

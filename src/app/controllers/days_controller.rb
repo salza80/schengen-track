@@ -8,10 +8,8 @@ class DaysController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    # Clean up old visits (beyond ±20 years)
     cleanup_old_visits
     
-    # Use full calculator (same as visits page)
     calc = Schengen::Days::Calculator.new(current_person)
     @days = calc.calculated_days
     @overstay = calc.schengen_overstay?
@@ -20,18 +18,15 @@ class DaysController < ApplicationController
     setup_calendar_view_infinite
     calculate_status_summary if @days.any?
     
-    # Set SEO meta tags for calendar page
     set_days_meta_tags
   end
 
   private
   
   def setup_calendar_view_infinite
-    # Calculate ±20 year bounds from today
     min_year = Date.today.year - 20
     max_year = Date.today.year + 20
     
-    # Get requested year (default to current year)
     requested_year = (params[:year] || Date.today.year).to_i
     
     # If requested year is outside ±20 year range, redirect to closest valid year

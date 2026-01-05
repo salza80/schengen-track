@@ -190,7 +190,7 @@ module Schengen
               aTracker.each do |n|
                 cnt = cnt + 1 
                 cnt = cnt - n
-                a = a+1
+                a += 1
                 break if cnt == 90
               end
               day.max_remaining_days = a

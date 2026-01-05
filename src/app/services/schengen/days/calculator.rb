@@ -158,8 +158,8 @@ module Schengen
 
       def calc_max_remaining_days_new
         prev = nil
-        #track of last 180 days change
-        aTracker = Array.new(90,0)
+        #track of last 180 days change of schengen days
+        rolling_window_tracker = Array.new(90,0)
         @calculated_days.sort.reverse.each do |aday|
           day = aday[1]
           unless prev
@@ -168,11 +168,11 @@ module Schengen
             next
           end
           if prev.schengen_days_count != day.schengen_days_count
-            aTracker.unshift(1)
+            rolling_window_tracker.unshift(1)
           else
-            aTracker.unshift(0)
+            rolling_window_tracker.unshift(0)
           end
-          aTracker.pop()
+          rolling_window_tracker.pop()
 
           if prev.overstay_waiting === 0 && day.overstay_waiting > 0
             @next_entry_days.unshift(prev)
@@ -186,14 +186,14 @@ module Schengen
               day.max_remaining_days=0
             else
               cnt = day.schengen_days_count
-              a=0
-              aTracker.each do |n|
+              days_until_limit = 0
+              rolling_window_tracker.each do |n|
                 cnt = cnt + 1 
                 cnt = cnt - n
-                a = a+1
+                days_until_limit = days_until_limit + 1
                 break if cnt == 90
               end
-              day.max_remaining_days = a
+              day.max_remaining_days = days_until_limit
             end
             if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
               @next_entry_days.unshift(prev)

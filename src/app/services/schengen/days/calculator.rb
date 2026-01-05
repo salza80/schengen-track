@@ -270,8 +270,10 @@ module Schengen
 
         def initialize(date)
           @the_date = date
-          @overstay_waiting=0;
+          @overstay_waiting = 0
           @user_requires_visa = false
+          @schengen_days_count = 0
+          @continuous_days_count = 0
         end
 
         def set_country(visit)

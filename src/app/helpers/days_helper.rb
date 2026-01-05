@@ -43,11 +43,17 @@ module DaysHelper
     # Schengen day count
     if day.schengen_days_count
       parts << t('days.tooltip.days_used', count: day.schengen_days_count, default: "Days used: #{day.schengen_days_count}/90")
+    else
+      # No calculation yet - show 0 days used for Schengen countries
+      parts << t('days.tooltip.days_used', count: 0, default: "Days used: 0/90") if day.schengen?
     end
-    if day.max_remaining_days && day.the_date
-      exit_date = l(day.the_date + (day.max_remaining_days - 1).days, format: :long)
+    
+    # Show max remaining days
+    remaining_days = day.max_remaining_days || (day.schengen? ? 90 : nil)
+    if remaining_days && day.the_date
+      exit_date = l(day.the_date + (remaining_days - 1).days, format: :long)
       exit_date_span = content_tag(:span, exit_date, style: 'white-space: nowrap;')
-      parts << t('days.tooltip.can_stay_html', days: day.max_remaining_days, date: exit_date_span).html_safe
+      parts << t('days.tooltip.can_stay_html', days: remaining_days, date: exit_date_span).html_safe
     end
 
     if day.overstay_days.positive?

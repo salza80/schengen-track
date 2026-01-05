@@ -210,7 +210,34 @@ class VisitsController < ApplicationController
       calc = Schengen::Days::Calculator.new(current_person)
       day_info = calc.find_by_date(date)
       
-      if day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
+      # If no day_info (first visit), default to 90 days
+      if day_info.nil?
+        max_remaining = 90
+        schengen_exit_date = date + (max_remaining - 1).days
+        
+        # Check against next visit constraint
+        if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
+          days_until_next = (next_visit.entry_date - date).to_i
+          render json: {
+            show: true,
+            max_days: days_until_next,
+            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
+            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
+            constrained: true,
+            constraint_type: 'next_visit',
+            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+          }
+        else
+          render json: {
+            show: true,
+            max_days: max_remaining,
+            exit_date: schengen_exit_date.strftime('%b %d, %Y'),
+            exit_date_iso: schengen_exit_date.strftime('%Y-%m-%d'),
+            constrained: true,
+            constraint_type: 'schengen'
+          }
+        end
+      elsif day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
         # Exit date is entry date + (max_remaining_days - 1) because we count inclusively
         # E.g., if you can stay 88 days: entry on day 1, exit on day 88 = entry + 87 days
         schengen_exit_date = date + (day_info.max_remaining_days - 1).days

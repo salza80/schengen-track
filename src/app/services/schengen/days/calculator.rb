@@ -182,7 +182,7 @@ module Schengen
             max_remaining_days = 0
             day.max_remaining_days = 0
           else
-            if day.schengen_days_count==90
+            if day.schengen_days_count == 90
               day.max_remaining_days=0
             else
               cnt = day.schengen_days_count

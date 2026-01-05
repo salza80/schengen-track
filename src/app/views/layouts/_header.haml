@@ -34,7 +34,7 @@
           %small.person-nationality{dir: "auto"}= current_person.nationality&.localized_name || t('common.person_not_set')
         .dropdown-menu.dropdown-menu-md-right{"aria-labelledby": "personDropdown"}
           - current_user_or_guest_user.people.ordered.each do |person|
-            = button_to set_current_person_path(person), method: :post, class: ['dropdown-item', 'text-left', ('active' if person == current_person)], form: { class: 'dropdown-item-form w-100', data: { turbo: false } } do
+            = button_to set_current_person_path(person), class: ['dropdown-item', 'text-left', ('active' if person == current_person)], form: { class: 'dropdown-item-form w-100', data: { turbo: false } } do
               %span.d-flex.align-items-start
                 - if person == current_person
                   %i.fa.fa-check.mr-2{"aria-hidden": "true"}

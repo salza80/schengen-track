@@ -46,8 +46,8 @@ class DaysController < ApplicationController
     # 2. Year is current year (or no year specified)
     if params[:month].present?
       @scroll_to_month = params[:month].to_i
-    elsif params[:year].blank? || @selected_year == Date.today.year
-      @scroll_to_month = Date.today.month
+    elsif params[:year].blank? || @selected_year == Time.zone.today.year
+      @scroll_to_month = Time.zone.today.month
     else
       @scroll_to_month = nil # Don't scroll if viewing a different year without month param
     end
@@ -94,7 +94,7 @@ class DaysController < ApplicationController
     return unless @days.any?
     
     # Always use today's date since calculator now extends to today
-    today = Date.today
+    today = Time.zone.today
     today_day = @days.find { |d| d.the_date == today }
     
     # Fallback to latest day if today isn't found (shouldn't happen with new logic)

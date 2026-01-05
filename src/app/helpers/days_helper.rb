@@ -104,6 +104,6 @@ module DaysHelper
 
   # Checks if a day is today
   def is_today?(day)
-    day && day.the_date == Date.today
+    day && day.the_date == Time.zone.today
   end
 end

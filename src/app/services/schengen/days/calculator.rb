@@ -64,7 +64,7 @@ module Schengen
       def end_date
         # Always calculate through today or 190 days after last visit, whichever is later
         # This ensures status summary always has today's data
-        [Date.today, @visits.last.exit_date + 190.days].max
+        [Time.zone.today, @visits.last.exit_date + 190.days].max
       end
 
       def generate_days
@@ -114,7 +114,7 @@ module Schengen
           end
           i+=1
           # Break early only if we've passed today AND no more visits with 0 Schengen days
-          break if visit.nil? && sd.schengen_days_count == 0 && date > Date.today
+          break if visit.nil? && sd.schengen_days_count == 0 && date > Time.zone.today
         end
        calc_max_remaining_days
       end
@@ -156,7 +156,27 @@ module Schengen
         calc_max_remaining_days_new
       end
 
+      # Calculates the maximum remaining days allowed in the Schengen area for each day in the tracking period.
+      #
+      # This method works backwards through the calculated days (from most recent to oldest) and determines
+      # how many more days can be spent in the Schengen area before hitting the 90/180 day limit.
+      #
+      # The calculation uses a rolling window tracker (array of 90 elements) to monitor changes in Schengen
+      # day counts over the last 180 days. For each day, it simulates forward to find when the 90-day limit
+      # would be reached.
+      #
+      # Side effects:
+      # - Sets the `max_remaining_days` attribute on each day object
+      # - Populates the `@next_entry_days` array with significant dates where entry conditions change:
+      #   * Days when overstay waiting period ends (transitions from waiting to allowed)
+      #   * Days when max_remaining_days changes (except when already at limit)
+      #   * The last day when entering the Schengen area while at the same max_remaining_days
+      #     (this marks the optimal entry point and breaks out of the entire loop)
+      #
+      # @return [void]
+      # @note The `break` statement exits the entire loop, not just the current iteration
       def calc_max_remaining_days_new
+        last_entry_found = false
         prev = nil
         #track of last 180 days change of schengen days
         rolling_window_tracker = Array.new(90,0)
@@ -178,10 +198,7 @@ module Schengen
             @next_entry_days.unshift(prev)
           end
 
-          if prev.overstay_waiting > 0 || !day.overstay_days
-            max_remaining_days = 0
-            day.max_remaining_days = 0
-          else
+ 
             if day.schengen_days_count == 90
               day.max_remaining_days=0
             else
@@ -196,20 +213,17 @@ module Schengen
               day.max_remaining_days = days_until_limit
             end
             if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
-              @next_entry_days.unshift(prev)
+              @next_entry_days.unshift(prev) if !last_entry_found
             end
             if day.overstay_waiting && !prev.overstay_waiting    
-              @next_entry_days.unshift(prev)
+              @next_entry_days.unshift(prev) if !last_entry_found
             end
 
-            if day.schengen?
+            if day.schengen? 
               if prev.max_remaining_days!= 0 && prev.max_remaining_days== day.max_remaining_days
-                @next_entry_days.unshift(prev)
+                @next_entry_days.unshift(prev) if !last_entry_found                
               end
-              return
-            end
-
-
+              last_entry_found = true
           end
           prev = day
 

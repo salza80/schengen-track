@@ -283,7 +283,7 @@ class VisitsController < ApplicationController
     def calculate_status_summary_for_visits
       return unless @days&.any?
 
-      today = Date.today
+      today = Time.zone.today
       today_day = @days.find { |d| d.the_date == today } || @days.max_by(&:the_date)
 
       @status_summary = {

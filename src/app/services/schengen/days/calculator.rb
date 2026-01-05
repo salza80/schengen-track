@@ -199,22 +199,22 @@ module Schengen
           end
 
  
-            if day.schengen_days_count == 90
-              day.max_remaining_days=0
-            else
-              cnt = day.schengen_days_count
-              days_until_limit = 0
-              rolling_window_tracker.each do |n|
-                cnt = cnt + 1 
-                cnt = cnt - n
-                days_until_limit = days_until_limit + 1
-                break if cnt == 90
-              end
-              day.max_remaining_days = days_until_limit
+          if day.schengen_days_count == 90 || day.overstay? || day.overstay_waiting > 0
+            day.max_remaining_days=0
+          else
+            cnt = day.schengen_days_count
+            days_until_limit = 0
+            rolling_window_tracker.each do |n|
+              cnt = cnt + 1 
+              cnt = cnt - n
+              days_until_limit = days_until_limit + 1
+              break if cnt == 90
             end
-            if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
-              @next_entry_days.unshift(prev) if !last_entry_found
-            end
+            day.max_remaining_days = days_until_limit
+          end
+          if prev.max_remaining_days!= 0 && prev.max_remaining_days!= day.max_remaining_days
+            @next_entry_days.unshift(prev) if !last_entry_found
+          end
             if day.overstay_waiting && !prev.overstay_waiting    
               @next_entry_days.unshift(prev) if !last_entry_found
             end

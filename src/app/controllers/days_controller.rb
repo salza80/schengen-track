@@ -108,7 +108,7 @@ class DaysController < ApplicationController
     @status_summary = {
       current_days: today_day.schengen_days_count || 0,
       max_days: 90,
-      remaining_days: [90 - (today_day.schengen_days_count || 0), 0].max,
+      remaining_days: today_day.max_remaining_days || [90 - (today_day.schengen_days_count || 0), 0].max,
       status: if today_day.overstay?
                 'overstay'
               elsif (today_day.schengen_days_count || 0) >= 80

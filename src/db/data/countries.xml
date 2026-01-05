@@ -1132,7 +1132,7 @@
 		<name>Croatia</name>
 		<nationality>Croatian</nationality>
 		<continent_code>EU</continent_code>
-		<schengen_start_date/>
+		<schengen_start_date>2023-01-01</schengen_start_date>
 		<EU_memeber_state>true</EU_memeber_state>
 		<visa_required>F</visa_required>
 		<additional_visa_waiver>false</additional_visa_waiver>

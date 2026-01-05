@@ -11,8 +11,8 @@
             = t('days.current_status')
           %small.d-block.mt-1
             = t('common.as_of')
-            = l(Date.today, format: :long)
-        = link_to days_path(year: Date.today.year, month: Date.today.month, day: Date.today.day, locale: I18n.locale), class: "btn btn-outline-light btn-sm d-flex align-items-center", "aria-label": t('days.jump_to_today') do
+            = l(Time.zone.today, format: :long)
+        = link_to days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale), class: "btn btn-outline-light btn-sm d-flex align-items-center", "aria-label": t('days.jump_to_today') do
           %i.fa.fa-calendar.mr-1.flex-shrink-0{"aria-hidden": "true"}
           %span= t('days.jump_to_today')
     .card-body.p-3

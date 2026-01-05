@@ -283,13 +283,13 @@ class VisitsController < ApplicationController
     def calculate_status_summary_for_visits
       return unless @days&.any?
 
-      today = Date.today
+      today = Time.zone.today
       today_day = @days.find { |d| d.the_date == today } || @days.max_by(&:the_date)
 
       @status_summary = {
         current_days: today_day.schengen_days_count || 0,
         max_days: 90,
-        remaining_days: [90 - (today_day.schengen_days_count || 0), 0].max,
+        remaining_days: today_day.max_remaining_days || [90 - (today_day.schengen_days_count || 0), 0].max,
         status: if today_day.overstay?
                   'overstay'
                 elsif (today_day.schengen_days_count || 0) >= 80

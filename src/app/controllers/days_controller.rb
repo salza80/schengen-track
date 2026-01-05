@@ -8,10 +8,8 @@ class DaysController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    # Clean up old visits (beyond ±20 years)
     cleanup_old_visits
     
-    # Use full calculator (same as visits page)
     calc = Schengen::Days::Calculator.new(current_person)
     @days = calc.calculated_days
     @overstay = calc.schengen_overstay?
@@ -20,18 +18,15 @@ class DaysController < ApplicationController
     setup_calendar_view_infinite
     calculate_status_summary if @days.any?
     
-    # Set SEO meta tags for calendar page
     set_days_meta_tags
   end
 
   private
   
   def setup_calendar_view_infinite
-    # Calculate ±20 year bounds from today
     min_year = Date.today.year - 20
     max_year = Date.today.year + 20
     
-    # Get requested year (default to current year)
     requested_year = (params[:year] || Date.today.year).to_i
     
     # If requested year is outside ±20 year range, redirect to closest valid year
@@ -51,8 +46,8 @@ class DaysController < ApplicationController
     # 2. Year is current year (or no year specified)
     if params[:month].present?
       @scroll_to_month = params[:month].to_i
-    elsif params[:year].blank? || @selected_year == Date.today.year
-      @scroll_to_month = Date.today.month
+    elsif params[:year].blank? || @selected_year == Time.zone.today.year
+      @scroll_to_month = Time.zone.today.month
     else
       @scroll_to_month = nil # Don't scroll if viewing a different year without month param
     end
@@ -99,7 +94,7 @@ class DaysController < ApplicationController
     return unless @days.any?
     
     # Always use today's date since calculator now extends to today
-    today = Date.today
+    today = Time.zone.today
     today_day = @days.find { |d| d.the_date == today }
     
     # Fallback to latest day if today isn't found (shouldn't happen with new logic)
@@ -108,7 +103,7 @@ class DaysController < ApplicationController
     @status_summary = {
       current_days: today_day.schengen_days_count || 0,
       max_days: 90,
-      remaining_days: [90 - (today_day.schengen_days_count || 0), 0].max,
+      remaining_days: today_day.max_remaining_days || [90 - (today_day.schengen_days_count || 0), 0].max,
       status: if today_day.overstay?
                 'overstay'
               elsif (today_day.schengen_days_count || 0) >= 80

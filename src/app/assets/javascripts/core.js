@@ -4,7 +4,5 @@
 //= require jquery3
 //= require jquery_ujs
 //= require popper
-//= require bootstrap/util
-//= require bootstrap/modal
-//= require bootstrap/tooltip
+//= require bootstrap
 //= require app

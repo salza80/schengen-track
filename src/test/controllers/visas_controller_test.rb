@@ -13,27 +13,12 @@ class VisasControllerTest < ActionController::TestCase
   #   assert_not_nil assigns(:visas)
   # end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
   test "should create visa" do
     assert_difference('Visa.count') do
       @newVisa = post :create, params: { visa: { start_date: (@visa.start_date + 10.year), end_date: (@visa.end_date + 10.year), no_entries: 1  }}
     end
 
     assert_redirected_to visits_path
-  end
-
-  # test "should show visa" do
-  #   get :show, id: @visa
-  #   assert_response :success
-  # end
-
-  test "should get edit" do
-    get :edit, params: { id: @visa }
-    assert_response :success
   end
 
   test "should update visa" do

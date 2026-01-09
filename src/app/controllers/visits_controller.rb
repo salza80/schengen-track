@@ -375,7 +375,7 @@ class VisitsController < ApplicationController
       # Use schengen map image for visits page
       image_path = view_context.asset_path('schengen_area_eu_countries.webp')
       @og_image = "https://#{request.host_with_port}#{image_path}"
-      @og_site_name = "Schengen Calculator"
+      @og_site_name = I18n.t('common.schengen_calculator')
       
       # Structured data for visits page
       @json_ld_data = {

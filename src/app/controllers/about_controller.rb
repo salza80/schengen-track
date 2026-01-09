@@ -43,10 +43,9 @@ class AboutController < ApplicationController
     @meta_description = I18n.t('about.meta_description', default: I18n.t('default_description'))
     @og_type = 'website'
     @og_url = "https://#{request.host_with_port}#{request.path}"
-    # Use schengen map image for about page
     image_path = view_context.asset_path('schengen_area_eu_countries.webp')
     @og_image = "https://#{request.host_with_port}#{image_path}"
-    @og_site_name = "Schengen Calculator"
+    @og_site_name = I18n.t('common.schengen_calculator')
     
     # Add JSON-LD structured data for about page
     @json_ld_data = {
@@ -87,12 +86,12 @@ class AboutController < ApplicationController
   end
   
   def set_page_meta_tags(page_name)
-    @meta_title = "#{page_name} - Schengen Calculator"
+    @meta_title = "#{page_name} - #{I18n.t('common.schengen_calculator')}"
     @meta_description = I18n.t('default_description')
     @og_type = 'website'
     @og_url = "https://#{request.host_with_port}#{request.path}"
     image_path = view_context.asset_path('schengen_area_eu_countries.webp')
     @og_image = "https://#{request.host_with_port}#{image_path}"
-    @og_site_name = "Schengen Calculator"
+    @og_site_name = I18n.t('common.schengen_calculator')
   end
 end

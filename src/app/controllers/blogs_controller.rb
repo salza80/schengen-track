@@ -79,7 +79,7 @@ class BlogsController < ApplicationController
       # Use full URL for og:image (required for Facebook)
       image_path = view_context.asset_path('switzerland.jpg')
       @og_image = "https://#{request.host_with_port}#{image_path}"
-      @og_site_name = "Schengen Calculator"
+      @og_site_name = I18n.t('common.schengen_calculator')
       @article_published_time = "2024-01-15T00:00:00Z"
       @article_modified_time = "2024-01-15T00:00:00Z"
     end

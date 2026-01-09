@@ -6,9 +6,9 @@
   - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('about.link'), :url => about_url(:locale => I18n.locale) }]
   = render_breadcrumbs(breadcrumbs)
 
-.row
+.row{style: "padding-bottom: 150px;"}
   .col-lg-4{:role => "complementary"}
-    %nav.page-sidebar.position-sticky.hidden-print.d-none.d-lg-block{:data => {"spy": "data-affix", "data-offset-top": "10", "data-offset-bottom": "50"}, "aria-label": t('about.about.contents_title')}
+    %nav.page-sidebar.hidden-print.d-none.d-lg-block{style: "position: sticky; top: 10px;", "aria-label": t('about.about.contents_title')}
       %h4.title
         = t('about.about.contents_title')
       %ul.nav.flex-column.page-sidenav{role: "list"}

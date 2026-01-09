@@ -219,7 +219,7 @@ class DaysController < ApplicationController
     @og_url = "https://#{request.host_with_port}#{request.path}"
     image_path = view_context.asset_path('schengen_area_eu_countries.webp')
     @og_image = "https://#{request.host_with_port}#{image_path}"
-    @og_site_name = "Schengen Calculator"
+    @og_site_name = I18n.t('common.schengen_calculator')
     
     # JSON-LD already exists in layout for days#index - enhance it with FAQ
     @json_ld_faq = {
@@ -228,26 +228,26 @@ class DaysController < ApplicationController
       "mainEntity" => [
         {
           "@type" => "Question",
-          "name" => "What is the Schengen 90/180 day rule?",
+          "name" => I18n.t('about.about.faq.q1.question'),
           "acceptedAnswer" => {
             "@type" => "Answer",
-            "text" => "The 90/180 day rule means you can stay in the Schengen Area for up to 90 days within any 180-day period. This is a rolling calculation - each day, the system looks back 180 days to count your stay."
+            "text" => I18n.t('about.about.faq.q1.answer')
           }
         },
         {
           "@type" => "Question",
-          "name" => "How do I track my Schengen days?",
+          "name" => I18n.t('about.about.faq.q3.question'),
           "acceptedAnswer" => {
             "@type" => "Answer",
-            "text" => "Use the calendar to view your past and future trips. Add your travel dates, and the calculator automatically tracks your days in the Schengen Area. Green days are safe, yellow means you're approaching the limit, and red indicates overstay."
+            "text" => I18n.t('about.about.countries_in_schengen')
           }
         },
         {
           "@type" => "Question",
-          "name" => "Which countries are in the Schengen Area?",
+          "name" => I18n.t('days.learn_about_rule'),
           "acceptedAnswer" => {
             "@type" => "Answer",
-            "text" => "The Schengen Area includes 29 European countries: Austria, Belgium, Bulgaria, Croatia, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and Switzerland."
+            "text" => I18n.t('days.meta_description')
           }
         }
       ]

@@ -22,7 +22,6 @@ class VisasController < ApplicationController
     @visa.no_entries = 0
     
     respond_to do |format|
-      format.html # Full page render
       format.js   # AJAX request from visits page
     end
   end
@@ -30,7 +29,6 @@ class VisasController < ApplicationController
   # GET /visas/1/edit
   def edit
     respond_to do |format|
-      format.html # Full page render
       format.js   # AJAX request from visits page
     end
   end

@@ -57,7 +57,6 @@ class VisitsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html # Full page render
       format.js   # AJAX request from calendar
     end
   end
@@ -70,7 +69,6 @@ class VisitsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html # Full page render
       format.js   # AJAX request from calendar
     end
   end

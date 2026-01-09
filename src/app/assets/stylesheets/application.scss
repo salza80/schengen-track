@@ -16,8 +16,32 @@
 // import customisatons to theme
 @import "_bootstrap_custom.scss";
 
-// @import "bootstrap-sprockets";
-@import "bootstrap";
+// Selective Bootstrap imports to reduce bundle size
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/root";
+@import "bootstrap/reboot";
+@import "bootstrap/type";
+@import "bootstrap/images";
+@import "bootstrap/code";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+@import "bootstrap/transitions";
+@import "bootstrap/dropdown";
+@import "bootstrap/button-group";
+@import "bootstrap/input-group";
+@import "bootstrap/custom-forms";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/card";
+@import "bootstrap/badge";
+@import "bootstrap/alert";
+@import "bootstrap/modal";
+@import "bootstrap/utilities";
+@import "bootstrap/print";
 @import "font-awesome";
 @import "font_display"; // Font display optimization for performance
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)

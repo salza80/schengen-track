@@ -17,8 +17,11 @@ const account = '360298971790';
   },
   domain: 'test.schengen-calculator.com',
   altDomain: 'test2.schengen-calculator.com',
+  hostedZoneId: 'Z09534222QVN38M7WSW23',
+  hostedZoneName: 'schengen-calculator.com',
   sslArn: 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd',
-  paramPath: `/scheng/staging/`
+  paramPath: `/scheng/staging/`,
+  createSharedDnsRecords: false
  }
 
  const productonProps = {
@@ -31,8 +34,11 @@ const account = '360298971790';
   },
   domain: 'schengen-calculator.com',
   altDomain: 'www.schengen-calculator.com',
+  hostedZoneId: 'Z09534222QVN38M7WSW23',
+  hostedZoneName: 'schengen-calculator.com',
   sslArn: 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd',
-  paramPath: `/scheng/prod/`
+  paramPath: `/scheng/prod/`,
+  createSharedDnsRecords: true
  }
 
  new RailsLambdaStack(app, 'RailsLambdaStack', stagingProps);

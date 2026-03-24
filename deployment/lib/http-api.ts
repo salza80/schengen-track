@@ -8,6 +8,8 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
+import * as route53 from 'aws-cdk-lib/aws-route53';
+import * as route53Targets from 'aws-cdk-lib/aws-route53-targets';
 import { createRedirectFunction } from './createRedirectFunction';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
@@ -20,8 +22,76 @@ export interface HttpApiConstructProps {
   domain: string,
   altDomain: string,
   sslArn: string,
-  paramPath: string
+  paramPath: string,
+  hostedZoneId: string,
+  hostedZoneName: string,
+  createSharedDnsRecords: boolean
 }
+
+interface CnameRecordDefinition {
+  recordName: string,
+  domainName: string,
+  ttl?: cdk.Duration
+}
+
+interface TxtRecordDefinition {
+  recordName: string,
+  values: string[],
+  ttl?: cdk.Duration
+}
+
+const EXISTING_RECORD_TTL = cdk.Duration.seconds(300);
+
+const sharedProductionCnameRecords: CnameRecordDefinition[] = [
+  {
+    recordName: '_215e781da24efe9ddff2bc347a77fc9f',
+    domainName: '_4c05f2c064fcaba386ecbfd5c3411c72.dnzkjbsjxj.acm-validations.aws.',
+    ttl: cdk.Duration.minutes(30)
+  },
+  {
+    recordName: '_2e040d9384a5c18a2cf172c3675dfdc9',
+    domainName: '_6b1f4803ca9baf222e56d38c6d5e3468.dnzkjbsjxj.acm-validations.aws.',
+    ttl: cdk.Duration.minutes(10)
+  },
+  {
+    recordName: '_b4abeb352c0fe2e73390c6a1ad924d8d',
+    domainName: '_e9c79ecd3d992ae9acc504bf239a8876.dnzkjbsjxj.acm-validations.aws.',
+    ttl: cdk.Duration.minutes(10)
+  },
+  {
+    recordName: '_215e781da24efe9ddff2bc347a77fc9f.www',
+    domainName: '_4c05f2c064fcaba386ecbfd5c3411c72.dnzkjbsjxj.acm-validations.aws.',
+    ttl: cdk.Duration.minutes(30)
+  },
+  {
+    recordName: 'brevo1._domainkey',
+    domainName: 'b1.schengen-calculator-com.dkim.brevo.com',
+    ttl: cdk.Duration.minutes(5)
+  },
+  {
+    recordName: 'brevo2._domainkey',
+    domainName: 'b2.schengen-calculator-com.dkim.brevo.com',
+    ttl: cdk.Duration.minutes(5)
+  }
+];
+
+const sharedProductionTxtRecords: TxtRecordDefinition[] = [
+  {
+    recordName: '',
+    values: [
+      'google-site-verification=bpQ0Yeqh2zLoLeFBT5hYXAYMishcxLS1F353hnNT6rM',
+      'google-site-verification=UyjvLv9o3tg3xvM4GM_n9MGknCIrAt6kG33515EKWaE',
+      'brevo-code:f476b8e875f757bb0d6a3ccbd2c912ec',
+      'forward-email=smclean17@gmail.com'
+    ],
+    ttl: cdk.Duration.hours(1)
+  },
+  {
+    recordName: '_dmarc',
+    values: ['v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com'],
+    ttl: cdk.Duration.minutes(5)
+  }
+];
 /**
  * CDK construct to create API Gateway HTTP API with Lambda proxy integration 2.0
  */
@@ -31,6 +101,11 @@ export class HttpApiConstruct extends Construct {
    */
   constructor(scope: Construct, id: string, props: HttpApiConstructProps) {
     super(scope, id);
+
+    const hostedZone = route53.HostedZone.fromHostedZoneAttributes(this, 'HostedZone', {
+      hostedZoneId: props.hostedZoneId,
+      zoneName: props.hostedZoneName
+    });
 
     // Rails HTTP API container image with AWS Lambda Ruby Runtime Interface Client
     const imageAssetPath = path.join(__dirname, '../../src');
@@ -278,9 +353,83 @@ export class HttpApiConstruct extends Construct {
     });
     cloudFrontUrlOutput.overrideLogicalId('CloudFrontUrl');
 
+    const aliasTarget = route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(cloudfrontDist));
+    const aliasRecordNames = [customDomain, altDomain];
+
+    // These records already exist in the hosted zone today, so the first managed deploy
+    // needs to replace the manual records before CloudFormation can own them.
+    aliasRecordNames.forEach((recordName) => {
+      const normalizedRecordName = normalizeRecordName(recordName, props.hostedZoneName);
+      const recordId = recordIdSuffix(recordName);
+
+      new route53.ARecord(this, `${recordId}AliasARecord`, {
+        zone: hostedZone,
+        recordName: normalizedRecordName,
+        target: aliasTarget,
+        deleteExisting: true
+      });
+
+      new route53.AaaaRecord(this, `${recordId}AliasAaaaRecord`, {
+        zone: hostedZone,
+        recordName: normalizedRecordName,
+        target: aliasTarget
+      });
+    });
+
+    if (props.createSharedDnsRecords) {
+      new route53.MxRecord(this, 'RootMxRecord', {
+        zone: hostedZone,
+        values: [
+          { priority: 0, hostName: 'mx1.forwardemail.net.' },
+          { priority: 10, hostName: 'mx2.forwardemail.net.' }
+        ],
+        ttl: cdk.Duration.hours(1),
+        deleteExisting: true
+      });
+
+      sharedProductionTxtRecords.forEach((record) => {
+        new route53.TxtRecord(this, `${recordIdSuffix(record.recordName || 'root')}TxtRecord`, {
+          zone: hostedZone,
+          recordName: record.recordName || undefined,
+          values: record.values,
+          ttl: record.ttl ?? EXISTING_RECORD_TTL,
+          deleteExisting: true
+        });
+      });
+
+      sharedProductionCnameRecords.forEach((record) => {
+        new route53.CnameRecord(this, `${recordIdSuffix(record.recordName)}CnameRecord`, {
+          zone: hostedZone,
+          recordName: record.recordName,
+          domainName: record.domainName,
+          ttl: record.ttl ?? EXISTING_RECORD_TTL,
+          deleteExisting: true
+        });
+      });
+    }
+
     const opsLambdaNameOutput = new cdk.CfnOutput(this, 'OpsLambdaFunctionName', {
       value: opsFunction.functionName,
     });
     opsLambdaNameOutput.overrideLogicalId('OpsLambdaFunctionName');
   }
+}
+
+function normalizeRecordName(recordName: string, zoneName: string): string | undefined {
+  if (recordName === zoneName) {
+    return undefined;
+  }
+
+  const zoneSuffix = `.${zoneName}`;
+  return recordName.endsWith(zoneSuffix)
+    ? recordName.slice(0, -zoneSuffix.length)
+    : recordName;
+}
+
+function recordIdSuffix(recordName: string): string {
+  return recordName
+    .replace(/\./g, '-')
+    .replace(/[^A-Za-z0-9-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '') || 'root';
 }

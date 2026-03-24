@@ -25,6 +25,8 @@ npm install
 
 Both stacks output the CloudFront distribution domain (`CloudFrontUrl`) and the Ops Lambda name (`OpsLambdaFunctionName`). The GitHub Actions workflows rely on these logical IDs—avoid renaming them without updating the workflows.
 
+The stacks also import the existing `schengen-calculator.com` hosted zone and manage the app's Route 53 records in CDK. Review the first DNS-managing deploy carefully because it adopts records that were originally created manually in Route 53.
+
 ## Common commands
 
 ```bash

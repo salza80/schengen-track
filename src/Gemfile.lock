@@ -277,7 +277,7 @@ GEM
     puma (6.6.1)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.21)
+    rack (2.2.23)
     rack-protection (3.2.0)
       base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
@@ -435,7 +435,7 @@ DEPENDENCIES
   pg
   pry
   puma (~> 6.4, >= 6.4.3)
-  rack (~> 2.2, >= 2.2.20)
+  rack (~> 2.2)
   rails (~> 7.1.5, >= 7.1.5.2)
   rails-controller-testing
   rails-html-sanitizer (>= 1.6.2)

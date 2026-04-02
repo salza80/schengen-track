@@ -35,7 +35,7 @@ gem 'autoprefixer-rails'
 gem 'canonical-rails'
 
 # Security-critical dependency version constraints
-gem 'rack', '~> 2.2', '>= 2.2.20'
+gem 'rack', '~> 2.2'
 gem 'rails-html-sanitizer', '>= 1.6.2'
 gem 'net-imap', '>= 0.5.7'
 gem 'uri', '>= 0.13.3'

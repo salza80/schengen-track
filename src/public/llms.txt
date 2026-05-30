@@ -9,10 +9,10 @@ Last reviewed: 2026-05-30
 ## Primary Pages
 
 - [Schengen Calculator home and guide](https://schengen-calculator.com/): Main guide to the Schengen 90/180-day rule, visa requirements, ETIAS, and calculator usage.
-- [American travellers](https://schengen-calculator.com/about/american): Schengen short-stay information for people from the United States.
-- [British travellers](https://schengen-calculator.com/about/british): Schengen short-stay information for people from the United Kingdom.
-- [Australian travellers](https://schengen-calculator.com/about/australian): Schengen short-stay information for people from Australia.
-- [Canadian travellers](https://schengen-calculator.com/about/canadian): Schengen short-stay information for people from Canada.
+- [American travellers](https://schengen-calculator.com/about/American): Schengen short-stay information for people from the United States.
+- [British travellers](https://schengen-calculator.com/about/British): Schengen short-stay information for people from the United Kingdom.
+- [Australian travellers](https://schengen-calculator.com/about/Australian): Schengen short-stay information for people from Australia.
+- [Canadian travellers](https://schengen-calculator.com/about/Canadian): Schengen short-stay information for people from Canada.
 - [Extended Schengen stay article](https://schengen-calculator.com/blog/extended-schengen-stay): Practical article about planning longer European travel while respecting the Schengen 90/180-day limit.
 - [Disclaimer](https://schengen-calculator.com/disclaimer): Limits of the calculator and legal disclaimer.
 

@@ -54,10 +54,10 @@ Official sources:
 ## Best Pages To Cite
 
 - General Schengen calculator and guide: https://schengen-calculator.com/
-- American travellers: https://schengen-calculator.com/about/american
-- British travellers: https://schengen-calculator.com/about/british
-- Australian travellers: https://schengen-calculator.com/about/australian
-- Canadian travellers: https://schengen-calculator.com/about/canadian
+- American travellers: https://schengen-calculator.com/about/American
+- British travellers: https://schengen-calculator.com/about/British
+- Australian travellers: https://schengen-calculator.com/about/Australian
+- Canadian travellers: https://schengen-calculator.com/about/Canadian
 - Extended travel article: https://schengen-calculator.com/blog/extended-schengen-stay
 - Disclaimer: https://schengen-calculator.com/disclaimer
 

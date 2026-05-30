@@ -17,7 +17,7 @@ tr:
       calendar_highlight: Etkileşimli Schengen Takvimi ile her şeyi tek bakışta görün.
       calendar_secondary_cta: Renk kodlu gün kartları kullanılan, güvenli ve bekleme günlerini gösterir ve ziyaret eklemek ya da düzenlemek için hızlı bağlantılar sunar.
       contents_title: İçindekiler
-      countries_in_schengen: 'Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç, İsviçre.'
+      countries_in_schengen: 'Schengen alanındaki ülkeler şunlardır: Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Lihtenştayn, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç, İsviçre.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Bitiş Tarihi:'
@@ -57,17 +57,17 @@ tr:
       disclaimer_link: Feragatname
       etias_additional_info: ETIAS, 90/180 gün kuralını değiştirmez. Kalış süreniz için standart Schengen hesaplamasına uymaya devam etmeniz gerekecek, ancak giriş yapmadan önce ETIAS iznine ihtiyacınız olacak.
       etias_coming_soon: ETIAS, 2026 yılının son çeyreğinde faaliyete başlayacak. Şu anda gezginlerden herhangi bir işlem yapması gerekmiyor. Avrupa Birliği, ETIAS başlangıç tarihini lansmanından birkaç ay önce duyuracaktır.
-      etias_description: ETIAS (Avrupa Seyahat Bilgi ve İzin Sistemi), Schengen Bölgesine giren vize muafiyeti olan gezginler için bir ön seyahat izin sistemidir. ABD ESTA veya Kanada eTA sistemine benzer.
+      etias_description: ETIAS (Avrupa Seyahat Bilgi ve İzin Sistemi), ETIAS gerektiren Avrupa ülkelerine seyahat eden vize muafiyeti olan gezginler için bir ön seyahat izin sistemidir. ABD ESTA veya Kanada eTA sistemine benzer.
       etias_effective_date: 2026 4. Çeyrek itibarıyla
       etias_link: Resmi ETIAS Bilgileri
-      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
+      etias_link_url: https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias
       etias_not_visa: 'Önemli: ETIAS bir vize DEĞİLDİR. Seyahatinizden önce çevrimiçi olarak alınması gereken elektronik bir seyahat iznidir.'
       etias_section_link: ETIAS - Seyahat İzni
       etias_title: ETIAS - Avrupa Seyahat İzni
-      etias_who_needs: ETIAS, şu anda herhangi bir ön izin olmadan girebilen vize muafiyeti olan ülkelerden (Amerika Birleşik Devletleri, Birleşik Krallık, Avustralya, Kanada, Yeni Zelanda, Japonya ve diğerleri dahil) gelen gezginler için gerekli olacaktır.
+      etias_who_needs: ETIAS, ETIAS gerektiren Avrupa ülkelerine seyahat eden vize muafiyeti olan gezginler (Amerika Birleşik Devletleri, Birleşik Krallık, Avustralya, Kanada, Yeni Zelanda, Japonya ve diğerleri dahil) için gerekli olacaktır.
       european_commission_link: Avrupa Komisyonu
       european_commission_website_link: Avrupa Komisyonu Web Sitesi
-      exempt_countries_conditions: Bu ülkelerden bazıları için koşullar olduğunu lütfen unutmayın. Örneğin, Arnavutluk, Bosna-Hersek, Gürcistan, Moldova, Karadağ, Sırbistan ve Ukrayna vatandaşları vize yükümlülüğünden muaftır ancak yalnızca pasaport biyometrik veri içeriyorsa. Kosova için vize muafiyeti, ETIAS'ın faaliyete başladığı tarihten veya 1 Ocak 2024'ten, hangisi daha önce gelirse, geçerlidir. Tüm koşullarla birlikte eksiksiz ve güncel liste için lütfen resmi AB düzenlemesine bakın.
+      exempt_countries_conditions: Bu ülkelerden bazıları için koşullar olduğunu lütfen unutmayın. Örneğin, Arnavutluk, Bosna-Hersek, Gürcistan, Moldova, Karadağ, Sırbistan ve Ukrayna vatandaşları vize yükümlülüğünden muaftır ancak yalnızca pasaport biyometrik veri içeriyorsa. Kosova vatandaşları yalnızca ICAO standartlarına uygun biyometrik pasaportlarla muaftır. Tüm koşullarla birlikte eksiksiz ve güncel liste için lütfen resmi AB düzenlemesine bakın.
       exempt_countries_list: ABD, Andora, Antigua ve Barbuda, Arjantin, Arnavutluk, Avustralya, Bahamalar, Barbados, Birleşik Arap Emirlikleri, Birleşik Krallık, Bosna ve Hersek, Brezilya, Brunei, Dominika, El Salvador, Granada, Guatemala, Güney Kore, Gürcistan, Honduras, Hong Kong, İsrail, Japonya, Kanada, Kiribati, Kolombiya, Kosova, Kosta Rika, Macau, Makedonya, Malezya, Marshall Adaları, Mauritius, Meksika, Mikronezya, Moldova, Monako, Karadağ, Nauru, Nikaragua, Yeni Zelanda, Palau, Panama, Paraguay, Peru, Saint Kitts ve Nevis, Saint Lucia, Saint Vincent ve Grenadinler, Samoa, San Marino, Sırbistan, Seyşeller, Singapur, Solomon Adaları, Şili, Tayvan, Timor-Leste, Tonga, Trinidad ve Tobago, Tuvalu, Ukrayna, Uruguay, Vatikan Şehri (Kutsal Makam) ve Venezuela.
       exempt_countries_official_link: Vize Gereksinimleri Hakkında Resmi AB Düzenlemesi
       exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
@@ -97,7 +97,7 @@ tr:
           answer: Evet, Schengen Bölgesi'nde fiziksel olarak bulunduğunuz her gün, transit günler ve sadece havaalanları veya tren istasyonlarından geçtiğiniz günler dahil olmak üzere 90 günlük limitinize dahildir. Giriş günü ve çıkış günü tam gün olarak sayılır.
           question: Transit günler 90 günlük limitime dahil mi?
         q8:
-          answer: ETIAS (Avrupa Seyahat Bilgi ve Yetkilendirme Sistemi), 2026'nın 4. çeyreğinden itibaren vize muafiyeti olan gezginler için gerekli bir ön seyahat yetkilendirmesidir. ABD, İngiltere, Kanada, Avustralya gibi ülkelerden ve şu anda vizeye ihtiyaç duymayan diğer ülkelerden vatandaşlar ETIAS onayına ihtiyaç duyacaktır. ABD ESTA'ya benzer ve bazı muafiyetlerle birlikte 20 EUR tutarında olacaktır. 3 yıla kadar veya pasaport süresi dolana kadar, hangisi önce gerçekleşirse, geçerlidir.
+          answer: ETIAS (Avrupa Seyahat Bilgi ve Yetkilendirme Sistemi), 2026'nın 4. çeyreğinden itibaren ETIAS gerektiren Avrupa ülkelerine seyahat eden vize muafiyeti olan gezginler için gerekli bir ön seyahat yetkilendirmesidir. ABD, İngiltere, Kanada, Avustralya gibi ülkelerden ve şu anda vizeye ihtiyaç duymayan diğer ülkelerden vatandaşlar ETIAS onayına ihtiyaç duyacaktır. ABD ESTA'ya benzer ve bazı muafiyetlerle birlikte 20 EUR tutarında olacaktır. 3 yıla kadar veya pasaport süresi dolana kadar, hangisi önce gerçekleşirse, geçerlidir.
           question: ETIAS nedir ve kimler ihtiyaç duyar?
         q9:
           answer: Evet! Hesaplayıcı hem vize muafiyeti olan gezginleri hem de kısa süreli Schengen vizeli olanları destekler. Sadece vize detaylarınızı (başlangıç tarihi, bitiş tarihi, giriş sayısı) ve seyahat kaydınızı girin. Hesaplayıcı hem 90/180 gün limitinizi hem de vizeye özel kısıtlamalarınızı takip edecektir.

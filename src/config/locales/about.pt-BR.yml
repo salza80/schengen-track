@@ -17,7 +17,7 @@ pt-BR:
       calendar_highlight: Veja tudo de uma vez com o Calendário Schengen interativo.
       calendar_secondary_cta: Cartões de dias em cores mostram dias usados, seguros e em espera e oferecem atalhos rápidos para adicionar ou ajustar visitas.
       contents_title: Conteúdo
-      countries_in_schengen: 'Os países na área Schengen incluem: Áustria, Bélgica, Bulgária, Croácia, República Tcheca, Dinamarca, Estônia, Finlândia, França, Alemanha, Grécia, Hungria, Islândia, Itália, Letônia, Lituânia, Luxemburgo, Malta, Países Baixos, Noruega, Polônia, Portugal, Romênia, Eslováquia, Eslovênia, Espanha, Suécia, Suíça.'
+      countries_in_schengen: 'Os países na área Schengen incluem: Áustria, Bélgica, Bulgária, Croácia, República Tcheca, Dinamarca, Estônia, Finlândia, França, Alemanha, Grécia, Hungria, Islândia, Itália, Letônia, Liechtenstein, Lituânia, Luxemburgo, Malta, Países Baixos, Noruega, Polônia, Portugal, Romênia, Eslováquia, Eslovênia, Espanha, Suécia, Suíça.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Data Final:'
@@ -56,20 +56,20 @@ pt-BR:
         title: Aviso Legal
       disclaimer_link: Aviso Legal
       etias_additional_info: O ETIAS não altera a regra de 90/180 dias. Você ainda precisará cumprir o cálculo Schengen padrão para a duração da sua estadia, mas precisará da autorização ETIAS antes de poder entrar.
-      etias_coming_soon: ETIAS will start operations in the last quarter of 2026. No action is required from travellers at this point. The European Union will inform about the specific date for the start of ETIAS several months prior to its launch.
-      etias_description: ETIAS (European Travel Information and Authorization System) is a pre-travel authorization system for visa-exempt travelers entering the Schengen Area. It is similar to the US ESTA or Canadian eTA.
-      etias_effective_date: Starting in Q4 2026
-      etias_link: Official ETIAS Information
-      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
-      etias_not_visa: 'Important: ETIAS is NOT a visa. It is an electronic travel authorization that must be obtained online before your trip.'
-      etias_section_link: ETIAS - Travel Authorization
-      etias_title: ETIAS - European Travel Authorization
-      etias_who_needs: ETIAS will be required for travelers from visa-exempt countries (including the United States, United Kingdom, Australia, Canada, New Zealand, Japan, and others) who currently can enter without any advance permission.
-      european_commission_link: European Commission
-      european_commission_website_link: European Commission Website
-      exempt_countries_conditions: Please be aware that there are conditions on some of these countries. For example, citizens of Albania, Bosnia-Herzegovina, Georgia, Moldova, Montenegro, Serbia, and Ukraine are exempt from visa obligation only if the passport contains biometric data. Kosovo visa exemption applies from the date ETIAS starts operations or from 1 January 2024, whichever came first. For the complete and current list with all conditions, please refer to the official EU regulation.
+      etias_coming_soon: O ETIAS começará a operar no último trimestre de 2026. Nenhuma ação é exigida dos viajantes neste momento. A União Europeia informará a data específica de início do ETIAS vários meses antes do lançamento.
+      etias_description: ETIAS (Sistema Europeu de Informação e Autorização de Viagem) é uma autorização prévia de viagem para viajantes isentos de visto que visitam países europeus que exigem ETIAS. É semelhante ao ESTA dos EUA ou ao eTA canadense.
+      etias_effective_date: A partir do quarto trimestre de 2026
+      etias_link: Informações oficiais sobre o ETIAS
+      etias_link_url: https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias
+      etias_not_visa: 'Importante: ETIAS NÃO é um visto. É uma autorização eletrônica de viagem que deve ser obtida online antes da viagem.'
+      etias_section_link: ETIAS - Autorização de viagem
+      etias_title: ETIAS - Autorização europeia de viagem
+      etias_who_needs: O ETIAS será exigido para viajantes isentos de visto (incluindo Estados Unidos, Reino Unido, Austrália, Canadá, Nova Zelândia, Japão e outros) que viajem para países europeus que exigem ETIAS.
+      european_commission_link: Comissão Europeia
+      european_commission_website_link: Site da Comissão Europeia
+      exempt_countries_conditions: Observe que há condições para alguns desses países. Por exemplo, cidadãos da Albânia, Bósnia-Herzegovina, Geórgia, Moldávia, Montenegro, Sérvia e Ucrânia são isentos da obrigação de visto apenas se o passaporte contiver dados biométricos. Cidadãos de Kosovo são isentos apenas com passaportes biométricos emitidos de acordo com os padrões da ICAO. Para a lista completa e atualizada com todas as condições, consulte o regulamento oficial da UE.
       exempt_countries_list: Albania, Andorra, Antigua and Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia and Herzegovina, Brazil, Brunei, Canada, Chile, Colombia, Costa Rica, Dominica, El Salvador, Georgia, Grenada, Guatemala, Honduras, Hong Kong, Israel, Japan, Kiribati, Kosovo, Malaysia, Macao, Marshall Islands, Mauritius, Mexico, Micronesia, Moldova, Monaco, Montenegro, Nauru, New Zealand, Nicaragua, North Macedonia, Palau, Panama, Paraguay, Peru, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines, Samoa, San Marino, Serbia, Seychelles, Singapore, Solomon Islands, South Korea, Taiwan, Timor-Leste, Tonga, Trinidad and Tobago, Tuvalu, Ukraine, United Kingdom, United States, United Arab Emirates, Uruguay, Vatican City (Holy See), and Venezuela.
-      exempt_countries_official_link: Official EU Regulation on Requisitos de Visto
+      exempt_countries_official_link: Regulamento oficial da UE sobre requisitos de visto
       exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
       faq:
         q1:
@@ -97,7 +97,7 @@ pt-BR:
           answer: Yes, any day you are physically present in the Schengen Area counts toward your 90-day limit, including transit days and days when you're simply passing through airports or train stations. The day of entry and day of exit both count as full days.
           question: Dias em trânsito contam para meu limite de 90 dias?
         q8:
-          answer: ETIAS (Sistema Europeu de Informação e Autorização de Viagem) é uma autorização prévia de viagem exigida para viajantes isentos de visto a partir do quarto trimestre de 2026. Cidadãos de países como EUA, Reino Unido, Canadá, Austrália e outros que atualmente não precisam de visto precisarão da aprovação ETIAS. É semelhante ao ESTA dos EUA e custará 20 EUR, com algumas isenções. Será válido por até 3 anos ou até o passaporte expirar, o que ocorrer primeiro.
+          answer: ETIAS (Sistema Europeu de Informação e Autorização de Viagem) é uma autorização prévia de viagem exigida a partir do quarto trimestre de 2026 para viajantes isentos de visto que visitam países europeus que exigem ETIAS. Cidadãos de países como EUA, Reino Unido, Canadá, Austrália e outros que atualmente não precisam de visto precisarão da aprovação ETIAS. É semelhante ao ESTA dos EUA e custará 20 EUR, com algumas isenções. Será válido por até 3 anos ou até o passaporte expirar, o que ocorrer primeiro.
           question: O que é ETIAS e quem precisa dele?
         q9:
           answer: Yes! The calculator supports both visa-exempt travelers and those with short-stay Schengen visas. Simply enter your visa details (start date, end date, number of entries) and your travel record. The calculator will track both your 90/180 day limit and your visa-specific restrictions.

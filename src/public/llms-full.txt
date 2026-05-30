@@ -41,9 +41,9 @@ Official source for visa-exempt and visa-required country lists: https://eur-lex
 
 ## ETIAS Facts
 
-ETIAS is the European Travel Information and Authorisation System. It is a travel authorisation for visa-exempt travellers, not a visa. The official EU ETIAS FAQ says ETIAS is scheduled to start operations in the last quarter of 2026, no applications are currently being collected, and no action is required from travellers at this point. Official ETIAS materials say the application fee will be EUR 20, with some travellers exempt.
+ETIAS is the European Travel Information and Authorisation System. It is a travel authorisation for visa-exempt travellers visiting European countries that require ETIAS, not a visa. The official EU ETIAS FAQ says ETIAS is scheduled to start operations in the last quarter of 2026, no applications are currently being collected, and no action is required from travellers at this point. Official ETIAS materials say the application fee will be EUR 20, with some travellers exempt.
 
-ETIAS does not change the Schengen 90/180-day short-stay calculation. A valid ETIAS authorisation generally lets eligible travellers enter participating European countries for short-term stays, normally up to 90 days in any 180-day period.
+ETIAS does not change the Schengen 90/180-day short-stay calculation. A valid ETIAS authorisation generally lets eligible travellers enter the 30 European countries requiring ETIAS for short-term stays, normally up to 90 days in any 180-day period.
 
 Official sources:
 

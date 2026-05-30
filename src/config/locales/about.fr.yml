@@ -17,7 +17,7 @@ fr:
       calendar_highlight: Visualisez tout d'un coup d'œil avec le calendrier Schengen interactif.
       calendar_secondary_cta: Les cartes journalières codées par couleur affichent les jours utilisés, sûrs et en attente, et vous donnent des raccourcis pour ajouter ou ajuster des visites.
       contents_title: Contenu
-      countries_in_schengen: 'Les pays de l''espace Schengen comprennent : l''Autriche, la Belgique, la Bulgarie, la Croatie, la République tchèque, le Danemark, l''Estonie, la Finlande, la France, l''Allemagne, la Grèce, la Hongrie, l''Islande, l''Italie, la Lettonie, la Lituanie, le Luxembourg, Malte, les Pays-Bas, la Norvège, la Pologne, le Portugal, la Roumanie, la Slovaquie, la Slovénie, l''Espagne, la Suède, la Suisse.'
+      countries_in_schengen: 'Les pays de l''espace Schengen comprennent : l''Autriche, la Belgique, la Bulgarie, la Croatie, la République tchèque, le Danemark, l''Estonie, la Finlande, la France, l''Allemagne, la Grèce, la Hongrie, l''Islande, l''Italie, la Lettonie, le Liechtenstein, la Lituanie, le Luxembourg, Malte, les Pays-Bas, la Norvège, la Pologne, le Portugal, la Roumanie, la Slovaquie, la Slovénie, l''Espagne, la Suède, la Suisse.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Date de fin :'
@@ -57,17 +57,17 @@ fr:
       disclaimer_link: Clause de non-responsabilité
       etias_additional_info: L'ETIAS ne modifie pas la règle des 90/180 jours. Vous devrez toujours respecter le calcul standard Schengen pour la durée de votre séjour, mais vous aurez besoin de l'autorisation ETIAS avant de pouvoir entrer.
       etias_coming_soon: L'ETIAS commencera à fonctionner au dernier trimestre de 2026. Aucune action n'est requise de la part des voyageurs pour le moment. L'Union européenne communiquera la date de début spécifique de l'ETIAS plusieurs mois avant son lancement.
-      etias_description: L'ETIAS (système européen d'information et d'autorisation de voyage) est un système d'autorisation de voyage préalable pour les voyageurs exemptés de visa entrant dans l'espace Schengen. Il est similaire à l'ESTA américain ou à l'AVE canadien.
+      etias_description: L'ETIAS (système européen d'information et d'autorisation de voyage) est un système d'autorisation de voyage préalable pour les voyageurs exemptés de visa se rendant dans les pays européens qui exigent l'ETIAS. Il est similaire à l'ESTA américain ou à l'AVE canadien.
       etias_effective_date: À partir du quatrième trimestre 2026
       etias_link: Informations officielles ETIAS
-      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
+      etias_link_url: https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias
       etias_not_visa: 'Important : l''ETIAS n''est PAS un visa. C''est une autorisation de voyage électronique qui doit être obtenue en ligne avant votre voyage.'
       etias_section_link: ETIAS - Autorisation de voyage
       etias_title: ETIAS - Autorisation de voyage européenne
-      etias_who_needs: L'ETIAS sera obligatoire pour les voyageurs de pays exemptés de visa (y compris les États-Unis, le Royaume-Uni, l'Australie, le Canada, la Nouvelle-Zélande, le Japon et d'autres) qui peuvent actuellement entrer sans aucune autorisation préalable.
+      etias_who_needs: L'ETIAS sera obligatoire pour les voyageurs exemptés de visa (y compris les États-Unis, le Royaume-Uni, l'Australie, le Canada, la Nouvelle-Zélande, le Japon et d'autres) se rendant dans les pays européens qui exigent l'ETIAS.
       european_commission_link: Commission européenne
       european_commission_website_link: Site web de la Commission européenne
-      exempt_countries_conditions: Veuillez noter qu'il existe des conditions pour certains de ces pays. Par exemple, les citoyens d'Albanie, de Bosnie-Herzégovine, de Géorgie, de Moldavie, du Monténégro, de Serbie et d'Ukraine sont exemptés de l'obligation de visa uniquement si le passeport contient des données biométriques. L'exonération de visa du Kosovo s'applique à partir de la date à laquelle l'ETIAS commencera à fonctionner ou à partir du 1er janvier 2024, selon la première éventualité. Pour la liste complète et mise à jour avec toutes les conditions, veuillez consulter la réglementation officielle de l'UE.
+      exempt_countries_conditions: Veuillez noter qu'il existe des conditions pour certains de ces pays. Par exemple, les citoyens d'Albanie, de Bosnie-Herzégovine, de Géorgie, de Moldavie, du Monténégro, de Serbie et d'Ukraine sont exemptés de l'obligation de visa uniquement si le passeport contient des données biométriques. Les citoyens du Kosovo ne sont exemptés qu'avec des passeports biométriques délivrés conformément aux normes de l'OACI. Pour la liste complète et mise à jour avec toutes les conditions, veuillez consulter la réglementation officielle de l'UE.
       exempt_countries_list: Albanie, Andorre, Antigua-et-Barbuda, Argentine, Australie, Bahamas, Barbade, Bosnie-Herzégovine, Brésil, Brunei, Canada, Chili, Colombie, Costa Rica, Dominique, El Salvador, Émirats arabes unis, États-Unis, Géorgie, Grenade, Guatemala, Honduras, Hong Kong, Israël, Japon, Kiribati, Kosovo, Macao, Malaisie, Îles Marshall, Maurice, Mexique, Micronésie, Moldavie, Monaco, Monténégro, Nauru, Nicaragua, Nouvelle-Zélande, Macédoine du Nord, Palaos, Panama, Paraguay, Pérou, Royaume-Uni, Saint-Christophe-et-Niévès, Sainte-Lucie, Saint-Vincent-et-les-Grenadines, Samoa, Saint-Marin, Serbie, Seychelles, Singapour, Îles Salomon, Corée du Sud, Taïwan, Timor-Leste, Tonga, Trinité-et-Tobago, Tuvalu, Ukraine, Uruguay, Cité du Vatican (Saint-Siège) et Venezuela.
       exempt_countries_official_link: Règlement officiel de l'UE sur les exigences de visa
       exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
@@ -97,7 +97,7 @@ fr:
           answer: Oui, tout jour où vous êtes physiquement présent dans l'espace Schengen compte pour votre limite de 90 jours, y compris les jours de transit et les jours où vous passez simplement par les aéroports ou les gares. Le jour d'entrée et le jour de sortie comptent comme des jours complets.
           question: Les jours de transit comptent-ils pour ma limite de 90 jours ?
         q8:
-          answer: L'ETIAS (système européen d'information et d'autorisation de voyage) est une autorisation de voyage préalable requise pour les voyageurs exemptés de visa à partir du quatrième trimestre 2026. Les citoyens de pays comme les États-Unis, le Royaume-Uni, le Canada, l'Australie et d'autres qui n'ont actuellement pas besoin de visa auront besoin d'une approbation ETIAS. C'est similaire à l'ESTA américain et coûtera 20 EUR, avec certaines exemptions. Il sera valable jusqu'à 3 ans ou jusqu'à l'expiration du passeport, selon la première éventualité.
+          answer: L'ETIAS (système européen d'information et d'autorisation de voyage) est une autorisation de voyage préalable requise à partir du quatrième trimestre 2026 pour les voyageurs exemptés de visa se rendant dans les pays européens qui exigent l'ETIAS. Les citoyens de pays comme les États-Unis, le Royaume-Uni, le Canada, l'Australie et d'autres qui n'ont actuellement pas besoin de visa auront besoin d'une approbation ETIAS. C'est similaire à l'ESTA américain et coûtera 20 EUR, avec certaines exemptions. Il sera valable jusqu'à 3 ans ou jusqu'à l'expiration du passeport, selon la première éventualité.
           question: Qu'est-ce que l'ETIAS et qui en a besoin ?
         q9:
           answer: Oui ! La calculatrice prend en charge à la fois les voyageurs exemptés de visa et ceux qui ont des visas Schengen de court séjour. Entrez simplement les détails de votre visa (date de début, date de fin, nombre d'entrées) et votre enregistrement de voyage. La calculatrice suivra à la fois votre limite de 90/180 jours et vos restrictions de visa spécifiques.

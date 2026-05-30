@@ -323,8 +323,8 @@ Devise.setup do |config|
     info_fields: 'email,first_name,last_name',
     token_params: { parse: :json },
     client_options: {
-      site: 'https://graph.facebook.com/v19.0',
-      authorize_url: "https://www.facebook.com/v19.0/dialog/oauth"
+      site: 'https://graph.facebook.com/v25.0',
+      authorize_url: "https://www.facebook.com/v25.0/dialog/oauth"
     }
 
 end

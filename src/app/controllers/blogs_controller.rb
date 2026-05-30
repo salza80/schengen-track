@@ -113,16 +113,4 @@ class BlogsController < ApplicationController
     end
   end
 
-  def organization_schema
-    {
-      "@type" => "Organization",
-      "@id" => "https://schengen-calculator.com/#organization",
-      "name" => I18n.t('common.schengen_calculator'),
-      "url" => "https://schengen-calculator.com/"
-    }
-  end
-
-  def absolute_asset_url(asset_name)
-    "https://#{request.host_with_port}#{view_context.asset_path(asset_name)}"
-  end
 end

@@ -9,7 +9,7 @@ class AboutController < ApplicationController
   ].freeze
 
   # GET /about/
-  # GET /about/:nationaity
+  # GET /about/:nationality
   def about
     if current_user_or_guest_user.is_guest?
       if Rails.env.development?
@@ -50,6 +50,8 @@ class AboutController < ApplicationController
   end
   
   def set_about_meta_tags
+    @last_reviewed_date = LAST_REVIEWED_DATE
+
     if @country
       nationality_title = I18n.t('about.nationality.tourist_travel_requirements_title',
                                  nationality_plural: @country.nationality_plural)
@@ -88,7 +90,7 @@ class AboutController < ApplicationController
         "name" => I18n.t('common.schengen_calculator'),
         "url" => "https://schengen-calculator.com/"
       },
-      "publisher" => organization_schema,
+      "publisher" => organization_schema(include_logo: true),
       "breadcrumb" => {
         "@type" => "BreadcrumbList",
         "itemListElement" => [
@@ -177,17 +179,4 @@ class AboutController < ApplicationController
     end
   end
 
-  def organization_schema
-    {
-      "@type" => "Organization",
-      "@id" => "https://schengen-calculator.com/#organization",
-      "name" => I18n.t('common.schengen_calculator'),
-      "url" => "https://schengen-calculator.com/",
-      "logo" => absolute_asset_url('med.png')
-    }
-  end
-
-  def absolute_asset_url(asset_name)
-    "https://#{request.host_with_port}#{view_context.asset_path(asset_name)}"
-  end
 end

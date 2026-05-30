@@ -16,7 +16,25 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { locale: I18n.locale }
   end
+
   private
+
+  def organization_schema(include_logo: false)
+    schema = {
+      "@type" => "Organization",
+      "@id" => "https://schengen-calculator.com/#organization",
+      "name" => I18n.t('common.schengen_calculator'),
+      "url" => "https://schengen-calculator.com/"
+    }
+
+    schema["logo"] = absolute_asset_url('med.png') if include_logo
+
+    schema
+  end
+
+  def absolute_asset_url(asset_name)
+    "https://#{request.host_with_port}#{view_context.asset_path(asset_name)}"
+  end
 
   def set_locale_from_params
     I18n.locale = params[:locale] || I18n.default_locale

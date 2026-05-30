@@ -339,7 +339,7 @@
       %h3#updated.mb-4
         = t('about.about.last_updated.title')
       %p.mb-4
-        = t('about.about.last_updated.description', date: l(@last_reviewed_date, format: :mid))
+        = t('about.about.last_updated.description', date: l(@last_reviewed_date.to_time, format: :mid))
 :javascript
   // Initialize scrollspy and smooth scroll after page load
   // This runs AFTER deferred scripts (core.js with jQuery) have loaded

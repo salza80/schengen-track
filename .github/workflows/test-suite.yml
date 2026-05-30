@@ -72,3 +72,5 @@ jobs:
         env:
           CI: true
           RAILS_ENV: test
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}

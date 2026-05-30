@@ -10,7 +10,6 @@ schengen-calculator.com/robots.txt
 schengen-calculator.com/llms.txt
 schengen-calculator.com/llms-full.txt
 schengen-calculator.com/ads.txt
-schengen-calculator.com/med.png
 schengen-calculator.com/blog/extended-schengen-stay
 schengen-calculator.com/en
 schengen-calculator.com/en/about
@@ -29,7 +28,6 @@ schengen-calculator.com/es/about
 schengen-calculator.com/es/about/British
 schengen-calculator.com/es/about/American
 schengen-calculator.com/es/about/Brazilian
-schengen-calculator.com/es/about/American
 schengen-calculator.com/es/blog/extended-schengen-stay
 schengen-calculator.com/tr
 schengen-calculator.com/tr/about
@@ -47,8 +45,8 @@ schengen-calculator.com/hi
 schengen-calculator.com/hi/about
 schengen-calculator.com/hi/about/British
 schengen-calculator.com/hi/about/American
-schengen-calculator.com/hi/about/indian
-schengen-calculator.com/hi/about/Sri%20Lankan
+schengen-calculator.com/hi/about/Indian
+schengen-calculator.com/hi/about/Sri_Lankan
 schengen-calculator.com/hi/blog/extended-schengen-stay
 schengen-calculator.com/pt-BR
 schengen-calculator.com/pt-BR/about
@@ -58,7 +56,7 @@ schengen-calculator.com/pt-BR/about/American
 schengen-calculator.com/pt-BR/blog/extended-schengen-stay
 schengen-calculator.com/ar
 schengen-calculator.com/ar/about
-schengen-calculator.com/ar/about/Saudi%20Arabian
+schengen-calculator.com/ar/about/Saudi_Arabian
 schengen-calculator.com/ar/about/Emirati
 schengen-calculator.com/ar/about/Egyptian
 schengen-calculator.com/ar/about/Moroccan
@@ -67,9 +65,5 @@ schengen-calculator.com/ar/about/Lebanese
 schengen-calculator.com/ar/blog/extended-schengen-stay
 schengen-calculator.com/fr
 schengen-calculator.com/fr/about
-schengen-calculator.com/fr/about/French
-schengen-calculator.com/fr/about/Belgian
-schengen-calculator.com/fr/about/Swiss
 schengen-calculator.com/fr/about/Canadian
 schengen-calculator.com/fr/blog/extended-schengen-stay
-

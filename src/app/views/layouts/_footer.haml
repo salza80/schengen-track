@@ -46,21 +46,7 @@
             %i.fa.fa-globe.mr-2.text-primary.d-none.d-md-inline
             = language_selector
 %script{:type => "application/ld+json"}
-  {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": "https://schengen-calculator.com/#organization",
-  "name": "Schengen Calculator",
-  "description": "Free independent Schengen Area 90/180-day travel calculator and short-stay planning guide.",
-  "url": "https://schengen-calculator.com/",
-  "logo": {
-  "@type": "ImageObject",
-  "url": "https://schengen-calculator.com/med.png"
-  },
-  "sameAs": [
-  "https://www.buymeacoffee.com/smclean17d"
-  ]
-  }
+  = organization_schema_json_ld
 
 / Google tag (gtag.js)
 %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=G-E9CCZDHLJF"}

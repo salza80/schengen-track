@@ -8,7 +8,6 @@ test.schengen-calculator.com/robots.txt
 test.schengen-calculator.com/llms.txt
 test.schengen-calculator.com/llms-full.txt
 test.schengen-calculator.com/ads.txt
-test.schengen-calculator.com/med.png
 test.schengen-calculator.com/blog/extended-schengen-stay
 test.schengen-calculator.com/en
 test.schengen-calculator.com/en/about
@@ -46,10 +45,9 @@ test.schengen-calculator.com/pt-BR/blog/extended-schengen-stay
 test.schengen-calculator.com/ar
 test.schengen-calculator.com/ar/about
 test.schengen-calculator.com/ar/about/Egyptian
-test.schengen-calculator.com/ar/about/Saudi%20Arabian
+test.schengen-calculator.com/ar/about/Saudi_Arabian
 test.schengen-calculator.com/ar/blog/extended-schengen-stay
 test.schengen-calculator.com/fr
 test.schengen-calculator.com/fr/about
-test.schengen-calculator.com/fr/about/French
-test.schengen-calculator.com/fr/about/Belgian
+test.schengen-calculator.com/fr/about/Canadian
 test.schengen-calculator.com/fr/blog/extended-schengen-stay

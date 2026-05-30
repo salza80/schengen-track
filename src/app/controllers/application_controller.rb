@@ -2,6 +2,26 @@ require 'aws/book_query'
 require 'securerandom'
 
 class ApplicationController < ActionController::Base
+  CANONICAL_SITE_URL = 'https://schengen-calculator.com'.freeze
+  SCHENGEN_AREA_SOURCE_URL = 'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en'.freeze
+  VISA_REQUIREMENTS_SOURCE_URL = 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230'.freeze
+  ETIAS_FAQ_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/faq'.freeze
+  ETIAS_OVERVIEW_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias'.freeze
+  ETIAS_FEE_SOURCE_URL = 'https://travel-europe.europa.eu/etias/ltr/about-etias/news-corner/ETIAS-will-cost-EUR-20'.freeze
+
+  BLOG_OFFICIAL_SOURCE_URLS = [
+    SCHENGEN_AREA_SOURCE_URL,
+    VISA_REQUIREMENTS_SOURCE_URL
+  ].freeze
+
+  ABOUT_OFFICIAL_SOURCE_URLS = [
+    SCHENGEN_AREA_SOURCE_URL,
+    VISA_REQUIREMENTS_SOURCE_URL,
+    ETIAS_FAQ_SOURCE_URL,
+    ETIAS_OVERVIEW_SOURCE_URL,
+    ETIAS_FEE_SOURCE_URL
+  ].freeze
+
   before_action :set_cache_cookie, unless: :task_controller?
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -22,14 +42,31 @@ class ApplicationController < ActionController::Base
   def organization_schema(include_logo: false)
     schema = {
       "@type" => "Organization",
-      "@id" => "https://schengen-calculator.com/#organization",
+      "@id" => "#{CANONICAL_SITE_URL}/#organization",
       "name" => I18n.t('common.schengen_calculator'),
-      "url" => "https://schengen-calculator.com/"
+      "url" => "#{CANONICAL_SITE_URL}/"
     }
 
-    schema["logo"] = absolute_asset_url('med.png') if include_logo
+    schema["logo"] = image_object_schema('med.png') if include_logo
 
     schema
+  end
+
+  def image_object_schema(asset_name)
+    {
+      "@type" => "ImageObject",
+      "url" => canonical_asset_url(asset_name)
+    }
+  end
+
+  def canonical_url(path = '/')
+    normalized_path = path.to_s
+    normalized_path = "/#{normalized_path}" unless normalized_path.start_with?('/')
+    "#{CANONICAL_SITE_URL}#{normalized_path}"
+  end
+
+  def canonical_asset_url(asset_name)
+    "#{CANONICAL_SITE_URL}#{view_context.asset_path(asset_name)}"
   end
 
   def absolute_asset_url(asset_name)

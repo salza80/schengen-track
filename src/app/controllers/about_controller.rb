@@ -1,12 +1,5 @@
 class AboutController < ApplicationController
   LAST_REVIEWED_DATE = Date.new(2026, 5, 30).freeze
-  OFFICIAL_SOURCE_URLS = [
-    'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en',
-    'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230',
-    'https://travel-europe.europa.eu/en/etias/faq',
-    'https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias',
-    'https://travel-europe.europa.eu/etias/ltr/about-etias/news-corner/ETIAS-will-cost-EUR-20'
-  ].freeze
 
   # GET /about/
   # GET /about/:nationality
@@ -73,22 +66,24 @@ class AboutController < ApplicationController
   end
 
   def about_page_schema
+    page_url = canonical_url(request.path)
+
     schema = {
       "@context" => "https://schema.org",
       "@type" => "AboutPage",
-      "@id" => "#{@og_url}#webpage",
+      "@id" => "#{page_url}#webpage",
       "name" => @meta_title,
       "description" => @meta_description,
-      "url" => @og_url,
+      "url" => page_url,
       "inLanguage" => I18n.locale.to_s,
       "dateModified" => LAST_REVIEWED_DATE.iso8601,
       "lastReviewed" => LAST_REVIEWED_DATE.iso8601,
-      "citation" => OFFICIAL_SOURCE_URLS,
+      "citation" => ABOUT_OFFICIAL_SOURCE_URLS,
       "isPartOf" => {
         "@type" => "WebSite",
-        "@id" => "https://schengen-calculator.com/#website",
+        "@id" => "#{CANONICAL_SITE_URL}/#website",
         "name" => I18n.t('common.schengen_calculator'),
-        "url" => "https://schengen-calculator.com/"
+        "url" => "#{CANONICAL_SITE_URL}/"
       },
       "publisher" => organization_schema(include_logo: true),
       "breadcrumb" => {
@@ -98,21 +93,21 @@ class AboutController < ApplicationController
             "@type" => "ListItem",
             "position" => 1,
             "name" => "Home",
-            "item" => "https://#{request.host_with_port}/"
+            "item" => canonical_url('/')
           },
           {
             "@type" => "ListItem",
             "position" => 2,
             "name" => "About",
-            "item" => @og_url
+            "item" => page_url
           }
         ]
       },
       "mainEntity" => {
         "@type" => "WebApplication",
-        "@id" => "https://schengen-calculator.com/#app",
+        "@id" => "#{CANONICAL_SITE_URL}/#app",
         "name" => I18n.t('common.schengen_calculator'),
-        "url" => "https://schengen-calculator.com/",
+        "url" => "#{CANONICAL_SITE_URL}/",
         "description" => I18n.t('default_description'),
         "applicationCategory" => "UtilityApplication",
         "operatingSystem" => "Any",
@@ -144,7 +139,7 @@ class AboutController < ApplicationController
     {
       "@context" => "https://schema.org",
       "@type" => "FAQPage",
-      "@id" => "#{@og_url}#faq",
+      "@id" => "#{canonical_url(request.path)}#faq",
       "inLanguage" => I18n.locale.to_s,
       "mainEntity" => (1..10).map do |index|
         {

@@ -1,4 +1,12 @@
 class AboutController < ApplicationController
+  LAST_REVIEWED_DATE = Date.new(2026, 5, 30).freeze
+  OFFICIAL_SOURCE_URLS = [
+    'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en',
+    'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230',
+    'https://travel-europe.europa.eu/en/etias/faq',
+    'https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias',
+    'https://travel-europe.europa.eu/etias/ltr/about-etias/news-corner/ETIAS-will-cost-EUR-20'
+  ].freeze
 
   # GET /about/
   # GET /about/:nationaity
@@ -14,16 +22,8 @@ class AboutController < ApplicationController
       end
     end
     
-    # Set SEO meta tags for about page
+    set_country_from_params
     set_about_meta_tags
-    
-    @country = nil
-    return if params[:nationality].nil?
-    nationality = params[:nationality]
-    nationality.gsub("_", " ")
-    @country = Country.find_by_nationality(nationality)
-               .outside_schengen.first
-    fail ActionController::RoutingError, 'Page Not Found' if @country.nil?
   end
 
   # GET /disclaimer/
@@ -37,23 +37,58 @@ class AboutController < ApplicationController
   end
   
   private
+
+  def set_country_from_params
+    @country = nil
+    return if params[:nationality].blank?
+
+    nationality = params[:nationality].to_s.downcase.tr(' ', '_')
+    @country = Country.find_by_nationality(nationality)
+                      .outside_schengen
+                      .first
+    fail ActionController::RoutingError, 'Page Not Found' if @country.nil?
+  end
   
   def set_about_meta_tags
-    @meta_title = I18n.t('about.page_title', default: 'About') + ' | ' + I18n.t('common.schengen_calculator')
-    @meta_description = I18n.t('about.meta_description', default: I18n.t('default_description'))
+    if @country
+      nationality_title = I18n.t('about.nationality.tourist_travel_requirements_title',
+                                 nationality_plural: @country.nationality_plural)
+      @meta_title = "#{nationality_title} | #{I18n.t('common.schengen_calculator')}"
+      @meta_description = "#{nationality_visa_requirement_text(@country)} #{I18n.t('default_description')}".squish.truncate(160)
+    else
+      @meta_title = I18n.t('about.page_title', default: 'About') + ' | ' + I18n.t('common.schengen_calculator')
+      @meta_description = I18n.t('about.meta_description', default: I18n.t('default_description'))
+    end
     @og_type = 'website'
     @og_url = "https://#{request.host_with_port}#{request.path}"
-    image_path = view_context.asset_path('schengen_area_eu_countries.webp')
-    @og_image = "https://#{request.host_with_port}#{image_path}"
+    @og_image = absolute_asset_url('schengen_area_eu_countries.webp')
     @og_site_name = I18n.t('common.schengen_calculator')
     
-    # Add JSON-LD structured data for about page
-    @json_ld_data = {
+    @json_ld_data = [
+      about_page_schema,
+      faq_schema
+    ]
+  end
+
+  def about_page_schema
+    schema = {
       "@context" => "https://schema.org",
       "@type" => "AboutPage",
+      "@id" => "#{@og_url}#webpage",
       "name" => @meta_title,
       "description" => @meta_description,
       "url" => @og_url,
+      "inLanguage" => I18n.locale.to_s,
+      "dateModified" => LAST_REVIEWED_DATE.iso8601,
+      "lastReviewed" => LAST_REVIEWED_DATE.iso8601,
+      "citation" => OFFICIAL_SOURCE_URLS,
+      "isPartOf" => {
+        "@type" => "WebSite",
+        "@id" => "https://schengen-calculator.com/#website",
+        "name" => I18n.t('common.schengen_calculator'),
+        "url" => "https://schengen-calculator.com/"
+      },
+      "publisher" => organization_schema,
       "breadcrumb" => {
         "@type" => "BreadcrumbList",
         "itemListElement" => [
@@ -73,7 +108,10 @@ class AboutController < ApplicationController
       },
       "mainEntity" => {
         "@type" => "WebApplication",
+        "@id" => "https://schengen-calculator.com/#app",
         "name" => I18n.t('common.schengen_calculator'),
+        "url" => "https://schengen-calculator.com/",
+        "description" => I18n.t('default_description'),
         "applicationCategory" => "UtilityApplication",
         "operatingSystem" => "Any",
         "offers" => {
@@ -83,6 +121,40 @@ class AboutController < ApplicationController
         }
       }
     }
+
+    if @country
+      schema["about"] = [
+        {
+          "@type" => "Thing",
+          "name" => "Schengen Area"
+        },
+        {
+          "@type" => "Country",
+          "name" => @country.name
+        }
+      ]
+    end
+
+    schema
+  end
+
+  def faq_schema
+    {
+      "@context" => "https://schema.org",
+      "@type" => "FAQPage",
+      "@id" => "#{@og_url}#faq",
+      "inLanguage" => I18n.locale.to_s,
+      "mainEntity" => (1..10).map do |index|
+        {
+          "@type" => "Question",
+          "name" => I18n.t("about.about.faq.q#{index}.question"),
+          "acceptedAnswer" => {
+            "@type" => "Answer",
+            "text" => I18n.t("about.about.faq.q#{index}.answer")
+          }
+        }
+      end
+    }
   end
   
   def set_page_meta_tags(page_name)
@@ -90,8 +162,32 @@ class AboutController < ApplicationController
     @meta_description = I18n.t('default_description')
     @og_type = 'website'
     @og_url = "https://#{request.host_with_port}#{request.path}"
-    image_path = view_context.asset_path('schengen_area_eu_countries.webp')
-    @og_image = "https://#{request.host_with_port}#{image_path}"
+    @og_image = absolute_asset_url('schengen_area_eu_countries.webp')
     @og_site_name = I18n.t('common.schengen_calculator')
+  end
+
+  def nationality_visa_requirement_text(country)
+    case country.visa_required
+    when 'F'
+      I18n.t('about.nationality.visa_not_required', country: country.name)
+    when 'V'
+      I18n.t('about.nationality.visa_required', country: country.name)
+    else
+      I18n.t('about.nationality.visa_exempt', country: country.name)
+    end
+  end
+
+  def organization_schema
+    {
+      "@type" => "Organization",
+      "@id" => "https://schengen-calculator.com/#organization",
+      "name" => I18n.t('common.schengen_calculator'),
+      "url" => "https://schengen-calculator.com/",
+      "logo" => absolute_asset_url('med.png')
+    }
+  end
+
+  def absolute_asset_url(asset_name)
+    "https://#{request.host_with_port}#{view_context.asset_path(asset_name)}"
   end
 end

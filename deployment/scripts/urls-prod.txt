@@ -7,6 +7,8 @@ schengen-calculator.com/about/Chinese
 schengen-calculator.com/sitemap.xml
 schengen-calculator.com/favicon.ico
 schengen-calculator.com/robots.txt
+schengen-calculator.com/llms.txt
+schengen-calculator.com/llms-full.txt
 schengen-calculator.com/ads.txt
 schengen-calculator.com/med.png
 schengen-calculator.com/blog/extended-schengen-stay
@@ -70,5 +72,4 @@ schengen-calculator.com/fr/about/Belgian
 schengen-calculator.com/fr/about/Swiss
 schengen-calculator.com/fr/about/Canadian
 schengen-calculator.com/fr/blog/extended-schengen-stay
-
 

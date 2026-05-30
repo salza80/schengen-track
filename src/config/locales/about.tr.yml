@@ -70,7 +70,7 @@ tr:
       exempt_countries_conditions: Bu ülkelerden bazıları için koşullar olduğunu lütfen unutmayın. Örneğin, Arnavutluk, Bosna-Hersek, Gürcistan, Moldova, Karadağ, Sırbistan ve Ukrayna vatandaşları vize yükümlülüğünden muaftır ancak yalnızca pasaport biyometrik veri içeriyorsa. Kosova için vize muafiyeti, ETIAS'ın faaliyete başladığı tarihten veya 1 Ocak 2024'ten, hangisi daha önce gelirse, geçerlidir. Tüm koşullarla birlikte eksiksiz ve güncel liste için lütfen resmi AB düzenlemesine bakın.
       exempt_countries_list: ABD, Andora, Antigua ve Barbuda, Arjantin, Arnavutluk, Avustralya, Bahamalar, Barbados, Birleşik Arap Emirlikleri, Birleşik Krallık, Bosna ve Hersek, Brezilya, Brunei, Dominika, El Salvador, Granada, Guatemala, Güney Kore, Gürcistan, Honduras, Hong Kong, İsrail, Japonya, Kanada, Kiribati, Kolombiya, Kosova, Kosta Rika, Macau, Makedonya, Malezya, Marshall Adaları, Mauritius, Meksika, Mikronezya, Moldova, Monako, Karadağ, Nauru, Nikaragua, Yeni Zelanda, Palau, Panama, Paraguay, Peru, Saint Kitts ve Nevis, Saint Lucia, Saint Vincent ve Grenadinler, Samoa, San Marino, Sırbistan, Seyşeller, Singapur, Solomon Adaları, Şili, Tayvan, Timor-Leste, Tonga, Trinidad ve Tobago, Tuvalu, Ukrayna, Uruguay, Vatikan Şehri (Kutsal Makam) ve Venezuela.
       exempt_countries_official_link: Vize Gereksinimleri Hakkında Resmi AB Düzenlemesi
-      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
       faq:
         q1:
           answer: 90/180 gün kuralı, Schengen Bölgesi'nde herhangi bir 180 günlük dönem içinde vizesiz olarak (vize muafiyeti olan bir ülkeden geliyorsanız) 90 güne kadar kalabileceğiniz anlamına gelir. 180 günlük dönem, mevcut tarihinizden geriye bakan hareketli bir penceredir.
@@ -91,13 +91,13 @@ tr:
           answer: Aşırı kalma, para cezaları, sınır dışı edilme, giriş yasakları (genellikle 1-5 yıl) ve gelecekteki vize veya seyahat yetkilendirmeleri alma zorluklarını içeren ciddi sonuçlara yol açabilir. Her zaman 90/180 gün kuralına uyduğunuzdan emin olun ve izin verilen kaldığınız süreyi aşmadan önce ayrılın.
           question: Schengen Bölgesi'nde 90 günümü aşarsam ne olur?
         q6:
-          answer: 2025 itibariyle Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Lihtenştayn, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç ve İsviçre dahil olmak üzere 29 Schengen ülkesi bulunmaktadır. Bulgaristan ve Romanya 31 Mart 2024'te tam olarak katıldı.
-          question: 2025'te Schengen Bölgesi'nde hangi ülkeler var?
+          answer: Mayıs 2026 itibariyle Schengen Bölgesi'nde Avusturya, Belçika, Bulgaristan, Hırvatistan, Çek Cumhuriyeti, Danimarka, Estonya, Finlandiya, Fransa, Almanya, Yunanistan, Macaristan, İzlanda, İtalya, Letonya, Lihtenştayn, Litvanya, Lüksemburg, Malta, Hollanda, Norveç, Polonya, Portekiz, Romanya, Slovakya, Slovenya, İspanya, İsveç ve İsviçre dahil olmak üzere 29 ülke bulunmaktadır. Bulgaristan ve Romanya 1 Ocak 2025'te tam olarak katıldı.
+          question: 2026'da Schengen Bölgesi'nde hangi ülkeler var?
         q7:
           answer: Evet, Schengen Bölgesi'nde fiziksel olarak bulunduğunuz her gün, transit günler ve sadece havaalanları veya tren istasyonlarından geçtiğiniz günler dahil olmak üzere 90 günlük limitinize dahildir. Giriş günü ve çıkış günü tam gün olarak sayılır.
           question: Transit günler 90 günlük limitime dahil mi?
         q8:
-          answer: ETIAS (Avrupa Seyahat Bilgi ve Yetkilendirme Sistemi), 2026'nın 4. çeyreğinden itibaren vize muafiyeti olan gezginler için gerekli bir ön seyahat yetkilendirmesidir. ABD, İngiltere, Kanada, Avustralya gibi ülkelerden ve şu anda vizeye ihtiyaç duymayan diğer ülkelerden vatandaşlar ETIAS onayına ihtiyaç duyacaktır. ABD ESTA'ya benzer ve yaklaşık 7 € tutarındadır, 3 yıl geçerlidir.
+          answer: ETIAS (Avrupa Seyahat Bilgi ve Yetkilendirme Sistemi), 2026'nın 4. çeyreğinden itibaren vize muafiyeti olan gezginler için gerekli bir ön seyahat yetkilendirmesidir. ABD, İngiltere, Kanada, Avustralya gibi ülkelerden ve şu anda vizeye ihtiyaç duymayan diğer ülkelerden vatandaşlar ETIAS onayına ihtiyaç duyacaktır. ABD ESTA'ya benzer ve bazı muafiyetlerle birlikte 20 EUR tutarında olacaktır. 3 yıla kadar veya pasaport süresi dolana kadar, hangisi önce gerçekleşirse, geçerlidir.
           question: ETIAS nedir ve kimler ihtiyaç duyar?
         q9:
           answer: Evet! Hesaplayıcı hem vize muafiyeti olan gezginleri hem de kısa süreli Schengen vizeli olanları destekler. Sadece vize detaylarınızı (başlangıç tarihi, bitiş tarihi, giriş sayısı) ve seyahat kaydınızı girin. Hesaplayıcı hem 90/180 gün limitinizi hem de vizeye özel kısıtlamalarınızı takip edecektir.
@@ -147,7 +147,7 @@ tr:
         title: Sınırlamalar
       limitations_link: Sınırlamalar
       more_information_link: 'Daha Fazla Bilgi: gov.uk - 1 Ocak 2021''den İtibaren Avrupa''yı Ziyaret'
-      nationality_dependent_visa_requirement: 'Vatandaşlık durumunuza bağlı olarak, Schengen bölgesine girmeden önce Kısa Süreli Schengen Vizesi başvurmanız gerekebilir. AB''nin, vize başvurması gereken ülkelerin bir listesi ve bu gereksinimi taşımayan ülkelerin bir listesi bulunmaktadır. 3 Şubat 2025 (AB düzenlemesinin son güncellenme tarihi) tarihi itibarıyla, Schengen Vizesi almadan önce giriş yapması gerekmeyen ülkelerin şu şekildedir:'
+      nationality_dependent_visa_requirement: 'Vatandaşlık durumunuza bağlı olarak, Schengen bölgesine girmeden önce Kısa Süreli Schengen Vizesi başvurmanız gerekebilir. AB''nin vize başvurması gereken ülkelerin bir listesi ve bu gereksinimden muaf ülkelerin bir listesi bulunmaktadır. Güncel resmi liste için aşağıdaki AB düzenlemesine bakın. Bu hesaplayıcının güncel verilerinde yer alan vizeden muaf ülkeler ve bölgeler şunlardır:'
       nationality_requirements_link: Vatandaşlık gereksinimleri
       nationality_section:
         heading: Vatandaşlığım için Schengen / Avrupa turistik seyahat giriş ve kalış süresi gereksinimleri

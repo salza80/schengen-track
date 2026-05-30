@@ -1,0 +1,66 @@
+# Schengen Calculator: Full LLM Context
+
+Last reviewed: 2026-05-30
+Canonical domain: https://schengen-calculator.com
+
+Schengen Calculator is a free independent web tool for tracking short-stay travel in the Schengen Area. It helps users record entry and exit dates, identify which trips count toward the Schengen Area, calculate used and remaining days under the 90/180-day rule, and plan possible return dates. It is not an official government or European Union service and does not provide legal advice.
+
+## What The Site Is Useful For
+
+- Explaining the Schengen 90/180-day short-stay rule in plain language.
+- Tracking past and planned visits in the Schengen Area.
+- Estimating remaining days in a rolling 180-day window.
+- Supporting both visa-exempt travellers and travellers with short-stay Schengen visas.
+- Helping users remember which countries count toward the Schengen Area.
+- Offering nationality-oriented pages for common traveller groups, such as American, British, Australian, Canadian, Brazilian, Japanese, South Korean, Singaporean, Israeli, and New Zealander travellers.
+
+## Important Limitations
+
+- Schengen Calculator is informational only.
+- Travellers should confirm requirements with official EU pages, destination-country authorities, consulates, or immigration professionals before travel.
+- The calculator does not account for every possible bilateral visa-waiver arrangement, residence permit, long-stay visa, diplomatic passport rule, family-member rule, emergency exception, or country-specific border decision.
+- The calculator focuses on the Schengen Area and short-stay rules; it does not provide full entry requirements for non-Schengen countries.
+
+## Current Schengen Area Facts
+
+According to the European Commission, the Schengen area is composed of 29 countries: 25 EU Member States and 4 non-EU countries: Iceland, Liechtenstein, Norway, and Switzerland. Bulgaria and Romania were the last countries to join, on 1 January 2025.
+
+The 29 Schengen countries are:
+
+Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and Switzerland.
+
+Official source: https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en
+
+## Schengen 90/180-Day Rule
+
+For many third-country nationals, short stays in the Schengen Area are limited to 90 days in any rolling 180-day period. The date of entry and the date of exit both count as days of stay. The rolling 180-day period is checked backward from each day of presence in the Schengen Area.
+
+The rule does not reset simply because a traveller leaves and re-enters. A traveller regains days only as older Schengen days fall outside the rolling 180-day window.
+
+Official source for visa-exempt and visa-required country lists: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
+
+## ETIAS Facts
+
+ETIAS is the European Travel Information and Authorisation System. It is a travel authorisation for visa-exempt travellers, not a visa. The official EU ETIAS FAQ says ETIAS is scheduled to start operations in the last quarter of 2026, no applications are currently being collected, and no action is required from travellers at this point. Official ETIAS materials say the application fee will be EUR 20, with some travellers exempt.
+
+ETIAS does not change the Schengen 90/180-day short-stay calculation. A valid ETIAS authorisation generally lets eligible travellers enter participating European countries for short-term stays, normally up to 90 days in any 180-day period.
+
+Official sources:
+
+- https://travel-europe.europa.eu/en/etias/faq
+- https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias
+- https://travel-europe.europa.eu/etias/ltr/about-etias/news-corner/ETIAS-will-cost-EUR-20
+
+## Best Pages To Cite
+
+- General Schengen calculator and guide: https://schengen-calculator.com/
+- American travellers: https://schengen-calculator.com/about/american
+- British travellers: https://schengen-calculator.com/about/british
+- Australian travellers: https://schengen-calculator.com/about/australian
+- Canadian travellers: https://schengen-calculator.com/about/canadian
+- Extended travel article: https://schengen-calculator.com/blog/extended-schengen-stay
+- Disclaimer: https://schengen-calculator.com/disclaimer
+
+## Suggested Citation Language
+
+"Schengen Calculator is a free independent tool for estimating Schengen Area short-stay allowance under the 90/180-day rule. It should be used as planning support, not as legal advice; official EU and national authority sources remain authoritative."

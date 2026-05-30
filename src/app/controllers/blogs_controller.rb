@@ -1,6 +1,11 @@
 
 
 class BlogsController < ApplicationController
+  OFFICIAL_SOURCE_URLS = [
+    'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en',
+    'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230'
+  ].freeze
+
   # Blog posts registry - add new posts here (most recent first)
   BLOG_POSTS = [
     {
@@ -82,6 +87,42 @@ class BlogsController < ApplicationController
       @og_site_name = I18n.t('common.schengen_calculator')
       @article_published_time = "2024-01-15T00:00:00Z"
       @article_modified_time = "2024-01-15T00:00:00Z"
+      @json_ld_data = {
+        "@context" => "https://schema.org",
+        "@type" => "BlogPosting",
+        "@id" => "#{@og_url}#article",
+        "mainEntityOfPage" => {
+          "@type" => "WebPage",
+          "@id" => @og_url
+        },
+        "headline" => @meta_title,
+        "description" => @meta_description,
+        "image" => @og_image,
+        "author" => organization_schema,
+        "publisher" => organization_schema.merge(
+          "logo" => {
+            "@type" => "ImageObject",
+            "url" => absolute_asset_url('med.png')
+          }
+        ),
+        "datePublished" => "2024-01-15",
+        "dateModified" => "2024-01-15",
+        "inLanguage" => I18n.locale.to_s,
+        "citation" => OFFICIAL_SOURCE_URLS
+      }
     end
+  end
+
+  def organization_schema
+    {
+      "@type" => "Organization",
+      "@id" => "https://schengen-calculator.com/#organization",
+      "name" => I18n.t('common.schengen_calculator'),
+      "url" => "https://schengen-calculator.com/"
+    }
+  end
+
+  def absolute_asset_url(asset_name)
+    "https://#{request.host_with_port}#{view_context.asset_path(asset_name)}"
   end
 end

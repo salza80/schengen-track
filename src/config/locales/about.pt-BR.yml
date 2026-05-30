@@ -70,7 +70,7 @@ pt-BR:
       exempt_countries_conditions: Please be aware that there are conditions on some of these countries. For example, citizens of Albania, Bosnia-Herzegovina, Georgia, Moldova, Montenegro, Serbia, and Ukraine are exempt from visa obligation only if the passport contains biometric data. Kosovo visa exemption applies from the date ETIAS starts operations or from 1 January 2024, whichever came first. For the complete and current list with all conditions, please refer to the official EU regulation.
       exempt_countries_list: Albania, Andorra, Antigua and Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia and Herzegovina, Brazil, Brunei, Canada, Chile, Colombia, Costa Rica, Dominica, El Salvador, Georgia, Grenada, Guatemala, Honduras, Hong Kong, Israel, Japan, Kiribati, Kosovo, Malaysia, Macao, Marshall Islands, Mauritius, Mexico, Micronesia, Moldova, Monaco, Montenegro, Nauru, New Zealand, Nicaragua, North Macedonia, Palau, Panama, Paraguay, Peru, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines, Samoa, San Marino, Serbia, Seychelles, Singapore, Solomon Islands, South Korea, Taiwan, Timor-Leste, Tonga, Trinidad and Tobago, Tuvalu, Ukraine, United Kingdom, United States, United Arab Emirates, Uruguay, Vatican City (Holy See), and Venezuela.
       exempt_countries_official_link: Official EU Regulation on Requisitos de Visto
-      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
       faq:
         q1:
           answer: The 90/180 day rule means you can stay in the Schengen Area for up to 90 days within any 180-day period without a visa (if you're from a visa-exempt country). The 180-day period is a rolling window that looks back from your current date.
@@ -91,13 +91,13 @@ pt-BR:
           answer: Overstaying can result in serious consequences including fines, deportation, entry bans (typically 1-5 years), and difficulties obtaining future visas or travel authorizations. Always ensure you comply with the 90/180 day rule and leave before exceeding your allowed stay.
           question: O que acontece se eu exceder meus 90 dias na Área Schengen?
         q6:
-          answer: As of 2025, there are 29 Schengen countries including Áustria, Bélgica, Bulgária, Croácia, República Tcheca, Dinamarca, Estônia, Finlândia, França, Alemanha, Grécia, Hungria, Islândia, Itália, Letônia, Liechtenstein, Lituânia, Luxemburgo, Malta, Países Baixos, Noruega, Polônia, Portugal, Romênia, Eslováquia, Eslovênia, Espanha, Suécia, and Suíça. Bulgária and Romênia joined fully on March 31, 2024.
-          question: Quais países estão na Área Schengen em 2025?
+          answer: Em maio de 2026, a Área Schengen tem 29 países, incluindo Áustria, Bélgica, Bulgária, Croácia, República Tcheca, Dinamarca, Estônia, Finlândia, França, Alemanha, Grécia, Hungria, Islândia, Itália, Letônia, Liechtenstein, Lituânia, Luxemburgo, Malta, Países Baixos, Noruega, Polônia, Portugal, Romênia, Eslováquia, Eslovênia, Espanha, Suécia e Suíça. Bulgária e Romênia aderiram plenamente em 1 de janeiro de 2025.
+          question: Quais países estão na Área Schengen em 2026?
         q7:
           answer: Yes, any day you are physically present in the Schengen Area counts toward your 90-day limit, including transit days and days when you're simply passing through airports or train stations. The day of entry and day of exit both count as full days.
           question: Dias em trânsito contam para meu limite de 90 dias?
         q8:
-          answer: ETIAS (European Travel Information and Authorization System) is a pre-travel authorization required for visa-exempt travelers starting Q4 2026. Citizens from countries like the US, UK, Canada, Australia, and others who currently don't need a visa will need ETIAS approval. It's similar to the US ESTA and costs approximately €7, valid for 3 years.
+          answer: ETIAS (Sistema Europeu de Informação e Autorização de Viagem) é uma autorização prévia de viagem exigida para viajantes isentos de visto a partir do quarto trimestre de 2026. Cidadãos de países como EUA, Reino Unido, Canadá, Austrália e outros que atualmente não precisam de visto precisarão da aprovação ETIAS. É semelhante ao ESTA dos EUA e custará 20 EUR, com algumas isenções. Será válido por até 3 anos ou até o passaporte expirar, o que ocorrer primeiro.
           question: O que é ETIAS e quem precisa dele?
         q9:
           answer: Yes! The calculator supports both visa-exempt travelers and those with short-stay Schengen visas. Simply enter your visa details (start date, end date, number of entries) and your travel record. The calculator will track both your 90/180 day limit and your visa-specific restrictions.
@@ -147,7 +147,7 @@ pt-BR:
         title: Limitações
       limitations_link: Limitações
       more_information_link: 'More Information: gov.uk - Visit Europe from 1 January 2021'
-      nationality_dependent_visa_requirement: 'Depending on your nationality, you may need to apply for a Short Stay Schengen Visa before entering the Schengen area. The EU has a list of countries whose citizens must apply for a visa, and a list of countries that are exempt from this requirement. As of 3 February 2025 (date of the latest EU regulation update), the following countries are exempt from having to obtain a Schengen Visa prior to entry:
+      nationality_dependent_visa_requirement: 'Dependendo da sua nacionalidade, talvez você precise solicitar um visto Schengen de curta duração antes de entrar na Área Schengen. A UE mantém uma lista de países cujos cidadãos precisam solicitar visto e uma lista de países isentos desse requisito. Para a lista oficial atual, consulte o regulamento da UE no link abaixo. Os seguintes países e territórios isentos de visto estão incluídos nos dados atuais usados por esta calculadora:
 
         '
       nationality_requirements_link: Schengen requirements for my nationality

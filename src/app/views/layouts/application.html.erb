@@ -118,7 +118,7 @@
   <!-- Default to English for unmatched locales -->
   <link rel="alternate" href="https://<%= request.host_with_port %>/" hreflang="x-default" />
 
-  <title><%= content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title') %></title>  
+  <title><%= @meta_title || (content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title')) %></title>
   <!-- Load Google Fonts asynchronously to avoid render blocking -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Tajawal:wght@400;500;700&display=swap" media="print" onload="this.media='all'; this.onload=null;">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Tajawal:wght@400;500;700&display=swap"></noscript>
@@ -151,6 +151,7 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
+      "@id": "https://schengen-calculator.com/#app",
       "name": "<%= t('common.schengen_calculator') %>",
       "url": "https://<%= request.host %>",
       "description": "<%= t('default_description') %>",
@@ -167,10 +168,16 @@
         "Visual calendar interface",
         "Multiple trip planning",
         "Visa holder support",
-        "8 language support (EN, DE, ES, HI, TR, ZH, PT, AR)",
+        "9 language support (EN, DE, ES, HI, TR, ZH, PT, AR, FR)",
         "Free account and data sync"
       ],
-      "inLanguage": ["en", "de", "es", "hi", "tr", "zh", "pt", "ar"]
+      "inLanguage": ["en", "de", "es", "hi", "tr", "zh-CN", "pt-BR", "ar", "fr"],
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://schengen-calculator.com/#organization",
+        "name": "<%= t('common.schengen_calculator') %>",
+        "url": "https://schengen-calculator.com/"
+      }
     }
     </script>
     <% if @json_ld_faq %>

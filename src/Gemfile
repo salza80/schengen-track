@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1.5', '>= 7.1.5.2'
+gem 'rails', '~> 7.2.3', '>= 7.2.3.1'
 
 # Use SassC for SCSS stylesheets (modern C-based Sass compiler)
 gem 'sassc-rails'
@@ -41,7 +41,7 @@ gem 'net-imap', '>= 0.5.7'
 gem 'uri', '>= 0.13.3'
 gem 'webrick', '>= 1.8.2'
 gem 'thor', '>= 1.4.0'
-gem 'minitest', '~> 5.22'  # Rails 7.1.x compatibility
+gem 'minitest', '~> 5.22'  # Rails 7.x compatibility
 
 group :production do
   gem 'rails_12factor'

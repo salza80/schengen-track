@@ -15,6 +15,32 @@ module ApplicationHelper
     RTL_LOCALES.include?(I18n.locale)
   end
 
+  def default_social_image_url
+    "https://#{request.host_with_port}#{asset_path('med.png')}"
+  end
+
+  def canonical_social_image_url
+    "#{ApplicationController::CANONICAL_SITE_URL}#{asset_path('med.png')}"
+  end
+
+  def organization_schema_json_ld
+    {
+      "@context" => "https://schema.org",
+      "@type" => "Organization",
+      "@id" => "https://schengen-calculator.com/#organization",
+      "name" => I18n.t('common.schengen_calculator'),
+      "description" => I18n.t('default_description'),
+      "url" => "https://schengen-calculator.com/",
+      "logo" => {
+        "@type" => "ImageObject",
+        "url" => canonical_social_image_url
+      },
+      "sameAs" => [
+        "https://www.buymeacoffee.com/smclean17d"
+      ]
+    }.to_json.html_safe
+  end
+
   def get_started_path
     # Check if user requires visa - if so, send to visits page
     # Otherwise, send to calendar/days page with current year

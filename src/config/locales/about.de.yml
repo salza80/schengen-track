@@ -17,7 +17,7 @@ de:
       calendar_highlight: Behalten Sie mit dem interaktiven Schengen-Kalender alle Reisen auf einen Blick im Griff.
       calendar_secondary_cta: Farbcodierte Tageskarten zeigen verbrauchte, sichere und wartende Tage und bieten schnelle Links, um Besuche hinzuzufügen oder anzupassen.
       contents_title: Inhalt
-      countries_in_schengen: 'Die Länder im Schengen-Raum sind: Österreich, Belgien, Bulgarien, Kroatien, Tschechische Republik, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Rumänien, Slowakei, Slowenien, Spanien, Schweden, Schweiz.'
+      countries_in_schengen: 'Die Länder im Schengen-Raum sind: Österreich, Belgien, Bulgarien, Kroatien, Tschechische Republik, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Liechtenstein, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Rumänien, Slowakei, Slowenien, Spanien, Schweden, Schweiz.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Enddatum:'
@@ -57,20 +57,20 @@ de:
       disclaimer_link: Haftungsausschluss
       etias_additional_info: ETIAS ändert nichts an der 90/180-Tage-Regel. Sie müssen weiterhin die standardmäßige Schengen-Berechnung für Ihre Aufenthaltsdauer einhalten, benötigen jedoch vor der Einreise die ETIAS-Genehmigung.
       etias_coming_soon: ETIAS wird im letzten Quartal 2026 in Betrieb genommen. Derzeit ist keine Aktion von Reisenden erforderlich. Die Europäische Union wird mehrere Monate vor dem Start über das genaue Datum von ETIAS informieren.
-      etias_description: ETIAS (European Travel Information and Authorization System) ist ein Vorab-Reisegenehmigungssystem für visumfreie Reisende, die in den Schengen-Raum einreisen. Es ist vergleichbar mit dem US ESTA oder dem kanadischen eTA.
+      etias_description: ETIAS (European Travel Information and Authorization System) ist ein Vorab-Reisegenehmigungssystem für visumfreie Reisende in europäische Länder, die ETIAS verlangen. Es ist vergleichbar mit dem US ESTA oder dem kanadischen eTA.
       etias_effective_date: Ab Q4 2026
       etias_link: Offizielle ETIAS-Informationen
-      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
+      etias_link_url: https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias
       etias_not_visa: 'Wichtig: ETIAS ist KEIN Visum. Es ist eine elektronische Reisegenehmigung, die vor Ihrer Reise online eingeholt werden muss.'
       etias_section_link: ETIAS - Reisegenehmigung
       etias_title: ETIAS - Europäische Reisegenehmigung
-      etias_who_needs: ETIAS wird für Reisende aus visumfreien Ländern (einschließlich USA, Großbritannien, Australien, Kanada, Neuseeland, Japan und anderen) erforderlich sein, die derzeit ohne vorherige Genehmigung einreisen können.
+      etias_who_needs: ETIAS wird für visumfreie Reisende (einschließlich USA, Großbritannien, Australien, Kanada, Neuseeland, Japan und anderen) erforderlich sein, die in europäische Länder reisen, die ETIAS verlangen.
       european_commission_link: Europäische Kommission
       european_commission_website_link: Website der Europäischen Kommission
-      exempt_countries_conditions: Bitte beachten Sie, dass für einige dieser Länder Bedingungen gelten. Zum Beispiel sind Bürger von Albanien, Bosnien-Herzegowina, Georgien, Moldau, Montenegro, Serbien und Ukraine von der Visumpflicht befreit, wenn der Reisepass biometrische Daten enthält. Die Visumbefreiung für Kosovo gilt ab dem Datum, an dem ETIAS in Betrieb geht, oder ab dem 1. Januar 2024, je nachdem, welches Datum zuerst eintritt. Die vollständige und aktuelle Liste mit allen Bedingungen finden Sie in der offiziellen EU-Verordnung.
+      exempt_countries_conditions: Bitte beachten Sie, dass für einige dieser Länder Bedingungen gelten. Zum Beispiel sind Bürger von Albanien, Bosnien-Herzegowina, Georgien, Moldau, Montenegro, Serbien und Ukraine von der Visumpflicht befreit, wenn der Reisepass biometrische Daten enthält. Bürger des Kosovo sind nur mit biometrischen Pässen befreit, die den ICAO-Standards entsprechen. Die vollständige und aktuelle Liste mit allen Bedingungen finden Sie in der offiziellen EU-Verordnung.
       exempt_countries_list: Albanien, Andorra, Antigua und Barbuda, Argentinien, Australien, Bahamas, Barbados, Bosnien und Herzegowina, Brasilien, Brunei, Costa Rica, Dominica, El Salvador, Georgien, Grenada, Guatemala, Honduras, Hongkong, Israel, Japan, Kanada, Chile, Kiribati, Kolumbien, Kosovo, Macau, Malaysia, Marshallinseln, Mauritius, Mexiko, Mikronesien, Moldau, Monaco, Montenegro, Nauru, Neuseeland, Nicaragua, Nordmazedonien, Palau, Panama, Paraguay, Peru, Saint Kitts und Nevis, Saint Lucia, Saint Vincent und die Grenadinen, Salomonen, Samoa, San Marino, Serbien, Seychellen, Singapur, Südkorea, Taiwan, Timor-Leste, Tonga, Trinidad und Tobago, Tuvalu, Ukraine, Vereinigte Arabische Emirate, Vereinigtes Königreich, Vereinigte Staaten, Uruguay, Vatikanstadt (Heiliger Stuhl) und Venezuela.
       exempt_countries_official_link: Offizielle EU-Verordnung zu Visabestimmungen
-      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
       faq:
         q1:
           answer: Die 90/180-Tage-Regel bedeutet, dass Sie sich bis zu 90 Tage innerhalb eines beliebigen 180-Tage-Zeitraums ohne Visum im Schengen-Raum aufhalten können (wenn Sie aus einem visumbefreiten Land kommen). Der 180-Tage-Zeitraum ist ein rollierendes Fenster, das von Ihrem aktuellen Datum zurückblickt.
@@ -91,13 +91,13 @@ de:
           answer: Eine Überschreitung kann schwerwiegende Folgen haben, einschließlich Geldstrafen, Abschiebung, Einreiseverboten (typischerweise 1-5 Jahre) und Schwierigkeiten beim Erhalt zukünftiger Visa oder Reisegenehmigungen. Stellen Sie immer sicher, dass Sie die 90/180-Tage-Regel einhalten und ausreisen, bevor Sie Ihren erlaubten Aufenthalt überschreiten.
           question: Was passiert, wenn ich meine 90 Tage im Schengen-Raum überschreite?
         q6:
-          answer: Ab 2025 gibt es 29 Schengen-Länder, darunter Österreich, Belgien, Bulgarien, Kroatien, Tschechien, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Liechtenstein, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Rumänien, Slowakei, Slowenien, Spanien, Schweden und Schweiz. Bulgarien und Rumänien sind am 31. März 2024 vollständig beigetreten.
-          question: Welche Länder gehören 2025 zum Schengen-Raum?
+          answer: Stand Mai 2026 umfasst der Schengen-Raum 29 Länder, darunter Österreich, Belgien, Bulgarien, Kroatien, Tschechien, Dänemark, Estland, Finnland, Frankreich, Deutschland, Griechenland, Ungarn, Island, Italien, Lettland, Liechtenstein, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Polen, Portugal, Rumänien, Slowakei, Slowenien, Spanien, Schweden und die Schweiz. Bulgarien und Rumänien sind am 1. Januar 2025 vollständig beigetreten.
+          question: Welche Länder gehören 2026 zum Schengen-Raum?
         q7:
           answer: Ja, jeder Tag, an dem Sie sich physisch im Schengen-Raum befinden, zählt zu Ihrem 90-Tage-Limit, einschließlich Transittagen und Tagen, an denen Sie nur durch Flughäfen oder Bahnhöfe durchreisen. Der Ein- und Ausreisetag zählen beide als volle Tage.
           question: Zählen Transittage zu meinem 90-Tage-Limit?
         q8:
-          answer: ETIAS (European Travel Information and Authorization System) ist eine Vorab-Reisegenehmigung, die ab Q4 2026 für visumbefreite Reisende erforderlich ist. Bürger aus Ländern wie den USA, Großbritannien, Kanada, Australien und anderen, die derzeit kein Visum benötigen, werden eine ETIAS-Genehmigung benötigen. Es ist ähnlich wie das US-ESTA und kostet etwa 7 €, gültig für 3 Jahre.
+          answer: ETIAS (European Travel Information and Authorization System) ist eine Vorab-Reisegenehmigung, die ab Q4 2026 für visumbefreite Reisende in europäische Länder erforderlich ist, die ETIAS verlangen. Bürger aus Ländern wie den USA, Großbritannien, Kanada, Australien und anderen, die derzeit kein Visum benötigen, werden eine ETIAS-Genehmigung benötigen. Es ist ähnlich wie das US-ESTA und wird 20 EUR kosten, mit einigen Ausnahmen. Es ist bis zu 3 Jahre gültig oder bis der Reisepass abläuft, je nachdem, was zuerst eintritt.
           question: Was ist ETIAS und wer benötigt es?
         q9:
           answer: Ja! Der Rechner unterstützt sowohl visumbefreite Reisende als auch solche mit kurzfristigen Schengen-Visa. Geben Sie einfach Ihre Visum-Details (Startdatum, Enddatum, Anzahl der Einreisen) und Ihren Reiseverlauf ein. Der Rechner verfolgt sowohl Ihr 90/180-Tage-Limit als auch Ihre visum-spezifischen Beschränkungen.
@@ -147,7 +147,7 @@ de:
         title: Einschränkungen
       limitations_link: Einschränkungen
       more_information_link: 'Weitere Informationen: gov.uk - Besuch in Europa ab 1. Januar 2021'
-      nationality_dependent_visa_requirement: 'Je nach Ihrer Nationalität müssen Sie möglicherweise ein Kurzzeit-Schengen-Visum beantragen, bevor Sie in den Schengen-Raum einreisen können. Die EU hat eine Liste von Ländern, deren Bürger ein Visum beantragen müssen, und eine Liste von Ländern, die von dieser Anforderung befreit sind. Stand: 3. Februar 2025 (Datum der letzten Aktualisierung der EU-Verordnung) sind die folgenden Länder von der Visumpflicht befreit:'
+      nationality_dependent_visa_requirement: 'Je nach Ihrer Nationalität müssen Sie möglicherweise ein Kurzzeit-Schengen-Visum beantragen, bevor Sie in den Schengen-Raum einreisen können. Die EU hat eine Liste von Ländern, deren Bürger ein Visum beantragen müssen, und eine Liste von Ländern, die von dieser Anforderung befreit sind. Die aktuelle offizielle Liste finden Sie in der unten verlinkten EU-Verordnung. Die folgenden visumbefreiten Länder und Gebiete sind in den aktuellen Daten dieses Rechners enthalten:'
       nationality_requirements_link: Schengen-Anforderungen für meine Nationalität
       nationality_section:
         heading: Schengen- / Europäische touristische Reiseeinreise- und Aufenthaltsanforderungen für meine Nationalität

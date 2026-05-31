@@ -46,12 +46,7 @@
             %i.fa.fa-globe.mr-2.text-primary.d-none.d-md-inline
             = language_selector
 %script{:type => "application/ld+json"}
-  {
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "url": "https://schengen-calculator.com",
-  "logo": "https://schengen-calculator.com/med.png"
-  }
+  = organization_schema_json_ld
 
 / Google tag (gtag.js)
 %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=G-E9CCZDHLJF"}

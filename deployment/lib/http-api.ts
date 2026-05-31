@@ -200,6 +200,27 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
+    const seoDocsCachePolicy = new cloudfront.CachePolicy(this, "seoDocsCache", {
+      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
+      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
+      enableAcceptEncodingBrotli: true,
+      enableAcceptEncodingGzip: true,
+      minTtl: cdk.Duration.seconds(0),
+      maxTtl: cdk.Duration.days(1),
+      defaultTtl: cdk.Duration.hours(1)
+    });
+
+    const seoDocsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "seoDocsBrowserCache", {
+      customHeadersBehavior: {
+        customHeaders: [{
+          header: 'Cache-Control',
+          value: 'public, max-age=3600, must-revalidate',
+          override: true
+        }]
+      }
+    });
+
     const functionAssociations = [
       {
         function: cfRewriteUrlFunction,
@@ -223,6 +244,15 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
       responseHeadersPolicy: assetsBrowserCachePolicy,
+      functionAssociations
+    };
+
+    const publicSeoDocsCacheBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: seoDocsCachePolicy,
+      responseHeadersPolicy: seoDocsBrowserCachePolicy,
       functionAssociations
     };
 
@@ -265,11 +295,13 @@ export class HttpApiConstruct extends Construct {
         "/*/about*": publicCacheByCountryGuestBehavior,
         "/blog*": publicCacheByCountryGuestBehavior,
         "/*/blog*": publicCacheByCountryGuestBehavior,
-        "/robots.txt": publicAssetsCacheBehavior,
-        "/sitemap.xml": publicAssetsCacheBehavior,
+        "/robots.txt": publicSeoDocsCacheBehavior,
+        "/llms.txt": publicSeoDocsCacheBehavior,
+        "/llms-full.txt": publicSeoDocsCacheBehavior,
+        "/sitemap*": publicSeoDocsCacheBehavior,
         "/favicon.ico": publicAssetsCacheBehavior,
         "/med.png": publicAssetsCacheBehavior,
-        "/ads.txt": publicAssetsCacheBehavior
+        "/ads.txt": publicSeoDocsCacheBehavior
       }
     });
 

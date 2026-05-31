@@ -25,6 +25,7 @@ Capybara.register_driver :selenium_headless do |app|
   options.add_argument('--disable-site-isolation-trials')
   options.add_argument('--disable-web-security')
   options.add_argument('--window-size=1400,1000')
+  options.binary = ENV['CHROME_BIN'] if ENV['CHROME_BIN'].present?
   
   # In CI, use container IP address
   if ENV['CI']
@@ -32,8 +33,9 @@ Capybara.register_driver :selenium_headless do |app|
     options.add_argument('--remote-debugging-port=9222')
   end
   
-  # Use selenium manager to automatically handle chromedriver
-  service = Selenium::WebDriver::Service.chrome
+  service_options = {}
+  service_options[:path] = ENV['CHROMEDRIVER_PATH'] if ENV['CHROMEDRIVER_PATH'].present?
+  service = Selenium::WebDriver::Service.chrome(**service_options)
   
   Capybara::Selenium::Driver.new(app, browser: :chrome, service: service, options: options)
 end

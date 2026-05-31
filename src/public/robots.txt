@@ -4,5 +4,37 @@
 User-agent: *
 Allow: /
 
+# AI search and assistant crawlers
+# OpenAI: OAI-SearchBot is used for ChatGPT search visibility; ChatGPT-User is user-triggered browsing; GPTBot is model training.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+# Anthropic: search indexing, user-triggered browsing, and training are controlled separately.
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Perplexity search crawler and user-request fetcher.
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI control token for Gemini/Vertex usage. This does not affect Google Search ranking.
+User-agent: Google-Extended
+Allow: /
+
 # Sitemap location
 Sitemap: https://schengen-calculator.com/sitemap.xml

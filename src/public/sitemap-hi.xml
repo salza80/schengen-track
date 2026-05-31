@@ -32,5 +32,9 @@
     <loc>https://schengen-calculator.com/hi/visits</loc>
     <priority>0.30</priority>
   </url>
+  <url>
+    <loc>https://schengen-calculator.com/hi/days</loc>
+    <priority>0.30</priority>
+  </url>
 
 </urlset>

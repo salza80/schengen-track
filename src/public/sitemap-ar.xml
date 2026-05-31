@@ -137,4 +137,18 @@
     <changefreq>monthly</changefreq>
     <lastmod>2026-01-01</lastmod>
   </url>
+
+  <!-- Arabic Secondary Pages -->
+  <url>
+    <loc>https://schengen-calculator.com/ar/visits</loc>
+    <priority>0.30</priority>
+    <changefreq>never</changefreq>
+    <lastmod>2026-01-01</lastmod>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/ar/days</loc>
+    <priority>0.30</priority>
+    <changefreq>never</changefreq>
+    <lastmod>2026-01-01</lastmod>
+  </url>
 </urlset>

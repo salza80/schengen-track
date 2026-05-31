@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   VISA_REQUIREMENTS_SOURCE_URL = 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230'.freeze
   ETIAS_FAQ_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/faq'.freeze
   ETIAS_OVERVIEW_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias'.freeze
-  ETIAS_FEE_SOURCE_URL = 'https://travel-europe.europa.eu/etias/ltr/about-etias/news-corner/ETIAS-will-cost-EUR-20'.freeze
+  ETIAS_FEE_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/about-etias/news-corner/ETIAS-will-cost-EUR-20'.freeze
 
   BLOG_OFFICIAL_SOURCE_URLS = [
     SCHENGEN_AREA_SOURCE_URL,

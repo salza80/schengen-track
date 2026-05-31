@@ -57,7 +57,7 @@ schengen-calculator.com/pt-BR/blog/extended-schengen-stay
 schengen-calculator.com/ar
 schengen-calculator.com/ar/about
 schengen-calculator.com/ar/about/Saudi_Arabian
-schengen-calculator.com/ar/about/Emirati
+schengen-calculator.com/ar/about/Emirian
 schengen-calculator.com/ar/about/Egyptian
 schengen-calculator.com/ar/about/Moroccan
 schengen-calculator.com/ar/about/Jordanian

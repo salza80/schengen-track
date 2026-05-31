@@ -16,6 +16,8 @@ class AboutController < ApplicationController
     end
     
     set_country_from_params
+    return if performed?
+
     set_about_meta_tags
   end
 
@@ -40,6 +42,18 @@ class AboutController < ApplicationController
                       .outside_schengen
                       .first
     fail ActionController::RoutingError, 'Page Not Found' if @country.nil?
+
+    canonical_path = canonical_nationality_path(@country)
+    redirect_to canonical_path, status: :moved_permanently unless request.path == canonical_path
+  end
+
+  def canonical_nationality_path(country)
+    locale_prefix = params[:locale].present? ? "/#{params[:locale]}" : ''
+    "#{locale_prefix}/about/#{canonical_nationality_slug(country)}"
+  end
+
+  def canonical_nationality_slug(country)
+    country.nationality.to_s.tr(' ', '_')
   end
   
   def set_about_meta_tags

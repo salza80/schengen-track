@@ -26,7 +26,7 @@ Last reviewed: 2026-05-30
 - [EUR-Lex: Regulation (EU) 2018/1806 current consolidated text](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230)
 - [Official ETIAS FAQ](https://travel-europe.europa.eu/en/etias/faq)
 - [Official ETIAS overview](https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias)
-- [Official ETIAS fee update](https://travel-europe.europa.eu/etias/ltr/about-etias/news-corner/ETIAS-will-cost-EUR-20)
+- [Official ETIAS fee update](https://travel-europe.europa.eu/en/etias/about-etias/news-corner/ETIAS-will-cost-EUR-20)
 
 ## Recommended Use
 

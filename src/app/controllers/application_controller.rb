@@ -29,9 +29,7 @@ class ApplicationController < ActionController::Base
   # skip_before_action :verify_authenticity_token
 
   helper_method :current_user_or_guest_user, :current_person, :amazon
-  # around_action :switch_locale
-
-  before_action :set_locale_from_params
+  around_action :switch_locale
 
   def default_url_options
     { locale: I18n.locale }
@@ -73,13 +71,10 @@ class ApplicationController < ActionController::Base
     "https://#{request.host_with_port}#{view_context.asset_path(asset_name)}"
   end
 
-  def set_locale_from_params
-    I18n.locale = params[:locale] || I18n.default_locale
+  def switch_locale(&action)
+    locale = params[:locale].presence || I18n.default_locale
+    I18n.with_locale(locale, &action)
   end
-  # def switch_locale(&action)
-  #   locale = params[:locale] || I18n.default_locale
-  #   I18n.with_locale(locale, &action)
-  # end
 
   def amazon
     visits = current_user_or_guest_user.visits.find_by_date(Date.today + 1.month, Date.new(3000, 1, 1))

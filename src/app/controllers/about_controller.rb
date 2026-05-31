@@ -48,7 +48,7 @@ class AboutController < ApplicationController
   end
 
   def canonical_nationality_path(country)
-    locale_prefix = params[:locale].present? ? "/#{params[:locale]}" : ''
+    locale_prefix = route_locale ? "/#{route_locale}" : ''
     "#{locale_prefix}/about/#{canonical_nationality_slug(country)}"
   end
 

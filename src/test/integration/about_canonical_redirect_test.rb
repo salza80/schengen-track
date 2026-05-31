@@ -8,6 +8,27 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
     assert_redirected_to '/about/American'
   end
 
+  test 'ignores query locale when redirecting to canonical nationality slug' do
+    get '/about/american', params: { locale: 'bad-locale' }
+
+    assert_response :moved_permanently
+    assert_redirected_to '/about/American'
+  end
+
+  test 'uses route locale instead of query locale for canonical nationality slug' do
+    get '/fr/about/american', params: { locale: 'bad-locale' }
+
+    assert_response :moved_permanently
+    assert_redirected_to '/fr/about/American'
+  end
+
+  test 'ignores invalid query locale when switching locale' do
+    get '/about', params: { locale: 'bad-locale' }
+
+    assert_response :success
+    assert_includes response.body, I18n.t('about.about.title', locale: :en)
+  end
+
   test 'redirects space separated nationality to canonical underscore slug' do
     Country.create!(
       name: 'Saudi Arabia',

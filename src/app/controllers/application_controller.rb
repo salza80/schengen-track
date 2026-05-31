@@ -72,8 +72,13 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_locale(&action)
-    locale = params[:locale].presence || I18n.default_locale
+    locale = route_locale || I18n.default_locale
     I18n.with_locale(locale, &action)
+  end
+
+  def route_locale
+    raw_locale = request.path_parameters[:locale].presence
+    I18n.available_locales.find { |locale| locale.to_s == raw_locale.to_s }
   end
 
   def amazon

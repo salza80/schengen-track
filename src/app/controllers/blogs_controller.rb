@@ -85,24 +85,26 @@ class BlogsController < ApplicationController
       @og_site_name = I18n.t('common.schengen_calculator')
       @article_published_time = "2024-01-15T00:00:00Z"
       @article_modified_time = "2024-01-15T00:00:00Z"
-      @json_ld_data = {
-        "@context" => "https://schema.org",
-        "@type" => "BlogPosting",
-        "@id" => "#{article_url}#article",
-        "mainEntityOfPage" => {
-          "@type" => "WebPage",
-          "@id" => article_url
-        },
-        "headline" => @meta_title,
-        "description" => @meta_description,
-        "image" => canonical_asset_url('switzerland.jpg'),
-        "author" => organization_schema,
-        "publisher" => organization_schema(include_logo: true),
-        "datePublished" => "2024-01-15",
-        "dateModified" => "2024-01-15",
-        "inLanguage" => I18n.locale.to_s,
-        "citation" => BLOG_OFFICIAL_SOURCE_URLS
-      }
+      @json_ld_data = [
+        {
+          "@context" => "https://schema.org",
+          "@type" => "BlogPosting",
+          "@id" => "#{article_url}#article",
+          "mainEntityOfPage" => {
+            "@type" => "WebPage",
+            "@id" => article_url
+          },
+          "headline" => @meta_title,
+          "description" => @meta_description,
+          "image" => canonical_asset_url('switzerland.jpg'),
+          "author" => organization_schema,
+          "publisher" => organization_schema(include_logo: true),
+          "datePublished" => "2024-01-15",
+          "dateModified" => "2024-01-15",
+          "inLanguage" => I18n.locale.to_s,
+          "citation" => BLOG_OFFICIAL_SOURCE_URLS
+        }
+      ]
     end
   end
 

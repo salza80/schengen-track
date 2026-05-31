@@ -29,6 +29,18 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
     assert_includes response.body, I18n.t('about.about.title', locale: :en)
   end
 
+  test 'about structured data breadcrumbs use route locale labels' do
+    get '/fr/about'
+
+    assert_response :success
+
+    about_page_schema = json_ld_objects.find { |item| item['@type'] == 'AboutPage' }
+    breadcrumb_items = about_page_schema.dig('breadcrumb', 'itemListElement')
+
+    assert_equal 'Accueil', breadcrumb_items.first['name']
+    assert_equal 'À propos', breadcrumb_items.second['name']
+  end
+
   test 'redirects space separated nationality to canonical underscore slug' do
     Country.create!(
       name: 'Saudi Arabia',
@@ -44,5 +56,14 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
 
     assert_response :moved_permanently
     assert_redirected_to '/ar/about/Saudi_Arabian'
+  end
+
+  private
+
+  def json_ld_objects
+    Nokogiri::HTML(response.body).css('script[type="application/ld+json"]').flat_map do |script|
+      document = JSON.parse(script.text)
+      document.is_a?(Array) ? document : [document]
+    end
   end
 end

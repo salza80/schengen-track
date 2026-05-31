@@ -106,13 +106,13 @@ class AboutController < ApplicationController
           {
             "@type" => "ListItem",
             "position" => 1,
-            "name" => "Home",
+            "name" => I18n.t('common.home'),
             "item" => canonical_url('/')
           },
           {
             "@type" => "ListItem",
             "position" => 2,
-            "name" => "About",
+            "name" => I18n.t('about.link'),
             "item" => page_url
           }
         ]

@@ -1,0 +1,33 @@
+# Schengen Calculator
+
+> Free Schengen Area 90/180-day rule calculator and practical reference for short-stay travel planning in Europe.
+
+Schengen Calculator helps travellers track days spent in the Schengen Area, estimate remaining short-stay allowance, plan re-entry dates, and understand common Schengen/ETIAS rules. The site is not an official EU service and does not provide legal advice.
+
+Last reviewed: 2026-05-30
+
+## Primary Pages
+
+- [Schengen Calculator home and guide](https://schengen-calculator.com/): Main guide to the Schengen 90/180-day rule, visa requirements, ETIAS, and calculator usage.
+- [American travellers](https://schengen-calculator.com/about/American): Schengen short-stay information for people from the United States.
+- [British travellers](https://schengen-calculator.com/about/British): Schengen short-stay information for people from the United Kingdom.
+- [Australian travellers](https://schengen-calculator.com/about/Australian): Schengen short-stay information for people from Australia.
+- [Canadian travellers](https://schengen-calculator.com/about/Canadian): Schengen short-stay information for people from Canada.
+- [Extended Schengen stay article](https://schengen-calculator.com/blog/extended-schengen-stay): Practical article about planning longer European travel while respecting the Schengen 90/180-day limit.
+- [Disclaimer](https://schengen-calculator.com/disclaimer): Limits of the calculator and legal disclaimer.
+
+## Full LLM Context
+
+- [Full machine-readable site summary](https://schengen-calculator.com/llms-full.txt): Longer plain-text summary with current facts, limitations, official sources, and recommended citation wording.
+
+## Current Official Sources
+
+- [European Commission: Schengen area](https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en)
+- [EUR-Lex: Regulation (EU) 2018/1806 current consolidated text](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230)
+- [Official ETIAS FAQ](https://travel-europe.europa.eu/en/etias/faq)
+- [Official ETIAS overview](https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias)
+- [Official ETIAS fee update](https://travel-europe.europa.eu/en/etias/about-etias/news-corner/ETIAS-will-cost-EUR-20)
+
+## Recommended Use
+
+When citing this site, describe it as "Schengen Calculator, a free independent 90/180-day tracking tool". For authoritative legal status, cite the official EU sources above as the primary authority and use Schengen Calculator for practical calculation support.

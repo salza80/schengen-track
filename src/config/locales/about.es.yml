@@ -17,7 +17,7 @@ es:
       calendar_highlight: Visualiza todo de un vistazo con el Calendario Schengen interactivo.
       calendar_secondary_cta: Las tarjetas de días codificadas por color muestran días usados, seguros y en espera, y te dan accesos rápidos para agregar o ajustar visitas.
       contents_title: Contenidos
-      countries_in_schengen: 'Los países en el área de Schengen incluyen son: Austria, Bélgica, Bulgaria, Croacia, República Checa, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Rumania, Eslovaquia, Eslovenia, España, Suecia, Suiza.'
+      countries_in_schengen: 'Los países en el área de Schengen incluyen: Austria, Bélgica, Bulgaria, Croacia, República Checa, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Liechtenstein, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Rumania, Eslovaquia, Eslovenia, España, Suecia, Suiza.'
       definitions:
         short_stay_schengen_visa_record:
           end_date: 'Fecha de Finalización:'
@@ -57,20 +57,20 @@ es:
       disclaimer_link: Descargo de Responsabilidad
       etias_additional_info: ETIAS no cambia la regla de 90/180 días. Todavía deberá cumplir con el cálculo estándar de Schengen para la duración de su estancia, pero necesitará la autorización ETIAS antes de poder ingresar.
       etias_coming_soon: ETIAS comenzará a operar en el último trimestre de 2026. No se requiere ninguna acción por parte de los viajeros en este momento. La Unión Europea informará sobre la fecha específica de inicio de ETIAS varios meses antes de su lanzamiento.
-      etias_description: ETIAS (Sistema Europeo de Información y Autorización de Viajes) es un sistema de autorización de viaje previo para viajeros exentos de visa que ingresan al Área Schengen. Es similar al ESTA de EE. UU. o al eTA canadiense.
+      etias_description: ETIAS (Sistema Europeo de Información y Autorización de Viajes) es un sistema de autorización de viaje previo para viajeros exentos de visa que visitan países europeos que requieren ETIAS. Es similar al ESTA de EE. UU. o al eTA canadiense.
       etias_effective_date: A partir del cuarto trimestre de 2026
       etias_link: Información oficial de ETIAS
-      etias_link_url: https://travel-europe.europa.eu/etias/ltr/about-etias/what-is-etias
+      etias_link_url: https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias
       etias_not_visa: 'Importante: ETIAS NO es una visa. Es una autorización de viaje electrónica que debe obtenerse en línea antes de su viaje.'
       etias_section_link: ETIAS - Autorización de Viaje
       etias_title: ETIAS - Autorización Europea de Viaje
-      etias_who_needs: ETIAS será obligatorio para viajeros de países exentos de visa (incluidos Estados Unidos, Reino Unido, Australia, Canadá, Nueva Zelanda, Japón y otros) que actualmente pueden ingresar sin ninguna autorización previa.
+      etias_who_needs: ETIAS será obligatorio para viajeros exentos de visa (incluidos Estados Unidos, Reino Unido, Australia, Canadá, Nueva Zelanda, Japón y otros) que viajen a países europeos que requieren ETIAS.
       european_commission_link: Comisión Europea
       european_commission_website_link: Sitio Web de la Comisión Europea
-      exempt_countries_conditions: Ten en cuenta que hay condiciones para algunos de estos países. Por ejemplo, los ciudadanos de Albania, Bosnia-Herzegovina, Georgia, Moldavia, Montenegro, Serbia y Ucrania están exentos de la obligación de visa solo si el pasaporte contiene datos biométricos. La exención de visa de Kosovo se aplica desde la fecha en que ETIAS comience a operar o desde el 1 de enero de 2024, lo que ocurra primero. Para la lista completa y actualizada con todas las condiciones, consulte la normativa oficial de la UE.
+      exempt_countries_conditions: Ten en cuenta que hay condiciones para algunos de estos países. Por ejemplo, los ciudadanos de Albania, Bosnia-Herzegovina, Georgia, Moldavia, Montenegro, Serbia y Ucrania están exentos de la obligación de visa solo si el pasaporte contiene datos biométricos. Los ciudadanos de Kosovo están exentos solo con pasaportes biométricos emitidos conforme a las normas de la OACI. Para la lista completa y actualizada con todas las condiciones, consulte la normativa oficial de la UE.
       exempt_countries_list: Albania, Andorra, Antigua y Barbuda, Argentina, Australia, Bahamas, Barbados, Bosnia y Herzegovina, Brasil, Brunéi, Canadá, Chile, Colombia, Costa Rica, Dominica, El Salvador, Emiratos Árabes Unidos, Estados Unidos, Georgia, Granada, Guatemala, Honduras, Hong Kong, Israel, Japón, Kiribati, Kosovo, Macao, Malasia, Islas Marshall, Mauricio, México, Micronesia, Moldavia, Mónaco, Montenegro, Nauru, Nicaragua, Nueva Zelanda, Macedonia del Norte, Palaos, Panamá, Paraguay, Perú, Reino Unido, San Cristóbal y Nieves, Santa Lucía, San Vicente y las Granadinas, Samoa, San Marino, Serbia, Seychelles, Singapur, Islas Salomón, Corea del Sur, Taiwán, Timor-Leste, Tonga, Trinidad y Tobago, Tuvalu, Ucrania, Uruguay, Ciudad del Vaticano (Santa Sede) y Venezuela.
       exempt_countries_official_link: Reglamento oficial de la UE sobre requisitos de visado
-      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20250203
+      exempt_countries_official_url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230
       faq:
         q1:
           answer: La regla de 90/180 días significa que puede permanecer en el Área Schengen hasta 90 días dentro de cualquier período de 180 días sin visa (si es de un país exento de visa). El período de 180 días es una ventana móvil que retrocede desde su fecha actual.
@@ -91,13 +91,13 @@ es:
           answer: Exceder la estadía puede resultar en consecuencias graves que incluyen multas, deportación, prohibiciones de entrada (típicamente de 1 a 5 años) y dificultades para obtener visas o autorizaciones de viaje futuras. Siempre asegúrese de cumplir con la regla de 90/180 días y salir antes de exceder su estadía permitida.
           question: "¿Qué sucede si excedo mis 90 días en el Área Schengen?"
         q6:
-          answer: A partir de 2025, hay 29 países Schengen que incluyen Austria, Bélgica, Bulgaria, Croacia, República Checa, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Liechtenstein, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Rumanía, Eslovaquia, Eslovenia, España, Suecia y Suiza. Bulgaria y Rumanía se unieron completamente el 31 de marzo de 2024.
-          question: "¿Qué países están en el Área Schengen en 2025?"
+          answer: A partir de mayo de 2026, el Área Schengen tiene 29 países, incluidos Austria, Bélgica, Bulgaria, Croacia, República Checa, Dinamarca, Estonia, Finlandia, Francia, Alemania, Grecia, Hungría, Islandia, Italia, Letonia, Liechtenstein, Lituania, Luxemburgo, Malta, Países Bajos, Noruega, Polonia, Portugal, Rumanía, Eslovaquia, Eslovenia, España, Suecia y Suiza. Bulgaria y Rumanía se unieron plenamente el 1 de enero de 2025.
+          question: "¿Qué países están en el Área Schengen en 2026?"
         q7:
           answer: Sí, cualquier día en que esté físicamente presente en el Área Schengen cuenta para su límite de 90 días, incluidos los días de tránsito y los días en que simplemente pasa por aeropuertos o estaciones de tren. El día de entrada y el día de salida cuentan como días completos.
           question: "¿Los días en tránsito cuentan para mi límite de 90 días?"
         q8:
-          answer: ETIAS (Sistema Europeo de Información y Autorización de Viajes) es una autorización de viaje previa requerida para viajeros exentos de visa a partir del cuarto trimestre de 2026. Los ciudadanos de países como EE. UU., Reino Unido, Canadá, Australia y otros que actualmente no necesitan visa necesitarán aprobación ETIAS. Es similar al ESTA de EE. UU. y cuesta aproximadamente 7 €, válido por 3 años.
+          answer: ETIAS (Sistema Europeo de Información y Autorización de Viajes) es una autorización de viaje previa requerida a partir del cuarto trimestre de 2026 para viajeros exentos de visa que visiten países europeos que requieren ETIAS. Los ciudadanos de países como EE. UU., Reino Unido, Canadá, Australia y otros que actualmente no necesitan visa necesitarán aprobación ETIAS. Es similar al ESTA de EE. UU. y costará 20 EUR, con algunas exenciones. Será válido hasta 3 años o hasta que expire el pasaporte, lo que ocurra primero.
           question: "¿Qué es ETIAS y quién lo necesita?"
         q9:
           answer: "¡Sí! La calculadora admite tanto viajeros exentos de visa como aquellos con visas Schengen de corta estadía. Simplemente ingrese los detalles de su visa (fecha de inicio, fecha de finalización, número de entradas) y su registro de viaje. La calculadora rastreará tanto su límite de 90/180 días como sus restricciones específicas de visa."
@@ -147,7 +147,7 @@ es:
         title: Limitaciones
       limitations_link: Limitaciones
       more_information_link: 'Más información: gov.uk - Visitar Europa a partir del 1 de enero de 2021'
-      nationality_dependent_visa_requirement: 'Dependiendo de tu nacionalidad, es posible que necesites solicitar una Visa de Corta Estadía Schengen antes de ingresar al área de Schengen. La UE tiene una lista de países cuyos ciudadanos deben solicitar una visa y una lista de países que están exentos de este requisito. A partir del 3 de febrero de 2025 (fecha de la última actualización del reglamento de la UE), los siguientes países están exentos de tener que obtener una Visa Schengen antes de ingresar:'
+      nationality_dependent_visa_requirement: 'Dependiendo de tu nacionalidad, es posible que necesites solicitar una Visa de Corta Estadía Schengen antes de ingresar al área de Schengen. La UE tiene una lista de países cuyos ciudadanos deben solicitar una visa y una lista de países que están exentos de este requisito. Para la lista oficial vigente, consulta el reglamento de la UE enlazado abajo. Los siguientes países y territorios exentos de visa están incluidos en los datos actuales usados por esta calculadora:'
       nationality_requirements_link: Requisitos de Nacionalidad Schengen
       nationality_section:
         heading: Requisitos de entrada y duración de la estadía turística en Schengen / Europa para mi nacionalidad

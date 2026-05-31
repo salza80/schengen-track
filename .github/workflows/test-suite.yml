@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ inputs.ref || github.ref }}
 
@@ -39,17 +39,16 @@ jobs:
           working-directory: src
 
       - name: Install Chrome and ChromeDriver for Selenium tests
-        uses: browser-actions/setup-chrome@v1
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: stable
-          
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
+          install-chromedriver: true
         
       - name: Verify Chrome setup
         run: |
-          google-chrome --version
-          chromedriver --version
+          "${{ steps.setup-chrome.outputs.chrome-path }}" --version
+          "${{ steps.setup-chrome.outputs.chromedriver-path }}" --version
 
       - run: bundle exec rails db:create
         working-directory: src
@@ -73,3 +72,5 @@ jobs:
         env:
           CI: true
           RAILS_ENV: test
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}

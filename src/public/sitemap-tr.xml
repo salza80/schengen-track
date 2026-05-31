@@ -9,7 +9,7 @@
     <loc>https://schengen-calculator.com/tr</loc>
     <priority>1.00</priority>
     <changefreq>weekly</changefreq>
-    <lastmod>2025-12-24</lastmod>
+    <lastmod>2026-05-31</lastmod>
   </url>
   
   <!-- Turkish About Page -->
@@ -17,7 +17,7 @@
     <loc>https://schengen-calculator.com/tr/about</loc>
     <priority>0.95</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2025-12-24</lastmod>
+    <lastmod>2026-05-31</lastmod>
   </url>
   
   <!-- Turkish Blog -->
@@ -30,6 +30,10 @@
   <!-- Turkish Secondary Pages -->
   <url>
     <loc>https://schengen-calculator.com/tr/visits</loc>
+    <priority>0.30</priority>
+  </url>
+  <url>
+    <loc>https://schengen-calculator.com/tr/days</loc>
     <priority>0.30</priority>
   </url>
   <url>

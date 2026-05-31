@@ -114,34 +114,6 @@
                 %i.fa-brands.fa-linkedin
 
 :javascript
-  // Structured data for SEO
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "#{t('blog.extendedTravel.title')}",
-    "image": "#{image_url('switzerland.jpg')}",
-    "author": {
-      "@type": "Organization",
-      "name": "Schengen Calculator"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Schengen Calculator",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "#{image_url('med.png')}"
-      }
-    },
-    "datePublished": "2024-01-15",
-    "dateModified": "2024-01-15",
-    "description": "#{t('blog.extendedTravel.introduction').truncate(160)}"
-  };
-  
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.text = JSON.stringify(structuredData);
-  document.head.appendChild(script);
-
   // Social media sharing functionality
   document.addEventListener('DOMContentLoaded', function() {
     const pageUrl = encodeURIComponent(window.location.href);

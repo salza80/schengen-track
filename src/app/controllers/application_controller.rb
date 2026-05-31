@@ -2,6 +2,26 @@ require 'aws/book_query'
 require 'securerandom'
 
 class ApplicationController < ActionController::Base
+  CANONICAL_SITE_URL = 'https://schengen-calculator.com'.freeze
+  SCHENGEN_AREA_SOURCE_URL = 'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en'.freeze
+  VISA_REQUIREMENTS_SOURCE_URL = 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230'.freeze
+  ETIAS_FAQ_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/faq'.freeze
+  ETIAS_OVERVIEW_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/about-etias/what-is-etias'.freeze
+  ETIAS_FEE_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/about-etias/news-corner/ETIAS-will-cost-EUR-20'.freeze
+
+  BLOG_OFFICIAL_SOURCE_URLS = [
+    SCHENGEN_AREA_SOURCE_URL,
+    VISA_REQUIREMENTS_SOURCE_URL
+  ].freeze
+
+  ABOUT_OFFICIAL_SOURCE_URLS = [
+    SCHENGEN_AREA_SOURCE_URL,
+    VISA_REQUIREMENTS_SOURCE_URL,
+    ETIAS_FAQ_SOURCE_URL,
+    ETIAS_OVERVIEW_SOURCE_URL,
+    ETIAS_FEE_SOURCE_URL
+  ].freeze
+
   before_action :set_cache_cookie, unless: :task_controller?
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -9,22 +29,57 @@ class ApplicationController < ActionController::Base
   # skip_before_action :verify_authenticity_token
 
   helper_method :current_user_or_guest_user, :current_person, :amazon
-  # around_action :switch_locale
-
-  before_action :set_locale_from_params
+  around_action :switch_locale
 
   def default_url_options
     { locale: I18n.locale }
   end
+
   private
 
-  def set_locale_from_params
-    I18n.locale = params[:locale] || I18n.default_locale
+  def organization_schema(include_logo: false)
+    schema = {
+      "@type" => "Organization",
+      "@id" => "#{CANONICAL_SITE_URL}/#organization",
+      "name" => I18n.t('common.schengen_calculator'),
+      "url" => "#{CANONICAL_SITE_URL}/"
+    }
+
+    schema["logo"] = image_object_schema('med.png') if include_logo
+
+    schema
   end
-  # def switch_locale(&action)
-  #   locale = params[:locale] || I18n.default_locale
-  #   I18n.with_locale(locale, &action)
-  # end
+
+  def image_object_schema(asset_name)
+    {
+      "@type" => "ImageObject",
+      "url" => canonical_asset_url(asset_name)
+    }
+  end
+
+  def canonical_url(path = '/')
+    normalized_path = path.to_s
+    normalized_path = "/#{normalized_path}" unless normalized_path.start_with?('/')
+    "#{CANONICAL_SITE_URL}#{normalized_path}"
+  end
+
+  def canonical_asset_url(asset_name)
+    "#{CANONICAL_SITE_URL}#{view_context.asset_path(asset_name)}"
+  end
+
+  def absolute_asset_url(asset_name)
+    "https://#{request.host_with_port}#{view_context.asset_path(asset_name)}"
+  end
+
+  def switch_locale(&action)
+    locale = route_locale || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
+
+  def route_locale
+    raw_locale = request.path_parameters[:locale].presence
+    I18n.available_locales.find { |locale| locale.to_s == raw_locale.to_s }
+  end
 
   def amazon
     visits = current_user_or_guest_user.visits.find_by_date(Date.today + 1.month, Date.new(3000, 1, 1))

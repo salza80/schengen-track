@@ -72,19 +72,19 @@ def handler(event:, context:)
   http = requestContext.fetch('http')
   httpMethod = http.fetch('method')
   protocol = http['protocol'] || 'HTTP/1.1'
+  path = http.fetch('path')
 
   # In input format 2.0, the path always contains a stage
   stage = requestContext['stage'] || '$default'
   if stage != '$default'
-    path.sub!(/\A\/#{stage}/, '')
+    path = path.sub(/\A\/#{Regexp.escape(stage)}(?=\/|\z)/, '')
+    path = '/' if path.empty?
   end
 
-  path = event['requestContext']['http']['path']
-  
   # Explicitly serve static SEO files as static files
   # These must be handled before API format checking since .txt and .xml are considered API formats
-  # Handle: robots.txt, ads.txt, sitemap.xml, sitemap-*.xml
-  if path == '/robots.txt' || path == '/ads.txt' || path == '/sitemap.xml' || path.start_with?('/sitemap')
+  # Handle: robots.txt, llms.txt, ads.txt, sitemap.xml, sitemap-*.xml
+  if path == '/robots.txt' || path == '/llms.txt' || path == '/llms-full.txt' || path == '/ads.txt' || path == '/sitemap.xml' || path.start_with?('/sitemap')
     response = serve_static_file(path)
     return response if response['statusCode'] != 404
   end

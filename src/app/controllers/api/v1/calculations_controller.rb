@@ -123,10 +123,9 @@ module Api
         expected = ENV[AGENT_AUTH_ENV].to_s
         provided = request.get_header(AGENT_AUTH_HEADER).to_s
         return false if expected.blank? || provided.blank?
+        return false unless provided.bytesize == expected.bytesize
 
         ActiveSupport::SecurityUtils.secure_compare(provided, expected)
-      rescue ArgumentError
-        false
       end
 
       def agent_client_id

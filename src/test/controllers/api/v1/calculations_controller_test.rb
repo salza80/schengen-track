@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'minitest/mock'
 require 'securerandom'
 
 module Api
@@ -81,6 +82,25 @@ module Api
                    'X-Schengen-Agent-Client-Id' => 'spoofed-client'
                  },
                  as: :json
+          end
+        end
+
+        assert_response :created
+        assert_equal 'agent_api_calculation_created', tracked.dig(0, 0)
+        assert_equal 'api', tracked.dig(0, 1, :source)
+      end
+
+      test 'does not compare mismatched agent auth lengths' do
+        tracked = []
+
+        with_agent_auth_secret('agent-secret') do
+          ActiveSupport::SecurityUtils.stub(:secure_compare, ->(_provided, _expected) { raise 'secure_compare should not be called' }) do
+            with_analytics_tracking_stub(tracked) do
+              post api_v1_calculations_path,
+                   params: calculation_payload,
+                   headers: mcp_headers(secret: 'short'),
+                   as: :json
+            end
           end
         end
 

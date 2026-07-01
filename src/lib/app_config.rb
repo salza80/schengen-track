@@ -79,7 +79,6 @@ class AppConfig
 
       @ssm_parameter_cache[param_name] = response.parameter.value
     rescue StandardError
-      @ssm_parameter_cache[param_name] = nil if defined?(@ssm_parameter_cache) && param_name.present?
       nil
     end
   end

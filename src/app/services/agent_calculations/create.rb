@@ -41,6 +41,11 @@ module AgentCalculations
 
     def validate_required_params
       add_error(code: 'missing_user', field: 'user', message: 'User details are required.') unless user_params.present?
+      add_error(
+        code: 'missing_nationality',
+        field: 'user.nationality',
+        message: 'User nationality is required as an uppercase ISO 3166-1 alpha-2 country code.'
+      ) if user_params.present? && user_params['nationality'].blank?
       add_error(code: 'missing_trips', field: 'trips', message: 'At least one trip is required.') unless trips.any?
 
       if trips.length > MAX_TRIPS

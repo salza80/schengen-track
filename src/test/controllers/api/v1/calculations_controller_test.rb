@@ -143,6 +143,21 @@ module Api
         assert_match(/country_code/, error['message'])
       end
 
+      test 'returns structured validation error for missing nationality' do
+        assert_no_difference('User.count') do
+          post api_v1_calculations_path,
+               params: calculation_payload.deep_merge(user: { nationality: nil }),
+               as: :json
+        end
+
+        assert_response :unprocessable_entity
+
+        error = JSON.parse(response.body).fetch('errors').first
+        assert_equal 'missing_nationality', error['code']
+        assert_equal 'user.nationality', error['field']
+        assert_match(/nationality is required/, error['message'])
+      end
+
       test 'rejects too many trips before creating a guest account' do
         too_many_trips = Array.new(AgentCalculations::Create::MAX_TRIPS + 1) do
           {

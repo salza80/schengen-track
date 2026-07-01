@@ -104,8 +104,8 @@ class AppTest(unittest.TestCase):
 
         with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
             result = self.app.create_schengen_calculation(
-                user={"first_name": "Sam"},
-                trips=[{"country": "France", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
+                user={"first_name": "Sam", "nationality": "US"},
+                trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
             )
 
         self.assertIn("The planned trips use 10 Schengen days, with 80 days remaining.", result)
@@ -128,7 +128,10 @@ class AppTest(unittest.TestCase):
             )
 
         with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
-            result = self.app.create_schengen_calculation(user={"first_name": "Sam"}, trips=[])
+            result = self.app.create_schengen_calculation(
+                user={"first_name": "Sam", "nationality": "US"},
+                trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
+            )
 
         self.assertIn("The Schengen calculation could not be created.", result)
         self.assertIn("API status: 413.", result)
@@ -167,8 +170,8 @@ class AppTest(unittest.TestCase):
 
         with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
             self.app.create_schengen_calculation(
-                user={"first_name": "Sam"},
-                trips=[{"country": "France", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
+                user={"first_name": "Sam", "nationality": "US"},
+                trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
             )
 
         event = ga_payloads[0]["events"][0]

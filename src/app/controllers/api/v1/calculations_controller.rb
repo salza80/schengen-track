@@ -27,7 +27,8 @@ module Api
       private
 
       def reject_large_payload!
-        received_bytes = [request.content_length.to_i, request.raw_post.bytesize].max
+        received_bytes = request.content_length.to_i
+        received_bytes = request.env['rack.input'].size if received_bytes.zero? && request.env['rack.input'].respond_to?(:size)
         return unless received_bytes > MAX_REQUEST_BYTES
 
         track_api_event(

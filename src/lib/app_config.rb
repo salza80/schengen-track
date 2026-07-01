@@ -61,12 +61,13 @@ class AppConfig
     end
 
     def fetch_optional(key)
-      ENV[key]
+      value = ENV[key]
+      value unless value.nil? || value.empty?
     end
 
     def fetch_ssm_parameter(env_key)
-      param_name = ENV[env_key]
-      return if param_name.nil? || param_name.empty?
+      param_name = fetch_optional(env_key)
+      return unless param_name
 
       @ssm_parameter_cache ||= {}
       return @ssm_parameter_cache[param_name] if @ssm_parameter_cache.key?(param_name)

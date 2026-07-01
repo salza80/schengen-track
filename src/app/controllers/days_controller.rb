@@ -27,7 +27,8 @@ class DaysController < ApplicationController
     min_year = Date.today.year - 20
     max_year = Date.today.year + 20
     
-    default_calendar_date = guest_calculation_default_date || Time.zone.today
+    guest_default_date = guest_calculation_default_date
+    default_calendar_date = guest_default_date || Time.zone.today
     requested_year = (params[:year] || default_calendar_date.year).to_i
     
     # If requested year is outside ±20 year range, redirect to closest valid year
@@ -56,7 +57,7 @@ class DaysController < ApplicationController
     # Set specific day for scrolling and highlighting
     @scroll_to_day = if params[:day].present?
                        params[:day].to_i
-                     elsif params[:guest_calculation].present? && params[:year].blank? && params[:month].blank?
+                     elsif guest_default_date.present? && params[:year].blank? && params[:month].blank?
                        default_calendar_date.day
                      end
     
@@ -96,9 +97,16 @@ class DaysController < ApplicationController
   end
 
   def guest_calculation_default_date
-    return unless params[:guest_calculation].present?
+    return @guest_calculation_default_date if defined?(@guest_calculation_default_date)
 
-    current_person.visits.minimum(:entry_date)
+    @guest_calculation_default_date = nil
+    return @guest_calculation_default_date unless params[:guest_calculation].present?
+
+    user = User.find_signed(params[:guest_calculation], purpose: :agent_calculation)
+    return @guest_calculation_default_date unless user&.is_guest?
+
+    person = user.people.where(is_primary: true).first || user.people.first
+    @guest_calculation_default_date = person&.visits&.minimum(:entry_date)
   end
   
   def calculate_status_summary

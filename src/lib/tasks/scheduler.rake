@@ -52,7 +52,7 @@ namespace :db do
         puts 'Number of user accounts: ' + User.count.to_s
         puts 'Number of Visits:' + Visit.count.to_s
         puts 'Number of Visas: ' + Visa.count.to_s
-        expired_rate_limits_deleted = ApiRateLimit.delete_expired! if defined?(ApiRateLimit) && ApiRateLimit.table_exists?
+        expired_rate_limits_deleted = ApiRateLimit.table_exists? ? ApiRateLimit.delete_expired! : 0
         puts "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
         Rails.logger.info "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
         

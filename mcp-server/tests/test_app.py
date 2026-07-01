@@ -125,6 +125,13 @@ class AppTest(unittest.TestCase):
         self.assertEqual("application/json", content["mimeType"])
         self.assertTrue(any(country["code"] == "DE" and country["schengen"] for country in body["countries"]))
 
+    def test_supported_countries_payload_is_memoized(self):
+        with mock.patch.object(self.app.ET, "parse", wraps=self.app.ET.parse) as parse:
+            self.app.supported_countries_payload()
+            self.app.supported_countries_payload()
+
+        self.assertEqual(1, parse.call_count)
+
     def test_create_schengen_calculation_posts_to_rails_api(self):
         os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
         os.environ["SCHENGEN_AGENT_AUTH_HEADER"] = "agent-secret"

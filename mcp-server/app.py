@@ -27,6 +27,7 @@ GA_EVENT_LIST_SUPPORTED_COUNTRIES = "mcp_list_supported_countries_called"
 GA_EVENT_TOOLS_LIST = "mcp_tools_list_called"
 _GA_API_SECRET_CACHE = None
 _GA_CLIENT_ID: ContextVar[Optional[str]] = ContextVar("ga_client_id", default=None)
+_SUPPORTED_COUNTRIES_CACHE: dict[str, dict[str, Any]] = {}
 
 # Rails owns the canonical country dataset at src/db/data/countries.xml.
 # The MCP Lambda Docker build copies that file into /var/task/countries.xml,
@@ -288,8 +289,13 @@ def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def supported_countries_payload() -> dict[str, Any]:
+    path = countries_xml_path()
+    cache_key = str(path)
+    if cache_key in _SUPPORTED_COUNTRIES_CACHE:
+        return _SUPPORTED_COUNTRIES_CACHE[cache_key]
+
     countries = []
-    root = ET.parse(countries_xml_path()).getroot()
+    root = ET.parse(path).getroot()
     for record in root.findall("record"):
         code = xml_text(record, "country_code")
         if not code:
@@ -303,7 +309,9 @@ def supported_countries_payload() -> dict[str, Any]:
         })
 
     countries.sort(key=lambda country: country["code"])
-    return {"countries": countries}
+    payload = {"countries": countries}
+    _SUPPORTED_COUNTRIES_CACHE[cache_key] = payload
+    return payload
 
 
 def countries_xml_path() -> Path:

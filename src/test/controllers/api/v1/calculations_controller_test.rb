@@ -167,6 +167,44 @@ module Api
         assert_includes response.location, 'day=1'
       end
 
+      test 'short calculation link rejects non-guest tokens' do
+        user = users(:Sally)
+        token = user.signed_id(purpose: :agent_calculation)
+
+        get calculation_link_path(token)
+
+        assert_redirected_to root_path(locale: I18n.default_locale)
+        assert_equal 'Calculation link is invalid or has expired.', flash[:alert]
+        refute_equal user.id, session[:guest_user_id]
+        refute_equal user.people.first.id, session[:current_person_id]
+      end
+
+      test 'guest calculation param does not restore session on non-get requests' do
+        get days_path(locale: I18n.default_locale)
+
+        current_guest_id = session[:guest_user_id]
+        current_person = User.find(current_guest_id).people.first
+        agent_guest = User.create!(
+          guest: true,
+          email: "agent_guest_#{SecureRandom.hex(8)}@example.com",
+          password: Devise.friendly_token[0, 20],
+          first_name: 'Agent',
+          last_name: 'Guest',
+          nationality: countries(:USA)
+        )
+        token = agent_guest.signed_id(purpose: :agent_calculation)
+
+        post set_current_person_path(
+          current_person,
+          locale: I18n.default_locale,
+          guest_calculation: token
+        )
+
+        assert_response :redirect
+        assert_equal current_guest_id, session[:guest_user_id]
+        assert_equal current_person.id, session[:current_person_id]
+      end
+
       test 'invalid guest calculation param falls back to a normal guest account' do
         get days_path(locale: I18n.default_locale, guest_calculation: 'invalid-token')
 

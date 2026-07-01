@@ -1,8 +1,9 @@
 class CalculationLinksController < ApplicationController
   def show
     user = User.find_signed!(params[:token], purpose: :agent_calculation)
+    raise ActiveRecord::RecordNotFound unless user.is_guest?
 
-    session[:guest_user_id] = user.id if user.is_guest?
+    session[:guest_user_id] = user.id
     person = user.people.where(is_primary: true).first || user.people.first
     session[:current_person_id] = person&.id
 

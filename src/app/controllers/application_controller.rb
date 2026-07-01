@@ -120,6 +120,7 @@ class ApplicationController < ActionController::Base
 
   def restore_guest_calculation
     return if params[:guest_calculation].blank?
+    return unless request.get?
 
     user = User.find_signed(params[:guest_calculation], purpose: :agent_calculation)
     return unless user&.is_guest?
@@ -128,7 +129,7 @@ class ApplicationController < ActionController::Base
     person = user.people.where(is_primary: true).first || user.people.first
     session[:current_person_id] = person&.id
 
-    return redirect_to clean_guest_calculation_url(person) if request.get?
+    return redirect_to clean_guest_calculation_url(person)
   end
 
   def clean_guest_calculation_url(person)

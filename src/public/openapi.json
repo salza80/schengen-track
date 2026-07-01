@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://schengen-calculator.com"
+      "url": "/"
     }
   ],
   "paths": {

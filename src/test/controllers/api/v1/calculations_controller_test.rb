@@ -460,6 +460,7 @@ module Api
         error_properties = schema.dig('components', 'schemas', 'ErrorResponse', 'properties', 'errors', 'items', 'properties')
 
         assert_equal '3.1.0', schema['openapi']
+        assert_equal '/', schema.dig('servers', 0, 'url')
         assert_equal 'integer', error_properties.dig('period_seconds', 'type')
         assert_equal 'date-time', error_properties.dig('reset_at', 'format')
       end

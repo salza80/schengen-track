@@ -9,6 +9,7 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 import { createRedirectFunction } from './createRedirectFunction';
+import { McpLambdaConstruct } from './mcp-lambda';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
@@ -125,8 +126,11 @@ export class HttpApiConstruct extends Construct {
       }),
     });
 
+    const mcp = new McpLambdaConstruct(this, 'Mcp', { domain: customDomain });
+
     const sslCertificateArn = props.sslArn;
     const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
+    const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 
@@ -266,6 +270,15 @@ export class HttpApiConstruct extends Construct {
       // This prevents redirect chain issues on mobile browsers during OAuth
     };
 
+    const mcpBehavior = {
+      origin: mcpOrigin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+      functionAssociations
+    };
+
     const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain, altDomain],
@@ -280,6 +293,7 @@ export class HttpApiConstruct extends Construct {
         functionAssociations
       },
       additionalBehaviors: {
+        "/mcp*": mcpBehavior,
         "/users/*": authFlowBehavior,
         "/*/users/*": authFlowBehavior,
         "assets/*": publicAssetsCacheBehavior,

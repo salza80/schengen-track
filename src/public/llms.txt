@@ -4,7 +4,7 @@
 
 Schengen Calculator helps travellers track days spent in the Schengen Area, estimate remaining short-stay allowance, plan re-entry dates, and understand common Schengen/ETIAS rules. The site is not an official EU service and does not provide legal advice.
 
-Last reviewed: 2026-05-30
+Last reviewed: 2026-07-01
 
 ## Programmatic Agent Use
 
@@ -12,6 +12,7 @@ For programmatic use, prefer the API over the web UI.
 
 - [API documentation](https://schengen-calculator.com/api/docs): JSON documentation for agent integrations.
 - [OpenAPI schema](https://schengen-calculator.com/openapi.json): Machine-readable API contract.
+- [MCP endpoint](https://schengen-calculator.com/mcp): Hosted Model Context Protocol endpoint for MCP-capable agents.
 - Recommended endpoint: `POST /api/v1/calculations`
 
 ## Primary Pages

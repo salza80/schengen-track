@@ -1,6 +1,6 @@
 # Schengen Calculator: Full LLM Context
 
-Last reviewed: 2026-05-30
+Last reviewed: 2026-07-01
 Canonical domain: https://schengen-calculator.com
 
 Schengen Calculator is a free independent web tool for tracking short-stay travel in the Schengen Area. It helps users record entry and exit dates, identify which trips count toward the Schengen Area, calculate used and remaining days under the 90/180-day rule, and plan possible return dates. It is not an official government or European Union service and does not provide legal advice.
@@ -11,9 +11,12 @@ Agents and other programmatic clients should prefer the API over driving the web
 
 - API documentation: https://schengen-calculator.com/api/docs
 - OpenAPI schema: https://schengen-calculator.com/openapi.json
+- MCP endpoint: https://schengen-calculator.com/mcp
 - Recommended endpoint: `POST /api/v1/calculations`
 
 The calculation endpoint accepts traveler details and trips, creates a guest calculation, returns structured Schengen results, and includes a website URL where the user can view the saved calculation.
+
+MCP-capable agents may connect to the hosted MCP endpoint and call the `create_schengen_calculation` tool. The MCP tool wraps the same public API endpoint; Rails remains the source of truth for creating guest calculations and computing results.
 
 ## What The Site Is Useful For
 

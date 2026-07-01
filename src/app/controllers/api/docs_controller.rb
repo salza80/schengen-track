@@ -3,8 +3,9 @@ module Api
     def show
       render json: {
         name: 'Schengen Calculator API',
-        description: 'Programmatic API for creating saved Schengen 90/180-day calculations. Agents should prefer this API over driving the web UI.',
+        description: 'Programmatic API for creating saved Schengen 90/180-day calculations. Agents should prefer this API or the MCP endpoint over driving the web UI.',
         openapi_url: "#{request.base_url}/openapi.json",
+        mcp_url: "#{request.base_url}/mcp",
         endpoints: [
           {
             method: 'POST',

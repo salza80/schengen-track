@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'securerandom'
 
 module Api
   module V1
@@ -54,16 +55,38 @@ module Api
       test 'tracks mcp source when calculation came from mcp lambda' do
         tracked = []
 
-        with_analytics_tracking_stub(tracked) do
-          post api_v1_calculations_path,
-               params: calculation_payload,
-               headers: { 'X-Schengen-Agent-Source' => 'mcp' },
-               as: :json
+        with_agent_auth_secret('agent-secret') do
+          with_analytics_tracking_stub(tracked) do
+            post api_v1_calculations_path,
+                 params: calculation_payload,
+                 headers: mcp_headers(secret: 'agent-secret'),
+                 as: :json
+          end
         end
 
         assert_response :created
         assert_equal 'agent_api_calculation_created', tracked.dig(0, 0)
         assert_equal 'mcp', tracked.dig(0, 1, :source)
+      end
+
+      test 'does not trust spoofed mcp source header without agent auth' do
+        tracked = []
+
+        with_agent_auth_secret('agent-secret') do
+          with_analytics_tracking_stub(tracked) do
+            post api_v1_calculations_path,
+                 params: calculation_payload,
+                 headers: {
+                   'X-Schengen-Agent-Source' => 'mcp',
+                   'X-Schengen-Agent-Client-Id' => 'spoofed-client'
+                 },
+                 as: :json
+          end
+        end
+
+        assert_response :created
+        assert_equal 'agent_api_calculation_created', tracked.dig(0, 0)
+        assert_equal 'api', tracked.dig(0, 1, :source)
       end
 
       test 'tracks rejected agent api calculation event' do
@@ -125,6 +148,23 @@ module Api
         assert_response :success
         assert_select '#calendar-scroll-target[data-month="7"][data-day="1"]', 1
         assert_select '.calendar-year-nav', /2026/
+      end
+
+      test 'short calculation link redirects to first entry date' do
+        post api_v1_calculations_path,
+             params: calculation_payload,
+             as: :json
+
+        user = User.order(:created_at).last
+        token = user.signed_id(purpose: :agent_calculation)
+
+        get calculation_link_path(token)
+
+        assert_response :redirect
+        assert_equal user.id, session[:guest_user_id]
+        assert_includes response.location, 'year=2026'
+        assert_includes response.location, 'month=7'
+        assert_includes response.location, 'day=1'
       end
 
       test 'invalid guest calculation param falls back to a normal guest account' do
@@ -298,6 +338,49 @@ module Api
         assert_equal 'api', event_params[:source]
       end
 
+      test 'rate limits trusted mcp requests by original caller id' do
+        tracked = []
+        client_a = "client-a-#{SecureRandom.hex(4)}"
+        client_b = "client-b-#{SecureRandom.hex(4)}"
+
+        with_calculation_rate_limit(1) do
+          with_agent_auth_secret('agent-secret') do
+            with_analytics_tracking_stub(tracked) do
+              post api_v1_calculations_path,
+                   params: calculation_payload,
+                   headers: mcp_headers(client_id: client_a, secret: 'agent-secret'),
+                   as: :json
+
+              assert_response :created
+
+              post api_v1_calculations_path,
+                   params: calculation_payload,
+                   headers: mcp_headers(client_id: client_b, secret: 'agent-secret'),
+                   as: :json
+
+              assert_response :created
+
+              assert_no_difference('User.count') do
+                post api_v1_calculations_path,
+                     params: calculation_payload,
+                     headers: mcp_headers(client_id: client_a, secret: 'agent-secret'),
+                     as: :json
+              end
+            end
+          end
+        end
+
+        assert_response :too_many_requests
+
+        error = JSON.parse(response.body).dig('errors', 0)
+        assert_equal 'rate_limited', error['code']
+        assert_equal 1, error['limit']
+
+        event_name, event_params = tracked.last
+        assert_equal 'agent_api_rate_limited', event_name
+        assert_equal 'mcp', event_params[:source]
+      end
+
       test 'documents the API for agents' do
         get api_docs_path
 
@@ -315,7 +398,12 @@ module Api
 
         assert_response :success
         assert_equal 'application/json', response.media_type
-        assert_equal '3.1.0', JSON.parse(response.body)['openapi']
+        schema = JSON.parse(response.body)
+        error_properties = schema.dig('components', 'schemas', 'ErrorResponse', 'properties', 'errors', 'items', 'properties')
+
+        assert_equal '3.1.0', schema['openapi']
+        assert_equal 'integer', error_properties.dig('period_seconds', 'type')
+        assert_equal 'date-time', error_properties.dig('reset_at', 'format')
       end
 
       private
@@ -338,6 +426,26 @@ module Api
       ensure
         Api::V1::CalculationsController.send(:remove_const, :RATE_LIMIT)
         Api::V1::CalculationsController.const_set(:RATE_LIMIT, original_limit)
+      end
+
+      def with_agent_auth_secret(secret)
+        original_secret = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
+        ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = secret
+        yield
+      ensure
+        if original_secret.nil?
+          ENV.delete('CLOUDFRONT_ORIGIN_AUTH_HEADER')
+        else
+          ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = original_secret
+        end
+      end
+
+      def mcp_headers(client_id: 'mcp-test-client', secret: 'agent-secret')
+        {
+          'X-Schengen-Agent-Source' => 'mcp',
+          'X-Schengen-Agent-Auth' => secret,
+          'X-Schengen-Agent-Client-Id' => client_id
+        }
       end
 
       def calculation_payload

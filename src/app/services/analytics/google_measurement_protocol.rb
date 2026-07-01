@@ -35,8 +35,8 @@ module Analytics
         JSON.generate(payload_for(event_name, request, client_id, params)),
         'Content-Type' => 'application/json'
       )
-    rescue StandardError => e
-      Rails.logger.info("Google Analytics Measurement Protocol event failed: #{e.class}: #{e.message}")
+    rescue StandardError
+      nil
     end
 
     private

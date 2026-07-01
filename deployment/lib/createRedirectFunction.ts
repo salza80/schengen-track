@@ -1,4 +1,4 @@
-// a couldfront function to rewrite from altDomain to targetDomain
+// a CloudFront function to rewrite from altDomain to targetDomain
 export function createRedirectFunction(altDomain: string, targetDomain: string, originAuthHeader: string): string {
   return `
     function handler(event) {
@@ -15,7 +15,7 @@ export function createRedirectFunction(altDomain: string, targetDomain: string, 
         // Redirect to targetDomain
         return {
           statusCode: 301,
-          statusDescription: 'Permanantly Moved',
+          statusDescription: 'Permanently Moved',
           headers: 
           { "location": { "value": 'https://${targetDomain}' + request.uri }}
         };

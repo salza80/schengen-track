@@ -78,8 +78,8 @@ class AppConfig
       ).get_parameter(name: param_name, with_decryption: true)
 
       @ssm_parameter_cache[param_name] = response.parameter.value
-    rescue StandardError => e
-      Rails.logger.warn("Unable to load SSM parameter #{param_name}: #{e.class}: #{e.message}") if defined?(Rails)
+    rescue StandardError
+      @ssm_parameter_cache[param_name] = nil if defined?(@ssm_parameter_cache) && param_name.present?
       nil
     end
   end

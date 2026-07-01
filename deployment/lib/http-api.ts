@@ -141,6 +141,7 @@ export class HttpApiConstruct extends Construct {
 
     const mcp = new McpLambdaConstruct(this, 'Mcp', {
       domain: customDomain,
+      agentAuthHeader: cloudFrontOriginAuthHeader,
       googleAnalyticsApiSecretParamName: gaApiSecretParamName,
       googleAnalyticsApiSecretParamArn: gaApiSecretParamArn,
     });
@@ -157,7 +158,10 @@ export class HttpApiConstruct extends Construct {
         'X-Requested-With',
         'Referer',
         'X-Schengen-Client-Ip',
-        'X-Schengen-Origin-Auth'
+        'X-Schengen-Origin-Auth',
+        'X-Schengen-Agent-Source',
+        'X-Schengen-Agent-Auth',
+        'X-Schengen-Agent-Client-Id'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
@@ -173,7 +177,10 @@ export class HttpApiConstruct extends Construct {
         'X-Requested-With',
         'Referer',
         'X-Schengen-Client-Ip',
-        'X-Schengen-Origin-Auth'
+        'X-Schengen-Origin-Auth',
+        'X-Schengen-Agent-Source',
+        'X-Schengen-Agent-Auth',
+        'X-Schengen-Agent-Client-Id'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),

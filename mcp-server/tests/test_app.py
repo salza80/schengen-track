@@ -17,6 +17,7 @@ import app
 class AppTest(unittest.TestCase):
     def setUp(self):
         os.environ.pop("SCHENGEN_API_BASE_URL", None)
+        os.environ.pop("SCHENGEN_AGENT_AUTH_HEADER", None)
         os.environ.pop("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", None)
         os.environ.pop("GA_MEASUREMENT_ID", None)
         os.environ.pop("GA_API_SECRET", None)
@@ -126,6 +127,7 @@ class AppTest(unittest.TestCase):
 
     def test_create_schengen_calculation_posts_to_rails_api(self):
         os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_AGENT_AUTH_HEADER"] = "agent-secret"
         captured = {}
 
         class FakeResponse:
@@ -175,6 +177,53 @@ class AppTest(unittest.TestCase):
         self.assertEqual(10, captured["timeout"])
         self.assertEqual([], captured["body"]["visas"])
         self.assertEqual("mcp", captured["headers"]["x-schengen-agent-source"])
+        self.assertEqual("agent-secret", captured["headers"]["x-schengen-agent-auth"])
+        self.assertTrue(captured["headers"]["x-schengen-agent-client-id"])
+
+    def test_tool_call_forwards_original_mcp_client_id_to_rails(self):
+        os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_AGENT_AUTH_HEADER"] = "agent-secret"
+        captured = {}
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, _type, _value, _traceback):
+                return None
+
+            def read(self):
+                return json.dumps({
+                    "status": "safe",
+                    "summary": "Created.",
+                    "web_url": "https://example.test/en/days",
+                    "trips": [],
+                }).encode("utf-8")
+
+        def fake_urlopen(request, timeout):
+            captured["headers"] = {key.lower(): value for key, value in request.header_items()}
+            return FakeResponse()
+
+        event = json_rpc_event(
+            "tools/call",
+            {
+                "name": "create_schengen_calculation",
+                "arguments": {
+                    "user": {"nationality": "US"},
+                    "trips": [{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
+                },
+            },
+            headers={"User-Agent": "ExampleAgent/1.0", "X-Forwarded-For": "203.0.113.7"},
+            source_ip="198.51.100.9",
+        )
+
+        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+            response = self.app.lambda_handler(event, None)
+
+        self.assertEqual(200, response["statusCode"])
+        self.assertEqual("mcp", captured["headers"]["x-schengen-agent-source"])
+        self.assertEqual("agent-secret", captured["headers"]["x-schengen-agent-auth"])
+        self.assertEqual(self.app.client_id_for_event(event), captured["headers"]["x-schengen-agent-client-id"])
 
     def test_create_schengen_calculation_returns_clear_upstream_error(self):
         def fake_urlopen(_request, timeout):

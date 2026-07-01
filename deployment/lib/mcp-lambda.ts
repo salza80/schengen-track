@@ -9,6 +9,7 @@ import * as path from 'path';
 
 export interface McpLambdaConstructProps {
   domain: string;
+  agentAuthHeader: string;
   googleAnalyticsApiSecretParamName: string;
   googleAnalyticsApiSecretParamArn: string;
 }
@@ -41,6 +42,7 @@ export class McpLambdaConstruct extends Construct {
       }),
       environment: {
         SCHENGEN_API_BASE_URL: `https://${props.domain}`,
+        SCHENGEN_AGENT_AUTH_HEADER: props.agentAuthHeader,
         SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS: '10',
         GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
         GA_API_SECRET_PARAM: props.googleAnalyticsApiSecretParamName,

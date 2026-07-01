@@ -1,7 +1,6 @@
 from contextvars import ContextVar
 import hashlib
 import json
-import logging
 import os
 from pathlib import Path
 import xml.etree.ElementTree as ET
@@ -21,12 +20,13 @@ SERVER_VERSION = "0.1.0"
 DEFAULT_API_BASE_URL = "https://schengen-calculator.com"
 AGENT_SOURCE = "mcp"
 AGENT_SOURCE_HEADER = "x-schengen-agent-source"
+AGENT_AUTH_HEADER = "x-schengen-agent-auth"
+AGENT_CLIENT_ID_HEADER = "x-schengen-agent-client-id"
 GA_EVENT_CREATE_CALCULATION = "mcp_create_schengen_calculation_called"
 GA_EVENT_LIST_SUPPORTED_COUNTRIES = "mcp_list_supported_countries_called"
 GA_EVENT_TOOLS_LIST = "mcp_tools_list_called"
 _GA_API_SECRET_CACHE = None
 _GA_CLIENT_ID: ContextVar[Optional[str]] = ContextVar("ga_client_id", default=None)
-logger = logging.getLogger(__name__)
 
 # Rails owns the canonical country dataset at src/db/data/countries.xml.
 # The MCP Lambda Docker build copies that file into /var/task/countries.xml,
@@ -247,15 +247,21 @@ def apply_explicit_tool_schemas() -> None:
 def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
     api_base_url = os.environ.get("SCHENGEN_API_BASE_URL", DEFAULT_API_BASE_URL).rstrip("/")
     timeout = float(os.environ.get("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", "10"))
+    headers = {
+        "content-type": "application/json",
+        "accept": "application/json",
+        "user-agent": f"schengen-calculator-mcp/{SERVER_VERSION}",
+        AGENT_SOURCE_HEADER: AGENT_SOURCE,
+        AGENT_CLIENT_ID_HEADER: ga_client_id(),
+    }
+    agent_auth_header = os.environ.get("SCHENGEN_AGENT_AUTH_HEADER")
+    if agent_auth_header:
+        headers[AGENT_AUTH_HEADER] = agent_auth_header
+
     request = urllib.request.Request(
         f"{api_base_url}/api/v1/calculations",
         data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "content-type": "application/json",
-            "accept": "application/json",
-            "user-agent": f"schengen-calculator-mcp/{SERVER_VERSION}",
-            AGENT_SOURCE_HEADER: AGENT_SOURCE,
-        },
+        headers=headers,
         method="POST",
     )
 
@@ -345,13 +351,7 @@ def track_ga_event(event_name: str, params: dict[str, Any]) -> None:
 
     try:
         urllib.request.urlopen(request, timeout=ga_timeout_seconds()).close()
-    except Exception as error:
-        logger.info(
-            "Google Analytics Measurement Protocol event failed for %s: %s: %s",
-            event_name,
-            error.__class__.__name__,
-            error,
-        )
+    except Exception:
         return
 
 
@@ -383,13 +383,7 @@ def ga_api_secret() -> Optional[str]:
         response = boto3.client("ssm").get_parameter(Name=param_name, WithDecryption=True)
         _GA_API_SECRET_CACHE = response["Parameter"]["Value"]
         return _GA_API_SECRET_CACHE
-    except Exception as error:
-        logger.warning(
-            "Unable to load GA API secret from SSM parameter %s: %s: %s",
-            param_name,
-            error.__class__.__name__,
-            error,
-        )
+    except Exception:
         return None
 
 
@@ -458,7 +452,7 @@ def format_error_response(result: dict[str, Any]) -> str:
 
 def lambda_handler(event, context):
     rpc_method = json_rpc_method(event)
-    client_id_token = _GA_CLIENT_ID.set(client_id_for_event(event))
+    client_id_token = _GA_CLIENT_ID.set(client_id_for_event(event) or str(uuid.uuid4()))
     try:
         response = mcp.handle_request(event, context)
 
@@ -494,6 +488,7 @@ def client_id_for_event(event: dict[str, Any]) -> Optional[str]:
     headers = event_headers(event)
     http_context = event.get("requestContext", {}).get("http", {}) if isinstance(event, dict) else {}
     parts = [
+        header_value(headers, "x-schengen-client-ip"),
         http_context.get("sourceIp"),
         header_value(headers, "x-forwarded-for"),
         header_value(headers, "cf-connecting-ip"),

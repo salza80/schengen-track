@@ -76,7 +76,7 @@
             }
           },
           "429": {
-            "description": "Too many calculation requests. Public requests are rate limited per client IP.",
+            "description": "Too many calculation requests. Public API calls are rate limited per client IP; trusted MCP calls are rate limited per original MCP caller.",
             "headers": {
               "RateLimit-Limit": {
                 "description": "Maximum number of calculation requests allowed in the current window.",
@@ -214,6 +214,15 @@
                 "field": { "type": "string" },
                 "message": { "type": "string" },
                 "limit": { "type": "integer" },
+                "period_seconds": {
+                  "type": "integer",
+                  "description": "Rate-limit window length in seconds when code is rate_limited."
+                },
+                "reset_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "ISO 8601 timestamp when the current rate-limit window resets."
+                },
                 "received": { "type": "integer" }
               }
             }

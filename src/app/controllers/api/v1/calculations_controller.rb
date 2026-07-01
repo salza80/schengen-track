@@ -5,8 +5,11 @@ module Api
       RATE_LIMIT = 30
       RATE_LIMIT_PERIOD = 10.minutes
       AGENT_SOURCE_HEADER = 'HTTP_X_SCHENGEN_AGENT_SOURCE'
+      AGENT_AUTH_HEADER = 'HTTP_X_SCHENGEN_AGENT_AUTH'
+      AGENT_CLIENT_ID_HEADER = 'HTTP_X_SCHENGEN_AGENT_CLIENT_ID'
+      AGENT_AUTH_ENV = 'CLOUDFRONT_ORIGIN_AUTH_HEADER'
       DEFAULT_AGENT_SOURCE = 'api'
-      AGENT_SOURCES = [DEFAULT_AGENT_SOURCE, 'mcp'].freeze
+      MCP_AGENT_SOURCE = 'mcp'
       EVENT_CALCULATION_CREATED = 'agent_api_calculation_created'
       EVENT_CALCULATION_REJECTED = 'agent_api_calculation_rejected'
       EVENT_PAYLOAD_TOO_LARGE = 'agent_api_payload_too_large'
@@ -103,12 +106,31 @@ module Api
       end
 
       def rate_limit_identifier
+        if trusted_agent_source? && agent_client_id.present?
+          return "#{MCP_AGENT_SOURCE}:#{agent_client_id}"
+        end
+
         request.get_header('schengen.client_ip').presence || request.remote_ip
       end
 
       def agent_source
-        source = request.get_header(AGENT_SOURCE_HEADER).to_s.downcase
-        AGENT_SOURCES.include?(source) ? source : DEFAULT_AGENT_SOURCE
+        trusted_agent_source? ? MCP_AGENT_SOURCE : DEFAULT_AGENT_SOURCE
+      end
+
+      def trusted_agent_source?
+        return false unless request.get_header(AGENT_SOURCE_HEADER).to_s.downcase == MCP_AGENT_SOURCE
+
+        expected = ENV[AGENT_AUTH_ENV].to_s
+        provided = request.get_header(AGENT_AUTH_HEADER).to_s
+        return false if expected.blank? || provided.blank?
+
+        ActiveSupport::SecurityUtils.secure_compare(provided, expected)
+      rescue ArgumentError
+        false
+      end
+
+      def agent_client_id
+        request.get_header(AGENT_CLIENT_ID_HEADER).to_s.presence
       end
 
       def track_api_event(event_name, data = {})

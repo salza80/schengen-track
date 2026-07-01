@@ -8,13 +8,13 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import { createRedirectFunction } from './createRedirectFunction';
 import { McpLambdaConstruct } from './mcp-lambda';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
 import * as path from 'path';
-import { randomUUID } from 'crypto';
 // import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 import { Stack } from 'aws-cdk-lib';
 
@@ -61,8 +61,22 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
-    const cloudFrontOriginAuthHeader = randomUUID();
-    const agentAuthHeader = randomUUID();
+    const cloudFrontOriginAuthSecret = new secretsmanager.Secret(this, 'CloudFrontOriginAuthHeaderSecret', {
+      description: 'Shared secret CloudFront adds so Rails and MCP can trust viewer IP headers.',
+      generateSecretString: {
+        passwordLength: 48,
+        excludePunctuation: true,
+      },
+    });
+    const agentAuthSecret = new secretsmanager.Secret(this, 'AgentAuthHeaderSecret', {
+      description: 'Shared secret MCP adds when calling the Rails agent calculation API.',
+      generateSecretString: {
+        passwordLength: 48,
+        excludePunctuation: true,
+      },
+    });
+    const cloudFrontOriginAuthHeader = cloudFrontOriginAuthSecret.secretValue.unsafeUnwrap();
+    const agentAuthHeader = agentAuthSecret.secretValue.unsafeUnwrap();
     const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
       code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain, cloudFrontOriginAuthHeader))
     });

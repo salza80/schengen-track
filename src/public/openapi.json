@@ -56,7 +56,7 @@
             }
           },
           "422": {
-            "description": "Validation error, including too_many_trips or too_many_visas when list limits are exceeded.",
+            "description": "Validation error, including invalid_trips or invalid_visas when collection shapes are wrong, and too_many_trips or too_many_visas when list limits are exceeded.",
             "content": {
               "application/json": {
                 "schema": {
@@ -209,7 +209,7 @@
               "properties": {
                 "code": {
                   "type": "string",
-                  "examples": ["payload_too_large", "rate_limited", "too_many_trips", "too_many_visas", "invalid_input", "record_invalid"]
+                  "examples": ["payload_too_large", "rate_limited", "invalid_trips", "invalid_visas", "too_many_trips", "too_many_visas", "invalid_input", "record_invalid"]
                 },
                 "field": { "type": "string" },
                 "message": { "type": "string" },

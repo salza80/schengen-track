@@ -50,27 +50,22 @@ module AgentCalculations
         field: 'user.nationality',
         message: 'User nationality is required as an uppercase ISO 3166-1 alpha-2 country code.'
       ) if user_params.present? && user_params['nationality'].blank?
-      add_error(code: 'missing_trips', field: 'trips', message: 'At least one trip is required.') unless trips.any?
 
-      if trips.length > MAX_TRIPS
-        add_error(
-          code: 'too_many_trips',
-          field: 'trips',
-          message: "Too many trips. Maximum is #{MAX_TRIPS}.",
-          limit: MAX_TRIPS,
-          received: trips.length
-        )
-      end
-
-      if visas.length > MAX_VISAS
-        add_error(
-          code: 'too_many_visas',
-          field: 'visas',
-          message: "Too many visas. Maximum is #{MAX_VISAS}.",
-          limit: MAX_VISAS,
-          received: visas.length
-        )
-      end
+      validate_collection_shape(
+        key: 'trips',
+        required: true,
+        missing_code: 'missing_trips',
+        invalid_code: 'invalid_trips',
+        too_many_code: 'too_many_trips',
+        max: MAX_TRIPS
+      )
+      validate_collection_shape(
+        key: 'visas',
+        required: false,
+        invalid_code: 'invalid_visas',
+        too_many_code: 'too_many_visas',
+        max: MAX_VISAS
+      )
     end
 
     def create_guest_user!
@@ -196,11 +191,64 @@ module AgentCalculations
     end
 
     def trips
-      Array(params['trips'])
+      normalized_collection('trips')
     end
 
     def visas
-      Array(params['visas'])
+      normalized_collection('visas')
+    end
+
+    def validate_collection_shape(key:, invalid_code:, too_many_code:, max:, required: false, missing_code: nil)
+      value = params[key]
+      if value.nil?
+        add_error(code: missing_code, field: key, message: "At least one #{key.singularize} is required.") if required
+        return
+      end
+
+      unless value.is_a?(Array)
+        add_error(
+          code: invalid_code,
+          field: key,
+          message: "#{key.humanize} must be an array of objects."
+        )
+        return
+      end
+
+      if value.empty?
+        add_error(code: missing_code, field: key, message: "At least one #{key.singularize} is required.") if required
+        return
+      end
+
+      invalid_index = value.find_index { |item| !collection_item_hash?(item) }
+      if invalid_index
+        add_error(
+          code: invalid_code,
+          field: "#{key}[#{invalid_index}]",
+          message: "Each #{key.singularize} must be an object."
+        )
+        return
+      end
+
+      return unless value.length > max
+
+      add_error(
+        code: too_many_code,
+        field: key,
+        message: "Too many #{key}. Maximum is #{max}.",
+        limit: max,
+        received: value.length
+      )
+    end
+
+    def normalized_collection(key)
+      value = params[key]
+      return [] unless value.is_a?(Array)
+
+      value.map { |item| item.is_a?(ActionController::Parameters) ? item.to_h : item }
+    end
+
+    def collection_item_hash?(item)
+      item.is_a?(Hash) || item.is_a?(ActionController::Parameters)
     end
 
     def find_country!(code, field)

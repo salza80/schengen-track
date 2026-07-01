@@ -297,6 +297,49 @@ module Api
         assert_match(/nationality is required/, error['message'])
       end
 
+      test 'rejects object-shaped trips without creating a guest account' do
+        assert_no_difference('User.count') do
+          post api_v1_calculations_path,
+               params: calculation_payload.merge(
+                 trips: {
+                   country_code: 'DE',
+                   entry_date: '2026-07-01',
+                   exit_date: '2026-07-20'
+                 }
+               ),
+               as: :json
+        end
+
+        assert_response :unprocessable_entity
+
+        error = JSON.parse(response.body).dig('errors', 0)
+        assert_equal 'invalid_trips', error['code']
+        assert_equal 'trips', error['field']
+        assert_match(/array of objects/, error['message'])
+      end
+
+      test 'rejects object-shaped visas without creating a guest account' do
+        assert_no_difference('User.count') do
+          post api_v1_calculations_path,
+               params: calculation_payload.merge(
+                 visas: {
+                   visa_type: 'S',
+                   start_date: '2026-01-01',
+                   end_date: '2026-12-31',
+                   no_entries: 0
+                 }
+               ),
+               as: :json
+        end
+
+        assert_response :unprocessable_entity
+
+        error = JSON.parse(response.body).dig('errors', 0)
+        assert_equal 'invalid_visas', error['code']
+        assert_equal 'visas', error['field']
+        assert_match(/array of objects/, error['message'])
+      end
+
       test 'rejects too many trips before creating a guest account' do
         too_many_trips = Array.new(AgentCalculations::Create::MAX_TRIPS + 1) do
           {

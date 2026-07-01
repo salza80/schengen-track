@@ -22,6 +22,70 @@ module AgentCalculations
       end
     end
 
+    test 'rejects trips that are not an array of objects' do
+      assert_no_difference('User.count') do
+        result = Create.new(
+          params: calculation_params.merge(
+            'trips' => {
+              'country_code' => 'DE',
+              'entry_date' => '2026-07-01',
+              'exit_date' => '2026-07-20'
+            }
+          ),
+          url_helpers: Rails.application.routes.url_helpers,
+          base_url: 'http://www.example.com'
+        ).call
+
+        refute result.success?
+
+        error = result.errors.first
+        assert_equal 'invalid_trips', error[:code]
+        assert_equal 'trips', error[:field]
+        assert_match(/array of objects/, error[:message])
+      end
+    end
+
+    test 'rejects trip entries that are not objects' do
+      assert_no_difference('User.count') do
+        result = Create.new(
+          params: calculation_params.merge('trips' => ['DE']),
+          url_helpers: Rails.application.routes.url_helpers,
+          base_url: 'http://www.example.com'
+        ).call
+
+        refute result.success?
+
+        error = result.errors.first
+        assert_equal 'invalid_trips', error[:code]
+        assert_equal 'trips[0]', error[:field]
+        assert_match(/must be an object/, error[:message])
+      end
+    end
+
+    test 'rejects visas that are not an array of objects' do
+      assert_no_difference('User.count') do
+        result = Create.new(
+          params: calculation_params.merge(
+            'visas' => {
+              'visa_type' => 'S',
+              'start_date' => '2026-01-01',
+              'end_date' => '2026-12-31',
+              'no_entries' => 0
+            }
+          ),
+          url_helpers: Rails.application.routes.url_helpers,
+          base_url: 'http://www.example.com'
+        ).call
+
+        refute result.success?
+
+        error = result.errors.first
+        assert_equal 'invalid_visas', error[:code]
+        assert_equal 'visas', error[:field]
+        assert_match(/array of objects/, error[:message])
+      end
+    end
+
     private
 
     def calculation_params

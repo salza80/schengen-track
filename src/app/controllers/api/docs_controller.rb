@@ -14,6 +14,7 @@ module Api
             purpose: 'Create a guest calculation from traveler details and trips, then return structured results and a website URL.',
             limits: {
               request_body: '32 KB',
+              rate_limit: "#{Api::V1::CalculationsController::RATE_LIMIT} requests per #{Api::V1::CalculationsController::RATE_LIMIT_PERIOD.to_i} seconds per client IP",
               trips: AgentCalculations::Create::MAX_TRIPS,
               visas: AgentCalculations::Create::MAX_VISAS
             }

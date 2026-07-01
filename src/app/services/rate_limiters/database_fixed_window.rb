@@ -24,6 +24,17 @@ module RateLimiters
         reset_at: window_end,
         count: count
       )
+    rescue StandardError => e
+      raise unless missing_rate_limit_table_error?(e)
+
+      Rails.logger.warn("API rate limiter skipped because api_rate_limits table is unavailable: #{e.class}: #{e.message}")
+      Result.new(
+        allowed?: true,
+        limit: limit,
+        remaining: limit,
+        reset_at: window_end,
+        count: 0
+      )
     end
 
     private
@@ -76,6 +87,11 @@ module RateLimiters
 
     def window_end
       @window_end ||= window_start + period
+    end
+
+    def missing_rate_limit_table_error?(error)
+      ([error, error.cause].compact).any? { |cause| cause.class.name == 'PG::UndefinedTable' } ||
+        (error.message.match?(/api_rate_limits/i) && error.message.match?(/does not exist|no such table/i))
     end
   end
 end

@@ -5,6 +5,9 @@ export function createRedirectFunction(altDomain: string, targetDomain: string):
       var request = event.request;
       var headers = request.headers;
       var host = headers.host.value;
+      if (event.viewer && event.viewer.ip) {
+        headers['x-schengen-client-ip'] = { value: event.viewer.ip };
+      }
 
       // Check if the request is coming from altDomain
       if (host === '${altDomain}') {

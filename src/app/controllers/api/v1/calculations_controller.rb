@@ -34,7 +34,8 @@ module Api
         track_api_event(
           'agent_api_payload_too_large',
           limit: MAX_REQUEST_BYTES,
-          received: received_bytes
+          received: received_bytes,
+          include_request_params: false
         )
 
         render json: {
@@ -53,7 +54,7 @@ module Api
       def rate_limit!
         result = RateLimiters::DatabaseFixedWindow.new(
           scope: 'api:v1:calculations:create',
-          identifier: request.remote_ip,
+          identifier: rate_limit_identifier,
           limit: RATE_LIMIT,
           period: RATE_LIMIT_PERIOD
         ).call
@@ -85,23 +86,36 @@ module Api
         )
       end
 
+      def rate_limit_identifier
+        request.get_header('schengen.client_ip').presence || request.remote_ip
+      end
+
       def track_api_event(event_name, data = {})
+        include_request_params = data.delete(:include_request_params) { true }
         Analytics::GoogleMeasurementProtocol.track(
           event_name,
           request: request,
-          params: analytics_params(data)
+          params: analytics_params(data, include_request_params: include_request_params)
         )
       end
 
-      def analytics_params(data)
+      def analytics_params(data, include_request_params: true)
         errors = Array(data[:errors])
+        trip_count = Array(data[:trips]).length if data.key?(:trips)
+        visa_count = Array(data[:visas]).length if data.key?(:visas)
+
+        if include_request_params
+          trip_count ||= Array(params[:trips]).length
+          visa_count ||= Array(params[:visas]).length
+        end
+
         {
           status: data[:status],
           days_used: data[:days_used],
           days_remaining: data[:days_remaining],
           overstay: data[:overstay],
-          trip_count: Array(data[:trips]).length.presence || Array(params[:trips]).length,
-          visa_count: Array(params[:visas]).length,
+          trip_count: trip_count,
+          visa_count: visa_count,
           error_count: errors.length,
           first_error_code: errors.first&.dig(:code) || errors.first&.dig('code'),
           limit: data[:limit],

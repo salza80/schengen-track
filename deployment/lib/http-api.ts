@@ -143,7 +143,8 @@ export class HttpApiConstruct extends Construct {
         'Access-Control-Request-Headers',
         'Accept',
         'X-Requested-With',
-        'Referer'
+        'Referer',
+        'X-Schengen-Client-Ip'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
@@ -157,7 +158,8 @@ export class HttpApiConstruct extends Construct {
         'Access-Control-Request-Headers',
         'Accept',
         'X-Requested-With',
-        'Referer'
+        'Referer',
+        'X-Schengen-Client-Ip'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),

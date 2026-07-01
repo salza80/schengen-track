@@ -75,6 +75,30 @@
               }
             }
           },
+          "429": {
+            "description": "Too many calculation requests. Public requests are rate limited per client IP.",
+            "headers": {
+              "RateLimit-Limit": {
+                "description": "Maximum number of calculation requests allowed in the current window.",
+                "schema": { "type": "integer" }
+              },
+              "RateLimit-Remaining": {
+                "description": "Remaining calculation requests in the current window.",
+                "schema": { "type": "integer" }
+              },
+              "RateLimit-Reset": {
+                "description": "Unix timestamp when the current rate-limit window resets.",
+                "schema": { "type": "integer" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable"
           }
@@ -178,7 +202,7 @@
               "properties": {
                 "code": {
                   "type": "string",
-                  "examples": ["payload_too_large", "too_many_trips", "too_many_visas"]
+                  "examples": ["payload_too_large", "rate_limited", "too_many_trips", "too_many_visas"]
                 },
                 "field": { "type": "string" },
                 "message": { "type": "string" },

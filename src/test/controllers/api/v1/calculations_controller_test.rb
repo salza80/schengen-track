@@ -221,6 +221,24 @@ module Api
         assert_match(/Request body is too large/, error['message'])
       end
 
+      test 'rejects oversized malformed json without parsing request params' do
+        tracked = []
+        body = '{"padding":"' + ('x' * (Api::V1::CalculationsController::MAX_REQUEST_BYTES + 1))
+
+        with_analytics_tracking_stub(tracked) do
+          post api_v1_calculations_path,
+               params: body,
+               headers: { 'CONTENT_TYPE' => 'application/json' }
+        end
+
+        assert_response :payload_too_large
+
+        error = JSON.parse(response.body).dig('errors', 0)
+        assert_equal 'payload_too_large', error['code']
+        assert_equal 'agent_api_payload_too_large', tracked.dig(0, 0)
+        assert_nil tracked.dig(0, 1, :trip_count)
+      end
+
       test 'rate limits calculation requests by ip' do
         with_calculation_rate_limit(2) do
           2.times do

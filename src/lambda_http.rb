@@ -6,6 +6,16 @@ $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
 
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
+def client_ip_from(http, request_headers)
+  cloudfront_client_ip = request_headers['x-schengen-client-ip'] || request_headers['X-Schengen-Client-Ip']
+  return cloudfront_client_ip.strip unless cloudfront_client_ip.to_s.strip.empty?
+
+  forwarded_for = request_headers['x-forwarded-for'] || request_headers['X-Forwarded-For']
+  forwarded_ip = forwarded_for.to_s.split(',').map(&:strip).find { |value| !value.empty? }
+
+  forwarded_ip || http['sourceIp']
+end
+
 # allow static file to be served from lambda
 def serve_static_file(path)
   app = Rack::Builder.new do
@@ -109,6 +119,7 @@ def handler(event:, context:)
   host = requestHeaders['x-forwarded-host'] || requestHeaders.fetch('host')
   port = requestHeaders.fetch('x-forwarded-port')
   scheme = requestHeaders['cloudfront-forwarded-proto'] || requestHeaders.fetch('x-forwarded-proto')
+  client_ip = client_ip_from(http, requestHeaders)
 
   requestBody = event['body'] || ''
   if event['isBase64Encoded']
@@ -126,6 +137,7 @@ def handler(event:, context:)
     Rack::SERVER_NAME => host,
     Rack::SERVER_PORT => port,
     Rack::SERVER_PROTOCOL => protocol,
+    'REMOTE_ADDR' => client_ip,
 
     Rack::RACK_VERSION => Rack::VERSION,
     Rack::RACK_URL_SCHEME => scheme,
@@ -133,6 +145,7 @@ def handler(event:, context:)
     Rack::RACK_ERRORS => $stderr,
 
     # Escape hatch for access to the context and event of Lambda function
+    'schengen.client_ip' => client_ip,
     'lambda.context' => context,
     'lambda.event' => event,
   }

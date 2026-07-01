@@ -158,10 +158,7 @@ export class HttpApiConstruct extends Construct {
         'X-Requested-With',
         'Referer',
         'X-Schengen-Client-Ip',
-        'X-Schengen-Origin-Auth',
-        'X-Schengen-Agent-Source',
-        'X-Schengen-Agent-Auth',
-        'X-Schengen-Agent-Client-Id'
+        'X-Schengen-Origin-Auth'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
@@ -177,12 +174,27 @@ export class HttpApiConstruct extends Construct {
         'X-Requested-With',
         'Referer',
         'X-Schengen-Client-Ip',
+        'X-Schengen-Origin-Auth'
+      ),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+    })
+
+    // Dedicated policy for the public calculation API. It forwards the private
+    // MCP-to-Rails headers without pushing the general/auth policies over the
+    // CloudFront header allow-list quota.
+    const agentApiOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "agentApiRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Origin',
+        'Access-Control-Request-Method',
+        'Access-Control-Request-Headers',
+        'X-Schengen-Client-Ip',
         'X-Schengen-Origin-Auth',
         'X-Schengen-Agent-Source',
         'X-Schengen-Agent-Auth',
         'X-Schengen-Agent-Client-Id'
       ),
-      cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
     })
 
@@ -298,6 +310,15 @@ export class HttpApiConstruct extends Construct {
       // This prevents redirect chain issues on mobile browsers during OAuth
     };
 
+    const agentApiBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: agentApiOriginRequestPolicy,
+      functionAssociations
+    };
+
     const mcpBehavior = {
       origin: mcpOrigin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
@@ -322,6 +343,7 @@ export class HttpApiConstruct extends Construct {
       },
       additionalBehaviors: {
         "/mcp*": mcpBehavior,
+        "/api/v1/calculations*": agentApiBehavior,
         "/users/*": authFlowBehavior,
         "/*/users/*": authFlowBehavior,
         "assets/*": publicAssetsCacheBehavior,

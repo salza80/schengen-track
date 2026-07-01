@@ -118,7 +118,7 @@ module AgentCalculations
       overstay_days = days.map(&:overstay_days).compact.max || 0
 
       {
-        calculation_id: "guest_#{user.id}",
+        calculation_id: token,
         status: status_for(calc, days_used),
         days_used: days_used,
         days_remaining: days_remaining,

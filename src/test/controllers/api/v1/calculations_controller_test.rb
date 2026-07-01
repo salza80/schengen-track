@@ -33,6 +33,9 @@ module Api
         assert_equal 'DE', body.dig('trips', 0, 'country_code')
 
         user = User.order(:created_at).last
+        guest_token = Rack::Utils.parse_query(URI.parse(body['web_url']).query).fetch('guest_calculation')
+        assert_equal guest_token, body['calculation_id']
+        refute_equal "guest_#{user.id}", body['calculation_id']
         assert user.is_guest?
         assert_match(/\Aagent_guest_/, user.email)
       end

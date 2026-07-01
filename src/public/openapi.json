@@ -1,0 +1,194 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Schengen Calculator API",
+    "version": "1.0.0",
+    "description": "Programmatic API for creating saved Schengen 90/180-day calculations. Agents should prefer this API over driving the web UI."
+  },
+  "servers": [
+    {
+      "url": "https://schengen-calculator.com"
+    }
+  ],
+  "paths": {
+    "/api/v1/calculations": {
+      "post": {
+        "summary": "Create a saved Schengen calculation",
+        "description": "Creates a guest calculation from traveler details and trips, then returns structured Schengen results and a website URL the user can open.",
+        "operationId": "createCalculation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculationRequest"
+              },
+              "examples": {
+                "basic": {
+                  "value": {
+                    "user": {
+                      "first_name": "Sam",
+                      "last_name": "Traveler",
+                      "nationality": "US"
+                    },
+                    "trips": [
+                      {
+                        "country_code": "DE",
+                        "entry_date": "2026-07-01",
+                        "exit_date": "2026-07-20"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Calculation created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error, including too_many_trips or too_many_visas when list limits are exceeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Request body is too large. Public calculation requests are limited to 32 KB.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CalculationRequest": {
+        "type": "object",
+        "required": ["user", "trips"],
+        "properties": {
+          "user": {
+            "type": "object",
+            "required": ["nationality"],
+            "properties": {
+              "email": { "type": "string", "format": "email" },
+              "first_name": { "type": "string" },
+              "last_name": { "type": "string" },
+              "nationality": {
+                "type": "string",
+                "description": "ISO-style country code matching Schengen Calculator country data, such as US, AU, IN, or DE."
+              }
+            }
+          },
+          "trips": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "required": ["country_code", "entry_date", "exit_date"],
+              "properties": {
+                "country_code": { "type": "string" },
+                "entry_date": { "type": "string", "format": "date" },
+                "exit_date": { "type": "string", "format": "date" }
+              }
+            }
+          },
+          "visas": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "required": ["start_date", "end_date"],
+              "properties": {
+                "visa_type": {
+                  "type": "string",
+                  "enum": ["S", "R"],
+                  "default": "S"
+                },
+                "start_date": { "type": "string", "format": "date" },
+                "end_date": { "type": "string", "format": "date" },
+                "no_entries": {
+                  "type": "integer",
+                  "description": "0 means multiple/unlimited entries."
+                }
+              }
+            }
+          }
+        }
+      },
+      "CalculationResponse": {
+        "type": "object",
+        "properties": {
+          "calculation_id": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["safe", "warning", "overstay"]
+          },
+          "days_used": { "type": "integer" },
+          "days_remaining": { "type": "integer" },
+          "overstay": { "type": "boolean" },
+          "overstay_days": { "type": "integer" },
+          "next_allowed_entry_date": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "summary": { "type": "string" },
+          "user_message": {
+            "type": "string",
+            "description": "Human-readable text agents can show to users, including the website URL for reviewing, editing, or saving the calculation."
+          },
+          "web_url": { "type": "string", "format": "uri" },
+          "claim_url": { "type": "string", "format": "uri" },
+          "person": { "type": "object" },
+          "trips": {
+            "type": "array",
+            "items": { "type": "object" }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "examples": ["payload_too_large", "too_many_trips", "too_many_visas"]
+                },
+                "field": { "type": "string" },
+                "message": { "type": "string" },
+                "limit": { "type": "integer" },
+                "received": { "type": "integer" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

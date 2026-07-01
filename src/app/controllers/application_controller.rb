@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
     ETIAS_FEE_SOURCE_URL
   ].freeze
 
+  before_action :restore_guest_calculation
   before_action :set_cache_cookie, unless: :task_controller?
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -115,6 +116,34 @@ class ApplicationController < ActionController::Base
 
   def task_controller?
     controller_name == 'tasks'
+  end
+
+  def restore_guest_calculation
+    return if params[:guest_calculation].blank?
+
+    user = User.find_signed(params[:guest_calculation], purpose: :agent_calculation)
+    return unless user&.is_guest?
+
+    session[:guest_user_id] = user.id
+    person = user.people.where(is_primary: true).first || user.people.first
+    session[:current_person_id] = person&.id
+
+    redirect_to clean_guest_calculation_url(person) if request.get?
+  end
+
+  def clean_guest_calculation_url(person)
+    cleaned_params = request.query_parameters.except('guest_calculation')
+
+    if controller_name == 'days' && cleaned_params.slice('year', 'month', 'day').empty?
+      first_entry = person&.visits&.minimum(:entry_date)
+      if first_entry
+        cleaned_params['year'] = first_entry.year
+        cleaned_params['month'] = first_entry.month
+        cleaned_params['day'] = first_entry.day
+      end
+    end
+
+    cleaned_params.present? ? "#{request.path}?#{cleaned_params.to_query}" : request.path
   end
 
   def guest_user

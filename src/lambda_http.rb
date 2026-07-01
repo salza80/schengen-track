@@ -149,7 +149,9 @@ def handler(event:, context:)
     env[header] = value
   end
 
-  env['CONTENT_LENGTH'] ||= requestBodyContent.size.to_s
+  # Trust the decoded Lambda event body over forwarded Content-Length headers so
+  # Rack/Rails sees the actual request size after API Gateway normalization.
+  env['CONTENT_LENGTH'] = requestBody.bytesize.to_s
 
   if cookies.any?
     env['HTTP_COOKIE'] = cookies.join('; ')

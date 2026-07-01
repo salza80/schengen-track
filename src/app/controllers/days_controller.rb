@@ -27,7 +27,8 @@ class DaysController < ApplicationController
     min_year = Date.today.year - 20
     max_year = Date.today.year + 20
     
-    requested_year = (params[:year] || Date.today.year).to_i
+    default_calendar_date = guest_calculation_default_date || Time.zone.today
+    requested_year = (params[:year] || default_calendar_date.year).to_i
     
     # If requested year is outside ±20 year range, redirect to closest valid year
     if requested_year < min_year || requested_year > max_year
@@ -46,14 +47,18 @@ class DaysController < ApplicationController
     # 2. Year is current year (or no year specified)
     if params[:month].present?
       @scroll_to_month = params[:month].to_i
-    elsif params[:year].blank? || @selected_year == Time.zone.today.year
-      @scroll_to_month = Time.zone.today.month
+    elsif params[:year].blank? || @selected_year == default_calendar_date.year
+      @scroll_to_month = default_calendar_date.month
     else
       @scroll_to_month = nil # Don't scroll if viewing a different year without month param
     end
     
     # Set specific day for scrolling and highlighting
-    @scroll_to_day = params[:day].to_i if params[:day].present?
+    @scroll_to_day = if params[:day].present?
+                       params[:day].to_i
+                     elsif params[:guest_calculation].present? && params[:year].blank? && params[:month].blank?
+                       default_calendar_date.day
+                     end
     
     # Only show prev/next year buttons if within ±20 year range
     @prev_year = @selected_year - 1 if @selected_year > min_year
@@ -88,6 +93,12 @@ class DaysController < ApplicationController
       schengen_days: schengen_days,
       max_schengen_count: max_count
     }
+  end
+
+  def guest_calculation_default_date
+    return unless params[:guest_calculation].present?
+
+    current_person.visits.minimum(:entry_date)
   end
   
   def calculate_status_summary

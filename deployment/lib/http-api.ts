@@ -298,6 +298,7 @@ export class HttpApiConstruct extends Construct {
         "/robots.txt": publicSeoDocsCacheBehavior,
         "/llms.txt": publicSeoDocsCacheBehavior,
         "/llms-full.txt": publicSeoDocsCacheBehavior,
+        "/openapi.json": publicSeoDocsCacheBehavior,
         "/sitemap*": publicSeoDocsCacheBehavior,
         "/favicon.ico": publicAssetsCacheBehavior,
         "/med.png": publicAssetsCacheBehavior,

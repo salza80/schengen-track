@@ -6,6 +6,14 @@ Schengen Calculator helps travellers track days spent in the Schengen Area, esti
 
 Last reviewed: 2026-05-30
 
+## Programmatic Agent Use
+
+For programmatic use, prefer the API over the web UI.
+
+- [API documentation](https://schengen-calculator.com/api/docs): JSON documentation for agent integrations.
+- [OpenAPI schema](https://schengen-calculator.com/openapi.json): Machine-readable API contract.
+- Recommended endpoint: `POST /api/v1/calculations`
+
 ## Primary Pages
 
 - [Schengen Calculator home and guide](https://schengen-calculator.com/): Main guide to the Schengen 90/180-day rule, visa requirements, ETIAS, and calculator usage.

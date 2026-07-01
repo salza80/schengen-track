@@ -5,6 +5,16 @@ Canonical domain: https://schengen-calculator.com
 
 Schengen Calculator is a free independent web tool for tracking short-stay travel in the Schengen Area. It helps users record entry and exit dates, identify which trips count toward the Schengen Area, calculate used and remaining days under the 90/180-day rule, and plan possible return dates. It is not an official government or European Union service and does not provide legal advice.
 
+## Programmatic Agent Use
+
+Agents and other programmatic clients should prefer the API over driving the web UI when creating a calculation for a user.
+
+- API documentation: https://schengen-calculator.com/api/docs
+- OpenAPI schema: https://schengen-calculator.com/openapi.json
+- Recommended endpoint: `POST /api/v1/calculations`
+
+The calculation endpoint accepts traveler details and trips, creates a guest calculation, returns structured Schengen results, and includes a website URL where the user can view the saved calculation.
+
 ## What The Site Is Useful For
 
 - Explaining the Schengen 90/180-day short-stay rule in plain language.

@@ -39,6 +39,19 @@ class LambdaHttpTest < ActiveSupport::TestCase
     end
   end
 
+  test 'client ip ignores CloudFront headers with mismatched origin auth' do
+    http = { 'sourceIp' => '198.51.100.10' }
+    headers = {
+      'x-schengen-origin-auth' => 'wrong-secret',
+      'x-schengen-client-ip' => '203.0.113.42',
+      'x-forwarded-for' => '203.0.113.42, 198.51.100.10'
+    }
+
+    with_cloudfront_origin_auth('cloudfront-secret') do
+      assert_equal '198.51.100.10', client_ip_from(http, headers)
+    end
+  end
+
   test 'client ip falls back to API Gateway source ip' do
     http = { 'sourceIp' => '198.51.100.10' }
 

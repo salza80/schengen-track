@@ -23,8 +23,10 @@ def trusted_cloudfront_request?(request_headers)
   expected = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
   return false if expected.to_s.empty?
 
-  provided = request_headers['x-schengen-origin-auth'] || request_headers['X-Schengen-Origin-Auth']
-  provided.to_s == expected
+  provided = (request_headers['x-schengen-origin-auth'] || request_headers['X-Schengen-Origin-Auth']).to_s
+  return false if provided.empty? || provided.bytesize != expected.bytesize
+
+  Rack::Utils.secure_compare(provided, expected)
 end
 
 # allow static file to be served from lambda

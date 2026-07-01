@@ -143,12 +143,12 @@ module Api
 
       def analytics_params(data, include_request_params: true)
         errors = Array(data[:errors])
-        trip_count = Array(data[:trips]).length if data.key?(:trips)
-        visa_count = Array(data[:visas]).length if data.key?(:visas)
+        trip_count = collection_count(data[:trips]) if data.key?(:trips)
+        visa_count = collection_count(data[:visas]) if data.key?(:visas)
 
         if include_request_params
-          trip_count ||= Array(params[:trips]).length
-          visa_count ||= Array(params[:visas]).length
+          trip_count ||= collection_count(params[:trips])
+          visa_count ||= collection_count(params[:visas])
         end
 
         {
@@ -167,6 +167,10 @@ module Api
           reset_at: data[:reset_at],
           received: data[:received]
         }
+      end
+
+      def collection_count(value)
+        value.length if value.is_a?(Array)
       end
     end
   end

@@ -62,20 +62,17 @@ export class McpLambdaConstruct extends Construct {
 
     this.httpApi = new apigwv2.HttpApi(this, 'HttpApi', {
       apiName: 'SchengenCalculatorMcpApi',
-      createDefaultStage: false,
       defaultIntegration: new apigwv2_integ.HttpLambdaIntegration('McpLambdaIntegration', this.function, {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
       }),
     });
 
-    new apigwv2.HttpStage(this, 'DefaultStage', {
-      httpApi: this.httpApi,
-      stageName: '$default',
-      autoDeploy: true,
-      throttle: {
-        rateLimit: 10,
-        burstLimit: 20,
-      },
-    });
+    const defaultStage = this.httpApi.defaultStage?.node.defaultChild as apigwv2.CfnStage | undefined;
+    if (defaultStage) {
+      defaultStage.defaultRouteSettings = {
+        throttlingRateLimit: 10,
+        throttlingBurstLimit: 20,
+      };
+    }
   }
 }

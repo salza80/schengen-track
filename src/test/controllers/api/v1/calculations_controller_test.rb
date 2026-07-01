@@ -298,16 +298,20 @@ module Api
       end
 
       test 'rejects object-shaped trips without creating a guest account' do
+        tracked = []
+
         assert_no_difference('User.count') do
-          post api_v1_calculations_path,
-               params: calculation_payload.merge(
-                 trips: {
-                   country_code: 'DE',
-                   entry_date: '2026-07-01',
-                   exit_date: '2026-07-20'
-                 }
-               ),
-               as: :json
+          with_analytics_tracking_stub(tracked) do
+            post api_v1_calculations_path,
+                 params: calculation_payload.merge(
+                   trips: {
+                     country_code: 'DE',
+                     entry_date: '2026-07-01',
+                     exit_date: '2026-07-20'
+                   }
+                 ),
+                 as: :json
+          end
         end
 
         assert_response :unprocessable_entity
@@ -316,6 +320,7 @@ module Api
         assert_equal 'invalid_trips', error['code']
         assert_equal 'trips', error['field']
         assert_match(/array of objects/, error['message'])
+        assert_nil tracked.dig(0, 1, :trip_count)
       end
 
       test 'rejects object-shaped visas without creating a guest account' do

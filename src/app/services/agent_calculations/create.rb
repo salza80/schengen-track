@@ -1,3 +1,5 @@
+require 'securerandom'
+
 module AgentCalculations
   class Create
     MAX_TRIPS = 50

@@ -64,6 +64,15 @@ module Api
         response.set_header('RateLimit-Reset', result.reset_at.to_i.to_s)
         return if result.allowed?
 
+        track_api_event(
+          'agent_api_rate_limited',
+          errors: [{ code: 'rate_limited' }],
+          limit: result.limit,
+          remaining: result.remaining,
+          period_seconds: RATE_LIMIT_PERIOD.to_i,
+          reset_at: result.reset_at.utc.iso8601
+        )
+
         render json: {
           errors: [
             {
@@ -119,6 +128,9 @@ module Api
           error_count: errors.length,
           first_error_code: errors.first&.dig(:code) || errors.first&.dig('code'),
           limit: data[:limit],
+          remaining: data[:remaining],
+          period_seconds: data[:period_seconds],
+          reset_at: data[:reset_at],
           received: data[:received]
         }
       end

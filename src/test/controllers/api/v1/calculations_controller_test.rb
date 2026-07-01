@@ -241,19 +241,23 @@ module Api
       end
 
       test 'rate limits calculation requests by ip' do
+        tracked = []
+
         with_calculation_rate_limit(2) do
-          2.times do
-            post api_v1_calculations_path,
-                 params: calculation_payload,
-                 as: :json
+          with_analytics_tracking_stub(tracked) do
+            2.times do
+              post api_v1_calculations_path,
+                   params: calculation_payload,
+                   as: :json
 
-            assert_response :created
-          end
+              assert_response :created
+            end
 
-          assert_no_difference('User.count') do
-            post api_v1_calculations_path,
-                 params: calculation_payload,
-                 as: :json
+            assert_no_difference('User.count') do
+              post api_v1_calculations_path,
+                   params: calculation_payload,
+                   as: :json
+            end
           end
         end
 
@@ -265,6 +269,14 @@ module Api
         assert_equal Api::V1::CalculationsController::RATE_LIMIT_PERIOD.to_i, error['period_seconds']
         assert_equal '0', response.headers['RateLimit-Remaining']
         assert_equal '2', response.headers['RateLimit-Limit']
+
+        event_name, event_params = tracked.last
+        assert_equal 'agent_api_rate_limited', event_name
+        assert_equal 'rate_limited', event_params[:first_error_code]
+        assert_equal 2, event_params[:limit]
+        assert_equal 0, event_params[:remaining]
+        assert_equal Api::V1::CalculationsController::RATE_LIMIT_PERIOD.to_i, event_params[:period_seconds]
+        assert_equal 1, event_params[:trip_count]
       end
 
       test 'documents the API for agents' do
@@ -274,7 +286,9 @@ module Api
 
         body = JSON.parse(response.body)
         assert_equal 'Schengen Calculator API', body['name']
+        assert_includes body['agent_instruction'], 'show the returned web_url or claim_url to the user'
         assert_equal 'POST', body.dig('endpoints', 0, 'method')
+        assert_includes body.dig('endpoints', 0, 'purpose'), 'show the user'
       end
 
       test 'serves openapi json through rails routing' do

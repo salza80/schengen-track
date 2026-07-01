@@ -3,7 +3,7 @@
   "info": {
     "title": "Schengen Calculator API",
     "version": "1.0.0",
-    "description": "Programmatic API for creating saved Schengen 90/180-day calculations. Agents should prefer this API over driving the web UI."
+    "description": "Programmatic API for creating saved Schengen 90/180-day calculations. Agents should prefer this API over driving the web UI, then show the returned web_url or claim_url to the user so they can check the calculation."
   },
   "servers": [
     {
@@ -14,7 +14,7 @@
     "/api/v1/calculations": {
       "post": {
         "summary": "Create a saved Schengen calculation",
-        "description": "Creates a guest calculation from traveler details and trips, then returns structured Schengen results and a website URL the user can open.",
+        "description": "Creates a guest calculation from traveler details and trips, then returns structured Schengen results and a website URL the user can open. Agents should show the returned web_url or claim_url to the user so they can check, review, edit, or save the calculation.",
         "operationId": "createCalculation",
         "requestBody": {
           "required": true,
@@ -180,10 +180,18 @@
           "summary": { "type": "string" },
           "user_message": {
             "type": "string",
-            "description": "Human-readable text agents can show to users, including the website URL for reviewing, editing, or saving the calculation."
+            "description": "Human-readable text agents can show to users, including the website URL for checking, reviewing, editing, or saving the calculation."
           },
-          "web_url": { "type": "string", "format": "uri" },
-          "claim_url": { "type": "string", "format": "uri" },
+          "web_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Website URL agents should show to the user so they can check, review, edit, or save the calculation."
+          },
+          "claim_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Same user-facing website URL as web_url; provided for clients that treat the link as a claim/review URL."
+          },
           "person": { "type": "object" },
           "trips": {
             "type": "array",

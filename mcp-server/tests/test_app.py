@@ -33,6 +33,7 @@ class AppTest(unittest.TestCase):
         schema = tool["inputSchema"]
 
         self.assertIn("website link", tool["description"])
+        self.assertIn("show the returned website link to the user", tool["description"])
         self.assertIn("list_supported_countries", tools_by_name)
         self.assertEqual(["user", "trips"], schema["required"])
         self.assertEqual("array", schema["properties"]["visas"]["type"])
@@ -42,6 +43,28 @@ class AppTest(unittest.TestCase):
         self.assertIn("Entry and exit", schema["properties"]["trips"]["description"])
         self.assertIn("do not pass country names", schema["properties"]["trips"]["description"])
         self.assertEqual("^[A-Z]{2}$", schema["properties"]["trips"]["items"]["properties"]["country_code"]["pattern"])
+
+    def test_tools_list_tracks_ga_event_when_configured(self):
+        os.environ["GA_MEASUREMENT_ID"] = "G-TEST"
+        os.environ["GA_API_SECRET"] = "secret"
+        ga_payloads = []
+
+        class FakeGaResponse:
+            def close(self):
+                return None
+
+        def fake_urlopen(request, timeout):
+            ga_payloads.append(json.loads(request.data.decode("utf-8")))
+            return FakeGaResponse()
+
+        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+            response = self.app.lambda_handler(json_rpc_event("tools/list", {}), None)
+
+        self.assertEqual(200, response["statusCode"])
+        event = ga_payloads[0]["events"][0]
+        self.assertEqual("mcp_tools_list_called", event["name"])
+        self.assertEqual(2, event["params"]["tool_count"])
+        self.assertEqual(200, event["params"]["status_code"])
 
     def test_list_supported_countries_tool_returns_lookup_data(self):
         result = self.app.list_supported_countries()
@@ -56,6 +79,28 @@ class AppTest(unittest.TestCase):
         self.assertFalse(us["schengen"])
         self.assertEqual("France", france["name"])
         self.assertTrue(france["schengen"])
+
+    def test_list_supported_countries_tracks_ga_event_when_configured(self):
+        os.environ["GA_MEASUREMENT_ID"] = "G-TEST"
+        os.environ["GA_API_SECRET"] = "secret"
+        ga_payloads = []
+
+        class FakeGaResponse:
+            def close(self):
+                return None
+
+        def fake_urlopen(request, timeout):
+            ga_payloads.append(json.loads(request.data.decode("utf-8")))
+            return FakeGaResponse()
+
+        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+            result = self.app.list_supported_countries()
+
+        countries = json.loads(result)["countries"]
+        event = ga_payloads[0]["events"][0]
+        self.assertEqual("mcp_list_supported_countries_called", event["name"])
+        self.assertEqual(len(countries), event["params"]["country_count"])
+        self.assertGreater(event["params"]["schengen_country_count"], 0)
 
     def test_supported_countries_resource_returns_lookup_data(self):
         response = self.app.lambda_handler(
@@ -111,7 +156,7 @@ class AppTest(unittest.TestCase):
             )
 
         self.assertIn("The planned trips use 10 Schengen days, with 80 days remaining.", result)
-        self.assertIn("Share this website link with the user", result)
+        self.assertIn("Show this website link to the user", result)
         self.assertIn("https://example.test/en/days", result)
         self.assertIn("France: 2026-01-01 to 2026-01-10, 10 days", result)
         self.assertIn('"web_url": "https://example.test/en/days"', result)
@@ -234,7 +279,7 @@ class AppTest(unittest.TestCase):
 
         text = json.loads(response["body"])["result"]["content"][0]["text"]
         self.assertIn("The planned trips use all 90 Schengen days.", text)
-        self.assertIn("Share this website link with the user", text)
+        self.assertIn("Show this website link to the user", text)
         self.assertIn("https://example.test/en/days", text)
         self.assertNotIn("\\n", text)
 

@@ -27,7 +27,8 @@ CREATE_CALCULATION_SCHEMA = {
     "name": "create_schengen_calculation",
     "description": (
         "Create a guest Schengen 90/180-day calculation from ISO country codes and YYYY-MM-DD dates. "
-        "Returns assistant-ready text plus a website link the user can open to review, edit, or save the calculation."
+        "Returns assistant-ready text plus a website link the user can open to review, edit, or save the calculation. "
+        "After calling this tool, show the returned website link to the user so they can check the calculation."
     ),
     "inputSchema": {
         "type": "object",
@@ -196,7 +197,16 @@ def create_schengen_calculation(
 @mcp.tool()
 def list_supported_countries() -> str:
     """Return supported countries as JSON with code, name, nationality, and schengen fields."""
-    return json.dumps(supported_countries_payload(), ensure_ascii=False, sort_keys=True)
+    payload = supported_countries_payload()
+    countries = payload["countries"]
+    track_ga_event(
+        "mcp_list_supported_countries_called",
+        {
+            "country_count": len(countries),
+            "schengen_country_count": sum(1 for country in countries if country["schengen"]),
+        },
+    )
+    return json.dumps(payload, ensure_ascii=False, sort_keys=True)
 
 
 @mcp.resource(
@@ -380,7 +390,7 @@ def format_tool_response(result: dict[str, Any]) -> str:
         lines.extend(
             [
                 "",
-                "Share this website link with the user so they can review, edit, or save the calculation themselves:",
+                "Show this website link to the user so they can check, review, edit, or save the calculation themselves:",
                 web_url,
             ]
         )
@@ -413,7 +423,33 @@ def format_error_response(result: dict[str, Any]) -> str:
 
 
 def lambda_handler(event, context):
-    return mcp.handle_request(event, context)
+    rpc_method = json_rpc_method(event)
+    response = mcp.handle_request(event, context)
+
+    if rpc_method == "tools/list":
+        track_ga_event(
+            "mcp_tools_list_called",
+            {
+                "tool_count": mcp_tool_count(),
+                "status_code": response.get("statusCode") if isinstance(response, dict) else None,
+            },
+        )
+
+    return response
+
+
+def json_rpc_method(event: dict[str, Any]) -> Optional[str]:
+    try:
+        body = event.get("body") or "{}"
+        request = json.loads(body) if isinstance(body, str) else body
+        return request.get("method") if isinstance(request, dict) else None
+    except (json.JSONDecodeError, AttributeError, TypeError):
+        return None
+
+
+def mcp_tool_count() -> Optional[int]:
+    tools = getattr(mcp, "_tools", None) or getattr(mcp, "tools", None)
+    return len(tools) if hasattr(tools, "__len__") else None
 
 
 apply_explicit_tool_schemas()

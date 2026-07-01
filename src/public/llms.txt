@@ -15,6 +15,8 @@ For programmatic use, prefer the API over the web UI.
 - [MCP endpoint](https://schengen-calculator.com/mcp): Hosted Model Context Protocol endpoint for MCP-capable agents.
 - Recommended endpoint: `POST /api/v1/calculations`
 
+After creating a calculation, always show the returned `web_url` or `claim_url` to the user so they can check, review, edit, or save the calculation on Schengen Calculator. Do not only summarize the result.
+
 ## Agent Input Format
 
 Use uppercase ISO 3166-1 alpha-2 country codes only. Do not send country names, city names, or demonyms. Dates must be `YYYY-MM-DD`; both entry and exit dates count as days present.

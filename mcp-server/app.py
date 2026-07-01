@@ -1,5 +1,7 @@
 from contextvars import ContextVar
+import base64
 import hashlib
+import hmac
 import json
 import os
 from pathlib import Path
@@ -22,6 +24,10 @@ AGENT_SOURCE = "mcp"
 AGENT_SOURCE_HEADER = "x-schengen-agent-source"
 AGENT_AUTH_HEADER = "x-schengen-agent-auth"
 AGENT_CLIENT_ID_HEADER = "x-schengen-agent-client-id"
+CLOUDFRONT_ORIGIN_AUTH_HEADER = "x-schengen-origin-auth"
+CLOUDFRONT_CLIENT_IP_HEADER = "x-schengen-client-ip"
+CLOUDFRONT_ORIGIN_AUTH_ENV = "CLOUDFRONT_ORIGIN_AUTH_HEADER"
+DEFAULT_MAX_REQUEST_BYTES = 64 * 1024
 GA_EVENT_CREATE_CALCULATION = "mcp_create_schengen_calculation_called"
 GA_EVENT_LIST_SUPPORTED_COUNTRIES = "mcp_list_supported_countries_called"
 GA_EVENT_TOOLS_LIST = "mcp_tools_list_called"
@@ -459,6 +465,11 @@ def format_error_response(result: dict[str, Any]) -> str:
 
 
 def lambda_handler(event, context):
+    received_bytes = request_body_size(event)
+    max_request_bytes = mcp_max_request_bytes()
+    if received_bytes > max_request_bytes:
+        return payload_too_large_response(received_bytes, max_request_bytes)
+
     rpc_method = json_rpc_method(event)
     client_id_token = _GA_CLIENT_ID.set(client_id_for_event(event) or str(uuid.uuid4()))
     try:
@@ -478,6 +489,48 @@ def lambda_handler(event, context):
         _GA_CLIENT_ID.reset(client_id_token)
 
 
+def payload_too_large_response(received_bytes: int, max_request_bytes: int) -> dict[str, Any]:
+    return {
+        "statusCode": 413,
+        "headers": {
+            "content-type": "application/json",
+            "cache-control": "no-store",
+        },
+        "body": json.dumps({
+            "error": {
+                "code": "payload_too_large",
+                "message": f"MCP request body is too large. Maximum size is {max_request_bytes} bytes.",
+                "limit": max_request_bytes,
+                "received": received_bytes,
+            }
+        }),
+    }
+
+
+def request_body_size(event: dict[str, Any]) -> int:
+    body = event.get("body") if isinstance(event, dict) else None
+    if body is None:
+        return 0
+
+    if not isinstance(body, str):
+        return len(json.dumps(body).encode("utf-8"))
+
+    if event.get("isBase64Encoded"):
+        try:
+            return len(base64.b64decode(body))
+        except Exception:
+            return len(body.encode("utf-8"))
+
+    return len(body.encode("utf-8"))
+
+
+def mcp_max_request_bytes() -> int:
+    try:
+        return int(os.environ.get("SCHENGEN_MCP_MAX_REQUEST_BYTES", DEFAULT_MAX_REQUEST_BYTES))
+    except (TypeError, ValueError):
+        return DEFAULT_MAX_REQUEST_BYTES
+
+
 def json_rpc_method(event: dict[str, Any]) -> Optional[str]:
     try:
         body = event.get("body") or "{}"
@@ -495,15 +548,24 @@ def mcp_tool_count() -> Optional[int]:
 def client_id_for_event(event: dict[str, Any]) -> Optional[str]:
     headers = event_headers(event)
     http_context = event.get("requestContext", {}).get("http", {}) if isinstance(event, dict) else {}
-    parts = [
-        header_value(headers, "x-schengen-client-ip"),
-        http_context.get("sourceIp"),
-        header_value(headers, "x-forwarded-for"),
-        header_value(headers, "cf-connecting-ip"),
-        header_value(headers, "user-agent"),
-    ]
-    seed = "|".join(part for part in parts if part)
+    if trusted_cloudfront_request(headers):
+        client_ip = header_value(headers, CLOUDFRONT_CLIENT_IP_HEADER)
+        if client_ip:
+            seed = f"cloudfront:{client_ip}"
+            return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:32]
+
+    source_ip = http_context.get("sourceIp")
+    seed = f"source:{source_ip}" if source_ip else None
     return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:32] if seed else None
+
+
+def trusted_cloudfront_request(headers: dict[str, Any]) -> bool:
+    expected = os.environ.get(CLOUDFRONT_ORIGIN_AUTH_ENV)
+    provided = header_value(headers, CLOUDFRONT_ORIGIN_AUTH_HEADER)
+    if not expected or not provided:
+        return False
+
+    return hmac.compare_digest(provided, expected)
 
 
 def event_headers(event: dict[str, Any]) -> dict[str, Any]:

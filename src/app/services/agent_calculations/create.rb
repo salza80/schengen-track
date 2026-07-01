@@ -28,10 +28,14 @@ module AgentCalculations
 
       success(payload_for(user, person))
     rescue ActiveRecord::RecordInvalid => e
-      @errors << { field: e.record.class.name.underscore, message: e.record.errors.full_messages.to_sentence }
+      @errors << {
+        code: 'record_invalid',
+        field: e.record.class.name.underscore,
+        message: e.record.errors.full_messages.to_sentence
+      }
       failure
     rescue ArgumentError => e
-      @errors << { field: 'base', message: e.message }
+      @errors << { code: 'invalid_input', field: 'base', message: e.message }
       failure
     end
 

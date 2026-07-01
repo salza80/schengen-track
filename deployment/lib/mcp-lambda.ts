@@ -10,6 +10,7 @@ import * as path from 'path';
 export interface McpLambdaConstructProps {
   domain: string;
   agentAuthHeader: string;
+  cloudFrontOriginAuthHeader: string;
   googleAnalyticsApiSecretParamName: string;
   googleAnalyticsApiSecretParamArn: string;
 }
@@ -43,6 +44,8 @@ export class McpLambdaConstruct extends Construct {
       environment: {
         SCHENGEN_API_BASE_URL: `https://${props.domain}`,
         SCHENGEN_AGENT_AUTH_HEADER: props.agentAuthHeader,
+        CLOUDFRONT_ORIGIN_AUTH_HEADER: props.cloudFrontOriginAuthHeader,
+        SCHENGEN_MCP_MAX_REQUEST_BYTES: '65536',
         SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS: '10',
         GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
         GA_API_SECRET_PARAM: props.googleAnalyticsApiSecretParamName,
@@ -59,9 +62,20 @@ export class McpLambdaConstruct extends Construct {
 
     this.httpApi = new apigwv2.HttpApi(this, 'HttpApi', {
       apiName: 'SchengenCalculatorMcpApi',
+      createDefaultStage: false,
       defaultIntegration: new apigwv2_integ.HttpLambdaIntegration('McpLambdaIntegration', this.function, {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
       }),
+    });
+
+    new apigwv2.HttpStage(this, 'DefaultStage', {
+      httpApi: this.httpApi,
+      stageName: '$default',
+      autoDeploy: true,
+      throttle: {
+        rateLimit: 10,
+        burstLimit: 20,
+      },
     });
   }
 }

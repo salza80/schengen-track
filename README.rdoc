@@ -214,7 +214,7 @@ For the existing stacks, create:
 * <tt>/scheng/staging/ga_api_secret</tt>
 * <tt>/scheng/prod/ga_api_secret</tt>
 
-CDK maps these parameters to runtime environment variables such as <tt>FACEBOOK_ID</tt>, <tt>DB_URL</tt>, and <tt>TASK_PASSWORD</tt>. SecureString values such as <tt>{paramPath}ga_api_secret</tt> are not injected directly; CDK sets <tt>GA_API_SECRET_PARAM</tt> to the SSM parameter name, and Rails/MCP read it from SSM at runtime with decryption. CDK also sets <tt>GA_MEASUREMENT_ID</tt>.
+CDK maps these parameters to runtime environment variables such as <tt>FACEBOOK_ID</tt>, <tt>DB_URL</tt>, and <tt>TASK_PASSWORD</tt>. SecureString values such as <tt>{paramPath}ga_api_secret</tt> are not injected directly; CDK sets <tt>GA_API_SECRET_PARAM</tt> to the SSM parameter name, and Rails/MCP read it from SSM at runtime with decryption. CDK also sets <tt>GA_MEASUREMENT_ID</tt>, generates <tt>CLOUDFRONT_ORIGIN_AUTH_HEADER</tt> for CloudFront-to-Lambda request trust, and generates a separate <tt>SCHENGEN_AGENT_AUTH_HEADER</tt> shared only between MCP and Rails for trusted agent-source attribution.
 
 For development and test environments, these values are stored in <tt>config/secrets.yml</tt> and automatically loaded into ENV variables (see Configuration Management section).
 

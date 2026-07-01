@@ -18,6 +18,8 @@ class AppTest(unittest.TestCase):
     def setUp(self):
         os.environ.pop("SCHENGEN_API_BASE_URL", None)
         os.environ.pop("SCHENGEN_AGENT_AUTH_HEADER", None)
+        os.environ.pop("CLOUDFRONT_ORIGIN_AUTH_HEADER", None)
+        os.environ.pop("SCHENGEN_MCP_MAX_REQUEST_BYTES", None)
         os.environ.pop("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", None)
         os.environ.pop("GA_MEASUREMENT_ID", None)
         os.environ.pop("GA_API_SECRET", None)
@@ -231,6 +233,74 @@ class AppTest(unittest.TestCase):
         self.assertEqual("mcp", captured["headers"]["x-schengen-agent-source"])
         self.assertEqual("agent-secret", captured["headers"]["x-schengen-agent-auth"])
         self.assertEqual(self.app.client_id_for_event(event), captured["headers"]["x-schengen-agent-client-id"])
+
+    def test_client_id_ignores_spoofable_headers_without_cloudfront_auth(self):
+        event_one = json_rpc_event(
+            "tools/list",
+            {},
+            headers={
+                "User-Agent": "ExampleAgent/1.0",
+                "X-Forwarded-For": "203.0.113.7",
+                "X-Schengen-Client-Ip": "198.51.100.10",
+            },
+            source_ip="198.51.100.9",
+        )
+        event_two = json_rpc_event(
+            "tools/list",
+            {},
+            headers={
+                "User-Agent": "DifferentAgent/2.0",
+                "X-Forwarded-For": "203.0.113.99",
+                "X-Schengen-Client-Ip": "198.51.100.200",
+            },
+            source_ip="198.51.100.9",
+        )
+
+        self.assertEqual(self.app.client_id_for_event(event_one), self.app.client_id_for_event(event_two))
+
+    def test_client_id_uses_cloudfront_viewer_ip_only_with_origin_auth(self):
+        os.environ["CLOUDFRONT_ORIGIN_AUTH_HEADER"] = "origin-secret"
+        trusted_event = json_rpc_event(
+            "tools/list",
+            {},
+            headers={
+                "X-Schengen-Origin-Auth": "origin-secret",
+                "X-Schengen-Client-Ip": "203.0.113.7",
+                "X-Forwarded-For": "198.51.100.8",
+            },
+            source_ip="198.51.100.9",
+        )
+        untrusted_event = json_rpc_event(
+            "tools/list",
+            {},
+            headers={
+                "X-Schengen-Origin-Auth": "wrong-secret",
+                "X-Schengen-Client-Ip": "203.0.113.7",
+                "X-Forwarded-For": "198.51.100.8",
+            },
+            source_ip="198.51.100.9",
+        )
+
+        self.assertNotEqual(self.app.client_id_for_event(trusted_event), self.app.client_id_for_event(untrusted_event))
+        self.assertEqual(
+            self.app.client_id_for_event(untrusted_event),
+            self.app.client_id_for_event(json_rpc_event("tools/list", {}, source_ip="198.51.100.9")),
+        )
+
+    def test_lambda_handler_rejects_large_mcp_request_before_parsing(self):
+        os.environ["SCHENGEN_MCP_MAX_REQUEST_BYTES"] = "10"
+
+        response = self.app.lambda_handler({
+            "headers": {},
+            "requestContext": {"http": {"method": "POST", "sourceIp": "203.0.113.9"}},
+            "body": "{" + ("x" * 20),
+        }, None)
+
+        body = json.loads(response["body"])
+        self.assertEqual(413, response["statusCode"])
+        self.assertEqual("payload_too_large", body["error"]["code"])
+        self.assertEqual(10, body["error"]["limit"])
+        self.assertGreater(body["error"]["received"], 10)
 
     def test_create_schengen_calculation_returns_clear_upstream_error(self):
         def fake_urlopen(_request, timeout):

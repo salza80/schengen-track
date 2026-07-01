@@ -209,7 +209,7 @@
               "properties": {
                 "code": {
                   "type": "string",
-                  "examples": ["payload_too_large", "rate_limited", "too_many_trips", "too_many_visas"]
+                  "examples": ["payload_too_large", "rate_limited", "too_many_trips", "too_many_visas", "invalid_input", "record_invalid"]
                 },
                 "field": { "type": "string" },
                 "message": { "type": "string" },

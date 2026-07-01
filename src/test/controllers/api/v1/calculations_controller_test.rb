@@ -73,6 +73,25 @@ module Api
         assert_equal 'mcp', tracked.dig(0, 1, :source)
       end
 
+      test 'does not trust cloudfront origin auth as mcp agent auth' do
+        tracked = []
+
+        with_temporary_env('SCHENGEN_AGENT_AUTH_HEADER', nil) do
+          with_temporary_env('CLOUDFRONT_ORIGIN_AUTH_HEADER', 'origin-secret') do
+            with_analytics_tracking_stub(tracked) do
+              post api_v1_calculations_path,
+                   params: calculation_payload,
+                   headers: mcp_headers(secret: 'origin-secret'),
+                   as: :json
+            end
+          end
+        end
+
+        assert_response :created
+        assert_equal 'agent_api_calculation_created', tracked.dig(0, 0)
+        assert_equal 'api', tracked.dig(0, 1, :source)
+      end
+
       test 'does not trust spoofed mcp source header without agent auth' do
         tracked = []
 
@@ -258,6 +277,7 @@ module Api
         assert_response :unprocessable_entity
 
         error = JSON.parse(response.body).fetch('errors').first
+        assert_equal 'invalid_input', error['code']
         assert_equal 'base', error['field']
         assert_match(/country_code/, error['message'])
       end
@@ -466,6 +486,8 @@ module Api
         assert_equal '/', schema.dig('servers', 0, 'url')
         assert_equal 'integer', error_properties.dig('period_seconds', 'type')
         assert_equal 'date-time', error_properties.dig('reset_at', 'format')
+        assert_includes error_properties.dig('code', 'examples'), 'invalid_input'
+        assert_includes error_properties.dig('code', 'examples'), 'record_invalid'
       end
 
       private
@@ -491,15 +513,15 @@ module Api
       end
 
       def with_agent_auth_secret(secret)
-        original_secret = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
-        ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = secret
+        with_temporary_env('SCHENGEN_AGENT_AUTH_HEADER', secret) { yield }
+      end
+
+      def with_temporary_env(key, value)
+        original_value = ENV[key]
+        value.nil? ? ENV.delete(key) : ENV[key] = value
         yield
       ensure
-        if original_secret.nil?
-          ENV.delete('CLOUDFRONT_ORIGIN_AUTH_HEADER')
-        else
-          ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = original_secret
-        end
+        original_value.nil? ? ENV.delete(key) : ENV[key] = original_value
       end
 
       def mcp_headers(client_id: 'mcp-test-client', secret: 'agent-secret')

@@ -62,6 +62,7 @@ export class HttpApiConstruct extends Construct {
     const customDomain = props.domain;
     const altDomain = props.altDomain;
     const cloudFrontOriginAuthHeader = randomUUID();
+    const agentAuthHeader = randomUUID();
     const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
       code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain, cloudFrontOriginAuthHeader))
     });
@@ -89,6 +90,7 @@ export class HttpApiConstruct extends Construct {
       GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
       GA_API_SECRET_PARAM: gaApiSecretParamName,
       CLOUDFRONT_ORIGIN_AUTH_HEADER: cloudFrontOriginAuthHeader,
+      SCHENGEN_AGENT_AUTH_HEADER: agentAuthHeader,
       DOMAIN: customDomain
     };
 
@@ -141,7 +143,8 @@ export class HttpApiConstruct extends Construct {
 
     const mcp = new McpLambdaConstruct(this, 'Mcp', {
       domain: customDomain,
-      agentAuthHeader: cloudFrontOriginAuthHeader,
+      agentAuthHeader,
+      cloudFrontOriginAuthHeader,
       googleAnalyticsApiSecretParamName: gaApiSecretParamName,
       googleAnalyticsApiSecretParamArn: gaApiSecretParamArn,
     });
@@ -196,6 +199,19 @@ export class HttpApiConstruct extends Construct {
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+    })
+
+    const mcpOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "mcpRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Accept',
+        'Content-Type',
+        'Mcp-Protocol-Version',
+        'Mcp-Session-Id',
+        'X-Schengen-Client-Ip',
+        'X-Schengen-Origin-Auth'
+      ),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     })
 
     const customCacheCountryGuestKey = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
@@ -324,7 +340,7 @@ export class HttpApiConstruct extends Construct {
       allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
-      originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+      originRequestPolicy: mcpOriginRequestPolicy,
       functionAssociations
     };
 

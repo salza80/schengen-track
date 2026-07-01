@@ -14,8 +14,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.copy_from(@guest_user)
     if @user.save    
       sign_up('user', @user)
-      tracker = Staccato.tracker('UA-67599800-1', @user.id)
-      tracker.event(category: 'users', action: 'signup', label: 'email', value: 1)
+      Analytics::GoogleMeasurementProtocol.track(
+        'user_signup',
+        request: request,
+        params: {
+          category: 'users',
+          action: 'signup',
+          label: 'email',
+          signup_method: 'email',
+          value: 1
+        }
+      )
       redirect_to visits_path
     else
       render :new

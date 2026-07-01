@@ -1,8 +1,12 @@
+from contextvars import ContextVar
+import hashlib
 import json
+import logging
 import os
 from pathlib import Path
 import xml.etree.ElementTree as ET
 import urllib.error
+import urllib.parse
 import urllib.request
 import uuid
 from typing import Any, Optional
@@ -15,7 +19,14 @@ except ImportError:
 
 SERVER_VERSION = "0.1.0"
 DEFAULT_API_BASE_URL = "https://schengen-calculator.com"
+AGENT_SOURCE = "mcp"
+AGENT_SOURCE_HEADER = "x-schengen-agent-source"
+GA_EVENT_CREATE_CALCULATION = "mcp_create_schengen_calculation_called"
+GA_EVENT_LIST_SUPPORTED_COUNTRIES = "mcp_list_supported_countries_called"
+GA_EVENT_TOOLS_LIST = "mcp_tools_list_called"
 _GA_API_SECRET_CACHE = None
+_GA_CLIENT_ID: ContextVar[Optional[str]] = ContextVar("ga_client_id", default=None)
+logger = logging.getLogger(__name__)
 
 # Rails owns the canonical country dataset at src/db/data/countries.xml.
 # The MCP Lambda Docker build copies that file into /var/task/countries.xml,
@@ -183,7 +194,7 @@ def create_schengen_calculation(
     }
     result = post_calculation(payload)
     track_ga_event(
-        "mcp_create_schengen_calculation_called",
+        GA_EVENT_CREATE_CALCULATION,
         {
             "upstream_status": result.get("status"),
             "http_status": result.get("http_status", 201 if result.get("status") != "error" else None),
@@ -200,7 +211,7 @@ def list_supported_countries() -> str:
     payload = supported_countries_payload()
     countries = payload["countries"]
     track_ga_event(
-        "mcp_list_supported_countries_called",
+        GA_EVENT_LIST_SUPPORTED_COUNTRIES,
         {
             "country_count": len(countries),
             "schengen_country_count": sum(1 for country in countries if country["schengen"]),
@@ -243,6 +254,7 @@ def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
             "content-type": "application/json",
             "accept": "application/json",
             "user-agent": f"schengen-calculator-mcp/{SERVER_VERSION}",
+            AGENT_SOURCE_HEADER: AGENT_SOURCE,
         },
         method="POST",
     )
@@ -311,28 +323,44 @@ def track_ga_event(event_name: str, params: dict[str, Any]) -> None:
         return
 
     payload = {
-        "client_id": str(uuid.uuid4()),
+        "client_id": ga_client_id(),
         "events": [
             {
                 "name": event_name,
                 "params": {
                     "engagement_time_msec": 1,
+                    "source": AGENT_SOURCE,
                     **{key: value for key, value in params.items() if value is not None},
                 },
             }
         ],
     }
+    query = urllib.parse.urlencode({"measurement_id": measurement_id, "api_secret": api_secret})
     request = urllib.request.Request(
-        f"https://www.google-analytics.com/mp/collect?measurement_id={measurement_id}&api_secret={api_secret}",
+        f"https://www.google-analytics.com/mp/collect?{query}",
         data=json.dumps(payload).encode("utf-8"),
         headers={"content-type": "application/json"},
         method="POST",
     )
 
     try:
-        urllib.request.urlopen(request, timeout=2).close()
-    except Exception:
+        urllib.request.urlopen(request, timeout=ga_timeout_seconds()).close()
+    except Exception as error:
+        logger.info(
+            "Google Analytics Measurement Protocol event failed for %s: %s: %s",
+            event_name,
+            error.__class__.__name__,
+            error,
+        )
         return
+
+
+def ga_client_id() -> str:
+    return _GA_CLIENT_ID.get() or str(uuid.uuid4())
+
+
+def ga_timeout_seconds() -> float:
+    return float(os.environ.get("SCHENGEN_MCP_GA_TIMEOUT_SECONDS", "1"))
 
 
 def ga_api_secret() -> Optional[str]:
@@ -355,7 +383,13 @@ def ga_api_secret() -> Optional[str]:
         response = boto3.client("ssm").get_parameter(Name=param_name, WithDecryption=True)
         _GA_API_SECRET_CACHE = response["Parameter"]["Value"]
         return _GA_API_SECRET_CACHE
-    except Exception:
+    except Exception as error:
+        logger.warning(
+            "Unable to load GA API secret from SSM parameter %s: %s: %s",
+            param_name,
+            error.__class__.__name__,
+            error,
+        )
         return None
 
 
@@ -424,18 +458,22 @@ def format_error_response(result: dict[str, Any]) -> str:
 
 def lambda_handler(event, context):
     rpc_method = json_rpc_method(event)
-    response = mcp.handle_request(event, context)
+    client_id_token = _GA_CLIENT_ID.set(client_id_for_event(event))
+    try:
+        response = mcp.handle_request(event, context)
 
-    if rpc_method == "tools/list":
-        track_ga_event(
-            "mcp_tools_list_called",
-            {
-                "tool_count": mcp_tool_count(),
-                "status_code": response.get("statusCode") if isinstance(response, dict) else None,
-            },
-        )
+        if rpc_method == "tools/list":
+            track_ga_event(
+                GA_EVENT_TOOLS_LIST,
+                {
+                    "tool_count": mcp_tool_count(),
+                    "status_code": response.get("statusCode") if isinstance(response, dict) else None,
+                },
+            )
 
-    return response
+        return response
+    finally:
+        _GA_CLIENT_ID.reset(client_id_token)
 
 
 def json_rpc_method(event: dict[str, Any]) -> Optional[str]:
@@ -450,6 +488,32 @@ def json_rpc_method(event: dict[str, Any]) -> Optional[str]:
 def mcp_tool_count() -> Optional[int]:
     tools = getattr(mcp, "_tools", None) or getattr(mcp, "tools", None)
     return len(tools) if hasattr(tools, "__len__") else None
+
+
+def client_id_for_event(event: dict[str, Any]) -> Optional[str]:
+    headers = event_headers(event)
+    http_context = event.get("requestContext", {}).get("http", {}) if isinstance(event, dict) else {}
+    parts = [
+        http_context.get("sourceIp"),
+        header_value(headers, "x-forwarded-for"),
+        header_value(headers, "cf-connecting-ip"),
+        header_value(headers, "user-agent"),
+    ]
+    seed = "|".join(part for part in parts if part)
+    return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:32] if seed else None
+
+
+def event_headers(event: dict[str, Any]) -> dict[str, Any]:
+    headers = event.get("headers", {}) if isinstance(event, dict) else {}
+    return headers if isinstance(headers, dict) else {}
+
+
+def header_value(headers: dict[str, Any], name: str) -> Optional[str]:
+    target = name.lower()
+    for key, value in headers.items():
+        if str(key).lower() == target and value:
+            return str(value)
+    return None
 
 
 apply_explicit_tool_schemas()

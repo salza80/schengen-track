@@ -18,8 +18,16 @@ class PeopleController < ApplicationController
     if @person.save
       # Track analytics when users create additional people (not primary)
       if current_user_or_guest_user.people.count > 1
-        tracker = Staccato.tracker('UA-67599800-1', current_user_or_guest_user.id)
-        tracker.event(category: 'people', action: 'create_additional_person', label: 'multi_person_tracking', value: 1)
+        Analytics::GoogleMeasurementProtocol.track(
+          'people_create_additional_person',
+          request: request,
+          params: {
+            category: 'people',
+            action: 'create_additional_person',
+            label: 'multi_person_tracking',
+            value: 1
+          }
+        )
       end
       
       redirect_to people_path, notice: 'Person was successfully created.'

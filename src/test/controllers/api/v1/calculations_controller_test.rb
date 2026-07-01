@@ -48,6 +48,22 @@ module Api
         assert_equal 'agent_api_calculation_created', tracked.dig(0, 0)
         assert_equal 'safe', tracked.dig(0, 1, :status)
         assert_equal 1, tracked.dig(0, 1, :trip_count)
+        assert_equal 'api', tracked.dig(0, 1, :source)
+      end
+
+      test 'tracks mcp source when calculation came from mcp lambda' do
+        tracked = []
+
+        with_analytics_tracking_stub(tracked) do
+          post api_v1_calculations_path,
+               params: calculation_payload,
+               headers: { 'X-Schengen-Agent-Source' => 'mcp' },
+               as: :json
+        end
+
+        assert_response :created
+        assert_equal 'agent_api_calculation_created', tracked.dig(0, 0)
+        assert_equal 'mcp', tracked.dig(0, 1, :source)
       end
 
       test 'tracks rejected agent api calculation event' do
@@ -62,6 +78,7 @@ module Api
         assert_response :unprocessable_entity
         assert_equal 'agent_api_calculation_rejected', tracked.dig(0, 0)
         assert_equal 1, tracked.dig(0, 1, :error_count)
+        assert_equal 'api', tracked.dig(0, 1, :source)
       end
 
       test 'returned web URL restores the guest calculation in the website' do
@@ -238,6 +255,7 @@ module Api
         assert_equal 'payload_too_large', error['code']
         assert_equal 'agent_api_payload_too_large', tracked.dig(0, 0)
         assert_nil tracked.dig(0, 1, :trip_count)
+        assert_equal 'api', tracked.dig(0, 1, :source)
       end
 
       test 'rate limits calculation requests by ip' do
@@ -277,6 +295,7 @@ module Api
         assert_equal 0, event_params[:remaining]
         assert_equal Api::V1::CalculationsController::RATE_LIMIT_PERIOD.to_i, event_params[:period_seconds]
         assert_equal 1, event_params[:trip_count]
+        assert_equal 'api', event_params[:source]
       end
 
       test 'documents the API for agents' do

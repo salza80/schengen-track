@@ -57,14 +57,23 @@ class AppTest(unittest.TestCase):
             ga_payloads.append(json.loads(request.data.decode("utf-8")))
             return FakeGaResponse()
 
+        event = json_rpc_event(
+            "tools/list",
+            {},
+            headers={"User-Agent": "ExampleAgent/1.0", "X-Forwarded-For": "203.0.113.7"},
+            source_ip="198.51.100.9",
+        )
         with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
-            response = self.app.lambda_handler(json_rpc_event("tools/list", {}), None)
+            response = self.app.lambda_handler(event, None)
+            self.app.lambda_handler(event, None)
 
         self.assertEqual(200, response["statusCode"])
         event = ga_payloads[0]["events"][0]
         self.assertEqual("mcp_tools_list_called", event["name"])
         self.assertEqual(2, event["params"]["tool_count"])
         self.assertEqual(200, event["params"]["status_code"])
+        self.assertEqual("mcp", event["params"]["source"])
+        self.assertEqual(ga_payloads[0]["client_id"], ga_payloads[1]["client_id"])
 
     def test_list_supported_countries_tool_returns_lookup_data(self):
         result = self.app.list_supported_countries()
@@ -101,6 +110,7 @@ class AppTest(unittest.TestCase):
         self.assertEqual("mcp_list_supported_countries_called", event["name"])
         self.assertEqual(len(countries), event["params"]["country_count"])
         self.assertGreater(event["params"]["schengen_country_count"], 0)
+        self.assertEqual("mcp", event["params"]["source"])
 
     def test_supported_countries_resource_returns_lookup_data(self):
         response = self.app.lambda_handler(
@@ -147,6 +157,7 @@ class AppTest(unittest.TestCase):
             captured["url"] = request.full_url
             captured["timeout"] = timeout
             captured["body"] = json.loads(request.data.decode("utf-8"))
+            captured["headers"] = {key.lower(): value for key, value in request.header_items()}
             return FakeResponse()
 
         with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
@@ -163,6 +174,7 @@ class AppTest(unittest.TestCase):
         self.assertEqual("https://example.test/api/v1/calculations", captured["url"])
         self.assertEqual(10, captured["timeout"])
         self.assertEqual([], captured["body"]["visas"])
+        self.assertEqual("mcp", captured["headers"]["x-schengen-agent-source"])
 
     def test_create_schengen_calculation_returns_clear_upstream_error(self):
         def fake_urlopen(_request, timeout):
@@ -225,6 +237,7 @@ class AppTest(unittest.TestCase):
         self.assertEqual("mcp_create_schengen_calculation_called", event["name"])
         self.assertEqual("safe", event["params"]["upstream_status"])
         self.assertEqual(1, event["params"]["trip_count"])
+        self.assertEqual("mcp", event["params"]["source"])
 
     def test_ga_api_secret_reads_configured_ssm_parameter(self):
         os.environ["GA_API_SECRET_PARAM"] = "/scheng/test/ga_api_secret"
@@ -284,9 +297,10 @@ class AppTest(unittest.TestCase):
         self.assertNotIn("\\n", text)
 
 
-def json_rpc_event(method, params):
+def json_rpc_event(method, params, headers=None, source_ip="203.0.113.9"):
     return {
-        "requestContext": {"http": {"method": "POST"}},
+        "headers": headers or {"User-Agent": "MCP test agent"},
+        "requestContext": {"http": {"method": "POST", "sourceIp": source_ip}},
         "body": json.dumps({"jsonrpc": "2.0", "id": 1, "method": method, "params": params}),
     }
 

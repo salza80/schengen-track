@@ -4,6 +4,13 @@ module Api
       MAX_REQUEST_BYTES = 32.kilobytes
       RATE_LIMIT = 30
       RATE_LIMIT_PERIOD = 10.minutes
+      AGENT_SOURCE_HEADER = 'HTTP_X_SCHENGEN_AGENT_SOURCE'
+      DEFAULT_AGENT_SOURCE = 'api'
+      AGENT_SOURCES = [DEFAULT_AGENT_SOURCE, 'mcp'].freeze
+      EVENT_CALCULATION_CREATED = 'agent_api_calculation_created'
+      EVENT_CALCULATION_REJECTED = 'agent_api_calculation_rejected'
+      EVENT_PAYLOAD_TOO_LARGE = 'agent_api_payload_too_large'
+      EVENT_RATE_LIMITED = 'agent_api_rate_limited'
 
       before_action :reject_large_payload!
       before_action :rate_limit!
@@ -16,10 +23,10 @@ module Api
         ).call
 
         if result.success?
-          track_api_event('agent_api_calculation_created', result.payload)
+          track_api_event(EVENT_CALCULATION_CREATED, result.payload)
           render json: result.payload, status: :created
         else
-          track_api_event('agent_api_calculation_rejected', errors: result.errors)
+          track_api_event(EVENT_CALCULATION_REJECTED, errors: result.errors)
           render json: { errors: result.errors }, status: :unprocessable_entity
         end
       end
@@ -32,7 +39,7 @@ module Api
         return unless received_bytes > MAX_REQUEST_BYTES
 
         track_api_event(
-          'agent_api_payload_too_large',
+          EVENT_PAYLOAD_TOO_LARGE,
           limit: MAX_REQUEST_BYTES,
           received: received_bytes,
           include_request_params: false
@@ -65,7 +72,7 @@ module Api
         return if result.allowed?
 
         track_api_event(
-          'agent_api_rate_limited',
+          EVENT_RATE_LIMITED,
           errors: [{ code: 'rate_limited' }],
           limit: result.limit,
           remaining: result.remaining,
@@ -99,6 +106,11 @@ module Api
         request.get_header('schengen.client_ip').presence || request.remote_ip
       end
 
+      def agent_source
+        source = request.get_header(AGENT_SOURCE_HEADER).to_s.downcase
+        AGENT_SOURCES.include?(source) ? source : DEFAULT_AGENT_SOURCE
+      end
+
       def track_api_event(event_name, data = {})
         include_request_params = data.delete(:include_request_params) { true }
         Analytics::GoogleMeasurementProtocol.track(
@@ -125,6 +137,7 @@ module Api
           overstay: data[:overstay],
           trip_count: trip_count,
           visa_count: visa_count,
+          source: agent_source,
           error_count: errors.length,
           first_error_code: errors.first&.dig(:code) || errors.first&.dig('code'),
           limit: data[:limit],

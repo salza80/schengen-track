@@ -42,6 +42,25 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Person was successfully created.', flash[:notice]
   end
 
+  test 'tracks additional person creation event' do
+    tracked = []
+
+    with_analytics_tracking_stub(tracked) do
+      post people_url(locale: 'en'), params: {
+        person: {
+          first_name: 'Analytics',
+          last_name: 'Person',
+          nationality_id: countries(:Australia).id
+        }
+      }
+    end
+
+    assert_redirected_to people_url(locale: 'en')
+    assert_equal 'people_create_additional_person', tracked.dig(0, 0)
+    assert_equal 'people', tracked.dig(0, 1, :category)
+    assert_equal 'create_additional_person', tracked.dig(0, 1, :action)
+  end
+
   test 'should not create person without first_name' do
     assert_no_difference('Person.count') do
       post people_url(locale: 'en'), params: {
@@ -156,5 +175,17 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     # Access as guest
     get people_url(locale: 'en')
     assert_response :success
+  end
+
+  private
+
+  def with_analytics_tracking_stub(tracked)
+    original = Analytics::GoogleMeasurementProtocol.method(:track)
+    Analytics::GoogleMeasurementProtocol.define_singleton_method(:track) do |event_name, request:, params:|
+      tracked << [event_name, params]
+    end
+    yield
+  ensure
+    Analytics::GoogleMeasurementProtocol.define_singleton_method(:track, original)
   end
 end

@@ -5,23 +5,57 @@ class LambdaHttpTest < ActiveSupport::TestCase
   test 'client ip prefers CloudFront viewer header over forwarded chain' do
     http = { 'sourceIp' => '198.51.100.10' }
     headers = {
+      'x-schengen-origin-auth' => 'cloudfront-secret',
       'x-schengen-client-ip' => '203.0.113.42',
       'x-forwarded-for' => '192.0.2.99, 203.0.113.42, 198.51.100.10'
     }
 
-    assert_equal '203.0.113.42', client_ip_from(http, headers)
+    with_cloudfront_origin_auth('cloudfront-secret') do
+      assert_equal '203.0.113.42', client_ip_from(http, headers)
+    end
   end
 
-  test 'client ip uses first forwarded address from CloudFront chain' do
+  test 'client ip uses first forwarded address from authenticated CloudFront chain' do
     http = { 'sourceIp' => '198.51.100.10' }
-    headers = { 'x-forwarded-for' => '203.0.113.42, 198.51.100.10' }
+    headers = {
+      'x-schengen-origin-auth' => 'cloudfront-secret',
+      'x-forwarded-for' => '203.0.113.42, 198.51.100.10'
+    }
 
-    assert_equal '203.0.113.42', client_ip_from(http, headers)
+    with_cloudfront_origin_auth('cloudfront-secret') do
+      assert_equal '203.0.113.42', client_ip_from(http, headers)
+    end
+  end
+
+  test 'client ip ignores spoofed CloudFront headers without origin auth' do
+    http = { 'sourceIp' => '198.51.100.10' }
+    headers = {
+      'x-schengen-client-ip' => '203.0.113.42',
+      'x-forwarded-for' => '203.0.113.42, 198.51.100.10'
+    }
+
+    with_cloudfront_origin_auth('cloudfront-secret') do
+      assert_equal '198.51.100.10', client_ip_from(http, headers)
+    end
   end
 
   test 'client ip falls back to API Gateway source ip' do
     http = { 'sourceIp' => '198.51.100.10' }
 
     assert_equal '198.51.100.10', client_ip_from(http, {})
+  end
+
+  private
+
+  def with_cloudfront_origin_auth(secret)
+    original = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
+    ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = secret
+    yield
+  ensure
+    if original.nil?
+      ENV.delete('CLOUDFRONT_ORIGIN_AUTH_HEADER')
+    else
+      ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = original
+    end
   end
 end

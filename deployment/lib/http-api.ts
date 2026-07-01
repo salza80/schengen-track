@@ -14,6 +14,7 @@ import { McpLambdaConstruct } from './mcp-lambda';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
 import * as path from 'path';
+import { randomUUID } from 'crypto';
 // import { SmsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 import { Stack } from 'aws-cdk-lib';
 
@@ -60,8 +61,9 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
+    const cloudFrontOriginAuthHeader = randomUUID();
     const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
-      code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain))
+      code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain, cloudFrontOriginAuthHeader))
     });
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
@@ -86,6 +88,7 @@ export class HttpApiConstruct extends Construct {
       TASK_PASSWORD: getParam('task_password'),
       GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
       GA_API_SECRET_PARAM: gaApiSecretParamName,
+      CLOUDFRONT_ORIGIN_AUTH_HEADER: cloudFrontOriginAuthHeader,
       DOMAIN: customDomain
     };
 
@@ -153,7 +156,8 @@ export class HttpApiConstruct extends Construct {
         'Accept',
         'X-Requested-With',
         'Referer',
-        'X-Schengen-Client-Ip'
+        'X-Schengen-Client-Ip',
+        'X-Schengen-Origin-Auth'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
@@ -168,7 +172,8 @@ export class HttpApiConstruct extends Construct {
         'Accept',
         'X-Requested-With',
         'Referer',
-        'X-Schengen-Client-Ip'
+        'X-Schengen-Client-Ip',
+        'X-Schengen-Origin-Auth'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),

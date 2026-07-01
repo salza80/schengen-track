@@ -1,10 +1,11 @@
 // a couldfront function to rewrite from altDomain to targetDomain
-export function createRedirectFunction(altDomain: string, targetDomain: string): string {
+export function createRedirectFunction(altDomain: string, targetDomain: string, originAuthHeader: string): string {
   return `
     function handler(event) {
       var request = event.request;
       var headers = request.headers;
       var host = headers.host.value;
+      headers['x-schengen-origin-auth'] = { value: '${originAuthHeader}' };
       if (event.viewer && event.viewer.ip) {
         headers['x-schengen-client-ip'] = { value: event.viewer.ip };
       }

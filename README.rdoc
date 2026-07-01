@@ -199,22 +199,22 @@ To configure Facebook Login, you must set up your Facebook App at https://develo
 
 The application uses AWS Systems Manager Parameter Store for production secrets. The following parameters must be configured:
 
-* FACEBOOK_ID - Your Facebook App ID
-* FACEBOOK_SECRET - Your Facebook App Secret
-* FACEBOOK_CALLBACK_URL - Production OAuth callback URL
-* SECRET_KEY_BASE - Rails secret key base (generate with: <tt>rails secret</tt>)
-* RAILS_MASTER_KEY - Rails credentials master key
-* DB_URL - PostgreSQL database connection string
-* BREVO_LOGIN - Brevo SMTP username
-* BREVO_PASSWORD - Brevo SMTP password
-* TASK_PASSWORD - Password for automated deployment tasks
-* ga_api_secret - Google Analytics 4 Measurement Protocol API secret used for server-side API/MCP usage events. Store this as an SSM SecureString.
+* <tt>{paramPath}facebook_id</tt> - Your Facebook App ID
+* <tt>{paramPath}facebook_secret</tt> - Your Facebook App Secret
+* <tt>{paramPath}facebook_callback_url</tt> - Production OAuth callback URL
+* <tt>{paramPath}secret_key_base</tt> - Rails secret key base (generate with: <tt>rails secret</tt>)
+* <tt>{paramPath}rails_master_key</tt> - Rails credentials master key
+* <tt>{paramPath}db_url</tt> - PostgreSQL database connection string
+* <tt>{paramPath}brevo_login</tt> - Brevo SMTP username
+* <tt>{paramPath}brevo_password</tt> - Brevo SMTP password
+* <tt>{paramPath}task_password</tt> - Password for automated deployment tasks
+* <tt>{paramPath}ga_api_secret</tt> - Google Analytics 4 Measurement Protocol API secret. Store this as an SSM SecureString.
 
 For the existing stacks, create:
 * <tt>/scheng/staging/ga_api_secret</tt>
 * <tt>/scheng/prod/ga_api_secret</tt>
 
-Most parameters are loaded as environment variables in the Lambda function and accessed via <tt>AppConfig</tt> throughout the application (e.g., <tt>AppConfig.facebook_id</tt>). SecureString values such as <tt>ga_api_secret</tt> are passed to Lambda by parameter name and read from SSM at runtime with decryption.
+CDK maps these parameters to runtime environment variables such as <tt>FACEBOOK_ID</tt>, <tt>DB_URL</tt>, and <tt>TASK_PASSWORD</tt>. SecureString values such as <tt>{paramPath}ga_api_secret</tt> are not injected directly; CDK sets <tt>GA_API_SECRET_PARAM</tt> to the SSM parameter name, and Rails/MCP read it from SSM at runtime with decryption. CDK also sets <tt>GA_MEASUREMENT_ID</tt>.
 
 For development and test environments, these values are stored in <tt>config/secrets.yml</tt> and automatically loaded into ENV variables (see Configuration Management section).
 

@@ -218,7 +218,8 @@ module AgentCalculations
       "agent_guest_#{Time.now.to_i}_#{SecureRandom.hex(6)}@example.com"
     end
 
-    def add_error(error)
+    def add_error(error = nil, **attributes)
+      error ||= attributes
       @errors << error
     end
 

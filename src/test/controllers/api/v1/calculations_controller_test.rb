@@ -117,9 +117,9 @@ module Api
         assert User.find(session[:guest_user_id]).is_guest?
       end
 
-      test 'creates a public guest calculation without email or bearer token' do
+      test 'creates a public guest calculation without accepting user email or bearer token' do
         post api_v1_calculations_path,
-             params: calculation_payload.deep_merge(user: { email: nil }),
+             params: calculation_payload.deep_merge(user: { email: 'traveler@example.com' }),
              as: :json
 
         assert_response :created
@@ -127,6 +127,7 @@ module Api
         body = JSON.parse(response.body)
         assert_equal 'safe', body['status']
         assert_match %r{\Ahttp://www.example.com/en/days\?guest_calculation=}, body['web_url']
+        assert_match(/\Aagent_guest_/, User.order(:created_at).last.email)
       end
 
       test 'returns machine readable validation errors' do

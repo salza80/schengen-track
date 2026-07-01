@@ -1,4 +1,4 @@
-class CreateApiRateLimits < ActiveRecord::Migration[7.1]
+class CreateApiRateLimits < ActiveRecord::Migration[7.2]
   def change
     create_table :api_rate_limits do |t|
       t.string :rate_limit_key, null: false

@@ -80,7 +80,7 @@ module Api
 
       def calculation_params
         params.permit(
-          user: [:email, :first_name, :last_name, :nationality],
+          user: [:first_name, :last_name, :nationality],
           trips: [:country_code, :entry_date, :exit_date],
           visas: [:visa_type, :start_date, :end_date, :no_entries]
         )

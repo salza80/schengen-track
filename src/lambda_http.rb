@@ -7,13 +7,24 @@ $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
 def client_ip_from(http, request_headers)
-  cloudfront_client_ip = request_headers['x-schengen-client-ip'] || request_headers['X-Schengen-Client-Ip']
-  return cloudfront_client_ip.strip unless cloudfront_client_ip.to_s.strip.empty?
+  if trusted_cloudfront_request?(request_headers)
+    cloudfront_client_ip = request_headers['x-schengen-client-ip'] || request_headers['X-Schengen-Client-Ip']
+    return cloudfront_client_ip.strip unless cloudfront_client_ip.to_s.strip.empty?
 
-  forwarded_for = request_headers['x-forwarded-for'] || request_headers['X-Forwarded-For']
-  forwarded_ip = forwarded_for.to_s.split(',').map(&:strip).find { |value| !value.empty? }
+    forwarded_for = request_headers['x-forwarded-for'] || request_headers['X-Forwarded-For']
+    forwarded_ip = forwarded_for.to_s.split(',').map(&:strip).find { |value| !value.empty? }
+    return forwarded_ip if forwarded_ip
+  end
 
-  forwarded_ip || http['sourceIp']
+  http['sourceIp']
+end
+
+def trusted_cloudfront_request?(request_headers)
+  expected = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
+  return false if expected.to_s.empty?
+
+  provided = request_headers['x-schengen-origin-auth'] || request_headers['X-Schengen-Origin-Auth']
+  provided.to_s == expected
 end
 
 # allow static file to be served from lambda

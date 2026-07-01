@@ -116,7 +116,6 @@
             "type": "object",
             "required": ["nationality"],
             "properties": {
-              "email": { "type": "string", "format": "email" },
               "first_name": { "type": "string" },
               "last_name": { "type": "string" },
               "nationality": {

@@ -2,6 +2,7 @@ import importlib
 import json
 import os
 import sys
+import types
 import unittest
 import urllib.error
 from pathlib import Path
@@ -19,6 +20,7 @@ class AppTest(unittest.TestCase):
         os.environ.pop("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", None)
         os.environ.pop("GA_MEASUREMENT_ID", None)
         os.environ.pop("GA_API_SECRET", None)
+        os.environ.pop("GA_API_SECRET_PARAM", None)
         self.app = importlib.reload(app)
 
     def test_tools_list_exposes_create_calculation(self):
@@ -178,6 +180,22 @@ class AppTest(unittest.TestCase):
         self.assertEqual("mcp_create_schengen_calculation_called", event["name"])
         self.assertEqual("safe", event["params"]["upstream_status"])
         self.assertEqual(1, event["params"]["trip_count"])
+
+    def test_ga_api_secret_reads_configured_ssm_parameter(self):
+        os.environ["GA_API_SECRET_PARAM"] = "/scheng/test/ga_api_secret"
+
+        class FakeSsmClient:
+            def get_parameter(self, Name, WithDecryption):
+                self.request = {"Name": Name, "WithDecryption": WithDecryption}
+                return {"Parameter": {"Value": "ssm-secret"}}
+
+        fake_client = FakeSsmClient()
+        fake_boto3 = types.SimpleNamespace(client=lambda service_name: fake_client)
+
+        with mock.patch.dict(sys.modules, {"boto3": fake_boto3}):
+            self.assertEqual("ssm-secret", self.app.ga_api_secret())
+
+        self.assertEqual({"Name": "/scheng/test/ga_api_secret", "WithDecryption": True}, fake_client.request)
 
     def test_tools_call_returns_assistant_ready_text_without_json_string_escaping(self):
         os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"

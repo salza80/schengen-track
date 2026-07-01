@@ -208,13 +208,13 @@ The application uses AWS Systems Manager Parameter Store for production secrets.
 * BREVO_LOGIN - Brevo SMTP username
 * BREVO_PASSWORD - Brevo SMTP password
 * TASK_PASSWORD - Password for automated deployment tasks
-* GA_API_SECRET - Google Analytics 4 Measurement Protocol API secret used for server-side API/MCP usage events
+* ga_api_secret - Google Analytics 4 Measurement Protocol API secret used for server-side API/MCP usage events. Store this as an SSM SecureString.
 
 For the existing stacks, create:
 * <tt>/scheng/staging/ga_api_secret</tt>
 * <tt>/scheng/prod/ga_api_secret</tt>
 
-These parameters are loaded as environment variables in the Lambda function and accessed via <tt>AppConfig</tt> throughout the application (e.g., <tt>AppConfig.facebook_id</tt>).
+Most parameters are loaded as environment variables in the Lambda function and accessed via <tt>AppConfig</tt> throughout the application (e.g., <tt>AppConfig.facebook_id</tt>). SecureString values such as <tt>ga_api_secret</tt> are passed to Lambda by parameter name and read from SSM at runtime with decryption.
 
 For development and test environments, these values are stored in <tt>config/secrets.yml</tt> and automatically loaded into ENV variables (see Configuration Management section).
 

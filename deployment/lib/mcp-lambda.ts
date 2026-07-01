@@ -3,12 +3,14 @@ import { Construct } from 'constructs';
 import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import * as path from 'path';
 
 export interface McpLambdaConstructProps {
   domain: string;
-  googleAnalyticsApiSecret: string;
+  googleAnalyticsApiSecretParamName: string;
+  googleAnalyticsApiSecretParamArn: string;
 }
 
 export class McpLambdaConstruct extends Construct {
@@ -41,11 +43,17 @@ export class McpLambdaConstruct extends Construct {
         SCHENGEN_API_BASE_URL: `https://${props.domain}`,
         SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS: '10',
         GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
-        GA_API_SECRET: props.googleAnalyticsApiSecret,
+        GA_API_SECRET_PARAM: props.googleAnalyticsApiSecretParamName,
       },
       timeout: cdk.Duration.seconds(30),
       tracing: lambda.Tracing.ACTIVE,
     });
+
+    this.function.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['ssm:GetParameter'],
+      resources: [props.googleAnalyticsApiSecretParamArn],
+    }));
 
     this.httpApi = new apigwv2.HttpApi(this, 'HttpApi', {
       apiName: 'SchengenCalculatorMcpApi',

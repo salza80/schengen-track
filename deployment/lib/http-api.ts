@@ -65,7 +65,9 @@ export class HttpApiConstruct extends Construct {
     });
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
-      this, `${props.paramPath}${paramName}`); 
+      this, `${props.paramPath}${paramName}`);
+    const gaApiSecretParamName = `${props.paramPath}ga_api_secret`;
+    const gaApiSecretParamArn = `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter${gaApiSecretParamName}`;
 
 
     // Environment variables for Rails REST API container
@@ -83,7 +85,7 @@ export class HttpApiConstruct extends Construct {
       BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password'),
       GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
-      GA_API_SECRET: getParam('ga_api_secret'),
+      GA_API_SECRET_PARAM: gaApiSecretParamName,
       DOMAIN: customDomain
     };
 
@@ -109,6 +111,12 @@ export class HttpApiConstruct extends Construct {
       tracing: lambda.Tracing.ACTIVE,
     });
 
+    apiFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['ssm:GetParameter'],
+      resources: [gaApiSecretParamArn]
+    }));
+
     // Grant Lambda permission to read the deployment timestamp from Parameter Store
     apiFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
@@ -130,7 +138,8 @@ export class HttpApiConstruct extends Construct {
 
     const mcp = new McpLambdaConstruct(this, 'Mcp', {
       domain: customDomain,
-      googleAnalyticsApiSecret: getParam('ga_api_secret'),
+      googleAnalyticsApiSecretParamName: gaApiSecretParamName,
+      googleAnalyticsApiSecretParamArn: gaApiSecretParamArn,
     });
 
     const sslCertificateArn = props.sslArn;

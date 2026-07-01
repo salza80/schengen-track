@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 import urllib.error
 import urllib.request
 import uuid
-from typing import Any
+from typing import Any, Optional
 
 try:
     from awslabs.mcp_lambda_handler import MCPLambdaHandler
@@ -15,6 +15,7 @@ except ImportError:
 
 SERVER_VERSION = "0.1.0"
 DEFAULT_API_BASE_URL = "https://schengen-calculator.com"
+_GA_API_SECRET_CACHE = None
 
 # Rails owns the canonical country dataset at src/db/data/countries.xml.
 # The MCP Lambda Docker build copies that file into /var/task/countries.xml,
@@ -295,7 +296,7 @@ def xml_text(record: ET.Element, tag: str) -> str:
 
 def track_ga_event(event_name: str, params: dict[str, Any]) -> None:
     measurement_id = os.environ.get("GA_MEASUREMENT_ID", "G-E9CCZDHLJF")
-    api_secret = os.environ.get("GA_API_SECRET")
+    api_secret = ga_api_secret()
     if not measurement_id or not api_secret:
         return
 
@@ -322,6 +323,30 @@ def track_ga_event(event_name: str, params: dict[str, Any]) -> None:
         urllib.request.urlopen(request, timeout=2).close()
     except Exception:
         return
+
+
+def ga_api_secret() -> Optional[str]:
+    global _GA_API_SECRET_CACHE
+
+    direct_secret = os.environ.get("GA_API_SECRET")
+    if direct_secret:
+        return direct_secret
+
+    if _GA_API_SECRET_CACHE is not None:
+        return _GA_API_SECRET_CACHE
+
+    param_name = os.environ.get("GA_API_SECRET_PARAM")
+    if not param_name:
+        return None
+
+    try:
+        import boto3
+
+        response = boto3.client("ssm").get_parameter(Name=param_name, WithDecryption=True)
+        _GA_API_SECRET_CACHE = response["Parameter"]["Value"]
+        return _GA_API_SECRET_CACHE
+    except Exception:
+        return None
 
 
 def format_tool_response(result: dict[str, Any]) -> str:

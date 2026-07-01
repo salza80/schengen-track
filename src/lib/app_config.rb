@@ -47,7 +47,7 @@ class AppConfig
     end
 
     def google_analytics_api_secret
-      fetch_optional('GA_API_SECRET')
+      fetch_optional('GA_API_SECRET') || fetch_ssm_parameter('GA_API_SECRET_PARAM')
     end
 
     private
@@ -62,6 +62,25 @@ class AppConfig
 
     def fetch_optional(key)
       ENV[key]
+    end
+
+    def fetch_ssm_parameter(env_key)
+      param_name = ENV[env_key]
+      return if param_name.nil? || param_name.empty?
+
+      @ssm_parameter_cache ||= {}
+      return @ssm_parameter_cache[param_name] if @ssm_parameter_cache.key?(param_name)
+
+      require 'aws-sdk-ssm'
+
+      response = Aws::SSM::Client.new(
+        region: ENV['AWS_REGION'] || ENV['AWS_DEFAULT_REGION'] || 'us-east-1'
+      ).get_parameter(name: param_name, with_decryption: true)
+
+      @ssm_parameter_cache[param_name] = response.parameter.value
+    rescue StandardError => e
+      Rails.logger.warn("Unable to load SSM parameter #{param_name}: #{e.class}: #{e.message}") if defined?(Rails)
+      nil
     end
   end
 end

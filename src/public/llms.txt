@@ -15,6 +15,36 @@ For programmatic use, prefer the API over the web UI.
 - [MCP endpoint](https://schengen-calculator.com/mcp): Hosted Model Context Protocol endpoint for MCP-capable agents.
 - Recommended endpoint: `POST /api/v1/calculations`
 
+## Agent Input Format
+
+Use uppercase ISO 3166-1 alpha-2 country codes only. Do not send country names, city names, or demonyms. Dates must be `YYYY-MM-DD`; both entry and exit dates count as days present.
+
+Example:
+
+```json
+{
+  "user": {
+    "first_name": "Sam",
+    "last_name": "Traveler",
+    "nationality": "US"
+  },
+  "trips": [
+    {
+      "country_code": "FR",
+      "entry_date": "2026-07-01",
+      "exit_date": "2026-07-10"
+    },
+    {
+      "country_code": "DE",
+      "entry_date": "2026-08-01",
+      "exit_date": "2026-08-15"
+    }
+  ]
+}
+```
+
+For MCP clients, call `list_supported_countries` or read `schengen://supported-countries` to map countries and nationalities to supported codes before calling `create_schengen_calculation`.
+
 ## Primary Pages
 
 - [Schengen Calculator home and guide](https://schengen-calculator.com/): Main guide to the Schengen 90/180-day rule, visa requirements, ETIAS, and calculator usage.

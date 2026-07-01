@@ -208,6 +208,11 @@ The application uses AWS Systems Manager Parameter Store for production secrets.
 * BREVO_LOGIN - Brevo SMTP username
 * BREVO_PASSWORD - Brevo SMTP password
 * TASK_PASSWORD - Password for automated deployment tasks
+* GA_API_SECRET - Google Analytics 4 Measurement Protocol API secret used for server-side API/MCP usage events
+
+For the existing stacks, create:
+* <tt>/scheng/staging/ga_api_secret</tt>
+* <tt>/scheng/prod/ga_api_secret</tt>
 
 These parameters are loaded as environment variables in the Lambda function and accessed via <tt>AppConfig</tt> throughout the application (e.g., <tt>AppConfig.facebook_id</tt>).
 
@@ -218,7 +223,7 @@ For development and test environments, these values are stored in <tt>config/sec
 * CDK application code lives in the /deployment directory
 
 To provision a new environment:
-* Create the required SSM parameters referenced in deployment/lib/http-api.ts (db_url, rails_master_key, secret_key_base, facebook credentials, brevo credentials, task_password, etc.)
+* Create the required SSM parameters referenced in deployment/lib/http-api.ts (db_url, rails_master_key, secret_key_base, facebook credentials, brevo credentials, task_password, ga_api_secret, etc.)
 * Bootstrap CDK in the target account/region (`cdk bootstrap aws://ACCOUNT/eu-central-1`)
 * Populate GitHub repository secrets:
   * AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_DEFAULT_REGION

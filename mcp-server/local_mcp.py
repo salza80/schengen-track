@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import inspect
 import json
 from dataclasses import dataclass
@@ -9,6 +11,15 @@ class ToolDefinition:
     name: str
     description: str
     input_schema: dict[str, Any]
+    function: Callable[..., Any]
+
+
+@dataclass
+class ResourceDefinition:
+    uri: str
+    name: str
+    description: str
+    mime_type: str
     function: Callable[..., Any]
 
 
@@ -24,6 +35,7 @@ class MCPLambdaHandler:
         self.name = name
         self.version = version
         self._tools: dict[str, ToolDefinition] = {}
+        self._resources: dict[str, ResourceDefinition] = {}
 
     def tool(self):
         def decorator(function: Callable[..., Any]):
@@ -31,6 +43,19 @@ class MCPLambdaHandler:
                 name=function.__name__,
                 description=inspect.getdoc(function) or "",
                 input_schema=self._input_schema(function),
+                function=function,
+            )
+            return function
+
+        return decorator
+
+    def resource(self, uri: str, name: str, description: str | None = None, mime_type: str | None = None):
+        def decorator(function: Callable[..., Any]):
+            self._resources[uri] = ResourceDefinition(
+                uri=uri,
+                name=name,
+                description=description or "",
+                mime_type=mime_type or "text/plain",
                 function=function,
             )
             return function
@@ -50,7 +75,7 @@ class MCPLambdaHandler:
             return self._rpc_response(request_id, {
                 "protocolVersion": "2024-11-05",
                 "serverInfo": {"name": self.name, "version": self.version},
-                "capabilities": {"tools": {}},
+                "capabilities": {"tools": {"list": True, "call": True}, "resources": {"list": True, "read": True}},
             })
 
         if rpc_method == "tools/list":
@@ -62,6 +87,34 @@ class MCPLambdaHandler:
                         "inputSchema": tool.input_schema,
                     }
                     for tool in self._tools.values()
+                ]
+            })
+
+        if rpc_method == "resources/list":
+            return self._rpc_response(request_id, {
+                "resources": [
+                    {
+                        "uri": resource.uri,
+                        "name": resource.name,
+                        "description": resource.description,
+                        "mimeType": resource.mime_type,
+                    }
+                    for resource in self._resources.values()
+                ]
+            })
+
+        if rpc_method == "resources/read":
+            resource = self._resources.get(request.get("params", {}).get("uri"))
+            if resource is None:
+                return self._rpc_error(request_id, -32601, "Resource not found")
+
+            return self._rpc_response(request_id, {
+                "contents": [
+                    {
+                        "uri": resource.uri,
+                        "mimeType": resource.mime_type,
+                        "text": str(resource.function()),
+                    }
                 ]
             })
 
@@ -80,7 +133,7 @@ class MCPLambdaHandler:
                 })
 
             return self._rpc_response(request_id, {
-                "content": [{"type": "text", "text": json.dumps(result)}],
+                "content": [{"type": "text", "text": result if isinstance(result, str) else json.dumps(result)}],
             })
 
         return self._rpc_error(request_id, -32601, "Method not found")

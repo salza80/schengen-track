@@ -35,6 +35,35 @@ module Api
         assert_match(/\Aagent_guest_/, user.email)
       end
 
+      test 'tracks successful agent api calculation event' do
+        tracked = []
+
+        with_analytics_tracking_stub(tracked) do
+          post api_v1_calculations_path,
+               params: calculation_payload,
+               as: :json
+        end
+
+        assert_response :created
+        assert_equal 'agent_api_calculation_created', tracked.dig(0, 0)
+        assert_equal 'safe', tracked.dig(0, 1, :status)
+        assert_equal 1, tracked.dig(0, 1, :trip_count)
+      end
+
+      test 'tracks rejected agent api calculation event' do
+        tracked = []
+
+        with_analytics_tracking_stub(tracked) do
+          post api_v1_calculations_path,
+               params: calculation_payload.deep_merge(trips: [{ country_code: 'XX' }]),
+               as: :json
+        end
+
+        assert_response :unprocessable_entity
+        assert_equal 'agent_api_calculation_rejected', tracked.dig(0, 0)
+        assert_equal 1, tracked.dig(0, 1, :error_count)
+      end
+
       test 'returned web URL restores the guest calculation in the website' do
         post api_v1_calculations_path,
              params: calculation_payload,
@@ -196,6 +225,16 @@ module Api
       end
 
       private
+
+      def with_analytics_tracking_stub(tracked)
+        original = Analytics::GoogleMeasurementProtocol.method(:track)
+        Analytics::GoogleMeasurementProtocol.define_singleton_method(:track) do |event_name, request:, params:|
+          tracked << [event_name, params]
+        end
+        yield
+      ensure
+        Analytics::GoogleMeasurementProtocol.define_singleton_method(:track, original)
+      end
 
       def calculation_payload
         {

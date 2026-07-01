@@ -42,6 +42,14 @@ class AppConfig
       fetch_optional('TASK_PASSWORD')
     end
 
+    def google_analytics_measurement_id
+      fetch_optional('GA_MEASUREMENT_ID') || 'G-E9CCZDHLJF'
+    end
+
+    def google_analytics_api_secret
+      fetch_optional('GA_API_SECRET')
+    end
+
     private
 
     def fetch_required(key)

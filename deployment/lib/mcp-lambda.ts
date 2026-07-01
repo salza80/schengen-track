@@ -8,6 +8,7 @@ import * as path from 'path';
 
 export interface McpLambdaConstructProps {
   domain: string;
+  googleAnalyticsApiSecret: string;
 }
 
 export class McpLambdaConstruct extends Construct {
@@ -17,17 +18,30 @@ export class McpLambdaConstruct extends Construct {
   constructor(scope: Construct, id: string, props: McpLambdaConstructProps) {
     super(scope, id);
 
-    const imageAssetPath = path.join(__dirname, '../../mcp-server');
+    const imageAssetPath = path.join(__dirname, '../..');
 
     this.function = new lambda.DockerImageFunction(this, 'Function', {
       architecture: lambda.Architecture.X86_64,
       memorySize: 512,
       code: lambda.DockerImageCode.fromImageAsset(imageAssetPath, {
+        file: 'mcp-server/Dockerfile',
+        ignoreMode: cdk.IgnoreMode.DOCKER,
+        exclude: [
+          '**',
+          '!mcp-server',
+          '!mcp-server/**',
+          '!src',
+          '!src/db',
+          '!src/db/data',
+          '!src/db/data/countries.xml',
+        ],
         platform: Platform.LINUX_AMD64,
       }),
       environment: {
         SCHENGEN_API_BASE_URL: `https://${props.domain}`,
         SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS: '10',
+        GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
+        GA_API_SECRET: props.googleAnalyticsApiSecret,
       },
       timeout: cdk.Duration.seconds(30),
       tracing: lambda.Tracing.ACTIVE,

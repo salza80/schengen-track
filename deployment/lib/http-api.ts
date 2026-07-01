@@ -82,6 +82,8 @@ export class HttpApiConstruct extends Construct {
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password'),
+      GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
+      GA_API_SECRET: getParam('ga_api_secret'),
       DOMAIN: customDomain
     };
 
@@ -126,7 +128,10 @@ export class HttpApiConstruct extends Construct {
       }),
     });
 
-    const mcp = new McpLambdaConstruct(this, 'Mcp', { domain: customDomain });
+    const mcp = new McpLambdaConstruct(this, 'Mcp', {
+      domain: customDomain,
+      googleAnalyticsApiSecret: getParam('ga_api_secret'),
+    });
 
     const sslCertificateArn = props.sslArn;
     const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);

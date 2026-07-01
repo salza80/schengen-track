@@ -2,8 +2,11 @@ module Api
   module V1
     class CalculationsController < BaseController
       MAX_REQUEST_BYTES = 32.kilobytes
+      RATE_LIMIT = 30
+      RATE_LIMIT_PERIOD = 10.minutes
 
       before_action :reject_large_payload!
+      before_action :rate_limit!
 
       def create
         result = AgentCalculations::Create.new(
@@ -44,6 +47,33 @@ module Api
             }
           ]
         }, status: :payload_too_large
+      end
+
+      def rate_limit!
+        result = RateLimiters::DatabaseFixedWindow.new(
+          scope: 'api:v1:calculations:create',
+          identifier: request.remote_ip,
+          limit: RATE_LIMIT,
+          period: RATE_LIMIT_PERIOD
+        ).call
+
+        response.set_header('RateLimit-Limit', result.limit.to_s)
+        response.set_header('RateLimit-Remaining', result.remaining.to_s)
+        response.set_header('RateLimit-Reset', result.reset_at.to_i.to_s)
+        return if result.allowed?
+
+        render json: {
+          errors: [
+            {
+              code: 'rate_limited',
+              field: 'base',
+              message: "Too many calculation requests. Try again after #{result.reset_at.utc.iso8601}.",
+              limit: result.limit,
+              period_seconds: RATE_LIMIT_PERIOD.to_i,
+              reset_at: result.reset_at.utc.iso8601
+            }
+          ]
+        }, status: :too_many_requests
       end
 
       def calculation_params

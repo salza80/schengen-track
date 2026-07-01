@@ -17,6 +17,7 @@ namespace :db do
     batches_processed = 0
     deleted_count = 0
     remaining_count = 0
+    expired_rate_limits_deleted = 0
 
     ActiveRecord::Base.transaction do
       begin 
@@ -51,12 +52,16 @@ namespace :db do
         puts 'Number of user accounts: ' + User.count.to_s
         puts 'Number of Visits:' + Visit.count.to_s
         puts 'Number of Visas: ' + Visa.count.to_s
+        expired_rate_limits_deleted = ApiRateLimit.delete_expired! if defined?(ApiRateLimit)
+        puts "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
+        Rails.logger.info "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
         
         # Store stats in temp file for controller to read
         stats = {
           deleted: deleted_count,
           batches: batches_processed,
-          remaining: remaining_count
+          remaining: remaining_count,
+          expired_rate_limits_deleted: expired_rate_limits_deleted
         }
         File.write('/tmp/guest_cleanup_stats.json', stats.to_json)
         

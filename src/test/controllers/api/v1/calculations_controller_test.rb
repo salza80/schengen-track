@@ -206,6 +206,33 @@ module Api
         assert_match(/Request body is too large/, error['message'])
       end
 
+      test 'rate limits calculation requests by ip' do
+        with_calculation_rate_limit(2) do
+          2.times do
+            post api_v1_calculations_path,
+                 params: calculation_payload,
+                 as: :json
+
+            assert_response :created
+          end
+
+          assert_no_difference('User.count') do
+            post api_v1_calculations_path,
+                 params: calculation_payload,
+                 as: :json
+          end
+        end
+
+        assert_response :too_many_requests
+
+        error = JSON.parse(response.body).dig('errors', 0)
+        assert_equal 'rate_limited', error['code']
+        assert_equal 2, error['limit']
+        assert_equal Api::V1::CalculationsController::RATE_LIMIT_PERIOD.to_i, error['period_seconds']
+        assert_equal '0', response.headers['RateLimit-Remaining']
+        assert_equal '2', response.headers['RateLimit-Limit']
+      end
+
       test 'documents the API for agents' do
         get api_docs_path
 
@@ -234,6 +261,16 @@ module Api
         yield
       ensure
         Analytics::GoogleMeasurementProtocol.define_singleton_method(:track, original)
+      end
+
+      def with_calculation_rate_limit(limit)
+        original_limit = Api::V1::CalculationsController::RATE_LIMIT
+        Api::V1::CalculationsController.send(:remove_const, :RATE_LIMIT)
+        Api::V1::CalculationsController.const_set(:RATE_LIMIT, limit)
+        yield
+      ensure
+        Api::V1::CalculationsController.send(:remove_const, :RATE_LIMIT)
+        Api::V1::CalculationsController.const_set(:RATE_LIMIT, original_limit)
       end
 
       def calculation_payload

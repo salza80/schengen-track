@@ -15,8 +15,12 @@ except ImportError:
 
 SERVER_VERSION = "0.1.0"
 DEFAULT_API_BASE_URL = "https://schengen-calculator.com"
-COUNTRIES_XML_PATH = Path(__file__).with_name("countries.xml")
-LOCAL_RAILS_COUNTRIES_XML_PATH = Path(__file__).resolve().parents[1] / "src" / "db" / "data" / "countries.xml"
+
+# Rails owns the canonical country dataset at src/db/data/countries.xml.
+# The MCP Lambda Docker build copies that file into /var/task/countries.xml,
+# while local tests/dev read the Rails file directly when no packaged copy exists.
+PACKAGED_COUNTRIES_XML_PATH = Path(__file__).with_name("countries.xml")
+LOCAL_CANONICAL_COUNTRIES_XML_PATH = Path(__file__).resolve().parents[1] / "src" / "db" / "data" / "countries.xml"
 
 CREATE_CALCULATION_SCHEMA = {
     "name": "create_schengen_calculation",
@@ -278,10 +282,10 @@ def countries_xml_path() -> Path:
     if configured_path:
         return Path(configured_path)
 
-    if COUNTRIES_XML_PATH.exists():
-        return COUNTRIES_XML_PATH
+    if PACKAGED_COUNTRIES_XML_PATH.exists():
+        return PACKAGED_COUNTRIES_XML_PATH
 
-    return LOCAL_RAILS_COUNTRIES_XML_PATH
+    return LOCAL_CANONICAL_COUNTRIES_XML_PATH
 
 
 def xml_text(record: ET.Element, tag: str) -> str:

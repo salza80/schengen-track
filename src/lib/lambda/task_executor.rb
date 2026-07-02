@@ -76,7 +76,7 @@ module Lambda
         load_rake_tasks
         task = Rake::Task[task_name]
         task.reenable
-        args.pop while args.last.nil?
+        args.pop while args.any? && args.last.nil?
         task.invoke(*args)
       end
 

@@ -4,7 +4,7 @@ Infrastructure for the Lambda-based Rails app lives in this directory. The stack
 
 ## Pre-requisites
 
-- Node.js 20.18.0 (`.nvmrc` is provided)
+- Node.js 24.18.0 (`.nvmrc` is provided)
 - AWS CDK CLI v2 (`npm install -g aws-cdk`)
 - Docker (needed to build the Lambda container images)
 - Bootstrapped environment: `cdk bootstrap aws://<account>/eu-central-1`
@@ -12,7 +12,7 @@ Infrastructure for the Lambda-based Rails app lives in this directory. The stack
 Install dependencies with:
 
 ```bash
-nvm use 20
+nvm use
 npm install
 ```
 

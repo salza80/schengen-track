@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20.18.0'
+          node-version-file: deployment/.nvmrc
 
       - name: Install AWS CLI
         run: |

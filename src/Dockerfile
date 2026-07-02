@@ -21,8 +21,8 @@ RUN apt-get update -qq && apt-get upgrade -y -qq
 RUN apt-get install -y -qq curl bash libpq-dev
 
 # Install Node.js for asset compilation only (Terser needs a JS runtime)
-ENV NODE_VERSION v20.18.1
-RUN curl -o- https://deb.nodesource.com/setup_20.x | bash - \
+ENV NODE_VERSION v24.18.0
+RUN curl -o- https://deb.nodesource.com/setup_24.x | bash - \
     && apt-get install -y -qq nodejs
 
 COPY --from=builder /usr/local/bundle /usr/local/bundle
@@ -34,4 +34,3 @@ ENV RAILS_LOG_TO_STDOUT="1" \
 
 # Precompile assets
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
-

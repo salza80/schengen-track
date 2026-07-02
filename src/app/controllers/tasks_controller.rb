@@ -96,21 +96,17 @@ class TasksController < ApplicationController
     return render json: { success: false, error: 'max_batches must be a positive integer' }, status: :unprocessable_entity if params[:max_batches].present? && max_batches.nil?
 
     run_guest_cleanup_rake(max_batches, stats_file)
-    @success = true
 
-    if File.exist?(stats_file)
-      stats = JSON.parse(File.read(stats_file))
-      render json: {
-        success: @success,
-        deleted: stats['deleted'],
-        batches: stats['batches'],
-        remaining: stats['remaining'],
-        expired_rate_limits_deleted: stats['expired_rate_limits_deleted']
-      }
-    else
-      @success = false
-      render_json_response
-    end
+    raise "Guest cleanup completed without writing stats to #{stats_file}" unless File.exist?(stats_file)
+
+    stats = JSON.parse(File.read(stats_file))
+    render json: {
+      success: true,
+      deleted: stats['deleted'],
+      batches: stats['batches'],
+      remaining: stats['remaining'],
+      expired_rate_limits_deleted: stats['expired_rate_limits_deleted']
+    }
   rescue => e
     Rails.logger.error("Guest cleanup failed: #{e.class}: #{e.message}")
     @success = false

@@ -1,7 +1,20 @@
 require 'test_helper'
+require 'timeout'
 require Rails.root.join('lib/lambda/task_executor')
 
 class LambdaTaskExecutorTest < ActiveSupport::TestCase
+  test 'run_rake invokes no-argument tasks without hanging' do
+    task_name = "test:lambda_task_executor_no_args_#{SecureRandom.hex(8)}"
+    invoked = false
+    Rake::Task.define_task(task_name) { invoked = true }
+
+    Timeout.timeout(1) do
+      Lambda::TaskExecutor.send(:run_rake, task_name)
+    end
+
+    assert invoked
+  end
+
   test 'guest cleanup keeps max_batches when limit_date is omitted' do
     old_guest = User.create!(
       email: 'old-guest@example.com',

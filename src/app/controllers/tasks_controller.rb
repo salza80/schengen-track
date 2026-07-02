@@ -1,3 +1,6 @@
+require 'rake'
+require 'securerandom'
+
 class TasksController < ApplicationController
   before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :fix_people_migration, :unlock_and_migrate]
   before_action :check_deployment_window, only: [:migrate, :update_countries, :guest_cleanup, :unlock_migrations, :fix_people_migration, :unlock_and_migrate]
@@ -87,23 +90,55 @@ class TasksController < ApplicationController
   end
 
   def guest_cleanup
-    max_batches = params[:max_batches]
-    rake_guest_cleanup = "db:guest_cleanup"
-    rake_guest_cleanup += "[,#{max_batches}]" if max_batches.present?
-    @success = system("rake #{rake_guest_cleanup}")
-    
-    # Read stats from temp file if available
-    stats_file = '/tmp/guest_cleanup_stats.json'
-    if @success && File.exist?(stats_file)
-      stats = JSON.parse(File.read(stats_file))
-      File.delete(stats_file) # Clean up
-      render json: { success: @success, deleted: stats['deleted'], batches: stats['batches'], remaining: stats['remaining'] }
+    stats_file = guest_cleanup_stats_file
+
+    max_batches = parse_positive_integer_param(params[:max_batches])
+    return render json: { success: false, error: 'max_batches must be a positive integer' }, status: :unprocessable_entity if params[:max_batches].present? && max_batches.nil?
+
+    run_guest_cleanup_rake(max_batches, stats_file)
+
+    raise "Guest cleanup completed without writing stats to #{stats_file}" unless File.exist?(stats_file)
+
+    stats = JSON.parse(File.read(stats_file))
+    render json: {
+      success: true,
+      deleted: stats['deleted'],
+      batches: stats['batches'],
+      remaining: stats['remaining'],
+      expired_rate_limits_deleted: stats['expired_rate_limits_deleted']
+    }
+  rescue => e
+    @success = false
+    if e.message == 'Guest cleanup is already running'
+      Rails.logger.warn("Guest cleanup skipped: #{e.message}")
+      render json: { success: false, error: e.message }, status: :conflict
     else
-      render_json_response
+      Rails.logger.error("Guest cleanup failed: #{e.class}: #{e.message}")
+      render json: { success: false, error: e.message }, status: :internal_server_error
     end
+  ensure
+    File.delete(stats_file) if stats_file && File.exist?(stats_file)
   end
 
   private 
+
+  def run_guest_cleanup_rake(max_batches, stats_file)
+    Rails.application.load_tasks unless Rake::Task.task_defined?('db:guest_cleanup')
+    task = Rake::Task['db:guest_cleanup']
+    task.reenable
+    task.invoke(nil, max_batches, stats_file)
+  end
+
+  def guest_cleanup_stats_file
+    "/tmp/guest_cleanup_stats_#{SecureRandom.uuid}.json"
+  end
+
+  def parse_positive_integer_param(value)
+    return nil if value.blank?
+
+    integer = Integer(value, exception: false)
+    integer if integer&.positive?
+  end
 
   def authenticate_token
     token_param = params[:token]

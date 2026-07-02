@@ -103,6 +103,11 @@ export class HttpApiConstruct extends Construct {
       DOMAIN: customDomain
     };
 
+    const opsContainerEnvironment = {
+      ...apiContainerEnvironment,
+      PGCONNECT_TIMEOUT: '10',
+    };
+
     // Lambda function for Lambda proxy integration of AWS API Gateway HTTP API
     const apiFunction = new lambda.DockerImageFunction(this, 'ApiFunction', {
       //architecture: lambda.Architecture.ARM_64,
@@ -120,8 +125,9 @@ export class HttpApiConstruct extends Construct {
       architecture: lambda.Architecture.X86_64,
       memorySize: 2048,
       code: opsContainerImage,
-      environment: apiContainerEnvironment,
+      environment: opsContainerEnvironment,
       timeout: cdk.Duration.minutes(15),
+      reservedConcurrentExecutions: 1,
       tracing: lambda.Tracing.ACTIVE,
     });
 

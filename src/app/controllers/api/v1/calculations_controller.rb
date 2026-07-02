@@ -40,23 +40,24 @@ module Api
         received_bytes = request.env['rack.input'].size if received_bytes.zero? && request.env['rack.input'].respond_to?(:size)
         return unless received_bytes > MAX_REQUEST_BYTES
 
+        error = {
+          code: 'payload_too_large',
+          field: 'base',
+          message: "Request body is too large. Maximum size is #{MAX_REQUEST_BYTES} bytes.",
+          limit: MAX_REQUEST_BYTES,
+          received: received_bytes
+        }
+
         track_api_event(
           EVENT_PAYLOAD_TOO_LARGE,
+          errors: [error],
           limit: MAX_REQUEST_BYTES,
           received: received_bytes,
           include_request_params: false
         )
 
         render json: {
-          errors: [
-            {
-              code: 'payload_too_large',
-              field: 'base',
-              message: "Request body is too large. Maximum size is #{MAX_REQUEST_BYTES} bytes.",
-              limit: MAX_REQUEST_BYTES,
-              received: received_bytes
-            }
-          ]
+          errors: [error]
         }, status: :payload_too_large
       end
 

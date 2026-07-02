@@ -423,6 +423,8 @@ module Api
         error = JSON.parse(response.body).dig('errors', 0)
         assert_equal 'payload_too_large', error['code']
         assert_equal 'agent_api_payload_too_large', tracked.dig(0, 0)
+        assert_equal 1, tracked.dig(0, 1, :error_count)
+        assert_equal 'payload_too_large', tracked.dig(0, 1, :first_error_code)
         assert_nil tracked.dig(0, 1, :trip_count)
         assert_equal 'api', tracked.dig(0, 1, :source)
       end

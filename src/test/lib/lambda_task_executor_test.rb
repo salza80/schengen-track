@@ -2,14 +2,6 @@ require 'test_helper'
 require Rails.root.join('lib/lambda/task_executor')
 
 class LambdaTaskExecutorTest < ActiveSupport::TestCase
-  setup do
-    File.delete('/tmp/guest_cleanup_stats.json') if File.exist?('/tmp/guest_cleanup_stats.json')
-  end
-
-  teardown do
-    File.delete('/tmp/guest_cleanup_stats.json') if File.exist?('/tmp/guest_cleanup_stats.json')
-  end
-
   test 'guest cleanup keeps max_batches when limit_date is omitted' do
     old_guest = User.create!(
       email: 'old-guest@example.com',

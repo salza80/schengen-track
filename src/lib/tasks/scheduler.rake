@@ -84,9 +84,15 @@ namespace :db do
       end
     ensure
       if lock_acquired == true || lock_acquired.to_s == 't'
-        connection.select_value("SELECT pg_advisory_unlock(hashtext('schengen_track_guest_cleanup'))")
-        puts 'Released guest cleanup advisory lock'
-        Rails.logger.info 'Released guest cleanup advisory lock'
+        begin
+          connection.select_value("SELECT pg_advisory_unlock(hashtext('schengen_track_guest_cleanup'))")
+          puts 'Released guest cleanup advisory lock'
+          Rails.logger.info 'Released guest cleanup advisory lock'
+        rescue => e
+          message = "Failed to release guest cleanup advisory lock: #{e.class}: #{e.message}"
+          puts message
+          Rails.logger.warn message
+        end
       end
     end
   end

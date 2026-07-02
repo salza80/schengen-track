@@ -1,0 +1,27 @@
+name: Resolve Ops Lambda
+description: Resolve the ops Lambda function name from a CloudFormation stack output.
+inputs:
+  stack-name:
+    description: CloudFormation stack name
+    required: true
+outputs:
+  ops_function_name:
+    description: Resolved ops Lambda function name
+    value: ${{ steps.resolve.outputs.ops_function_name }}
+
+runs:
+  using: composite
+  steps:
+    - name: Resolve Ops Lambda Function
+      id: resolve
+      shell: bash
+      env:
+        STACK_NAME: ${{ inputs.stack-name }}
+      run: |
+        set -euo pipefail
+        OPS_FUNCTION_NAME=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].Outputs[?OutputKey=='OpsLambdaFunctionName'].OutputValue" --output text)
+        if [ -z "$OPS_FUNCTION_NAME" ] || [ "$OPS_FUNCTION_NAME" = "None" ]; then
+          echo "Failed to resolve Ops Lambda function name"
+          exit 1
+        fi
+        echo "ops_function_name=$OPS_FUNCTION_NAME" >> "$GITHUB_OUTPUT"

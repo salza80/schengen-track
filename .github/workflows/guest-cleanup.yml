@@ -1,0 +1,100 @@
+name: Guest Cleanup
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: Environment to clean
+        required: true
+        type: choice
+        default: staging
+        options:
+          - staging
+          - prod
+      max_batches:
+        description: Max 100-user batches to delete
+        required: true
+        type: number
+        default: 20
+  schedule:
+    - cron: '0 3 * * 0'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: guest-cleanup-${{ github.event_name == 'schedule' && 'prod' || github.event.inputs.target_environment }}
+  cancel-in-progress: false
+
+jobs:
+  guest_cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TARGET_ENVIRONMENT: ${{ github.event_name == 'schedule' && 'prod' || github.event.inputs.target_environment }}
+      MAX_BATCHES: ${{ github.event_name == 'schedule' && '20' || github.event.inputs.max_batches }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7.0.0
+
+      - name: Setup AWS CLI
+        uses: ./.github/actions/setup-aws-cli
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-default-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Resolve target stack
+        id: target
+        run: |
+          set -euo pipefail
+          case "$TARGET_ENVIRONMENT" in
+            staging)
+              stack_name="RailsLambdaStack"
+              ;;
+            prod)
+              stack_name="SchengTrackProd"
+              ;;
+            *)
+              echo "Unsupported environment: $TARGET_ENVIRONMENT"
+              exit 1
+              ;;
+          esac
+
+          if ! [[ "$MAX_BATCHES" =~ ^[1-9][0-9]*$ ]]; then
+            echo "max_batches must be a positive integer"
+            exit 1
+          fi
+
+          echo "target_environment=$TARGET_ENVIRONMENT" >> "$GITHUB_OUTPUT"
+          echo "stack_name=$stack_name" >> "$GITHUB_OUTPUT"
+          echo "max_batches=$MAX_BATCHES" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve Ops Lambda Function
+        id: ops_lambda
+        uses: ./.github/actions/resolve-ops-lambda
+        with:
+          stack-name: ${{ steps.target.outputs.stack_name }}
+
+      - name: Clean up guest users
+        timeout-minutes: 25
+        env:
+          OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
+          TARGET_ENVIRONMENT: ${{ steps.target.outputs.target_environment }}
+          MAX_BATCHES: ${{ steps.target.outputs.max_batches }}
+        run: |
+          set -euo pipefail
+          payload="{\"command\":\"guest_cleanup\",\"params\":{\"max_batches\":$MAX_BATCHES}}"
+          ./deployment/scripts/invoke_ops_lambda.sh "$payload" "Guest cleanup ($TARGET_ENVIRONMENT)" /tmp/guest-cleanup.json
+          stats=$(jq -c -e '.body | fromjson | .stats' /tmp/guest-cleanup.json)
+          echo "Guest cleanup stats:"
+          echo "$stats" | jq .
+          deleted=$(echo "$stats" | jq -r '.deleted // 0')
+          batches=$(echo "$stats" | jq -r '.batches // 0')
+          remaining=$(echo "$stats" | jq -r '.remaining // 0')
+          expired_rate_limits_deleted=$(echo "$stats" | jq -r '.expired_rate_limits_deleted // 0')
+          echo "Environment: $TARGET_ENVIRONMENT"
+          echo "Deleted: $deleted guest users in $batches batches"
+          echo "Remaining old guest users: $remaining"
+          echo "Deleted expired API rate limit rows: $expired_rate_limits_deleted"

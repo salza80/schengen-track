@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_29_035005) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_01_180000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_29_035005) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "api_rate_limits", force: :cascade do |t|
+    t.string "rate_limit_key", null: false
+    t.string "scope", null: false
+    t.string "identifier", null: false
+    t.datetime "window_start", null: false
+    t.datetime "expires_at", null: false
+    t.integer "count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_api_rate_limits_on_expires_at"
+    t.index ["rate_limit_key"], name: "index_api_rate_limits_on_rate_limit_key", unique: true
   end
 
   create_table "continents", force: :cascade do |t|

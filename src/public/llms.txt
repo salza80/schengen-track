@@ -4,7 +4,48 @@
 
 Schengen Calculator helps travellers track days spent in the Schengen Area, estimate remaining short-stay allowance, plan re-entry dates, and understand common Schengen/ETIAS rules. The site is not an official EU service and does not provide legal advice.
 
-Last reviewed: 2026-05-30
+Last reviewed: 2026-07-01
+
+## Programmatic Agent Use
+
+For programmatic use, prefer the API over the web UI.
+
+- [API documentation](https://schengen-calculator.com/api/docs): JSON documentation for agent integrations.
+- [OpenAPI schema](https://schengen-calculator.com/openapi.json): Machine-readable API contract.
+- [MCP endpoint](https://schengen-calculator.com/mcp): Hosted Model Context Protocol endpoint for MCP-capable agents.
+- Recommended endpoint: `POST /api/v1/calculations`
+
+After creating a calculation, always show the returned `web_url` or `claim_url` to the user so they can check, review, edit, or save the calculation on Schengen Calculator. Do not only summarize the result.
+
+## Agent Input Format
+
+Use uppercase ISO 3166-1 alpha-2 country codes only. Do not send country names, city names, or demonyms. Dates must be `YYYY-MM-DD`; both entry and exit dates count as days present.
+
+Example:
+
+```json
+{
+  "user": {
+    "first_name": "Sam",
+    "last_name": "Traveler",
+    "nationality": "US"
+  },
+  "trips": [
+    {
+      "country_code": "FR",
+      "entry_date": "2026-07-01",
+      "exit_date": "2026-07-10"
+    },
+    {
+      "country_code": "DE",
+      "entry_date": "2026-08-01",
+      "exit_date": "2026-08-15"
+    }
+  ]
+}
+```
+
+For MCP clients, call `list_supported_countries` or read `schengen://supported-countries` to map countries and nationalities to supported codes before calling `create_schengen_calculation`.
 
 ## Primary Pages
 

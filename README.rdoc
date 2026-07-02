@@ -87,7 +87,7 @@ Note: Direct database modifications to country data will be overwritten on the n
 = After updating seed countries data
 * run command <tt>`./bin/rake countries:update_countries`</tt>
 
-= To clean up guest user accounts up to last week
+= To clean up guest user accounts older than 30 days
 * run command <tt>`./bin/rake db:guest_cleanup`</tt>
 * Optionally pass in a "to date" to delete guest accounts last modified up to that date
 * run command <tt>`./bin/rake db:guest_cleanup["2010-10-01"]`</tt>
@@ -199,17 +199,28 @@ To configure Facebook Login, you must set up your Facebook App at https://develo
 
 The application uses AWS Systems Manager Parameter Store for production secrets. The following parameters must be configured:
 
-* FACEBOOK_ID - Your Facebook App ID
-* FACEBOOK_SECRET - Your Facebook App Secret
-* FACEBOOK_CALLBACK_URL - Production OAuth callback URL
-* SECRET_KEY_BASE - Rails secret key base (generate with: <tt>rails secret</tt>)
-* RAILS_MASTER_KEY - Rails credentials master key
-* DB_URL - PostgreSQL database connection string
-* BREVO_LOGIN - Brevo SMTP username
-* BREVO_PASSWORD - Brevo SMTP password
-* TASK_PASSWORD - Password for automated deployment tasks
+* <tt>{paramPath}facebook_id</tt> - Your Facebook App ID
+* <tt>{paramPath}facebook_secret</tt> - Your Facebook App Secret
+* <tt>{paramPath}facebook_callback_url</tt> - Production OAuth callback URL
+* <tt>{paramPath}secret_key_base</tt> - Rails secret key base (generate with: <tt>rails secret</tt>)
+* <tt>{paramPath}rails_master_key</tt> - Rails credentials master key
+* <tt>{paramPath}db_url</tt> - PostgreSQL database connection string
+* <tt>{paramPath}brevo_login</tt> - Brevo SMTP username
+* <tt>{paramPath}brevo_password</tt> - Brevo SMTP password
+* <tt>{paramPath}task_password</tt> - Password for automated deployment tasks
+* <tt>{paramPath}ga_api_secret</tt> - Google Analytics 4 Measurement Protocol API secret. Store this as an SSM SecureString.
+* <tt>{paramPath}cloudfront_origin_auth_header</tt> - Shared CloudFront-to-Lambda origin authentication header. Store this as a high-entropy SSM String; CloudFront origin custom headers do not support CloudFormation <tt>ssm-secure</tt> dynamic references.
+* <tt>{paramPath}schengen_agent_auth_header</tt> - Shared MCP-to-Rails agent authentication header. Store this as an SSM SecureString.
 
-These parameters are loaded as environment variables in the Lambda function and accessed via <tt>AppConfig</tt> throughout the application (e.g., <tt>AppConfig.facebook_id</tt>).
+For the existing stacks, create:
+* <tt>/scheng/staging/ga_api_secret</tt>
+* <tt>/scheng/staging/cloudfront_origin_auth_header</tt>
+* <tt>/scheng/staging/schengen_agent_auth_header</tt>
+* <tt>/scheng/prod/ga_api_secret</tt>
+* <tt>/scheng/prod/cloudfront_origin_auth_header</tt>
+* <tt>/scheng/prod/schengen_agent_auth_header</tt>
+
+CDK maps these parameters to runtime environment variables such as <tt>FACEBOOK_ID</tt>, <tt>DB_URL</tt>, and <tt>TASK_PASSWORD</tt>. Runtime secret values are not injected directly into Lambda environment variables: CDK sets <tt>GA_API_SECRET_PARAM</tt>, <tt>CLOUDFRONT_ORIGIN_AUTH_PARAM</tt>, and <tt>SCHENGEN_AGENT_AUTH_PARAM</tt> to SSM parameter names, and Rails/MCP read them from SSM at runtime. CloudFormation resolves <tt>{paramPath}cloudfront_origin_auth_header</tt> directly into the CloudFront origin custom header so API Gateway/Lambda can identify trusted CloudFront requests.
 
 For development and test environments, these values are stored in <tt>config/secrets.yml</tt> and automatically loaded into ENV variables (see Configuration Management section).
 
@@ -218,7 +229,7 @@ For development and test environments, these values are stored in <tt>config/sec
 * CDK application code lives in the /deployment directory
 
 To provision a new environment:
-* Create the required SSM parameters referenced in deployment/lib/http-api.ts (db_url, rails_master_key, secret_key_base, facebook credentials, brevo credentials, task_password, etc.)
+* Create the required SSM parameters referenced in deployment/lib/http-api.ts (db_url, rails_master_key, secret_key_base, facebook credentials, brevo credentials, task_password, ga_api_secret, shared auth headers, etc.)
 * Bootstrap CDK in the target account/region (`cdk bootstrap aws://ACCOUNT/eu-central-1`)
 * Populate GitHub repository secrets:
   * AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_DEFAULT_REGION

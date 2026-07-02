@@ -49,6 +49,15 @@ class DaysControllerTest < ActionController::TestCase
     assert_equal Date.today.year, assigns(:selected_year)
   end
 
+  test "invalid guest calculation token does not set guest scroll day" do
+    sign_in users(:Sally)
+
+    get :index, params: { locale: 'en', guest_calculation: 'invalid-token' }
+
+    assert_response :success
+    assert_nil assigns(:scroll_to_day)
+  end
+
   test "should allow selecting specific year" do
     sign_in users(:Sally)
     get :index, params: { locale: 'en', year: 2014 }

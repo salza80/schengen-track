@@ -71,8 +71,17 @@ class User < ApplicationRecord
       end
       user.save
       user.reload
-      tracker = Staccato.tracker('UA-67599800-1', user.id)
-      tracker.event(category: 'users', action: 'signup', label: 'facebook', value: 1)
+      Analytics::GoogleMeasurementProtocol.track(
+        'user_signup',
+        client_id: Analytics::GoogleMeasurementProtocol.client_id_from_key("user:#{user.id}"),
+        params: {
+          category: 'users',
+          action: 'signup',
+          label: 'facebook',
+          signup_method: 'facebook',
+          value: 1
+        }
+      )
     end
     user
   end

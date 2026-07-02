@@ -9,6 +9,7 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 import { createRedirectFunction } from './createRedirectFunction';
+import { McpLambdaConstruct } from './mcp-lambda';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
@@ -59,12 +60,26 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
+    const cloudFrontOriginAuthParamName = `${props.paramPath}cloudfront_origin_auth_header`;
+    const agentAuthParamName = `${props.paramPath}schengen_agent_auth_header`;
+    // CloudFront origin custom headers do not support ssm-secure dynamic
+    // references, so this value is stored as an SSM String. Lambdas receive
+    // only parameter names and read values at runtime with ssm:GetParameter.
+    const cloudFrontOriginAuthHeader = cdk.Token.asString(new cdk.CfnDynamicReference(
+      cdk.CfnDynamicReferenceService.SSM,
+      cloudFrontOriginAuthParamName
+    ));
     const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
       code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain))
     });
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
-      this, `${props.paramPath}${paramName}`); 
+      this, `${props.paramPath}${paramName}`);
+    const gaApiSecretParamName = `${props.paramPath}ga_api_secret`;
+    const ssmParamArn = (paramName: string) => `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter${paramName}`;
+    const gaApiSecretParamArn = ssmParamArn(gaApiSecretParamName);
+    const cloudFrontOriginAuthParamArn = ssmParamArn(cloudFrontOriginAuthParamName);
+    const agentAuthParamArn = ssmParamArn(agentAuthParamName);
 
 
     // Environment variables for Rails REST API container
@@ -81,6 +96,10 @@ export class HttpApiConstruct extends Construct {
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password'),
+      GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
+      GA_API_SECRET_PARAM: gaApiSecretParamName,
+      CLOUDFRONT_ORIGIN_AUTH_PARAM: cloudFrontOriginAuthParamName,
+      SCHENGEN_AGENT_AUTH_PARAM: agentAuthParamName,
       DOMAIN: customDomain
     };
 
@@ -106,6 +125,26 @@ export class HttpApiConstruct extends Construct {
       tracing: lambda.Tracing.ACTIVE,
     });
 
+    apiFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['ssm:GetParameter'],
+      resources: [
+        gaApiSecretParamArn,
+        cloudFrontOriginAuthParamArn,
+        agentAuthParamArn,
+      ]
+    }));
+
+    opsFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['ssm:GetParameter'],
+      resources: [
+        gaApiSecretParamArn,
+        cloudFrontOriginAuthParamArn,
+        agentAuthParamArn,
+      ]
+    }));
+
     // Grant Lambda permission to read the deployment timestamp from Parameter Store
     apiFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
@@ -125,8 +164,26 @@ export class HttpApiConstruct extends Construct {
       }),
     });
 
+    const mcp = new McpLambdaConstruct(this, 'Mcp', {
+      domain: customDomain,
+      agentAuthParamName,
+      agentAuthParamArn,
+      cloudFrontOriginAuthParamName,
+      cloudFrontOriginAuthParamArn,
+      googleAnalyticsApiSecretParamName: gaApiSecretParamName,
+      googleAnalyticsApiSecretParamArn: gaApiSecretParamArn,
+    });
+
     const sslCertificateArn = props.sslArn;
-    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
+    const originCustomHeaders = {
+      'X-Schengen-Origin-Auth': cloudFrontOriginAuthHeader,
+    };
+    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
+      customHeaders: originCustomHeaders,
+    });
+    const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
+      customHeaders: originCustomHeaders,
+    });
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 
@@ -134,7 +191,8 @@ export class HttpApiConstruct extends Construct {
         'Access-Control-Request-Headers',
         'Accept',
         'X-Requested-With',
-        'Referer'
+        'Referer',
+        'X-Schengen-Client-Ip'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
@@ -148,10 +206,40 @@ export class HttpApiConstruct extends Construct {
         'Access-Control-Request-Headers',
         'Accept',
         'X-Requested-With',
-        'Referer'
+        'Referer',
+        'X-Schengen-Client-Ip'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+    })
+
+    // Dedicated policy for the public calculation API. It forwards the private
+    // MCP-to-Rails headers without pushing the general/auth policies over the
+    // CloudFront header allow-list quota.
+    const agentApiOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "agentApiRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Origin',
+        'Access-Control-Request-Method',
+        'Access-Control-Request-Headers',
+        'X-Schengen-Client-Ip',
+        'X-Schengen-Agent-Source',
+        'X-Schengen-Agent-Auth',
+        'X-Schengen-Agent-Client-Id'
+      ),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
+    })
+
+    const mcpOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "mcpRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Accept',
+        'Content-Type',
+        'Mcp-Protocol-Version',
+        'Mcp-Session-Id',
+        'X-Schengen-Client-Ip'
+      ),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     })
 
     const customCacheCountryGuestKey = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
@@ -266,6 +354,24 @@ export class HttpApiConstruct extends Construct {
       // This prevents redirect chain issues on mobile browsers during OAuth
     };
 
+    const agentApiBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: agentApiOriginRequestPolicy,
+      functionAssociations
+    };
+
+    const mcpBehavior = {
+      origin: mcpOrigin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: mcpOriginRequestPolicy,
+      functionAssociations
+    };
+
     const cloudfrontDist = new cloudfront.Distribution(this, `schengen-calculator`, {
       certificate: certificate.Certificate.fromCertificateArn(this, "sslCertificate", sslCertificateArn),
       domainNames: [customDomain, altDomain],
@@ -280,6 +386,8 @@ export class HttpApiConstruct extends Construct {
         functionAssociations
       },
       additionalBehaviors: {
+        "/mcp*": mcpBehavior,
+        "/api/v1/calculations*": agentApiBehavior,
         "/users/*": authFlowBehavior,
         "/*/users/*": authFlowBehavior,
         "assets/*": publicAssetsCacheBehavior,
@@ -298,6 +406,7 @@ export class HttpApiConstruct extends Construct {
         "/robots.txt": publicSeoDocsCacheBehavior,
         "/llms.txt": publicSeoDocsCacheBehavior,
         "/llms-full.txt": publicSeoDocsCacheBehavior,
+        "/openapi.json": publicSeoDocsCacheBehavior,
         "/sitemap*": publicSeoDocsCacheBehavior,
         "/favicon.ico": publicAssetsCacheBehavior,
         "/med.png": publicAssetsCacheBehavior,

@@ -32,6 +32,11 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.ref }}
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20.18.0'
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3.6'
@@ -74,3 +79,14 @@ jobs:
           RAILS_ENV: test
           CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
           CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}
+
+      - name: Run MCP server tests
+        run: python3 -m unittest discover -s mcp-server/tests
+
+      - name: Install CDK dependencies
+        run: npm ci
+        working-directory: deployment
+
+      - name: Build CDK
+        run: npm run build
+        working-directory: deployment

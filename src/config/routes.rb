@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'openapi.json', to: 'api/docs#openapi', defaults: { format: :json }
+
+  namespace :api do
+    get 'docs', to: 'docs#show'
+
+    namespace :v1 do
+      resources :calculations, only: [:create]
+    end
+  end
+
+  get 'calculations/:token', to: 'calculation_links#show', as: :calculation_link
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     root 'about#about'

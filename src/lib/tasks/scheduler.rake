@@ -11,16 +11,17 @@ namespace :db do
     puts 'Number of Visits:' + Visit.count.to_s
     puts 'Number of Visas: ' + Visa.count.to_s
 
-    args.with_defaults(:limit_date => Time.now - 7.days, :max_batches => nil)
+    args.with_defaults(:limit_date => Time.now - 30.days, :max_batches => nil)
     
     max_batches = args.max_batches ? args.max_batches.to_i : nil
     batches_processed = 0
     deleted_count = 0
     remaining_count = 0
+    expired_rate_limits_deleted = 0
 
     ActiveRecord::Base.transaction do
       begin 
-        # delete all guest users over 7 days old or up to the limit_date passed in.
+        # delete all guest users over 30 days old or up to the limit_date passed in.
         User.where("updated_at <= :limit AND guest=:istrue", { limit: args.limit_date, istrue: true }).select(:id).find_in_batches(batch_size: 100) do | ids |
           # For guest users, we bypass the prevent_last_person_deletion callback
           # by deleting people and their associations directly without callbacks
@@ -51,12 +52,16 @@ namespace :db do
         puts 'Number of user accounts: ' + User.count.to_s
         puts 'Number of Visits:' + Visit.count.to_s
         puts 'Number of Visas: ' + Visa.count.to_s
+        expired_rate_limits_deleted = ApiRateLimit.table_exists? ? ApiRateLimit.delete_expired! : 0
+        puts "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
+        Rails.logger.info "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
         
         # Store stats in temp file for controller to read
         stats = {
           deleted: deleted_count,
           batches: batches_processed,
-          remaining: remaining_count
+          remaining: remaining_count,
+          expired_rate_limits_deleted: expired_rate_limits_deleted
         }
         File.write('/tmp/guest_cleanup_stats.json', stats.to_json)
         

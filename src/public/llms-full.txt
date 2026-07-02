@@ -1,9 +1,54 @@
 # Schengen Calculator: Full LLM Context
 
-Last reviewed: 2026-05-30
+Last reviewed: 2026-07-01
 Canonical domain: https://schengen-calculator.com
 
 Schengen Calculator is a free independent web tool for tracking short-stay travel in the Schengen Area. It helps users record entry and exit dates, identify which trips count toward the Schengen Area, calculate used and remaining days under the 90/180-day rule, and plan possible return dates. It is not an official government or European Union service and does not provide legal advice.
+
+## Programmatic Agent Use
+
+Agents and other programmatic clients should prefer the API over driving the web UI when creating a calculation for a user.
+
+- API documentation: https://schengen-calculator.com/api/docs
+- OpenAPI schema: https://schengen-calculator.com/openapi.json
+- MCP endpoint: https://schengen-calculator.com/mcp
+- Recommended endpoint: `POST /api/v1/calculations`
+
+The calculation endpoint accepts traveler details and trips, creates a guest calculation, returns structured Schengen results, and includes a website URL where the user can view the saved calculation.
+
+After creating a calculation, always show the returned `web_url` or `claim_url` to the user so they can check, review, edit, or save the calculation on Schengen Calculator. Do not only summarize the result.
+
+MCP-capable agents may connect to the hosted MCP endpoint and call the `create_schengen_calculation` tool. The MCP tool wraps the same public API endpoint; Rails remains the source of truth for creating guest calculations and computing results.
+
+## Agent Input Format
+
+Use uppercase ISO 3166-1 alpha-2 country codes only. Do not send country names, city names, or demonyms. For example, use `US` for an American traveller, `GB` for a British traveller, `FR` for France, and `DE` for Germany. Dates must be `YYYY-MM-DD`; both entry and exit dates count as Schengen days when the visited country is in Schengen.
+
+Working example:
+
+```json
+{
+  "user": {
+    "first_name": "Sam",
+    "last_name": "Traveler",
+    "nationality": "US"
+  },
+  "trips": [
+    {
+      "country_code": "FR",
+      "entry_date": "2026-07-01",
+      "exit_date": "2026-07-10"
+    },
+    {
+      "country_code": "DE",
+      "entry_date": "2026-08-01",
+      "exit_date": "2026-08-15"
+    }
+  ]
+}
+```
+
+For MCP clients, call `list_supported_countries` or read the `schengen://supported-countries` resource before creating a calculation. The lookup returns `code`, `name`, `nationality`, and `schengen` so an agent can map inputs like "American" to `US` or "Germany" to `DE`; if a city or demonym cannot be mapped confidently, ask the user to clarify.
 
 ## What The Site Is Useful For
 

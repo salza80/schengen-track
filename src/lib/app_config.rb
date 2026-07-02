@@ -42,6 +42,22 @@ class AppConfig
       fetch_optional('TASK_PASSWORD')
     end
 
+    def google_analytics_measurement_id
+      fetch_optional('GA_MEASUREMENT_ID') || 'G-E9CCZDHLJF'
+    end
+
+    def google_analytics_api_secret
+      fetch_optional('GA_API_SECRET') || fetch_ssm_parameter('GA_API_SECRET_PARAM')
+    end
+
+    def cloudfront_origin_auth_header
+      fetch_optional('CLOUDFRONT_ORIGIN_AUTH_HEADER') || fetch_ssm_parameter('CLOUDFRONT_ORIGIN_AUTH_PARAM')
+    end
+
+    def schengen_agent_auth_header
+      fetch_optional('SCHENGEN_AGENT_AUTH_HEADER') || fetch_ssm_parameter('SCHENGEN_AGENT_AUTH_PARAM')
+    end
+
     private
 
     def fetch_required(key)
@@ -53,7 +69,30 @@ class AppConfig
     end
 
     def fetch_optional(key)
-      ENV[key]
+      value = ENV[key]
+      value unless value.nil? || value.empty?
+    end
+
+    def fetch_ssm_parameter(env_key)
+      param_name = fetch_optional(env_key)
+      return unless param_name
+
+      @ssm_parameter_cache ||= {}
+      return @ssm_parameter_cache[param_name] if @ssm_parameter_cache.key?(param_name)
+
+      require 'aws-sdk-ssm'
+
+      response = Aws::SSM::Client.new(
+        region: aws_region
+      ).get_parameter(name: param_name, with_decryption: true)
+
+      @ssm_parameter_cache[param_name] = response.parameter.value
+    rescue StandardError
+      nil
+    end
+
+    def aws_region
+      ENV['AWS_REGION'] || ENV['AWS_DEFAULT_REGION'] || 'us-east-1'
     end
   end
 end

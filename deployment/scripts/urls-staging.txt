@@ -7,6 +7,7 @@ test.schengen-calculator.com/favicon.ico
 test.schengen-calculator.com/robots.txt
 test.schengen-calculator.com/llms.txt
 test.schengen-calculator.com/llms-full.txt
+test.schengen-calculator.com/openapi.json
 test.schengen-calculator.com/ads.txt
 test.schengen-calculator.com/blog/extended-schengen-stay
 test.schengen-calculator.com/en

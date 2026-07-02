@@ -1,17 +1,20 @@
-// a couldfront function to rewrite from altDomain to targetDomain
+// a CloudFront function to rewrite from altDomain to targetDomain
 export function createRedirectFunction(altDomain: string, targetDomain: string): string {
   return `
     function handler(event) {
       var request = event.request;
       var headers = request.headers;
       var host = headers.host.value;
+      if (event.viewer && event.viewer.ip) {
+        headers['x-schengen-client-ip'] = { value: event.viewer.ip };
+      }
 
       // Check if the request is coming from altDomain
       if (host === '${altDomain}') {
         // Redirect to targetDomain
         return {
           statusCode: 301,
-          statusDescription: 'Permanantly Moved',
+          statusDescription: 'Permanently Moved',
           headers: 
           { "location": { "value": 'https://${targetDomain}' + request.uri }}
         };

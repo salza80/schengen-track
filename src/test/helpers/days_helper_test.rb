@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'ostruct'
 
 class DaysHelperTest < ActionView::TestCase
   include DaysHelper

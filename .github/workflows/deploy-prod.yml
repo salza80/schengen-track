@@ -15,6 +15,9 @@ jobs:
 
   deploy:
     needs: tests
+    permissions:
+      contents: read
+      id-token: write
     uses: ./.github/workflows/deploy-app.yml
     with:
       stack_name: SchengTrackProd

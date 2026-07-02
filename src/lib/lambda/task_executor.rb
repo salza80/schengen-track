@@ -103,7 +103,7 @@ module Lambda
         yield
       ensure
         reset_database_timeouts
-        ActiveRecord::Base.clear_active_connections!
+        clear_active_record_connections
         ActiveRecord::Base.connection_pool.disconnect! if ActiveRecord::Base.connected?
         if previous_pgoptions.nil?
           ENV.delete('PGOPTIONS')
@@ -128,7 +128,15 @@ module Lambda
           sleep_seconds = attempt * 5
           log_task_message("Retrying database migrations in #{sleep_seconds} seconds")
           sleep sleep_seconds
+          clear_active_record_connections
+        end
+      end
+
+      def clear_active_record_connections
+        if ActiveRecord::Base.respond_to?(:clear_active_connections!)
           ActiveRecord::Base.clear_active_connections!
+        else
+          ActiveRecord::Base.connection_handler.clear_active_connections!
         end
       end
 

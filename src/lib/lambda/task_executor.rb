@@ -39,24 +39,24 @@ module Lambda
         params = event['params'] || {}
         limit_date = params['limit_date']
         max_batches = params['max_batches']
-        run_rake('db:guest_cleanup', limit_date, max_batches)
         stats_file = '/tmp/guest_cleanup_stats.json'
 
-        stats = if File.exist?(stats_file)
-          JSON.parse(File.read(stats_file))
-        end
-
         File.delete(stats_file) if File.exist?(stats_file)
-        payload = { success: true }
-        payload[:stats] = stats if stats
-        payload
+        run_rake('db:guest_cleanup', limit_date, max_batches)
+
+        raise "Guest cleanup completed without writing stats to #{stats_file}" unless File.exist?(stats_file)
+
+        stats = JSON.parse(File.read(stats_file))
+        { success: true, stats: stats }
+      ensure
+        File.delete(stats_file) if stats_file && File.exist?(stats_file)
       end
 
       def run_rake(task_name, *args)
         load_rake_tasks
         task = Rake::Task[task_name]
         task.reenable
-        args.compact!
+        args.pop while args.last.nil?
         task.invoke(*args)
       end
 

@@ -116,14 +116,16 @@ jobs:
             /tmp/guest-cleanup.json >/tmp/guest-cleanup.log
           cat /tmp/guest-cleanup.json
           jq -e '.body | fromjson | select(.success == true)' /tmp/guest-cleanup.json >/dev/null
-          stats=$(jq -r '.body | fromjson | .stats // empty' /tmp/guest-cleanup.json)
-          if [ -n "$stats" ]; then
-            deleted=$(echo "$stats" | jq -r '.deleted // 0')
-            batches=$(echo "$stats" | jq -r '.batches // 0')
-            remaining=$(echo "$stats" | jq -r '.remaining // 0')
-            echo "Deleted: $deleted users in $batches batches"
-            echo "Remaining: $remaining"
-          fi
+          stats=$(jq -c -e '.body | fromjson | .stats' /tmp/guest-cleanup.json)
+          echo "Guest cleanup stats:"
+          echo "$stats" | jq .
+          deleted=$(echo "$stats" | jq -r '.deleted // 0')
+          batches=$(echo "$stats" | jq -r '.batches // 0')
+          remaining=$(echo "$stats" | jq -r '.remaining // 0')
+          expired_rate_limits_deleted=$(echo "$stats" | jq -r '.expired_rate_limits_deleted // 0')
+          echo "Deleted: $deleted guest users in $batches batches"
+          echo "Remaining old guest users: $remaining"
+          echo "Deleted expired API rate limit rows: $expired_rate_limits_deleted"
 
   cacheInvalidate:
     runs-on: ubuntu-latest

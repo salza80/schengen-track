@@ -1,5 +1,8 @@
 //= link_tree ../images
 //= link application.js
 //= link application.css
-//= link_directory ../javascripts .js
-//= link_directory ../stylesheets .css
+//= link core.js
+//= link calendar_bundle.js
+//= link visits_bundle.js
+//= link calendar.css
+//= link blog.css

@@ -30,7 +30,10 @@ jobs:
 
   deploy:
     needs: tests
-    if: github.actor != 'dependabot[bot]'
+    if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    permissions:
+      contents: read
+      id-token: write
     uses: ./.github/workflows/deploy-app.yml
     with:
       stack_name: RailsLambdaStack

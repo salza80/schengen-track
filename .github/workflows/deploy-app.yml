@@ -20,6 +20,10 @@ on:
 
 permissions:
   contents: read
+  id-token: write
+
+env:
+  AWS_ROLE_ARN: arn:aws:iam::360298971790:role/sst3-template-deploy
 
 jobs:
   deploy:
@@ -34,12 +38,13 @@ jobs:
         with:
           node-version-file: deployment/.nvmrc
 
-      - name: Setup AWS CLI
-        uses: ./.github/actions/setup-aws-cli
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-default-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-session-name: schengen-track-deploy-${{ github.run_id }}
+          mask-aws-account-id: true
 
       - name: Install CDK
         run: npm install -g aws-cdk@2.1129.0
@@ -91,12 +96,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7.0.0
 
-      - name: Setup AWS CLI
-        uses: ./.github/actions/setup-aws-cli
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-default-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          role-session-name: schengen-track-cache-${{ github.run_id }}
+          mask-aws-account-id: true
 
       - name: Set deployment timestamp
         run: |

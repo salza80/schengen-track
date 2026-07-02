@@ -75,10 +75,10 @@ export class HttpApiConstruct extends Construct {
         excludePunctuation: true,
       },
     });
-    const cloudFrontOriginAuthHeader = cloudFrontOriginAuthSecret.secretValue.unsafeUnwrap();
-    const agentAuthHeader = agentAuthSecret.secretValue.unsafeUnwrap();
+    const cloudFrontOriginAuthHeader = cloudFrontOriginAuthSecret.secretValue.toString();
+    const agentAuthHeader = agentAuthSecret.secretValue.toString();
     const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
-      code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain, cloudFrontOriginAuthHeader))
+      code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain))
     });
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
@@ -164,8 +164,15 @@ export class HttpApiConstruct extends Construct {
     });
 
     const sslCertificateArn = props.sslArn;
-    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
-    const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
+    const originCustomHeaders = {
+      'X-Schengen-Origin-Auth': cloudFrontOriginAuthHeader,
+    };
+    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
+      customHeaders: originCustomHeaders,
+    });
+    const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
+      customHeaders: originCustomHeaders,
+    });
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 
@@ -174,8 +181,7 @@ export class HttpApiConstruct extends Construct {
         'Accept',
         'X-Requested-With',
         'Referer',
-        'X-Schengen-Client-Ip',
-        'X-Schengen-Origin-Auth'
+        'X-Schengen-Client-Ip'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
@@ -190,8 +196,7 @@ export class HttpApiConstruct extends Construct {
         'Accept',
         'X-Requested-With',
         'Referer',
-        'X-Schengen-Client-Ip',
-        'X-Schengen-Origin-Auth'
+        'X-Schengen-Client-Ip'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
@@ -206,7 +211,6 @@ export class HttpApiConstruct extends Construct {
         'Access-Control-Request-Method',
         'Access-Control-Request-Headers',
         'X-Schengen-Client-Ip',
-        'X-Schengen-Origin-Auth',
         'X-Schengen-Agent-Source',
         'X-Schengen-Agent-Auth',
         'X-Schengen-Agent-Client-Id'
@@ -221,8 +225,7 @@ export class HttpApiConstruct extends Construct {
         'Content-Type',
         'Mcp-Protocol-Version',
         'Mcp-Session-Id',
-        'X-Schengen-Client-Ip',
-        'X-Schengen-Origin-Auth'
+        'X-Schengen-Client-Ip'
       ),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),

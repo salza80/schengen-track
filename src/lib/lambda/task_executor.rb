@@ -97,10 +97,19 @@ module Lambda
       end
 
       def with_database_timeouts
+        previous_pgoptions = ENV['PGOPTIONS']
+        ENV['PGOPTIONS'] = postgres_migration_options(previous_pgoptions)
+        ActiveRecord::Base.connection_pool.disconnect! if ActiveRecord::Base.connected?
         yield
       ensure
         reset_database_timeouts
         ActiveRecord::Base.clear_active_connections!
+        ActiveRecord::Base.connection_pool.disconnect! if ActiveRecord::Base.connected?
+        if previous_pgoptions.nil?
+          ENV.delete('PGOPTIONS')
+        else
+          ENV['PGOPTIONS'] = previous_pgoptions
+        end
       end
 
       def with_migration_retries
@@ -130,6 +139,10 @@ module Lambda
         connection.execute("SET lock_timeout = '10s'")
         connection.execute("SET statement_timeout = '120s'")
         log_task_message('Configured migration lock_timeout=10s and statement_timeout=120s')
+      end
+
+      def postgres_migration_options(previous_pgoptions)
+        [previous_pgoptions, '-c lock_timeout=10s -c statement_timeout=120s'].compact.join(' ')
       end
 
       def reset_database_timeouts

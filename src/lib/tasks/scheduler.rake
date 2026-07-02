@@ -1,6 +1,6 @@
 namespace :db do
   desc 'Remove guest accounts.'
-  task :guest_cleanup, [:limit_date, :max_batches] => :environment do | t, args |
+  task :guest_cleanup, [:limit_date, :max_batches, :stats_file] => :environment do | t, args |
     Rails.logger.info 'begin guest cleanup ' + Time.now.to_s
     Rails.logger.info 'Number of user accounts: ' + User.count.to_s
     Rails.logger.info 'Number of Visits: ' + Visit.count.to_s
@@ -11,10 +11,11 @@ namespace :db do
     puts 'Number of Visits:' + Visit.count.to_s
     puts 'Number of Visas: ' + Visa.count.to_s
 
-    args.with_defaults(:limit_date => Time.now - 30.days, :max_batches => nil)
+    args.with_defaults(:limit_date => Time.now - 30.days, :max_batches => nil, :stats_file => '/tmp/guest_cleanup_stats.json')
 
     limit_date = args.limit_date.presence || Time.now - 30.days
     max_batches = args.max_batches.present? ? args.max_batches.to_i : nil
+    stats_file = args.stats_file.presence || '/tmp/guest_cleanup_stats.json'
     batches_processed = 0
     deleted_count = 0
     remaining_count = 0
@@ -79,7 +80,7 @@ namespace :db do
           remaining: remaining_count,
           expired_rate_limits_deleted: expired_rate_limits_deleted
         }
-        File.write('/tmp/guest_cleanup_stats.json', stats.to_json)
+        File.write(stats_file, stats.to_json)
       end
     ensure
       if lock_acquired == true || lock_acquired.to_s == 't'

@@ -1,4 +1,5 @@
 require 'rake'
+require 'securerandom'
 
 class TasksController < ApplicationController
   before_action :authenticate_token, only: [:migrate, :create, :seed, :update_countries, :guest_cleanup, :unlock_migrations, :fix_people_migration, :unlock_and_migrate]
@@ -89,13 +90,12 @@ class TasksController < ApplicationController
   end
 
   def guest_cleanup
-    stats_file = '/tmp/guest_cleanup_stats.json'
-    File.delete(stats_file) if File.exist?(stats_file)
+    stats_file = guest_cleanup_stats_file
 
     max_batches = parse_positive_integer_param(params[:max_batches])
     return render json: { success: false, error: 'max_batches must be a positive integer' }, status: :unprocessable_entity if params[:max_batches].present? && max_batches.nil?
 
-    run_guest_cleanup_rake(max_batches)
+    run_guest_cleanup_rake(max_batches, stats_file)
     @success = true
 
     if File.exist?(stats_file)
@@ -111,17 +111,25 @@ class TasksController < ApplicationController
       @success = false
       render_json_response
     end
+  rescue => e
+    Rails.logger.error("Guest cleanup failed: #{e.class}: #{e.message}")
+    @success = false
+    render json: { success: false, error: e.message }, status: :internal_server_error
   ensure
     File.delete(stats_file) if stats_file && File.exist?(stats_file)
   end
 
   private 
 
-  def run_guest_cleanup_rake(max_batches)
+  def run_guest_cleanup_rake(max_batches, stats_file)
     Rails.application.load_tasks unless Rake::Task.task_defined?('db:guest_cleanup')
     task = Rake::Task['db:guest_cleanup']
     task.reenable
-    task.invoke(nil, max_batches)
+    task.invoke(nil, max_batches, stats_file)
+  end
+
+  def guest_cleanup_stats_file
+    "/tmp/guest_cleanup_stats_#{SecureRandom.uuid}.json"
   end
 
   def parse_positive_integer_param(value)

@@ -2,6 +2,7 @@
 
 require 'json'
 require 'rake'
+require 'securerandom'
 
 module Lambda
   class TaskExecutor
@@ -59,10 +60,9 @@ module Lambda
         params = event['params'] || {}
         limit_date = params['limit_date']
         max_batches = params['max_batches']
-        stats_file = '/tmp/guest_cleanup_stats.json'
+        stats_file = guest_cleanup_stats_file
 
-        File.delete(stats_file) if File.exist?(stats_file)
-        run_rake('db:guest_cleanup', limit_date, max_batches)
+        run_rake('db:guest_cleanup', limit_date, max_batches, stats_file)
 
         raise "Guest cleanup completed without writing stats to #{stats_file}" unless File.exist?(stats_file)
 
@@ -78,6 +78,10 @@ module Lambda
         task.reenable
         args.pop while args.last.nil?
         task.invoke(*args)
+      end
+
+      def guest_cleanup_stats_file
+        "/tmp/guest_cleanup_stats_#{SecureRandom.uuid}.json"
       end
 
       def load_rake_tasks

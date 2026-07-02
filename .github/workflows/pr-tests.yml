@@ -4,6 +4,12 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - "src/**"
+      - "deployment/**"
+      - "mcp-server/**"
+      - ".github/workflows/pr-tests.yml"
+      - ".github/workflows/test-suite.yml"
 
 jobs:
   tests:

@@ -1,0 +1,59 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/src"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ruby"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    groups:
+      rails:
+        patterns:
+          - "rails"
+          - "action*"
+          - "active*"
+          - "railties"
+      security-constraints:
+        patterns:
+          - "rack"
+          - "rails-html-sanitizer"
+          - "nokogiri"
+          - "net-imap"
+          - "uri"
+          - "webrick"
+          - "thor"
+
+  - package-ecosystem: "npm"
+    directory: "/deployment"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "node"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    groups:
+      aws-cdk:
+        patterns:
+          - "aws-cdk"
+          - "aws-cdk-lib"
+          - "cdk"
+          - "@aws-cdk/*"
+          - "constructs"
+      typescript-tooling:
+        patterns:
+          - "typescript"
+          - "ts-jest"
+          - "ts-node"
+          - "@types/*"
+      test-tooling:
+        patterns:
+          - "jest"
+          - "@jest/*"

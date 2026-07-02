@@ -28,32 +28,32 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7.0.0
         with:
           ref: ${{ inputs.ref || github.ref }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6.4.0
         with:
-          node-version: '20.18.0'
+          node-version-file: deployment/.nvmrc
 
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1.310.0
         with:
           ruby-version: '3.3.6'
           bundler-cache: true
           working-directory: src
 
-      - name: Install Chrome and ChromeDriver for Selenium tests
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v2
-        with:
-          chrome-version: stable
-          install-chromedriver: true
-        
-      - name: Verify Chrome setup
+      - name: Configure Chrome for Selenium tests
         run: |
-          "${{ steps.setup-chrome.outputs.chrome-path }}" --version
-          "${{ steps.setup-chrome.outputs.chromedriver-path }}" --version
+          chrome_bin="$(command -v google-chrome || command -v google-chrome-stable)"
+          chromedriver_bin="${CHROMEWEBDRIVER:-}/chromedriver"
+          if [ ! -x "$chromedriver_bin" ]; then
+            chromedriver_bin="$(command -v chromedriver)"
+          fi
+          echo "CHROME_BIN=${chrome_bin}" >> "$GITHUB_ENV"
+          echo "CHROMEDRIVER_PATH=${chromedriver_bin}" >> "$GITHUB_ENV"
+          "${chrome_bin}" --version
+          "${chromedriver_bin}" --version
 
       - run: bundle exec rails db:create
         working-directory: src
@@ -77,8 +77,6 @@ jobs:
         env:
           CI: true
           RAILS_ENV: test
-          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
-          CHROMEDRIVER_PATH: ${{ steps.setup-chrome.outputs.chromedriver-path }}
 
       - name: Run MCP server tests
         run: python3 -m unittest discover -s mcp-server/tests

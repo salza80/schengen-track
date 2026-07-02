@@ -13,7 +13,7 @@ Install dependencies with:
 
 ```bash
 nvm use
-npm install
+npm ci
 ```
 
 ## Stacks

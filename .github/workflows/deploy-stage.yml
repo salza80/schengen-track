@@ -4,9 +4,21 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "src/**"
+      - "deployment/**"
+      - "mcp-server/**"
+      - ".github/workflows/deploy-stage.yml"
+      - ".github/workflows/test-suite.yml"
   pull_request:
     branches:
       - master
+    paths:
+      - "src/**"
+      - "deployment/**"
+      - "mcp-server/**"
+      - ".github/workflows/deploy-stage.yml"
+      - ".github/workflows/test-suite.yml"
 
 concurrency:
   group: deploy-staging-${{ github.ref }}

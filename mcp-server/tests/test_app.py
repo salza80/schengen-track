@@ -1,4 +1,5 @@
 import importlib
+import hashlib
 import json
 import os
 import sys
@@ -18,7 +19,9 @@ class AppTest(unittest.TestCase):
     def setUp(self):
         os.environ.pop("SCHENGEN_API_BASE_URL", None)
         os.environ.pop("SCHENGEN_AGENT_AUTH_HEADER", None)
+        os.environ.pop("SCHENGEN_AGENT_AUTH_PARAM", None)
         os.environ.pop("CLOUDFRONT_ORIGIN_AUTH_HEADER", None)
+        os.environ.pop("CLOUDFRONT_ORIGIN_AUTH_PARAM", None)
         os.environ.pop("SCHENGEN_MCP_MAX_REQUEST_BYTES", None)
         os.environ.pop("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", None)
         os.environ.pop("GA_MEASUREMENT_ID", None)
@@ -189,6 +192,51 @@ class AppTest(unittest.TestCase):
         self.assertEqual("agent-secret", captured["headers"]["x-schengen-agent-auth"])
         self.assertTrue(captured["headers"]["x-schengen-agent-client-id"])
 
+    def test_create_schengen_calculation_reads_agent_auth_from_ssm_parameter(self):
+        os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_AGENT_AUTH_PARAM"] = "/scheng/test/schengen_agent_auth_header"
+        captured = {}
+
+        class FakeSsmClient:
+            def get_parameter(self, Name, WithDecryption):
+                self.request = {"Name": Name, "WithDecryption": WithDecryption}
+                return {"Parameter": {"Value": "agent-secret-from-ssm"}}
+
+        fake_client = FakeSsmClient()
+        fake_boto3 = types.SimpleNamespace(client=lambda service: fake_client)
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, _type, _value, _traceback):
+                return None
+
+            def read(self):
+                return json.dumps({
+                    "status": "safe",
+                    "summary": "Created.",
+                    "web_url": "https://example.test/en/days",
+                    "trips": [],
+                }).encode("utf-8")
+
+        def fake_urlopen(request, timeout):
+            captured["headers"] = {key.lower(): value for key, value in request.header_items()}
+            return FakeResponse()
+
+        with mock.patch.dict(sys.modules, {"boto3": fake_boto3}):
+            with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+                self.app.create_schengen_calculation(
+                    user={"first_name": "Sam", "nationality": "US"},
+                    trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
+                )
+
+        self.assertEqual(
+            {"Name": "/scheng/test/schengen_agent_auth_header", "WithDecryption": True},
+            fake_client.request,
+        )
+        self.assertEqual("agent-secret-from-ssm", captured["headers"]["x-schengen-agent-auth"])
+
     def test_tool_call_forwards_original_mcp_client_id_to_rails(self):
         os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
         os.environ["SCHENGEN_AGENT_AUTH_HEADER"] = "agent-secret"
@@ -285,6 +333,38 @@ class AppTest(unittest.TestCase):
         self.assertEqual(
             self.app.client_id_for_event(untrusted_event),
             self.app.client_id_for_event(json_rpc_event("tools/list", {}, source_ip="198.51.100.9")),
+        )
+
+    def test_client_id_reads_cloudfront_origin_auth_from_ssm_parameter(self):
+        os.environ["CLOUDFRONT_ORIGIN_AUTH_PARAM"] = "/scheng/test/cloudfront_origin_auth_header"
+
+        class FakeSsmClient:
+            def get_parameter(self, Name, WithDecryption):
+                self.request = {"Name": Name, "WithDecryption": WithDecryption}
+                return {"Parameter": {"Value": "origin-secret-from-ssm"}}
+
+        fake_client = FakeSsmClient()
+        fake_boto3 = types.SimpleNamespace(client=lambda service: fake_client)
+        event = json_rpc_event(
+            "tools/list",
+            {},
+            headers={
+                "X-Schengen-Origin-Auth": "origin-secret-from-ssm",
+                "X-Schengen-Client-Ip": "203.0.113.7",
+            },
+            source_ip="198.51.100.9",
+        )
+
+        with mock.patch.dict(sys.modules, {"boto3": fake_boto3}):
+            client_id = self.app.client_id_for_event(event)
+
+        self.assertEqual(
+            {"Name": "/scheng/test/cloudfront_origin_auth_header", "WithDecryption": True},
+            fake_client.request,
+        )
+        self.assertEqual(
+            hashlib.sha256("cloudfront:203.0.113.7".encode("utf-8")).hexdigest()[:32],
+            client_id,
         )
 
     def test_lambda_handler_rejects_large_mcp_request_before_parsing(self):

@@ -50,6 +50,14 @@ class AppConfig
       fetch_optional('GA_API_SECRET') || fetch_ssm_parameter('GA_API_SECRET_PARAM')
     end
 
+    def cloudfront_origin_auth_header
+      fetch_optional('CLOUDFRONT_ORIGIN_AUTH_HEADER') || fetch_ssm_parameter('CLOUDFRONT_ORIGIN_AUTH_PARAM')
+    end
+
+    def schengen_agent_auth_header
+      fetch_optional('SCHENGEN_AGENT_AUTH_HEADER') || fetch_ssm_parameter('SCHENGEN_AGENT_AUTH_PARAM')
+    end
+
     private
 
     def fetch_required(key)
@@ -75,12 +83,16 @@ class AppConfig
       require 'aws-sdk-ssm'
 
       response = Aws::SSM::Client.new(
-        region: ENV['AWS_REGION'] || ENV['AWS_DEFAULT_REGION'] || 'us-east-1'
+        region: aws_region
       ).get_parameter(name: param_name, with_decryption: true)
 
       @ssm_parameter_cache[param_name] = response.parameter.value
     rescue StandardError
       nil
+    end
+
+    def aws_region
+      ENV['AWS_REGION'] || ENV['AWS_DEFAULT_REGION'] || 'us-east-1'
     end
   end
 end

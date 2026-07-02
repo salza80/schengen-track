@@ -9,8 +9,10 @@ import * as path from 'path';
 
 export interface McpLambdaConstructProps {
   domain: string;
-  agentAuthHeader: string;
-  cloudFrontOriginAuthHeader: string;
+  agentAuthParamName: string;
+  agentAuthParamArn: string;
+  cloudFrontOriginAuthParamName: string;
+  cloudFrontOriginAuthParamArn: string;
   googleAnalyticsApiSecretParamName: string;
   googleAnalyticsApiSecretParamArn: string;
 }
@@ -43,8 +45,8 @@ export class McpLambdaConstruct extends Construct {
       }),
       environment: {
         SCHENGEN_API_BASE_URL: `https://${props.domain}`,
-        SCHENGEN_AGENT_AUTH_HEADER: props.agentAuthHeader,
-        CLOUDFRONT_ORIGIN_AUTH_HEADER: props.cloudFrontOriginAuthHeader,
+        SCHENGEN_AGENT_AUTH_PARAM: props.agentAuthParamName,
+        CLOUDFRONT_ORIGIN_AUTH_PARAM: props.cloudFrontOriginAuthParamName,
         SCHENGEN_MCP_MAX_REQUEST_BYTES: '65536',
         SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS: '10',
         GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
@@ -57,7 +59,11 @@ export class McpLambdaConstruct extends Construct {
     this.function.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: ['ssm:GetParameter'],
-      resources: [props.googleAnalyticsApiSecretParamArn],
+      resources: [
+        props.googleAnalyticsApiSecretParamArn,
+        props.agentAuthParamArn,
+        props.cloudFrontOriginAuthParamArn,
+      ],
     }));
 
     this.httpApi = new apigwv2.HttpApi(this, 'HttpApi', {

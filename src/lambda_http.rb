@@ -20,7 +20,7 @@ def client_ip_from(http, request_headers)
 end
 
 def trusted_cloudfront_request?(request_headers)
-  expected = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
+  expected = AppConfig.cloudfront_origin_auth_header
   return false if expected.to_s.empty?
 
   provided = (request_headers['x-schengen-origin-auth'] || request_headers['X-Schengen-Origin-Auth']).to_s

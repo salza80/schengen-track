@@ -6,30 +6,28 @@ class AppConfigTest < ActiveSupport::TestCase
     @original_ga_measurement_id = ENV['GA_MEASUREMENT_ID']
     @original_ga_api_secret = ENV['GA_API_SECRET']
     @original_ga_api_secret_param = ENV['GA_API_SECRET_PARAM']
+    @original_cloudfront_origin_auth_header = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
+    @original_cloudfront_origin_auth_param = ENV['CLOUDFRONT_ORIGIN_AUTH_PARAM']
+    @original_schengen_agent_auth_header = ENV['SCHENGEN_AGENT_AUTH_HEADER']
+    @original_schengen_agent_auth_param = ENV['SCHENGEN_AGENT_AUTH_PARAM']
     ENV.delete('GA_MEASUREMENT_ID')
     ENV.delete('GA_API_SECRET')
     ENV['GA_API_SECRET_PARAM'] = '/scheng/test/ga_api_secret'
+    ENV.delete('CLOUDFRONT_ORIGIN_AUTH_HEADER')
+    ENV.delete('CLOUDFRONT_ORIGIN_AUTH_PARAM')
+    ENV.delete('SCHENGEN_AGENT_AUTH_HEADER')
+    ENV.delete('SCHENGEN_AGENT_AUTH_PARAM')
     reset_ssm_parameter_cache
   end
 
   teardown do
-    if @original_ga_measurement_id.nil?
-      ENV.delete('GA_MEASUREMENT_ID')
-    else
-      ENV['GA_MEASUREMENT_ID'] = @original_ga_measurement_id
-    end
-
-    if @original_ga_api_secret.nil?
-      ENV.delete('GA_API_SECRET')
-    else
-      ENV['GA_API_SECRET'] = @original_ga_api_secret
-    end
-
-    if @original_ga_api_secret_param.nil?
-      ENV.delete('GA_API_SECRET_PARAM')
-    else
-      ENV['GA_API_SECRET_PARAM'] = @original_ga_api_secret_param
-    end
+    restore_env('GA_MEASUREMENT_ID', @original_ga_measurement_id)
+    restore_env('GA_API_SECRET', @original_ga_api_secret)
+    restore_env('GA_API_SECRET_PARAM', @original_ga_api_secret_param)
+    restore_env('CLOUDFRONT_ORIGIN_AUTH_HEADER', @original_cloudfront_origin_auth_header)
+    restore_env('CLOUDFRONT_ORIGIN_AUTH_PARAM', @original_cloudfront_origin_auth_param)
+    restore_env('SCHENGEN_AGENT_AUTH_HEADER', @original_schengen_agent_auth_header)
+    restore_env('SCHENGEN_AGENT_AUTH_PARAM', @original_schengen_agent_auth_param)
 
     reset_ssm_parameter_cache
   end
@@ -100,7 +98,43 @@ class AppConfigTest < ActiveSupport::TestCase
     assert_equal 1, calls
   end
 
+  test 'shared auth headers read configured SSM parameters' do
+    require 'aws-sdk-ssm'
+
+    ENV['CLOUDFRONT_ORIGIN_AUTH_PARAM'] = '/scheng/test/cloudfront_origin_auth_header'
+    ENV['SCHENGEN_AGENT_AUTH_PARAM'] = '/scheng/test/schengen_agent_auth_header'
+    values = {
+      '/scheng/test/cloudfront_origin_auth_header' => 'cloudfront-secret',
+      '/scheng/test/schengen_agent_auth_header' => 'agent-secret'
+    }
+    requests = []
+    response = ->(value) { response_with_parameter(value) }
+    client = Object.new
+    client.define_singleton_method(:get_parameter) do |name:, with_decryption:|
+      requests << { name: name, with_decryption: with_decryption }
+      response.call(values.fetch(name))
+    end
+
+    Aws::SSM::Client.stub(:new, client) do
+      assert_equal 'cloudfront-secret', AppConfig.cloudfront_origin_auth_header
+      assert_equal 'agent-secret', AppConfig.schengen_agent_auth_header
+    end
+
+    assert_equal [
+      { name: '/scheng/test/cloudfront_origin_auth_header', with_decryption: true },
+      { name: '/scheng/test/schengen_agent_auth_header', with_decryption: true }
+    ], requests
+  end
+
   private
+
+  def restore_env(key, value)
+    if value.nil?
+      ENV.delete(key)
+    else
+      ENV[key] = value
+    end
+  end
 
   def reset_ssm_parameter_cache
     return unless AppConfig.instance_variable_defined?(:@ssm_parameter_cache)

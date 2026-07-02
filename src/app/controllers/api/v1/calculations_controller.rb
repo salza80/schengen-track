@@ -7,7 +7,6 @@ module Api
       AGENT_SOURCE_HEADER = 'HTTP_X_SCHENGEN_AGENT_SOURCE'
       AGENT_AUTH_HEADER = 'HTTP_X_SCHENGEN_AGENT_AUTH'
       AGENT_CLIENT_ID_HEADER = 'HTTP_X_SCHENGEN_AGENT_CLIENT_ID'
-      AGENT_AUTH_ENV = 'SCHENGEN_AGENT_AUTH_HEADER'
       DEFAULT_AGENT_SOURCE = 'api'
       MCP_AGENT_SOURCE = 'mcp'
       EVENT_CALCULATION_CREATED = 'agent_api_calculation_created'
@@ -120,7 +119,7 @@ module Api
       def trusted_agent_source?
         return false unless request.get_header(AGENT_SOURCE_HEADER).to_s.downcase == MCP_AGENT_SOURCE
 
-        expected = ENV[AGENT_AUTH_ENV].to_s
+        expected = AppConfig.schengen_agent_auth_header.to_s
         provided = request.get_header(AGENT_AUTH_HEADER).to_s
         return false if expected.blank? || provided.blank?
         return false unless provided.bytesize == expected.bytesize

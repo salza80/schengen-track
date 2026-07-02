@@ -24,14 +24,18 @@ AGENT_SOURCE = "mcp"
 AGENT_SOURCE_HEADER = "x-schengen-agent-source"
 AGENT_AUTH_HEADER = "x-schengen-agent-auth"
 AGENT_CLIENT_ID_HEADER = "x-schengen-agent-client-id"
+AGENT_AUTH_ENV = "SCHENGEN_AGENT_AUTH_HEADER"
+AGENT_AUTH_PARAM_ENV = "SCHENGEN_AGENT_AUTH_PARAM"
 CLOUDFRONT_ORIGIN_AUTH_HEADER = "x-schengen-origin-auth"
 CLOUDFRONT_CLIENT_IP_HEADER = "x-schengen-client-ip"
 CLOUDFRONT_ORIGIN_AUTH_ENV = "CLOUDFRONT_ORIGIN_AUTH_HEADER"
+CLOUDFRONT_ORIGIN_AUTH_PARAM_ENV = "CLOUDFRONT_ORIGIN_AUTH_PARAM"
 DEFAULT_MAX_REQUEST_BYTES = 64 * 1024
 GA_EVENT_CREATE_CALCULATION = "mcp_create_schengen_calculation_called"
 GA_EVENT_LIST_SUPPORTED_COUNTRIES = "mcp_list_supported_countries_called"
 GA_EVENT_TOOLS_LIST = "mcp_tools_list_called"
 _GA_API_SECRET_CACHE = None
+_SSM_PARAMETER_CACHE: dict[str, str] = {}
 _GA_CLIENT_ID: ContextVar[Optional[str]] = ContextVar("ga_client_id", default=None)
 _SUPPORTED_COUNTRIES_CACHE: dict[str, dict[str, Any]] = {}
 
@@ -261,7 +265,7 @@ def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
         AGENT_SOURCE_HEADER: AGENT_SOURCE,
         AGENT_CLIENT_ID_HEADER: ga_client_id(),
     }
-    agent_auth_header = os.environ.get("SCHENGEN_AGENT_AUTH_HEADER")
+    agent_auth_header = agent_auth_secret()
     if agent_auth_header:
         headers[AGENT_AUTH_HEADER] = agent_auth_header
 
@@ -397,6 +401,38 @@ def ga_api_secret() -> Optional[str]:
         response = boto3.client("ssm").get_parameter(Name=param_name, WithDecryption=True)
         _GA_API_SECRET_CACHE = response["Parameter"]["Value"]
         return _GA_API_SECRET_CACHE
+    except Exception:
+        return None
+
+
+def agent_auth_secret() -> Optional[str]:
+    return ssm_parameter_value(AGENT_AUTH_ENV, AGENT_AUTH_PARAM_ENV)
+
+
+def cloudfront_origin_auth_secret() -> Optional[str]:
+    return ssm_parameter_value(CLOUDFRONT_ORIGIN_AUTH_ENV, CLOUDFRONT_ORIGIN_AUTH_PARAM_ENV)
+
+
+def ssm_parameter_value(direct_env: str, param_env: str) -> Optional[str]:
+    direct_secret = os.environ.get(direct_env)
+    if direct_secret:
+        return direct_secret
+
+    param_name = os.environ.get(param_env)
+    if not param_name:
+        return None
+
+    if param_name in _SSM_PARAMETER_CACHE:
+        return _SSM_PARAMETER_CACHE[param_name]
+
+    try:
+        import boto3
+
+        response = boto3.client("ssm").get_parameter(Name=param_name, WithDecryption=True)
+        secret = response.get("Parameter", {}).get("Value")
+        if secret:
+            _SSM_PARAMETER_CACHE[param_name] = secret
+        return secret
     except Exception:
         return None
 
@@ -560,7 +596,7 @@ def client_id_for_event(event: dict[str, Any]) -> Optional[str]:
 
 
 def trusted_cloudfront_request(headers: dict[str, Any]) -> bool:
-    expected = os.environ.get(CLOUDFRONT_ORIGIN_AUTH_ENV)
+    expected = cloudfront_origin_auth_secret()
     provided = header_value(headers, CLOUDFRONT_ORIGIN_AUTH_HEADER)
     if not expected or not provided:
         return False

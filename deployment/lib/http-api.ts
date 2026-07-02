@@ -8,7 +8,6 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
-import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import { createRedirectFunction } from './createRedirectFunction';
 import { McpLambdaConstruct } from './mcp-lambda';
 
@@ -61,22 +60,15 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
-    const cloudFrontOriginAuthSecret = new secretsmanager.Secret(this, 'CloudFrontOriginAuthHeaderSecret', {
-      description: 'Shared secret CloudFront adds so Rails and MCP can trust viewer IP headers.',
-      generateSecretString: {
-        passwordLength: 48,
-        excludePunctuation: true,
-      },
-    });
-    const agentAuthSecret = new secretsmanager.Secret(this, 'AgentAuthHeaderSecret', {
-      description: 'Shared secret MCP adds when calling the Rails agent calculation API.',
-      generateSecretString: {
-        passwordLength: 48,
-        excludePunctuation: true,
-      },
-    });
-    const cloudFrontOriginAuthHeader = cloudFrontOriginAuthSecret.secretValue.toString();
-    const agentAuthHeader = agentAuthSecret.secretValue.toString();
+    const cloudFrontOriginAuthParamName = `${props.paramPath}cloudfront_origin_auth_header`;
+    const agentAuthParamName = `${props.paramPath}schengen_agent_auth_header`;
+    // CloudFront origin custom headers do not support ssm-secure dynamic
+    // references, so this value is stored as an SSM String. Lambdas receive
+    // only parameter names and read values at runtime with ssm:GetParameter.
+    const cloudFrontOriginAuthHeader = cdk.Token.asString(new cdk.CfnDynamicReference(
+      cdk.CfnDynamicReferenceService.SSM,
+      cloudFrontOriginAuthParamName
+    ));
     const cfRewriteUrlFunction = new cloudfront.Function(this, 'rewriteUrl', {
       code: cloudfront.FunctionCode.fromInline(createRedirectFunction(altDomain, customDomain))
     });
@@ -84,7 +76,10 @@ export class HttpApiConstruct extends Construct {
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
       this, `${props.paramPath}${paramName}`);
     const gaApiSecretParamName = `${props.paramPath}ga_api_secret`;
-    const gaApiSecretParamArn = `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter${gaApiSecretParamName}`;
+    const ssmParamArn = (paramName: string) => `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter${paramName}`;
+    const gaApiSecretParamArn = ssmParamArn(gaApiSecretParamName);
+    const cloudFrontOriginAuthParamArn = ssmParamArn(cloudFrontOriginAuthParamName);
+    const agentAuthParamArn = ssmParamArn(agentAuthParamName);
 
 
     // Environment variables for Rails REST API container
@@ -103,8 +98,8 @@ export class HttpApiConstruct extends Construct {
       TASK_PASSWORD: getParam('task_password'),
       GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
       GA_API_SECRET_PARAM: gaApiSecretParamName,
-      CLOUDFRONT_ORIGIN_AUTH_HEADER: cloudFrontOriginAuthHeader,
-      SCHENGEN_AGENT_AUTH_HEADER: agentAuthHeader,
+      CLOUDFRONT_ORIGIN_AUTH_PARAM: cloudFrontOriginAuthParamName,
+      SCHENGEN_AGENT_AUTH_PARAM: agentAuthParamName,
       DOMAIN: customDomain
     };
 
@@ -133,7 +128,21 @@ export class HttpApiConstruct extends Construct {
     apiFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: ['ssm:GetParameter'],
-      resources: [gaApiSecretParamArn]
+      resources: [
+        gaApiSecretParamArn,
+        cloudFrontOriginAuthParamArn,
+        agentAuthParamArn,
+      ]
+    }));
+
+    opsFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['ssm:GetParameter'],
+      resources: [
+        gaApiSecretParamArn,
+        cloudFrontOriginAuthParamArn,
+        agentAuthParamArn,
+      ]
     }));
 
     // Grant Lambda permission to read the deployment timestamp from Parameter Store
@@ -157,8 +166,10 @@ export class HttpApiConstruct extends Construct {
 
     const mcp = new McpLambdaConstruct(this, 'Mcp', {
       domain: customDomain,
-      agentAuthHeader,
-      cloudFrontOriginAuthHeader,
+      agentAuthParamName,
+      agentAuthParamArn,
+      cloudFrontOriginAuthParamName,
+      cloudFrontOriginAuthParamArn,
       googleAnalyticsApiSecretParamName: gaApiSecretParamName,
       googleAnalyticsApiSecretParamArn: gaApiSecretParamArn,
     });

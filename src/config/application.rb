@@ -18,9 +18,6 @@ module SchengenTrack
     config.i18n.available_locales = [:en, :de, :es, :tr, :'zh-CN', :hi, :'pt-BR', :ar, :fr]
     config.i18n.fallbacks = [:en]
 
-    # Disable Rails encrypted secrets (secrets.yml.enc); AppConfig loads secrets.yml manually in non-production
-    config.read_encrypted_secrets = false
-    
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       html_tag
     }

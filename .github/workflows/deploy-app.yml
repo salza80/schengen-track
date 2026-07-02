@@ -91,7 +91,7 @@ jobs:
           OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
         run: |
           set -euo pipefail
-          ./deployment/scripts/invoke_ops_lambda.sh '{"command":"guest_cleanup","params":{"max_batches":5}}' "Guest cleanup" /tmp/guest-cleanup.json
+          ./deployment/scripts/invoke_ops_lambda.sh '{"command":"guest_cleanup","params":{"max_batches":20}}' "Guest cleanup" /tmp/guest-cleanup.json
           stats=$(jq -c -e '.body | fromjson | .stats' /tmp/guest-cleanup.json)
           echo "Guest cleanup stats:"
           echo "$stats" | jq .

@@ -108,9 +108,14 @@ class TasksController < ApplicationController
       expired_rate_limits_deleted: stats['expired_rate_limits_deleted']
     }
   rescue => e
-    Rails.logger.error("Guest cleanup failed: #{e.class}: #{e.message}")
     @success = false
-    render json: { success: false, error: e.message }, status: :internal_server_error
+    if e.message == 'Guest cleanup is already running'
+      Rails.logger.warn("Guest cleanup skipped: #{e.message}")
+      render json: { success: false, error: e.message }, status: :conflict
+    else
+      Rails.logger.error("Guest cleanup failed: #{e.class}: #{e.message}")
+      render json: { success: false, error: e.message }, status: :internal_server_error
+    end
   ensure
     File.delete(stats_file) if stats_file && File.exist?(stats_file)
   end

@@ -82,6 +82,11 @@ namespace :db do
         }
         File.write(stats_file, stats.to_json)
       end
+    rescue => e
+      message = "Guest cleanup failed: #{e.class}: #{e.message}"
+      puts message
+      Rails.logger.error message
+      raise
     ensure
       if lock_acquired == true || lock_acquired.to_s == 't'
         begin

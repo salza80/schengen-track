@@ -24,9 +24,10 @@ while true; do
     --cli-read-timeout 900 \
     "$output_file" >/tmp/ops-invoke.log 2>/tmp/ops-invoke.err; then
     break
+  else
+    status=$?
   fi
 
-  status=$?
   if grep -Eq 'TooManyRequestsException|ReservedFunctionConcurrentInvocationLimitExceeded' /tmp/ops-invoke.err && [ "$attempt" -lt "$max_attempts" ]; then
     attempt=$((attempt + 1))
     echo "Ops Lambda is already running; waiting 30s before retry ${attempt}/${max_attempts}"

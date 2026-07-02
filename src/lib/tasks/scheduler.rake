@@ -1,16 +1,6 @@
 namespace :db do
   desc 'Remove guest accounts.'
   task :guest_cleanup, [:limit_date, :max_batches, :stats_file] => :environment do | t, args |
-    Rails.logger.info 'begin guest cleanup ' + Time.now.to_s
-    Rails.logger.info 'Number of user accounts: ' + User.count.to_s
-    Rails.logger.info 'Number of Visits: ' + Visit.count.to_s
-    Rails.logger.info 'Number of Visas: ' + Visa.count.to_s
-
-    puts 'begin guest cleanup ' + Time.now.to_s
-    puts 'Number of user accounts: ' + User.count.to_s
-    puts 'Number of Visits:' + Visit.count.to_s
-    puts 'Number of Visas: ' + Visa.count.to_s
-
     args.with_defaults(:limit_date => Time.now - 30.days, :max_batches => nil, :stats_file => '/tmp/guest_cleanup_stats.json')
 
     limit_date = args.limit_date.presence || Time.now - 30.days
@@ -21,9 +11,21 @@ namespace :db do
     remaining_count = 0
     expired_rate_limits_deleted = 0
     lock_acquired = false
-    connection = ActiveRecord::Base.connection
+    connection = nil
 
     begin
+      connection = ActiveRecord::Base.connection
+
+      Rails.logger.info 'begin guest cleanup ' + Time.now.to_s
+      Rails.logger.info 'Number of user accounts: ' + User.count.to_s
+      Rails.logger.info 'Number of Visits: ' + Visit.count.to_s
+      Rails.logger.info 'Number of Visas: ' + Visa.count.to_s
+
+      puts 'begin guest cleanup ' + Time.now.to_s
+      puts 'Number of user accounts: ' + User.count.to_s
+      puts 'Number of Visits:' + Visit.count.to_s
+      puts 'Number of Visas: ' + Visa.count.to_s
+
       if connection.adapter_name == 'PostgreSQL'
         lock_acquired = connection.select_value("SELECT pg_try_advisory_lock(hashtext('schengen_track_guest_cleanup'))")
         unless lock_acquired == true || lock_acquired.to_s == 't'

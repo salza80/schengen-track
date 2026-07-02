@@ -18,12 +18,25 @@ WORKDIR /app
 
 RUN apt-get update -qq && apt-get upgrade -y -qq
 
-RUN apt-get install -y -qq curl bash libpq-dev
+RUN apt-get install -y -qq curl bash ca-certificates libpq-dev xz-utils
 
 # Install Node.js for asset compilation only (Terser needs a JS runtime)
-ENV NODE_VERSION v20.18.1
-RUN curl -o- https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y -qq nodejs
+ARG NODE_VERSION=24.18.0
+RUN set -eux; \
+    node_arch="$(dpkg --print-architecture)"; \
+    case "$node_arch" in \
+      amd64) node_arch="x64" ;; \
+      arm64) node_arch="arm64" ;; \
+      *) echo "Unsupported Node.js architecture: $node_arch" >&2; exit 1 ;; \
+    esac; \
+    node_dist="node-v${NODE_VERSION}-linux-${node_arch}"; \
+    curl -fsSLO "https://nodejs.org/dist/v${NODE_VERSION}/${node_dist}.tar.xz"; \
+    curl -fsSLO "https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt"; \
+    sha_line="$(grep " ${node_dist}.tar.xz$" SHASUMS256.txt)"; \
+    printf '%s\n' "$sha_line" | sha256sum -c -; \
+    tar -xJf "${node_dist}.tar.xz" -C /usr/local --strip-components=1; \
+    rm "${node_dist}.tar.xz" SHASUMS256.txt; \
+    node --version
 
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY . /app/
@@ -34,4 +47,3 @@ ENV RAILS_LOG_TO_STDOUT="1" \
 
 # Precompile assets
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
-

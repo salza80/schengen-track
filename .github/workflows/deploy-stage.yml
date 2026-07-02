@@ -22,12 +22,12 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6.4.0
         with:
-          node-version: '20.18.0'
+          node-version-file: deployment/.nvmrc
 
       - name: Install AWS CLI
         run: |
@@ -41,10 +41,10 @@ jobs:
           aws configure set default.region ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Install CDK
-        run: npm install -g aws-cdk@latest
+        run: npm install -g aws-cdk@2.1129.0
 
       - name: Install CDK Dependencies
-        run: npm install
+        run: npm ci
         working-directory: ./deployment
 
       - name: Copy secrets file
@@ -132,7 +132,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7.0.0
 
       - name: Install AWS CLI
         run: |

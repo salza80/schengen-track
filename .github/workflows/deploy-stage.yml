@@ -71,6 +71,7 @@ jobs:
           echo "ops_function_name=$OPS_FUNCTION_NAME" >> $GITHUB_OUTPUT
 
       - name: Run database migrations
+        timeout-minutes: 20
         env:
           OPS_FUNCTION_NAME: ${{ steps.ops_lambda.outputs.ops_function_name }}
         run: |

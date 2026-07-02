@@ -76,6 +76,8 @@ jobs:
               --function-name "$OPS_FUNCTION_NAME" \
               --payload "$payload" \
               --cli-binary-format raw-in-base64-out \
+              --cli-connect-timeout 30 \
+              --cli-read-timeout 900 \
               /tmp/ops-response.json >/tmp/ops-invoke.log
             cat /tmp/ops-response.json
             jq -e '.body | fromjson | select(.success == true)' /tmp/ops-response.json >/dev/null
@@ -93,6 +95,8 @@ jobs:
             --function-name "$OPS_FUNCTION_NAME" \
             --payload '{"command":"update_countries"}' \
             --cli-binary-format raw-in-base64-out \
+            --cli-connect-timeout 30 \
+            --cli-read-timeout 900 \
             /tmp/update-countries.json >/tmp/update-countries.log
           cat /tmp/update-countries.json
           jq -e '.body | fromjson | select(.success == true)' /tmp/update-countries.json >/dev/null
@@ -107,6 +111,8 @@ jobs:
             --function-name "$OPS_FUNCTION_NAME" \
             --payload '{"command":"guest_cleanup","params":{"max_batches":5}}' \
             --cli-binary-format raw-in-base64-out \
+            --cli-connect-timeout 30 \
+            --cli-read-timeout 900 \
             /tmp/guest-cleanup.json >/tmp/guest-cleanup.log
           cat /tmp/guest-cleanup.json
           jq -e '.body | fromjson | select(.success == true)' /tmp/guest-cleanup.json >/dev/null

@@ -25,7 +25,7 @@ gem "devise", ">= 4.9.2"
 gem 'nokogiri', '>= 1.18.10'
 gem 'geocoder'
 gem 'omniauth-facebook'
-gem 'puma', '~> 7.2', '>= 7.2.1'
+gem 'puma', '~> 8.0'
 gem 'amazon-ecs'
 gem 'pg'
 gem 'listen'

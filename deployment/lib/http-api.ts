@@ -251,7 +251,10 @@ export class HttpApiConstruct extends Construct {
     const customCacheCountryGuestKey = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
       headerBehavior: cloudfront.CacheHeaderBehavior.allowList('Origin'),
       cookieBehavior: cloudfront.CacheCookieBehavior.allowList('cache_country_guest'),
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
+      // Public HTML pages are selected entirely by their path/locale. Ignore
+      // tracking and other incidental query parameters so bots cannot
+      // fragment the cache with effectively identical URLs.
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
       enableAcceptEncodingBrotli: true,
       enableAcceptEncodingGzip: true
     })
@@ -409,6 +412,13 @@ export class HttpApiConstruct extends Construct {
         "/*/about*": publicCacheByCountryGuestBehavior,
         "/blog*": publicCacheByCountryGuestBehavior,
         "/*/blog*": publicCacheByCountryGuestBehavior,
+        "/disclaimer*": publicCacheByCountryGuestBehavior,
+        "/*/disclaimer*": publicCacheByCountryGuestBehavior,
+        "/privacy*": publicCacheByCountryGuestBehavior,
+        "/*/privacy*": publicCacheByCountryGuestBehavior,
+        "/datadeletion*": publicCacheByCountryGuestBehavior,
+        "/*/datadeletion*": publicCacheByCountryGuestBehavior,
+        "/api/docs": publicSeoDocsCacheBehavior,
         "/robots.txt": publicSeoDocsCacheBehavior,
         "/llms.txt": publicSeoDocsCacheBehavior,
         "/llms-full.txt": publicSeoDocsCacheBehavior,

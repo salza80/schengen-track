@@ -1,5 +1,6 @@
 class VisitsController < ApplicationController
   include VisitCleanup
+  before_action :set_private_calculator_cache
   
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
@@ -76,9 +77,21 @@ class VisitsController < ApplicationController
   # POST /visits
   # POST /visits.json
   def create
-    @visit = current_person.visits.build(visit_params) 
+    if anonymous_calculator?
+      result = AnonymousCalculator::FirstSave.call(
+        nationality: current_person.nationality,
+        record_class: Visit,
+        attributes: visit_params
+      )
+      @visit = result.record
+      establish_guest_session(result.user, result.person) if result.success?
+    else
+      @visit = current_person.visits.build(visit_params)
+      @visit.save
+    end
+
     respond_to do |format|
-      if @visit.save
+      if @visit.persisted?
         format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
         format.js   # AJAX request from calendar

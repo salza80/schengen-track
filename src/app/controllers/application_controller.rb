@@ -30,7 +30,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # skip_before_action :verify_authenticity_token
 
-  helper_method :current_user_or_guest_user, :current_person, :amazon
+  helper_method :current_user_or_guest_user, :current_person, :anonymous_calculator?,
+                :calculator_nationality_selected?, :amazon
   around_action :switch_locale
 
   def default_url_options
@@ -96,21 +97,31 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_or_guest_user
-    user = current_user || guest_user
-    # Ensure user always has at least one person
-    user.ensure_primary_person if user
-    user
+    return @current_user_or_guest_user if defined?(@current_user_or_guest_user)
+
+    @current_user_or_guest_user = current_user || guest_user
   end
 
   def current_person
-    # Find person by session ID if it belongs to current user
-    person = Person.find_by(id: session[:current_person_id], user: current_user_or_guest_user) if session[:current_person_id]
-    
-    # Fall back to primary person or first person
-    person ||= current_user_or_guest_user.people.find_by(is_primary: true)
-    person ||= current_user_or_guest_user.people.first
-    
-    person
+    return @current_person if defined?(@current_person)
+
+    user = current_user_or_guest_user
+    person = Person.find_by(id: session[:current_person_id], user: user) if user && session[:current_person_id]
+    person ||= user.people.find_by(is_primary: true) if user
+    person ||= user.people.first if user
+
+    @current_person = person || draft_calculator_person
+  end
+
+  def anonymous_calculator?
+    current_user_or_guest_user.nil?
+  end
+
+  def calculator_nationality_selected?
+    return @calculator_nationality_selected if defined?(@calculator_nationality_selected)
+
+    @calculator_nationality_selected = session[:calculator_nationality_id].present? &&
+                                       Country.exists?(id: session[:calculator_nationality_id])
   end
   
   private
@@ -149,28 +160,48 @@ class ApplicationController < ActionController::Base
   end
 
   def guest_user
-    user = User.find_by_id(session[:guest_user_id])
+    return unless session[:guest_user_id]
+
+    user = User.find_by(id: session[:guest_user_id], guest: true)
     unless user
-      user = create_guest_user
-      session[:guest_user_id] = user.id
+      session.delete(:guest_user_id)
+      session.delete(:current_person_id)
     end
     user
   end
 
-  def create_guest_user
-    user = User.new
-    user.guest = true
-    user.email = "guest_#{Time.now.to_i}#{rand(99)}@example.com"
-    user.password = 'password'
-    user.first_name = 'Guest'
-    user.last_name = 'User'
-    user.nationality = default_guest_country
-    user.save(validate: false)
-    user.reload
-    
-    # Primary person is automatically created by User's after_create callback
-    
-    user
+  def draft_calculator_person
+    @draft_calculator_person ||= Person.new(
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality: calculator_nationality
+    )
+  end
+
+  def calculator_nationality
+    Country.find_by(id: session[:calculator_nationality_id]) || default_guest_country
+  end
+
+  def establish_guest_session(user, person)
+    session[:guest_user_id] = user.id
+    session[:current_person_id] = person.id
+    session.delete(:calculator_nationality_id)
+    @current_user_or_guest_user = user
+    @current_person = person
+    set_cache_cookie
+  end
+
+  def require_calculator_account!
+    redirect_to visits_path(locale: I18n.locale) if anonymous_calculator?
+  end
+
+  def require_calculator_record_account!
+    raise ActiveRecord::RecordNotFound if anonymous_calculator?
+  end
+
+  def set_private_calculator_cache
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['Vary'] = 'Cookie'
   end
 
   def default_guest_country
@@ -190,9 +221,11 @@ class ApplicationController < ActionController::Base
   private
 
   def set_cache_cookie
-    guest_value = current_user_or_guest_user.is_guest? ? 'true' : SecureRandom.hex(16)
+    user = current_user_or_guest_user
+    nationality = user&.nationality || calculator_nationality
+    guest_value = user.nil? || user.is_guest? ? 'true' : SecureRandom.hex(16)
     cache_cookie_options = {
-      value: current_user_or_guest_user.nationality.country_code + "_" + guest_value,
+      value: nationality.country_code + "_" + guest_value,
       expires: 1.month.from_now,
       httponly: true
     }
@@ -202,7 +235,7 @@ class ApplicationController < ActionController::Base
       cache_cookie_options[:same_site] = :lax
     end
     cookies[:cache_country_guest] = cache_cookie_options
-    set_session_hint
+    set_session_hint if user || session[:calculator_nationality_id]
   end
 
   def set_session_hint

@@ -8,15 +8,28 @@ class DaysHelperTest < ActionView::TestCase
   # A. Day Cell Class Tests
   # ====================
   
-  test "day_cell_class returns outside-schengen for non-schengen days" do
+  test "day_cell_class returns outside-schengen for recorded non-schengen days" do
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       schengen?: false,
+      hasCountry?: true,
       danger?: false,
       warning?: false
     )
     
     assert_equal 'outside-schengen', day_cell_class(day)
+  end
+
+  test "day_cell_class returns no-travel when no country is recorded" do
+    day = OpenStruct.new(
+      the_date: Date.new(2024, 1, 1),
+      schengen?: false,
+      hasCountry?: false,
+      danger?: false,
+      warning?: false
+    )
+
+    assert_equal 'no-travel', day_cell_class(day)
   end
   
   test "day_cell_class returns in-schengen-safe for safe days" do

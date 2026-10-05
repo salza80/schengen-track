@@ -20,6 +20,29 @@
           return;
         }
       }
+
+      // Bootstrap applies aria-hidden while hiding a modal. Move focus out first so
+      // the focused close/cancel button is never hidden from assistive technology.
+      $('#visitModal, #visaModal')
+        .off('hide.bs.modal.focusGuard')
+        .on('hide.bs.modal.focusGuard', function() {
+          if (this.contains(document.activeElement)) {
+            document.activeElement.blur();
+          }
+        })
+        .off('click.modalFocusGuard', '[data-dismiss="modal"]')
+        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function() {
+          var $modal = $(this).closest('.modal');
+          var modalInstance = $modal.data('bs.modal');
+          this.blur();
+          if (modalInstance && modalInstance._isTransitioning) {
+            $modal.one('shown.bs.modal.focusGuard', function() {
+              $modal.modal('hide');
+            });
+          } else {
+            $modal.modal('hide');
+          }
+        });
       
       // Bind add visit button
       $('[data-action="add-visit"]').on('click', function(e) {
@@ -81,6 +104,10 @@
         e.preventDefault();
         self.submitVisaForm();
       });
+
+      $(document).on('ajax:complete', '#visitModal form, #visaModal form', function() {
+        $('#saveVisitButton, #saveVisaButton').prop('disabled', false);
+      });
       
       // Bind modal Delete button (visas)
       $('#deleteVisaButton').on('click', function(e) {
@@ -106,12 +133,15 @@
         // Navigate to calendar page with year and month
         window.location.href = '/' + locale + '/days?year=' + year + '&month=' + month + '&day=' + day;
       });
+
     },
     
     // Submit the visit form
     submitVisitForm: function() {
       var $form = $('#visitModal form');
-      if ($form.length) {
+      var $button = $('#saveVisitButton');
+      if ($form.length && !$button.prop('disabled')) {
+        $button.prop('disabled', true);
         $form.submit();
       }
     },
@@ -119,7 +149,9 @@
     // Submit the visa form
     submitVisaForm: function() {
       var $form = $('#visaModal form');
-      if ($form.length) {
+      var $button = $('#saveVisaButton');
+      if ($form.length && !$button.prop('disabled')) {
+        $button.prop('disabled', true);
         $form.submit();
       }
     },
@@ -128,6 +160,11 @@
     openAddVisitModal: function() {
       var self = this;
       self.currentVisitId = null; // Clear current visit ID
+      if ($('#visitModal').is('[data-nationality-required]')) {
+        $('#deleteVisitButton').hide();
+        $('#visitModal').modal('show');
+        return;
+      }
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visits/new.js',

@@ -5,15 +5,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @user = User.new_with_session({}, session)
+    @user.nationality = calculator_nationality if @user.nationality_id.blank?
   end
 
   # POST /resource
   def create
-    @user = User.create(sign_up_params)
     @guest_user = current_user_or_guest_user
-    @user.copy_from(@guest_user)
-    if @user.save    
+    attributes = sign_up_params.to_h
+    attributes['nationality_id'] = calculator_nationality.id if attributes['nationality_id'].blank?
+    @user = User.new(attributes)
+    if @user.save
+      @user.copy_from(@guest_user)
       sign_up('user', @user)
+      session.delete(:guest_user_id)
+      session.delete(:current_person_id)
+      session.delete(:calculator_nationality_id)
       Analytics::GoogleMeasurementProtocol.track(
         'user_signup',
         request: request,

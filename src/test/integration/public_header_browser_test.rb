@@ -63,23 +63,87 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_selector '#public-notices', text: 'Calculation link is invalid or has expired.'
   end
 
-  test 'guest can edit their own person after the public header loads' do
+  test 'anonymous calculator navigation keeps the generic header' do
     visit '/en/about'
     assert_selector '#public-user-menu'
     assert_no_selector '#personDropdown'
 
     find("nav a[href='/en/visits']", match: :first).click
-    assert_selector '#personDropdown', text: 'Guest User'
-    find('#personDropdown').click
-    edit_label = I18n.t('common.edit_current_person', locale: :en)
-    own_edit_path = find_link(edit_label, match: :first)[:href]
+    assert_no_selector '#personDropdown'
+    assert_selector 'h3.section-heading .fa-globe'
+    assert_selector 'h3.section-heading', text: I18n.t('common.select_nationality', locale: :en)
+    assert_selector 'select[name="nationality_id"]'
+    assert_selector 'a', text: I18n.t('common.login', locale: :en)
+    assert_selector "a.btn-add[href='/en/visits?open=trip']", text: I18n.t('visits.add_travel', locale: :en)
 
     visit '/en/about'
-    assert_selector '#public-user-menu #personDropdown', text: 'Guest User'
-    find('#personDropdown').click
-    assert_equal own_edit_path, find_link(edit_label, match: :first)[:href]
-    click_link edit_label, match: :first
-    assert_current_path own_edit_path
-    assert_selector 'form'
+    assert_selector '#public-user-menu'
+    assert_no_selector '#personDropdown'
+  end
+
+  test 'first trip save replaces anonymous nationality selector with person menu' do
+    visit '/en/visits'
+    select 'India', from: 'nationality_id'
+    assert_selector 'select[name="nationality_id"] option[selected]', text: 'India'
+
+    find('[data-action="add-visit"]', match: :first).click
+    assert_selector '#visitModal.show', text: I18n.t('visits.add_record', locale: :en)
+    assert_no_selector '#visitModal .nationality-step-form'
+    select '2027', from: 'visit_entry_date_1i'
+    select 'January', from: 'visit_entry_date_2i'
+    select '10', from: 'visit_entry_date_3i'
+    select '2027', from: 'visit_exit_date_1i'
+    select 'January', from: 'visit_exit_date_2i'
+    select '15', from: 'visit_exit_date_3i'
+    select 'Germany', from: 'visit_country_id'
+    find('#saveVisitButton').click
+
+    assert_selector '#personDropdown', text: 'Guest User', wait: 10
+    assert_no_selector 'select[name="nationality_id"]'
+  end
+
+  test 'add trip asks for nationality first when no preference was selected' do
+    starting_users = User.count
+    starting_people = Person.count
+
+    visit '/en/about'
+    within 'nav.navbar', match: :first do
+      click_link I18n.t('visits.add_travel', locale: :en)
+    end
+    assert_selector '#visitModal.show', text: 'Choose your nationality'
+    within '#visitModal' do
+      select 'India', from: 'nationality_id'
+      click_button I18n.t('common.continue', locale: :en)
+    end
+
+    assert_selector '#visitModal.show', text: I18n.t('visits.add_record', locale: :en), wait: 10
+    assert_no_selector '#visitModal .nationality-step-form'
+    assert_equal starting_users, User.count
+    assert_equal starting_people, Person.count
+
+    within '#visitModal' do
+      click_button I18n.t('common.cancel', locale: :en)
+    end
+    assert_equal starting_users, User.count
+    assert_equal starting_people, Person.count
+  end
+
+  test 'fresh Trips page Add Travel button opens the nationality step' do
+    visit '/en/visits'
+
+    within '.empty-state', match: :first do
+      click_button I18n.t('visits.add_travel', locale: :en)
+    end
+
+    assert_selector '#visitModal.show', text: I18n.t('common.choose_nationality', locale: :en)
+    assert_selector '#visitModal .nationality-step-form'
+    assert_no_selector '#visitModal form[id^="new_visit"]'
+
+    within '#visitModal' do
+      find('button.close').click
+    end
+
+    assert_no_selector '#visitModal.show'
+    assert page.evaluate_script("!document.querySelector('#visitModal').contains(document.activeElement)")
   end
 end

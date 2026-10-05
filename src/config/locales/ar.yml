@@ -12,8 +12,10 @@ ar:
     calculator: حاسبة
     calendar: التقويم
     cancel: إلغاء
+    choose_nationality: اختر جنسيتك
     confirm_delete: تأكيد الحذف
     continent: قارة
+    continue: متابعة
     country: دولة
     data_deletion: حذف البيانات
     delete: حذف
@@ -24,6 +26,7 @@ ar:
     edit_my_details: تعديل بياناتي
     'false': لا
     home: الرئيسية
+    invalid_nationality: يرجى اختيار جنسية صالحة.
     legal: روابط قانونية
     log_out: تسجيل الخروج
     login: تسجيل الدخول
@@ -31,6 +34,9 @@ ar:
     manage_people: إدارة الأشخاص
     multi_unlimited_entries: "(أدخل 0 للدخول المتعدد/غير المحدود)"
     na: غير متوفر
+    nationality: الجنسية
+    nationality_help: تحدد جنسيتك قواعد شنغن وخيارات التأشيرة التي تظهر لك.
+    nationality_summary: 'الجنسية: %{nationality}'
     'no': لا
     no_days: عدد الأيام
     of: من
@@ -40,9 +46,11 @@ ar:
     save: حفظ
     schengen: شنغن
     schengen_calculator: حاسبة شنغن
+    select_nationality: اختر جنسيتك
     to: إلى
     trips: الرحلات
     'true': نعم
+    update_nationality: تحديث الجنسية
     visa: تأشيرة
     'yes': نعم
   continents:

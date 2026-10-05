@@ -28,8 +28,10 @@ hi:
     calculator: कैलकुलेटर
     calendar: कैलेंडर
     cancel: रद्द करें
+    choose_nationality: अपनी राष्ट्रीयता चुनें
     confirm_delete: हटाना पुष्टि करें
     continent: महाद्वीप
+    continue: जारी रखें
     country: देश
     data_deletion: डेटा हटाना
     delete: हटाएं
@@ -40,6 +42,7 @@ hi:
     edit_my_details: मेरा विवरण संपादित करें
     'false': नहीं
     home: होम
+    invalid_nationality: कृपया एक मान्य राष्ट्रीयता चुनें।
     legal: कानूनी
     log_out: लॉग आउट
     login: लॉग इन
@@ -47,6 +50,9 @@ hi:
     manage_people: लोगों का प्रबंधन करें
     multi_unlimited_entries: "(बहु/असीमित प्रवेश के लिए 0 दर्ज करें)"
     na: उपलब्ध नहीं
+    nationality: राष्ट्रीयता
+    nationality_help: आपकी राष्ट्रीयता तय करती है कि कौन से शेंगेन नियम और वीज़ा विकल्प दिखाए जाएँगे।
+    nationality_summary: 'राष्ट्रीयता: %{nationality}'
     'no': नहीं
     no_days: दिनों की संख्या
     of: का
@@ -56,9 +62,11 @@ hi:
     save: सहेजें
     schengen: शेंगेन
     schengen_calculator: शेंगेन कैलकुलेटर
+    select_nationality: अपनी राष्ट्रीयता चुनें
     to: तक
     trips: यात्राएं
     'true': हाँ
+    update_nationality: राष्ट्रीयता अपडेट करें
     visa: वीज़ा
     'yes': हाँ
   continents:

@@ -21,7 +21,7 @@ $body-color:                        #212529 !default;  // Dark gray for body tex
 $text-muted:                        #495057 !default;  // Darker muted text for better readability (was #6c757d)
 
 // Calendar status colors (semantic naming)
-$calendar-outside: #e9ecef !default;      // Gray - outside Schengen
+$calendar-outside: #e9ecef !default;      // Gray - recorded travel outside Schengen
 $calendar-safe: #e8f5d9 !default;         // Very light lime green - safe (< 80 days), same family as header
 $calendar-warning: #fff3cd !default;      // Yellow - warning (kept for badge usage)
 $calendar-overstay: #f8d7da !default;     // Light red - overstay (> 90 days), matches Bootstrap danger

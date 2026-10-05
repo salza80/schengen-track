@@ -168,10 +168,21 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'guest users can access people pages' do
+  test 'existing guest users can access people pages' do
     # Logout current user
-    delete destroy_user_session_url
-    
+    sign_out :user
+
+    guest = User.create!(
+      guest: true,
+      email: "people-guest-#{SecureRandom.hex(6)}@example.com",
+      password: 'password',
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality: countries(:USA)
+    )
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    assert_response :redirect
+
     # Access as guest
     get people_url(locale: 'en')
     assert_response :success

@@ -222,10 +222,18 @@ module Api
       end
 
       test 'guest calculation param does not restore session on non-get requests' do
-        get days_path(locale: I18n.default_locale)
-
-        current_guest_id = session[:guest_user_id]
-        current_person = User.find(current_guest_id).people.first
+        current_guest = User.create!(
+          guest: true,
+          email: "current_guest_#{SecureRandom.hex(8)}@example.com",
+          password: Devise.friendly_token[0, 20],
+          first_name: 'Current',
+          last_name: 'Guest',
+          nationality: countries(:USA)
+        )
+        current_guest_id = current_guest.id
+        current_person = current_guest.people.first
+        get calculation_link_path(current_guest.signed_id(purpose: :agent_calculation))
+        assert_response :redirect
         agent_guest = User.create!(
           guest: true,
           email: "agent_guest_#{SecureRandom.hex(8)}@example.com",
@@ -247,11 +255,14 @@ module Api
         assert_equal current_person.id, session[:current_person_id]
       end
 
-      test 'invalid guest calculation param falls back to a normal guest account' do
-        get days_path(locale: I18n.default_locale, guest_calculation: 'invalid-token')
+      test 'invalid guest calculation param remains anonymous' do
+        assert_no_difference(['User.count', 'Person.count']) do
+          get days_path(locale: I18n.default_locale, guest_calculation: 'invalid-token')
+        end
 
         assert_response :success
-        assert User.find(session[:guest_user_id]).is_guest?
+        assert_nil session[:guest_user_id]
+        assert_nil session[:current_person_id]
       end
 
       test 'creates a public guest calculation without accepting user email or bearer token' do

@@ -17,8 +17,10 @@ zh-CN:
     calculator: 计算器
     calendar: 日历
     cancel: 取消
+    choose_nationality: 选择您的国籍
     confirm_delete: 确认删除
     continent: 大陆
+    continue: 继续
     country: 国家
     data_deletion: 数据删除
     delete: 删除
@@ -29,6 +31,7 @@ zh-CN:
     edit_my_details: 编辑我的详细信息
     'false': 否
     home: 首页
+    invalid_nationality: 请选择有效的国籍。
     legal: 法律
     log_out: 登出
     login: 登录
@@ -36,6 +39,9 @@ zh-CN:
     manage_people: 管理人员
     multi_unlimited_entries: "(输入0表示多次/无限次入境)"
     na: 不适用
+    nationality: 国籍
+    nationality_help: 您的国籍决定显示哪些申根规则和签证选项。
+    nationality_summary: 国籍：%{nationality}
     'no': 否
     no_days: 无日
     of: 的
@@ -45,9 +51,11 @@ zh-CN:
     save: 保存
     schengen: 申根
     schengen_calculator: 申根签证计算器
+    select_nationality: 选择您的国籍
     to: 至
     trips: 行程
     'true': 是
+    update_nationality: 更新国籍
     visa: 签证
     'yes': 是
   continents:

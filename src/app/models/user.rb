@@ -47,7 +47,7 @@ class User < ApplicationRecord
     end
   end
 
-  def self.from_omniauth(auth, guest_user)
+  def self.from_omniauth(auth, guest_user, fallback_nationality = nil)
     puts auth
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     return user if user
@@ -58,13 +58,11 @@ class User < ApplicationRecord
         user.uid = auth.uid
         user.email = auth.info.email
         user.password = Devise.friendly_token[0, 20]
-        user.first_name = guest_user.first_name || "New"
-        user.last_name = guest_user.last_name || "User"
-        user.nationality = guest_user.nationality
+        user.first_name = guest_user&.first_name || auth.info.first_name || "New"
+        user.last_name = guest_user&.last_name || auth.info.last_name || "User"
+        user.nationality = guest_user&.nationality || fallback_nationality || Country.find_by(country_code: 'US')
       end
-      guest_user.visits.each do |v|
-        user.visits << v.dup
-      end
+      user.copy_from(guest_user)
       if data = auth['extra']['raw_info']
         user.first_name =  data['first_name']
         user.last_name = data['last_name'] 

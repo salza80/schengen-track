@@ -2,6 +2,7 @@
   :plain
     // Visa creation failed - show errors in modal
     $('#visaModal .modal-body').html('#{j render("form")}');
+    $('#saveVisaButton').prop('disabled', false);
 - else
   :plain
     // Visa was successfully created

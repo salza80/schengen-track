@@ -1,5 +1,6 @@
 class DaysController < ApplicationController
   include VisitCleanup
+  before_action :set_private_calculator_cache
   
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]

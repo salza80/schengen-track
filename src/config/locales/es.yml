@@ -12,8 +12,10 @@ es:
     calculator: Calculadora
     calendar: Calendario
     cancel: Cancelar
+    choose_nationality: Elige tu nacionalidad
     confirm_delete: Confirmar Eliminación
     continent: Continente
+    continue: Continuar
     country: País
     data_deletion: Eliminación de Datos
     delete: Eliminar
@@ -24,6 +26,7 @@ es:
     edit_my_details: Editar mis datos
     'false': 'No'
     home: Inicio
+    invalid_nationality: Selecciona una nacionalidad válida.
     legal: Legal
     log_out: Cerrar sesión
     login: Iniciar sesión
@@ -31,6 +34,9 @@ es:
     manage_people: Administrar personas
     multi_unlimited_entries: "(introduce 0 para entradas múltiples/ilimitadas)"
     na: N/A
+    nationality: Nacionalidad
+    nationality_help: Tu nacionalidad determina qué reglas de Schengen y controles de visado se muestran.
+    nationality_summary: 'Nacionalidad: %{nationality}'
     'no': 'No'
     no_days: Número de Días
     of: de
@@ -40,9 +46,11 @@ es:
     save: Guardar
     schengen: Schengen
     schengen_calculator: Calculadora Schengen
+    select_nationality: Selecciona tu nacionalidad
     to: hasta
     trips: Viajes
     'true': Sí
+    update_nationality: Actualizar nacionalidad
     visa: Visa
     'yes': Sí
   continents:

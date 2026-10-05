@@ -27,6 +27,29 @@
       if (!$('.calendar-view-container').length) {
         return;
       }
+
+      // Bootstrap applies aria-hidden while hiding a modal. Move focus out first so
+      // the focused close/cancel button is never hidden from assistive technology.
+      $('#visitModal')
+        .off('hide.bs.modal.focusGuard')
+        .on('hide.bs.modal.focusGuard', function() {
+          if (this.contains(document.activeElement)) {
+            document.activeElement.blur();
+          }
+        })
+        .off('click.modalFocusGuard', '[data-dismiss="modal"]')
+        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function() {
+          var $modal = $(this).closest('.modal');
+          var modalInstance = $modal.data('bs.modal');
+          this.blur();
+          if (modalInstance && modalInstance._isTransitioning) {
+            $modal.one('shown.bs.modal.focusGuard', function() {
+              $modal.modal('hide');
+            });
+          } else {
+            $modal.modal('hide');
+          }
+        });
       
       // Bind click handlers to day cells
       self.bindDayCellClicks();
@@ -56,6 +79,10 @@
         e.preventDefault();
         self.submitVisitForm();
       });
+
+      $(document).on('ajax:complete', '#visitModal form', function() {
+        $('#saveVisitButton').prop('disabled', false);
+      });
       
       // Bind modal Delete button
       $('#deleteVisitButton').on('click', function(e) {
@@ -65,6 +92,17 @@
         $('#visitModal').modal('hide');
         self.openDeleteModal(deleteUrl);
       });
+
+      var continuation = new URLSearchParams(window.location.search);
+      if (continuation.get('open') === 'trip') {
+        var entryDate = continuation.get('entry_date');
+        var exitDate = continuation.get('exit_date');
+        continuation.delete('open');
+        continuation.delete('entry_date');
+        continuation.delete('exit_date');
+        window.history.replaceState({}, '', window.location.pathname + (continuation.toString() ? '?' + continuation.toString() : ''));
+        self.openAddModal(entryDate, exitDate);
+      }
     },
     
     // Bind click handlers to day cells
@@ -310,7 +348,9 @@
     // Submit the visit form
     submitVisitForm: function() {
       var $form = $('#visitModal form');
-      if ($form.length) {
+      var $button = $('#saveVisitButton');
+      if ($form.length && !$button.prop('disabled')) {
+        $button.prop('disabled', true);
         $form.submit();
       }
     },
@@ -319,6 +359,19 @@
     openAddModal: function(entryDate, exitDate) {
       var self = this;
       self.currentVisitId = null; // Clear current visit ID
+      if ($('#visitModal').is('[data-nationality-required]')) {
+        var $preferenceForm = $('#visitModal .calculator-nationality-form');
+        $preferenceForm.find('input[name="entry_date"], input[name="exit_date"]').remove();
+        if (entryDate) {
+          $preferenceForm.append($('<input>', { type: 'hidden', name: 'entry_date', value: entryDate }));
+        }
+        if (exitDate) {
+          $preferenceForm.append($('<input>', { type: 'hidden', name: 'exit_date', value: exitDate }));
+        }
+        $('#deleteVisitButton').hide();
+        $('#visitModal').modal('show');
+        return;
+      }
       var locale = $('html').attr('lang') || 'en';
       $.ajax({
         url: '/' + locale + '/visits/new.js',

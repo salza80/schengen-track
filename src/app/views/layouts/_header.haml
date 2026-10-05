@@ -1,4 +1,5 @@
 - rtl_layout = rtl_locale?
+- trip_cta_path = visits_path(locale: I18n.locale, open: 'trip')
 %nav.navbar.navbar-expand-md.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation", dir: (rtl_layout ? 'ltr' : nil)}
   %a.navbar-brand.px-3.px-md-0{:href => visits_path(I18n.locale)}
     = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)
@@ -28,7 +29,11 @@
           %i.fa.fa-book.mr-2{"aria-hidden": "true"}
           = t('common.blog')
     %ul.navbar-nav.ml-auto.text-right{id: (@public_static_page ? "public-user-menu" : nil), data: (@public_static_page ? {session_header_url: session_header_path(locale: I18n.locale)} : {})}
-      - if @public_static_page
+      - if @public_static_page || anonymous_calculator?
+        %li.nav-item
+          = link_to trip_cta_path, class: 'btn btn-add btn-md ml-2', "aria-label": t('visits.add_travel') do
+            %i.fa.fa-plus.mr-2{"aria-hidden" => "true"}
+            = t('visits.add_travel')
         %li.nav-item
           = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2'
       - else

@@ -17,8 +17,10 @@ tr:
     calculator: Hesap Makinesi
     calendar: Takvim
     cancel: İptal
+    choose_nationality: Milliyetinizi seçin
     confirm_delete: Silmeyi Onayla
     continent: Kıta
+    continue: Devam et
     country: Ülke
     data_deletion: Veri Silme
     delete: Sil
@@ -29,6 +31,7 @@ tr:
     edit_my_details: Bilgilerimi Düzenle
     'false': Hayır
     home: Ana Sayfa
+    invalid_nationality: Lütfen geçerli bir milliyet seçin.
     legal: Yasal
     log_out: Çıkış yap
     login: Giriş yap
@@ -36,6 +39,9 @@ tr:
     manage_people: Kişileri yönet
     multi_unlimited_entries: "(çoklu/sınırsız girişler için 0 girin)"
     na: Yok
+    nationality: Milliyet
+    nationality_help: Milliyetiniz, hangi Schengen kurallarının ve vize kontrollerinin gösterileceğini belirler.
+    nationality_summary: 'Milliyet: %{nationality}'
     'no': Hayır
     no_days: Gün Sayısı
     of: toplam
@@ -45,9 +51,11 @@ tr:
     save: Kaydet
     schengen: Schengen
     schengen_calculator: Schengen Hesaplayıcı
+    select_nationality: Milliyetinizi seçin
     to: ile
     trips: Seyahatler
     'true': Evet
+    update_nationality: Milliyeti güncelle
     visa: Vize
     'yes': Evet
   continents:

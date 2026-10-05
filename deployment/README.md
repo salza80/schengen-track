@@ -59,6 +59,12 @@ npx cdk synth RailsLambdaStack
 
 ## Modifying stacks
 
+Public HTML behaviors exclude query parameters from both the cache key and
+origin requests. Keep these policies aligned: forwarding an unkeyed parameter
+that changes a response can cache that response for unrelated visitors.
+Dynamic and authentication behaviors continue forwarding query parameters.
+The shared GitHub Actions test suite runs the CDK template assertions with Jest.
+
 1. Update the TypeScript sources under `lib/`.
 2. Run `npm test` to execute unit tests (if present).
 3. Use `npx cdk diff <stack>` to review the impact.

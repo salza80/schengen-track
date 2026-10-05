@@ -190,8 +190,7 @@ export class HttpApiConstruct extends Construct {
     const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
       customHeaders: originCustomHeaders,
     });
-    const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+    const publicOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 
         'Access-Control-Request-Method', 
         'Access-Control-Request-Headers',
@@ -199,10 +198,20 @@ export class HttpApiConstruct extends Construct {
         'X-Requested-With',
         'Referer',
         'X-Schengen-Client-Ip'
-      ),
+      );
+    const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
+      headerBehavior: publicOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
     })
+
+    // Parameters excluded from the public cache key must not influence the
+    // origin response (e.g. ?nationality=American can redirect the homepage).
+    const publicOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "publicRequestPolicy", {
+      headerBehavior: publicOriginHeaders,
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
+    });
 
     // Separate policy for authentication flows that need all cookies for CSRF
     const authOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "authRequestPolicy", {
@@ -330,7 +339,7 @@ export class HttpApiConstruct extends Construct {
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: customCacheCountryGuestKey,
-      originRequestPolicy: customOriginRequestPolicy,
+      originRequestPolicy: publicOriginRequestPolicy,
       responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
       functionAssociations
     };

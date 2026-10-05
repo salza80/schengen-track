@@ -36,7 +36,9 @@ jobs:
     timeout-minutes: 30
     env:
       TARGET_ENVIRONMENT: ${{ github.event_name == 'schedule' && 'prod' || github.event.inputs.target_environment }}
-      MAX_BATCHES: ${{ github.event_name == 'schedule' && '20' || github.event.inputs.max_batches }}
+      # Each batch deletes up to 100 users. Run the scheduled production cleanup
+      # at 500 batches (up to 50,000 users) to reduce the accumulated backlog.
+      MAX_BATCHES: ${{ github.event_name == 'schedule' && '500' || github.event.inputs.max_batches }}
 
     steps:
       - name: Checkout Repository

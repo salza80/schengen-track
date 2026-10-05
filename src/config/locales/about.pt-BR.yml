@@ -113,20 +113,25 @@ pt-BR:
           title: 'Múltiplas Pessoas:'
         step_1:
           description: Selecione sua nacionalidade. Você pode alterá-la no topo da página, no cabeçalho.
+          summary: Escolha sua nacionalidade
           title: 'Etapa 1:'
         step_2:
           description: Se necessário, insira os dados do seu visto Schengen de curta duração. Essa seção aparecerá abaixo do registro de viagens apenas quando for necessária.
+          summary: Adicione seu visto, se necessário
           title: 'Etapa 2:'
         step_3:
           description_1: Adicione seu histórico de viagens, passadas e futuras. Você deve incluir pelo menos todas as viagens dentro da Área Schengen realizadas nos últimos 180 dias.
           description_2: O ideal é registrar todos os seus deslocamentos entre países, tanto Schengen quanto não Schengen, inclusive viagens de um país Schengen para outro, pois nem sempre é evidente quais países fazem parte do acordo. A data de entrada é o dia em que você chega, e a data de saída é o dia em que você sai. Não se preocupe se a data de saída coincidir com a data de entrada da próxima visita; a calculadora não contará dias em dobro ao calcular sua permanência na Área Schengen.
+          summary: Adicione suas viagens
           title: 'Etapa 3:'
         step_4:
           description: Revise as informações sobre a validade da viagem e o tempo restante que você pode permanecer na Área Schengen. Use a calculadora para testar cenários alterando seu plano de viagem pretendido.
+          summary: Confira seus dias restantes
           title: 'Etapa 4:'
         step_5:
           description: Para salvar seu histórico de viagens, registre-se e faça login. Seus dados existentes de visitante serão copiados para a nova conta. Você pode criar uma conta na Calculadora Schengen ou usar o Facebook para entrar e se registrar.
           optional: true
+          summary: Salve suas viagens
           title: 'Etapa 5: (opcional)'
         title: Como usar a Calculadora Schengen
       how_to_use_link: Como usar a Calculadora Schengen
@@ -153,9 +158,7 @@ pt-BR:
       nationality_requirements_link: Requisitos Schengen para minha nacionalidade
       nationality_section:
         heading: Requisitos de entrada e duração de estadia turística Schengen / Europa para minha nacionalidade
-        select_another_prompt: Selecione outro país
-        select_prompt: Selecione o país
-        subheading: Selecione sua nacionalidade para ver seus requisitos Schengen
+        select_prompt: Selecione seu país de cidadania
       new_definition_as_of_2013: Nova definição desde 2013
       new_definition_link: Nova definição desde 2013
       new_rules_from: Novas regras desde %{date}

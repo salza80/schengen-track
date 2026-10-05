@@ -113,20 +113,25 @@ en:
           title: 'Multiple People:'
         step_1:
           description: Select your Nationality. You can change this at the top of the page in the header.
+          summary: Choose your nationality
           title: 'Step 1:'
         step_2:
           description: If required, enter the details of your short-term Schengen Visa. This will appear below the travel record only when it is required.
+          summary: Add your visa, if required
           title: 'Step 2:'
         step_3:
           description_1: Add your travel record (past and future). You need to include at least any travel inside of the Schengen Area you have done for the last 180 days.
           description_2: It is best if you enter all your movements between countries, Schengen and Non-Schengen Countries, and even travel from one Schengen Country to another as you may not be aware that some countries are or are not a part of the Schengen Agreement. The entry date is the day you arrive, and the exit date is the day you leave. Do not worry if the exit date overlaps with the entry date of your next visit, the calculator will not double count days when calculating your length of stay inside the Schengen Area.
+          summary: Add your trips
           title: 'Step 3:'
         step_4:
           description: Review the information regarding the validity of the travel and the remaining time you can stay in the Schengen area. Use the Calculator to do some what-if scenarios by changing your intended travel record.
+          summary: Check your remaining days
           title: 'Step 4:'
         step_5:
           description: To save your travel record, Register and Log In. Your existing “Guest” data will be copied to your new account. You can register with the Schengen Calculator, or use Facebook to Login and Register.
           optional: true
+          summary: Save your trips
           title: 'Step 5: (optional)'
         title: How to use the Schengen Calculator
       how_to_use_link: How to use the Schengen Calculator
@@ -153,9 +158,7 @@ en:
       nationality_requirements_link: Schengen requirements for my nationality
       nationality_section:
         heading: Schengen / Europe tourist travel entry and length of stay requirements for my nationality
-        select_another_prompt: Select another country
-        select_prompt: Select country
-        subheading: Select your nationality to view your Schengen requirements
+        select_prompt: Select your country of citizenship
       new_definition_as_of_2013: New definition as of 2013
       new_definition_link: New definition as of 2013
       new_rules_from: New rules from %{date}

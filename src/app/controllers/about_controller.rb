@@ -1,6 +1,6 @@
 class AboutController < ApplicationController
   include PublicPage
-  LAST_REVIEWED_DATE = Date.new(2026, 5, 30).freeze
+  LAST_REVIEWED_DATE = Date.new(2026, 10, 5).freeze
 
   # GET /about/
   # GET /about/:nationality

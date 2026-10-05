@@ -27,6 +27,8 @@ ar:
     'false': لا
     home: الرئيسية
     invalid_nationality: يرجى اختيار جنسية صالحة.
+    keep_plans_description: أنشئ حساباً مجانياً للاحتفاظ برحلاتك عبر المتصفحات والأجهزة المختلفة.
+    keep_plans_title: احتفظ بخطط سفرك
     legal: روابط قانونية
     log_out: تسجيل الخروج
     login: تسجيل الدخول
@@ -42,7 +44,7 @@ ar:
     of: من
     person_not_set: غير محدد
     privacy_policy: سياسة الخصوصية
-    register_to_save: سجل لحفظ خططك
+    register_to_save: سجّل للاحتفاظ بخططك
     save: حفظ
     schengen: شنغن
     schengen_calculator: حاسبة شنغن

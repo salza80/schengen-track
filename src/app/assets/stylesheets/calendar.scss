@@ -49,8 +49,8 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   
   .month-header {
-    background: $headerGreen;
-    color: #2d5016; // Dark green for better contrast on light green background
+    background: $primary;
+    color: $white;
     padding: 1rem;
     
     h4 {
@@ -172,21 +172,9 @@
   color: $calendar-outside-text;
 }
 
-.day-cell.outside-schengen {
-  border: 2px solid darken($calendar-outside, 16%) !important;
-}
-
-.legend-color.outside-schengen,
-.calendar-legend-mobile .outside-schengen {
-  border: 2px solid darken($calendar-outside, 16%) !important;
-}
-
 .day-cell.has-travel .day-country small {
   display: inline-block;
   max-width: 100%;
-  padding: 0.125rem 0.3rem;
-  border-radius: 0.25rem;
-  background: rgba(255, 255, 255, 0.72);
   color: inherit;
   font-weight: 700;
   overflow: hidden;
@@ -215,35 +203,13 @@
 }
 
 
-// Current day highlight (Option C: Background accent)
-// Note: Critical warnings (overstay, visa issues) take precedence over current-day styling
+// Current day highlight. Keep the status/travel background so today still
+// communicates whether it is in Schengen, outside Schengen, or an overstay.
 .day-cell.current-day {
-  background-color: lighten($primary, 45%) !important;
   border: 2px solid $primary !important;
   
   .day-number {
     color: $primary;
-    font-weight: 900;
-  }
-}
-
-// Override current-day styling for critical warning states
-.day-cell.current-day.overstay {
-  background-color: $calendar-overstay !important;
-  border: 3px solid darken($calendar-overstay, 15%) !important;
-  
-  .day-number {
-    color: $calendar-overstay-text;
-    font-weight: 900;
-  }
-}
-
-.day-cell.current-day.waiting-period {
-  background-color: $calendar-waiting !important;
-  border: 3px solid darken($calendar-waiting, 15%) !important;
-  
-  .day-number {
-    color: $calendar-waiting-text;
     font-weight: 900;
   }
 }

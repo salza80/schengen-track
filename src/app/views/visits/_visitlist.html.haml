@@ -12,38 +12,38 @@
     %table.table.table-striped.table-bordered.table-hover.responsive-table
       %caption
         = t('visits.list_caption')
-      %thead.bg-header
+      %thead.bg-primary
         %tr.table-top-header
-          %th.center-heading{ colspan: "4", scope: "col" } 
+          %th.center-heading.text-white{ colspan: "4", scope: "col" }
             = t('visits.travel_details')
           - if current_person.visa_required?
-            %th.center-heading{ colspan: "3", scope: "col" }
+            %th.center-heading.text-white{ colspan: "3", scope: "col" }
               = t('visits.visa_details')
-          %th.center-heading{ colspan: "2", scope: "col" }
+          %th.center-heading.text-white{ colspan: "2", scope: "col" }
             = t('visits.schengen_days')
-          %th.center-heading{ scope: "col", class: "modify-col" }
+          %th.center-heading.text-white{ scope: "col", class: "modify-col" }
             = t('visits.modify')
         %tr
-          %th{ scope: "col" } 
+          %th.text-white{ scope: "col" }
             = t('visits.dates')
-          %th{ scope: "col" } 
+          %th.text-white{ scope: "col" }
             = t('visits.country')
-          %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_area_tooltip') } 
+          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_area_tooltip') }
             = t('visits.schengen_area')
-          %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_days_tooltip') } 
+          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_days_tooltip') }
             = t('visits.no_days')
           - if current_person.visa_required?
-            %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.exits_tooltip') }
+            %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.exits_tooltip') }
               = t('visits.exits')
-            %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_entries_tooltip') }
+            %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_entries_tooltip') }
               = t('visits.no_entries')
-            %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
+            %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
               = t('visits.days_overstay')
-          %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_days_calculation_tooltip') }
+          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_days_calculation_tooltip') }
             = t('visits.schengen_days_calculation')
-          %th{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
+          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
             = t('visits.days_overstay')
-          %th{ scope: "col", "data-toggle": "tooltip" }
+          %th.text-white{ scope: "col", "data-toggle": "tooltip" }
       %tbody
         - @visits.each do |visit|
           %tr{class: 'clickable-visit-row', 'data-clickable-row': 'true', 'data-entry-year': visit.entry_date.year, 'data-entry-month': visit.entry_date.month, 'data-entry-day': visit.entry_date.day}

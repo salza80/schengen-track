@@ -49,7 +49,7 @@ pt-BR:
           visa: 'Visto:'
           visa_days_over_stay: 'Visa Dias de Permanência Excessiva:'
           visa_days_over_stay_description: O número de dias na Área Schengen sem permissão do seu visto. Você não inseriu um visto, você saiu após a data final do visto, ou você entrou na Área Schengen mais vezes do que o permitido no Visto.
-          visa_description: Isso se relaciona apenas a um Visto Schengen de Curta Permanência Simples/Múltiplo pessoas que requerem um Visto antes da entrada. Se você estiver isento deste requisito, as opções de Visto não aparecerão. Lembre-se de selecionar sua Nacionalidade no canto superior direito da página!
+          visa_description: Isso se aplica apenas a viajantes que precisam de um visto Schengen de curta duração de entrada única ou múltipla. As opções de visto aparecem depois que você seleciona sua nacionalidade e somente quando são necessárias.
       disclaimer:
         description: Por favor, leia o %{link} antes de usar a Calculadora Schengen.
         link_text: Aviso Legal
@@ -107,16 +107,16 @@ pt-BR:
       field_definitions_link: Definições de Nomes de Campos
       get_started: Veja o calendário para começar
       how_to_use:
-        entry_methods_note: Busca precisão? Use a tabela de visitas para registrar datas exatas de entrada e saída ou clique em qualquer dia do calendário para adicionar ou ajustar uma viagem - as duas visões permanecem sincronizadas.
+        entry_methods_note: Busca precisão? Use a página Viagens para informar as datas exatas de entrada e saída ou clique em qualquer dia do calendário para adicionar ou ajustar uma viagem — as duas visualizações permanecem sincronizadas.
         people:
           description: Você pode rastrear viagens para várias pessoas usando a mesma conta. Use o seletor de pessoas no topo da página para adicionar e alternar entre diferentes viajantes. Cada pessoa pode ter sua própria nacionalidade, viagens e informações de visto. Isso é útil para famílias ou ao gerenciar viagens para várias pessoas.
           title: 'Múltiplas Pessoas:'
         step_1:
-          description: Selecione sua nacionalidade. Você pode alterá-la no topo da página, no cabeçalho.
+          description: Selecione sua nacionalidade na página Viagens. Se você começar por Adicionar viagem, a calculadora solicitará a nacionalidade antes de mostrar o formulário. Quando já existir um perfil de visitante ou uma conta, você poderá alterá-la nas configurações do viajante.
           summary: Escolha sua nacionalidade
           title: 'Etapa 1:'
         step_2:
-          description: Se necessário, insira os dados do seu visto Schengen de curta duração. Essa seção aparecerá abaixo do registro de viagens apenas quando for necessária.
+          description: Se necessário, informe os dados do seu visto Schengen de curta duração. A seção Vistos aparece depois que você seleciona sua nacionalidade e somente quando é necessária.
           summary: Adicione seu visto, se necessário
           title: 'Etapa 2:'
         step_3:
@@ -129,10 +129,10 @@ pt-BR:
           summary: Confira seus dias restantes
           title: 'Etapa 4:'
         step_5:
-          description: Para salvar seu histórico de viagens, registre-se e faça login. Seus dados existentes de visitante serão copiados para a nova conta. Você pode criar uma conta na Calculadora Schengen ou usar o Facebook para entrar e se registrar.
-          optional: true
-          summary: Salve suas viagens
-          title: 'Etapa 5: (opcional)'
+          description: Sua primeira viagem válida cria automaticamente um perfil temporário de visitante, então você pode usar a calculadora sem se registrar. Registre-se ou entre para manter seus planos disponíveis em diferentes navegadores e dispositivos; suas viagens de visitante serão transferidas para sua conta.
+          optional: "(opcional)"
+          summary: Mantenha suas viagens em todos os dispositivos
+          title: 'Etapa 5:'
         title: Como usar a Calculadora Schengen
       how_to_use_link: Como usar a Calculadora Schengen
       introduction: Introdução

@@ -117,7 +117,7 @@ Note: Direct database modifications to country data will be overwritten on the n
 
 == Translation Management (i18n)
 
-The application supports 7 languages: English (en), German (de), Spanish (es), Hindi (hi), Turkish (tr), Chinese Simplified (zh-CN), and Portuguese Brazilian (pt-BR).
+The application supports 9 languages: English (en), German (de), Spanish (es), French (fr), Hindi (hi), Turkish (tr), Chinese Simplified (zh-CN), Portuguese Brazilian (pt-BR), and Arabic (ar).
 
 Translation validation is powered by the i18n-tasks gem (https://github.com/glebm/i18n-tasks), which provides intelligent scanning and validation of translation keys.
 
@@ -161,7 +161,7 @@ The hook blocks commits if any translation issues are found. Bypass with:
 
 === Translation Files
 All translations are stored in src/config/locales/:
-* Main files: en.yml, de.yml, es.yml, hi.yml, tr.yml, zh-CN.yml, pt-BR.yml
+* Main files: en.yml, de.yml, es.yml, fr.yml, hi.yml, tr.yml, zh-CN.yml, pt-BR.yml, ar.yml
 * Namespaced files: days.*.yml, visits.*.yml, blog.*.yml, about.*.yml, countries.*.yml, devise.*.yml, user.*.yml, visas.*.yml
 
 Configuration: src/config/i18n-tasks.yml
@@ -177,7 +177,6 @@ Configuration: src/config/i18n-tasks.yml
 Some translation keys cannot be automatically detected by i18n-tasks because they're used in non-standard ways:
 
 Current whitelisted keys (as of last cleanup):
-* about.about.how_to_use.step_5.optional - Used as 'optional: true' parameter
 * days.max_remaining_days - Used as model attribute name
 * days.year_summary - Used as controller variable name
 * visits.about_page_link - Used as interpolation parameter name

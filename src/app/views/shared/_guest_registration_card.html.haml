@@ -1,0 +1,10 @@
+- if !user_signed_in? && current_user_or_guest_user&.is_guest?
+  .guest-registration-card.card.mt-3.mb-4
+    .card-body
+      %h3.section-heading.mt-0
+        %i.fa.fa-cloud-upload-alt.mr-2{"aria-hidden" => "true"}
+        = t('common.keep_plans_title')
+      %p.text-muted.mb-3= t('common.keep_plans_description')
+      = link_to new_user_registration_path(locale: I18n.locale), class: 'btn btn-add' do
+        %i.fa.fa-user-plus.mr-1{"aria-hidden" => "true"}
+        = t('common.register_to_save')

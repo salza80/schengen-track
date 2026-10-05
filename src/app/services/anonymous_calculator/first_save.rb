@@ -14,6 +14,7 @@ module AnonymousCalculator
 
     def initialize(nationality:, record_class:, attributes:)
       raise ArgumentError, 'unsupported calculator record' unless [Visit, Visa].include?(record_class)
+      raise ArgumentError, 'nationality is required' unless nationality&.persisted?
 
       @nationality = nationality
       @record_class = record_class

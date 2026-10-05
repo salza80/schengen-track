@@ -28,6 +28,8 @@ de:
     'false': Nein
     home: Startseite
     invalid_nationality: Bitte wählen Sie eine gültige Nationalität.
+    keep_plans_description: Erstellen Sie ein kostenloses Konto, damit Ihre Reisen in verschiedenen Browsern und auf verschiedenen Geräten verfügbar bleiben.
+    keep_plans_title: Reisepläne behalten
     legal: Rechtliches
     log_out: Abmelden
     login: Anmelden
@@ -43,7 +45,7 @@ de:
     of: von
     person_not_set: Nicht festgelegt
     privacy_policy: Datenschutzbestimmungen
-    register_to_save: Registrieren Sie sich, um Ihre Pläne zu speichern
+    register_to_save: Registrieren Sie sich, um Ihre Pläne dauerhaft zu behalten
     save: Speichern
     schengen: Schengen
     schengen_calculator: Schengen-Rechner

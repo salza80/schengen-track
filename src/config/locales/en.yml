@@ -27,6 +27,8 @@ en:
     'false': 'No'
     home: Home
     invalid_nationality: Please select a valid nationality.
+    keep_plans_description: Create a free account to keep your trips available across browsers and devices.
+    keep_plans_title: Keep your travel plans
     legal: Legal
     log_out: Log out
     login: Log in
@@ -42,7 +44,7 @@ en:
     of: of
     person_not_set: Not set
     privacy_policy: Privacy Policy
-    register_to_save: Register to save your plans
+    register_to_save: Register to keep your plans
     save: Save
     schengen: Schengen
     schengen_calculator: Schengen Calculator

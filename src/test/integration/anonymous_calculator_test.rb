@@ -53,6 +53,28 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_redirected_to visits_path(locale: :en)
   end
 
+  test 'valid trip without an explicit nationality does not create calculator records' do
+    assert_no_difference(['User.count', 'Person.count', 'Visit.count']) do
+      post visits_path(locale: :en), params: {
+        visit: { entry_date: '2027-01-10', exit_date: '2027-01-15', country_id: countries(:Germany).id }
+      }
+    end
+
+    assert_redirected_to visits_path(locale: :en, open: 'trip')
+    assert_nil session[:guest_user_id]
+  end
+
+  test 'stale anonymous trip form returns JavaScript that reopens the nationality step' do
+    assert_no_difference(['User.count', 'Person.count', 'Visit.count']) do
+      post visits_path(locale: :en, format: :js), params: {
+        visit: { entry_date: '2027-01-10', exit_date: '2027-01-15', country_id: countries(:Germany).id }
+      }, xhr: true
+    end
+
+    assert_response :success
+    assert_includes response.body, visits_path(locale: :en, open: 'trip')
+  end
+
   test 'first valid visa creates one guest and visa' do
     patch calculator_preferences_path(locale: :en), params: {
       nationality_id: countries(:India).id,
@@ -69,7 +91,23 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert User.where(guest: true).order(:id).last.people.find_by!(is_primary: true).visas.exists?
   end
 
+  test 'valid visa without an explicit nationality does not create calculator records' do
+    assert_no_difference(['User.count', 'Person.count', 'Visa.count']) do
+      post visas_path(locale: :en), params: {
+        visa: { start_date: '2027-01-01', end_date: '2027-06-01', no_entries: 1 }
+      }
+    end
+
+    assert_redirected_to visits_path(locale: :en)
+    assert_nil session[:guest_user_id]
+  end
+
   test 'invalid first save rolls back guest and person' do
+    patch calculator_preferences_path(locale: :en), params: {
+      nationality_id: countries(:India).id,
+      destination: 'trips'
+    }
+
     assert_no_difference(['User.count', 'Person.count', 'Visit.count']) do
       post visits_path(locale: :en, format: :js), params: {
         visit: { entry_date: '2027-01-10', exit_date: '2027-01-15', country_id: '' }
@@ -94,11 +132,23 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_select 'select[name="nationality_id"] option[selected]', text: countries(:India).localized_name
   end
 
+  test 'fresh Trips page uses unique IDs for the page and modal nationality controls' do
+    get visits_path(locale: :en)
+
+    assert_select '#calculator_nationality_selector', count: 1
+    assert_select 'label[for="calculator_nationality_selector"]', count: 1
+    assert_select '#calculator_nationality_step', count: 1
+    assert_select 'label[for="calculator_nationality_step"]', count: 1
+    assert_select '#nationality_id, #destination', count: 0
+    assert_select '.guest-registration-card', count: 0
+  end
+
   test 'persisted guests and signed-in users skip the nationality step' do
     sign_in users(:Sally)
     get visits_path(locale: :en, open: 'trip')
     assert_select '#visitModal[data-nationality-required]', count: 0
     assert_select '.nationality-step-form', count: 0
+    assert_select '.guest-registration-card', count: 0
     sign_out :user
 
     guest = User.create!(
@@ -114,5 +164,10 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
 
     assert_select '#visitModal[data-nationality-required]', count: 0
     assert_select '.nationality-step-form', count: 0
+    assert_select '.guest-registration-card', count: 1
+    assert_select ".guest-registration-card a[href='#{new_user_registration_path(locale: :en)}']", count: 1
+
+    get days_path(locale: :en)
+    assert_select '.guest-registration-card', count: 0
   end
 end

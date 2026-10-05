@@ -37,17 +37,30 @@
             document.activeElement.blur();
           }
         })
+        .off('hidden.bs.modal.focusGuard')
+        .on('hidden.bs.modal.focusGuard', function() {
+          var trigger = $(this).data('focus-return');
+          $(this).removeData('focus-return');
+          if (trigger && document.documentElement.contains(trigger)) {
+            if (!trigger.hasAttribute('tabindex')) {
+              trigger.setAttribute('tabindex', '-1');
+            }
+            window.setTimeout(function() {
+              trigger.focus();
+            }, 0);
+          }
+        })
         .off('click.modalFocusGuard', '[data-dismiss="modal"]')
-        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function() {
+        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function(e) {
           var $modal = $(this).closest('.modal');
           var modalInstance = $modal.data('bs.modal');
           this.blur();
           if (modalInstance && modalInstance._isTransitioning) {
+            e.preventDefault();
+            e.stopPropagation();
             $modal.one('shown.bs.modal.focusGuard', function() {
               $modal.modal('hide');
             });
-          } else {
-            $modal.modal('hide');
           }
         });
       
@@ -89,6 +102,7 @@
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        $('#visitModal').removeData('focus-return');
         $('#visitModal').modal('hide');
         self.openDeleteModal(deleteUrl);
       });
@@ -117,6 +131,7 @@
         }
         
         var $cell = $(this);
+        $('#visitModal').data('focus-return', this);
         
         // On mobile, first click shows tooltip, second click opens modal
         if (self.state.isMobileDevice) {
@@ -185,6 +200,7 @@
       $(document).on('touchstart', '.day-cell', function(e) {
         var $cell = $(this);
         self.state.longPressTriggered = false;
+        $('#visitModal').data('focus-return', this);
         
         // Start long press timer
         self.state.longPressTimer = setTimeout(function() {
@@ -273,6 +289,7 @@
         if (self.state.isSelecting && self.state.selectedCells.length > 1) {
           // Multi-day selection completed
           var dates = self.getSelectedDateRange();
+          $('#visitModal').data('focus-return', self.state.selectedCells[0]);
           self.openAddModal(dates.start, dates.end);
         }
         

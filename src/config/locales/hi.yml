@@ -43,6 +43,8 @@ hi:
     'false': नहीं
     home: होम
     invalid_nationality: कृपया एक मान्य राष्ट्रीयता चुनें।
+    keep_plans_description: अपनी यात्राएँ अलग-अलग ब्राउज़र और उपकरणों पर उपलब्ध रखने के लिए निःशुल्क खाता बनाएँ।
+    keep_plans_title: अपनी यात्रा योजनाएँ बनाए रखें
     legal: कानूनी
     log_out: लॉग आउट
     login: लॉग इन
@@ -58,7 +60,7 @@ hi:
     of: का
     person_not_set: निर्धारित नहीं
     privacy_policy: गोपनीयता नीति
-    register_to_save: अपनी योजनाओं को सहेजने के लिए पंजीकरण करें
+    register_to_save: अपनी योजनाएँ बनाए रखने के लिए पंजीकरण करें
     save: सहेजें
     schengen: शेंगेन
     schengen_calculator: शेंगेन कैलकुलेटर

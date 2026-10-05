@@ -5,6 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @user = User.new_with_session({}, session)
+    prefill_registration_from_guest(@user)
     @user.nationality = calculator_nationality if @user.nationality_id.blank?
   end
 
@@ -12,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @guest_user = current_user_or_guest_user
     attributes = sign_up_params.to_h
-    attributes['nationality_id'] = calculator_nationality.id if attributes['nationality_id'].blank?
+    attributes['nationality_id'] = registration_nationality_id if attributes['nationality_id'].blank?
     @user = User.new(attributes)
     if @user.save
       @user.copy_from(@guest_user)
@@ -62,6 +63,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+  def prefill_registration_from_guest(user)
+    profile = guest_registration_profile
+    return unless profile
+
+    user.first_name = profile.first_name if user.first_name.blank?
+    user.last_name = profile.last_name if user.last_name.blank?
+    user.nationality_id = profile.nationality_id if user.nationality_id.blank?
+  end
+
+  def registration_nationality_id
+    guest_registration_profile&.nationality_id || calculator_nationality.id
+  end
+
+  def guest_registration_profile
+    guest = current_user_or_guest_user
+    return unless guest&.is_guest?
+
+    guest.people.find_by(is_primary: true) || guest.people.first || guest
+  end
 
   # You can put the params you want to permit in the empty array.
   def configure_sign_up_params

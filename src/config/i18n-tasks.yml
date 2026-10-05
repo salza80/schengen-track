@@ -166,7 +166,6 @@ ignore_unused:
   - 'continents.*'
   # Keys used as parameter values, variable names, or interpolation params (not direct t() calls)
   # These are legitimately used but i18n-tasks scanner can't detect them
-  - 'about.about.how_to_use.step_5.optional'  # Used as 'optional: true' parameter
   - 'days.max_remaining_days'                  # Used as model attribute name
   - 'days.year_summary'                        # Used as controller variable name
   - 'visits.about_page_link'                   # Used as interpolation parameter name

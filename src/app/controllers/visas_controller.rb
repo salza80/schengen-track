@@ -38,8 +38,10 @@ class VisasController < ApplicationController
   # POST /visas.json
   def create
     if anonymous_calculator?
+      return render_calculator_nationality_required unless calculator_nationality_selected?
+
       result = AnonymousCalculator::FirstSave.call(
-        nationality: current_person.nationality,
+        nationality: selected_calculator_nationality,
         record_class: Visa,
         attributes: visa_params
       )

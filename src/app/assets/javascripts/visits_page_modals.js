@@ -30,29 +30,41 @@
             document.activeElement.blur();
           }
         })
+        .off('hidden.bs.modal.focusGuard')
+        .on('hidden.bs.modal.focusGuard', function() {
+          var trigger = $(this).data('focus-return');
+          $(this).removeData('focus-return');
+          if (trigger && document.documentElement.contains(trigger)) {
+            window.setTimeout(function() {
+              trigger.focus();
+            }, 0);
+          }
+        })
         .off('click.modalFocusGuard', '[data-dismiss="modal"]')
-        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function() {
+        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function(e) {
           var $modal = $(this).closest('.modal');
           var modalInstance = $modal.data('bs.modal');
           this.blur();
           if (modalInstance && modalInstance._isTransitioning) {
+            e.preventDefault();
+            e.stopPropagation();
             $modal.one('shown.bs.modal.focusGuard', function() {
               $modal.modal('hide');
             });
-          } else {
-            $modal.modal('hide');
           }
         });
       
       // Bind add visit button
       $('[data-action="add-visit"]').on('click', function(e) {
         e.preventDefault();
+        $('#visitModal').data('focus-return', e.currentTarget);
         self.openAddVisitModal();
       });
       
       // Bind add visa button
       $('[data-action="add-visa"]').on('click', function(e) {
         e.preventDefault();
+        $('#visaModal').data('focus-return', e.currentTarget);
         self.openAddVisaModal();
       });
       
@@ -60,6 +72,7 @@
       $(document).on('click', '.edit-visit-link', function(e) {
         e.preventDefault();
         var visitId = $(this).data('visit-id');
+        $('#visitModal').data('focus-return', e.currentTarget);
         self.openEditVisitModal(visitId);
       });
       
@@ -67,6 +80,7 @@
       $(document).on('click', '.edit-visa-link', function(e) {
         e.preventDefault();
         var visaId = $(this).data('visa-id');
+        $('#visaModal').data('focus-return', e.currentTarget);
         self.openEditVisaModal(visaId);
       });
       
@@ -95,6 +109,7 @@
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        $('#visitModal').removeData('focus-return');
         $('#visitModal').modal('hide');
         self.openDeleteModal(deleteUrl, 'visit');
       });
@@ -114,6 +129,7 @@
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visas/' + self.currentVisaId;
+        $('#visaModal').removeData('focus-return');
         $('#visaModal').modal('hide');
         self.openDeleteModal(deleteUrl, 'visa');
       });

@@ -13,8 +13,10 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
                  find('.step-description', match: :first).style(*panel_styles)
     assert_match(/\Argb(?:a)?\(52, 152, 219(?:, 1)?\)\z/,
                  find('.step-number', match: :first).style('color')['color'])
+    assert_equal find('.step-summary', text: 'Keep your trips across devices').style('color'),
+                 find('.step-optional').style('color')
     assert_selector '.step-summary', text: 'Choose your nationality'
-    assert_selector '.step-summary', text: 'Save your trips'
+    assert_selector '.step-summary', text: 'Keep your trips across devices'
     assert_equal find('.faq-question', match: :first).style('color', 'font-weight'),
                  find('.step-summary', match: :first).style('color', 'font-weight')
 
@@ -83,7 +85,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
   test 'first trip save replaces anonymous nationality selector with person menu' do
     visit '/en/visits'
-    select 'India', from: 'nationality_id'
+    select 'India', from: 'calculator_nationality_selector'
     assert_selector 'select[name="nationality_id"] option[selected]', text: 'India'
 
     find('[data-action="add-visit"]', match: :first).click
@@ -112,7 +114,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     end
     assert_selector '#visitModal.show', text: 'Choose your nationality'
     within '#visitModal' do
-      select 'India', from: 'nationality_id'
+      select 'India', from: 'calculator_nationality_step'
       click_button I18n.t('common.continue', locale: :en)
     end
 
@@ -131,9 +133,8 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
   test 'fresh Trips page Add Travel button opens the nationality step' do
     visit '/en/visits'
 
-    within '.empty-state', match: :first do
-      click_button I18n.t('visits.add_travel', locale: :en)
-    end
+    add_travel_button = find('.empty-state [data-action="add-visit"]', match: :first)
+    add_travel_button.click
 
     assert_selector '#visitModal.show', text: I18n.t('common.choose_nationality', locale: :en)
     assert_selector '#visitModal .nationality-step-form'
@@ -144,6 +145,26 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     end
 
     assert_no_selector '#visitModal.show'
-    assert page.evaluate_script("!document.querySelector('#visitModal').contains(document.activeElement)")
+    assert_selector '.empty-state [data-action="add-visit"]:focus'
+    assert_equal add_travel_button, page.active_element
+  end
+
+  test 'person selector closes when a calendar control handles an outside click' do
+    user_login
+    visit days_path(locale: :en, year: 2014)
+
+    find('#personDropdown').click
+    assert_selector '.person-switcher.show .dropdown-menu.show'
+    action_group = find('.person-switcher .dropdown-menu > .d-none.d-md-block')
+    menu_children = action_group.all(:xpath, './*', visible: :all)
+    add_index = menu_children.index { |item| item[:href].to_s.end_with?(new_person_path(locale: :en)) }
+    edit_index = menu_children.index { |item| item[:href].to_s.match?(%r{/en/people/\d+/edit\z}) }
+    manage_index = menu_children.index { |item| item[:href].to_s.end_with?(people_path(locale: :en)) }
+    assert_equal add_index + 1, edit_index
+    assert_includes menu_children[edit_index + 1][:class].split, 'dropdown-divider'
+    assert_equal edit_index + 2, manage_index
+
+    first('.day-cell').click
+    assert_no_selector '.person-switcher.show .dropdown-menu.show'
   end
 end

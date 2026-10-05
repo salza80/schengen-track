@@ -1,6 +1,61 @@
 require 'test_helper'
 
 class RegistrationsTest < ActionDispatch::IntegrationTest
+  test 'registration form is prefilled from the guest primary person' do
+    guest = User.create!(
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality: countries(:India),
+      email: "guest_#{SecureRandom.hex(8)}@example.com",
+      password: 'password',
+      guest: true
+    )
+    guest.people.find_by!(is_primary: true).update!(
+      first_name: 'Anna',
+      last_name: 'Traveller',
+      nationality: countries(:Australia)
+    )
+
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    assert_response :redirect
+
+    get new_user_registration_path(locale: :en)
+    assert_response :success
+    assert_select "input[name='user[first_name]'][value='Anna']"
+    assert_select "input[name='user[last_name]'][value='Traveller']"
+    assert_select "select[name='user[nationality_id]'] option[selected][value='#{countries(:Australia).id}']"
+  end
+
+  test 'registration uses the guest nationality when the submitted nationality is blank' do
+    guest = User.create!(
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality: countries(:India),
+      email: "guest_#{SecureRandom.hex(8)}@example.com",
+      password: 'password',
+      guest: true
+    )
+    guest.people.find_by!(is_primary: true).update!(nationality: countries(:Australia))
+
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    assert_response :redirect
+
+    email = "registered_#{SecureRandom.hex(8)}@example.com"
+    post user_registration_path(locale: :en), params: {
+      user: {
+        first_name: 'Anna',
+        last_name: 'Traveller',
+        nationality_id: '',
+        email: email,
+        password: 'password123',
+        password_confirmation: 'password123'
+      }
+    }
+
+    assert_response :redirect
+    assert_equal countries(:Australia), User.find_by!(email: email).nationality
+  end
+
   test 'new user registers and inherits guest user data' do
     # Create a guest user (simulating the automatic guest user creation)
     guest = User.create!(
@@ -76,18 +131,17 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
   end
 
   test 'guest user flow: visits page -> add data -> register -> data persists' do
-    # Step 1: Visit the visits page as a guest (this triggers guest user creation)
+    # Step 1: Visit the calculator and select a nationality without creating a guest yet
     get visits_path
     assert_response :success
+
+    patch calculator_preferences_path(locale: :en), params: {
+      nationality_id: countries(:India).id,
+      destination: 'trips'
+    }
+    assert_response :redirect
     
-    # The application should have created a guest user in the session
-    # We can verify by checking if there's a guest user in the response or session
-    # For this test, we'll work with the session that was established
-    
-    # Step 2: Verify we can access the page (guest user was auto-created)
-    assert_select 'body' # Basic check that page loaded
-    
-    # Step 3: Add a visit via POST request (as the guest user would)
+    # Step 2: The first saved visit creates the guest account
     post visits_path, params: {
       visit: {
         entry_date: '2024-03-01',
@@ -101,7 +155,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     
-    # Step 4: Add a visa via POST request
+    # Step 3: Add a visa to the established guest account
     post visas_path, params: {
       visa: {
         start_date: '2024-01-01',
@@ -115,7 +169,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     
-    # Step 5: Get the guest user that was created (from session/database)
+    # Step 4: Get the guest user that was created (from session/database)
     # In the actual app flow, this is stored in session[:guest_user_id]
     # For testing, we'll find the guest user that was just created
     guest_user = User.where(guest: true).order(created_at: :desc).first
@@ -128,7 +182,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal 1, guest_person.visits.count, "Guest should have 1 visit"
     assert_equal 1, guest_person.visas.count, "Guest should have 1 visa"
     
-    # Step 6: Register a new account
+    # Step 5: Register a new account
     unique_email = "integration_test_#{SecureRandom.hex(8)}@example.com"
     post user_registration_path, params: {
       user: {
@@ -144,12 +198,12 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     # Should redirect after registration
     assert_response :redirect
     
-    # Step 7: Find the newly registered user
+    # Step 6: Find the newly registered user
     new_user = User.find_by(email: unique_email)
     assert_not_nil new_user, "New user should be created"
     assert_equal false, new_user.guest, "New user should not be a guest"
     
-    # Step 8: Verify the new user has the data from the guest user
+    # Step 7: Verify the new user has the data from the guest user
     new_person = new_user.people.first
     assert_not_nil new_person, "New user should have a person"
     
@@ -169,13 +223,13 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal Date.new(2024, 12, 31), copied_visa.end_date
     assert_equal 2, copied_visa.no_entries
     
-    # Step 9: Log in as the new user and verify we can access their data
+    # Step 8: Log in as the new user and verify we can access their data
     post user_session_path, params: {
       user: { email: unique_email, password: 'password123' }
     }
     assert_response :redirect
     
-    # Step 10: Visit the visits page and verify the data is still there
+    # Step 9: Visit the visits page and verify the data is still there
     get visits_path
     assert_response :success
     

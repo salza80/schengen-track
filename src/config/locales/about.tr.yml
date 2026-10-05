@@ -49,7 +49,7 @@ tr:
           visa: 'Vize:'
           visa_days_over_stay: 'Vizeyle Aşırı Kalış Günleri:'
           visa_days_over_stay_description: Vize izni olmadan Schengen Bölgesinde geçirilen gün sayısı. Ya bir vize girmediğiniz, vizenin bitiş tarihinden sonra çıktığınız veya vizeye izin verilen giriş sayısından fazla giriş yaptınız.
-          visa_description: Bu yalnızca giriş öncesi Vize gerektiren Tekli/Multi Kısa Süreli Schengen Vizesiyle ilgilidir. Bu gereksinimden muafsanız, Vize seçenekleri görünmez. Lütfen sayfanın sağ üst köşesindeki Uyruğunuzu seçmeyi unutmayın!
+          visa_description: Bu yalnızca tek veya çok girişli kısa süreli Schengen vizesine ihtiyaç duyan yolcular için geçerlidir. Vize seçenekleri uyruğunuzu seçtikten sonra ve yalnızca gerekli olduğunda görünür.
       disclaimer:
         description: Lütfen Schengen Hesap Makinesini kullanmadan önce %{link}'i okuyun.
         link_text: Feragatname
@@ -107,16 +107,16 @@ tr:
       field_definitions_link: Alan Adı Tanımları
       get_started: Başlamak için takvimi görüntüleyin
       how_to_use:
-        entry_methods_note: Hassasiyet mi istiyorsunuz? Tam giriş ve çıkış tarihleri için Ziyaretler tablosunu kullanın veya takvimde herhangi bir güne tıklayarak bir seyahat ekleyip düzenleyin - iki görünüm de senkron kalır.
+        entry_methods_note: Hassasiyet mi istiyorsunuz? Tam giriş ve çıkış tarihleri için Seyahatler sayfasını kullanın veya takvimde herhangi bir güne tıklayarak bir seyahat ekleyip düzenleyin—iki görünüm de senkron kalır.
         people:
           description: Aynı hesabı kullanarak birden fazla kişi için seyahatleri takip edebilirsiniz. Farklı gezginler eklemek ve aralarında geçiş yapmak için sayfanın üst kısmındaki kişi değiştiricisini kullanın. Her kişinin kendi uyruğu, seyahatleri ve vize bilgileri olabilir. Bu, aileler veya birden fazla kişi için seyahat yönetirken kullanışlıdır.
           title: 'Birden Fazla Kişi:'
         step_1:
-          description: Uyruğunuzu seçin. Bunun için sayfanın üst kısmındaki başlık kısmını kullanabilirsiniz.
+          description: Uyruğunuzu Seyahatler sayfasında seçin. Seyahat Ekle ile başlarsanız hesaplayıcı, seyahat formunu göstermeden önce uyruğunuzu sorar. Misafir profili veya hesap oluşturulduktan sonra bunu yolcu ayarlarından değiştirebilirsiniz.
           summary: Uyruğunuzu seçin
           title: 'Adım 1:'
         step_2:
-          description: Gerekirse, kısa süreli Schengen Vizenizin detaylarını girin. Bu yalnızca gerektiğinde seyahat kaydının altında görünecektir.
+          description: Gerekirse kısa süreli Schengen vizenizin ayrıntılarını girin. Vizeler bölümü uyruğunuzu seçtikten sonra ve yalnızca gerekli olduğunda görünür.
           summary: Gerekliyse vizenizi ekleyin
           title: 'Adım 2:'
         step_3:
@@ -129,10 +129,10 @@ tr:
           summary: Kalan günlerinizi kontrol edin
           title: 'Adım 4:'
         step_5:
-          description: Seyahat kaydınızı kaydetmek için Kayıt Olun ve Giriş Yapın. Var olan 'Misafir' verileriniz yeni hesabınıza kopyalanacaktır. Schengen Hesap Makinesine kaydolabilir veya Giriş yapmak ve Kaydolmak için Facebook'u kullanabilirsiniz.
-          optional: true
-          summary: Seyahatlerinizi kaydedin
-          title: 'Adım 5: (isteğe bağlı)'
+          description: İlk geçerli seyahatiniz otomatik olarak geçici bir misafir profili oluşturur; böylece kayıt olmadan hesaplayıcıyı kullanabilirsiniz. Planlarınızı farklı tarayıcı ve cihazlarda tutmak için kaydolun veya giriş yapın; misafir seyahatleriniz hesabınıza aktarılır.
+          optional: "(isteğe bağlı)"
+          summary: Seyahatlerinizi tüm cihazlarda saklayın
+          title: 'Adım 5:'
         title: Schengen Hesap Makinesi Nasıl Kullanılır
       how_to_use_link: Schengen Hesap Makinesi Nasıl Kullanılır
       introduction: Giriş

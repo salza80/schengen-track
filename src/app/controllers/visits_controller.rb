@@ -78,8 +78,10 @@ class VisitsController < ApplicationController
   # POST /visits.json
   def create
     if anonymous_calculator?
+      return render_calculator_nationality_required(open_trip: true) unless calculator_nationality_selected?
+
       result = AnonymousCalculator::FirstSave.call(
-        nationality: current_person.nationality,
+        nationality: selected_calculator_nationality,
         record_class: Visit,
         attributes: visit_params
       )

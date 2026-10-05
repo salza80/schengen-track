@@ -118,10 +118,7 @@ class ApplicationController < ActionController::Base
   end
 
   def calculator_nationality_selected?
-    return @calculator_nationality_selected if defined?(@calculator_nationality_selected)
-
-    @calculator_nationality_selected = session[:calculator_nationality_id].present? &&
-                                       Country.exists?(id: session[:calculator_nationality_id])
+    selected_calculator_nationality.present?
   end
   
   private
@@ -179,7 +176,26 @@ class ApplicationController < ActionController::Base
   end
 
   def calculator_nationality
-    Country.find_by(id: session[:calculator_nationality_id]) || default_guest_country
+    selected_calculator_nationality || default_guest_country
+  end
+
+  def selected_calculator_nationality
+    return @selected_calculator_nationality if defined?(@selected_calculator_nationality)
+
+    @selected_calculator_nationality = Country.find_by(id: session[:calculator_nationality_id])
+  end
+
+  def render_calculator_nationality_required(open_trip: false)
+    redirect_options = { locale: I18n.locale }
+    redirect_options[:open] = 'trip' if open_trip
+    redirect_path = visits_path(redirect_options)
+    message = t('common.choose_nationality')
+
+    respond_to do |format|
+      format.html { redirect_to redirect_path, alert: message }
+      format.json { render json: { error: message }, status: :unprocessable_entity }
+      format.js { render js: "window.location.assign(#{redirect_path.to_json});" }
+    end
   end
 
   def establish_guest_session(user, person)

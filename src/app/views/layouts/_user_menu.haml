@@ -1,7 +1,8 @@
 %li.nav-item.dropdown.person-switcher
-  %a#personDropdown.nav-link.dropdown-toggle.d-md-flex.flex-column.align-items-md-end{href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
-    %span.person-name{dir: "auto"}= current_person.full_name
-    %small.person-nationality{dir: "auto"}= current_person.nationality&.localized_name || t('common.person_not_set')
+  %a#personDropdown.nav-link.dropdown-toggle.d-md-flex.align-items-md-center.py-md-1{href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
+    %span.person-info.d-inline-block
+      %span.person-name{dir: "auto"}= current_person.full_name
+      %small.person-nationality{dir: "auto"}= current_person.nationality&.localized_name || t('common.person_not_set')
   .dropdown-menu.dropdown-menu-md-right{"aria-labelledby": "personDropdown"}
     - current_user_or_guest_user.people.ordered.each do |person|
       = button_to set_current_person_path(person), class: ['dropdown-item', 'text-left', ('active' if person == current_person)], form: { class: 'dropdown-item-form w-100', data: { turbo: false } } do
@@ -17,13 +18,13 @@
       = link_to new_person_path(locale: I18n.locale), class: "dropdown-item" do
         %i.fa.fa-plus.mr-2{"aria-hidden": "true"}
         = t('common.add_person')
+      = link_to edit_person_path(current_person, locale: I18n.locale), class: "dropdown-item" do
+        %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
+        = t('common.edit_current_person')
       .dropdown-divider
       = link_to people_path(locale: I18n.locale), class: "dropdown-item" do
         %i.fa.fa-users.mr-2{"aria-hidden": "true"}
         = t('common.manage_people')
-      = link_to edit_person_path(current_person, locale: I18n.locale), class: "dropdown-item" do
-        %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
-        = t('common.edit_current_person')
       .dropdown-divider
       - if user_signed_in?
         = link_to my_details_path(locale: I18n.locale), class: "dropdown-item" do
@@ -38,13 +39,13 @@
     %i.fa.fa-plus.mr-2{"aria-hidden": "true"}
     = t('common.add_person')
 %li.nav-item.d-md-none
-  = link_to people_path(locale: I18n.locale), class: "nav-link" do
-    %i.fa.fa-users.mr-2{"aria-hidden": "true"}
-    = t('common.manage_people')
-%li.nav-item.d-md-none
   = link_to edit_person_path(current_person, locale: I18n.locale), class: "nav-link" do
     %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
     = t('common.edit_current_person')
+%li.nav-item.d-md-none
+  = link_to people_path(locale: I18n.locale), class: "nav-link" do
+    %i.fa.fa-users.mr-2{"aria-hidden": "true"}
+    = t('common.manage_people')
 - if user_signed_in?
   %li.nav-item.d-md-none
     = link_to my_details_path(locale: I18n.locale), class: "nav-link" do

@@ -32,6 +32,8 @@ tr:
     'false': Hayır
     home: Ana Sayfa
     invalid_nationality: Lütfen geçerli bir milliyet seçin.
+    keep_plans_description: Seyahatlerinizi farklı tarayıcı ve cihazlarda kullanılabilir tutmak için ücretsiz bir hesap oluşturun.
+    keep_plans_title: Seyahat planlarınızı koruyun
     legal: Yasal
     log_out: Çıkış yap
     login: Giriş yap
@@ -47,7 +49,7 @@ tr:
     of: toplam
     person_not_set: Belirtilmedi
     privacy_policy: Gizlilik Politikası
-    register_to_save: Planlarınızı kaydetmek için kaydolun
+    register_to_save: Planlarınızı korumak için kaydolun
     save: Kaydet
     schengen: Schengen
     schengen_calculator: Schengen Hesaplayıcı

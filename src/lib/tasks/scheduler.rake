@@ -36,9 +36,13 @@ namespace :db do
         Rails.logger.info 'Acquired guest cleanup advisory lock'
       end
 
-      ActiveRecord::Base.transaction do
-        # delete all guest users over 30 days old or up to the limit_date passed in.
-        User.where("updated_at <= :limit AND guest=:istrue", { limit: limit_date, istrue: true }).select(:id).find_in_batches(batch_size: 100) do | ids |
+      # Delete all guest users over 30 days old or up to the limit_date passed in.
+      # Commit each batch independently so a large cleanup cannot hold one
+      # transaction open for the entire run or roll back completed batches.
+      User.where("updated_at <= :limit AND guest=:istrue", { limit: limit_date, istrue: true }).select(:id).find_in_batches(batch_size: 100) do | ids |
+        break if max_batches && batches_processed >= max_batches
+
+        ActiveRecord::Base.transaction do
           # For guest users, we bypass the prevent_last_person_deletion callback
           # by deleting people and their associations directly without callbacks
           user_ids = ids.map(&:id)
@@ -51,39 +55,39 @@ namespace :db do
 
           # Now delete the users
           User.where(id: user_ids).delete_all
-
-          deleted_count += ids.size
-          batches_processed += 1
-          batch_message = "Deleted guest cleanup batch #{batches_processed}; #{deleted_count} users deleted so far"
-          puts batch_message
-          Rails.logger.info batch_message
-
-          if max_batches && batches_processed >= max_batches
-            remaining_count = User.where("updated_at <= :limit AND guest=:istrue", { limit: limit_date, istrue: true }).count
-            puts "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining_count} old guest users remaining."
-            Rails.logger.info "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining_count} old guest users remaining."
-            break
-          end
         end
 
-        puts 'end guest cleanup'
-        puts "Deleted #{deleted_count} guest users in #{batches_processed} batches"
-        puts 'Number of user accounts: ' + User.count.to_s
-        puts 'Number of Visits:' + Visit.count.to_s
-        puts 'Number of Visas: ' + Visa.count.to_s
-        expired_rate_limits_deleted = ApiRateLimit.table_exists? ? ApiRateLimit.delete_expired! : 0
-        puts "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
-        Rails.logger.info "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
+        deleted_count += ids.size
+        batches_processed += 1
+        batch_message = "Deleted guest cleanup batch #{batches_processed}; #{deleted_count} users deleted so far"
+        puts batch_message
+        Rails.logger.info batch_message
 
-        # Store stats in temp file for controller to read
-        stats = {
-          deleted: deleted_count,
-          batches: batches_processed,
-          remaining: remaining_count,
-          expired_rate_limits_deleted: expired_rate_limits_deleted
-        }
-        File.write(stats_file, stats.to_json)
+        if max_batches && batches_processed >= max_batches
+          remaining_count = User.where("updated_at <= :limit AND guest=:istrue", { limit: limit_date, istrue: true }).count
+          puts "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining_count} old guest users remaining."
+          Rails.logger.info "Reached max_batches limit (#{max_batches}). Deleted #{deleted_count} users. #{remaining_count} old guest users remaining."
+          break
+        end
       end
+
+      puts 'end guest cleanup'
+      puts "Deleted #{deleted_count} guest users in #{batches_processed} batches"
+      puts 'Number of user accounts: ' + User.count.to_s
+      puts 'Number of Visits:' + Visit.count.to_s
+      puts 'Number of Visas: ' + Visa.count.to_s
+      expired_rate_limits_deleted = ApiRateLimit.table_exists? ? ApiRateLimit.delete_expired! : 0
+      puts "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
+      Rails.logger.info "Deleted #{expired_rate_limits_deleted} expired API rate limit rows"
+
+      # Store stats in temp file for controller to read
+      stats = {
+        deleted: deleted_count,
+        batches: batches_processed,
+        remaining: remaining_count,
+        expired_rate_limits_deleted: expired_rate_limits_deleted
+      }
+      File.write(stats_file, stats.to_json)
     rescue => e
       message = "Guest cleanup failed: #{e.class}: #{e.message}"
       puts message

@@ -10,23 +10,45 @@ Live site can be found here: http://www.schengen-calculator.com
 
 == System Dependencies
 * Database: PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
-* Ruby version 3.2.2, source: https://www.ruby-lang.org/en/documentation/installation/
-* Rails version 7.1.5.2, source: https://rubyonrails.org/
+* Ruby version 3.3.6 (see src/.ruby-version and src/Gemfile)
+* Rails version 7.2.3.1 (see src/Gemfile.lock)
+* Docker Desktop or Docker Engine with Docker Compose, for local PostgreSQL
 
 
 == Application setup
-To develop locally, rails can be setup normally in the /src folder
-* Install RVM
-* Install Ruby 3.2.2 (on ubuntu 22 1. rvm install pkg openssl  2. rvm install 3.2.2 --with-openssl-dir=/usr/share/rvm/usr)
-* Install docker, docker desktop
-in /src Folder
-* run docker-compose up (to run postgres container)
-* Configure secrets for development (see Configuration Management section below)
-* run command <tt>`bundle install`</tt>
-* Database setup
-  * run command <tt>`./bin/rake db:create`</tt>
-  * run command <tt>`./bin/rake db:migrate`</tt>
-  * run command <tt>`./bin/rake db:seed`</tt>
+Start Docker Desktop (or your Docker daemon). Install Ruby 3.3.6 using RVM or your preferred Ruby version manager, and configure <tt>src/config/secrets.yml</tt> as described below.
+
+From the repository root, run:
+
+  cd src
+  rvm use 3.3.6
+  bundle install
+  docker compose up -d postgres
+  bundle exec rails db:prepare
+  bundle exec rails server
+
+If using RVM for the first time, run <tt>rvm install 3.3.6</tt> before <tt>rvm use</tt>. With another version manager, select the version in <tt>src/.ruby-version</tt> instead.
+
+Open http://localhost:3000/en/about to view the information page, or http://localhost:3000/en/visits for Trips. Stop the Rails server with Ctrl+C.
+
+=== Database setup and migrations
+
+<tt>db:prepare</tt> initializes and seeds a new database, or runs pending migrations on an existing initialized database. With the default local configuration, these commands target the development database, not production.
+
+After pulling changes, you can explicitly apply pending migrations from <tt>src</tt>:
+
+  bundle exec rails db:migrate
+
+Do not run <tt>db:seed</tt> as a routine update: this project's seed script deletes existing people, users, countries and continents before loading reference and sample data. Reserve it for a fresh/disposable local database. Use <tt>bundle exec rails db:update_countries</tt> to refresh country reference data without reseeding accounts.
+
+=== Stale styles or JavaScript locally
+
+If local precompiled assets hide recent changes, stop the server and run from <tt>src</tt>:
+
+  bundle exec rails assets:clobber
+  bundle exec rails server
+
+This removes generated assets, not source files. Reload the browser afterward; development serves the current source assets.
 
 
 == Configuration Management
@@ -78,14 +100,14 @@ The countries.xml file is the authoritative source for all country-related data 
 * Visa requirement information
 
 To update country data in the database after modifying countries.xml:
-* Locally: run command <tt>`./bin/rake countries:update_countries`</tt>
+* Locally: run command <tt>bundle exec rails db:update_countries</tt> from <tt>src</tt>
 * Deployments: Automatically runs via API endpoint (see Deployment section)
 
 Note: Direct database modifications to country data will be overwritten on the next deployment or when the update_countries task runs.
 
 
 = After updating seed countries data
-* run command <tt>`./bin/rake countries:update_countries`</tt>
+* Run <tt>bundle exec rails db:update_countries</tt> from <tt>src</tt>
 
 = To clean up guest user accounts older than 30 days
 * run command <tt>`./bin/rake db:guest_cleanup`</tt>
@@ -163,10 +185,24 @@ Current whitelisted keys (as of last cleanup):
 This prevents false "unused key" warnings while documenting why the key is special.
 
 
-== How to run application and tests (test framework `MiniTest`)
-* run docker-compose up
-* command to  run applicaiton <tt>`rails server`</tt>
-* command to run tests <tt>`.bin/rake test`</tt>
+== Running tests (Minitest)
+
+With Docker/PostgreSQL running and Ruby 3.3.6 selected, run from <tt>src</tt>:
+
+  RAILS_ENV=test bundle exec rails db:prepare
+  bundle exec rake test
+
+Browser integration tests require Chrome and a compatible ChromeDriver. If auto-discovery fails, set <tt>CHROME_BIN</tt> and <tt>CHROMEDRIVER_PATH</tt> to their executable paths. The test database is disposable; do not point it at development or production data.
+
+For a focused test:
+
+  bundle exec rails test test/integration/public_header_test.rb
+
+For infrastructure and header JavaScript tests, run from <tt>deployment</tt> using the Node version in <tt>.nvmrc</tt>:
+
+  npm ci
+  npm run build
+  npm test -- --runInBand
 
 
 == Facebook OAuth Configuration

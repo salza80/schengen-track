@@ -37,4 +37,43 @@ class LambdaTaskExecutorTest < ActiveSupport::TestCase
     assert_equal 0, result[:stats]['remaining']
     assert_not User.exists?(old_guest.id)
   end
+
+  test 'guest cleanup keeps completed batches when a later batch fails' do
+    old_guests = 101.times.map do |index|
+      user = User.create!(
+        email: "old-guest-#{index}-#{SecureRandom.hex(4)}@example.com",
+        password: 'password',
+        first_name: 'Old',
+        last_name: 'Guest',
+        nationality: countries(:Australia),
+        guest: true
+      )
+      user.update_columns(created_at: 45.days.ago, updated_at: 45.days.ago)
+      user
+    end
+    old_guest_ids = old_guests.map(&:id).sort
+    failing_batch_user_id = old_guest_ids.fetch(100)
+
+    original_where = Person.method(:where)
+    Person.define_singleton_method(:where) do |conditions = nil, *args|
+      if conditions.is_a?(Hash) && Array(conditions[:user_id]).include?(failing_batch_user_id)
+        raise 'forced guest cleanup failure'
+      end
+
+      original_where.call(conditions, *args)
+    end
+
+    error = assert_raises(RuntimeError) do
+      Lambda::TaskExecutor.execute(
+        'command' => 'guest_cleanup',
+        'params' => { 'max_batches' => 2 }
+      )
+    end
+    assert_match 'forced guest cleanup failure', error.message
+
+    assert_equal 100, old_guest_ids.count { |id| !User.exists?(id) }
+    assert_equal 1, old_guest_ids.count { |id| User.exists?(id) }
+  ensure
+    Person.define_singleton_method(:where, original_where) if original_where
+  end
 end

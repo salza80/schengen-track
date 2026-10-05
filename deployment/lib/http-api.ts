@@ -190,8 +190,7 @@ export class HttpApiConstruct extends Construct {
     const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
       customHeaders: originCustomHeaders,
     });
-    const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
+    const publicOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 
         'Access-Control-Request-Method', 
         'Access-Control-Request-Headers',
@@ -199,10 +198,26 @@ export class HttpApiConstruct extends Construct {
         'X-Requested-With',
         'Referer',
         'X-Schengen-Client-Ip'
-      ),
+      );
+    const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
+      headerBehavior: publicOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
     })
+
+    // Parameters excluded from the public cache key must not influence the
+    // origin response (e.g. ?nationality=American can redirect the homepage).
+    const publicOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "publicRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.none(),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
+    });
+
+    const sessionHeaderRequestPolicy = new cloudfront.OriginRequestPolicy(this, "sessionHeaderRequestPolicy", {
+      headerBehavior: cloudfront.OriginRequestHeaderBehavior.none(),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session', 'has_flash_message'),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
+    });
 
     // Separate policy for authentication flows that need all cookies for CSRF
     const authOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "authRequestPolicy", {
@@ -248,12 +263,18 @@ export class HttpApiConstruct extends Construct {
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     })
 
-    const customCacheCountryGuestKey = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
-      headerBehavior: cloudfront.CacheHeaderBehavior.allowList('Origin'),
-      cookieBehavior: cloudfront.CacheCookieBehavior.allowList('cache_country_guest'),
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
+    const publicHtmlCachePolicy = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
+      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
+      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+      // Public HTML pages are selected entirely by their path/locale. Ignore
+      // tracking and other incidental query parameters so bots cannot
+      // fragment the cache with effectively identical URLs.
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
       enableAcceptEncodingBrotli: true,
-      enableAcceptEncodingGzip: true
+      enableAcceptEncodingGzip: true,
+      minTtl: cdk.Duration.seconds(0),
+      defaultTtl: cdk.Duration.hours(1),
+      maxTtl: cdk.Duration.days(1)
     })
 
     // Cache policy for authenticated user pages to enable text compression (Brotli/Gzip) without actual caching
@@ -322,13 +343,22 @@ export class HttpApiConstruct extends Construct {
       },
     ];
 
-    const publicCacheByCountryGuestBehavior = {
+    const publicHtmlBehavior = {
       origin: origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: customCacheCountryGuestKey,
-      originRequestPolicy: customOriginRequestPolicy,
+      cachePolicy: publicHtmlCachePolicy,
+      originRequestPolicy: publicOriginRequestPolicy,
       responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
+      functionAssociations
+    };
+
+    const sessionHeaderBehavior = {
+      origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: sessionHeaderRequestPolicy,
       functionAssociations
     };
 
@@ -396,19 +426,30 @@ export class HttpApiConstruct extends Construct {
         "/api/v1/calculations*": agentApiBehavior,
         "/users/*": authFlowBehavior,
         "/*/users/*": authFlowBehavior,
+        "/session_header": sessionHeaderBehavior,
+        "/*/session_header": sessionHeaderBehavior,
         "assets/*": publicAssetsCacheBehavior,
-        "/": publicCacheByCountryGuestBehavior,
-        "/en": publicCacheByCountryGuestBehavior,
-        "/de": publicCacheByCountryGuestBehavior,
-        "/es": publicCacheByCountryGuestBehavior,
-        "/tr": publicCacheByCountryGuestBehavior,
-        "/zh-CN": publicCacheByCountryGuestBehavior,
-        "/hi": publicCacheByCountryGuestBehavior,
-        "/pt-BR": publicCacheByCountryGuestBehavior,
-        "/about*": publicCacheByCountryGuestBehavior,
-        "/*/about*": publicCacheByCountryGuestBehavior,
-        "/blog*": publicCacheByCountryGuestBehavior,
-        "/*/blog*": publicCacheByCountryGuestBehavior,
+        "/": publicHtmlBehavior,
+        "/en": publicHtmlBehavior,
+        "/de": publicHtmlBehavior,
+        "/es": publicHtmlBehavior,
+        "/tr": publicHtmlBehavior,
+        "/zh-CN": publicHtmlBehavior,
+        "/hi": publicHtmlBehavior,
+        "/pt-BR": publicHtmlBehavior,
+        "/fr": publicHtmlBehavior,
+        "/ar": publicHtmlBehavior,
+        "/about*": publicHtmlBehavior,
+        "/*/about*": publicHtmlBehavior,
+        "/blog*": publicHtmlBehavior,
+        "/*/blog*": publicHtmlBehavior,
+        "/disclaimer*": publicSeoDocsCacheBehavior,
+        "/*/disclaimer*": publicSeoDocsCacheBehavior,
+        "/privacy*": publicSeoDocsCacheBehavior,
+        "/*/privacy*": publicSeoDocsCacheBehavior,
+        "/datadeletion*": publicSeoDocsCacheBehavior,
+        "/*/datadeletion*": publicSeoDocsCacheBehavior,
+        "/api/docs": publicSeoDocsCacheBehavior,
         "/robots.txt": publicSeoDocsCacheBehavior,
         "/llms.txt": publicSeoDocsCacheBehavior,
         "/llms-full.txt": publicSeoDocsCacheBehavior,

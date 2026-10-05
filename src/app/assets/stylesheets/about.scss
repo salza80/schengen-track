@@ -41,7 +41,8 @@ a.nationality_anchor {
     margin-bottom: 1rem;
   }
 
-  h4 {
+  h4,
+  .nationality-selector label {
     font-size: 1.25rem;
     font-weight: 600;
     color: #2c3e50;
@@ -67,7 +68,8 @@ a.nationality_anchor {
   }
 
   // Call-to-action buttons
-  .btn-primary {
+  .btn-primary,
+  .btn-calendar-start {
     padding: 0.75rem 2rem;
     font-size: 1.1rem;
     font-weight: 600;
@@ -79,6 +81,11 @@ a.nationality_anchor {
       transform: translateY(-2px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
+  }
+
+  // Keep this call to action's text dark in all interaction states.
+  a.btn-calendar-start {
+    color: #212529;
   }
 
   // Highlight boxes
@@ -111,6 +118,25 @@ a.nationality_anchor {
 
 // Form styling on about page
 .about-section {
+  .nationality-selector {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+
+    label {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .custom-select {
+      flex: 1 1 16rem;
+      width: auto;
+      min-width: 0;
+      height: auto;
+    }
+  }
+
   .custom-select {
     padding: 0.75rem 1rem;
     font-size: 1rem;
@@ -172,19 +198,22 @@ a.nationality_anchor {
       margin-top: 2rem;
     }
 
-    .btn-primary {
+    .btn-primary,
+    .btn-calendar-start {
       width: 100%;
       margin-bottom: 1rem;
     }
   }
 }
 
-// FAQ Section Styles
-.faq-section {
+// Shared FAQ and how-to formatting keeps both sections visually consistent.
+.faq-section,
+.how-to-section {
   margin-top: 2rem;
   margin-bottom: 3rem;
 
-  .faq-item {
+  .faq-item,
+  .how-to-item {
     margin-bottom: 2rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid #e9ecef;
@@ -195,14 +224,17 @@ a.nationality_anchor {
       padding-bottom: 0;
     }
 
-    .faq-question {
+    .faq-question,
+    .step-title {
       font-size: 1.35rem;
       font-weight: 600;
       color: #2c3e50;
       margin-bottom: 1rem;
       line-height: 1.4;
-      
-      // Add question icon
+    }
+
+    .faq-question {
+      // Only FAQ headings receive the question prefix.
       &:before {
         content: "Q: ";
         color: #3498db;
@@ -211,35 +243,49 @@ a.nationality_anchor {
       }
     }
 
-    .faq-answer {
+    .step-number {
+      color: #3498db;
+      font-weight: 700;
+      margin-inline-end: 0.5rem;
+    }
+
+    .faq-answer,
+    .step-description {
       font-size: 1.05rem;
       line-height: 1.8;
       color: #555;
-      padding-left: 2rem;
 
       p {
         margin-bottom: 0;
+      }
+
+      p + p {
+        margin-top: 1rem;
       }
 
       // Add subtle background
       padding: 1rem 1.5rem;
       background-color: #f8f9fa;
       border-radius: 4px;
-      border-left: 3px solid #3498db;
+      border-inline-start: 3px solid #3498db;
     }
   }
 }
 
-// Mobile responsive adjustments for FAQ
+// Mobile responsive adjustments for FAQ and how-to sections
 @media (max-width: 768px) {
-  .faq-section {
-    .faq-item {
-      .faq-question {
+  .faq-section,
+  .how-to-section {
+    .faq-item,
+    .how-to-item {
+      .faq-question,
+      .step-title {
         font-size: 1.15rem;
       }
 
-      .faq-answer {
-        padding-left: 0.5rem;
+      .faq-answer,
+      .step-description {
+        padding-inline-start: 0.5rem;
         font-size: 1rem;
       }
     }

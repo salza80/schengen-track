@@ -113,20 +113,25 @@ tr:
           title: 'Birden Fazla Kişi:'
         step_1:
           description: Uyruğunuzu seçin. Bunun için sayfanın üst kısmındaki başlık kısmını kullanabilirsiniz.
+          summary: Uyruğunuzu seçin
           title: 'Adım 1:'
         step_2:
           description: Gerekirse, kısa süreli Schengen Vizenizin detaylarını girin. Bu yalnızca gerektiğinde seyahat kaydının altında görünecektir.
+          summary: Gerekliyse vizenizi ekleyin
           title: 'Adım 2:'
         step_3:
           description_1: Seyahat kaydınızı (geçmiş ve gelecek) ekleyin. Son 180 gün içinde Schengen Bölgesi içinde yaptığınız herhangi bir seyahati en azından dahil etmelisiniz.
           description_2: Ülkeler arası tüm hareketlerinizi, Schengen ve Schengen Dışı Ülkeler arasındaki seyahatleri ve hatta bir Schengen Ülkesinden diğerine seyahati girmeniz önemlidir; çünkü hangi ülkelerin Schengen Anlaşmasının bir parçası olduğunu veya olmadığını farkında olmayabilirsiniz. Giriş tarihi varış yaptığınız gündür ve çıkış tarihi ise ayrıldığınız gündür. Bir sonraki ziyaretinizin giriş tarihi çıkış tarihinizle örtüşüyorsa endişelenmeyin, hesap makinesi, Schengen Bölgesinde kalış sürenizi hesaplarken günleri çift saymaz.
+          summary: Seyahatlerinizi ekleyin
           title: 'Adım 3:'
         step_4:
           description: Seyahatin geçerliliği ve Schengen alanında kalabileceğiniz kalan süre hakkında bilgileri inceleyin. Hesap Makinesini kullanarak, niyetinizdeki seyahat kaydını değiştirerek 'ne olur' senaryoları yapın.
+          summary: Kalan günlerinizi kontrol edin
           title: 'Adım 4:'
         step_5:
           description: Seyahat kaydınızı kaydetmek için Kayıt Olun ve Giriş Yapın. Var olan 'Misafir' verileriniz yeni hesabınıza kopyalanacaktır. Schengen Hesap Makinesine kaydolabilir veya Giriş yapmak ve Kaydolmak için Facebook'u kullanabilirsiniz.
           optional: true
+          summary: Seyahatlerinizi kaydedin
           title: 'Adım 5: (isteğe bağlı)'
         title: Schengen Hesap Makinesi Nasıl Kullanılır
       how_to_use_link: Schengen Hesap Makinesi Nasıl Kullanılır
@@ -151,9 +156,7 @@ tr:
       nationality_requirements_link: Vatandaşlık gereksinimleri
       nationality_section:
         heading: Vatandaşlığım için Schengen / Avrupa turistik seyahat giriş ve kalış süresi gereksinimleri
-        select_another_prompt: Başka Bir Ülke Seçin
-        select_prompt: Ülke Seçin
-        subheading: Gereksinimlerinizi görmek için vatandaşlığınızı seçin
+        select_prompt: Vatandaşı olduğunuz ülkeyi seçin
       new_definition_as_of_2013: 2013'ten İtibaren Yeni tanım
       new_definition_link: 2013'ten itibaren Yeni tanım
       new_rules_from: "%{date} itibarıyla yeni kurallar"

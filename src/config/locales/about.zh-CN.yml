@@ -113,20 +113,25 @@ zh-CN:
           title: 多人追踪：
         step_1:
           description: 选择您的国籍。您可以在页面顶部的页眉中更改此选项。
+          summary: 选择您的国籍
           title: 步骤 1：
         step_2:
           description: 如果需要，请输入您的申根短期签证的详细信息。这将仅在需要时显示在旅行记录下方。
+          summary: 如有需要，添加签证
           title: 步骤 2：
         step_3:
           description_1: 添加您的旅行记录（过去和未来）。您需要至少包括过去180天内您在申根地区内的任何旅行。
           description_2: 最好是您输入所有在国家之间的移动，申根区和非申根区的旅行，甚至在一个申根国家到另一个申根国家的旅行，因为您可能不知道某些国家是或不是申根协议的一部分。入境日期是您到达的那天，出境日期是您离开的那天。如果出境日期与您下次访问的入境日期重叠，不用担心，计算器在计算您在申根地区内停留时间时不会重复计算这些天数。
+          summary: 添加您的行程
           title: 步骤 3：
         step_4:
           description: 查看有关旅行的有效性以及您在申根地区可以停留的剩余时间的信息。使用计算器进行一些假设性场景的实验，改变您的预期旅行记录。
+          summary: 查看剩余天数
           title: 步骤 4：
         step_5:
           description: 要保存您的旅行记录，请注册并登录。您现有的“访客”数据将复制到您的新帐户中。您可以使用申根计算器进行注册，或使用 Facebook 登录和注册。
           optional: true
+          summary: 保存您的行程
           title: 步骤 5：（可选）
         title: 如何使用申根签证计算器
       how_to_use_link: 如何使用申根签证计算器
@@ -151,9 +156,7 @@ zh-CN:
       nationality_requirements_link: 我国籍的申根要求
       nationality_section:
         heading: 我的国籍的申根 / 欧洲旅游入境和停留要求
-        select_another_prompt: 选择另一个国家
-        select_prompt: 选择国家
-        subheading: 选择您的国籍以查看您的申根要求
+        select_prompt: 请选择您的国籍所属国家
       new_definition_as_of_2013: 2013年的新定义
       new_definition_link: 2013年的新定义
       new_rules_from: 新规则自%{date}

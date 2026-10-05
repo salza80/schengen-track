@@ -113,20 +113,25 @@ fr:
           title: 'Plusieurs personnes :'
         step_1:
           description: Sélectionnez votre nationalité. Vous pouvez la modifier en haut de la page dans l'en-tête.
+          summary: Choisissez votre nationalité
           title: 'Étape 1 :'
         step_2:
           description: Si nécessaire, entrez les détails de votre visa de court séjour Schengen. Cela apparaîtra sous l'enregistrement de voyage uniquement si nécessaire.
+          summary: Ajoutez votre visa si nécessaire
           title: 'Étape 2 :'
         step_3:
           description_1: Ajoutez votre enregistrement de voyage (passé et futur). Vous devez inclure au moins tous les voyages dans l'espace Schengen que vous avez effectués au cours des 180 derniers jours.
           description_2: Il est préférable d'entrer tous vos déplacements entre pays, pays Schengen et non-Schengen, et même les voyages d'un pays Schengen à un autre, car vous ne savez peut-être pas quels pays font partie ou non de l'accord Schengen. La date d'entrée est le jour où vous arrivez, et la date de sortie est le jour où vous partez. Ne vous inquiétez pas si la date de sortie chevauche la date d'entrée de votre prochaine visite, la calculatrice ne comptera pas deux fois les jours lors du calcul de la durée de votre séjour dans l'espace Schengen.
+          summary: Ajoutez vos voyages
           title: 'Étape 3 :'
         step_4:
           description: Consultez les informations sur la validité du voyage et le temps restant que vous pouvez passer dans l'espace Schengen. Utilisez la calculatrice pour réaliser des scénarios hypothétiques en modifiant votre enregistrement de voyage prévu.
+          summary: Vérifiez vos jours restants
           title: 'Étape 4 :'
         step_5:
           description: Pour enregistrer votre enregistrement de voyage, inscrivez-vous et connectez-vous. Vos données « Invité » existantes seront copiées dans votre nouveau compte. Vous pouvez vous inscrire sur la calculatrice Schengen ou utiliser Facebook pour vous connecter et vous inscrire.
           optional: true
+          summary: Enregistrez vos voyages
           title: 'Étape 5 : (facultatif)'
         title: Comment utiliser la calculatrice Schengen
       how_to_use_link: Comment utiliser la calculatrice Schengen
@@ -151,9 +156,7 @@ fr:
       nationality_requirements_link: Exigences de nationalité Schengen
       nationality_section:
         heading: Exigences d'entrée et de durée de séjour touristique Schengen / Europe pour ma nationalité
-        select_another_prompt: Sélectionner un autre pays
-        select_prompt: Sélectionner le pays
-        subheading: Sélectionnez votre nationalité pour voir vos exigences Schengen
+        select_prompt: Sélectionnez votre pays de citoyenneté
       new_definition_as_of_2013: Nouvelle définition depuis 2013
       new_definition_link: Nouvelle définition depuis 2013
       new_rules_from: Nouvelles règles à partir du %{date}

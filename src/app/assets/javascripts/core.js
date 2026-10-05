@@ -6,3 +6,4 @@
 //= require popper
 //= require bootstrap
 //= require app
+//= require public_header

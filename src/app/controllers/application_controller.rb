@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   before_action :restore_guest_calculation
   before_action :set_cache_cookie, unless: :task_controller?
+  after_action :set_flash_hint
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -201,5 +202,24 @@ class ApplicationController < ActionController::Base
       cache_cookie_options[:same_site] = :lax
     end
     cookies[:cache_country_guest] = cache_cookie_options
+    set_session_hint
+  end
+
+  def set_session_hint
+    # Public-page JavaScript uses this non-sensitive hint, never as authorization.
+    cookies[:has_calculator_session] = { value: '1', path: '/', same_site: :lax,
+                                        secure: Rails.env.production? }
+  end
+
+  def set_flash_hint
+    # Public HTML must neither inspect nor consume session-specific messages.
+    return if @public_static_page
+
+    if response.redirect? && (flash[:notice].present? || flash[:alert].present?)
+      cookies[:has_flash_message] = { value: '1', path: '/', same_site: :lax,
+                                     secure: Rails.env.production? }
+    elsif !response.redirect?
+      cookies.delete(:has_flash_message, path: '/')
+    end
   end
 end

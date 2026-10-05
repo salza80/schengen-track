@@ -113,20 +113,25 @@ de:
           title: 'Mehrere Personen:'
         step_1:
           description: Wählen Sie Ihre Nationalität aus. Sie können dies oben auf der Seite im Header ändern.
+          summary: Nationalität auswählen
           title: 'Schritt 1:'
         step_2:
           description: Geben Sie, falls erforderlich, die Details Ihres kurzfristigen Schengen-Visums ein. Dies erscheint unter dem Reisebericht nur, wenn es erforderlich ist.
+          summary: Visum hinzufügen, falls erforderlich
           title: 'Schritt 2:'
         step_3:
           description_1: Fügen Sie Ihren Reisebericht hinzu (Vergangenheit und Zukunft). Sie müssen mindestens alle Reisen innerhalb des Schengen-Raums angeben, die Sie in den letzten 180 Tagen unternommen haben.
           description_2: Es ist am besten, wenn Sie alle Ihre Bewegungen zwischen Ländern, Schengen- und Nicht-Schengen-Ländern sowie Reisen von einem Schengen-Land in ein anderes eingeben, da Sie möglicherweise nicht wissen, welche Länder Teil der Schengen-Vereinbarung sind oder nicht. Das Einreisedatum ist der Tag Ihrer Ankunft, und das Ausreisedatum ist der Tag Ihrer Abreise. Machen Sie sich keine Sorgen, wenn das Ausreisedatum mit dem Einreisedatum Ihres nächsten Besuchs überlappt. Der Rechner zählt die Tage nicht doppelt, wenn er Ihre Aufenthaltsdauer im Schengen-Raum berechnet.
+          summary: Reisen hinzufügen
           title: 'Schritt 3:'
         step_4:
           description: Überprüfen Sie die Informationen zur Gültigkeit der Reise und zur verbleibenden Zeit, die Sie im Schengen-Raum verbringen können. Verwenden Sie den Rechner, um verschiedene Szenarien zu testen, indem Sie Ihren beabsichtigten Reisebericht ändern.
+          summary: Verbleibende Tage prüfen
           title: 'Schritt 4:'
         step_5:
           description: Um Ihren Reisebericht zu speichern, registrieren Sie sich und melden Sie sich an. Ihre bestehenden Daten als „Gast“ werden in Ihr neues Konto kopiert. Sie können sich beim Schengen-Rechner registrieren oder sich mit Facebook anmelden und registrieren.
           optional: true
+          summary: Reisen speichern
           title: 'Schritt 5: (optional)'
         title: So verwenden Sie den Schengen-Rechner
       how_to_use_link: Wie man den Schengen-Rechner verwendet
@@ -151,9 +156,7 @@ de:
       nationality_requirements_link: Schengen-Anforderungen für meine Nationalität
       nationality_section:
         heading: Schengen- / Europäische touristische Reiseeinreise- und Aufenthaltsanforderungen für meine Nationalität
-        select_another_prompt: Ein anderes Land auswählen
-        select_prompt: Land auswählen
-        subheading: Wählen Sie Ihre Nationalität aus, um Ihre Schengen-Anforderungen anzuzeigen
+        select_prompt: Wählen Sie das Land Ihrer Staatsangehörigkeit
       new_definition_as_of_2013: Neue Definition seit 2013
       new_definition_link: Neue Definition seit 2013
       new_rules_from: Neue Regeln ab %{date}

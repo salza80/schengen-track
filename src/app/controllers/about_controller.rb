@@ -1,20 +1,10 @@
 class AboutController < ApplicationController
-  LAST_REVIEWED_DATE = Date.new(2026, 5, 30).freeze
+  include PublicPage
+  LAST_REVIEWED_DATE = Date.new(2026, 10, 5).freeze
 
   # GET /about/
   # GET /about/:nationality
   def about
-    if current_user_or_guest_user.is_guest?
-      if Rails.env.development?
-        # In development, prevent browser caching to match production behavior
-        # (Production: CloudFront's ResponseHeadersPolicy overrides Cache-Control to no-cache)
-        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-      else
-        # Tell CloudFront to cache for 1 month (only in production)
-        expires_in 1.month, public: true
-      end
-    end
-    
     set_country_from_params
     return if performed?
 
@@ -29,6 +19,10 @@ class AboutController < ApplicationController
   # GET /privacy/
   def privacy
     set_page_meta_tags('Privacy Policy')
+  end
+
+  def datadeletion
+    set_page_meta_tags('Data Deletion')
   end
   
   private

@@ -1,6 +1,38 @@
 require 'test_helper'
 
 class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
+  test 'citizenship selector has a stable visible label and no selection on the generic page' do
+    get '/en/about'
+
+    assert_response :success
+    assert_select 'label[for="user_nationality_id"]', text: 'Select your country of citizenship'
+    assert_select '#user_nationality_id', count: 1
+    assert_select '#user_nationality_id option[selected]:not([value=""])', count: 0
+  end
+
+  test 'citizenship selector precedes the country information and selects the page country in every locale' do
+    I18n.available_locales.each do |locale|
+      assert_no_difference(['User.count', 'Person.count']) { get "/#{locale}/about/American" }
+      assert_response :success
+      assert_select 'label[for="user_nationality_id"]', text: I18n.t('about.about.nationality_section.select_prompt', locale: locale)
+      assert_select '#user_nationality_id', count: 1
+      assert_select '#user_nationality_id option[selected]', count: 1
+      assert_select '#user_nationality_id option[value="American"][selected]'
+      document = Nokogiri::HTML(response.body)
+      selector = document.at_css('#user_nationality_id')
+      heading = I18n.with_locale(locale) do
+        I18n.t('about.nationality.tourist_travel_requirements_title',
+               nationality_plural: Country.find_by(country_code: 'US').nationality_plural)
+      end
+      # The first following heading belongs to the nationality information.
+      following_heading = selector.xpath('following::h3').first
+      assert following_heading
+      assert_equal heading, following_heading.text.strip
+      assert_includes response.headers['Cache-Control'], 'public'
+      assert_nil response.headers['Set-Cookie']
+    end
+  end
+
   test 'redirects lowercase nationality to canonical stored slug' do
     get '/about/american'
 

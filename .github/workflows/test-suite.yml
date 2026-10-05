@@ -88,3 +88,7 @@ jobs:
       - name: Build CDK
         run: npm run build
         working-directory: deployment
+
+      - name: Run CDK tests
+        run: npm test -- --runInBand
+        working-directory: deployment

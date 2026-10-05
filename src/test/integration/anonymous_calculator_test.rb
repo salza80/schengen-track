@@ -33,6 +33,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
 
     get visits_path(locale: :en)
     assert_select 'select[name="nationality_id"] option[selected]', text: countries(:India).localized_name
+    assert_select 'select[name="nationality_id"] option[value=""]', count: 0
   end
 
   test 'first valid trip creates one guest and selected primary person atomically' do
@@ -136,9 +137,12 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     get visits_path(locale: :en)
 
     assert_select '#calculator_nationality_selector', count: 1
+    assert_select '#calculator_nationality_selector[required] option:first-child[value=""]', text: I18n.t('common.select_nationality')
+    assert_select '#calculator_nationality_selector option[selected]', count: 0
     assert_select 'label[for="calculator_nationality_selector"]', count: 1
     assert_select '#calculator_nationality_step', count: 1
     assert_select 'label[for="calculator_nationality_step"]', count: 1
+    assert_select '[data-action="add-visa"]', count: 0
     assert_select '#nationality_id, #destination', count: 0
     assert_select '.guest-registration-card', count: 0
   end

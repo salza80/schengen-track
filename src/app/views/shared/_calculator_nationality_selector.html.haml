@@ -1,4 +1,6 @@
 - nationality_control_id = 'calculator_nationality_selector'
+- selected_nationality_id = current_person.nationality_id if calculator_nationality_selected?
+- nationality_prompt = t('common.select_nationality') unless calculator_nationality_selected?
 = form_with url: calculator_preferences_path(locale: I18n.locale), method: :patch, local: true, class: 'calculator-nationality-form mb-3' do
   = hidden_field_tag :destination, destination, id: 'calculator_nationality_selector_destination'
   - if destination == 'calendar'
@@ -7,7 +9,7 @@
     = hidden_field_tag :day, params[:day]
   .form-group.mb-2
     = label_tag nationality_control_id, local_assigns[:label] || t('common.nationality'), class: (local_assigns[:hide_label] ? 'sr-only' : 'font-weight-bold')
-    = select_tag :nationality_id, options_from_collection_for_select(Country.all.order_by_name, :id, :localized_name, current_person.nationality_id), id: nationality_control_id, class: 'form-control custom-select', onchange: 'this.form.requestSubmit ? this.form.requestSubmit() : this.form.submit()'
+    = select_tag :nationality_id, options_from_collection_for_select(Country.all.order_by_name, :id, :localized_name, selected_nationality_id), id: nationality_control_id, class: 'form-control custom-select', prompt: nationality_prompt, required: true, onchange: 'this.form.requestSubmit ? this.form.requestSubmit() : this.form.submit()'
     %small.form-text.text-muted= t('common.nationality_help')
   %noscript
     = submit_tag t('common.update_nationality'), class: 'btn btn-outline-primary btn-sm'

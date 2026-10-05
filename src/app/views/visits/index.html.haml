@@ -20,7 +20,7 @@
     - else
       %h1.sr-only= t('visits.page_title')
 
-    - if current_person.visa_required?
+    - if current_person.visa_required? && (!anonymous_calculator? || calculator_nationality_selected?)
       %h3.section-heading.mt-0
         %i.fa.fa-passport.mr-2
         = t('visits.schengen_visa_list')

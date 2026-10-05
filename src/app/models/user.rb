@@ -52,15 +52,16 @@ class User < ApplicationRecord
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     return user if user
     user = register_oauth_with_matching_email(auth)
-    unless user 
+    unless user
+      guest_profile = guest_user&.people&.find_by(is_primary: true) || guest_user&.people&.first || guest_user
       user = User.create do |user|
         user.provider = auth.provider
         user.uid = auth.uid
         user.email = auth.info.email
         user.password = Devise.friendly_token[0, 20]
-        user.first_name = guest_user&.first_name || auth.info.first_name || "New"
-        user.last_name = guest_user&.last_name || auth.info.last_name || "User"
-        user.nationality = guest_user&.nationality || fallback_nationality || Country.find_by(country_code: 'US')
+        user.first_name = guest_profile&.first_name || auth.info.first_name || "New"
+        user.last_name = guest_profile&.last_name || auth.info.last_name || "User"
+        user.nationality = guest_profile&.nationality || fallback_nationality || Country.find_by(country_code: 'US')
       end
       user.copy_from(guest_user)
       if data = auth['extra']['raw_info']

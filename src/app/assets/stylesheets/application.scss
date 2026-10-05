@@ -545,6 +545,13 @@ html[dir='rtl'] {
 .center-heading{
   text-align: center;
 }
+
+// Darker than the primary blue so white, normal-size table labels meet WCAG AA.
+.bg-table-header {
+  background-color: $blue-dark !important;
+  background-image: none !important;
+}
+
 .table-top-header {
   border: 1px;
   border-style: solid;

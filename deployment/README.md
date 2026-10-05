@@ -65,6 +65,23 @@ that changes a response can cache that response for unrelated visitors.
 Dynamic and authentication behaviors continue forwarding query parameters.
 The shared GitHub Actions test suite runs the CDK template assertions with Jest.
 
+Root, About, blog, and legal pages are session-free and publicly cached for one
+hour, separately by locale in the URL. They never create guest users. All pages
+share the same header template; only the user menu is loaded separately on public
+pages from `/:locale/session_header`. That endpoint is explicitly uncached, reads
+only an existing session, and returns the shared user-menu partial and CSRF token.
+Keep personalized details, flash messages, and CSRF tokens out of public HTML.
+Redirects set a non-sensitive `has_flash_message` hint so the same uncached
+endpoint delivers notices once, even after logout or account deletion. Messages
+are rendered with the shared notice partial and consumed only by that request.
+
+The JavaScript-readable `has_calculator_session` cookie is only a hint to load
+the menu, not authorization. Older sessions are discovered by one probe per tab;
+an absent/deleted session returns 204 without creating users or people. Calculator
+pages continue rendering the personalized menu directly. Deployments must
+invalidate existing CloudFront HTML to remove old person links from the cache
+(the deployment workflow already invalidates `/*`).
+
 1. Update the TypeScript sources under `lib/`.
 2. Run `npm test` to execute unit tests (if present).
 3. Use `npx cdk diff <stack>` to review the impact.

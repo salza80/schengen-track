@@ -27,77 +27,13 @@
         %a.nav-link{href: blog_index_path(locale: I18n.locale)}
           %i.fa.fa-book.mr-2{"aria-hidden": "true"}
           = t('common.blog')
-    %ul.navbar-nav.ml-auto.text-right
-      %li.nav-item.dropdown.person-switcher
-        %a#personDropdown.nav-link.dropdown-toggle.d-md-flex.flex-column.align-items-md-end{href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
-          %span.person-name{dir: "auto"}= current_person.full_name
-          %small.person-nationality{dir: "auto"}= current_person.nationality&.localized_name || t('common.person_not_set')
-        .dropdown-menu.dropdown-menu-md-right{"aria-labelledby": "personDropdown"}
-          - current_user_or_guest_user.people.ordered.each do |person|
-            = button_to set_current_person_path(person), class: ['dropdown-item', 'text-left', ('active' if person == current_person)], form: { class: 'dropdown-item-form w-100', data: { turbo: false } } do
-              %span.d-flex.align-items-start
-                - if person == current_person
-                  %i.fa.fa-check.mr-2{"aria-hidden": "true"}
-                - else
-                  %span.mr-4
-                .d-inline-block.text-left
-                  %div= person.full_name
-                  %small.text-muted.d-block= person.nationality&.localized_name || t('common.person_not_set')
-          .d-none.d-md-block
-            = link_to new_person_path(locale: I18n.locale), class: "dropdown-item" do
-              %i.fa.fa-plus.mr-2{"aria-hidden": "true"}
-              = t('common.add_person')
-            .dropdown-divider
-            = link_to people_path(locale: I18n.locale), class: "dropdown-item" do
-              %i.fa.fa-users.mr-2{"aria-hidden": "true"}
-              = t('common.manage_people')
-            = link_to edit_person_path(current_person, locale: I18n.locale), class: "dropdown-item" do
-              %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
-              = t('common.edit_current_person')
-            .dropdown-divider
-            - if user_signed_in?
-              = link_to my_details_path(locale: I18n.locale), class: "dropdown-item" do
-                %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
-                = t('common.manage_account')
-            - else
-              = link_to new_user_registration_path(locale: I18n.locale), class: "dropdown-item text-primary font-weight-bold" do
-                %i.fa.fa-user-plus.mr-2{"aria-hidden": "true"}
-                = t('common.register_to_save')
-      %li.nav-item.d-md-none
-        = link_to new_person_path(locale: I18n.locale), class: "nav-link" do
-          %i.fa.fa-plus.mr-2{"aria-hidden": "true"}
-          = t('common.add_person')
-      %li.nav-item.d-md-none
-        = link_to people_path(locale: I18n.locale), class: "nav-link" do
-          %i.fa.fa-users.mr-2{"aria-hidden": "true"}
-          = t('common.manage_people')
-      %li.nav-item.d-md-none
-        = link_to edit_person_path(current_person, locale: I18n.locale), class: "nav-link" do
-          %i.fa.fa-edit.mr-2{"aria-hidden": "true"}
-          = t('common.edit_current_person')
-      - if user_signed_in?
-        %li.nav-item.d-md-none
-          = link_to my_details_path(locale: I18n.locale), class: "nav-link" do
-            %i.fa.fa-user-cog.mr-2{"aria-hidden": "true"}
-            = t('common.manage_account')
+    %ul.navbar-nav.ml-auto.text-right{id: (@public_static_page ? "public-user-menu" : nil), data: (@public_static_page ? {session_header_url: session_header_path(locale: I18n.locale)} : {})}
+      - if @public_static_page
+        %li.nav-item
+          = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2'
       - else
-        %li.nav-item.d-md-none
-          = link_to new_user_registration_path(locale: I18n.locale), class: "nav-link text-primary font-weight-bold" do
-            %i.fa.fa-user-plus.mr-2{"aria-hidden": "true"}
-            = t('common.register_to_save')
-      - if user_signed_in?
-        %li.nav-item.d-flex.align-items-center.justify-content-end
-          %a.btn.btn-outline-dark.btn-sm{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}
-            %i.fa.fa-sign-out-alt.mr-2{"aria-hidden": "true"}
-            = t('common.log_out')
-          %form#logout-form{action: destroy_user_session_path, method: :post, style: "display: none;"}
-            = hidden_field_tag :_method, :delete
-            = hidden_field_tag :authenticity_token, form_authenticity_token
-      - else
-        %li.nav-item.d-flex.align-items-center.justify-content-end
-          = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2' do
-            %i.fa.fa-sign-in-alt.mr-2
-            = t('common.login')
+        = render 'layouts/user_menu'
+    %ul.navbar-nav.text-right
       / Buy Me a Coffee - visible only on mobile
       %li.nav-item.d-md-none.mt-3.text-center
         = link_to "https://www.buymeacoffee.com/smclean17d", target: "_blank", rel: "noopener noreferrer", "aria-label": "Buy me a coffee" do

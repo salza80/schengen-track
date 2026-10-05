@@ -144,7 +144,7 @@
   <% elsif controller_name == 'visits' || controller_name == 'visas' %>
     <%= javascript_include_tag 'visits_bundle', defer: true %>
   <% end %>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tags unless @public_static_page %>
 
   <!-- WebApplication Structured Data for SEO -->
   <% if controller_name == 'days' && action_name == 'index' %>
@@ -199,8 +199,8 @@
 <main class="container-fluid">
   <div class="row">
     <div class="col-md-9">
-      <div class="notice">
-        <%= render 'layouts/notice' %>
+      <div class="notice"<% if @public_static_page %> id="public-notices" aria-live="polite"<% end %>>
+        <%= render 'layouts/notice' unless @public_static_page %>
       </div>
       <%= yield %>
     </div>

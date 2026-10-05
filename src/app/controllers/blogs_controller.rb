@@ -1,6 +1,7 @@
 
 
 class BlogsController < ApplicationController
+  include PublicPage
 
   # Blog posts registry - add new posts here (most recent first)
   BLOG_POSTS = [
@@ -15,17 +16,6 @@ class BlogsController < ApplicationController
   ].freeze
   
   def index
-    if current_user_or_guest_user.is_guest?
-      if Rails.env.development?
-        # In development, prevent browser caching to match production behavior
-        # (Production: CloudFront's ResponseHeadersPolicy overrides Cache-Control to no-cache)
-        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-      else
-        # Tell CloudFront to cache for 1 month (only in production)
-        expires_in 1.month, public: true
-      end
-    end
-    
     @blog_posts = blog_posts_for_locale
     
     # Redirect to most recent post
@@ -37,17 +27,6 @@ class BlogsController < ApplicationController
   end
 
   def show
-    if current_user_or_guest_user.is_guest?
-      if Rails.env.development?
-        # In development, prevent browser caching to match production behavior
-        # (Production: CloudFront's ResponseHeadersPolicy overrides Cache-Control to no-cache)
-        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-      else
-        # Tell CloudFront to cache for 1 month (only in production)
-        expires_in 1.month, public: true
-      end
-    end
-    
     @blog_posts = blog_posts_for_locale
     @current_slug = params[:slug]
     

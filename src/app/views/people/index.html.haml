@@ -122,47 +122,16 @@
     
     // Handle delete button clicks
     const deleteButtons = document.querySelectorAll('.delete-person-link');
-    const $modal = $('#deleteModal');
-    const $confirmButton = $('#deleteConfirmButton');
+    ModalInteractions.bindFocusGuard('#deleteModal');
     
     deleteButtons.forEach(function(button) {
       button.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
-        const deleteUrl = button.dataset.deleteUrl;
-        const deleteMessage = button.dataset.deleteMessage;
-        
-        // Update modal message with localized text
-        $('#deleteModalMessage').text(deleteMessage);
-        
-        // Show the modal
-        $modal.modal('show');
-        
-        // Handle delete confirmation click
-        $confirmButton.off('click').on('click', function(e) {
-          e.preventDefault();
-          
-          // Create a form to submit the DELETE request
-          const form = document.createElement('form');
-          form.method = 'POST';
-          form.action = deleteUrl;
-          
-          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-          const csrfInput = document.createElement('input');
-          csrfInput.type = 'hidden';
-          csrfInput.name = 'authenticity_token';
-          csrfInput.value = csrfToken;
-          form.appendChild(csrfInput);
-          
-          const methodInput = document.createElement('input');
-          methodInput.type = 'hidden';
-          methodInput.name = '_method';
-          methodInput.value = 'delete';
-          form.appendChild(methodInput);
-          
-          document.body.appendChild(form);
-          form.submit();
+        ModalInteractions.openDeleteModal(button.dataset.deleteUrl, {
+          trigger: button,
+          message: button.dataset.deleteMessage
         });
       });
     });

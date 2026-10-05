@@ -14,4 +14,4 @@
     .col-sm-2.my-auto
       = label_tag nationality_control_id, t('common.nationality'), class: 'col-form-label'
     .col-sm-10
-      = select_tag :nationality_id, options_from_collection_for_select(Country.all.order_by_name, :id, :localized_name, current_person.nationality_id), id: nationality_control_id, class: 'form-control custom-select'
+      = select_tag :nationality_id, options_from_collection_for_select(Country.all.order_by_name, :id, :localized_name), id: nationality_control_id, class: 'form-control custom-select', prompt: t('common.select_nationality'), required: true

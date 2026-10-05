@@ -21,38 +21,7 @@
         }
       }
 
-      // Bootstrap applies aria-hidden while hiding a modal. Move focus out first so
-      // the focused close/cancel button is never hidden from assistive technology.
-      $('#visitModal, #visaModal')
-        .off('hide.bs.modal.focusGuard')
-        .on('hide.bs.modal.focusGuard', function() {
-          if (this.contains(document.activeElement)) {
-            document.activeElement.blur();
-          }
-        })
-        .off('hidden.bs.modal.focusGuard')
-        .on('hidden.bs.modal.focusGuard', function() {
-          var trigger = $(this).data('focus-return');
-          $(this).removeData('focus-return');
-          if (trigger && document.documentElement.contains(trigger)) {
-            window.setTimeout(function() {
-              trigger.focus();
-            }, 0);
-          }
-        })
-        .off('click.modalFocusGuard', '[data-dismiss="modal"]')
-        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function(e) {
-          var $modal = $(this).closest('.modal');
-          var modalInstance = $modal.data('bs.modal');
-          this.blur();
-          if (modalInstance && modalInstance._isTransitioning) {
-            e.preventDefault();
-            e.stopPropagation();
-            $modal.one('shown.bs.modal.focusGuard', function() {
-              $modal.modal('hide');
-            });
-          }
-        });
+      ModalInteractions.bindFocusGuard('#visitModal, #visaModal');
       
       // Bind add visit button
       $('[data-action="add-visit"]').on('click', function(e) {
@@ -88,20 +57,20 @@
       $(document).on('click', '.delete-visit-link', function(e) {
         e.preventDefault();
         var deleteUrl = $(this).data('delete-url');
-        self.openDeleteModal(deleteUrl, 'visit');
+        ModalInteractions.openDeleteModal(deleteUrl, { trigger: e.currentTarget });
       });
       
       // Bind delete visa links
       $(document).on('click', '.delete-visa-link', function(e) {
         e.preventDefault();
         var deleteUrl = $(this).data('delete-url');
-        self.openDeleteModal(deleteUrl, 'visa');
+        ModalInteractions.openDeleteModal(deleteUrl, { trigger: e.currentTarget });
       });
       
       // Bind modal Save button (visits)
       $('#saveVisitButton').on('click', function(e) {
         e.preventDefault();
-        self.submitVisitForm();
+        ModalInteractions.submitForm('#visitModal form', '#saveVisitButton');
       });
       
       // Bind modal Delete button (visits)
@@ -109,29 +78,32 @@
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        var focusReturn = $('#visitModal').data('focus-return');
         $('#visitModal').removeData('focus-return');
         $('#visitModal').modal('hide');
-        self.openDeleteModal(deleteUrl, 'visit');
+        ModalInteractions.openDeleteModal(deleteUrl, { trigger: focusReturn });
       });
       
       // Bind modal Save button (visas)
       $('#saveVisaButton').on('click', function(e) {
         e.preventDefault();
-        self.submitVisaForm();
+        ModalInteractions.submitForm('#visaModal form', '#saveVisaButton');
       });
 
-      $(document).on('ajax:complete', '#visitModal form, #visaModal form', function() {
-        $('#saveVisitButton, #saveVisaButton').prop('disabled', false);
-      });
+      ModalInteractions.bindSubmissionReset(
+        '#visitModal form, #visaModal form',
+        '#saveVisitButton, #saveVisaButton'
+      );
       
       // Bind modal Delete button (visas)
       $('#deleteVisaButton').on('click', function(e) {
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visas/' + self.currentVisaId;
+        var focusReturn = $('#visaModal').data('focus-return');
         $('#visaModal').removeData('focus-return');
         $('#visaModal').modal('hide');
-        self.openDeleteModal(deleteUrl, 'visa');
+        ModalInteractions.openDeleteModal(deleteUrl, { trigger: focusReturn });
       });
       
       // Bind clickable visit rows (navigate to calendar)
@@ -152,26 +124,6 @@
 
     },
     
-    // Submit the visit form
-    submitVisitForm: function() {
-      var $form = $('#visitModal form');
-      var $button = $('#saveVisitButton');
-      if ($form.length && !$button.prop('disabled')) {
-        $button.prop('disabled', true);
-        $form.submit();
-      }
-    },
-    
-    // Submit the visa form
-    submitVisaForm: function() {
-      var $form = $('#visaModal form');
-      var $button = $('#saveVisaButton');
-      if ($form.length && !$button.prop('disabled')) {
-        $button.prop('disabled', true);
-        $form.submit();
-      }
-    },
-    
     // Open ADD visit modal
     openAddVisitModal: function() {
       var self = this;
@@ -182,19 +134,11 @@
         return;
       }
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visits/new.js',
-        method: 'GET',
-        dataType: 'script',
-        success: function() {
-          // Hide delete button for new visits
-          $('#deleteVisitButton').hide();
-        },
-        error: function(xhr, status, error) {
-          console.error('Failed to load visit form:', status, error);
-          console.error('Response:', xhr.responseText);
-          alert('Failed to open visit form. Please try again.');
-        }
+        deleteButtonSelector: '#deleteVisitButton',
+        showDeleteButton: false,
+        errorMessage: 'Failed to open visit form. Please try again.'
       });
     },
     
@@ -203,19 +147,11 @@
       var self = this;
       self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visits/' + visitId + '/edit.js',
-        method: 'GET',
-        dataType: 'script',
-        success: function() {
-          // Show delete button for existing visits
-          $('#deleteVisitButton').show();
-        },
-        error: function(xhr, status, error) {
-          console.error('Failed to load visit form:', status, error);
-          console.error('Response:', xhr.responseText);
-          alert('Failed to open visit form. Please try again.');
-        }
+        deleteButtonSelector: '#deleteVisitButton',
+        showDeleteButton: true,
+        errorMessage: 'Failed to open visit form. Please try again.'
       });
     },
     
@@ -224,19 +160,11 @@
       var self = this;
       self.currentVisaId = null; // Clear current visa ID
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visas/new.js',
-        method: 'GET',
-        dataType: 'script',
-        success: function() {
-          // Hide delete button for new visas
-          $('#deleteVisaButton').hide();
-        },
-        error: function(xhr, status, error) {
-          console.error('Failed to load visa form:', status, error);
-          console.error('Response:', xhr.responseText);
-          alert('Failed to open visa form. Please try again.');
-        }
+        deleteButtonSelector: '#deleteVisaButton',
+        showDeleteButton: false,
+        errorMessage: 'Failed to open visa form. Please try again.'
       });
     },
     
@@ -245,61 +173,11 @@
       var self = this;
       self.currentVisaId = visaId; // Store current visa ID
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visas/' + visaId + '/edit.js',
-        method: 'GET',
-        dataType: 'script',
-        success: function() {
-          // Show delete button for existing visas
-          $('#deleteVisaButton').show();
-        },
-        error: function(xhr, status, error) {
-          console.error('Failed to load visa form:', status, error);
-          console.error('Response:', xhr.responseText);
-          alert('Failed to open visa form. Please try again.');
-        }
-      });
-    },
-    
-    // Open delete confirmation modal
-    openDeleteModal: function(deleteUrl, itemType) {
-      var $modal = $('#deleteModal');
-      var $confirmButton = $('#deleteConfirmButton');
-      
-      // Update the confirmation button with the delete URL
-      $confirmButton.attr('href', deleteUrl);
-      $confirmButton.attr('data-method', 'delete');
-      $confirmButton.attr('rel', 'nofollow');
-      
-      // Show the modal
-      $modal.modal('show');
-      
-      // Handle delete confirmation click
-      $confirmButton.off('click').on('click', function(e) {
-        e.preventDefault();
-        
-        // Create a form to submit the DELETE request
-        var $form = $('<form>', {
-          'method': 'POST',
-          'action': deleteUrl
-        });
-        
-        // Add CSRF token
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $form.append($('<input>', {
-          'type': 'hidden',
-          'name': '_method',
-          'value': 'delete'
-        }));
-        $form.append($('<input>', {
-          'type': 'hidden',
-          'name': 'authenticity_token',
-          'value': csrfToken
-        }));
-        
-        // Submit the form
-        $('body').append($form);
-        $form.submit();
+        deleteButtonSelector: '#deleteVisaButton',
+        showDeleteButton: true,
+        errorMessage: 'Failed to open visa form. Please try again.'
       });
     }
   };

@@ -6,7 +6,7 @@ class BlogsTest < ActionDispatch::IntegrationTest
 
     assert has_content?('How to Stay in Europe Longer Than 90 Days'), "Should show new blog title"
     click_link 'Get started with the Schengen Calculator'
-    assert has_content?('Travel Record')
+    assert has_content?(I18n.t('visits.travel_record', locale: :en))
   end
 
   test 'blog structured data renders as a JSON-LD object array' do

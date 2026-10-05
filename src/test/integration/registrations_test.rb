@@ -1,6 +1,105 @@
 require 'test_helper'
 
 class RegistrationsTest < ActionDispatch::IntegrationTest
+  test 'logging into an existing account transfers and selects the guest traveler' do
+    account = User.create!(
+      first_name: 'Existing',
+      last_name: 'Account',
+      nationality: countries(:Australia),
+      email: "existing_#{SecureRandom.hex(8)}@example.com",
+      password: 'password123'
+    )
+    guest = User.create!(
+      first_name: 'Guest',
+      last_name: 'Traveller',
+      nationality: countries(:India),
+      email: "guest_#{SecureRandom.hex(8)}@example.com",
+      password: 'password',
+      guest: true
+    )
+    guest_person = guest.people.find_by!(is_primary: true)
+    guest_person.visits.create!(
+      entry_date: Date.new(2027, 1, 10),
+      exit_date: Date.new(2027, 1, 15),
+      country: countries(:Germany)
+    )
+
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    assert_response :redirect
+
+    post user_session_path(locale: :en), params: {
+      user: { email: account.email, password: 'password123' }
+    }
+
+    assert_response :redirect
+    assert_not User.exists?(guest.id)
+    assert_equal account, guest_person.reload.user
+    assert_not guest_person.is_primary?
+    assert_equal 1, guest_person.visits.count
+
+    follow_redirect!
+    assert_response :success
+    assert_select '#personDropdown .person-name', text: guest_person.full_name
+    assert_includes response.body, countries(:Germany).localized_name
+  end
+
+  test 'Facebook login to an existing account transfers the guest traveler' do
+    uid = SecureRandom.hex(8)
+    account = User.create!(
+      first_name: 'Existing',
+      last_name: 'Facebook',
+      nationality: countries(:Australia),
+      email: "facebook_#{SecureRandom.hex(8)}@example.com",
+      password: 'password123',
+      provider: 'facebook',
+      uid: uid
+    )
+    guest = User.create!(
+      first_name: 'Facebook',
+      last_name: 'Guest',
+      nationality: countries(:India),
+      email: "guest_#{SecureRandom.hex(8)}@example.com",
+      password: 'password',
+      guest: true
+    )
+    guest_person = guest.people.find_by!(is_primary: true)
+    guest_person.visas.create!(
+      start_date: Date.new(2027, 1, 1),
+      end_date: Date.new(2027, 6, 1),
+      no_entries: 1,
+      visa_type: 'S'
+    )
+    auth = OmniAuth::AuthHash.new(
+      provider: 'facebook',
+      uid: uid,
+      info: { email: account.email },
+      extra: { raw_info: nil }
+    )
+
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    assert_response :redirect
+    previous_test_mode = OmniAuth.config.test_mode
+    previous_mock_auth = OmniAuth.config.mock_auth[:facebook]
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:facebook] = auth
+    begin
+      post user_facebook_omniauth_callback_path
+    ensure
+      if previous_mock_auth
+        OmniAuth.config.mock_auth[:facebook] = previous_mock_auth
+      else
+        OmniAuth.config.mock_auth.delete(:facebook)
+      end
+      OmniAuth.config.test_mode = previous_test_mode
+    end
+
+    assert_response :redirect
+    assert_not User.exists?(guest.id)
+    assert_equal account, guest_person.reload.user
+    assert_not guest_person.is_primary?
+    assert_equal 1, guest_person.visas.count
+  end
+
   test 'registration form is prefilled from the guest primary person' do
     guest = User.create!(
       first_name: 'Guest',

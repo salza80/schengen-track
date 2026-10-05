@@ -5,12 +5,22 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should also create an action method in this controller like this:
   def facebook
     auth = request.env["omniauth.auth"]
-    @user = User.from_omniauth(auth, current_user_or_guest_user, calculator_nationality)
+    guest = guest_user
+    guest_person_id = session[:current_person_id]
+    existing_account = User.find_by(provider: auth.provider, uid: auth.uid)
+    existing_account ||= User.find_by(email: auth.info.email) if auth.info.email.present?
+    @user = User.from_omniauth(auth, guest, calculator_nationality)
 
     if @user.persisted?
+      transferred_person = if existing_account
+                             @user.transfer_guest_people!(
+                               guest,
+                               current_person_id: guest_person_id
+                             )
+                           end
       sign_in @user, :event => :authentication #this will throw if @user is not activated
       session.delete(:guest_user_id)
-      session.delete(:current_person_id)
+      session[:current_person_id] = transferred_person&.id
       session.delete(:calculator_nationality_id)
       set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       redirect_to visits_path

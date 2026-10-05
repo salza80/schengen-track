@@ -47,6 +47,36 @@ class User < ApplicationRecord
     end
   end
 
+  # Move every traveler from an existing guest session into this account. Keeping
+  # them as separate, non-primary people preserves all records without creating
+  # date conflicts with travelers that are already stored on the account.
+  def transfer_guest_people!(guest_user, current_person_id: nil)
+    return unless guest_user&.is_guest? && guest_user.id != id
+
+    transferred_person_id = nil
+
+    User.transaction do
+      lock!
+      guest_user.lock!
+      ensure_primary_person
+
+      guest_people = guest_user.people.to_a
+      selected_person = guest_people.find { |person| person.id == current_person_id } ||
+                        guest_people.find(&:is_primary?) || guest_people.first
+      transferred_person_id = selected_person&.id
+
+      guest_user.people.update_all(
+        user_id: id,
+        is_primary: false,
+        updated_at: Time.current
+      )
+      guest_user.delete
+    end
+
+    people.reset
+    people.find_by(id: transferred_person_id)
+  end
+
   def self.from_omniauth(auth, guest_user, fallback_nationality = nil)
     puts auth
     user = User.find_by(provider: auth.provider, uid: auth.uid)

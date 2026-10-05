@@ -1,7 +1,6 @@
 :plain
-  // Load the form into the modal
   $('#visitModal .modal-body').html('#{j render("form")}');
-  $('#visitModal .modal-title').text('#{t("visits.add_record")}');
+  $('#visitModal .modal-title').text('#{j t("visits.add_record")}');
   $('#visitModal').modal('show');
   
   // Note: Cascade dropdowns are initialized by the script in _form.html.haml

@@ -167,4 +167,81 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     first('.day-cell').click
     assert_no_selector '.person-switcher.show .dropdown-menu.show'
   end
+
+  test 'calendar day loads the shared visit modal behavior' do
+    user_login
+    visit days_path(locale: :en, year: 2030)
+
+    day = first('.day-cell.no-travel')
+    day.click
+
+    assert_selector '#visitModal.show form[id^="new_visit"]', wait: 10
+    within '#visitModal' do
+      find('button.close').click
+    end
+    assert_no_selector '#visitModal.show'
+    assert_selector '.day-cell:focus'
+    assert_equal day, page.active_element
+  end
+
+  test 'people and account pages use the shared delete modal behavior' do
+    user_login
+    visit people_path(locale: :en)
+
+    person_delete = first('.delete-person-link')
+    person_delete.click
+    assert_selector '#deleteModal.show'
+    within '#deleteModal' do
+      click_button I18n.t('common.cancel', locale: :en)
+    end
+    assert_selector '.delete-person-link:focus'
+    assert_equal person_delete, page.active_element
+
+    visit my_details_path(locale: :en)
+    account_delete = find('#deleteAccountButton')
+    account_delete.click
+    assert_selector '#deleteModal.show'
+    within '#deleteModal' do
+      click_button I18n.t('common.cancel', locale: :en)
+    end
+    assert_selector '#deleteAccountButton:focus'
+    assert_equal account_delete, page.active_element
+  end
+
+  test 'trip delete modal restores focus to its trigger' do
+    user_login
+    visit visits_path(locale: :en)
+
+    delete_link = first('.delete-visit-link')
+    delete_link.click
+    assert_selector '#deleteModal.show'
+    within '#deleteModal' do
+      click_button I18n.t('common.cancel', locale: :en)
+    end
+
+    assert_no_selector '#deleteModal.show'
+    assert_selector '.delete-visit-link:focus'
+    assert_equal delete_link, page.active_element
+  end
+
+  test 'invalid visa remains in the shared modal with validation errors' do
+    visa_user_login
+    visit visits_path(locale: :en)
+
+    find('[data-action="add-visa"]', match: :first).click
+    assert_selector '#visaModal.show form[id^="new_visa"]'
+
+    within '#visaModal' do
+      select '2027', from: 'visa_start_date_1i'
+      select 'December', from: 'visa_start_date_2i'
+      select '31', from: 'visa_start_date_3i'
+      select '2027', from: 'visa_end_date_1i'
+      select 'January', from: 'visa_end_date_2i'
+      select '1', from: 'visa_end_date_3i'
+      fill_in 'visa_no_entries', with: '1'
+      find('#saveVisaButton').click
+    end
+
+    assert_selector '#visaModal.show .alert-danger', wait: 10
+  end
 end

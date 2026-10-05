@@ -139,6 +139,9 @@
     <noscript><%= stylesheet_link_tag 'blog', media: 'all' %></noscript>
   <% end %>
   <%= javascript_include_tag 'core', defer: true %>
+  <% if controller_name == 'people' || controller_name == 'users' %>
+    <%= javascript_include_tag 'modal_interactions', defer: true %>
+  <% end %>
   <% if controller_name == 'days' %>
     <%= javascript_include_tag 'calendar_bundle', defer: true %>
   <% elsif controller_name == 'visits' || controller_name == 'visas' %>

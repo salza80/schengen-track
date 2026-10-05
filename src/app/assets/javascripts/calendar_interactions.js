@@ -28,41 +28,7 @@
         return;
       }
 
-      // Bootstrap applies aria-hidden while hiding a modal. Move focus out first so
-      // the focused close/cancel button is never hidden from assistive technology.
-      $('#visitModal')
-        .off('hide.bs.modal.focusGuard')
-        .on('hide.bs.modal.focusGuard', function() {
-          if (this.contains(document.activeElement)) {
-            document.activeElement.blur();
-          }
-        })
-        .off('hidden.bs.modal.focusGuard')
-        .on('hidden.bs.modal.focusGuard', function() {
-          var trigger = $(this).data('focus-return');
-          $(this).removeData('focus-return');
-          if (trigger && document.documentElement.contains(trigger)) {
-            if (!trigger.hasAttribute('tabindex')) {
-              trigger.setAttribute('tabindex', '-1');
-            }
-            window.setTimeout(function() {
-              trigger.focus();
-            }, 0);
-          }
-        })
-        .off('click.modalFocusGuard', '[data-dismiss="modal"]')
-        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function(e) {
-          var $modal = $(this).closest('.modal');
-          var modalInstance = $modal.data('bs.modal');
-          this.blur();
-          if (modalInstance && modalInstance._isTransitioning) {
-            e.preventDefault();
-            e.stopPropagation();
-            $modal.one('shown.bs.modal.focusGuard', function() {
-              $modal.modal('hide');
-            });
-          }
-        });
+      ModalInteractions.bindFocusGuard('#visitModal');
       
       // Bind click handlers to day cells
       self.bindDayCellClicks();
@@ -90,21 +56,20 @@
       // Bind modal Save button
       $('#saveVisitButton').on('click', function(e) {
         e.preventDefault();
-        self.submitVisitForm();
+        ModalInteractions.submitForm('#visitModal form', '#saveVisitButton');
       });
 
-      $(document).on('ajax:complete', '#visitModal form', function() {
-        $('#saveVisitButton').prop('disabled', false);
-      });
+      ModalInteractions.bindSubmissionReset('#visitModal form', '#saveVisitButton');
       
       // Bind modal Delete button
       $('#deleteVisitButton').on('click', function(e) {
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        var focusReturn = $('#visitModal').data('focus-return');
         $('#visitModal').removeData('focus-return');
         $('#visitModal').modal('hide');
-        self.openDeleteModal(deleteUrl);
+        ModalInteractions.openDeleteModal(deleteUrl, { trigger: focusReturn });
       });
 
       var continuation = new URLSearchParams(window.location.search);
@@ -362,16 +327,6 @@
       });
     },
     
-    // Submit the visit form
-    submitVisitForm: function() {
-      var $form = $('#visitModal form');
-      var $button = $('#saveVisitButton');
-      if ($form.length && !$button.prop('disabled')) {
-        $button.prop('disabled', true);
-        $form.submit();
-      }
-    },
-    
     // Open ADD modal
     openAddModal: function(entryDate, exitDate) {
       var self = this;
@@ -390,21 +345,15 @@
         return;
       }
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visits/new.js',
-        method: 'GET',
         data: { 
           entry_date: entryDate,
           exit_date: exitDate
         },
-        dataType: 'script',
-        success: function() {
-          // Hide delete button for new visits
-          $('#deleteVisitButton').hide();
-        },
-        error: function() {
-          alert('Failed to open visit form. Please try again.');
-        }
+        deleteButtonSelector: '#deleteVisitButton',
+        showDeleteButton: false,
+        errorMessage: 'Failed to open visit form. Please try again.'
       });
     },
     
@@ -413,59 +362,11 @@
       var self = this;
       self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visits/' + visitId + '/edit.js',
-        method: 'GET',
-        dataType: 'script',
-        success: function() {
-          // Show delete button for existing visits
-          $('#deleteVisitButton').show();
-        },
-        error: function() {
-          alert('Failed to open visit form. Please try again.');
-        }
-      });
-    },
-    
-    // Open delete confirmation modal
-    openDeleteModal: function(deleteUrl) {
-      var $modal = $('#deleteModal');
-      var $confirmButton = $('#deleteConfirmButton');
-      
-      // Update the confirmation button with the delete URL
-      $confirmButton.attr('href', deleteUrl);
-      $confirmButton.attr('data-method', 'delete');
-      $confirmButton.attr('rel', 'nofollow');
-      
-      // Show the modal
-      $modal.modal('show');
-      
-      // Handle delete confirmation click
-      $confirmButton.off('click').on('click', function(e) {
-        e.preventDefault();
-        
-        // Create a form to submit the DELETE request
-        var $form = $('<form>', {
-          'method': 'POST',
-          'action': deleteUrl
-        });
-        
-        // Add CSRF token
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $form.append($('<input>', {
-          'type': 'hidden',
-          'name': '_method',
-          'value': 'delete'
-        }));
-        $form.append($('<input>', {
-          'type': 'hidden',
-          'name': 'authenticity_token',
-          'value': csrfToken
-        }));
-        
-        // Submit the form (will redirect back using referer)
-        $('body').append($form);
-        $form.submit();
+        deleteButtonSelector: '#deleteVisitButton',
+        showDeleteButton: true,
+        errorMessage: 'Failed to open visit form. Please try again.'
       });
     },
     

@@ -31,42 +31,11 @@
   document.addEventListener('DOMContentLoaded', function() {
     const deleteButton = document.getElementById('deleteAccountButton');
     if (deleteButton) {
-      const $modal = $('#deleteModal');
-      const $confirmButton = $('#deleteConfirmButton');
+      ModalInteractions.bindFocusGuard('#deleteModal');
       
       deleteButton.addEventListener('click', function(e) {
         e.preventDefault();
-        
-        const deleteUrl = deleteButton.dataset.deleteUrl;
-        
-        // Show the modal
-        $modal.modal('show');
-        
-        // Handle delete confirmation click
-        $confirmButton.off('click').on('click', function(e) {
-          e.preventDefault();
-          
-          // Create a form to submit the DELETE request
-          const form = document.createElement('form');
-          form.method = 'POST';
-          form.action = deleteUrl;
-          
-          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-          const csrfInput = document.createElement('input');
-          csrfInput.type = 'hidden';
-          csrfInput.name = 'authenticity_token';
-          csrfInput.value = csrfToken;
-          form.appendChild(csrfInput);
-          
-          const methodInput = document.createElement('input');
-          methodInput.type = 'hidden';
-          methodInput.name = '_method';
-          methodInput.value = 'delete';
-          form.appendChild(methodInput);
-          
-          document.body.appendChild(form);
-          form.submit();
-        });
+        ModalInteractions.openDeleteModal(deleteButton.dataset.deleteUrl, { trigger: deleteButton });
       });
     }
   });

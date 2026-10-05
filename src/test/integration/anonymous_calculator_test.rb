@@ -141,6 +141,8 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_select '#calculator_nationality_selector option[selected]', count: 0
     assert_select 'label[for="calculator_nationality_selector"]', count: 1
     assert_select '#calculator_nationality_step', count: 1
+    assert_select '#calculator_nationality_step[required] option:first-child[value=""]', text: I18n.t('common.select_nationality')
+    assert_select '#calculator_nationality_step option[selected]', count: 0
     assert_select 'label[for="calculator_nationality_step"]', count: 1
     assert_select '[data-action="add-visa"]', count: 0
     assert_select '#nationality_id, #destination', count: 0

@@ -49,7 +49,7 @@ en:
           visa: 'Visa:'
           visa_days_over_stay: 'Visa Days Over Stay:'
           visa_days_over_stay_description: The number of days in the Schengen Area without permission on your visa. Either you have not entered a visa, you exited after the end date of the visa, or you entered the Schengen Area more times that was allowed on the Visa.
-          visa_description: This relates only to a Single/Multi Short Stay Schengen Visa people who require a Visa prior to entry. If you are exempt from this requirement the Visa options will not appear. Remember to select your Nationality in the top right hand corner of the page!
+          visa_description: This applies only to travelers who need a single- or multiple-entry short-stay Schengen visa. Visa options appear after you select your nationality and only when they are required.
       disclaimer:
         description: Please read the %{link} before using the Schengen Calculator.
         link_text: Disclaimer
@@ -107,16 +107,16 @@ en:
       field_definitions_link: Field Name Definitions
       get_started: View the calendar to get started
       how_to_use:
-        entry_methods_note: Prefer precision? Use the Visits table for exact entry/exit dates, or click any day in the calendar to add or adjust a trip—both views stay in sync.
+        entry_methods_note: Prefer precision? Use the Trips page for exact entry and exit dates, or click any day in the calendar to add or adjust a trip—both views stay in sync.
         people:
           description: You can track trips for multiple people using the same account. Use the person switcher at the top of the page to add and switch between different travelers. Each person can have their own nationality, trips, and visa information. This is useful for families or when managing travel for multiple individuals.
           title: 'Multiple People:'
         step_1:
-          description: Select your Nationality. You can change this at the top of the page in the header.
+          description: Select your nationality on the Trips page. If you start with Add Travel, the calculator asks for it before showing the travel form. Once a guest profile or account exists, you can change it in the traveler settings.
           summary: Choose your nationality
           title: 'Step 1:'
         step_2:
-          description: If required, enter the details of your short-term Schengen Visa. This will appear below the travel record only when it is required.
+          description: If required, enter the details of your short-term Schengen visa. The Visas section appears after you select your nationality and only when it is required.
           summary: Add your visa, if required
           title: 'Step 2:'
         step_3:
@@ -129,10 +129,10 @@ en:
           summary: Check your remaining days
           title: 'Step 4:'
         step_5:
-          description: To save your travel record, Register and Log In. Your existing “Guest” data will be copied to your new account. You can register with the Schengen Calculator, or use Facebook to Login and Register.
-          optional: true
-          summary: Save your trips
-          title: 'Step 5: (optional)'
+          description: Your first valid trip automatically creates a temporary guest profile, so you can use the calculator without registering. Create a free account to keep your plans available across browsers and devices; registration transfers every guest traveler and their trips and visas to the new account. Logging in to an existing account keeps its data separate from your guest data.
+          optional: "(optional)"
+          summary: Keep your trips across devices
+          title: 'Step 5:'
         title: How to use the Schengen Calculator
       how_to_use_link: How to use the Schengen Calculator
       introduction: Introduction

@@ -2,6 +2,7 @@
   :plain
     // Visit creation failed - show errors in modal
     $('#visitModal .modal-body').html('#{j render("form")}');
+    $('#saveVisitButton').prop('disabled', false);
     
     // Note: Cascade dropdowns are initialized by the script in _form.html.haml
 - else

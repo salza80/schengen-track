@@ -49,7 +49,7 @@ es:
           visa: 'Visa:'
           visa_days_over_stay: 'Días de Visa Excedidos:'
           visa_days_over_stay_description: El número de días en el Área de Schengen sin permiso en tu visa. O no has ingresado una visa, saliste después de la fecha de finalización de la visa o ingresaste al Área de Schengen más veces de las permitidas en la Visa.
-          visa_description: Esto se relaciona solo con una Visa de Corta Estadía Schengen individual/múltiple para personas que requieren una Visa antes de ingresar. Si estás exento de este requisito, las opciones de Visa no aparecerán. ¡Recuerda seleccionar tu Nacionalidad en la esquina superior derecha de la página!
+          visa_description: Esto solo se aplica a quienes necesitan un visado Schengen de corta estancia de una o varias entradas. Las opciones de visado aparecen después de seleccionar la nacionalidad y solo cuando son necesarias.
       disclaimer:
         description: Lee el %{link} antes de usar la Calculadora de Schengen.
         link_text: Descargo de Responsabilidad
@@ -107,16 +107,16 @@ es:
       field_definitions_link: Definiciones de Nombres de Campos
       get_started: Mira el calendario para comenzar
       how_to_use:
-        entry_methods_note: "¿Prefieres precisión? Usa la tabla de visitas para fechas exactas de entrada y salida o haz clic en cualquier día del calendario para agregar o ajustar un viaje; ambas vistas permanecen sincronizadas."
+        entry_methods_note: "¿Prefieres precisión? Usa la página Viajes para indicar las fechas exactas de entrada y salida, o haz clic en cualquier día del calendario para añadir o ajustar un viaje; ambas vistas permanecen sincronizadas."
         people:
           description: Puedes rastrear viajes para varias personas usando la misma cuenta. Usa el selector de personas en la parte superior de la página para agregar y cambiar entre diferentes viajeros. Cada persona puede tener su propia nacionalidad, viajes e información de visa. Esto es útil para familias o al administrar viajes para varias personas.
           title: 'Múltiples Personas:'
         step_1:
-          description: Selecciona tu Nacionalidad. Puedes cambiar esto en la parte superior de la página en el encabezado.
+          description: Selecciona tu nacionalidad en la página Viajes. Si comienzas con Añadir viaje, la calculadora te la pedirá antes de mostrar el formulario. Cuando exista un perfil de invitado o una cuenta, podrás cambiarla en los ajustes del viajero.
           summary: Elija su nacionalidad
           title: 'Paso 1:'
         step_2:
-          description: Si es necesario, ingresa los detalles de tu Visa de Corta Estadía Schengen. Esto aparecerá debajo del registro de viaje solo cuando sea necesario.
+          description: Si es necesario, introduce los datos de tu visado Schengen de corta estancia. La sección Visados aparece después de seleccionar tu nacionalidad y solo cuando es necesaria.
           summary: Añada su visado, si es necesario
           title: 'Paso 2:'
         step_3:
@@ -129,10 +129,10 @@ es:
           summary: Consulte sus días restantes
           title: 'Paso 4:'
         step_5:
-          description: Para guardar tu registro de viaje, Regístrate e Inicia Sesión. Tus datos de “Invitado” existentes se copiarán en tu nueva cuenta. Puedes registrarte en la Calculadora de Schengen o usar Facebook para Iniciar Sesión y Registrarte.
-          optional: true
-          summary: Guarde sus viajes
-          title: 'Paso 5: (opcional)'
+          description: Tu primer viaje válido crea automáticamente un perfil temporal de invitado, por lo que puedes usar la calculadora sin registrarte. Crea una cuenta gratuita para conservar tus planes en distintos navegadores y dispositivos; al registrarte, todos los viajeros invitados y sus viajes y visados se transfieren a la cuenta nueva. Al iniciar sesión en una cuenta existente, sus datos permanecen separados de los datos de invitado.
+          optional: "(opcional)"
+          summary: Conserva tus viajes en todos tus dispositivos
+          title: 'Paso 5:'
         title: Cómo usar la Calculadora de Schengen
       how_to_use_link: Cómo usar la Calculadora de Schengen
       introduction: Introducción

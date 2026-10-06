@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_calculator_account!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_primary_person, only: [:edit, :update]
 
@@ -38,6 +39,7 @@ class UsersController < ApplicationController
     @user.destroy
     
     sign_out
+    clear_session_hint unless guest_user || session[:calculator_nationality_id]
     redirect_to root_path, notice: 'Your account has been successfully deleted.'
   end
 

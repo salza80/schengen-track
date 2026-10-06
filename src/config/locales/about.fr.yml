@@ -49,7 +49,7 @@ fr:
           visa: 'Visa :'
           visa_days_over_stay: 'Jours de visa dépassés :'
           visa_days_over_stay_description: Le nombre de jours dans l'espace Schengen sans autorisation sur votre visa. Soit vous n'avez pas entré de visa, soit vous êtes sorti après la date de fin du visa, soit vous êtes entré dans l'espace Schengen plus de fois que le visa ne l'autorise.
-          visa_description: Cela concerne uniquement un visa Schengen de court séjour individuel/multiple pour les personnes qui ont besoin d'un visa avant d'entrer. Si vous êtes exempté(e) de cette exigence, les options de visa n'apparaîtront pas. N'oubliez pas de sélectionner votre nationalité dans le coin supérieur droit de la page !
+          visa_description: Cela concerne uniquement les voyageurs qui ont besoin d'un visa Schengen de court séjour à entrée unique ou multiple. Les options de visa apparaissent après la sélection de votre nationalité et seulement si elles sont nécessaires.
       disclaimer:
         description: Veuillez lire la %{link} avant d'utiliser la calculatrice Schengen.
         link_text: Clause de non-responsabilité
@@ -107,16 +107,16 @@ fr:
       field_definitions_link: Définitions des noms de champs
       get_started: Consultez le calendrier pour commencer
       how_to_use:
-        entry_methods_note: Vous préférez la précision ? Utilisez le tableau des visites pour les dates exactes d'entrée et de sortie ou cliquez sur n'importe quel jour du calendrier pour ajouter ou ajuster un voyage ; les deux vues restent synchronisées.
+        entry_methods_note: Vous préférez la précision ? Utilisez la page Voyages pour saisir les dates exactes d'entrée et de sortie, ou cliquez sur un jour du calendrier pour ajouter ou modifier un voyage ; les deux vues restent synchronisées.
         people:
           description: Vous pouvez suivre les voyages de plusieurs personnes en utilisant le même compte. Utilisez le sélecteur de personnes en haut de la page pour ajouter et basculer entre différents voyageurs. Chaque personne peut avoir sa propre nationalité, ses voyages et ses informations de visa. C'est utile pour les familles ou lors de la gestion des voyages de plusieurs personnes.
           title: 'Plusieurs personnes :'
         step_1:
-          description: Sélectionnez votre nationalité. Vous pouvez la modifier en haut de la page dans l'en-tête.
+          description: Sélectionnez votre nationalité sur la page Voyages. Si vous commencez par Ajouter un voyage, la calculatrice vous la demandera avant d'afficher le formulaire. Lorsqu'un profil invité ou un compte existe, vous pouvez la modifier dans les paramètres du voyageur.
           summary: Choisissez votre nationalité
           title: 'Étape 1 :'
         step_2:
-          description: Si nécessaire, entrez les détails de votre visa de court séjour Schengen. Cela apparaîtra sous l'enregistrement de voyage uniquement si nécessaire.
+          description: Si nécessaire, saisissez les informations de votre visa Schengen de court séjour. La section Visas apparaît après la sélection de votre nationalité et seulement si elle est nécessaire.
           summary: Ajoutez votre visa si nécessaire
           title: 'Étape 2 :'
         step_3:
@@ -129,10 +129,10 @@ fr:
           summary: Vérifiez vos jours restants
           title: 'Étape 4 :'
         step_5:
-          description: Pour enregistrer votre enregistrement de voyage, inscrivez-vous et connectez-vous. Vos données « Invité » existantes seront copiées dans votre nouveau compte. Vous pouvez vous inscrire sur la calculatrice Schengen ou utiliser Facebook pour vous connecter et vous inscrire.
-          optional: true
-          summary: Enregistrez vos voyages
-          title: 'Étape 5 : (facultatif)'
+          description: Votre premier voyage valide crée automatiquement un profil invité temporaire ; vous pouvez donc utiliser la calculatrice sans vous inscrire. Créez un compte gratuit pour conserver vos projets sur plusieurs navigateurs et appareils ; l’inscription transfère tous les voyageurs invités, ainsi que leurs voyages et visas, vers le nouveau compte. La connexion à un compte existant conserve ses données séparées de vos données invitées.
+          optional: "(facultatif)"
+          summary: Conservez vos voyages sur tous vos appareils
+          title: 'Étape 5 :'
         title: Comment utiliser la calculatrice Schengen
       how_to_use_link: Comment utiliser la calculatrice Schengen
       introduction: Introduction

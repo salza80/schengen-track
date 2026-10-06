@@ -9,11 +9,12 @@ en:
     as_of: As of
     back: Back
     blog: Blog
-    calculator: Calculator
     calendar: Calendar
     cancel: Cancel
+    choose_nationality: Choose your nationality
     confirm_delete: Confirm Delete
     continent: Continent
+    continue: Continue
     country: Country
     data_deletion: Data Deletion
     delete: Delete
@@ -24,26 +25,31 @@ en:
     edit_my_details: Edit My Details
     'false': 'No'
     home: Home
-    legal: Legal
+    invalid_nationality: Please select a valid nationality.
+    keep_plans_description: Create a free account to keep your trips available across browsers and devices.
+    keep_plans_title: Keep your travel plans
     log_out: Log out
     login: Log in
     manage_account: Manage Account
     manage_people: Manage People
     multi_unlimited_entries: "(enter 0 for multi/unlimited entries)"
     na: N/A
+    nationality: Nationality
+    nationality_help: Your nationality determines which Schengen rules and visa controls are shown.
+    nationality_summary: 'Nationality: %{nationality}'
     'no': 'No'
     no_days: No. Days
     of: of
     person_not_set: Not set
     privacy_policy: Privacy Policy
-    register_to_save: Register to save your plans
+    register_to_save: Register to keep your plans
     save: Save
-    schengen: Schengen
     schengen_calculator: Schengen Calculator
+    select_nationality: Select your Nationality
     to: to
     trips: Trips
     'true': 'Yes'
-    visa: Visa
+    update_nationality: Update nationality
     'yes': 'Yes'
   continents:
     africa: Africa

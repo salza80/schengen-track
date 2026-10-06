@@ -9,11 +9,12 @@ ar:
     as_of: اعتباراً من
     back: رجوع
     blog: مدونة
-    calculator: حاسبة
     calendar: التقويم
     cancel: إلغاء
+    choose_nationality: اختر جنسيتك
     confirm_delete: تأكيد الحذف
     continent: قارة
+    continue: متابعة
     country: دولة
     data_deletion: حذف البيانات
     delete: حذف
@@ -24,26 +25,31 @@ ar:
     edit_my_details: تعديل بياناتي
     'false': لا
     home: الرئيسية
-    legal: روابط قانونية
+    invalid_nationality: يرجى اختيار جنسية صالحة.
+    keep_plans_description: أنشئ حساباً مجانياً للاحتفاظ برحلاتك عبر المتصفحات والأجهزة المختلفة.
+    keep_plans_title: احتفظ بخطط سفرك
     log_out: تسجيل الخروج
     login: تسجيل الدخول
     manage_account: إدارة الحساب
     manage_people: إدارة الأشخاص
     multi_unlimited_entries: "(أدخل 0 للدخول المتعدد/غير المحدود)"
     na: غير متوفر
+    nationality: الجنسية
+    nationality_help: تحدد جنسيتك قواعد شنغن وخيارات التأشيرة التي تظهر لك.
+    nationality_summary: 'الجنسية: %{nationality}'
     'no': لا
     no_days: عدد الأيام
     of: من
     person_not_set: غير محدد
     privacy_policy: سياسة الخصوصية
-    register_to_save: سجل لحفظ خططك
+    register_to_save: سجّل للاحتفاظ بخططك
     save: حفظ
-    schengen: شنغن
     schengen_calculator: حاسبة شنغن
+    select_nationality: اختر جنسيتك
     to: إلى
     trips: الرحلات
     'true': نعم
-    visa: تأشيرة
+    update_nationality: تحديث الجنسية
     'yes': نعم
   continents:
     africa: أفريقيا

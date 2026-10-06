@@ -1,5 +1,5 @@
 class SessionHeadersController < ApplicationController
-  skip_before_action :restore_guest_calculation, :set_cache_cookie
+  skip_before_action :restore_guest_calculation, :sync_session_hint_cookie
   prepend_before_action :disable_header_caching
 
   def show
@@ -9,7 +9,9 @@ class SessionHeadersController < ApplicationController
     flash.discard if notices
 
     unless current_user_or_guest_user && current_person
-      cookies.delete(:has_calculator_session, path: '/')
+      # A nationality preference is valid calculator state, but it is not a
+      # persisted person and therefore cannot produce a person menu.
+      clear_session_hint unless selected_calculator_nationality
       # A deleted account can still have a confirmation to display. Commit the
       # consumed flash, without creating a guest or rendering a personal menu.
       return render json: { notice_html: notices } if notices

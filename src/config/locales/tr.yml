@@ -14,11 +14,12 @@ tr:
     as_of: İtibariyle
     back: Geri
     blog: Blog
-    calculator: Hesap Makinesi
     calendar: Takvim
     cancel: İptal
+    choose_nationality: Milliyetinizi seçin
     confirm_delete: Silmeyi Onayla
     continent: Kıta
+    continue: Devam et
     country: Ülke
     data_deletion: Veri Silme
     delete: Sil
@@ -29,26 +30,31 @@ tr:
     edit_my_details: Bilgilerimi Düzenle
     'false': Hayır
     home: Ana Sayfa
-    legal: Yasal
+    invalid_nationality: Lütfen geçerli bir milliyet seçin.
+    keep_plans_description: Seyahatlerinizi farklı tarayıcı ve cihazlarda kullanılabilir tutmak için ücretsiz bir hesap oluşturun.
+    keep_plans_title: Seyahat planlarınızı koruyun
     log_out: Çıkış yap
     login: Giriş yap
     manage_account: Hesabı Yönet
     manage_people: Kişileri yönet
     multi_unlimited_entries: "(çoklu/sınırsız girişler için 0 girin)"
     na: Yok
+    nationality: Milliyet
+    nationality_help: Milliyetiniz, hangi Schengen kurallarının ve vize kontrollerinin gösterileceğini belirler.
+    nationality_summary: 'Milliyet: %{nationality}'
     'no': Hayır
     no_days: Gün Sayısı
     of: toplam
     person_not_set: Belirtilmedi
     privacy_policy: Gizlilik Politikası
-    register_to_save: Planlarınızı kaydetmek için kaydolun
+    register_to_save: Planlarınızı korumak için kaydolun
     save: Kaydet
-    schengen: Schengen
     schengen_calculator: Schengen Hesaplayıcı
+    select_nationality: Milliyetinizi seçin
     to: ile
     trips: Seyahatler
     'true': Evet
-    visa: Vize
+    update_nationality: Milliyeti güncelle
     'yes': Evet
   continents:
     africa: Afrika

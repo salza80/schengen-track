@@ -42,6 +42,8 @@ test('dynamic and authentication requests still forward query parameters', () =>
   for (const b of [config.DefaultCacheBehavior, behavior('/users/*'), behavior('/api/v1/calculations*')]) {
     expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('all');
   }
+
+  expect(originConfig(config.DefaultCacheBehavior).CookiesConfig.Cookies).toContain('has_calculator_session');
 });
 
 test('legal pages and API docs share a session-free cache', () => {

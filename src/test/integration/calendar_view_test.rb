@@ -18,6 +18,8 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     assert has_content?('2014'), "Should show year 2014 from Sally's visits"
     assert has_css?('.calendar-month'), "Should have calendar month containers"
     assert has_css?('.calendar-grid'), "Should have calendar grid"
+    assert has_css?('.day-cell.outside-schengen.has-travel', text: 'Australia'), "Should highlight recorded travel outside Schengen"
+    assert has_css?('.day-cell.no-travel:not(.has-travel)'), "Should keep days without recorded travel neutral"
   end
   
   test "guest user can view empty calendar" do

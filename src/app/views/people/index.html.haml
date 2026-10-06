@@ -5,7 +5,7 @@
       = t('common.manage_people')
 
     - if @people.count == 1
-      .alert.alert-info
+      .alert.alert-info.people-info-notice{role: 'note'}
         %i.fa.fa-info-circle.mr-2
         = t('people.index.single_person_notice')
 
@@ -30,26 +30,26 @@
           = t('common.add_person')
     - else
       .responsive-table-container
-        %table.table.table-striped.table-bordered.table-hover.responsive-table
+        %table.table.table-bordered.table-hover.responsive-table
           %caption= t('people.index.table.caption')
-          %thead.bg-header
+          %thead.bg-table-header
             %tr
-              %th{scope: "col"}= t('people.index.table.columns.name')
-              %th{scope: "col"}= t('people.index.table.columns.nationality')
-              %th{scope: "col"}= t('people.index.table.columns.status')
-              %th{scope: "col", class: 'modify-col'}= t('people.index.table.columns.actions')
+              %th.text-white{scope: "col"}= t('people.index.table.columns.name')
+              %th.text-white{scope: "col"}= t('people.index.table.columns.nationality')
+              %th.text-white{scope: "col"}= t('people.index.table.columns.status')
+              %th.text-white{scope: "col", class: 'modify-col'}= t('people.index.table.columns.actions')
           %tbody
             - @people.each do |person|
-              %tr{class: (person == current_person ? 'table-active' : ''), data: {person_url: (set_current_person_path(person) unless person == current_person)}, style: (person == current_person ? '' : 'cursor: pointer;')}
+              %tr{data: {person_url: (set_current_person_path(person) unless person == current_person)}, style: (person == current_person ? '' : 'cursor: pointer;')}
                 %th{scope: "row", class: 'bg-md-header'}
                   = person.full_name
                 %td{"data-title": t('people.index.table.columns.nationality')}
                   = person.nationality&.localized_name || t('common.person_not_set')
                 %td{"data-title": t('people.index.table.columns.status'), onclick: "event.stopPropagation();"}
                   - if person == current_person
-                    %span.badge.badge-success.mr-2= t('people.index.table.badges.active')
+                    %span.badge.badge-success.people-status-badge.mr-2= t('people.index.table.badges.active')
                   - if person.is_primary
-                    %span.badge.badge-info= t('people.index.table.badges.primary')
+                    %span.badge.badge-info.people-status-badge= t('people.index.table.badges.primary')
                   - else
                     = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: t('people.index.table.make_primary.title'), "aria-label": t('people.index.table.make_primary.aria', name: person.full_name), form: { class: "d-inline" } do
                       = t('people.index.table.make_primary.label')
@@ -122,47 +122,16 @@
     
     // Handle delete button clicks
     const deleteButtons = document.querySelectorAll('.delete-person-link');
-    const $modal = $('#deleteModal');
-    const $confirmButton = $('#deleteConfirmButton');
+    ModalInteractions.bindFocusGuard('#deleteModal');
     
     deleteButtons.forEach(function(button) {
       button.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
-        const deleteUrl = button.dataset.deleteUrl;
-        const deleteMessage = button.dataset.deleteMessage;
-        
-        // Update modal message with localized text
-        $('#deleteModalMessage').text(deleteMessage);
-        
-        // Show the modal
-        $modal.modal('show');
-        
-        // Handle delete confirmation click
-        $confirmButton.off('click').on('click', function(e) {
-          e.preventDefault();
-          
-          // Create a form to submit the DELETE request
-          const form = document.createElement('form');
-          form.method = 'POST';
-          form.action = deleteUrl;
-          
-          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-          const csrfInput = document.createElement('input');
-          csrfInput.type = 'hidden';
-          csrfInput.name = 'authenticity_token';
-          csrfInput.value = csrfToken;
-          form.appendChild(csrfInput);
-          
-          const methodInput = document.createElement('input');
-          methodInput.type = 'hidden';
-          methodInput.name = '_method';
-          methodInput.value = 'delete';
-          form.appendChild(methodInput);
-          
-          document.body.appendChild(form);
-          form.submit();
+        ModalInteractions.openDeleteModal(button.dataset.deleteUrl, {
+          trigger: button,
+          message: button.dataset.deleteMessage
         });
       });
     });

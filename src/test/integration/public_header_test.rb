@@ -31,9 +31,22 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_nil cookies['_schengen_track_session']
   end
 
+  test 'nationality-only calculator state keeps its hint without rendering a person menu' do
+    patch calculator_preferences_path(locale: :en), params: {
+      nationality_id: countries(:India).id,
+      destination: 'trips'
+    }
+    follow_redirect!
+    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+
+    assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
+
+    assert_response :no_content
+    refute_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'].to_s)
+  end
+
   test 'existing guests receive only their own menu and stale sessions create nothing' do
-    get '/en/visits'
-    guest = User.where(guest: true).order(:id).last
+    guest = establish_guest_session
     person = guest.people.first
     person.update!(first_name: 'Header', last_name: 'Guest')
 
@@ -66,8 +79,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
   end
 
   test 'a guest without people is not repaired by the header request' do
-    get '/en/visits'
-    guest = User.where(guest: true).order(:id).last
+    guest = establish_guest_session
     guest.people.delete_all
     assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
     assert_response :no_content
@@ -94,6 +106,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     sign_in users(:Sally)
     delete '/en/my_details'
     assert_response :redirect
+    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
     assert_includes response.headers['Set-Cookie'], 'has_flash_message=1;'
     follow_redirect!
     message = 'Your account has been successfully deleted.'
@@ -109,5 +122,21 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_match(/has_flash_message=;.*max-age=0/, response.headers['Set-Cookie'])
     get '/en/session_header'
     assert_response :no_content
+  end
+
+  private
+
+  def establish_guest_session
+    guest = User.create!(
+      guest: true,
+      email: "header-guest-#{SecureRandom.hex(6)}@example.com",
+      password: 'password',
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality: countries(:USA)
+    )
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    follow_redirect!
+    guest
   end
 end

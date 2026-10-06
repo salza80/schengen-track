@@ -63,7 +63,7 @@ class AboutController < ApplicationController
       @meta_description = I18n.t('about.meta_description', default: I18n.t('default_description'))
     end
     @og_type = 'website'
-    @og_url = "https://#{request.host_with_port}#{request.path}"
+    @og_url = "https://#{request.host_with_port}#{seo_canonical_path}"
     @og_image = absolute_asset_url('schengen_area_eu_countries.webp')
     @og_site_name = I18n.t('common.schengen_calculator')
     
@@ -74,7 +74,7 @@ class AboutController < ApplicationController
   end
 
   def about_page_schema
-    page_url = canonical_url(request.path)
+    page_url = canonical_url(seo_canonical_path)
 
     schema = {
       "@context" => "https://schema.org",
@@ -147,7 +147,7 @@ class AboutController < ApplicationController
     {
       "@context" => "https://schema.org",
       "@type" => "FAQPage",
-      "@id" => "#{canonical_url(request.path)}#faq",
+      "@id" => "#{canonical_url(seo_canonical_path)}#faq",
       "inLanguage" => I18n.locale.to_s,
       "mainEntity" => (1..10).map do |index|
         {
@@ -166,7 +166,7 @@ class AboutController < ApplicationController
     @meta_title = "#{page_name} - #{I18n.t('common.schengen_calculator')}"
     @meta_description = I18n.t('default_description')
     @og_type = 'website'
-    @og_url = "https://#{request.host_with_port}#{request.path}"
+    @og_url = "https://#{request.host_with_port}#{seo_canonical_path}"
     @og_image = absolute_asset_url('schengen_area_eu_countries.webp')
     @og_site_name = I18n.t('common.schengen_calculator')
   end

@@ -7,7 +7,7 @@ module VisitCleanup
   private
 
   def cleanup_old_visits
-    return unless current_person
+    return unless current_person&.persisted?
 
     cutoff_past = Date.today - 20.years
     cutoff_future = Date.today + 20.years

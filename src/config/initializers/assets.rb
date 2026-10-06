@@ -15,7 +15,8 @@ Rails.application.config.assets.version = "1.0"
 # - core.js: Core libraries (jQuery, Bootstrap) loaded on all pages
 # - calendar_bundle.js: Calendar-specific code for days#index
 # - visits_bundle.js: Visits management for visits#index
-Rails.application.config.assets.precompile += %w( core.js calendar_bundle.js visits_bundle.js )
+# - modal_interactions.js: Shared modal behavior for account and people pages
+Rails.application.config.assets.precompile += %w( core.js calendar_bundle.js visits_bundle.js modal_interactions.js )
 
 # Precompile split CSS bundles for code splitting optimization
 # - calendar.css: Calendar-specific styles for days#index (8.2KB)

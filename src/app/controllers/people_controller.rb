@@ -1,4 +1,6 @@
 class PeopleController < ApplicationController
+  before_action :require_calculator_account!, only: [:index, :new, :create]
+  before_action :require_calculator_record_account!, only: [:edit, :update, :destroy, :set_current, :make_primary]
   before_action :set_person, only: [:edit, :update, :destroy, :set_current, :make_primary]
 
   def index

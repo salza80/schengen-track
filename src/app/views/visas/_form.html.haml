@@ -1,4 +1,7 @@
 = form_for @visa, html: { class: "form-horizontal" }, remote: true do |f|
+  - if anonymous_calculator?
+    .alert.alert-light.border
+      = t('common.nationality_summary', nationality: current_person.nationality.localized_name)
   - if @visa.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
       %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
@@ -23,4 +26,3 @@
     .col-sm-10
       = f.number_field :no_entries, class: "form-control"
       = t('common.multi_unlimited_entries')
-

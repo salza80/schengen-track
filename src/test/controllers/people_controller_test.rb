@@ -21,6 +21,16 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_select 'table tbody tr', count: @user.people.count
   end
 
+  test 'single person notice uses informational styling' do
+    @user.people.where.not(id: @person.id).destroy_all
+
+    get people_url(locale: 'en')
+
+    assert_response :success
+    assert_select '.alert.alert-info.people-info-notice[role="note"]', text: /You currently have one person/, count: 1
+    assert_select '.alert.alert-warning, .alert.alert-danger', count: 0
+  end
+
   test 'should get new' do
     get new_person_url(locale: 'en')
     assert_response :success
@@ -168,10 +178,21 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'guest users can access people pages' do
+  test 'existing guest users can access people pages' do
     # Logout current user
-    delete destroy_user_session_url
-    
+    sign_out :user
+
+    guest = User.create!(
+      guest: true,
+      email: "people-guest-#{SecureRandom.hex(6)}@example.com",
+      password: 'password',
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality: countries(:USA)
+    )
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    assert_response :redirect
+
     # Access as guest
     get people_url(locale: 'en')
     assert_response :success

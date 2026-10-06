@@ -1,8 +1,8 @@
 require 'aws/book_query'
-require 'securerandom'
 
 class ApplicationController < ActionController::Base
   CANONICAL_SITE_URL = 'https://schengen-calculator.com'.freeze
+  SEO_LOCALE_PREFIX_PATTERN = %r{\A/(?:#{Regexp.union(I18n.available_locales.map(&:to_s))})(?=/|\z)}.freeze
   SCHENGEN_AREA_SOURCE_URL = 'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en'.freeze
   VISA_REQUIREMENTS_SOURCE_URL = 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230'.freeze
   ETIAS_FAQ_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/faq'.freeze
@@ -23,14 +23,15 @@ class ApplicationController < ActionController::Base
   ].freeze
 
   before_action :restore_guest_calculation
-  before_action :set_cache_cookie, unless: :task_controller?
+  before_action :sync_session_hint_cookie, unless: :task_controller?
   after_action :set_flash_hint
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   # skip_before_action :verify_authenticity_token
 
-  helper_method :current_user_or_guest_user, :current_person, :amazon
+  helper_method :current_user_or_guest_user, :current_person, :anonymous_calculator?,
+                :calculator_nationality_selected?, :amazon, :seo_canonical_path
   around_action :switch_locale
 
   def default_url_options
@@ -65,6 +66,13 @@ class ApplicationController < ActionController::Base
     "#{CANONICAL_SITE_URL}#{normalized_path}"
   end
 
+  def seo_canonical_path(path = request.path, locale: I18n.locale)
+    page_path = path.to_s.sub(SEO_LOCALE_PREFIX_PATTERN, '').presence || '/'
+    return page_path if locale.to_sym == I18n.default_locale.to_sym
+
+    "/#{locale}#{page_path == '/' ? '' : page_path}"
+  end
+
   def canonical_asset_url(asset_name)
     "#{CANONICAL_SITE_URL}#{view_context.asset_path(asset_name)}"
   end
@@ -96,21 +104,28 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_or_guest_user
-    user = current_user || guest_user
-    # Ensure user always has at least one person
-    user.ensure_primary_person if user
-    user
+    return @current_user_or_guest_user if defined?(@current_user_or_guest_user)
+
+    @current_user_or_guest_user = current_user || guest_user
   end
 
   def current_person
-    # Find person by session ID if it belongs to current user
-    person = Person.find_by(id: session[:current_person_id], user: current_user_or_guest_user) if session[:current_person_id]
-    
-    # Fall back to primary person or first person
-    person ||= current_user_or_guest_user.people.find_by(is_primary: true)
-    person ||= current_user_or_guest_user.people.first
-    
-    person
+    return @current_person if defined?(@current_person)
+
+    user = current_user_or_guest_user
+    person = Person.find_by(id: session[:current_person_id], user: user) if user && session[:current_person_id]
+    person ||= user.people.find_by(is_primary: true) if user
+    person ||= user.people.first if user
+
+    @current_person = person || draft_calculator_person
+  end
+
+  def anonymous_calculator?
+    current_user_or_guest_user.nil?
+  end
+
+  def calculator_nationality_selected?
+    selected_calculator_nationality.present?
   end
   
   private
@@ -149,28 +164,67 @@ class ApplicationController < ActionController::Base
   end
 
   def guest_user
-    user = User.find_by_id(session[:guest_user_id])
+    return unless session[:guest_user_id]
+
+    user = User.find_by(id: session[:guest_user_id], guest: true)
     unless user
-      user = create_guest_user
-      session[:guest_user_id] = user.id
+      session.delete(:guest_user_id)
+      session.delete(:current_person_id)
     end
     user
   end
 
-  def create_guest_user
-    user = User.new
-    user.guest = true
-    user.email = "guest_#{Time.now.to_i}#{rand(99)}@example.com"
-    user.password = 'password'
-    user.first_name = 'Guest'
-    user.last_name = 'User'
-    user.nationality = default_guest_country
-    user.save(validate: false)
-    user.reload
-    
-    # Primary person is automatically created by User's after_create callback
-    
-    user
+  def draft_calculator_person
+    @draft_calculator_person ||= Person.new(
+      first_name: 'Guest',
+      last_name: 'User',
+      nationality: calculator_nationality
+    )
+  end
+
+  def calculator_nationality
+    selected_calculator_nationality || default_guest_country
+  end
+
+  def selected_calculator_nationality
+    return @selected_calculator_nationality if defined?(@selected_calculator_nationality)
+
+    @selected_calculator_nationality = Country.find_by(id: session[:calculator_nationality_id])
+  end
+
+  def render_calculator_nationality_required(open_trip: false)
+    redirect_options = { locale: I18n.locale }
+    redirect_options[:open] = 'trip' if open_trip
+    redirect_path = visits_path(redirect_options)
+    message = t('common.choose_nationality')
+
+    respond_to do |format|
+      format.html { redirect_to redirect_path, alert: message }
+      format.json { render json: { error: message }, status: :unprocessable_entity }
+      format.js { render js: "window.location.assign(#{redirect_path.to_json});" }
+    end
+  end
+
+  def establish_guest_session(user, person)
+    session[:guest_user_id] = user.id
+    session[:current_person_id] = person.id
+    session.delete(:calculator_nationality_id)
+    @current_user_or_guest_user = user
+    @current_person = person
+    sync_session_hint_cookie
+  end
+
+  def require_calculator_account!
+    redirect_to visits_path(locale: I18n.locale) if anonymous_calculator?
+  end
+
+  def require_calculator_record_account!
+    raise ActiveRecord::RecordNotFound if anonymous_calculator?
+  end
+
+  def set_private_calculator_cache
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['Vary'] = 'Cookie'
   end
 
   def default_guest_country
@@ -189,26 +243,23 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_cache_cookie
-    guest_value = current_user_or_guest_user.is_guest? ? 'true' : SecureRandom.hex(16)
-    cache_cookie_options = {
-      value: current_user_or_guest_user.nationality.country_code + "_" + guest_value,
-      expires: 1.month.from_now,
-      httponly: true
-    }
-    # Only add secure and same_site for production
-    if Rails.env.production?
-      cache_cookie_options[:secure] = true
-      cache_cookie_options[:same_site] = :lax
+  def sync_session_hint_cookie
+    user = current_user_or_guest_user
+    if user || selected_calculator_nationality
+      set_session_hint
+    elsif cookies[:has_calculator_session].present?
+      clear_session_hint
     end
-    cookies[:cache_country_guest] = cache_cookie_options
-    set_session_hint
   end
 
   def set_session_hint
     # Public-page JavaScript uses this non-sensitive hint, never as authorization.
     cookies[:has_calculator_session] = { value: '1', path: '/', same_site: :lax,
                                         secure: Rails.env.production? }
+  end
+
+  def clear_session_hint
+    cookies.delete(:has_calculator_session, path: '/')
   end
 
   def set_flash_hint

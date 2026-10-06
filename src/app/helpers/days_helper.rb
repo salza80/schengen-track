@@ -10,8 +10,9 @@ module DaysHelper
     return 'waiting-period' if day.warning?
 
     return 'in-schengen-safe' if day.schengen?
+    return 'outside-schengen' if day.hasCountry?
 
-    'outside-schengen'
+    'no-travel'
   end
 
   # Generates tooltip text for day cell

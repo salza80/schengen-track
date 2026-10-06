@@ -2,7 +2,6 @@
 tr:
   days:
     current_status: Mevcut Durum
-    days: gün
     days_remaining: Kalan Günler
     days_used: Kullanılan Günler
     entry_limit_exceeded: Giriş Limiti Aşıldı

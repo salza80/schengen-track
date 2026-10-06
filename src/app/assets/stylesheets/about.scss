@@ -16,17 +16,37 @@ a.nationality_anchor {
 
 // About page layout and sections
 .about-section {
+  .legal-page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: $heading-color;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #3498db;
+  }
+
+  .legal-page-subheading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $heading-color;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
   h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: $heading-color;
     margin-bottom: 1.5rem;
   }
 
   h2 {
     font-size: 2rem;
     font-weight: 600;
-    color: #34495e;
+    color: $heading-color;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
@@ -36,7 +56,7 @@ a.nationality_anchor {
   h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #34495e;
+    color: $heading-color;
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
@@ -45,15 +65,17 @@ a.nationality_anchor {
   .nationality-selector label {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: $heading-color;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
   }
 
-  p {
+  p,
+  ul,
+  ol {
     font-size: 1.05rem;
     line-height: 1.8;
-    color: #555;
+    color: $content-text-color;
     margin-bottom: 1.5rem;
   }
 
@@ -73,7 +95,6 @@ a.nationality_anchor {
     padding: 0.75rem 2rem;
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 50px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 
@@ -112,6 +133,10 @@ a.nationality_anchor {
       margin-bottom: 0;
     }
   }
+}
+
+.about-page-section {
+  padding-top: 2rem;
 }
 
 // Note: .page-sidebar styles moved to application.scss (shared with blog.scss)
@@ -164,6 +189,10 @@ a.nationality_anchor {
 
 // Responsive adjustments
 @media (max-width: 991px) {
+  .about-page-section {
+    padding-top: 1rem;
+  }
+
   .about-section {
     h1 {
       font-size: 2rem;
@@ -177,11 +206,21 @@ a.nationality_anchor {
       font-size: 1.35rem;
     }
 
+    .legal-page-title {
+      font-size: 1.75rem;
+    }
+
+    .legal-page-subheading {
+      font-size: 1.35rem;
+    }
+
     h4 {
       font-size: 1.15rem;
     }
 
-    p {
+    p,
+    ul,
+    ol {
       font-size: 1rem;
     }
   }
@@ -194,6 +233,11 @@ a.nationality_anchor {
     }
 
     h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .legal-page-title {
       font-size: 1.5rem;
       margin-top: 2rem;
     }
@@ -228,7 +272,7 @@ a.nationality_anchor {
     .step-title {
       font-size: 1.35rem;
       font-weight: 600;
-      color: #2c3e50;
+      color: $heading-color;
       margin-bottom: 1rem;
       line-height: 1.4;
     }
@@ -249,11 +293,17 @@ a.nationality_anchor {
       margin-inline-end: 0.5rem;
     }
 
+    .step-optional {
+      color: $heading-color;
+      font-weight: 600;
+      margin-inline-end: 0.5rem;
+    }
+
     .faq-answer,
     .step-description {
       font-size: 1.05rem;
       line-height: 1.8;
-      color: #555;
+      color: $content-text-color;
 
       p {
         margin-bottom: 0;

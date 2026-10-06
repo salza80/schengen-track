@@ -23,6 +23,18 @@ module ApplicationHelper
     "#{ApplicationController::CANONICAL_SITE_URL}#{asset_path('med.png')}"
   end
 
+  def seo_canonical_url
+    seo_localized_urls.fetch(I18n.locale.to_sym)
+  end
+
+  def seo_localized_urls
+    origin = "https://#{request.host_with_port}"
+
+    I18n.available_locales.index_with do |locale|
+      "#{origin}#{seo_canonical_path(locale: locale)}"
+    end
+  end
+
   def organization_schema_json_ld
     {
       "@context" => "https://schema.org",

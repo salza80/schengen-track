@@ -2,7 +2,6 @@
 en:
   days:
     current_status: Current Status
-    days: days
     days_remaining: Days Remaining
     days_used: Days Used
     entry_limit_exceeded: Entry Limit Exceeded

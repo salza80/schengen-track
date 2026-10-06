@@ -9,13 +9,13 @@
       = t('visits.add_visa')
 - else
   .responsive-table-container
-    %table.table.table-striped.table-bordered.table-hover.responsive-table
+    %table.table.table-bordered.table-hover.responsive-table
       %caption= t('visas.list_caption')
-      %thead.bg-header
+      %thead.bg-table-header
         %tr
-          %th{ scope: "col"}= t('visas.columns.dates')
-          %th{ scope: "col"}= t('visas.columns.no_entries')
-          %th{ scope: "col", class: 'modify-col' }= t('visas.columns.modify')
+          %th.text-white{ scope: "col"}= t('visas.columns.dates')
+          %th.text-white{ scope: "col"}= t('visas.columns.no_entries')
+          %th.text-white{ scope: "col", class: 'modify-col' }= t('visas.columns.modify')
       %tbody
         - @visas.each do |visa|
           %tr

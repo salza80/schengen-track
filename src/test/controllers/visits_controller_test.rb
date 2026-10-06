@@ -15,10 +15,40 @@ class VisitsControllerTest < ActionController::TestCase
   end
 
   test 'should create visit' do
-    assert_difference('Visit.count') do
-      @newVisit = post :create, params: { visit: { entry_date: (@visit.entry_date - 1.year), country_id: @visit.country_id, exit_date: (@visit.exit_date - 1.year) }}
+    capture_analytics_events do |events|
+      assert_difference('Visit.count') do
+        @newVisit = post :create, params: { visit: { entry_date: (@visit.entry_date - 1.year), country_id: @visit.country_id, exit_date: (@visit.exit_date - 1.year) }}
+      end
+
+      assert_equal 1, events.length
+      event_name, options = events.fetch(0)
+      assert_equal 'user_add_visit', event_name
+      assert_equal 'add_visit', options.dig(:params, :action)
     end
     assert_redirected_to visits_path
+  end
+
+  test 'should track CSV export' do
+    capture_analytics_events do |events|
+      get :index, format: :csv
+
+      assert_response :success
+      assert_equal 1, events.length
+      event_name, options = events.fetch(0)
+      assert_equal 'user_csv_export', event_name
+      assert_equal 'csv_export', options.dig(:params, :action)
+    end
+  end
+
+  test 'should not track an invalid visit' do
+    capture_analytics_events do |events|
+      assert_no_difference('Visit.count') do
+        post :create, params: { visit: { entry_date: '', exit_date: '', country_id: '' } }, format: :json
+      end
+
+      assert_response :unprocessable_entity
+      assert_empty events
+    end
   end
 
   test 'should show visit' do

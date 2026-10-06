@@ -23,48 +23,53 @@ class User < ApplicationRecord
     nationality.visa_required == 'V'
   end
 
-  # used on omniauth signup
+  # Used when a guest registers a new account. The registered user's primary
+  # person keeps the submitted profile details, while every guest person's
+  # trips and visas are copied into the corresponding account person.
   def copy_from(user)
-    # Copy visits and visas from the guest user's primary person to this user's primary person
-    return unless user
-    
-    # Get the guest user's primary person (or first person)
-    guest_person = user.people.where(is_primary: true).first || user.people.first
-    return unless guest_person
-    
-    # Get this user's primary person
-    my_person = self.people.where(is_primary: true).first || self.people.first
-    return unless my_person
-    
-    # Copy visits
-    guest_person.visits.each do |v|
-      my_person.visits << v.dup
-    end
-    
-    # Copy visas
-    guest_person.visas.each do |v|
-      my_person.visas << v.dup
+    return unless user && user.id != id
+
+    guest_people = user.people.to_a
+    guest_primary = guest_people.find(&:is_primary?) || guest_people.first
+    return unless guest_primary
+
+    my_primary = people.find_by(is_primary: true) || people.first
+    return unless my_primary
+
+    User.transaction do
+      copy_person_records(guest_primary, my_primary)
+
+      guest_people.each do |guest_person|
+        next if guest_person == guest_primary
+
+        copied_person = people.create!(
+          first_name: guest_person.first_name,
+          last_name: guest_person.last_name,
+          nationality_id: guest_person.nationality_id,
+          is_primary: false
+        )
+        copy_person_records(guest_person, copied_person)
+      end
     end
   end
 
-  def self.from_omniauth(auth, guest_user)
+  def self.from_omniauth(auth, guest_user, fallback_nationality = nil)
     puts auth
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     return user if user
     user = register_oauth_with_matching_email(auth)
-    unless user 
+    unless user
+      guest_profile = guest_user&.people&.find_by(is_primary: true) || guest_user&.people&.first || guest_user
       user = User.create do |user|
         user.provider = auth.provider
         user.uid = auth.uid
         user.email = auth.info.email
         user.password = Devise.friendly_token[0, 20]
-        user.first_name = guest_user.first_name || "New"
-        user.last_name = guest_user.last_name || "User"
-        user.nationality = guest_user.nationality
+        user.first_name = guest_profile&.first_name || auth.info.first_name || "New"
+        user.last_name = guest_profile&.last_name || auth.info.last_name || "User"
+        user.nationality = guest_profile&.nationality || fallback_nationality || Country.find_by(country_code: 'US')
       end
-      guest_user.visits.each do |v|
-        user.visits << v.dup
-      end
+      user.copy_from(guest_user)
       if data = auth['extra']['raw_info']
         user.first_name =  data['first_name']
         user.last_name = data['last_name'] 
@@ -131,6 +136,20 @@ class User < ApplicationRecord
   end
 
   private
+
+  def copy_person_records(source_person, target_person)
+    source_person.visits.each do |visit|
+      copied_visit = visit.dup
+      copied_visit.person = target_person
+      copied_visit.save!
+    end
+
+    source_person.visas.each do |visa|
+      copied_visa = visa.dup
+      copied_visa.person = target_person
+      copied_visa.save!
+    end
+  end
 
   def create_primary_person
     people.create!(

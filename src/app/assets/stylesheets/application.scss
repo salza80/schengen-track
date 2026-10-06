@@ -47,9 +47,24 @@
 @import "font-awesome";
 @import "font_display"; // Font display optimization for performance
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)
-@import "about";
+@import "about"; // Shared About and legal-page layout
 @import "responsive_table";
 @import "calendar_status_card";
+
+// Bootstrap derives info alerts from $info, which gives the purple theme color
+// a warm pink surface. Keep the purple accent but use the theme's cool lavender
+// information surface for every info alert.
+.alert-info {
+  color: $gray-700;
+  background-color: $alert-info-bg;
+  background-image: none;
+  border-color: $alert-info-border;
+  border-inline-start: 4px solid $info;
+
+  i {
+    color: $info;
+  }
+}
 
 // Override badge colors to match calendar colors
 .badge-success {
@@ -65,6 +80,12 @@
 .badge-danger {
   background-color: $calendar-overstay;
   color: $calendar-overstay-text;
+}
+
+.people-status-badge {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1;
 }
 
 /* Sticky footer styles
@@ -174,7 +195,71 @@ html {
 
 .bg-md-header {       
   @include media-breakpoint-down(sm) { 
-    background:$headerGreen;
+    color: $white;
+    background: $primary;
+  }
+}
+
+$header-expanded-breakpoint: 720px;
+$header-full-breakpoint: 900px;
+
+.header-desktop-only {
+  display: none;
+}
+
+@media (min-width: $header-expanded-breakpoint) {
+  .navbar-expand-header {
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+
+    .navbar-nav {
+      flex-direction: row;
+
+      .dropdown-menu {
+        position: absolute;
+      }
+    }
+
+    .person-switcher .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
+
+    .navbar-collapse {
+      display: flex !important;
+      flex-basis: auto;
+    }
+
+    .navbar-toggler,
+    .header-mobile-only {
+      display: none !important;
+    }
+
+    .header-desktop-only {
+      display: block;
+    }
+
+    .header-brand {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+}
+
+@media (min-width: $header-expanded-breakpoint) and (max-width: ($header-full-breakpoint - 1px)) {
+  .navbar-expand-header .nav-tabs .nav-link {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+
+    i {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: $header-full-breakpoint) {
+  .navbar-expand-header .nav-tabs .nav-link {
+    font-size: 1.1rem;
   }
 }
 
@@ -213,10 +298,27 @@ html {
     margin-left: 0.75rem;
     white-space: nowrap;
   }
+
+  .header-auth-button {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 45px;
+    padding: 0.375rem 1rem;
+    white-space: nowrap;
+  }
+
+  .header-auth-item,
+  .person-switcher {
+    flex-shrink: 0;
+  }
   
   // Person switcher dropdown
   .person-switcher {
     .dropdown-toggle {
+      width: 8rem;
+      min-width: 0;
       padding: 0.5rem 1rem;
       color: $dark;
       background-color: rgba($primary, 0.05);
@@ -248,9 +350,18 @@ html {
     
     .person-info {
       line-height: 1.3;
+      min-width: 0;
+      max-width: 9rem;
       
-      .person-name {
+      .person-name,
+      .person-nationality {
         display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .person-name {
         font-weight: 500;
         font-size: 0.9rem;
         color: $dark;
@@ -295,21 +406,58 @@ html {
   }
   
   // Desktop - right aligned
-  @media (min-width: 768px) {
+  @media (min-width: $header-expanded-breakpoint) {
     .person-switcher {
       margin-right: 0.5rem;
+
+      .dropdown-toggle {
+        position: relative;
+        justify-content: center;
+        padding-right: 1.25rem;
+        padding-left: 1.25rem;
+
+        &::after {
+          position: absolute;
+          right: 0.6rem;
+          margin-left: 0;
+        }
+      }
     }
     
     .person-info {
-      text-align: right;
+      text-align: center;
     }
   }
   
   // Mobile - full width dropdown
-  @media (max-width: 767px) {
+  @media (max-width: ($header-expanded-breakpoint - 1px)) {
     .navbar-collapse {
+      padding: 0.5rem 1rem 1rem;
+
+      .navbar-nav {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        text-align: left !important;
+      }
+
+      .nav-tabs {
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-link {
+        width: 100%;
+        text-align: left;
+
+        > i {
+          width: 1.25rem;
+          text-align: center;
+        }
+      }
+
       .person-switcher {
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
         margin-top: 0.5rem;
         padding-top: 0.5rem;
         
@@ -317,9 +465,15 @@ html {
           width: 100%;
           text-align: left;
           padding: 0.75rem 1rem;
+
+          &::after {
+            margin-left: auto;
+          }
         }
         
         .person-info {
+          flex: 1;
+          max-width: 8rem;
           text-align: left;
           
           .person-name {
@@ -336,6 +490,11 @@ html {
         width: 100%;
         margin: 0.5rem 0;
         justify-content: center;
+      }
+
+      .legal-links-mobile,
+      .legal-links-mobile a {
+        text-align: left;
       }
     }
   }
@@ -355,6 +514,38 @@ html {
         background-color: rgba($headerGreen, 0.2);
       }
     }
+  }
+}
+
+@media (min-width: $header-expanded-breakpoint) and (max-width: ($header-full-breakpoint - 1px)) {
+  .navbar-expand-header {
+    .person-switcher {
+      .dropdown-toggle {
+        width: 6.5rem;
+        padding-right: 1.25rem;
+        padding-left: 1.25rem;
+      }
+
+      .person-info {
+        max-width: 6rem;
+      }
+    }
+
+    .header-auth-button {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+
+      > i {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (min-width: $header-full-breakpoint) {
+  .navbar-expand-header .site-title {
+    font-size: 1.2rem;
+    font-weight: 600;
   }
 }
 
@@ -408,6 +599,18 @@ html[dir='rtl'] {
 
   .navbar .person-switcher .dropdown-toggle {
     text-align: right;
+  }
+
+  @media (max-width: ($header-expanded-breakpoint - 1px)) {
+    .navbar-collapse {
+      .navbar-nav,
+      .nav-link,
+      .person-switcher .person-info,
+      .legal-links-mobile,
+      .legal-links-mobile a {
+        text-align: right !important;
+      }
+    }
   }
 
   .language-selector-wrapper .language-select {
@@ -545,6 +748,18 @@ html[dir='rtl'] {
 .center-heading{
   text-align: center;
 }
+
+// Match the Trips and Visas table headers to the Current Status header.
+.bg-table-header {
+  background-color: $primary !important;
+  background-image: none !important;
+
+  th {
+    background-color: $primary !important;
+    background-image: none !important;
+  }
+}
+
 .table-top-header {
   border: 1px;
   border-style: solid;
@@ -606,14 +821,14 @@ select.form-control, select.custom-select {
   }
 }
 
-// Section headings with lime green accent
+// Section headings use the primary blue accent; reserve green for actions.
 .section-heading {
   padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
   margin-top: 2rem;
-  border-bottom: 3px solid $headerGreen;
+  border-bottom: 3px solid $primary;
   font-weight: 500;
-  color: $gray-700;
+  color: $heading-color;
 }
 
 // Empty state styling
@@ -741,7 +956,7 @@ nav.page-sidebar {
   .title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: $heading-color;
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid #e9ecef;
@@ -757,7 +972,7 @@ nav.page-sidebar {
       transition: all 0.2s ease;
 
       a {
-        color: #555;
+        color: $content-text-color;
         text-decoration: none;
         display: block;
         padding: 0.4rem 0.75rem;

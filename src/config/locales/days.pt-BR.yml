@@ -2,7 +2,6 @@
 pt-BR:
   days:
     current_status: Status Atual
-    days: dias
     days_remaining: Dias Restantes
     days_used: Dias Usados
     entry_limit_exceeded: Limite de Entradas Excedido

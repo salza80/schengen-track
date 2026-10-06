@@ -1,5 +1,6 @@
 // Blog and article styling - Standalone bundle for blogs#show
 // Note: .page-sidebar styles are in application.scss (shared component)
+@import "variables";
 
 // Blog and article styling for better visual appeal and SEO
 
@@ -31,7 +32,7 @@
     }
 
     &.active {
-      color: #2c3e50;
+      color: $heading-color;
       font-weight: 500;
     }
 
@@ -62,7 +63,7 @@
     .article-title {
       font-size: 2.5rem;
       font-weight: 700;
-      color: #2c3e50;
+      color: $heading-color;
       line-height: 1.3;
       margin-bottom: 1.5rem;
 
@@ -94,7 +95,7 @@
 
     .article-excerpt {
       font-size: 1.25rem;
-      color: #555;
+      color: $content-text-color;
       line-height: 1.7;
       margin-top: 1.5rem;
       font-weight: 400;
@@ -121,13 +122,13 @@
   .article-content {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: #333;
+    color: $content-text-color;
 
     // Lead paragraph
     .lead {
       font-size: 1.3rem;
       line-height: 1.7;
-      color: #555;
+      color: $content-text-color;
       margin-bottom: 2rem;
       font-weight: 400;
     }
@@ -145,7 +146,7 @@
     h1 {
       font-size: 2.5rem;
       font-weight: 700;
-      color: #2c3e50;
+      color: $heading-color;
       margin-top: 3rem;
       margin-bottom: 1.5rem;
       line-height: 1.3;
@@ -158,7 +159,7 @@
     h2 {
       font-size: 2rem;
       font-weight: 600;
-      color: #34495e;
+      color: $heading-color;
       margin-top: 3rem;
       margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
@@ -173,7 +174,7 @@
     h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #34495e;
+      color: $heading-color;
       margin-top: 2rem;
       margin-bottom: 1rem;
     }
@@ -181,10 +182,10 @@
     // Paragraphs
     p {
       margin-bottom: 1.5rem;
-      color: #444;
+      color: $content-text-color;
 
       strong {
-        color: #2c3e50;
+        color: $heading-color;
         font-weight: 600;
       }
     }
@@ -199,7 +200,7 @@
         line-height: 1.8;
 
         strong {
-          color: #2c3e50;
+          color: $heading-color;
           font-weight: 600;
         }
       }
@@ -348,7 +349,7 @@
       border-radius: 4px;
 
       h4 {
-        color: #2c3e50;
+        color: $heading-color;
         font-size: 1.2rem;
         margin-top: 0;
         margin-bottom: 1rem;
@@ -407,7 +408,7 @@
 
       h4 {
         font-size: 1.25rem;
-        color: #2c3e50;
+        color: $heading-color;
         margin-bottom: 1.5rem;
         font-weight: 600;
       }
@@ -486,7 +487,7 @@
 
       h4 {
         font-size: 1.5rem;
-        color: #2c3e50;
+        color: $heading-color;
         margin-bottom: 1.5rem;
       }
 
@@ -574,7 +575,7 @@
   
   .post-title {
     font-weight: 600;
-    color: #2c3e50;
+    color: $heading-color;
     margin-bottom: 0.25rem;
     display: block;
     line-height: 1.4;
@@ -591,7 +592,7 @@
   }
   
   li.active {
-    background-color: #e8f4f8;
+    background-color: #fff;
     border-left: 3px solid #3498db;
     
     .post-title {

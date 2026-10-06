@@ -3,18 +3,27 @@
 -# - if !user_signed_in?
 -#   = render 'registerPrompt'
 
+.d-lg-none.mt-4
+  = render 'days/calendar_status_summary', show_actions: false
+
 .row.mt-4
   .col-lg-9
     - if @visits.count == 0
       .mb-4
         %h1.h3.mb-3= t('visits.page_title')
         %p.lead= t('visits.page_description')
-        %p.text-muted
-          = t('visits.nationality_set_to', nationality: current_person.nationality.name, settings_link: link_to(t('visits.change_settings'), edit_person_path(current_person, locale: I18n.locale))).html_safe
+        - if anonymous_calculator?
+          %h3.section-heading.mt-0
+            %i.fa.fa-globe.mr-2{"aria-hidden" => "true"}
+            = t('common.select_nationality')
+          = render 'shared/calculator_nationality_selector', destination: 'trips', hide_label: true
+        - else
+          %p.text-muted
+            = t('visits.nationality_set_to', nationality: current_person.nationality.name, settings_link: link_to(t('visits.change_settings'), edit_person_path(current_person, locale: I18n.locale))).html_safe
     - else
       %h1.sr-only= t('visits.page_title')
 
-    - if current_person.visa_required?
+    - if current_person.visa_required? && (!anonymous_calculator? || calculator_nationality_selected?)
       %h3.section-heading.mt-0
         %i.fa.fa-passport.mr-2
         = t('visits.schengen_visa_list')
@@ -49,6 +58,9 @@
       .col-md-12
         = render 'visitlist'
     .row
+      .col-md-12
+        = render 'shared/guest_registration_card'
+    .row
       .col-lg-10.col-md-12
         .ad-block-limit.d-none.d-md-block
           %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
@@ -57,18 +69,22 @@
 
 .row.d-lg-none.mt-2
   .col-12
-    = render 'days/calendar_sidebar', sticky_sidebar: false
+    = render 'days/calendar_sidebar', sticky_sidebar: false, show_status: false, show_legend: false
 
 -# Modal for adding/editing visits
-#visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1"}
+- nationality_gate = anonymous_calculator? && !calculator_nationality_selected?
+#visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1", data: { nationality_required: nationality_gate }}
   .modal-dialog.modal-lg{role: "document"}
     .modal-content
       .modal-header
-        %h5#visitModalLabel.modal-title= t('visits.add_record')
+        %h5#visitModalLabel.modal-title= nationality_gate ? t('common.choose_nationality') : t('visits.add_record')
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
           %span{"aria-hidden" => "true"} &times;
       .modal-body
-        -# Form will be loaded here via AJAX
+        - if nationality_gate
+          = render 'shared/calculator_nationality_step', destination: 'trips'
+        - else
+          -# Form will be loaded here via AJAX
       .modal-footer.d-flex
         - if rtl_locale?
           %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
@@ -76,18 +92,18 @@
             %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
               %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
               = t('common.delete')
-            %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": t('common.save')}
+            %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": (nationality_gate ? t('common.continue') : t('common.save'))}
               %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
-              = t('common.save')
+              = nationality_gate ? t('common.continue') : t('common.save')
         - else
           %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
           .ml-auto
             %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
               %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
               = t('common.delete')
-            %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": t('common.save')}
+            %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": (nationality_gate ? t('common.continue') : t('common.save'))}
               %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
-              = t('common.save')
+              = nationality_gate ? t('common.continue') : t('common.save')
 
 -# Modal for adding/editing visas
 #visaModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visaModalLabel", role: "dialog", tabindex: "-1"}
@@ -139,3 +155,12 @@
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
 
+- if params[:open] == 'trip'
+  :javascript
+    window.addEventListener('load', function() {
+      var continuation = new URLSearchParams(window.location.search);
+      continuation.delete('open');
+      window.history.replaceState({}, '', window.location.pathname + (continuation.toString() ? '?' + continuation.toString() : ''));
+      var addTravelButton = document.querySelector('[data-action="add-visit"]');
+      if (addTravelButton) addTravelButton.click();
+    }, { once: true });

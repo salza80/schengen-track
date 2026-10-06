@@ -3,5 +3,6 @@
 // drag-to-select date ranges, and visit management
 
 //= require calendar
+//= require modal_interactions
 //= require calendar_interactions
 //= require cascade_lists

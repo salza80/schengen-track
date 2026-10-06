@@ -27,6 +27,8 @@
       if (!$('.calendar-view-container').length) {
         return;
       }
+
+      ModalInteractions.bindFocusGuard('#visitModal');
       
       // Bind click handlers to day cells
       self.bindDayCellClicks();
@@ -54,17 +56,32 @@
       // Bind modal Save button
       $('#saveVisitButton').on('click', function(e) {
         e.preventDefault();
-        self.submitVisitForm();
+        ModalInteractions.submitForm('#visitModal form', '#saveVisitButton');
       });
+
+      ModalInteractions.bindSubmissionReset('#visitModal form', '#saveVisitButton');
       
       // Bind modal Delete button
       $('#deleteVisitButton').on('click', function(e) {
         e.preventDefault();
         var locale = $('html').attr('lang') || 'en';
         var deleteUrl = '/' + locale + '/visits/' + self.currentVisitId;
+        var focusReturn = $('#visitModal').data('focus-return');
+        $('#visitModal').removeData('focus-return');
         $('#visitModal').modal('hide');
-        self.openDeleteModal(deleteUrl);
+        ModalInteractions.openDeleteModal(deleteUrl, { trigger: focusReturn });
       });
+
+      var continuation = new URLSearchParams(window.location.search);
+      if (continuation.get('open') === 'trip') {
+        var entryDate = continuation.get('entry_date');
+        var exitDate = continuation.get('exit_date');
+        continuation.delete('open');
+        continuation.delete('entry_date');
+        continuation.delete('exit_date');
+        window.history.replaceState({}, '', window.location.pathname + (continuation.toString() ? '?' + continuation.toString() : ''));
+        self.openAddModal(entryDate, exitDate);
+      }
     },
     
     // Bind click handlers to day cells
@@ -79,6 +96,7 @@
         }
         
         var $cell = $(this);
+        $('#visitModal').data('focus-return', this);
         
         // On mobile, first click shows tooltip, second click opens modal
         if (self.state.isMobileDevice) {
@@ -147,6 +165,7 @@
       $(document).on('touchstart', '.day-cell', function(e) {
         var $cell = $(this);
         self.state.longPressTriggered = false;
+        $('#visitModal').data('focus-return', this);
         
         // Start long press timer
         self.state.longPressTimer = setTimeout(function() {
@@ -235,6 +254,7 @@
         if (self.state.isSelecting && self.state.selectedCells.length > 1) {
           // Multi-day selection completed
           var dates = self.getSelectedDateRange();
+          $('#visitModal').data('focus-return', self.state.selectedCells[0]);
           self.openAddModal(dates.start, dates.end);
         }
         
@@ -307,34 +327,33 @@
       });
     },
     
-    // Submit the visit form
-    submitVisitForm: function() {
-      var $form = $('#visitModal form');
-      if ($form.length) {
-        $form.submit();
-      }
-    },
-    
     // Open ADD modal
     openAddModal: function(entryDate, exitDate) {
       var self = this;
       self.currentVisitId = null; // Clear current visit ID
+      if ($('#visitModal').is('[data-nationality-required]')) {
+        var $preferenceForm = $('#visitModal .calculator-nationality-form');
+        $preferenceForm.find('input[name="entry_date"], input[name="exit_date"]').remove();
+        if (entryDate) {
+          $preferenceForm.append($('<input>', { type: 'hidden', name: 'entry_date', value: entryDate }));
+        }
+        if (exitDate) {
+          $preferenceForm.append($('<input>', { type: 'hidden', name: 'exit_date', value: exitDate }));
+        }
+        $('#deleteVisitButton').hide();
+        $('#visitModal').modal('show');
+        return;
+      }
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visits/new.js',
-        method: 'GET',
         data: { 
           entry_date: entryDate,
           exit_date: exitDate
         },
-        dataType: 'script',
-        success: function() {
-          // Hide delete button for new visits
-          $('#deleteVisitButton').hide();
-        },
-        error: function() {
-          alert('Failed to open visit form. Please try again.');
-        }
+        deleteButtonSelector: '#deleteVisitButton',
+        showDeleteButton: false,
+        errorMessage: 'Failed to open visit form. Please try again.'
       });
     },
     
@@ -343,59 +362,11 @@
       var self = this;
       self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
-      $.ajax({
+      ModalInteractions.loadForm({
         url: '/' + locale + '/visits/' + visitId + '/edit.js',
-        method: 'GET',
-        dataType: 'script',
-        success: function() {
-          // Show delete button for existing visits
-          $('#deleteVisitButton').show();
-        },
-        error: function() {
-          alert('Failed to open visit form. Please try again.');
-        }
-      });
-    },
-    
-    // Open delete confirmation modal
-    openDeleteModal: function(deleteUrl) {
-      var $modal = $('#deleteModal');
-      var $confirmButton = $('#deleteConfirmButton');
-      
-      // Update the confirmation button with the delete URL
-      $confirmButton.attr('href', deleteUrl);
-      $confirmButton.attr('data-method', 'delete');
-      $confirmButton.attr('rel', 'nofollow');
-      
-      // Show the modal
-      $modal.modal('show');
-      
-      // Handle delete confirmation click
-      $confirmButton.off('click').on('click', function(e) {
-        e.preventDefault();
-        
-        // Create a form to submit the DELETE request
-        var $form = $('<form>', {
-          'method': 'POST',
-          'action': deleteUrl
-        });
-        
-        // Add CSRF token
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $form.append($('<input>', {
-          'type': 'hidden',
-          'name': '_method',
-          'value': 'delete'
-        }));
-        $form.append($('<input>', {
-          'type': 'hidden',
-          'name': 'authenticity_token',
-          'value': csrfToken
-        }));
-        
-        // Submit the form (will redirect back using referer)
-        $('body').append($form);
-        $form.submit();
+        deleteButtonSelector: '#deleteVisitButton',
+        showDeleteButton: true,
+        errorMessage: 'Failed to open visit form. Please try again.'
       });
     },
     

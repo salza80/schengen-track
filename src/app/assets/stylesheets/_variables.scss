@@ -17,7 +17,12 @@ $gray-800: #222 !default;
 $gray-900: #212121 !default;
 $black:    #000 !default;
 
+// Shared color for non-interactive page and section headings.
+$heading-color: $gray-700 !default;
+$content-text-color: #555 !default;
+
 $blue:    #2196f3 !default;
+$blue-dark: #0056b3 !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
@@ -36,6 +41,11 @@ $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
+
+// Information alerts use a cool lavender surface while retaining the stronger
+// purple information color for icons and other accents.
+$alert-info-bg:     #e8eaf6 !default;
+$alert-info-border: #c5cae9 !default;
 
 
 $yiq-contrasted-threshold:  170 !default;

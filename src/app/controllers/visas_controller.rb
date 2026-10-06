@@ -1,4 +1,5 @@
 class VisasController < ApplicationController
+  before_action :set_private_calculator_cache
   before_action :set_visa, only: [:show, :edit, :update, :destroy]
   
   # Skip CSRF verification for .js GET requests (new, edit)
@@ -36,10 +37,36 @@ class VisasController < ApplicationController
   # POST /visas
   # POST /visas.json
   def create
-    @visa = current_person.visas.build(visa_params)
-    @visa.visa_type = 'S'
+    if anonymous_calculator?
+      return render_calculator_nationality_required unless calculator_nationality_selected?
+
+      result = AnonymousCalculator::FirstSave.call(
+        nationality: selected_calculator_nationality,
+        record_class: Visa,
+        attributes: visa_params
+      )
+      @visa = result.record
+      establish_guest_session(result.user, result.person) if result.success?
+    else
+      @visa = current_person.visas.build(visa_params)
+      @visa.visa_type = 'S'
+      @visa.save
+    end
+
+    if @visa.persisted?
+      Analytics::GoogleMeasurementProtocol.track(
+        'user_add_visa',
+        request: request,
+        params: {
+          category: 'visas',
+          action: 'add_visa',
+          value: 1
+        }
+      )
+    end
+
     respond_to do |format|
-      if @visa.save
+      if @visa.persisted?
         format.html { redirect_to visits_path, notice: 'Visa was successfully created.' }
         format.json { render :show, status: :created, location: @visa }
         format.js   # AJAX request from visits page

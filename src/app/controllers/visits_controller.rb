@@ -1,5 +1,6 @@
 class VisitsController < ApplicationController
   include VisitCleanup
+  before_action :set_private_calculator_cache
   
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
@@ -38,7 +39,19 @@ class VisitsController < ApplicationController
           end
         end
       end
-      format.csv { send_data calc.to_csv}
+      format.csv do
+        csv = calc.to_csv
+        Analytics::GoogleMeasurementProtocol.track(
+          'user_csv_export',
+          request: request,
+          params: {
+            category: 'visits',
+            action: 'csv_export',
+            value: 1
+          }
+        )
+        send_data csv
+      end
     end
   end
   # GET /visits/1
@@ -76,9 +89,35 @@ class VisitsController < ApplicationController
   # POST /visits
   # POST /visits.json
   def create
-    @visit = current_person.visits.build(visit_params) 
+    if anonymous_calculator?
+      return render_calculator_nationality_required(open_trip: true) unless calculator_nationality_selected?
+
+      result = AnonymousCalculator::FirstSave.call(
+        nationality: selected_calculator_nationality,
+        record_class: Visit,
+        attributes: visit_params
+      )
+      @visit = result.record
+      establish_guest_session(result.user, result.person) if result.success?
+    else
+      @visit = current_person.visits.build(visit_params)
+      @visit.save
+    end
+
+    if @visit.persisted?
+      Analytics::GoogleMeasurementProtocol.track(
+        'user_add_visit',
+        request: request,
+        params: {
+          category: 'visits',
+          action: 'add_visit',
+          value: 1
+        }
+      )
+    end
+
     respond_to do |format|
-      if @visit.save
+      if @visit.persisted?
         format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
         format.js   # AJAX request from calendar
@@ -371,7 +410,7 @@ class VisitsController < ApplicationController
       @meta_title = I18n.t('visits.page_title') + ' | ' + I18n.t('common.schengen_calculator')
       @meta_description = I18n.t('visits.meta_description', default: I18n.t('default_description'))
       @og_type = 'website'
-      @og_url = "https://#{request.host_with_port}#{request.path}"
+      @og_url = "https://#{request.host_with_port}#{seo_canonical_path}"
       # Use schengen map image for visits page
       image_path = view_context.asset_path('schengen_area_eu_countries.webp')
       @og_image = "https://#{request.host_with_port}#{image_path}"

@@ -49,7 +49,7 @@ de:
           visa: 'Visum:'
           visa_days_over_stay: 'Visum-Überziehungstage:'
           visa_days_over_stay_description: Die Anzahl der Tage im Schengen-Raum ohne Genehmigung auf Ihrem Visum. Entweder haben Sie kein Visum eingegeben, Sie sind nach dem Ablaufdatum des Visums ausgereist oder Sie sind öfter in den Schengen-Raum eingereist, als das Visum erlaubt hat.
-          visa_description: Dies bezieht sich nur auf Einzel- / Mehrfacheintrittskurzaufenthaltsvisa für Personen, die ein Visum vor der Einreise benötigen. Wenn Sie von dieser Anforderung befreit sind, werden die Visumoptionen nicht angezeigt. Denken Sie daran, Ihre Nationalität oben rechts auf der Seite auszuwählen!
+          visa_description: Dies gilt nur für Reisende, die ein Schengen-Kurzaufenthaltsvisum für eine oder mehrere Einreisen benötigen. Die Visumoptionen erscheinen nach Auswahl Ihrer Nationalität und nur, wenn sie erforderlich sind.
       disclaimer:
         description: Bitte lesen Sie den %{link} vor der Verwendung des Schengen-Rechners.
         link_text: Haftungsausschluss
@@ -107,16 +107,16 @@ de:
       field_definitions_link: Feldnamendefinitionen
       get_started: Kalender ansehen und loslegen
       how_to_use:
-        entry_methods_note: Sie mögen es exakt? Nutzen Sie die Besuchstabelle für präzise Ein- und Ausreisedaten oder klicken Sie im Kalender auf einen Tag, um eine Reise hinzuzufügen oder zu ändern - beide Ansichten bleiben synchron.
+        entry_methods_note: Sie mögen es exakt? Nutzen Sie die Reiseseite für präzise Ein- und Ausreisedaten oder klicken Sie im Kalender auf einen Tag, um eine Reise hinzuzufügen oder zu ändern – beide Ansichten bleiben synchron.
         people:
           description: Sie können Reisen für mehrere Personen mit demselben Konto verfolgen. Verwenden Sie den Personenwechsler oben auf der Seite, um verschiedene Reisende hinzuzufügen und zwischen ihnen zu wechseln. Jede Person kann ihre eigene Nationalität, Reisen und Visuminformationen haben. Dies ist nützlich für Familien oder bei der Verwaltung von Reisen für mehrere Personen.
           title: 'Mehrere Personen:'
         step_1:
-          description: Wählen Sie Ihre Nationalität aus. Sie können dies oben auf der Seite im Header ändern.
+          description: Wählen Sie Ihre Nationalität auf der Reiseseite aus. Wenn Sie mit „Reise hinzufügen“ beginnen, fragt der Rechner danach, bevor das Reiseformular erscheint. Sobald ein Gastprofil oder Konto besteht, können Sie sie in den Reisendeneinstellungen ändern.
           summary: Nationalität auswählen
           title: 'Schritt 1:'
         step_2:
-          description: Geben Sie, falls erforderlich, die Details Ihres kurzfristigen Schengen-Visums ein. Dies erscheint unter dem Reisebericht nur, wenn es erforderlich ist.
+          description: Geben Sie bei Bedarf die Details Ihres Schengen-Kurzaufenthaltsvisums ein. Der Abschnitt „Visa“ erscheint nach Auswahl Ihrer Nationalität und nur, wenn er erforderlich ist.
           summary: Visum hinzufügen, falls erforderlich
           title: 'Schritt 2:'
         step_3:
@@ -129,10 +129,10 @@ de:
           summary: Verbleibende Tage prüfen
           title: 'Schritt 4:'
         step_5:
-          description: Um Ihren Reisebericht zu speichern, registrieren Sie sich und melden Sie sich an. Ihre bestehenden Daten als „Gast“ werden in Ihr neues Konto kopiert. Sie können sich beim Schengen-Rechner registrieren oder sich mit Facebook anmelden und registrieren.
-          optional: true
-          summary: Reisen speichern
-          title: 'Schritt 5: (optional)'
+          description: Ihre erste gültige Reise erstellt automatisch ein temporäres Gastprofil, sodass Sie den Rechner ohne Registrierung verwenden können. Erstellen Sie ein kostenloses Konto, um Ihre Pläne browser- und geräteübergreifend zu behalten; bei der Registrierung werden alle Gastreisenden mit ihren Reisen und Visa in das neue Konto übernommen. Wenn Sie sich bei einem bestehenden Konto anmelden, bleiben dessen Daten von Ihren Gastdaten getrennt.
+          optional: "(optional)"
+          summary: Reisen geräteübergreifend behalten
+          title: 'Schritt 5:'
         title: So verwenden Sie den Schengen-Rechner
       how_to_use_link: Wie man den Schengen-Rechner verwendet
       introduction: Einleitung

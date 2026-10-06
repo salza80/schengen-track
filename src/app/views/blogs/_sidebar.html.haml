@@ -3,7 +3,7 @@
     = t('blog.index.title')
   %ul.nav.flex-column.page-sidenav
     - @blog_posts.each do |post|
-      %li{class: ('active' if post[:slug] == @current_slug)}
+      %li{class: ('active bg-white' if post[:slug] == @current_slug)}
         = link_to blog_path(locale: I18n.locale, slug: post[:slug]), class: "text-dark" do
           .post-date
             = l(post[:published_date], format: :short)

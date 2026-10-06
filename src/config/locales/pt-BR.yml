@@ -9,11 +9,12 @@ pt-BR:
     as_of: Em
     back: Voltar
     blog: Blog
-    calculator: Calculadora
     calendar: Calendário
     cancel: Cancelar
+    choose_nationality: Escolha sua nacionalidade
     confirm_delete: Confirmar Exclusão
     continent: Continente
+    continue: Continuar
     country: País
     data_deletion: Exclusão de Dados
     delete: Excluir
@@ -24,26 +25,31 @@ pt-BR:
     edit_my_details: Editar Meus Detalhes
     'false': Não
     home: Início
-    legal: Legal
+    invalid_nationality: Selecione uma nacionalidade válida.
+    keep_plans_description: Crie uma conta gratuita para manter suas viagens disponíveis em diferentes navegadores e dispositivos.
+    keep_plans_title: Mantenha seus planos de viagem
     log_out: Sair
     login: Entrar
     manage_account: Gerenciar Conta
     manage_people: Gerenciar pessoas
     multi_unlimited_entries: "(digite 0 para entradas múltiplas/ilimitadas)"
     na: N/A
+    nationality: Nacionalidade
+    nationality_help: Sua nacionalidade determina quais regras de Schengen e controles de visto são exibidos.
+    nationality_summary: 'Nacionalidade: %{nationality}'
     'no': Não
     no_days: Nº de Dias
     of: de
     person_not_set: Não definido
     privacy_policy: Política de Privacidade
-    register_to_save: Registre-se para salvar seus planos
+    register_to_save: Registre-se para manter seus planos
     save: Salvar
-    schengen: Schengen
     schengen_calculator: Calculadora Schengen
+    select_nationality: Selecione sua nacionalidade
     to: até
     trips: Viagens
     'true': Sim
-    visa: Visto
+    update_nationality: Atualizar nacionalidade
     'yes': Sim
   continents:
     africa: África

@@ -119,7 +119,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     aligned_items.each do |item|
       assert_equal 'left', item.style('text-align')['text-align']
     end
-    assert_no_selector '.header-mobile-only > small', text: I18n.t('common.legal', locale: :en)
+    assert_no_selector '.header-mobile-only > small'
 
     selector_rect = find('#personDropdown').native.rect
     menu_rect = find('#personDropdown').find(:xpath, '..').native.rect
@@ -239,6 +239,10 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
     assert_in_delta 32, desktop_about_gap, 0.1
     assert_in_delta desktop_blog_gap, desktop_about_gap, 0.1
+
+    visit '/en/datadeletion'
+    assert_equal '0px', find('.about-section').style('padding-top')['padding-top']
+    assert_no_selector '.about-page-section'
   ensure
     page.current_window.resize_to(1400, 1000)
   end

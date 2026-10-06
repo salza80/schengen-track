@@ -16,8 +16,6 @@ a.nationality_anchor {
 
 // About page layout and sections
 .about-section {
-  padding-top: 2rem;
-
   .legal-page-title {
     font-size: 2rem;
     font-weight: 600;
@@ -137,6 +135,10 @@ a.nationality_anchor {
   }
 }
 
+.about-page-section {
+  padding-top: 2rem;
+}
+
 // Note: .page-sidebar styles moved to application.scss (shared with blog.scss)
 
 // Form styling on about page
@@ -187,9 +189,11 @@ a.nationality_anchor {
 
 // Responsive adjustments
 @media (max-width: 991px) {
-  .about-section {
+  .about-page-section {
     padding-top: 1rem;
+  }
 
+  .about-section {
     h1 {
       font-size: 2rem;
     }

@@ -229,6 +229,70 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_not_equal visit2.id, copied_visits.second.id, "Visit should be a copy, not the same record"
   end
 
+  test 'registration copies every guest traveler and their records' do
+    guest = User.create!(
+      first_name: 'Primary',
+      last_name: 'Guest',
+      nationality: countries(:India),
+      email: "multi-person-guest-#{SecureRandom.hex(8)}@example.com",
+      password: 'password',
+      guest: true
+    )
+    guest_primary = guest.people.find_by!(is_primary: true)
+    guest_primary.visits.create!(
+      entry_date: Date.new(2027, 1, 10),
+      exit_date: Date.new(2027, 1, 15),
+      country: countries(:Germany)
+    )
+    companion = guest.people.create!(
+      first_name: 'Travel',
+      last_name: 'Companion',
+      nationality: countries(:Australia)
+    )
+    companion.visits.create!(
+      entry_date: Date.new(2027, 2, 1),
+      exit_date: Date.new(2027, 2, 5),
+      country: countries(:Croatia)
+    )
+    companion.visas.create!(
+      start_date: Date.new(2027, 1, 1),
+      end_date: Date.new(2027, 6, 1),
+      no_entries: 2,
+      visa_type: 'S'
+    )
+
+    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+
+    email = "multi-person-account-#{SecureRandom.hex(8)}@example.com"
+    post user_registration_path(locale: :en), params: {
+      user: {
+        first_name: 'Registered',
+        last_name: 'Account',
+        nationality_id: countries(:India).id,
+        email: email,
+        password: 'password123',
+        password_confirmation: 'password123'
+      }
+    }
+
+    assert_response :redirect
+    account = User.find_by!(email: email)
+    assert_equal 2, account.people.count
+
+    account_primary = account.people.find_by!(is_primary: true)
+    assert_equal 'Registered Account', account_primary.full_name
+    assert_equal 1, account_primary.visits.count
+    assert_equal countries(:Germany), account_primary.visits.first.country
+
+    copied_companion = account.people.find_by!(first_name: 'Travel', last_name: 'Companion')
+    assert_equal countries(:Australia), copied_companion.nationality
+    assert_not copied_companion.is_primary?
+    assert_equal 1, copied_companion.visits.count
+    assert_equal countries(:Croatia), copied_companion.visits.first.country
+    assert_equal 1, copied_companion.visas.count
+    assert_equal 2, copied_companion.visas.first.no_entries
+  end
+
   test 'guest user flow: visits page -> add data -> register -> data persists' do
     # Step 1: Visit the calculator and select a nationality without creating a guest yet
     get visits_path

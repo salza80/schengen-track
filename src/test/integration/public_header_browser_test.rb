@@ -52,6 +52,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     visit '/en/about'
     select 'United States of America', from: 'Select your country of citizenship'
     assert_current_path '/en/about/American', ignore_query: true
+    assert_equal '/en/about/American', page.current_path
     assert_selector :select, 'Select your country of citizenship', selected: 'United States of America'
 
     select 'Australia', from: 'Select your country of citizenship'
@@ -63,6 +64,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
   test 'invalid calculation links show their alert on the public page' do
     visit '/calculations/invalid-token'
     assert_selector '#public-notices', text: 'Calculation link is invalid or has expired.'
+    assert_includes page.text, 'Calculation link is invalid or has expired.'
   end
 
   test 'anonymous calculator navigation keeps the generic header' do
@@ -71,6 +73,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_no_selector '#personDropdown'
 
     find("nav a[href='/en/visits']", match: :first).click
+    assert_equal '/en/visits', page.current_path
     assert_no_selector '#personDropdown'
     assert_selector 'h3.section-heading .fa-globe'
     assert_selector 'h3.section-heading', text: I18n.t('common.select_nationality', locale: :en)
@@ -101,6 +104,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     find('#saveVisitButton').click
 
     assert_selector '#personDropdown', text: 'Guest User', wait: 10
+    assert_equal 'Guest User', find('#personDropdown .person-name').text
     assert_no_selector 'select[name="nationality_id"]'
   end
 
@@ -243,5 +247,6 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     end
 
     assert_selector '#visaModal.show .alert-danger', wait: 10
+    assert find('#visaModal .alert-danger').visible?
   end
 end

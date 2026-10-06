@@ -1,6 +1,24 @@
 require 'test_helper'
 
 class RegistrationsTest < ActionDispatch::IntegrationTest
+  test 'logging out without a guest clears the calculator session hint' do
+    account = User.create!(
+      first_name: 'Existing',
+      last_name: 'Account',
+      nationality: countries(:Australia),
+      email: "hint-clear-#{SecureRandom.hex(8)}@example.com",
+      password: 'password123'
+    )
+
+    post user_session_path(locale: :en), params: {
+      user: { email: account.email, password: 'password123' }
+    }
+    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+
+    delete destroy_user_session_path(locale: :en)
+    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
+  end
+
   test 'logging into an existing account does not copy guest travelers' do
     account = User.create!(
       first_name: 'Existing',
@@ -70,6 +88,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal guest.id, session[:guest_user_id]
     assert_equal guest_companion.id, session[:current_person_id]
     assert_nil session[:guest_current_person_id]
+    assert_equal '1', cookies[:has_calculator_session]
   end
 
   test 'Facebook login to an existing account does not copy guest travelers' do

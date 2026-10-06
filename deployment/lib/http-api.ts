@@ -201,7 +201,7 @@ export class HttpApiConstruct extends Construct {
       );
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
       headerBehavior: publicOriginHeaders,
-      cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session'),
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
     })
 
@@ -263,7 +263,7 @@ export class HttpApiConstruct extends Construct {
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     })
 
-    const publicHtmlCachePolicy = new cloudfront.CachePolicy(this, "cacheCountryGuestKey", {
+    const publicHtmlCachePolicy = new cloudfront.CachePolicy(this, "publicHtmlCachePolicy", {
       headerBehavior: cloudfront.CacheHeaderBehavior.none(),
       cookieBehavior: cloudfront.CacheCookieBehavior.none(),
       // Public HTML pages are selected entirely by their path/locale. Ignore

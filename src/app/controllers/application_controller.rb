@@ -1,5 +1,4 @@
 require 'aws/book_query'
-require 'securerandom'
 
 class ApplicationController < ActionController::Base
   CANONICAL_SITE_URL = 'https://schengen-calculator.com'.freeze
@@ -23,7 +22,7 @@ class ApplicationController < ActionController::Base
   ].freeze
 
   before_action :restore_guest_calculation
-  before_action :set_cache_cookie, unless: :task_controller?
+  before_action :sync_session_hint_cookie, unless: :task_controller?
   after_action :set_flash_hint
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -204,7 +203,7 @@ class ApplicationController < ActionController::Base
     session.delete(:calculator_nationality_id)
     @current_user_or_guest_user = user
     @current_person = person
-    set_cache_cookie
+    sync_session_hint_cookie
   end
 
   def require_calculator_account!
@@ -236,28 +235,23 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_cache_cookie
+  def sync_session_hint_cookie
     user = current_user_or_guest_user
-    nationality = user&.nationality || calculator_nationality
-    guest_value = user.nil? || user.is_guest? ? 'true' : SecureRandom.hex(16)
-    cache_cookie_options = {
-      value: nationality.country_code + "_" + guest_value,
-      expires: 1.month.from_now,
-      httponly: true
-    }
-    # Only add secure and same_site for production
-    if Rails.env.production?
-      cache_cookie_options[:secure] = true
-      cache_cookie_options[:same_site] = :lax
+    if user || selected_calculator_nationality
+      set_session_hint
+    elsif cookies[:has_calculator_session].present?
+      clear_session_hint
     end
-    cookies[:cache_country_guest] = cache_cookie_options
-    set_session_hint if user || session[:calculator_nationality_id]
   end
 
   def set_session_hint
     # Public-page JavaScript uses this non-sensitive hint, never as authorization.
     cookies[:has_calculator_session] = { value: '1', path: '/', same_site: :lax,
                                         secure: Rails.env.production? }
+  end
+
+  def clear_session_hint
+    cookies.delete(:has_calculator_session, path: '/')
   end
 
   def set_flash_hint

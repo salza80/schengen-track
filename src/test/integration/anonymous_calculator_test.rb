@@ -3,6 +3,23 @@ require 'test_helper'
 class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  test 'calculator no longer emits the legacy country and guest cache cookie' do
+    get visits_path(locale: :en)
+    assert_not_includes response.headers['Set-Cookie'].to_s, 'cache_country_guest='
+
+    patch calculator_preferences_path(locale: :en), params: {
+      nationality_id: countries(:India).id,
+      destination: 'trips'
+    }
+    assert_not_includes response.headers['Set-Cookie'].to_s, 'cache_country_guest='
+  end
+
+  test 'calculator session hint is removed when no calculator state remains' do
+    get visits_path(locale: :en), headers: { 'Cookie' => 'has_calculator_session=1' }
+
+    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
+  end
+
   test 'calculator GET requests do not create persisted records' do
     assert_no_difference(['User.count', 'Person.count', 'Visit.count', 'Visa.count']) do
       get visits_path(locale: :en)
@@ -29,6 +46,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to days_path(locale: :en, year: '2027', month: '4', day: '12')
     follow_redirect!
+    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
     assert_select 'select[name="nationality_id"]', count: 0
 
     get visits_path(locale: :en)

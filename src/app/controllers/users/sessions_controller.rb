@@ -1,17 +1,16 @@
 class Users::SessionsController < Devise::SessionsController
-  # Skip set_cache_cookie during login/logout to prevent session modification that interferes with CSRF
-  # The set_cache_cookie before_action from ApplicationController modifies the session by
+  # Skip sync_session_hint_cookie during login/logout to prevent session modification that interferes with CSRF
+  # The sync_session_hint_cookie before_action from ApplicationController modifies the session by
   # calling guest_user, which conflicts with Devise's session regeneration during authentication
-  skip_before_action :set_cache_cookie, only: [:create, :destroy]
+  skip_before_action :sync_session_hint_cookie, only: [:create, :destroy]
 
-  # Override create to update cache cookie after successful authentication
-  # This ensures the cache_country_guest cookie is updated from "US_true" to "US_{random_hex}"
-  # before the redirect, preventing cached pages with stale CSRF tokens from being served
+  # Update the public-header session hint only after authentication has safely
+  # regenerated the Devise session.
   def create
     guest_person_id = session[:current_person_id] if session[:guest_user_id]
 
     super do |resource|
-      # After successful authentication, update the cache cookie
+      # After successful authentication, update the session hint cookie
       # This happens after Devise's session regeneration, so it's safe
       if resource.persisted?
         resource.ensure_primary_person
@@ -20,7 +19,7 @@ class Users::SessionsController < Devise::SessionsController
         session.delete(:calculator_nationality_id)
         @current_user_or_guest_user = resource
         remove_instance_variable(:@current_person) if defined?(@current_person)
-        set_cache_cookie
+        sync_session_hint_cookie
       end
     end
   end
@@ -43,7 +42,7 @@ class Users::SessionsController < Devise::SessionsController
       session.delete(:guest_current_person_id)
       @current_user_or_guest_user = guest
       remove_instance_variable(:@current_person) if defined?(@current_person)
-      set_cache_cookie
+      guest ? sync_session_hint_cookie : clear_session_hint
     end
   end
 

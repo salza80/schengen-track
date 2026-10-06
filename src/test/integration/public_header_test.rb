@@ -31,6 +31,20 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_nil cookies['_schengen_track_session']
   end
 
+  test 'nationality-only calculator state keeps its hint without rendering a person menu' do
+    patch calculator_preferences_path(locale: :en), params: {
+      nationality_id: countries(:India).id,
+      destination: 'trips'
+    }
+    follow_redirect!
+    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+
+    assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
+
+    assert_response :no_content
+    refute_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'].to_s)
+  end
+
   test 'existing guests receive only their own menu and stale sessions create nothing' do
     guest = establish_guest_session
     person = guest.people.first
@@ -92,6 +106,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     sign_in users(:Sally)
     delete '/en/my_details'
     assert_response :redirect
+    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
     assert_includes response.headers['Set-Cookie'], 'has_flash_message=1;'
     follow_redirect!
     message = 'Your account has been successfully deleted.'

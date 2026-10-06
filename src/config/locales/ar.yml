@@ -9,7 +9,6 @@ ar:
     as_of: اعتباراً من
     back: رجوع
     blog: مدونة
-    calculator: حاسبة
     calendar: التقويم
     cancel: إلغاء
     choose_nationality: اختر جنسيتك
@@ -29,7 +28,6 @@ ar:
     invalid_nationality: يرجى اختيار جنسية صالحة.
     keep_plans_description: أنشئ حساباً مجانياً للاحتفاظ برحلاتك عبر المتصفحات والأجهزة المختلفة.
     keep_plans_title: احتفظ بخطط سفرك
-    legal: روابط قانونية
     log_out: تسجيل الخروج
     login: تسجيل الدخول
     manage_account: إدارة الحساب
@@ -46,14 +44,12 @@ ar:
     privacy_policy: سياسة الخصوصية
     register_to_save: سجّل للاحتفاظ بخططك
     save: حفظ
-    schengen: شنغن
     schengen_calculator: حاسبة شنغن
     select_nationality: اختر جنسيتك
     to: إلى
     trips: الرحلات
     'true': نعم
     update_nationality: تحديث الجنسية
-    visa: تأشيرة
     'yes': نعم
   continents:
     africa: أفريقيا

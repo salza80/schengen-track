@@ -33,7 +33,7 @@
   <meta name="description" content="<%= @meta_description || (content_for?(:description) ? yield(:description) : t('default_description')) %>" />
   <meta name="keywords" content="<%= t('keywords') %>">
   <meta property="og:type" content="<%= @og_type || 'website' %>" />
-  <meta property="og:url" content="<%= @og_url || "https://#{request.host_with_port}#{request.path}" %>" />
+  <meta property="og:url" content="<%= @og_url || seo_canonical_url %>" />
   <meta property="og:title" content="<%= @meta_title || (content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title')) %>" />
   <meta property="og:description" content="<%= @meta_description || (content_for?(:description) ? yield(:description) : t('default_description')) %>" />
   <meta property="og:image" content="<%= @og_image || default_social_image %>" />

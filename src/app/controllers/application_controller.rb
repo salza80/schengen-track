@@ -2,6 +2,7 @@ require 'aws/book_query'
 
 class ApplicationController < ActionController::Base
   CANONICAL_SITE_URL = 'https://schengen-calculator.com'.freeze
+  SEO_LOCALE_PREFIX_PATTERN = %r{\A/(?:#{Regexp.union(I18n.available_locales.map(&:to_s))})(?=/|\z)}.freeze
   SCHENGEN_AREA_SOURCE_URL = 'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en'.freeze
   VISA_REQUIREMENTS_SOURCE_URL = 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02018R1806-20251230'.freeze
   ETIAS_FAQ_SOURCE_URL = 'https://travel-europe.europa.eu/en/etias/faq'.freeze
@@ -30,7 +31,7 @@ class ApplicationController < ActionController::Base
   # skip_before_action :verify_authenticity_token
 
   helper_method :current_user_or_guest_user, :current_person, :anonymous_calculator?,
-                :calculator_nationality_selected?, :amazon
+                :calculator_nationality_selected?, :amazon, :seo_canonical_path
   around_action :switch_locale
 
   def default_url_options
@@ -63,6 +64,13 @@ class ApplicationController < ActionController::Base
     normalized_path = path.to_s
     normalized_path = "/#{normalized_path}" unless normalized_path.start_with?('/')
     "#{CANONICAL_SITE_URL}#{normalized_path}"
+  end
+
+  def seo_canonical_path(path = request.path, locale: I18n.locale)
+    page_path = path.to_s.sub(SEO_LOCALE_PREFIX_PATTERN, '').presence || '/'
+    return page_path if locale.to_sym == I18n.default_locale.to_sym
+
+    "/#{locale}#{page_path == '/' ? '' : page_path}"
   end
 
   def canonical_asset_url(asset_name)

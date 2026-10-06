@@ -1,13 +1,10 @@
 - rtl_layout = rtl_locale?
 - trip_cta_path = visits_path(locale: I18n.locale, open: 'trip')
-%nav.navbar.navbar-expand-md.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation", dir: (rtl_layout ? 'ltr' : nil)}
-  %a.navbar-brand.px-3.px-md-0{:href => visits_path(I18n.locale)}
+%nav.navbar.navbar-expand-header.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation", dir: (rtl_layout ? 'ltr' : nil)}
+  %a.navbar-brand.header-brand.px-3{:href => visits_path(I18n.locale)}
     = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)
     %span.navbar-text.site-title{dir: "auto"}
-      = t('common.schengen')
-      %span.d-none.d-md-inline
-        = t('common.visa')
-      = t('common.calculator')
+      = t('common.schengen_calculator')
   %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#navbarContent", "aria-controls" => "navbarContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation"}
     %span.navbar-toggler-icon
   .collapse.navbar-collapse{id: "navbarContent"}
@@ -34,18 +31,17 @@
           = link_to trip_cta_path, class: 'btn btn-add btn-md ml-2', "aria-label": t('visits.add_travel') do
             %i.fa.fa-plus.mr-2{"aria-hidden" => "true"}
             = t('visits.add_travel')
-        %li.nav-item
+        %li.nav-item.header-auth-item
           = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary btn-md header-auth-button ml-2'
       - else
         = render 'layouts/user_menu'
     %ul.navbar-nav.text-right
       / Buy Me a Coffee - visible only on mobile
-      %li.nav-item.d-md-none.mt-3.text-center
+      %li.nav-item.header-mobile-only.mt-3.text-center
         = link_to "https://www.buymeacoffee.com/smclean17d", target: "_blank", rel: "noopener noreferrer", "aria-label": "Buy me a coffee" do
           = image_tag "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png", alt: "Buy Me A Coffee", style: "height: 40px; width: auto;"
       / Legal links - visible only on mobile
-      %li.nav-item.d-md-none.mt-3.pt-3.border-top
-        %small.text-muted.d-block.mb-2.px-3= t('common.legal')
+      %li.nav-item.header-mobile-only.mt-3.pt-3.border-top
         .legal-links-mobile
           = link_to disclaimer_path(locale: I18n.locale), class: "d-block px-3 py-2 text-muted small" do
             %i.fa.fa-file-text.mr-2

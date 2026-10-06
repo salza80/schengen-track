@@ -22,6 +22,13 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
     assert_select 'link[rel="alternate"][hreflang="de"][href="https://www.example.com/de/about"]', count: 1
     assert_select 'link[rel="alternate"][hreflang="x-default"][href="https://www.example.com/about"]', count: 1
     assert_select 'link[rel="alternate"]', count: I18n.available_locales.size + 1
+    assert_select 'meta[property="og:url"][content="https://www.example.com/about"]', count: 1
+
+    about_page_schema = json_ld_objects.find { |item| item['@type'] == 'AboutPage' }
+    faq_schema = json_ld_objects.find { |item| item['@type'] == 'FAQPage' }
+    assert_equal 'https://schengen-calculator.com/about', about_page_schema['url']
+    assert_equal 'https://schengen-calculator.com/about#webpage', about_page_schema['@id']
+    assert_equal 'https://schengen-calculator.com/about#faq', faq_schema['@id']
   end
 
   test 'localized about page is self-canonical' do
@@ -30,6 +37,15 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'link[rel="canonical"][href="https://www.example.com/de/about"]', count: 1
     assert_select 'link[rel="alternate"][hreflang="en"][href="https://www.example.com/about"]', count: 1
+    assert_select 'meta[property="og:url"][content="https://www.example.com/de/about"]', count: 1
+  end
+
+  test 'registration instructions distinguish new registration from existing account login' do
+    get '/en/about'
+
+    assert_response :success
+    assert_select '.step-description', text: /registration transfers every guest traveler/
+    assert_select '.step-description', text: /Logging in to an existing account keeps its data separate/
   end
 
   test 'citizenship selector precedes the country information and selects the page country in every locale' do

@@ -129,7 +129,7 @@ en:
           summary: Check your remaining days
           title: 'Step 4:'
         step_5:
-          description: Your first valid trip automatically creates a temporary guest profile, so you can use the calculator without registering. Register or log in to keep your plans available across browsers and devices; your guest trips will be transferred to your account.
+          description: Your first valid trip automatically creates a temporary guest profile, so you can use the calculator without registering. Create a free account to keep your plans available across browsers and devices; registration transfers every guest traveler and their trips and visas to the new account. Logging in to an existing account keeps its data separate from your guest data.
           optional: "(optional)"
           summary: Keep your trips across devices
           title: 'Step 5:'

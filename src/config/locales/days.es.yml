@@ -2,7 +2,6 @@
 es:
   days:
     current_status: Estado actual
-    days: días
     days_remaining: Días restantes
     days_used: Días Usados
     entry_limit_exceeded: Límite de entradas excedido

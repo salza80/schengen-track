@@ -129,7 +129,7 @@ de:
           summary: Verbleibende Tage prüfen
           title: 'Schritt 4:'
         step_5:
-          description: Ihre erste gültige Reise erstellt automatisch ein temporäres Gastprofil, sodass Sie den Rechner ohne Registrierung verwenden können. Registrieren Sie sich oder melden Sie sich an, um Ihre Pläne browser- und geräteübergreifend zu behalten; Ihre Gastreisen werden in Ihr Konto übernommen.
+          description: Ihre erste gültige Reise erstellt automatisch ein temporäres Gastprofil, sodass Sie den Rechner ohne Registrierung verwenden können. Erstellen Sie ein kostenloses Konto, um Ihre Pläne browser- und geräteübergreifend zu behalten; bei der Registrierung werden alle Gastreisenden mit ihren Reisen und Visa in das neue Konto übernommen. Wenn Sie sich bei einem bestehenden Konto anmelden, bleiben dessen Daten von Ihren Gastdaten getrennt.
           optional: "(optional)"
           summary: Reisen geräteübergreifend behalten
           title: 'Schritt 5:'

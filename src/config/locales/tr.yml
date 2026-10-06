@@ -14,7 +14,6 @@ tr:
     as_of: İtibariyle
     back: Geri
     blog: Blog
-    calculator: Hesap Makinesi
     calendar: Takvim
     cancel: İptal
     choose_nationality: Milliyetinizi seçin
@@ -34,7 +33,6 @@ tr:
     invalid_nationality: Lütfen geçerli bir milliyet seçin.
     keep_plans_description: Seyahatlerinizi farklı tarayıcı ve cihazlarda kullanılabilir tutmak için ücretsiz bir hesap oluşturun.
     keep_plans_title: Seyahat planlarınızı koruyun
-    legal: Yasal
     log_out: Çıkış yap
     login: Giriş yap
     manage_account: Hesabı Yönet
@@ -51,14 +49,12 @@ tr:
     privacy_policy: Gizlilik Politikası
     register_to_save: Planlarınızı korumak için kaydolun
     save: Kaydet
-    schengen: Schengen
     schengen_calculator: Schengen Hesaplayıcı
     select_nationality: Milliyetinizi seçin
     to: ile
     trips: Seyahatler
     'true': Evet
     update_nationality: Milliyeti güncelle
-    visa: Vize
     'yes': Evet
   continents:
     africa: Afrika

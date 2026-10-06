@@ -1,8 +1,9 @@
 - sticky_sidebar = local_assigns.fetch(:sticky_sidebar, true)
 - show_legend = local_assigns.fetch(:show_legend, true)
+- show_status = local_assigns.fetch(:show_status, true)
 .calendar-sidebar{class: (sticky_sidebar ? 'sticky-top' : nil), style: (sticky_sidebar ? "top: 100px; max-height: calc(100vh - 150px); overflow-y: auto; z-index: 50;" : nil)}
-  -# Status information (always show, with default values if no data)
-  .sidebar-section.card.mb-2
+  -# Status information (with default values if no data)
+  .sidebar-section.card.mb-2.calendar-sidebar-status{class: ('d-none' unless show_status)}
     .card-header.bg-primary.text-white
       .d-flex.justify-content-between.align-items-start
         .flex-grow-1.mr-3

@@ -25,7 +25,6 @@ hi:
     as_of: की तिथि से
     back: वापस
     blog: ब्लॉग
-    calculator: कैलकुलेटर
     calendar: कैलेंडर
     cancel: रद्द करें
     choose_nationality: अपनी राष्ट्रीयता चुनें
@@ -45,7 +44,6 @@ hi:
     invalid_nationality: कृपया एक मान्य राष्ट्रीयता चुनें।
     keep_plans_description: अपनी यात्राएँ अलग-अलग ब्राउज़र और उपकरणों पर उपलब्ध रखने के लिए निःशुल्क खाता बनाएँ।
     keep_plans_title: अपनी यात्रा योजनाएँ बनाए रखें
-    legal: कानूनी
     log_out: लॉग आउट
     login: लॉग इन
     manage_account: खाता प्रबंधित करें
@@ -62,14 +60,12 @@ hi:
     privacy_policy: गोपनीयता नीति
     register_to_save: अपनी योजनाएँ बनाए रखने के लिए पंजीकरण करें
     save: सहेजें
-    schengen: शेंगेन
     schengen_calculator: शेंगेन कैलकुलेटर
     select_nationality: अपनी राष्ट्रीयता चुनें
     to: तक
     trips: यात्राएं
     'true': हाँ
     update_nationality: राष्ट्रीयता अपडेट करें
-    visa: वीज़ा
     'yes': हाँ
   continents:
     africa: अफ्रीका

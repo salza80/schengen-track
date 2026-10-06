@@ -410,7 +410,7 @@ class VisitsController < ApplicationController
       @meta_title = I18n.t('visits.page_title') + ' | ' + I18n.t('common.schengen_calculator')
       @meta_description = I18n.t('visits.meta_description', default: I18n.t('default_description'))
       @og_type = 'website'
-      @og_url = "https://#{request.host_with_port}#{request.path}"
+      @og_url = "https://#{request.host_with_port}#{seo_canonical_path}"
       # Use schengen map image for visits page
       image_path = view_context.asset_path('schengen_area_eu_countries.webp')
       @og_image = "https://#{request.host_with_port}#{image_path}"

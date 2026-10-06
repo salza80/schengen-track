@@ -2,7 +2,6 @@
 de:
   days:
     current_status: Aktueller Status
-    days: Tage
     days_remaining: Verbleibende Tage
     days_used: Verwendete Tage
     entry_limit_exceeded: Einreisegrenze überschritten

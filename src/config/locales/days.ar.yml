@@ -2,7 +2,6 @@
 ar:
   days:
     current_status: الحالة الحالية
-    days: أيام
     days_remaining: الأيام المتبقية
     days_used: الأيام المستخدمة
     entry_limit_exceeded: تم تجاوز حد الدخول

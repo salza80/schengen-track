@@ -2,7 +2,6 @@
 zh-CN:
   days:
     current_status: 当前状态
-    days: 天
     days_remaining: 剩余天数
     days_used: 已用天数
     entry_limit_exceeded: 超出入境次数限制

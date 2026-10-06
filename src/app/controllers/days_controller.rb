@@ -220,7 +220,7 @@ class DaysController < ApplicationController
     @meta_title = I18n.t('days.page_title') + ' | ' + I18n.t('common.schengen_calculator')
     @meta_description = I18n.t('days.meta_description', default: I18n.t('default_description'))
     @og_type = 'website'
-    @og_url = "https://#{request.host_with_port}#{request.path}"
+    @og_url = "https://#{request.host_with_port}#{seo_canonical_path}"
     image_path = view_context.asset_path('schengen_area_eu_countries.webp')
     @og_image = "https://#{request.host_with_port}#{image_path}"
     @og_site_name = I18n.t('common.schengen_calculator')

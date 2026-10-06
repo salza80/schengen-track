@@ -2,7 +2,6 @@
 hi:
   days:
     current_status: वर्तमान स्थिति
-    days: दिन
     days_remaining: शेष दिन
     days_used: उपयोग किए गए दिन
     entry_limit_exceeded: प्रवेश सीमा पार हो गई

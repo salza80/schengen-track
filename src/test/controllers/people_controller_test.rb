@@ -21,6 +21,16 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_select 'table tbody tr', count: @user.people.count
   end
 
+  test 'single person notice uses informational styling' do
+    @user.people.where.not(id: @person.id).destroy_all
+
+    get people_url(locale: 'en')
+
+    assert_response :success
+    assert_select '.alert.alert-info.people-info-notice[role="note"]', text: /You currently have one person/, count: 1
+    assert_select '.alert.alert-warning, .alert.alert-danger', count: 0
+  end
+
   test 'should get new' do
     get new_person_url(locale: 'en')
     assert_response :success

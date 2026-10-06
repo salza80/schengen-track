@@ -14,7 +14,6 @@ zh-CN:
     as_of: 截至
     back: 返回
     blog: 博客
-    calculator: 计算器
     calendar: 日历
     cancel: 取消
     choose_nationality: 选择您的国籍
@@ -34,7 +33,6 @@ zh-CN:
     invalid_nationality: 请选择有效的国籍。
     keep_plans_description: 创建免费账户，以便在不同浏览器和设备上保留您的行程。
     keep_plans_title: 保留您的旅行计划
-    legal: 法律
     log_out: 登出
     login: 登录
     manage_account: 管理账户
@@ -51,14 +49,12 @@ zh-CN:
     privacy_policy: 隐私政策
     register_to_save: 注册以长期保留您的计划
     save: 保存
-    schengen: 申根
     schengen_calculator: 申根签证计算器
     select_nationality: 选择您的国籍
     to: 至
     trips: 行程
     'true': 是
     update_nationality: 更新国籍
-    visa: 签证
     'yes': 是
   continents:
     africa: 非洲

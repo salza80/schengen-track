@@ -129,7 +129,7 @@ es:
           summary: Consulte sus días restantes
           title: 'Paso 4:'
         step_5:
-          description: Tu primer viaje válido crea automáticamente un perfil temporal de invitado, por lo que puedes usar la calculadora sin registrarte. Regístrate o inicia sesión para conservar tus planes en distintos navegadores y dispositivos; tus viajes de invitado se transferirán a tu cuenta.
+          description: Tu primer viaje válido crea automáticamente un perfil temporal de invitado, por lo que puedes usar la calculadora sin registrarte. Crea una cuenta gratuita para conservar tus planes en distintos navegadores y dispositivos; al registrarte, todos los viajeros invitados y sus viajes y visados se transfieren a la cuenta nueva. Al iniciar sesión en una cuenta existente, sus datos permanecen separados de los datos de invitado.
           optional: "(opcional)"
           summary: Conserva tus viajes en todos tus dispositivos
           title: 'Paso 5:'

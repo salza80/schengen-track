@@ -3,6 +3,9 @@
 -# - if !user_signed_in?
 -#   = render 'registerPrompt'
 
+.d-lg-none.mt-4
+  = render 'days/calendar_status_summary', show_actions: false
+
 .row.mt-4
   .col-lg-9
     - if @visits.count == 0
@@ -66,7 +69,7 @@
 
 .row.d-lg-none.mt-2
   .col-12
-    = render 'days/calendar_sidebar', sticky_sidebar: false
+    = render 'days/calendar_sidebar', sticky_sidebar: false, show_status: false, show_legend: false
 
 -# Modal for adding/editing visits
 - nationality_gate = anonymous_calculator? && !calculator_nationality_selected?

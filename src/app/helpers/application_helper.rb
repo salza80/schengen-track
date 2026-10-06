@@ -1,7 +1,6 @@
 module ApplicationHelper
   # List of RTL (Right-to-Left) locales
   RTL_LOCALES = [:ar].freeze
-  SEO_LOCALE_PREFIX_PATTERN = %r{\A/(?:#{Regexp.union(I18n.available_locales.map(&:to_s))})(?=/|\z)}.freeze
 
   def title(page_title)
     content_for(:title) { page_title.titleize }
@@ -30,11 +29,9 @@ module ApplicationHelper
 
   def seo_localized_urls
     origin = "https://#{request.host_with_port}"
-    page_path = request.path.sub(SEO_LOCALE_PREFIX_PATTERN, '').presence || '/'
 
     I18n.available_locales.index_with do |locale|
-      localized_path = locale.to_sym == I18n.default_locale.to_sym ? page_path : "/#{locale}#{page_path == '/' ? '' : page_path}"
-      "#{origin}#{localized_path}"
+      "#{origin}#{seo_canonical_path(locale: locale)}"
     end
   end
 

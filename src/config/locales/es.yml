@@ -9,7 +9,6 @@ es:
     as_of: A partir de
     back: Atrás
     blog: Blog
-    calculator: Calculadora
     calendar: Calendario
     cancel: Cancelar
     choose_nationality: Elige tu nacionalidad
@@ -29,7 +28,6 @@ es:
     invalid_nationality: Selecciona una nacionalidad válida.
     keep_plans_description: Crea una cuenta gratuita para conservar tus viajes en distintos navegadores y dispositivos.
     keep_plans_title: Conserva tus planes de viaje
-    legal: Legal
     log_out: Cerrar sesión
     login: Iniciar sesión
     manage_account: Gestionar cuenta
@@ -46,14 +44,12 @@ es:
     privacy_policy: Política de Privacidad
     register_to_save: Regístrate para conservar tus planes
     save: Guardar
-    schengen: Schengen
     schengen_calculator: Calculadora Schengen
     select_nationality: Selecciona tu nacionalidad
     to: hasta
     trips: Viajes
     'true': Sí
     update_nationality: Actualizar nacionalidad
-    visa: Visa
     'yes': Sí
   continents:
     africa: África

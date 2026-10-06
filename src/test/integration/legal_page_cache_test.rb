@@ -20,6 +20,14 @@ class LegalPageCacheTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'data deletion page uses the legal page heading hierarchy and body typography' do
+    get '/datadeletion'
+
+    assert_select '.about-section > h1.legal-page-title', text: I18n.t('about.datadeletion.title'), count: 1
+    assert_select '.about-section > h2.legal-page-subheading', text: I18n.t('about.datadeletion.subtitle'), count: 1
+    assert_select 'ol.data-deletion-steps > li', count: 5
+  end
+
   private
 
   def assert_public_page

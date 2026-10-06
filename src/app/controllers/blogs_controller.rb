@@ -52,12 +52,12 @@ class BlogsController < ApplicationController
   def set_blog_meta_tags(slug)
     case slug
     when 'extended-schengen-stay'
-      article_url = canonical_url(request.path)
+      article_url = canonical_url(seo_canonical_path)
 
       @meta_description = I18n.t('blog.extendedTravel.introduction').truncate(160)
       @meta_title = I18n.t('blog.extendedTravel.title')
       @og_type = 'article'
-      @og_url = "https://#{request.host_with_port}#{request.path}"
+      @og_url = "https://#{request.host_with_port}#{seo_canonical_path}"
       # Use full URL for og:image (required for Facebook)
       image_path = view_context.asset_path('switzerland.jpg')
       @og_image = "https://#{request.host_with_port}#{image_path}"

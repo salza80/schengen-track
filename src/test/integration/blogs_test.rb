@@ -20,6 +20,12 @@ class BlogsTest < ActionDispatch::IntegrationTest
 
     assert blog_schema_document, 'Expected BlogPosting JSON-LD to be rendered in an array'
     assert_equal 1, blog_schema_document.count { |item| item['@type'] == 'BlogPosting' }
+
+    article_schema = blog_schema_document.find { |item| item['@type'] == 'BlogPosting' }
+    assert_equal 'https://schengen-calculator.com/blog/extended-schengen-stay#article', article_schema['@id']
+    assert_equal 'https://schengen-calculator.com/blog/extended-schengen-stay', article_schema.dig('mainEntityOfPage', '@id')
+    assert_select 'link[rel="canonical"][href="https://www.example.com/blog/extended-schengen-stay"]', count: 1
+    assert_select 'meta[property="og:url"][content="https://www.example.com/blog/extended-schengen-stay"]', count: 1
   end
 
   private

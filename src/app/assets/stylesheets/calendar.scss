@@ -16,7 +16,7 @@
   
   h3 {
     font-size: 1.75rem;
-    color: $primary;
+    color: $heading-color;
   }
 }
 
@@ -535,7 +535,7 @@ html {
 .calculator-page-title {
   font-size: 2rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: $heading-color;
   margin-top: 1rem;
   
   @media (max-width: 768px) {

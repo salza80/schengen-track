@@ -129,7 +129,7 @@ tr:
           summary: Kalan günlerinizi kontrol edin
           title: 'Adım 4:'
         step_5:
-          description: İlk geçerli seyahatiniz otomatik olarak geçici bir misafir profili oluşturur; böylece kayıt olmadan hesaplayıcıyı kullanabilirsiniz. Planlarınızı farklı tarayıcı ve cihazlarda tutmak için kaydolun veya giriş yapın; misafir seyahatleriniz hesabınıza aktarılır.
+          description: İlk geçerli seyahatiniz otomatik olarak geçici bir misafir profili oluşturur; böylece kayıt olmadan hesaplayıcıyı kullanabilirsiniz. Planlarınızı farklı tarayıcı ve cihazlarda tutmak için ücretsiz bir hesap oluşturun; kayıt sırasında tüm misafir yolcular ile seyahatleri ve vizeleri yeni hesaba aktarılır. Mevcut bir hesaba giriş yaptığınızda bu hesabın verileri misafir verilerinizden ayrı kalır.
           optional: "(isteğe bağlı)"
           summary: Seyahatlerinizi tüm cihazlarda saklayın
           title: 'Adım 5:'

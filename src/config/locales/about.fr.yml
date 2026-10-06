@@ -129,7 +129,7 @@ fr:
           summary: Vérifiez vos jours restants
           title: 'Étape 4 :'
         step_5:
-          description: Votre premier voyage valide crée automatiquement un profil invité temporaire ; vous pouvez donc utiliser la calculatrice sans vous inscrire. Inscrivez-vous ou connectez-vous pour conserver vos projets sur plusieurs navigateurs et appareils ; vos voyages invités seront transférés vers votre compte.
+          description: Votre premier voyage valide crée automatiquement un profil invité temporaire ; vous pouvez donc utiliser la calculatrice sans vous inscrire. Créez un compte gratuit pour conserver vos projets sur plusieurs navigateurs et appareils ; l’inscription transfère tous les voyageurs invités, ainsi que leurs voyages et visas, vers le nouveau compte. La connexion à un compte existant conserve ses données séparées de vos données invitées.
           optional: "(facultatif)"
           summary: Conservez vos voyages sur tous vos appareils
           title: 'Étape 5 :'

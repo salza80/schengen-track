@@ -10,6 +10,28 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
     assert_select '#user_nationality_id option[selected]:not([value=""])', count: 0
   end
 
+  test 'about page has a matching canonical and one alternate per locale' do
+    get '/en/about'
+
+    assert_response :success
+    assert_select 'link[rel="canonical"]', count: 1 do |links|
+      assert_equal 'https://www.example.com/about', links.first['href']
+      assert_nil links.first['hreflang']
+    end
+    assert_select 'link[rel="alternate"][hreflang="en"][href="https://www.example.com/about"]', count: 1
+    assert_select 'link[rel="alternate"][hreflang="de"][href="https://www.example.com/de/about"]', count: 1
+    assert_select 'link[rel="alternate"][hreflang="x-default"][href="https://www.example.com/about"]', count: 1
+    assert_select 'link[rel="alternate"]', count: I18n.available_locales.size + 1
+  end
+
+  test 'localized about page is self-canonical' do
+    get '/de/about'
+
+    assert_response :success
+    assert_select 'link[rel="canonical"][href="https://www.example.com/de/about"]', count: 1
+    assert_select 'link[rel="alternate"][hreflang="en"][href="https://www.example.com/about"]', count: 1
+  end
+
   test 'citizenship selector precedes the country information and selects the page country in every locale' do
     I18n.available_locales.each do |locale|
       assert_no_difference(['User.count', 'Person.count']) { get "/#{locale}/about/American" }

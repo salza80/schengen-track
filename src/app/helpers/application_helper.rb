@@ -1,6 +1,7 @@
 module ApplicationHelper
   # List of RTL (Right-to-Left) locales
   RTL_LOCALES = [:ar].freeze
+  SEO_LOCALE_PREFIX_PATTERN = %r{\A/(?:#{Regexp.union(I18n.available_locales.map(&:to_s))})(?=/|\z)}.freeze
 
   def title(page_title)
     content_for(:title) { page_title.titleize }
@@ -21,6 +22,20 @@ module ApplicationHelper
 
   def canonical_social_image_url
     "#{ApplicationController::CANONICAL_SITE_URL}#{asset_path('med.png')}"
+  end
+
+  def seo_canonical_url
+    seo_localized_urls.fetch(I18n.locale.to_sym)
+  end
+
+  def seo_localized_urls
+    origin = "https://#{request.host_with_port}"
+    page_path = request.path.sub(SEO_LOCALE_PREFIX_PATTERN, '').presence || '/'
+
+    I18n.available_locales.index_with do |locale|
+      localized_path = locale.to_sym == I18n.default_locale.to_sym ? page_path : "/#{locale}#{page_path == '/' ? '' : page_path}"
+      "#{origin}#{localized_path}"
+    end
   end
 
   def organization_schema_json_ld

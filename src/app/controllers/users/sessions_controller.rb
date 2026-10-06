@@ -20,6 +20,16 @@ class Users::SessionsController < Devise::SessionsController
         @current_user_or_guest_user = resource
         remove_instance_variable(:@current_person) if defined?(@current_person)
         sync_session_hint_cookie
+        Analytics::GoogleMeasurementProtocol.track(
+          'user_login',
+          request: request,
+          params: {
+            category: 'users',
+            action: 'login',
+            login_method: 'email',
+            value: 1
+          }
+        )
       end
     end
   end

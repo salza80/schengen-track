@@ -39,7 +39,19 @@ class VisitsController < ApplicationController
           end
         end
       end
-      format.csv { send_data calc.to_csv}
+      format.csv do
+        csv = calc.to_csv
+        Analytics::GoogleMeasurementProtocol.track(
+          'user_csv_export',
+          request: request,
+          params: {
+            category: 'visits',
+            action: 'csv_export',
+            value: 1
+          }
+        )
+        send_data csv
+      end
     end
   end
   # GET /visits/1
@@ -90,6 +102,18 @@ class VisitsController < ApplicationController
     else
       @visit = current_person.visits.build(visit_params)
       @visit.save
+    end
+
+    if @visit.persisted?
+      Analytics::GoogleMeasurementProtocol.track(
+        'user_add_visit',
+        request: request,
+        params: {
+          category: 'visits',
+          action: 'add_visit',
+          value: 1
+        }
+      )
     end
 
     respond_to do |format|

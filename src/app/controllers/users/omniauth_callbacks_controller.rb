@@ -14,6 +14,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       sign_in @user, :event => :authentication #this will throw if @user is not activated
       if existing_account
+        Analytics::GoogleMeasurementProtocol.track(
+          'user_login',
+          request: request,
+          params: {
+            category: 'users',
+            action: 'login',
+            login_method: 'facebook',
+            value: 1
+          }
+        )
+      end
+      if existing_account
         session[:guest_current_person_id] = guest_person_id if guest_person_id
       else
         session.delete(:guest_user_id)

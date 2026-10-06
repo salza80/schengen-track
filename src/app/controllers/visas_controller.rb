@@ -53,6 +53,18 @@ class VisasController < ApplicationController
       @visa.save
     end
 
+    if @visa.persisted?
+      Analytics::GoogleMeasurementProtocol.track(
+        'user_add_visa',
+        request: request,
+        params: {
+          category: 'visas',
+          action: 'add_visa',
+          value: 1
+        }
+      )
+    end
+
     respond_to do |format|
       if @visa.persisted?
         format.html { redirect_to visits_path, notice: 'Visa was successfully created.' }

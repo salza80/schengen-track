@@ -1,6 +1,20 @@
 require 'test_helper'
 
 class RegistrationsTest < ActionDispatch::IntegrationTest
+  test 'successful email login tracks a user login event' do
+    capture_analytics_events do |events|
+      post user_session_path(locale: :en), params: {
+        user: { email: users(:Sally).email, password: 'password' }
+      }
+
+      assert_response :redirect
+      assert_equal 1, events.length
+      event_name, options = events.fetch(0)
+      assert_equal 'user_login', event_name
+      assert_equal 'email', options.dig(:params, :login_method)
+    end
+  end
+
   test 'logging out without a guest clears the calculator session hint' do
     account = User.create!(
       first_name: 'Existing',
@@ -128,10 +142,14 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     previous_test_mode = OmniAuth.config.test_mode
     previous_mock_auth = OmniAuth.config.mock_auth[:facebook]
+    analytics_events = []
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:facebook] = auth
     begin
-      post user_facebook_omniauth_callback_path
+      capture_analytics_events do |events|
+        analytics_events = events
+        post user_facebook_omniauth_callback_path
+      end
     ensure
       if previous_mock_auth
         OmniAuth.config.mock_auth[:facebook] = previous_mock_auth
@@ -150,6 +168,10 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal 0, account.people.first.visas.count
     assert_equal guest.id, session[:guest_user_id]
     assert_equal guest_person.id, session[:guest_current_person_id]
+    assert_equal 1, analytics_events.length
+    event_name, options = analytics_events.fetch(0)
+    assert_equal 'user_login', event_name
+    assert_equal 'facebook', options.dig(:params, :login_method)
   end
 
   test 'registration form is prefilled from the guest primary person' do

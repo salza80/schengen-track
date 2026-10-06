@@ -46,6 +46,19 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  def capture_analytics_events
+    events = []
+    analytics = Analytics::GoogleMeasurementProtocol
+    original_track = analytics.method(:track)
+    analytics.define_singleton_method(:track) do |event_name, **options|
+      events << [event_name, options]
+    end
+
+    yield events
+  ensure
+    analytics&.define_singleton_method(:track, original_track) if original_track
+  end
+
   def login
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in  users(:Sally)

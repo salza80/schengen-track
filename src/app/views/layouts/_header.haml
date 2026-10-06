@@ -35,7 +35,7 @@
             %i.fa.fa-plus.mr-2{"aria-hidden" => "true"}
             = t('visits.add_travel')
         %li.nav-item
-          = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2'
+          = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary btn-md header-auth-button ml-2'
       - else
         = render 'layouts/user_menu'
     %ul.navbar-nav.text-right

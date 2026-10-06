@@ -213,6 +213,14 @@ html {
     margin-left: 0.75rem;
     white-space: nowrap;
   }
+
+  .header-auth-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 45px;
+    padding: 0.375rem 1rem;
+  }
   
   // Person switcher dropdown
   .person-switcher {
@@ -546,10 +554,15 @@ html[dir='rtl'] {
   text-align: center;
 }
 
-// Darker than the primary blue so white, normal-size table labels meet WCAG AA.
+// Match the Trips and Visas table headers to the Current Status header.
 .bg-table-header {
-  background-color: $blue-dark !important;
+  background-color: $primary !important;
   background-image: none !important;
+
+  th {
+    background-color: $primary !important;
+    background-image: none !important;
+  }
 }
 
 .table-top-header {

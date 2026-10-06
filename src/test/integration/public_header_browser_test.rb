@@ -172,6 +172,31 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_no_selector '.person-switcher.show .dropdown-menu.show'
   end
 
+  test 'logout matches outlined actions and the person selector height' do
+    user_login
+    visit visits_path(locale: :en)
+
+    logout = find('a', text: I18n.t('common.log_out', locale: :en), exact_text: true)
+    export = find('a', text: I18n.t('visits.export_to_csv', locale: :en), exact_text: true)
+    person_selector = find('#personDropdown')
+
+    assert_equal export.style('background-color', 'border-top-color'),
+                 logout.style('background-color', 'border-top-color')
+    assert_operator (logout.native.rect.height - person_selector.native.rect.height).abs, :<=, 2
+  end
+
+  test 'trip and visa table headers match the current status blue' do
+    visa_user_login
+    visit visits_path(locale: :en)
+
+    status_blue = find('.calendar-sidebar .card-header.bg-primary', match: :first).style('background-color')
+    table_headers = all('.bg-table-header th', minimum: 2)
+
+    table_headers.each do |header|
+      assert_equal status_blue, header.style('background-color')
+    end
+  end
+
   test 'calendar day loads the shared visit modal behavior' do
     user_login
     visit days_path(locale: :en, year: 2030)

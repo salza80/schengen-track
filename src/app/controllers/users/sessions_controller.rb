@@ -8,23 +8,13 @@ class Users::SessionsController < Devise::SessionsController
   # This ensures the cache_country_guest cookie is updated from "US_true" to "US_{random_hex}"
   # before the redirect, preventing cached pages with stale CSRF tokens from being served
   def create
-    # Devise may already expose the authenticating account as current_user here,
-    # so read the pre-login guest directly from its dedicated session key.
-    guest = guest_user
-    guest_person_id = session[:current_person_id]
-
     super do |resource|
       # After successful authentication, update the cache cookie
       # This happens after Devise's session regeneration, so it's safe
       if resource.persisted?
         resource.ensure_primary_person
-        transferred_person = resource.transfer_guest_people!(
-          guest,
-          current_person_id: guest_person_id
-        )
-        # Keep transferred guest plans visible; otherwise use the account primary.
-        session[:current_person_id] = transferred_person&.id
         session.delete(:guest_user_id)
+        session.delete(:current_person_id)
         session.delete(:calculator_nationality_id)
         @current_user_or_guest_user = resource
         remove_instance_variable(:@current_person) if defined?(@current_person)

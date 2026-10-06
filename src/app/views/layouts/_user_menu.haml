@@ -58,7 +58,7 @@
       = t('common.register_to_save')
 - if user_signed_in?
   %li.nav-item.d-flex.align-items-center.justify-content-end
-    %a.btn.btn-outline-dark.btn-sm{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}
+    %a.btn.btn-outline-primary.btn-md.header-auth-button.ml-2{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}
       %i.fa.fa-sign-out-alt.mr-2{"aria-hidden": "true"}
       = t('common.log_out')
     %form#logout-form{action: destroy_user_session_path, method: :post, style: "display: none;"}
@@ -66,6 +66,6 @@
       = hidden_field_tag :authenticity_token, form_authenticity_token
 - else
   %li.nav-item.d-flex.align-items-center.justify-content-end
-    = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary ml-2' do
+    = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary btn-md header-auth-button ml-2' do
       %i.fa.fa-sign-in-alt.mr-2
       = t('common.login')

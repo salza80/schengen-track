@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RegistrationsTest < ActionDispatch::IntegrationTest
-  test 'logging into an existing account transfers and selects the guest traveler' do
+  test 'logging into an existing account does not copy guest travelers' do
     account = User.create!(
       first_name: 'Existing',
       last_name: 'Account',
@@ -23,6 +23,16 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       exit_date: Date.new(2027, 1, 15),
       country: countries(:Germany)
     )
+    guest_companion = guest.people.create!(
+      first_name: 'Guest',
+      last_name: 'Companion',
+      nationality: countries(:Australia)
+    )
+    guest_companion.visits.create!(
+      entry_date: Date.new(2027, 2, 10),
+      exit_date: Date.new(2027, 2, 15),
+      country: countries(:Croatia)
+    )
 
     get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
     assert_response :redirect
@@ -32,18 +42,23 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :redirect
-    assert_not User.exists?(guest.id)
-    assert_equal account, guest_person.reload.user
-    assert_not guest_person.is_primary?
+    assert User.exists?(guest.id)
+    assert_equal guest, guest_person.reload.user
+    assert guest_person.is_primary?
     assert_equal 1, guest_person.visits.count
+    assert_equal guest, guest_companion.reload.user
+    assert_equal 2, guest.people.count
+    assert_equal 1, account.people.count
+    assert_equal 0, account.people.first.visits.count
 
     follow_redirect!
     assert_response :success
-    assert_select '#personDropdown .person-name', text: guest_person.full_name
-    assert_includes response.body, countries(:Germany).localized_name
+    assert_select '#personDropdown .person-name', text: account.people.first.full_name
+    assert_select '#personDropdown .person-name', text: guest_person.full_name, count: 0
+    assert_select '#personDropdown .person-name', text: guest_companion.full_name, count: 0
   end
 
-  test 'Facebook login to an existing account transfers the guest traveler' do
+  test 'Facebook login to an existing account does not copy guest travelers' do
     uid = SecureRandom.hex(8)
     account = User.create!(
       first_name: 'Existing',
@@ -94,10 +109,12 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_not User.exists?(guest.id)
-    assert_equal account, guest_person.reload.user
-    assert_not guest_person.is_primary?
+    assert User.exists?(guest.id)
+    assert_equal guest, guest_person.reload.user
+    assert guest_person.is_primary?
     assert_equal 1, guest_person.visas.count
+    assert_equal 1, account.people.count
+    assert_equal 0, account.people.first.visas.count
   end
 
   test 'registration form is prefilled from the guest primary person' do

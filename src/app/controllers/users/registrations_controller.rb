@@ -19,6 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user.copy_from(@guest_user)
       sign_up('user', @user)
       session.delete(:guest_user_id)
+      session.delete(:guest_current_person_id)
       session.delete(:current_person_id)
       session.delete(:calculator_nationality_id)
       Analytics::GoogleMeasurementProtocol.track(

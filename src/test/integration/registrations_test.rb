@@ -36,6 +36,8 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
 
     get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
     assert_response :redirect
+    post set_current_person_path(guest_companion, locale: :en)
+    assert_equal guest_companion.id, session[:current_person_id]
 
     post user_session_path(locale: :en), params: {
       user: { email: account.email, password: 'password123' }
@@ -50,12 +52,24 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal 2, guest.people.count
     assert_equal 1, account.people.count
     assert_equal 0, account.people.first.visits.count
+    assert_equal guest.id, session[:guest_user_id]
+    assert_equal guest_companion.id, session[:guest_current_person_id]
 
     follow_redirect!
     assert_response :success
     assert_select '#personDropdown .person-name', text: account.people.first.full_name
     assert_select '#personDropdown .person-name', text: guest_person.full_name, count: 0
     assert_select '#personDropdown .person-name', text: guest_companion.full_name, count: 0
+
+    delete destroy_user_session_path(locale: :en)
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select '#personDropdown .person-name', text: guest_companion.full_name
+    assert_select '#personDropdown .person-name', text: account.people.first.full_name, count: 0
+    assert_equal guest.id, session[:guest_user_id]
+    assert_equal guest_companion.id, session[:current_person_id]
+    assert_nil session[:guest_current_person_id]
   end
 
   test 'Facebook login to an existing account does not copy guest travelers' do
@@ -115,6 +129,8 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal 1, guest_person.visas.count
     assert_equal 1, account.people.count
     assert_equal 0, account.people.first.visas.count
+    assert_equal guest.id, session[:guest_user_id]
+    assert_equal guest_person.id, session[:guest_current_person_id]
   end
 
   test 'registration form is prefilled from the guest primary person' do
@@ -294,6 +310,8 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
     account = User.find_by!(email: email)
+    assert_nil session[:guest_user_id]
+    assert_nil session[:guest_current_person_id]
     assert_equal 2, account.people.count
 
     account_primary = account.people.find_by!(is_primary: true)

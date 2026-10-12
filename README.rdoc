@@ -209,9 +209,28 @@ For infrastructure and header JavaScript tests, run from <tt>deployment</tt> usi
 The application uses Facebook Login (OAuth) for user authentication.
 
 === Current Configuration
-* Facebook Graph API Version: v19.0
+* Facebook Graph API Version: v25.0
 * Required Scopes: email, public_profile
 * OAuth Provider: omniauth-facebook gem
+
+=== Android Chrome app-handoff workaround
+
+Set <tt>FACEBOOK_WEB_LOGIN_WORKAROUND=true</tt> at application startup to add
+<tt>sdk=joey</tt> to Facebook's authorization request. CDK enables this only for
+staging via <tt>facebookWebLoginWorkaround: true</tt>; production defaults to off.
+Disable the CDK flag and redeploy to roll back. Local processes need a restart
+after changing the environment variable.
+
+This is an undocumented Facebook web-SDK hint, not a guaranteed public API.
+On the tested Pixel 6 with Facebook app links enabled, the original flow aborted;
+the hint kept login in Chrome and completed the callback to the visits page.
+Keep the POST/CSRF-protected request, OAuth state, code exchange and callback unchanged.
+Report: https://www.linkedin.com/pulse/facebook-authentication-saga-why-generalism-back-age-ai-jukka-rohila-llsbe
+
+Run OAuth regression tests with the flag both enabled and disabled. After deployment,
+retest Android Chrome with Facebook installed and app links enabled, including a
+browser without an existing Facebook session, plus desktop login. Do not use a
+successful already-authenticated browser alone to conclude the handoff is fixed.
 
 === Facebook App Setup Requirements
 

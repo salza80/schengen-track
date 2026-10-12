@@ -17,6 +17,28 @@ const behavior = (path: string) => config.CacheBehaviors.find((b: any) => b.Path
 const cacheConfig = (b: any) => resources[b.CachePolicyId.Ref].Properties.CachePolicyConfig;
 const originConfig = (b: any) => resources[b.OriginRequestPolicyId.Ref].Properties.OriginRequestPolicyConfig;
 
+test('Facebook web login workaround is off by default and can be enabled for staging', () => {
+  const railsFunctions = (items: any) => Object.values(items).filter((r: any) =>
+    r.Type === 'AWS::Lambda::Function' && r.Properties.Environment?.Variables?.FACEBOOK_ID) as any[];
+  expect(railsFunctions(resources)).toHaveLength(2);
+  for (const fn of railsFunctions(resources)) {
+    expect(fn.Properties.Environment.Variables.FACEBOOK_WEB_LOGIN_WORKAROUND).toBe('false');
+  }
+  const enabled = new RailsLambdaStack(new cdk.App(), 'FacebookWorkaroundTest', {
+    env: { account: '123456789012', region: 'eu-central-1' },
+    domain: 'test.example.com',
+    altDomain: 'test2.example.com',
+    sslArn: 'arn:aws:acm:us-east-1:123456789012:certificate/test',
+    paramPath: '/test/',
+    facebookWebLoginWorkaround: true
+  });
+  const enabledFunctions = railsFunctions(Template.fromStack(enabled).toJSON().Resources);
+  expect(enabledFunctions).toHaveLength(2);
+  for (const fn of enabledFunctions) {
+    expect(fn.Properties.Environment.Variables.FACEBOOK_WEB_LOGIN_WORKAROUND).toBe('true');
+  }
+});
+
 test('public HTML ignores query parameters in both cache keys and origin requests', () => {
   for (const path of ['/', '/en', '/fr', '/ar', '/about*', '/*/about*', '/blog*', '/*/blog*']) {
     const b = behavior(path);

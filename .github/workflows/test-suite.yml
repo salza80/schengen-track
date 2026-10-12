@@ -78,6 +78,14 @@ jobs:
           CI: true
           RAILS_ENV: test
 
+      - name: Test Facebook web login workaround enabled
+        run: bundle exec rails test test/integration/facebook_oauth_link_test.rb test/lib/app_config_test.rb
+        working-directory: src
+        env:
+          CI: true
+          RAILS_ENV: test
+          FACEBOOK_WEB_LOGIN_WORKAROUND: 'true'
+
       - name: Run MCP server tests
         run: python3 -m unittest discover -s mcp-server/tests
 

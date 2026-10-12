@@ -22,6 +22,10 @@ class AppConfig
       fetch_optional('FACEBOOK_CALLBACK_URL')
     end
 
+    def facebook_web_login_workaround?
+      ENV['FACEBOOK_WEB_LOGIN_WORKAROUND'] == 'true'
+    end
+
     def aws_access_key_id
       fetch_optional('AWS_ACCESS_KEY_ID')
     end

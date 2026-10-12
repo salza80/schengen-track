@@ -21,7 +21,8 @@ export interface HttpApiConstructProps {
   domain: string,
   altDomain: string,
   sslArn: string,
-  paramPath: string
+  paramPath: string,
+  facebookWebLoginWorkaround?: boolean
 }
 /**
  * CDK construct to create API Gateway HTTP API with Lambda proxy integration 2.0
@@ -93,6 +94,7 @@ export class HttpApiConstruct extends Construct {
       FACEBOOK_ID: getParam('facebook_id'),
       FACEBOOK_SECRET: getParam('facebook_secret'),
       FACEBOOK_CALLBACK_URL: getParam('facebook_callback_url'),
+      FACEBOOK_WEB_LOGIN_WORKAROUND: String(props.facebookWebLoginWorkaround ?? false),
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD: getParam('brevo_password'),
       TASK_PASSWORD: getParam('task_password'),

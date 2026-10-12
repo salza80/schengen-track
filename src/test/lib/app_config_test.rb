@@ -3,6 +3,7 @@ require 'minitest/mock'
 
 class AppConfigTest < ActiveSupport::TestCase
   setup do
+    @original_facebook_web_login_workaround = ENV['FACEBOOK_WEB_LOGIN_WORKAROUND']
     @original_ga_measurement_id = ENV['GA_MEASUREMENT_ID']
     @original_ga_api_secret = ENV['GA_API_SECRET']
     @original_ga_api_secret_param = ENV['GA_API_SECRET_PARAM']
@@ -21,6 +22,7 @@ class AppConfigTest < ActiveSupport::TestCase
   end
 
   teardown do
+    restore_env('FACEBOOK_WEB_LOGIN_WORKAROUND', @original_facebook_web_login_workaround)
     restore_env('GA_MEASUREMENT_ID', @original_ga_measurement_id)
     restore_env('GA_API_SECRET', @original_ga_api_secret)
     restore_env('GA_API_SECRET_PARAM', @original_ga_api_secret_param)
@@ -36,6 +38,16 @@ class AppConfigTest < ActiveSupport::TestCase
     ENV['GA_MEASUREMENT_ID'] = ''
 
     assert_equal 'G-E9CCZDHLJF', AppConfig.google_analytics_measurement_id
+  end
+
+  test 'Facebook web login workaround requires explicit opt in' do
+    [nil, '', 'false', 'unexpected'].each do |value|
+      restore_env('FACEBOOK_WEB_LOGIN_WORKAROUND', value)
+      assert_not AppConfig.facebook_web_login_workaround?
+    end
+
+    ENV['FACEBOOK_WEB_LOGIN_WORKAROUND'] = 'true'
+    assert AppConfig.facebook_web_login_workaround?
   end
 
   test 'blank api secret falls back to SSM parameter lookup' do

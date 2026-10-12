@@ -6,12 +6,19 @@ export interface RailsLambdaStackProps extends cdk.StackProps {
   domain: string,
   sslArn: string,
   paramPath: string,
-  altDomain: string
+  altDomain: string,
+  facebookWebLoginWorkaround?: boolean
 }
 
 export class RailsLambdaStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: RailsLambdaStackProps) {
     super(scope, id, props);
-    new HttpApiConstruct(this, 'Http', { domain: props.domain, altDomain: props.altDomain, sslArn: props.sslArn, paramPath: props.paramPath});
+    new HttpApiConstruct(this, 'Http', {
+      domain: props.domain,
+      altDomain: props.altDomain,
+      sslArn: props.sslArn,
+      paramPath: props.paramPath,
+      facebookWebLoginWorkaround: props.facebookWebLoginWorkaround
+    });
   }
 }

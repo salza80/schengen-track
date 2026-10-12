@@ -47,7 +47,7 @@ jobs:
           mask-aws-account-id: true
 
       - name: Install CDK
-        run: npm install -g aws-cdk@2.1129.0
+        run: npm install -g aws-cdk@2.1145.0
 
       - name: Install CDK Dependencies
         run: npm ci

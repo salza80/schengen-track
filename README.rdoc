@@ -209,7 +209,7 @@ For infrastructure and header JavaScript tests, run from <tt>deployment</tt> usi
 The application uses Facebook Login (OAuth) for user authentication.
 
 === Current Configuration
-* Facebook Graph API Version: v25.0
+* Facebook Graph API Version: v26.0
 * Required Scopes: email, public_profile
 * OAuth Provider: omniauth-facebook gem
 

@@ -326,8 +326,8 @@ Devise.setup do |config|
     authorize_params: AppConfig.facebook_web_login_workaround? ? { sdk: 'joey' } : {},
     token_params: { parse: :json },
     client_options: {
-      site: 'https://graph.facebook.com/v25.0',
-      authorize_url: "https://www.facebook.com/v25.0/dialog/oauth"
+      site: 'https://graph.facebook.com/v26.0',
+      authorize_url: 'https://www.facebook.com/v26.0/dialog/oauth'
     }
 
 end

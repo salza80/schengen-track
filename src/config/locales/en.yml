@@ -16,6 +16,7 @@ en:
     continent: Continent
     continue: Continue
     country: Country
+    current_traveler: Current traveler
     data_deletion: Data Deletion
     delete: Delete
     delete_warning: Are you sure you want to delete this? This action cannot be undone.

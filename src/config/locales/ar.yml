@@ -16,6 +16,7 @@ ar:
     continent: قارة
     continue: متابعة
     country: دولة
+    current_traveler: المسافر الحالي
     data_deletion: حذف البيانات
     delete: حذف
     delete_warning: هل أنت متأكد من رغبتك في حذف هذا السجل؟ لا يمكن التراجع عن هذا الإجراء.

@@ -6,12 +6,12 @@
       </div>
       <div class="col-md-7">
         <div class="float-right">
-          <a href="<%= user_facebook_omniauth_authorize_path(display: 'page') %>" target="_blank" class="btn" style="background-color: white; color: #333; border: 1px solid #007bff; text-decoration: none;" rel="noopener noreferrer" data-turbo="false">
+          <%= button_to user_facebook_omniauth_authorize_path(display: 'page'), method: :post, class: "btn", style: "background-color: white; color: #333; border: 1px solid #007bff; text-decoration: none;", form: { class: "facebook-oauth-form", data: { turbo: false } } do %>
             <div style="display: flex; align-items: center;">
               <%= image_tag("facebook_icon.png", alt: "Facebook", style: "margin-right: 0.5rem; margin-bottom: 0;") %>
               <span><%= t('log_in_page.log_in_with_facebook') %></span>
             </div>
-          </a>
+          <% end %>
         </div>
       </div>
     </div>

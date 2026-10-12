@@ -21,11 +21,27 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
     assert page.has_css?('.calendar-status-card', visible: true)
     assert page.has_css?('.calendar-status-card .status-metrics', visible: true)
+    assert page.has_css?('.calendar-status-card .mobile-status-person-switcher', visible: true)
+    assert page.has_button?('Sally Mclean')
+    assert page.has_css?(".mobile-status-person-form[action='#{set_current_person_path(locale: :en, id: people(:sally_person_alt))}']", visible: :all)
     assert page.has_css?(".calendar-status-card a[href='#{visits_path(locale: :en)}']", visible: true)
     refute page.has_css?('.calendar-sidebar-col', visible: true)
 
+    find('.mobile-status-person-switcher > button').click
+    within('.mobile-status-person-switcher .dropdown-menu') do
+      click_button 'Sally Alternative'
+    end
+    assert page.has_css?('.navbar .person-switcher .person-name', text: 'Sally Alternative', visible: true)
+
+    find('#personDropdown').click
+    within('.navbar .person-switcher .dropdown-menu') do
+      click_button 'Sally Mclean'
+    end
+    assert page.has_css?('.mobile-status-person-switcher > button', text: 'Sally Mclean', visible: true)
+
     page.current_window.resize_to(700, 1000)
     assert page.has_css?('.calendar-status-card .status-metrics', visible: true)
+    assert page.has_css?('.calendar-status-card .mobile-status-person-switcher', visible: true)
     assert page.has_css?(".calendar-status-card a[href='#{visits_path(locale: :en)}']", visible: true)
 
     page.current_window.resize_to(1200, 1000)
@@ -41,6 +57,8 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     visit visits_path(locale: :en)
 
     assert page.has_css?('.calendar-status-card', visible: true)
+    assert page.has_css?('.calendar-status-card .mobile-status-person-switcher', visible: true)
+    assert page.has_button?('Sally Mclean')
     refute page.has_css?('.calendar-status-card a', visible: true)
     assert page.evaluate_script(<<~JS)
       document.querySelector('.calendar-status-card').compareDocumentPosition(

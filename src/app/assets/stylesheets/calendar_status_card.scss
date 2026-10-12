@@ -1,5 +1,42 @@
 // Calendar status card styling for mobile
 .calendar-status-card {
+  .mobile-status-person-switcher {
+    max-width: 100%;
+
+    > .btn {
+      max-width: 100%;
+    }
+
+    .dropdown-toggle span {
+      display: inline-block;
+      max-width: 14rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: bottom;
+      white-space: nowrap;
+    }
+
+    .dropdown-menu {
+      min-width: 100%;
+      max-height: 16rem;
+      overflow-y: auto;
+    }
+
+    .mobile-status-person-form {
+      margin: 0;
+    }
+
+    .dropdown-item.active {
+      background-color: rgba($primary, 0.1);
+      color: $dark;
+      font-weight: 500;
+    }
+
+    .mobile-status-person-check-placeholder {
+      display: inline-block;
+    }
+  }
+
   // Larger badges for mobile
   .badge-lg {
     font-size: 1rem;

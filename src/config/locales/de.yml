@@ -17,6 +17,7 @@ de:
     continent: Kontinent
     continue: Weiter
     country: Land
+    current_traveler: Aktuelle Person
     data_deletion: Datenlöschung
     delete: Löschen
     delete_warning: Sind Sie sicher, dass Sie dies löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.

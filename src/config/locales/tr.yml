@@ -21,6 +21,7 @@ tr:
     continent: Kıta
     continue: Devam et
     country: Ülke
+    current_traveler: Mevcut gezgin
     data_deletion: Veri Silme
     delete: Sil
     delete_warning: Bunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.

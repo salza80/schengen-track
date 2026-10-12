@@ -37,7 +37,7 @@ jobs:
         with:
           node-version-file: deployment/.nvmrc
 
-      - uses: ruby/setup-ruby@v1.310.0
+      - uses: ruby/setup-ruby@v1.319.0
         with:
           ruby-version: '3.3.12'
           bundler-cache: true

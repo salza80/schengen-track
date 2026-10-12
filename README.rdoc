@@ -10,24 +10,24 @@ Live site can be found here: http://www.schengen-calculator.com
 
 == System Dependencies
 * Database: PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
-* Ruby version 3.3.6 (see src/.ruby-version and src/Gemfile)
+* Ruby version 3.3.12 (see src/.ruby-version and src/Gemfile)
 * Rails version 7.2.4 (see src/Gemfile.lock)
 * Docker Desktop or Docker Engine with Docker Compose, for local PostgreSQL
 
 
 == Application setup
-Start Docker Desktop (or your Docker daemon). Install Ruby 3.3.6 using RVM or your preferred Ruby version manager, and configure <tt>src/config/secrets.yml</tt> as described below.
+Start Docker Desktop (or your Docker daemon). Install Ruby 3.3.12 using RVM or your preferred Ruby version manager, and configure <tt>src/config/secrets.yml</tt> as described below.
 
 From the repository root, run:
 
   cd src
-  rvm use 3.3.6
+  rvm use 3.3.12
   bundle install
   docker compose up -d postgres
   bundle exec rails db:prepare
   bundle exec rails server
 
-If using RVM for the first time, run <tt>rvm install 3.3.6</tt> before <tt>rvm use</tt>. With another version manager, select the version in <tt>src/.ruby-version</tt> instead.
+If using RVM for the first time, run <tt>rvm install 3.3.12</tt> before <tt>rvm use</tt>. With another version manager, select the version in <tt>src/.ruby-version</tt> instead.
 
 Open http://localhost:3000/en/about to view the information page, or http://localhost:3000/en/visits for Trips. Stop the Rails server with Ctrl+C.
 
@@ -186,7 +186,7 @@ This prevents false "unused key" warnings while documenting why the key is speci
 
 == Running tests (Minitest)
 
-With Docker/PostgreSQL running and Ruby 3.3.6 selected, run from <tt>src</tt>:
+With Docker/PostgreSQL running and Ruby 3.3.12 selected, run from <tt>src</tt>:
 
   RAILS_ENV=test bundle exec rails db:prepare
   bundle exec rake test

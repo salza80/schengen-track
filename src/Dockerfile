@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builder stage
-FROM public.ecr.aws/docker/library/ruby:3.3.6-slim AS builder
+FROM public.ecr.aws/docker/library/ruby:3.3.12-slim AS builder
 WORKDIR /app
 
 RUN apt-get update -qq && \
@@ -13,7 +13,7 @@ COPY Gemfile Gemfile.lock /app/
 RUN bundle install
 
 # Final stage
-FROM public.ecr.aws/docker/library/ruby:3.3.6-slim
+FROM public.ecr.aws/docker/library/ruby:3.3.12-slim
 WORKDIR /app
 
 RUN apt-get update -qq && apt-get upgrade -y -qq
@@ -21,7 +21,7 @@ RUN apt-get update -qq && apt-get upgrade -y -qq
 RUN apt-get install -y -qq curl bash ca-certificates libpq-dev xz-utils
 
 # Install Node.js for asset compilation only (Terser needs a JS runtime)
-ARG NODE_VERSION=24.18.0
+ARG NODE_VERSION=24.21.0
 RUN set -eux; \
     node_arch="$(dpkg --print-architecture)"; \
     case "$node_arch" in \

@@ -16,6 +16,7 @@ es:
     continent: Continente
     continue: Continuar
     country: País
+    current_traveler: Viajero actual
     data_deletion: Eliminación de Datos
     delete: Eliminar
     delete_warning: "¿Estás seguro de que quieres eliminar esto? Esta acción no se puede deshacer."

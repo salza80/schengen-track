@@ -16,6 +16,7 @@ const account = '360298971790';
     environment: 'staging',
   },
   domain: 'test.schengen-calculator.com',
+  facebookWebLoginWorkaround: true,
   altDomain: 'test2.schengen-calculator.com',
   sslArn: 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd',
   paramPath: `/scheng/staging/`
@@ -30,6 +31,7 @@ const account = '360298971790';
     environment: 'production',
   },
   domain: 'schengen-calculator.com',
+  facebookWebLoginWorkaround: true,
   altDomain: 'www.schengen-calculator.com',
   sslArn: 'arn:aws:acm:us-east-1:360298971790:certificate/6ab0b755-a5e3-4d2d-ab3b-5eb729ccbfcd',
   paramPath: `/scheng/prod/`

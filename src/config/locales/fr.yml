@@ -16,6 +16,7 @@ fr:
     continent: Continent
     continue: Continuer
     country: Pays
+    current_traveler: Voyageur actuel
     data_deletion: Suppression des données
     delete: Supprimer
     delete_warning: Êtes-vous sûr de vouloir supprimer ceci ? Cette action ne peut pas être annulée.

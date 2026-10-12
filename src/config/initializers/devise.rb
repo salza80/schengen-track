@@ -321,6 +321,9 @@ Devise.setup do |config|
     callback_url: Rails.env.production? ? AppConfig.facebook_callback_url : 'http://localhost:3000/users/auth/facebook/callback',
     scope: 'email,public_profile',
     info_fields: 'email,first_name,last_name',
+    # Undocumented Facebook web-SDK hint: avoids a broken Android app handoff.
+    # Keep opt-in so this workaround can be removed without changing the flow.
+    authorize_params: AppConfig.facebook_web_login_workaround? ? { sdk: 'joey' } : {},
     token_params: { parse: :json },
     client_options: {
       site: 'https://graph.facebook.com/v25.0',

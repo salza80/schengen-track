@@ -21,6 +21,7 @@ zh-CN:
     continent: 大陆
     continue: 继续
     country: 国家
+    current_traveler: 当前旅行者
     data_deletion: 数据删除
     delete: 删除
     delete_warning: 您确定要删除吗？此操作无法撤销。

@@ -12,6 +12,27 @@
           %small.text-muted
             = t('common.as_of')
             = l(Time.zone.today, format: :long)
+          - tracked_people = current_user_or_guest_user&.people&.ordered&.to_a || []
+          - if tracked_people.any?
+            .mobile-status-person.mt-2
+              %small.text-muted.d-block.mb-1= t('common.current_traveler')
+              - if tracked_people.many?
+                .dropdown.mobile-status-person-switcher.d-inline-block
+                  %button.btn.btn-outline-primary.btn-sm.dropdown-toggle{type: "button", id: "mobileStatusPersonDropdown", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
+                    %i.fa.fa-user.mr-1{"aria-hidden": "true"}
+                    %span{dir: "auto"}= current_person.full_name
+                  .dropdown-menu{"aria-labelledby": "mobileStatusPersonDropdown"}
+                    - tracked_people.each do |person|
+                      = button_to set_current_person_path(locale: I18n.locale, id: person), class: ['dropdown-item', 'text-left', ('active' if person == current_person)], form: { class: 'mobile-status-person-form', data: { turbo: false } } do
+                        - if person == current_person
+                          %i.fa.fa-check.mr-2{"aria-hidden": "true"}
+                        - else
+                          %span.mobile-status-person-check-placeholder.mr-4
+                        %span{dir: "auto"}= person.full_name
+              - else
+                .mobile-status-person-name
+                  %i.fa.fa-user.mr-1{"aria-hidden": "true"}
+                  %strong{dir: "auto"}= current_person.full_name
         
         -# Status badge (prominent)
         .text-center.mb-3

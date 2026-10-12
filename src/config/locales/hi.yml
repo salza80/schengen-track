@@ -32,6 +32,7 @@ hi:
     continent: महाद्वीप
     continue: जारी रखें
     country: देश
+    current_traveler: वर्तमान यात्री
     data_deletion: डेटा हटाना
     delete: हटाएं
     delete_warning: क्या आप वाकई इसे हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।

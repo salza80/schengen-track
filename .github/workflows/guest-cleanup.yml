@@ -32,7 +32,7 @@ concurrency:
 
 jobs:
   guest_cleanup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
       TARGET_ENVIRONMENT: ${{ github.event_name == 'schedule' && 'prod' || github.event.inputs.target_environment }}

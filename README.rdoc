@@ -11,7 +11,7 @@ Live site can be found here: http://www.schengen-calculator.com
 == System Dependencies
 * Database: PostgreSQL : https://wiki.postgresql.org/wiki/Detailed_installation_guides
 * Ruby version 3.3.6 (see src/.ruby-version and src/Gemfile)
-* Rails version 7.2.3.1 (see src/Gemfile.lock)
+* Rails version 7.2.4 (see src/Gemfile.lock)
 * Docker Desktop or Docker Engine with Docker Compose, for local PostgreSQL
 
 

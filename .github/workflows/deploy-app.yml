@@ -27,7 +27,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
 
     steps:
       - name: Checkout Repository
@@ -89,7 +89,7 @@ jobs:
         run: ./deployment/scripts/invoke_ops_lambda.sh '{"command":"update_countries"}' "Countries data update" /tmp/update-countries.json
 
   cacheInvalidate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: deploy
 
     steps:

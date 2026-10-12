@@ -17,7 +17,7 @@ const behavior = (path: string) => config.CacheBehaviors.find((b: any) => b.Path
 const cacheConfig = (b: any) => resources[b.CachePolicyId.Ref].Properties.CachePolicyConfig;
 const originConfig = (b: any) => resources[b.OriginRequestPolicyId.Ref].Properties.OriginRequestPolicyConfig;
 
-test('Facebook web login workaround is off by default and can be enabled for staging', () => {
+test('Facebook web login workaround is off by default and can be explicitly enabled', () => {
   const railsFunctions = (items: any) => Object.values(items).filter((r: any) =>
     r.Type === 'AWS::Lambda::Function' && r.Properties.Environment?.Variables?.FACEBOOK_ID) as any[];
   expect(railsFunctions(resources)).toHaveLength(2);

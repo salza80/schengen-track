@@ -216,8 +216,9 @@ The application uses Facebook Login (OAuth) for user authentication.
 === Android Chrome app-handoff workaround
 
 Set <tt>FACEBOOK_WEB_LOGIN_WORKAROUND=true</tt> at application startup to add
-<tt>sdk=joey</tt> to Facebook's authorization request. CDK enables this only for
-staging via <tt>facebookWebLoginWorkaround: true</tt>; production defaults to off.
+<tt>sdk=joey</tt> to Facebook's authorization request. CDK enables this for both
+staging and production via <tt>facebookWebLoginWorkaround: true</tt>, following
+successful staging verification. Other stacks default to off unless explicitly enabled.
 Disable the CDK flag and redeploy to roll back. Local processes need a restart
 after changing the environment variable.
 

@@ -29,6 +29,20 @@ Both stacks output the CloudFront distribution domain (`CloudFrontUrl`) and the 
 
 The stacks expect environment-scoped SSM parameters under `paramPath` (`/scheng/staging/` or `/scheng/prod/`). Runtime-only secrets should be stored as SecureString parameters:
 
+Rails database connections use separate URLs so request traffic can use Neon's
+PgBouncer endpoint while database administration keeps a direct connection.
+The Lambdas receive only the applicable parameter name and decrypt its value
+from Parameter Store during cold-start application boot:
+
+- `{paramPath}db_pooler_url` — pooled URL used by the HTTP API Lambda. Store
+  this credential-bearing value as a `SecureString`.
+- `{paramPath}db_direct_url` — direct URL used by the Ops Lambda for migrations,
+  country updates, and guest cleanup. Store this credential-bearing value as a
+  `SecureString`.
+
+The legacy `{paramPath}db_url` parameter can remain in place during rollout and
+be removed after both environments have been deployed and verified.
+
 - `{paramPath}ga_api_secret`
 - `{paramPath}schengen_agent_auth_header`
 

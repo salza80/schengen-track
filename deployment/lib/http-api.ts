@@ -62,7 +62,7 @@ export class HttpApiConstruct extends Construct {
     const customDomain = props.domain;
     const altDomain = props.altDomain;
     const cloudFrontOriginAuthParamName = `${props.paramPath}cloudfront_origin_auth_header`;
-    const agentAuthParamName = `${props.paramPath}schengen_agent_auth_header`;
+    const agentAuthParamName = `${props.paramPath}secrets/schengen_agent_auth_header`;
     // CloudFront origin custom headers do not support ssm-secure dynamic
     // references, so this value is stored as an SSM String. Lambdas receive
     // only parameter names and read values at runtime with ssm:GetParameter.
@@ -76,41 +76,55 @@ export class HttpApiConstruct extends Construct {
 
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
       this, `${props.paramPath}${paramName}`);
-    const gaApiSecretParamName = `${props.paramPath}ga_api_secret`;
-    const pooledDbUrlParamName = `${props.paramPath}db_pooler_url`;
-    const directDbUrlParamName = `${props.paramPath}db_direct_url`;
+    const gaApiSecretParamName = `${props.paramPath}secrets/ga_api_secret`;
+    const pooledDbUrlParamName = `${props.paramPath}secrets/db_pooler_url`;
+    const directDbUrlParamName = `${props.paramPath}secrets/db_direct_url`;
+    const runtimeSecretParamNames = {
+      railsMasterKey: `${props.paramPath}secrets/rails_master_key`,
+      secretKeyBase: `${props.paramPath}secrets/secret_key_base`,
+      facebookSecret: `${props.paramPath}secrets/facebook_secret`,
+      brevoPassword: `${props.paramPath}secrets/brevo_password`,
+    };
     const ssmParamArn = (paramName: string) => `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter${paramName}`;
     const gaApiSecretParamArn = ssmParamArn(gaApiSecretParamName);
     const cloudFrontOriginAuthParamArn = ssmParamArn(cloudFrontOriginAuthParamName);
     const agentAuthParamArn = ssmParamArn(agentAuthParamName);
     const pooledDbUrlParamArn = ssmParamArn(pooledDbUrlParamName);
     const directDbUrlParamArn = ssmParamArn(directDbUrlParamName);
+    const runtimeSecretParamArns = Object.values(runtimeSecretParamNames).map(ssmParamArn);
 
 
-    // Environment variables for Rails REST API container
-    const apiContainerEnvironment = {
+    // Values required while the production Rails application boots. Facebook
+    // and Brevo remain here because their Rails initializers read them during
+    // boot, including when the Ops handler loads the application.
+    const railsBootEnvironment = {
       BOOTSNAP_CACHE_DIR: '/tmp/cache',
       RAILS_ENV: 'production',
-      RAILS_MASTER_KEY: getParam('rails_master_key'),
+      RAILS_MASTER_KEY_PARAM: runtimeSecretParamNames.railsMasterKey,
       RAILS_LOG_TO_STDOUT: '1',
-      DB_URL_PARAM: pooledDbUrlParamName,
-      SECRET_KEY_BASE: getParam('secret_key_base'),
+      SECRET_KEY_BASE_PARAM: runtimeSecretParamNames.secretKeyBase,
       FACEBOOK_ID: getParam('facebook_id'),
-      FACEBOOK_SECRET: getParam('facebook_secret'),
+      FACEBOOK_SECRET_PARAM: runtimeSecretParamNames.facebookSecret,
       FACEBOOK_CALLBACK_URL: getParam('facebook_callback_url'),
       FACEBOOK_WEB_LOGIN_WORKAROUND: String(props.facebookWebLoginWorkaround ?? false),
       BREVO_LOGIN: getParam('brevo_login'),
-      BREVO_PASSWORD: getParam('brevo_password'),
-      TASK_PASSWORD: getParam('task_password'),
+      BREVO_PASSWORD_PARAM: runtimeSecretParamNames.brevoPassword,
+      DOMAIN: customDomain,
+    };
+
+    // Request-only configuration belongs on the HTTP API Lambda, not the
+    // administrative Ops Lambda.
+    const apiContainerEnvironment = {
+      ...railsBootEnvironment,
+      DB_URL_PARAM: pooledDbUrlParamName,
       GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
       GA_API_SECRET_PARAM: gaApiSecretParamName,
       CLOUDFRONT_ORIGIN_AUTH_PARAM: cloudFrontOriginAuthParamName,
       SCHENGEN_AGENT_AUTH_PARAM: agentAuthParamName,
-      DOMAIN: customDomain
     };
 
     const opsContainerEnvironment = {
-      ...apiContainerEnvironment,
+      ...railsBootEnvironment,
       DB_URL_PARAM: directDbUrlParamName,
       PGCONNECT_TIMEOUT: '10',
     };
@@ -140,23 +154,22 @@ export class HttpApiConstruct extends Construct {
 
     apiFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
-      actions: ['ssm:GetParameter'],
+      actions: ['ssm:GetParameter', 'ssm:GetParameters'],
       resources: [
         gaApiSecretParamArn,
         cloudFrontOriginAuthParamArn,
         agentAuthParamArn,
         pooledDbUrlParamArn,
+        ...runtimeSecretParamArns,
       ]
     }));
 
     opsFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
-      actions: ['ssm:GetParameter'],
+      actions: ['ssm:GetParameters'],
       resources: [
-        gaApiSecretParamArn,
-        cloudFrontOriginAuthParamArn,
-        agentAuthParamArn,
         directDbUrlParamArn,
+        ...runtimeSecretParamArns,
       ]
     }));
 

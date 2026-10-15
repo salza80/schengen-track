@@ -44,15 +44,6 @@ Rails.application.routes.draw do
     get 'privacy' => 'about#privacy'
     get 'datadeletion' => 'about#datadeletion'
     
-    get 'fix_people_migration' => 'tasks#fix_people_migration'
-    get 'unlock_migrations' => 'tasks#unlock_migrations'
-    get 'unlock_and_migrate' => 'tasks#unlock_and_migrate'
-    get 'migrate' => 'tasks#migrate'
-    get 'create' => 'tasks#create'
-    get 'seed' => 'tasks#seed'
-    get 'update_countries' => 'tasks#update_countries'
-    get 'guest_cleanup' => 'tasks#guest_cleanup'
-
     devise_for :users, skip: :omniauth_callbacks, controllers: {
       registrations: 'users/registrations',
       sessions: 'users/sessions'

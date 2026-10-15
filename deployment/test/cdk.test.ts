@@ -27,8 +27,60 @@ test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', 
   expect(opsFunction).toBeDefined();
   expect(apiFunction.Properties.Environment.Variables.DB_URL).toBeUndefined();
   expect(opsFunction.Properties.Environment.Variables.DB_URL).toBeUndefined();
-  expect(apiFunction.Properties.Environment.Variables.DB_URL_PARAM).toBe('/test/db_pooler_url');
-  expect(opsFunction.Properties.Environment.Variables.DB_URL_PARAM).toBe('/test/db_direct_url');
+  expect(apiFunction.Properties.Environment.Variables.DB_URL_PARAM).toBe('/test/secrets/db_pooler_url');
+  expect(opsFunction.Properties.Environment.Variables.DB_URL_PARAM).toBe('/test/secrets/db_direct_url');
+});
+
+test('Rails Lambdas receive runtime secret parameter names instead of secret values', () => {
+  const functions = Object.entries(resources).filter(([, resource]: [string, any]) =>
+    resource.Type === 'AWS::Lambda::Function') as [string, any][];
+  const railsFunctions = functions
+    .filter(([logicalId]) => logicalId.includes('HttpApiFunction') || logicalId.includes('HttpOpsFunction'))
+    .map(([, resource]) => resource);
+  const expectedParameters = {
+    RAILS_MASTER_KEY_PARAM: '/test/secrets/rails_master_key',
+    SECRET_KEY_BASE_PARAM: '/test/secrets/secret_key_base',
+    FACEBOOK_SECRET_PARAM: '/test/secrets/facebook_secret',
+    BREVO_PASSWORD_PARAM: '/test/secrets/brevo_password',
+  };
+
+  expect(railsFunctions).toHaveLength(2);
+  for (const fn of railsFunctions) {
+    const environment = fn.Properties.Environment.Variables;
+    for (const secretName of ['RAILS_MASTER_KEY', 'SECRET_KEY_BASE', 'FACEBOOK_SECRET', 'BREVO_PASSWORD', 'TASK_PASSWORD', 'TASK_PASSWORD_PARAM']) {
+      expect(environment[secretName]).toBeUndefined();
+    }
+    expect(environment).toEqual(expect.objectContaining(expectedParameters));
+  }
+});
+
+test('Ops Lambda excludes request-only secrets from its environment and IAM policy', () => {
+  const functions = Object.entries(resources).filter(([, resource]: [string, any]) =>
+    resource.Type === 'AWS::Lambda::Function') as [string, any][];
+  const opsFunction = functions.find(([logicalId]) => logicalId.includes('HttpOpsFunction'))?.[1];
+  const environment = opsFunction.Properties.Environment.Variables;
+
+  for (const variableName of [
+    'GA_MEASUREMENT_ID',
+    'GA_API_SECRET_PARAM',
+    'CLOUDFRONT_ORIGIN_AUTH_PARAM',
+    'SCHENGEN_AGENT_AUTH_PARAM',
+  ]) {
+    expect(environment[variableName]).toBeUndefined();
+  }
+
+  const policies = Object.entries(resources).filter(([, resource]: [string, any]) =>
+    resource.Type === 'AWS::IAM::Policy') as [string, any][];
+  const opsPolicy = policies.find(([logicalId]) => logicalId.includes('HttpOpsFunctionServiceRoleDefaultPolicy'))?.[1];
+  const statements = opsPolicy.Properties.PolicyDocument.Statement;
+  const ssmStatement = statements.find((statement: any) =>
+    [statement.Action].flat().includes('ssm:GetParameters'));
+
+  expect([ssmStatement.Action].flat()).toEqual(['ssm:GetParameters']);
+  expect(ssmStatement.Resource).toContain('arn:aws:ssm:eu-central-1:123456789012:parameter/test/secrets/db_direct_url');
+  expect(ssmStatement.Resource).not.toContain('arn:aws:ssm:eu-central-1:123456789012:parameter/test/secrets/ga_api_secret');
+  expect(ssmStatement.Resource).not.toContain('arn:aws:ssm:eu-central-1:123456789012:parameter/test/cloudfront_origin_auth_header');
+  expect(ssmStatement.Resource).not.toContain('arn:aws:ssm:eu-central-1:123456789012:parameter/test/secrets/schengen_agent_auth_header');
 });
 
 test('Facebook web login workaround is off by default and can be explicitly enabled', () => {

@@ -1,6 +1,38 @@
 require 'test_helper'
 
 class PublicHeaderBrowserTest < JavascriptIntegrationTest
+  test 'anonymous main page header probe does not query the database' do
+    visit '/'
+    assert_selector '#public-user-menu'
+    assert_no_selector '#personDropdown'
+    assert page.evaluate_async_script(<<~JS)
+      const done = arguments[0];
+      const check = () => {
+        if (sessionStorage.getItem('session-header-probed') === '1') return done(true);
+        setTimeout(check, 25);
+      };
+      check();
+    JS
+
+    database_queries = []
+    subscriber = lambda do |_name, _started, _finished, _unique_id, payload|
+      database_queries << payload[:sql] unless payload[:cached]
+    end
+
+    status = ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record') do
+      page.evaluate_async_script(<<~JS)
+        const done = arguments[0];
+        const menu = document.getElementById('public-user-menu');
+        fetch(menu.dataset.sessionHeaderUrl, { credentials: 'same-origin', cache: 'no-store' })
+          .then(response => done(response.status))
+          .catch(() => done(-1));
+      JS
+    end
+
+    assert_equal 204, status
+    assert_empty database_queries
+  end
+
   test 'information alerts use the themed cool purple treatment' do
     user_login
     users(:Sally).people.where.not(id: people(:sally_person).id).destroy_all

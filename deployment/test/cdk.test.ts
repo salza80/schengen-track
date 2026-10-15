@@ -17,6 +17,20 @@ const behavior = (path: string) => config.CacheBehaviors.find((b: any) => b.Path
 const cacheConfig = (b: any) => resources[b.CachePolicyId.Ref].Properties.CachePolicyConfig;
 const originConfig = (b: any) => resources[b.OriginRequestPolicyId.Ref].Properties.OriginRequestPolicyConfig;
 
+test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', () => {
+  const functions = Object.entries(resources).filter(([, resource]: [string, any]) =>
+    resource.Type === 'AWS::Lambda::Function') as [string, any][];
+  const apiFunction = functions.find(([logicalId]) => logicalId.includes('HttpApiFunction'))?.[1];
+  const opsFunction = functions.find(([logicalId]) => logicalId.includes('HttpOpsFunction'))?.[1];
+
+  expect(apiFunction).toBeDefined();
+  expect(opsFunction).toBeDefined();
+  expect(apiFunction.Properties.Environment.Variables.DB_URL).toBeUndefined();
+  expect(opsFunction.Properties.Environment.Variables.DB_URL).toBeUndefined();
+  expect(apiFunction.Properties.Environment.Variables.DB_URL_PARAM).toBe('/test/db_pooler_url');
+  expect(opsFunction.Properties.Environment.Variables.DB_URL_PARAM).toBe('/test/db_direct_url');
+});
+
 test('Facebook web login workaround is off by default and can be explicitly enabled', () => {
   const railsFunctions = (items: any) => Object.values(items).filter((r: any) =>
     r.Type === 'AWS::Lambda::Function' && r.Properties.Environment?.Variables?.FACEBOOK_ID) as any[];

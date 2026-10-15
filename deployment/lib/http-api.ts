@@ -77,10 +77,14 @@ export class HttpApiConstruct extends Construct {
     const getParam = (paramName: string) => ssm.StringParameter.valueForStringParameter(
       this, `${props.paramPath}${paramName}`);
     const gaApiSecretParamName = `${props.paramPath}ga_api_secret`;
+    const pooledDbUrlParamName = `${props.paramPath}db_pooler_url`;
+    const directDbUrlParamName = `${props.paramPath}db_direct_url`;
     const ssmParamArn = (paramName: string) => `arn:aws:ssm:${Stack.of(this).region}:${Stack.of(this).account}:parameter${paramName}`;
     const gaApiSecretParamArn = ssmParamArn(gaApiSecretParamName);
     const cloudFrontOriginAuthParamArn = ssmParamArn(cloudFrontOriginAuthParamName);
     const agentAuthParamArn = ssmParamArn(agentAuthParamName);
+    const pooledDbUrlParamArn = ssmParamArn(pooledDbUrlParamName);
+    const directDbUrlParamArn = ssmParamArn(directDbUrlParamName);
 
 
     // Environment variables for Rails REST API container
@@ -89,7 +93,7 @@ export class HttpApiConstruct extends Construct {
       RAILS_ENV: 'production',
       RAILS_MASTER_KEY: getParam('rails_master_key'),
       RAILS_LOG_TO_STDOUT: '1',
-      DB_URL: getParam('db_url'),
+      DB_URL_PARAM: pooledDbUrlParamName,
       SECRET_KEY_BASE: getParam('secret_key_base'),
       FACEBOOK_ID: getParam('facebook_id'),
       FACEBOOK_SECRET: getParam('facebook_secret'),
@@ -107,6 +111,7 @@ export class HttpApiConstruct extends Construct {
 
     const opsContainerEnvironment = {
       ...apiContainerEnvironment,
+      DB_URL_PARAM: directDbUrlParamName,
       PGCONNECT_TIMEOUT: '10',
     };
 
@@ -140,6 +145,7 @@ export class HttpApiConstruct extends Construct {
         gaApiSecretParamArn,
         cloudFrontOriginAuthParamArn,
         agentAuthParamArn,
+        pooledDbUrlParamArn,
       ]
     }));
 
@@ -150,6 +156,7 @@ export class HttpApiConstruct extends Construct {
         gaApiSecretParamArn,
         cloudFrontOriginAuthParamArn,
         agentAuthParamArn,
+        directDbUrlParamArn,
       ]
     }));
 

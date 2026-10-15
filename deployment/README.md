@@ -34,23 +34,37 @@ PgBouncer endpoint while database administration keeps a direct connection.
 The Lambdas receive only the applicable parameter name and decrypt its value
 from Parameter Store during cold-start application boot:
 
-- `{paramPath}db_pooler_url` — pooled URL used by the HTTP API Lambda. Store
+- `{paramPath}secrets/db_pooler_url` — pooled URL used by the HTTP API Lambda. Store
   this credential-bearing value as a `SecureString`.
-- `{paramPath}db_direct_url` — direct URL used by the Ops Lambda for migrations,
+- `{paramPath}secrets/db_direct_url` — direct URL used by the Ops Lambda for migrations,
   country updates, and guest cleanup. Store this credential-bearing value as a
   `SecureString`.
 
-The legacy `{paramPath}db_url` parameter can remain in place during rollout and
-be removed after both environments have been deployed and verified.
+Other boot-time secrets are grouped under a `secrets/` hierarchy and loaded in
+the same batched cold-start request:
 
-- `{paramPath}ga_api_secret`
-- `{paramPath}schengen_agent_auth_header`
+- `{paramPath}secrets/rails_master_key`
+- `{paramPath}secrets/secret_key_base`
+- `{paramPath}secrets/facebook_secret`
+- `{paramPath}secrets/brevo_password`
+
+Secrets used on demand by Rails and the MCP Lambda use the same hierarchy:
+
+- `{paramPath}secrets/ga_api_secret`
+- `{paramPath}secrets/schengen_agent_auth_header`
+
+The legacy SecureString paths and plaintext parameters can remain in place
+during rollout and be removed after both environments have been deployed and
+verified.
 
 The CloudFront origin header must be an SSM String parameter because CloudFront origin custom headers do not support CloudFormation `ssm-secure` dynamic references:
 
 - `{paramPath}cloudfront_origin_auth_header`
 
-CDK passes the parameter names to Rails/MCP Lambdas and grants `ssm:GetParameter`; it does not put these values in Lambda environment variables.
+CDK passes parameter names to Rails/MCP Lambdas and grants access only to the
+required parameter ARNs. Rails retrieves boot-time secrets with one
+`ssm:GetParameters` request and retains them only in the running process. Secret
+values are not stored in CloudFormation or Lambda environment configuration.
 
 ## Common commands
 

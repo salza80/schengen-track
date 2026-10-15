@@ -23,4 +23,3 @@ jobs:
       stack_name: SchengTrackProd
       cloudfront_distribution_id: E1KF4KLAR0V084
       recache_urls_file: urls-prod.txt
-    secrets: inherit

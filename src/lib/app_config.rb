@@ -42,10 +42,6 @@ class AppConfig
       fetch_optional('BREVO_PASSWORD')
     end
 
-    def task_password
-      fetch_optional('TASK_PASSWORD')
-    end
-
     def google_analytics_measurement_id
       fetch_optional('GA_MEASUREMENT_ID') || 'G-E9CCZDHLJF'
     end

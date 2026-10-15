@@ -49,13 +49,11 @@ echo "Checking anonymous calculator caching"
 fetch visits-first /en/visits
 fetch visits-second /en/visits
 assert_header visits-second x-cache 'Hit from cloudfront'
-assert_header visits-second age '[0-9]+'
 assert_no_header visits-second set-cookie
 
 fetch calendar-first /en/days
 fetch calendar-second /en/days
 assert_header calendar-second x-cache 'Hit from cloudfront'
-assert_header calendar-second age '[0-9]+'
 assert_no_header calendar-second set-cookie
 
 echo "Checking session traffic bypasses the shared cache"

@@ -46,6 +46,9 @@ jobs:
           role-session-name: schengen-track-deploy-${{ github.run_id }}
           mask-aws-account-id: true
 
+      - name: Log in to Amazon ECR Public
+        run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+
       - name: Install CDK
         run: npm install -g aws-cdk@2.1145.0
 

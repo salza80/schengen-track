@@ -8,6 +8,7 @@ on:
       - "src/**"
       - "deployment/**"
       - "mcp-server/**"
+      - ".github/workflows/deploy-app.yml"
       - ".github/workflows/deploy-stage.yml"
       - ".github/workflows/test-suite.yml"
   pull_request:
@@ -17,6 +18,7 @@ on:
       - "src/**"
       - "deployment/**"
       - "mcp-server/**"
+      - ".github/workflows/deploy-app.yml"
       - ".github/workflows/deploy-stage.yml"
       - ".github/workflows/test-suite.yml"
 

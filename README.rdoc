@@ -306,7 +306,7 @@ To provision a new environment:
 === GitHub Actions workflow
 
 Two workflows drive deployments:
-* Deploy-Staging (push to master) → deploys the `RailsLambdaStack` stack
+* Deploy-Staging (same-repository pull requests and pushes to master) → deploys the shared `RailsLambdaStack` staging stack. Staging deployments are serialized so each smoke test checks the version its workflow deployed.
 * Deploy-Prod (manual dispatch) → deploys the `SchengTrackProd` stack
 
 Each workflow performs the following steps in the `deploy` job:
@@ -318,7 +318,7 @@ Each workflow performs the following steps in the `deploy` job:
 
 Guest cleanup runs separately through the scheduled or manually dispatched GitHub Actions workflow, which invokes the Ops Lambda directly.
 
-After application and database tasks succeed, the `cacheInvalidate` job updates `/schengen/deployment-timestamp`, issues a CloudFront invalidation, and pre-warms key URLs.
+After application and database tasks succeed, the `cacheInvalidate` job updates `/schengen/deployment-timestamp`, issues a CloudFront invalidation, runs focused checks against the deployed site, and pre-warms key URLs. A failed smoke check or cache warm-up fails the deployment workflow.
 
 === Manual task execution
 

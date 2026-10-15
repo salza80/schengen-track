@@ -17,6 +17,9 @@ on:
         required: false
         type: string
         default: ''
+      smoke_base_url:
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -132,6 +135,12 @@ jobs:
           CLOUDFRONT_DISTRIBUTION_ID: ${{ inputs.cloudfront_distribution_id }}
           INVALIDATION_ID: ${{ steps.cloudfront_invalidation.outputs.invalidationId }}
         run: aws cloudfront wait invalidation-completed --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --id "$INVALIDATION_ID"
+
+      - name: Run deployed smoke tests
+        env:
+          SMOKE_BASE_URL: ${{ inputs.smoke_base_url }}
+        run: ./deployed_smoke_test.sh "$SMOKE_BASE_URL"
+        working-directory: ./deployment/scripts
 
       - name: Recache main urls
         if: ${{ inputs.recache_urls_file != '' }}

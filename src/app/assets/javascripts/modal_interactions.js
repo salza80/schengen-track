@@ -57,8 +57,19 @@
       var $button = $(buttonSelector);
       if (!$form.length || $button.prop('disabled')) return;
 
+      var form = $form.get(0);
+      if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+        if (typeof form.reportValidity === 'function') form.reportValidity();
+        return;
+      }
+
       $button.prop('disabled', true);
-      $form.submit();
+      if (typeof form.requestSubmit === 'function') form.requestSubmit();
+      else {
+        var submitEvent = document.createEvent('Event');
+        submitEvent.initEvent('submit', true, true);
+        if (form.dispatchEvent(submitEvent)) form.submit();
+      }
     },
 
     bindSubmissionReset: function(formSelector, buttonSelector) {

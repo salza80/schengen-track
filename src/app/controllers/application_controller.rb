@@ -189,7 +189,8 @@ class ApplicationController < ActionController::Base
   def selected_calculator_nationality
     return @selected_calculator_nationality if defined?(@selected_calculator_nationality)
 
-    @selected_calculator_nationality = Country.find_by(id: session[:calculator_nationality_id])
+    country_id = session[:calculator_nationality_id]
+    @selected_calculator_nationality = country_id.present? ? Country.find_by(id: country_id) : nil
   end
 
   def render_calculator_nationality_required(open_trip: false)

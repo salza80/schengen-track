@@ -31,6 +31,20 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_nil cookies['_schengen_track_session']
   end
 
+  test 'header endpoint does not query the database without calculator state' do
+    database_queries = []
+    subscriber = lambda do |_name, _started, _finished, _unique_id, payload|
+      database_queries << payload[:sql] unless payload[:cached]
+    end
+
+    ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record') do
+      get '/en/session_header'
+    end
+
+    assert_response :no_content
+    assert_empty database_queries
+  end
+
   test 'nationality-only calculator state keeps its hint without rendering a person menu' do
     patch calculator_preferences_path(locale: :en), params: {
       nationality_id: countries(:India).id,

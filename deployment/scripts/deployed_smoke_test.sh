@@ -59,9 +59,12 @@ assert_header calendar-second age '[0-9]+'
 assert_no_header calendar-second set-cookie
 
 echo "Checking session traffic bypasses the shared cache"
-fetch visits-session /en/visits -H 'Cookie: has_calculator_session=1'
-assert_header visits-session x-cache 'Miss from cloudfront'
-assert_no_header visits-session age
+fetch visits-session-first /en/visits -H 'Cookie: has_calculator_session=1'
+fetch visits-session-second /en/visits -H 'Cookie: has_calculator_session=1'
+assert_header visits-session-first x-cache 'Miss from cloudfront'
+assert_no_header visits-session-first age
+assert_header visits-session-second x-cache 'Miss from cloudfront'
+assert_no_header visits-session-second age
 
 echo "Checking private session endpoints"
 session_status="$(curl --silent --show-error --compressed \

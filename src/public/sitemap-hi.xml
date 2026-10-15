@@ -31,10 +31,12 @@
   <url>
     <loc>https://schengen-calculator.com/hi/visits</loc>
     <priority>0.90</priority>
+    <lastmod>2026-10-16</lastmod>
   </url>
   <url>
     <loc>https://schengen-calculator.com/hi/days</loc>
     <priority>0.85</priority>
+    <lastmod>2026-10-16</lastmod>
   </url>
 
 </urlset>

@@ -1,6 +1,7 @@
 class DaysController < ApplicationController
   include VisitCleanup
-  before_action :set_private_calculator_cache
+  include CalculatorIndexCache
+  before_action :set_private_calculator_cache, except: :index
   
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
@@ -225,37 +226,6 @@ class DaysController < ApplicationController
     @og_image = "https://#{request.host_with_port}#{image_path}"
     @og_site_name = I18n.t('common.schengen_calculator')
     
-    # JSON-LD already exists in layout for days#index - enhance it with FAQ
-    @json_ld_faq = {
-      "@context" => "https://schema.org",
-      "@type" => "FAQPage",
-      "mainEntity" => [
-        {
-          "@type" => "Question",
-          "name" => I18n.t('about.about.faq.q1.question'),
-          "acceptedAnswer" => {
-            "@type" => "Answer",
-            "text" => I18n.t('about.about.faq.q1.answer')
-          }
-        },
-        {
-          "@type" => "Question",
-          "name" => I18n.t('about.about.faq.q3.question'),
-          "acceptedAnswer" => {
-            "@type" => "Answer",
-            "text" => I18n.t('about.about.countries_in_schengen')
-          }
-        },
-        {
-          "@type" => "Question",
-          "name" => I18n.t('days.learn_about_rule'),
-          "acceptedAnswer" => {
-            "@type" => "Answer",
-            "text" => I18n.t('days.meta_description')
-          }
-        }
-      ]
-    }
   end
   
 end

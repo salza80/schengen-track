@@ -1,4 +1,5 @@
-= form_for @visit, html: { class: "form-horizontal" }, remote: true do |f|
+- visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale) : visits_path(locale: I18n.locale, format: :js)
+= form_for @visit, url: visit_form_url, html: { class: "form-horizontal" }, remote: true do |f|
   - if @visit.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
       %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}

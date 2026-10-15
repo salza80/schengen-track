@@ -51,7 +51,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
       destination: 'trips'
     }
     follow_redirect!
-    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+    assert_equal '1', cookies[:has_calculator_session]
 
     assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
 

@@ -17,13 +17,14 @@ es:
     legend_waiting: Período de espera
     max_days_reached: Máximo
     max_remaining_days: Días máximos restantes - Es el tiempo máximo que puedes permanecer en el área Schengen si vuelves a entrar en este día.
-    meta_description: Calendario visual que muestra sus estadías en el Área Schengen. Rastree la regla 90/180 días con días codificados por colores. Vea viajes pasados, planifique visitas futuras y monitoree sus días restantes en Europa.
+    meta_description: Calendario Schengen visual para calcular la regla de 90/180 días. Añada viajes, consulte los días utilizados y planifique su próxima entrada.
     need_help: "¿Necesita ayuda para entender la regla?"
     next_entry_options: Fechas de reingreso más tempranas
     no_visa_entered: No se ha ingresado visa
     no_visits_this_year: Sin visitas en %{year}
     overstay_na: N/A
     overstay_tooltip: Ha excedido los 90/180 días
+    page_description: Use este calendario Schengen interactivo para registrar viajes, calcular su límite móvil de 90/180 días y planificar futuros desplazamientos.
     page_title: Calculadora de Días 90/180 Schengen
     schengen_days_in_year: Días en Schengen
     schengen_no: 'No'

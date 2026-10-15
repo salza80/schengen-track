@@ -5,6 +5,7 @@ class DaysControllerTest < ActionController::TestCase
   
   setup do
     @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.cookies['has_calculator_session'] = '1'
   end
 
   # ====================

@@ -30,11 +30,11 @@
   <!-- German Secondary Pages -->
   <url>
     <loc>https://schengen-calculator.com/de/visits</loc>
-    <priority>0.30</priority>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://schengen-calculator.com/de/days</loc>
-    <priority>0.30</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://schengen-calculator.com/de/disclaimer</loc>

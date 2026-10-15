@@ -333,7 +333,19 @@
       self.currentVisitId = null; // Clear current visit ID
       if ($('#visitModal').is('[data-nationality-required]')) {
         var $preferenceForm = $('#visitModal .calculator-nationality-form');
-        $preferenceForm.find('input[name="entry_date"], input[name="exit_date"]').remove();
+        $preferenceForm.find('input[name="entry_date"], input[name="exit_date"], input[data-viewer-continuation="true"]').remove();
+        var viewerParams = new URLSearchParams(window.location.search);
+        ['year', 'month', 'day'].forEach(function(name) {
+          var value = viewerParams.get(name);
+          if (!value) return;
+
+          var $input = $preferenceForm.find('input[name="' + name + '"]');
+          if ($input.length) {
+            $input.val(value);
+          } else {
+            $preferenceForm.append($('<input>', { type: 'hidden', name: name, value: value, 'data-viewer-continuation': 'true' }));
+          }
+        });
         if (entryDate) {
           $preferenceForm.append($('<input>', { type: 'hidden', name: 'entry_date', value: entryDate }));
         }

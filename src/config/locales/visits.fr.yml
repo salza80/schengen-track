@@ -28,7 +28,7 @@ fr:
     max_stay_label: 'Séjour maximum :'
     max_stay_next_visit_constraint: "(limité par la prochaine entrée le %{date})"
     max_stay_schengen_constraint: "(limité par la règle Schengen 90/180)"
-    meta_description: Suivez et gérez toutes vos visites dans l'espace Schengen. Surveillez la conformité avec la règle 90/180 jours, ajoutez des voyages passés, planifiez des voyages futurs et calculez les jours restants.
+    meta_description: Gérez vos voyages dans l'espace Schengen et suivez la règle des 90/180 jours. Ajoutez vos séjours passés et futurs et calculez les jours restants.
     modify: Modifier
     multi: Multiple
     nationality_set_to: Votre nationalité est définie comme %{nationality}. %{settings_link} si nécessaire.

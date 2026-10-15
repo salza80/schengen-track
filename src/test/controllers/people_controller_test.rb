@@ -37,6 +37,14 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form'
   end
 
+  test 'anonymous visitors cannot access person edit pages discovered by crawlers' do
+    sign_out @user
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get edit_person_url(@person, locale: 'en')
+    end
+  end
+
   test 'should create person' do
     assert_difference('Person.count') do
       post people_url(locale: 'en'), params: {

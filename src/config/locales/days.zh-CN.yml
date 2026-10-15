@@ -17,13 +17,14 @@ zh-CN:
     legend_waiting: 等待期
     max_days_reached: 峰值
     max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
-    meta_description: 显示您申根区逗留的可视化日历。使用颜色编码的日期追踪90/180天规则。查看过去的旅行、计划未来的访问并监控您在欧洲的剩余天数。
+    meta_description: 使用可视化申根日历计算90/180天规则。添加过去和未来的旅行，查看已使用天数，并规划下次入境日期。
     need_help: 需要帮助理解规则吗？
     next_entry_options: 最早再入境日期
     no_visa_entered: 未输入签证
     no_visits_this_year: "%{year}年无访问"
     overstay_na: 不适用
     overstay_tooltip: 您已超过90/180天规定
+    page_description: 使用此交互式申根日历记录旅行、计算滚动90/180天停留额度，并规划未来行程。
     page_title: 申根90/180天计算器
     schengen_days_in_year: 在申根区的天数
     schengen_no: 否

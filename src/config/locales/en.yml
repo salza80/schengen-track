@@ -121,7 +121,8 @@ en:
       overstay: "+%{count} %{unit}"
       per_limit: "/%{limit} %{unit}"
       wait: "⏱%{count} %{unit}"
-    meta_description: Visual calendar showing your Schengen Area stays. Track the 90/180 day rule with color-coded days. See past trips, plan future visits, and monitor your remaining days in Europe.
+    meta_description: Visual Schengen calendar for tracking the 90/180-day rule. Add past and future trips, calculate days used, and plan when to enter again.
+    page_description: Use this interactive Schengen 90/180 day calendar to record trips, calculate your rolling allowance, and plan future travel.
     page_title: Schengen Calendar
   default_description: Calculate your Schengen visa-free days with our free 90/180 day tracker. Track the rolling 180-day rule for 29 European countries. Start planning your Europe trip today!
   default_title: Schengen Calculator | Track 90/180 Day Rule | Free Visa Calculator

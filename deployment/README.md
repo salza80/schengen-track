@@ -90,6 +90,7 @@ npx cdk synth RailsLambdaStack
 Public HTML behaviors exclude query parameters from both the cache key and
 origin requests. Keep these policies aligned: forwarding an unkeyed parameter
 that changes a response can cache that response for unrelated visitors.
+The same rule applies to response-format headers such as `Accept`.
 Dynamic and authentication behaviors continue forwarding query parameters.
 The shared GitHub Actions test suite runs the CDK template assertions with Jest.
 
@@ -102,6 +103,14 @@ Keep personalized details, flash messages, and CSRF tokens out of public HTML.
 Redirects set a non-sensitive `has_flash_message` hint so the same uncached
 endpoint delivers notices once, even after logout or account deletion. Messages
 are rendered with the shared notice partial and consumed only by that request.
+
+Anonymous Trips and Calendar index pages are also edge cached: 15 minutes in
+staging and 24 hours in production, with stale delivery available for up to
+seven days. Requests carrying `_schengen_track_session` or
+`has_calculator_session` bypass the shared variant and receive private,
+non-cacheable responses. Public forms obtain a fresh session and CSRF token from
+the uncached `/:locale/csrf_token` endpoint immediately before their first
+submission. Calendar cache entries vary only by a normalized `year` query.
 
 The JavaScript-readable `has_calculator_session` cookie is only a hint to load
 the menu, not authorization. Older sessions are discovered by one probe per tab;

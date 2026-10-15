@@ -122,6 +122,15 @@
         window.location.href = '/' + locale + '/days?year=' + year + '&month=' + month + '&day=' + day;
       });
 
+      // CloudFront intentionally does not forward Trips query parameters to
+      // Rails. Continue the Add Travel flow from the viewer URL instead.
+      var continuation = new URLSearchParams(window.location.search);
+      if (continuation.get('open') === 'trip') {
+        continuation.delete('open');
+        window.history.replaceState({}, '', window.location.pathname + (continuation.toString() ? '?' + continuation.toString() : ''));
+        self.openAddVisitModal();
+      }
+
     },
     
     // Open ADD visit modal

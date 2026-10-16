@@ -22,7 +22,8 @@ export interface HttpApiConstructProps {
   altDomain: string,
   sslArn: string,
   paramPath: string,
-  facebookWebLoginWorkaround?: boolean
+  facebookWebLoginWorkaround?: boolean,
+  publicCalculatorCacheTtlSeconds?: number
 }
 /**
  * CDK construct to create API Gateway HTTP API with Lambda proxy integration 2.0
@@ -61,6 +62,7 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
+    const publicCalculatorCacheTtlSeconds = props.publicCalculatorCacheTtlSeconds ?? 86400;
     const cloudFrontOriginAuthParamName = `${props.paramPath}cloudfront_origin_auth_header`;
     const agentAuthParamName = `${props.paramPath}secrets/schengen_agent_auth_header`;
     // CloudFront origin custom headers do not support ssm-secure dynamic
@@ -107,6 +109,7 @@ export class HttpApiConstruct extends Construct {
       FACEBOOK_SECRET_PARAM: runtimeSecretParamNames.facebookSecret,
       FACEBOOK_CALLBACK_URL: getParam('facebook_callback_url'),
       FACEBOOK_WEB_LOGIN_WORKAROUND: String(props.facebookWebLoginWorkaround ?? false),
+      PUBLIC_CALCULATOR_CACHE_TTL: String(publicCalculatorCacheTtlSeconds),
       BREVO_LOGIN: getParam('brevo_login'),
       BREVO_PASSWORD_PARAM: runtimeSecretParamNames.brevoPassword,
       DOMAIN: customDomain,
@@ -217,6 +220,19 @@ export class HttpApiConstruct extends Construct {
         'Access-Control-Request-Method', 
         'Access-Control-Request-Headers',
         'Accept',
+        'Content-Type',
+        'X-Requested-With',
+        'Referer',
+        'X-Schengen-Client-Ip'
+      );
+    // The calculator indexes share one HTML cache variant. Do not forward
+    // content-negotiation headers such as Accept unless they are also part of
+    // the cache key, or a CSV response could populate the HTML cache entry.
+    const calculatorIndexOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
+        'Origin',
+        'Access-Control-Request-Method',
+        'Access-Control-Request-Headers',
+        'Content-Type',
         'X-Requested-With',
         'Referer',
         'X-Schengen-Client-Ip'
@@ -238,6 +254,12 @@ export class HttpApiConstruct extends Construct {
     const sessionHeaderRequestPolicy = new cloudfront.OriginRequestPolicy(this, "sessionHeaderRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.none(),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session', 'has_flash_message'),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
+    });
+
+    const calculatorIndexRequestPolicy = new cloudfront.OriginRequestPolicy(this, "calculatorIndexRequestPolicy", {
+      headerBehavior: calculatorIndexOriginHeaders,
+      cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     });
 
@@ -299,6 +321,28 @@ export class HttpApiConstruct extends Construct {
       maxTtl: cdk.Duration.days(1)
     })
 
+    const calculatorCachePolicyProps = {
+      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
+      cookieBehavior: cloudfront.CacheCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session'),
+      enableAcceptEncodingBrotli: true,
+      enableAcceptEncodingGzip: true,
+      minTtl: cdk.Duration.seconds(0),
+      defaultTtl: cdk.Duration.seconds(publicCalculatorCacheTtlSeconds),
+      // Maximum TTL caps both fresh and stale delivery. Add the fresh window
+      // so the full seven-day stale period remains available.
+      maxTtl: cdk.Duration.seconds(publicCalculatorCacheTtlSeconds + cdk.Duration.days(7).toSeconds()),
+    };
+
+    const tripsIndexCachePolicy = new cloudfront.CachePolicy(this, "tripsIndexCachePolicy", {
+      ...calculatorCachePolicyProps,
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
+    });
+
+    const calendarIndexCachePolicy = new cloudfront.CachePolicy(this, "calendarIndexCachePolicy", {
+      ...calculatorCachePolicyProps,
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList('year'),
+    });
+
     // Cache policy for authenticated user pages to enable text compression (Brotli/Gzip) without actual caching
     // This solves Lighthouse "Document request latency" warnings by compressing HTML/CSS/JS responses
     // TTL is set to 0-1 seconds so CloudFront applies compression but doesn't cache dynamic content
@@ -317,6 +361,18 @@ export class HttpApiConstruct extends Construct {
     //stop browser caching files that are cached in cloudfront to ensure invalidation works
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
       removeHeaders: ['Set-Cookie'],
+      customHeadersBehavior: {
+        customHeaders: [{
+          header: 'Cache-Control',
+          value: 'no-cache, no-store, must-revalidate',
+          override: true
+        }]
+      }
+    });
+
+    // Calculator index responses can be public or session-specific. Keep them
+    // out of the browser cache without stripping cookies from private responses.
+    const calculatorNoBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "calculatorNoBrowserCache", {
       customHeadersBehavior: {
         customHeaders: [{
           header: 'Cache-Control',
@@ -381,6 +437,35 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: sessionHeaderRequestPolicy,
+      functionAssociations
+    };
+
+    const csrfTokenBehavior = {
+      origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: customOriginRequestPolicy,
+      functionAssociations
+    };
+
+    const tripsIndexBehavior = {
+      origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: tripsIndexCachePolicy,
+      originRequestPolicy: calculatorIndexRequestPolicy,
+      responseHeadersPolicy: calculatorNoBrowserCachePolicy,
+      functionAssociations
+    };
+
+    const calendarIndexBehavior = {
+      origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: calendarIndexCachePolicy,
+      originRequestPolicy: calculatorIndexRequestPolicy,
+      responseHeadersPolicy: calculatorNoBrowserCachePolicy,
       functionAssociations
     };
 
@@ -450,6 +535,12 @@ export class HttpApiConstruct extends Construct {
         "/*/users/*": authFlowBehavior,
         "/session_header": sessionHeaderBehavior,
         "/*/session_header": sessionHeaderBehavior,
+        "/csrf_token": csrfTokenBehavior,
+        "/*/csrf_token": csrfTokenBehavior,
+        "/visits": tripsIndexBehavior,
+        "/*/visits": tripsIndexBehavior,
+        "/days": calendarIndexBehavior,
+        "/*/days": calendarIndexBehavior,
         "assets/*": publicAssetsCacheBehavior,
         "/": publicHtmlBehavior,
         "/en": publicHtmlBehavior,

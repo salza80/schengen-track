@@ -16,6 +16,15 @@ const config = distribution.Properties.DistributionConfig;
 const behavior = (path: string) => config.CacheBehaviors.find((b: any) => b.PathPattern === path);
 const cacheConfig = (b: any) => resources[b.CachePolicyId.Ref].Properties.CachePolicyConfig;
 const originConfig = (b: any) => resources[b.OriginRequestPolicyId.Ref].Properties.OriginRequestPolicyConfig;
+const responseConfig = (b: any) => resources[b.ResponseHeadersPolicyId.Ref].Properties.ResponseHeadersPolicyConfig;
+const viewerRequestHandler = () => {
+  const functionResource = Object.values(resources).find((r: any) => r.Type === 'AWS::CloudFront::Function') as any;
+  return new Function(`${functionResource.Properties.FunctionCode}; return handler;`)();
+};
+const viewerRequest = (uri: string, querystring: any = {}, host = 'example.com') => ({
+  request: { uri, querystring, headers: { host: { value: host } } },
+  viewer: { ip: '192.0.2.1' }
+});
 
 test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', () => {
   const functions = Object.entries(resources).filter(([, resource]: [string, any]) =>
@@ -124,6 +133,151 @@ test('personalized menus are never edge cached and receive the real session', ()
     expect(originConfig(b).CookiesConfig.Cookies).toContain('has_flash_message');
     expect(b.ResponseHeadersPolicyId).toBeUndefined();
   }
+});
+
+test('calculator indexes use exact session-aware cache behaviours', () => {
+  const calculatorPaths = ['/visits', '/*/visits', '/days', '/*/days'];
+  for (const path of calculatorPaths) {
+    const headers = originConfig(behavior(path)).HeadersConfig.Headers.map((header: string) => header.toLowerCase());
+    expect(headers).toContain('content-type');
+    expect(headers).not.toContain('accept');
+  }
+
+  for (const path of calculatorPaths.slice(0, 2)) {
+    const b = behavior(path);
+    const policy = cacheConfig(b);
+    expect(policy.MinTTL).toBe(0);
+    expect(policy.DefaultTTL).toBe(86400);
+    expect(policy.MaxTTL).toBe(691200);
+    expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('whitelist');
+    expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.Cookies).toEqual(
+      expect.arrayContaining(['_schengen_track_session', 'has_calculator_session'])
+    );
+    expect(policy.ParametersInCacheKeyAndForwardedToOrigin.QueryStringsConfig.QueryStringBehavior).toBe('none');
+    expect(b.AllowedMethods).toEqual(expect.arrayContaining(['GET', 'HEAD', 'POST', 'PATCH', 'DELETE']));
+    expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('none');
+    expect(originConfig(b).CookiesConfig.CookieBehavior).toBe('none');
+    expect(responseConfig(b).RemoveHeadersConfig).toBeUndefined();
+    expect(responseConfig(b).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
+      Header: 'Cache-Control',
+      Value: 'no-cache, no-store, must-revalidate',
+      Override: true
+    }));
+  }
+
+  for (const path of calculatorPaths.slice(2)) {
+    const b = behavior(path);
+    const policy = cacheConfig(b);
+    expect(policy.MinTTL).toBe(0);
+    expect(policy.DefaultTTL).toBe(86400);
+    expect(policy.MaxTTL).toBe(691200);
+    expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.Cookies).toEqual(
+      expect.arrayContaining(['_schengen_track_session', 'has_calculator_session'])
+    );
+    expect(policy.ParametersInCacheKeyAndForwardedToOrigin.QueryStringsConfig.QueryStringBehavior).toBe('whitelist');
+    expect(policy.ParametersInCacheKeyAndForwardedToOrigin.QueryStringsConfig.QueryStrings).toEqual(['year']);
+    expect(b.AllowedMethods).toEqual(['GET', 'HEAD']);
+    expect(responseConfig(b).RemoveHeadersConfig).toBeUndefined();
+    expect(responseConfig(b).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
+      Header: 'Cache-Control',
+      Value: 'no-cache, no-store, must-revalidate',
+      Override: true
+    }));
+  }
+});
+
+test('CSRF bootstrap routes are never edge cached', () => {
+  for (const path of ['/csrf_token', '/*/csrf_token']) {
+    const b = behavior(path);
+    expect(b.CachePolicyId).toBe('4135ea2d-6df8-44a3-9df3-4b5a84be39ad');
+    expect(originConfig(b).CookiesConfig.Cookies).toContain('_schengen_track_session');
+    expect(b.ResponseHeadersPolicyId).toBeUndefined();
+  }
+});
+
+test('calendar viewer requests normalize and isolate the year query', () => {
+  const handler = viewerRequestHandler();
+  const currentYear = new Date().getUTCFullYear();
+
+  expect(handler(viewerRequest('/en/days', { month: { value: '4' } })).querystring).toEqual({
+    year: { value: String(currentYear) }
+  });
+  expect(handler(viewerRequest('/en/days', { guest_calculation: { value: 'signed--token' } }))).toEqual(
+    expect.objectContaining({ uri: '/calculations/signed--token', querystring: {} })
+  );
+  expect(handler(viewerRequest('/days', {
+    year: { value: '9999' },
+    month: { value: '4' },
+    utm_source: { value: 'bot' }
+  })).querystring).toEqual({ year: { value: String(currentYear + 20) } });
+  expect(handler(viewerRequest('/en/visits', { open: { value: 'trip' } })).querystring).toEqual({
+    open: { value: 'trip' }
+  });
+});
+
+test('viewer requests permanently redirect legacy Portuguese URLs to pt-BR', () => {
+  const handler = viewerRequestHandler();
+
+  expect(handler(viewerRequest('/pt'))).toEqual(expect.objectContaining({
+    statusCode: 301,
+    headers: { location: { value: 'https://example.com/pt-BR' } }
+  }));
+  expect(handler(viewerRequest('/pt/'))).toEqual(expect.objectContaining({
+    statusCode: 301,
+    headers: { location: { value: 'https://example.com/pt-BR' } }
+  }));
+  expect(handler(viewerRequest('/pt/days', {
+    year: { value: '2027' },
+    month: { value: '4' }
+  }))).toEqual(expect.objectContaining({
+    statusCode: 301,
+    headers: { location: { value: 'https://example.com/pt-BR/days?year=2027&month=4' } }
+  }));
+  expect(handler(viewerRequest('/pt/about/Brazilian', {}, 'www.example.com'))).toEqual(expect.objectContaining({
+    statusCode: 301,
+    headers: { location: { value: 'https://example.com/pt-BR/about/Brazilian' } }
+  }));
+});
+
+test('alternate hostname redirects preserve query parameters', () => {
+  const handler = viewerRequestHandler();
+  const response = handler(viewerRequest('/about', {
+    nationality: { value: 'New Zealander' },
+    source: { multiValue: [{ value: 'one' }, { value: 'two' }] }
+  }, 'www.example.com'));
+
+  expect(response).toEqual(expect.objectContaining({
+    statusCode: 301,
+    headers: {
+      location: {
+        value: 'https://example.com/about?nationality=New%20Zealander&source=one&source=two'
+      }
+    }
+  }));
+});
+
+test('staging can use a shorter calculator fresh TTL', () => {
+  const staging = new RailsLambdaStack(new cdk.App(), 'ShortCalculatorCacheTest', {
+    env: { account: '123456789012', region: 'eu-central-1' },
+    domain: 'test.example.com',
+    altDomain: 'test2.example.com',
+    sslArn: 'arn:aws:acm:us-east-1:123456789012:certificate/test',
+    paramPath: '/test/',
+    publicCalculatorCacheTtlSeconds: 900
+  });
+  const stagingResources = Template.fromStack(staging).toJSON().Resources;
+  const policies = Object.values(stagingResources)
+    .filter((resource: any) => resource.Type === 'AWS::CloudFront::CachePolicy')
+    .map((resource: any) => resource.Properties.CachePolicyConfig);
+  const calculatorPolicies = policies.filter((policy: any) =>
+    policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.Cookies?.includes('has_calculator_session'));
+  expect(calculatorPolicies).toHaveLength(2);
+  expect(calculatorPolicies.every((policy: any) => policy.DefaultTTL === 900)).toBe(true);
+  expect(calculatorPolicies.every((policy: any) => policy.MaxTTL === 605700)).toBe(true);
+
+  const apiFunction = Object.entries(stagingResources)
+    .find(([logicalId, resource]: [string, any]) => logicalId.includes('HttpApiFunction') && resource.Type === 'AWS::Lambda::Function')?.[1] as any;
+  expect(apiFunction.Properties.Environment.Variables.PUBLIC_CALCULATOR_CACHE_TTL).toBe('900');
 });
 
 test('dynamic and authentication requests still forward query parameters', () => {

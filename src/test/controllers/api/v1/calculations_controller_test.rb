@@ -21,11 +21,11 @@ module Api
         assert_equal 20, body['days_used']
         assert_equal 70, body['days_remaining']
         assert_equal false, body['overstay']
-        assert_match %r{\Ahttp://www.example.com/en/days\?guest_calculation=}, body['web_url']
+        assert_match %r{\Ahttp://www.example.com/calculations/[^/?]+\z}, body['web_url']
         refute_includes body['web_url'], 'year='
         refute_includes body['web_url'], 'month='
         refute_includes body['web_url'], 'day='
-        assert_includes body['web_url'], 'guest_calculation='
+        refute_includes body['web_url'], 'guest_calculation='
         assert_equal body['web_url'], body['claim_url']
         assert_includes body['user_message'], body['web_url']
         assert_includes body['user_message'], 'view, review, edit, or save'
@@ -33,7 +33,7 @@ module Api
         assert_equal 'DE', body.dig('trips', 0, 'country_code')
 
         user = User.order(:created_at).last
-        guest_token = Rack::Utils.parse_query(URI.parse(body['web_url']).query).fetch('guest_calculation')
+        guest_token = URI.parse(body['web_url']).path.split('/').last
         assert_equal guest_token, body['calculation_id']
         refute_equal "guest_#{user.id}", body['calculation_id']
         assert user.is_guest?
@@ -174,8 +174,7 @@ module Api
              params: calculation_payload,
              as: :json
 
-        uri = URI.parse(JSON.parse(response.body)['web_url'])
-        guest_token = Rack::Utils.parse_query(uri.query).fetch('guest_calculation')
+        guest_token = JSON.parse(response.body).fetch('calculation_id')
 
         get days_path(locale: I18n.default_locale, guest_calculation: guest_token)
 
@@ -274,7 +273,7 @@ module Api
 
         body = JSON.parse(response.body)
         assert_equal 'safe', body['status']
-        assert_match %r{\Ahttp://www.example.com/en/days\?guest_calculation=}, body['web_url']
+        assert_match %r{\Ahttp://www.example.com/calculations/[^/?]+\z}, body['web_url']
         assert_match(/\Aagent_guest_/, User.order(:created_at).last.email)
       end
 

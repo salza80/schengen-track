@@ -154,13 +154,3 @@
 
 :javascript
   (adsbygoogle = window.adsbygoogle || []).push({});
-
-- if params[:open] == 'trip'
-  :javascript
-    window.addEventListener('load', function() {
-      var continuation = new URLSearchParams(window.location.search);
-      continuation.delete('open');
-      window.history.replaceState({}, '', window.location.pathname + (continuation.toString() ? '?' + continuation.toString() : ''));
-      var addTravelButton = document.querySelector('[data-action="add-visit"]');
-      if (addTravelButton) addTravelButton.click();
-    }, { once: true });

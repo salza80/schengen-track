@@ -1,10 +1,16 @@
 -# Breadcrumb navigation and schema (hidden but accessible)
-- breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }]
+- breadcrumbs = [{ name: t('common.home'), url: seo_url('/', locale: I18n.locale) }, { name: t('days.page_title'), url: seo_canonical_url }]
 .sr-only-heading
   = render_breadcrumbs(breadcrumbs)
-  %h1= t('days.page_title')
+  - unless anonymous_calculator?
+    %h1= t('days.page_title')
 
-.calendar-view-container
+- if anonymous_calculator?
+  .calendar-public-intro.mt-4.mb-3
+    %h1.h3.mb-2= t('days.page_title')
+    %p.lead.mb-0= t('days.page_description')
+
+.calendar-view-container{data: {selected_year: @selected_year}}
   -# Hidden data element for scroll target
   - if @scroll_to_month
     #calendar-scroll-target{data: {month: @scroll_to_month, day: @scroll_to_day}, style: 'display:none'}

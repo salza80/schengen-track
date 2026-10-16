@@ -2,6 +2,20 @@ require 'test_helper'
 require Rails.root.join('lambda_http')
 
 class LambdaHttpTest < ActiveSupport::TestCase
+  test 'serves the OpenAPI document directly from the Lambda adapter' do
+    event = {
+      'requestContext' => {
+        'stage' => '$default',
+        'http' => { 'method' => 'GET', 'path' => '/openapi.json' }
+      }
+    }
+
+    response = handler(event: event, context: nil)
+
+    assert_equal 200, response['statusCode']
+    assert_equal '3.1.0', JSON.parse(response['body']).fetch('openapi')
+  end
+
   test 'client ip prefers CloudFront viewer header over forwarded chain' do
     http = { 'sourceIp' => '198.51.100.10' }
     headers = {

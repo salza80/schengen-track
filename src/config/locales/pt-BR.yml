@@ -121,7 +121,8 @@ pt-BR:
       overstay: "+%{count} %{unit}"
       per_limit: "/%{limit} %{unit}"
       wait: "⏱%{count} %{unit}"
-    meta_description: Calendário visual mostrando suas estadias na Área Schengen. Rastreie a regra de 90/180 dias com dias codificados por cores. Veja viagens passadas, planeje visitas futuras e monitore seus dias restantes na Europa.
+    meta_description: Calendário Schengen visual para calcular a regra dos 90/180 dias. Adicione viagens, consulte os dias utilizados e planeje sua próxima entrada.
+    page_description: Use este calendário Schengen interativo para registrar viagens, calcular seu limite móvel de 90/180 dias e planejar viagens futuras.
     page_title: Calendário Schengen
   default_description: Calcule seus dias de isenção de visto Schengen com nossa ferramenta gratuita de rastreamento 90/180 dias. Rastreie a regra contínua de 180 dias para 29 países europeus. Comece a planejar sua viagem pela Europa hoje!
   default_title: Calculadora Schengen | Rastreie a Regra 90/180 Dias | Calculadora de Visto Gratuita

@@ -29,16 +29,12 @@
         var notices = document.getElementById('public-notices');
         if (notices && data.notice_html) notices.innerHTML = data.notice_html;
         if (data.html) container.innerHTML = data.html;
-        if (!data.csrf_token) return;
-        [['csrf-param', 'authenticity_token'], ['csrf-token', data.csrf_token]].forEach(function (entry) {
-          var meta = document.querySelector('meta[name="' + entry[0] + '"]');
-          if (!meta) {
-            meta = document.createElement('meta');
-            meta.name = entry[0];
-            document.head.appendChild(meta);
-          }
-          meta.content = entry[1];
-        });
+        if (data.csrf_token && window.CsrfBootstrap) {
+          window.CsrfBootstrap.installToken({
+            param: 'authenticity_token',
+            token: data.csrf_token
+          });
+        }
       })
       .catch(function () { /* Keep the public navigation usable on failure. */ });
   }

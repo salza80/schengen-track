@@ -145,7 +145,7 @@ module AgentCalculations
     end
 
     def calendar_path_for(_person, token)
-      url_helpers.days_path(locale: I18n.default_locale, guest_calculation: token)
+      url_helpers.calculation_link_path(token)
     end
 
     def status_for(calc, days_used)

@@ -355,6 +355,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
   test 'first trip save replaces anonymous nationality selector with person menu' do
     visit '/en/visits'
+    assert_no_selector '.calculator-nationality-form input[name="authenticity_token"]', visible: :all
     select 'India', from: 'calculator_nationality_selector'
     assert_selector 'select[name="nationality_id"] option[selected]', text: 'India'
 
@@ -418,6 +419,45 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_no_selector '#visitModal.show'
     assert_selector '.empty-state [data-action="add-visit"]:focus'
     assert_equal add_travel_button, page.active_element
+  end
+
+  test 'calendar nationality step preserves viewer month and day hidden by the edge cache' do
+    visit '/en/days?year=2027&month=4&day=12'
+
+    # CloudFront forwards only the normalized year to Rails, so the cached
+    # form contains blank month/day fields even though they remain in the
+    # viewer URL.
+    page.execute_script(<<~JS)
+      document.querySelector('#visitModal input[name="month"]').value = '';
+      document.querySelector('#visitModal input[name="day"]').value = '';
+    JS
+
+    find('.day-cell[data-date="2027-04-12"]').click
+    assert_selector '#visitModal.show', text: I18n.t('common.choose_nationality', locale: :en)
+
+    within '#visitModal' do
+      assert_equal '4', find('input[name="month"]', visible: :all).value
+      assert_equal '12', find('input[name="day"]', visible: :all).value
+      select 'India', from: 'calculator_nationality_step'
+      click_button I18n.t('common.continue', locale: :en)
+    end
+
+    assert_selector '#visitModal.show', text: I18n.t('visits.add_record', locale: :en), wait: 10
+    viewer_params = Rack::Utils.parse_query(URI.parse(page.current_url).query)
+    assert_equal({ 'year' => '2027', 'month' => '4', 'day' => '12' }, viewer_params)
+  end
+
+  test 'invalid calendar viewer dates do not stop keyboard navigation' do
+    visit '/en/days?year=2027&month=%22%5D&day=12'
+
+    page.execute_script(<<~JS)
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
+    JS
+
+    assert_current_path '/en/days?year=2026', wait: 10
+    navigated_url = URI.parse(page.current_url)
+    assert_equal '/en/days', navigated_url.path
+    assert_equal({ 'year' => '2026' }, Rack::Utils.parse_query(navigated_url.query))
   end
 
   test 'person selector closes when a calendar control handles an outside click' do

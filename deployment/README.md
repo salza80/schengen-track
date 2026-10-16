@@ -1,15 +1,14 @@
 # Schengen Calculator CDK
 
-Infrastructure for the Lambda-based Rails app lives in this directory. The stacks are written in TypeScript (AWS CDK v2) and package the Rails code as container-based Lambda functions.
+The TypeScript CDK stacks create the Rails HTTP and Ops Lambdas, MCP Lambda,
+API Gateways, and CloudFront distribution.
 
-## Pre-requisites
+## Prerequisites
 
-- Node.js 24.21.0 (`.nvmrc` is provided)
-- AWS CDK CLI v2.1145.0 (`npm install -g aws-cdk@2.1145.0`)
+- Node.js (`.nvmrc` is provided)
 - Docker (needed to build the Lambda container images)
-- Bootstrapped environment: `cdk bootstrap aws://<account>/eu-central-1`
 
-Install dependencies with:
+Run commands in this guide from `deployment/`. Install dependencies with:
 
 ```bash
 nvm use
@@ -20,99 +19,100 @@ npm ci
 
 | Stack | Purpose |
 | --- | --- |
-| `RailsLambdaStack` | Staging infrastructure (HTTP API, CloudFront distribution, Ops Lambda, SSM outputs). |
-| `SchengTrackProd` | Production infrastructure (identical resources targeting production domains). |
+| `RailsLambdaStack` | Staging at `test.schengen-calculator.com`, with a 15-minute anonymous calculator cache. |
+| `SchengTrackProd` | Production at `schengen-calculator.com`, with a 24-hour anonymous calculator cache. |
 
-Both stacks output the CloudFront distribution domain (`CloudFrontUrl`) and the Ops Lambda name (`OpsLambdaFunctionName`). The GitHub Actions workflows rely on these logical IDs—avoid renaming them without updating the workflows.
+The deployment workflows resolve the `OpsLambdaFunctionName` stack output to
+run database operations.
 
-## Required Parameter Store Values
+## Parameter Store
 
-The stacks expect environment-scoped SSM parameters under `paramPath` (`/scheng/staging/` or `/scheng/prod/`). Runtime-only secrets should be stored as SecureString parameters:
+The stacks expect environment-scoped SSM parameters under `paramPath`
+(`/scheng/staging/` or `/scheng/prod/`). Configure these ordinary parameters:
 
-Rails database connections use separate URLs so request traffic can use Neon's
-PgBouncer endpoint while database administration keeps a direct connection.
-The Lambdas receive only the applicable parameter name and decrypt its value
-from Parameter Store during cold-start application boot:
+- `{paramPath}facebook_id` — Facebook App ID.
+- `{paramPath}facebook_callback_url` — OAuth callback URL for the environment.
+- `{paramPath}brevo_login` — Brevo SMTP username.
 
-- `{paramPath}secrets/db_pooler_url` — pooled URL used by the HTTP API Lambda. Store
-  this credential-bearing value as a `SecureString`.
+Store runtime secrets as `SecureString` parameters. Request traffic uses Neon's
+pooled endpoint, while administrative database work uses a direct connection:
+
+- `{paramPath}secrets/db_pooler_url` — pooled URL used by the HTTP API Lambda.
 - `{paramPath}secrets/db_direct_url` — direct URL used by the Ops Lambda for migrations,
-  country updates, and guest cleanup. Store this credential-bearing value as a
-  `SecureString`.
+  country updates, and guest cleanup.
 
-Other boot-time secrets are grouped under a `secrets/` hierarchy and loaded in
-the same batched cold-start request:
+Other boot-time secrets:
 
 - `{paramPath}secrets/rails_master_key`
 - `{paramPath}secrets/secret_key_base`
 - `{paramPath}secrets/facebook_secret`
 - `{paramPath}secrets/brevo_password`
 
-Secrets used on demand by Rails and the MCP Lambda use the same hierarchy:
+Secrets loaded on demand:
 
 - `{paramPath}secrets/ga_api_secret`
 - `{paramPath}secrets/schengen_agent_auth_header`
 
-The legacy SecureString paths and plaintext parameters can remain in place
-during rollout and be removed after both environments have been deployed and
-verified.
-
-The CloudFront origin header must be an SSM String parameter because CloudFront origin custom headers do not support CloudFormation `ssm-secure` dynamic references:
+The CloudFront origin header must be an SSM `String` because CloudFront origin
+custom headers do not support `ssm-secure` dynamic references. Use a
+high-entropy value:
 
 - `{paramPath}cloudfront_origin_auth_header`
 
-CDK passes parameter names to Rails/MCP Lambdas and grants access only to the
-required parameter ARNs. Rails retrieves boot-time secrets with one
-`ssm:GetParameters` request and retains them only in the running process. Secret
-values are not stored in CloudFormation or Lambda environment configuration.
+CDK injects the Facebook and Brevo non-secret values directly. For
+`SecureString` values it passes only parameter names, grants access to the
+required ARNs, and fetches the values at runtime. Boot-time secrets are fetched
+together and retained only in the running process.
 
-## Common commands
+GitHub Actions authenticates to AWS through OIDC and reads the
+`AWS_DEFAULT_REGION` repository variable. The current stacks use
+`eu-central-1`; bootstrap the target account before its first deployment.
+
+## CDK commands
 
 ```bash
 # Diff a stack against deployed state
 npx cdk diff RailsLambdaStack
 
-# Deploy staging stack
-npx cdk deploy RailsLambdaStack --require-approval never
-
-# Deploy production stack
-npx cdk deploy SchengTrackProd --require-approval never
-
-# Run tests (Jest)
-npm test
+# Compile and test
+npm run build
+npm test -- --runInBand
 
 # Synthesize CloudFormation template
 npx cdk synth RailsLambdaStack
 ```
 
-## Modifying stacks
+## Deployment workflows
 
-Public HTML behaviors exclude query parameters from both the cache key and
-origin requests. Keep these policies aligned: forwarding an unkeyed parameter
-that changes a response can cache that response for unrelated visitors.
-Dynamic and authentication behaviors continue forwarding query parameters.
-The shared GitHub Actions test suite runs the CDK template assertions with Jest.
+Two GitHub Actions workflows deploy the application:
 
-Root, About, blog, and legal pages are session-free and publicly cached for one
-hour, separately by locale in the URL. They never create guest users. All pages
-share the same header template; only the user menu is loaded separately on public
-pages from `/:locale/session_header`. That endpoint is explicitly uncached, reads
-only an existing session, and returns the shared user-menu partial and CSRF token.
-Keep personalized details, flash messages, and CSRF tokens out of public HTML.
-Redirects set a non-sensitive `has_flash_message` hint so the same uncached
-endpoint delivers notices once, even after logout or account deletion. Messages
-are rendered with the shared notice partial and consumed only by that request.
+- `Deploy-Staging` deploys `RailsLambdaStack` for same-repository pull requests
+  and pushes to `master`. Runs are serialized so smoke tests inspect the version
+  deployed by their workflow.
+- `Deploy-Prod` manually deploys `SchengTrackProd`.
 
-The JavaScript-readable `has_calculator_session` cookie is only a hint to load
-the menu, not authorization. Older sessions are discovered by one probe per tab;
-an absent/deleted session returns 204 without creating users or people. Calculator
-pages continue rendering the personalized menu directly. Deployments must
-invalidate existing CloudFront HTML to remove old person links from the cache
-(the deployment workflow already invalidates `/*`).
+Each deployment builds and deploys the CDK stack, resolves its
+`OpsLambdaFunctionName` output, and invokes the private Ops Lambda to run database
+migrations and update country data. Guest cleanup runs through its separate
+scheduled or manually dispatched workflow.
 
-1. Update the TypeScript sources under `lib/`.
-2. Run `npm test` to execute unit tests (if present).
-3. Use `npx cdk diff <stack>` to review the impact.
-4. Deploy the stack.
+After the application and database operations succeed, the workflow updates the
+deployment timestamp in Parameter Store, invalidates `/*` in CloudFront, waits
+for completion, runs deployed smoke tests, and pre-warms the configured URLs.
+Any failed smoke test or cache warm-up fails the workflow.
 
-Remember that Lambda images are built from `../src`; any Ruby changes require rebuilding and redeploying the stack.
+## Cache invariants
+
+- Root, About, blog, and legal pages are session-free and publicly cached for
+  one hour by localized URL.
+- Anonymous Trips and Calendar pages are cached for 15 minutes in staging and
+  24 hours in production. Requests with a Rails session or calculator-session
+  hint bypass the anonymous cache. Calendar entries vary only by normalized
+  `year`.
+- On public pages, personalized menus, notices, and CSRF tokens come from
+  uncached endpoints. Never put user data or CSRF tokens in cached HTML.
+- Forms on cached pages fetch a CSRF token immediately before their first
+  submission.
+- Keep origin forwarding aligned with cache keys: never forward an unkeyed
+  value that can change a cached response.
+- Deployments invalidate `/*`, run smoke tests, and then warm configured URLs.

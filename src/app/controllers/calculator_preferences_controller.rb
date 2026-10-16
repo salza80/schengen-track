@@ -2,6 +2,7 @@ class CalculatorPreferencesController < ApplicationController
   before_action :set_private_calculator_cache
   def update
     destination = %w[trips calendar].include?(params[:destination]) ? params[:destination] : 'trips'
+    nationality_selected = false
 
     if anonymous_calculator?
       nationality = Country.find_by(id: params[:nationality_id])
@@ -11,8 +12,10 @@ class CalculatorPreferencesController < ApplicationController
       end
 
       session[:calculator_nationality_id] = nationality.id
+      nationality_selected = true
     end
 
+    set_session_hint if nationality_selected
     redirect_to destination_path(destination)
   end
 

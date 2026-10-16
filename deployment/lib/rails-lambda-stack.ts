@@ -7,7 +7,8 @@ export interface RailsLambdaStackProps extends cdk.StackProps {
   sslArn: string,
   paramPath: string,
   altDomain: string,
-  facebookWebLoginWorkaround?: boolean
+  facebookWebLoginWorkaround?: boolean,
+  publicCalculatorCacheTtlSeconds?: number
 }
 
 export class RailsLambdaStack extends cdk.Stack {
@@ -18,7 +19,8 @@ export class RailsLambdaStack extends cdk.Stack {
       altDomain: props.altDomain,
       sslArn: props.sslArn,
       paramPath: props.paramPath,
-      facebookWebLoginWorkaround: props.facebookWebLoginWorkaround
+      facebookWebLoginWorkaround: props.facebookWebLoginWorkaround,
+      publicCalculatorCacheTtlSeconds: props.publicCalculatorCacheTtlSeconds
     });
   }
 }

@@ -28,7 +28,7 @@ tr:
     max_stay_label: 'Maksimum kalış süresi:'
     max_stay_next_visit_constraint: "(%{date} tarihindeki sonraki giriş ile sınırlı)"
     max_stay_schengen_constraint: "(Schengen 90/180 kuralı ile sınırlı)"
-    meta_description: Tüm Schengen Bölgesi ziyaretlerinizi takip edin ve yönetin. 90/180 gün kuralına uygunluğu izleyin, geçmiş gezileri ekleyin, gelecek seyahatleri planlayın ve kalan günleri hesaplayın.
+    meta_description: Schengen seyahatlerinizi yönetin ve 90/180 gün kuralını takip edin. Geçmiş ve gelecek ziyaretleri ekleyip kalan günlerinizi hesaplayın.
     modify: Düzenle
     multi: Çoklu
     nationality_set_to: Uyruğunuz %{nationality} olarak ayarlanmıştır. Gerekirse %{settings_link}.

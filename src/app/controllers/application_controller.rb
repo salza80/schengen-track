@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
     ETIAS_FEE_SOURCE_URL
   ].freeze
 
-  before_action :restore_guest_calculation
-  before_action :sync_session_hint_cookie, unless: :task_controller?
+  before_action :restore_guest_calculation, unless: :public_static_page?
+  before_action :sync_session_hint_cookie, unless: -> { task_controller? || public_static_page? }
   after_action :set_flash_hint
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -105,6 +105,7 @@ class ApplicationController < ActionController::Base
 
   def current_user_or_guest_user
     return @current_user_or_guest_user if defined?(@current_user_or_guest_user)
+    return @current_user_or_guest_user = nil if public_static_page?
 
     @current_user_or_guest_user = current_user || guest_user
   end
@@ -132,6 +133,10 @@ class ApplicationController < ActionController::Base
 
   def task_controller?
     controller_name == 'tasks'
+  end
+
+  def public_static_page?
+    @public_static_page == true
   end
 
   def restore_guest_calculation
@@ -188,6 +193,7 @@ class ApplicationController < ActionController::Base
 
   def selected_calculator_nationality
     return @selected_calculator_nationality if defined?(@selected_calculator_nationality)
+    return @selected_calculator_nationality = nil if public_static_page?
 
     country_id = session[:calculator_nationality_id]
     @selected_calculator_nationality = country_id.present? ? Country.find_by(id: country_id) : nil
@@ -247,7 +253,7 @@ class ApplicationController < ActionController::Base
   def sync_session_hint_cookie
     user = current_user_or_guest_user
     if user || selected_calculator_nationality
-      set_session_hint
+      set_session_hint unless cookies[:has_calculator_session] == '1'
     elsif cookies[:has_calculator_session].present?
       clear_session_hint
     end

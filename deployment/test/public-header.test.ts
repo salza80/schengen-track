@@ -14,7 +14,11 @@ async function runHeader(cookie: string, status: number, probed = false, fail = 
     if (fail) throw new Error('offline');
     return { status, ok: status === 200, json: async () => payload };
   });
+  const installToken = jest.fn((data: any) => {
+    meta['meta[name="csrf-token"]'] = { content: data.token };
+  });
   vm.runInNewContext(script, {
+    window: { CsrfBootstrap: { installToken } },
     document: {
       cookie, readyState: 'complete',
       getElementById: (id: string) => id === 'public-user-menu' ? menu : id === 'public-notices' ? notices : null,
@@ -29,7 +33,7 @@ async function runHeader(cookie: string, status: number, probed = false, fail = 
     fetch
   });
   await new Promise(resolve => setImmediate(resolve));
-  return { menu, notices, meta, storage, fetch };
+  return { menu, notices, meta, storage, fetch, installToken };
 }
 
 test('existing sessions replace only the menu and install the session CSRF token', async () => {
@@ -37,6 +41,7 @@ test('existing sessions replace only the menu and install the session CSRF token
   expect(result.fetch).toHaveBeenCalledWith('/fr/session_header', { credentials: 'same-origin', cache: 'no-store' });
   expect(result.menu.innerHTML).toBe('Personal menu');
   expect(result.meta['meta[name="csrf-token"]'].content).toBe('session-token');
+  expect(result.installToken).toHaveBeenCalledWith({ param: 'authenticity_token', token: 'session-token' });
 });
 
 test('legacy sessions can load without the new hint', async () => {

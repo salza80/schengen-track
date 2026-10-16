@@ -24,14 +24,16 @@ module ApplicationHelper
   end
 
   def seo_canonical_url
-    seo_localized_urls.fetch(I18n.locale.to_sym)
+    seo_url(locale: I18n.locale)
+  end
+
+  def seo_url(path = request.path, locale: I18n.locale)
+    "https://#{request.host_with_port}#{seo_canonical_path(path, locale: locale)}"
   end
 
   def seo_localized_urls
-    origin = "https://#{request.host_with_port}"
-
     I18n.available_locales.index_with do |locale|
-      "#{origin}#{seo_canonical_path(locale: locale)}"
+      seo_url(locale: locale)
     end
   end
 

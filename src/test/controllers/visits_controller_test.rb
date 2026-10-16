@@ -4,6 +4,7 @@ class VisitsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
   
   setup do
+    @request.cookies['has_calculator_session'] = '1'
     login
     @visit = visits(:one)
   end

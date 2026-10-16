@@ -33,6 +33,13 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'new trip form posts to an explicit JavaScript endpoint' do
+    get new_visit_path(locale: :en, format: :js), xhr: true
+
+    assert_response :success
+    assert_match %r{action=\\?"/en/visits\.js\\?"}, response.body
+  end
+
   test 'nationality preference survives calendar redirect without creating records' do
     assert_no_difference(['User.count', 'Person.count']) do
       patch calculator_preferences_path(locale: :en), params: {
@@ -46,7 +53,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to days_path(locale: :en, year: '2027', month: '4', day: '12')
     follow_redirect!
-    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+    assert_equal '1', cookies[:has_calculator_session]
     assert_select 'select[name="nationality_id"]', count: 0
 
     get visits_path(locale: :en)
@@ -162,6 +169,8 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_select '#calculator_nationality_step[required] option:first-child[value=""]', text: I18n.t('common.select_nationality')
     assert_select '#calculator_nationality_step option[selected]', count: 0
     assert_select 'label[for="calculator_nationality_step"]', count: 1
+    assert_select 'form[data-csrf-bootstrap-url="/en/csrf_token"]', count: 2
+    assert_select 'input[name="authenticity_token"]', count: 0
     assert_select '[data-action="add-visa"]', count: 0
     assert_select '#nationality_id, #destination', count: 0
     assert_select '.guest-registration-card', count: 0
@@ -169,7 +178,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
 
   test 'persisted guests and signed-in users skip the nationality step' do
     sign_in users(:Sally)
-    get visits_path(locale: :en, open: 'trip')
+    get visits_path(locale: :en, open: 'trip'), headers: { 'Cookie' => 'has_calculator_session=1' }
     assert_select '#visitModal[data-nationality-required]', count: 0
     assert_select '.nationality-step-form', count: 0
     assert_select '.guest-registration-card', count: 0

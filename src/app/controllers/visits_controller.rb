@@ -1,6 +1,7 @@
 class VisitsController < ApplicationController
   include VisitCleanup
-  before_action :set_private_calculator_cache
+  include CalculatorIndexCache
+  before_action :set_private_calculator_cache, except: :index
   
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
@@ -415,6 +416,7 @@ class VisitsController < ApplicationController
       image_path = view_context.asset_path('schengen_area_eu_countries.webp')
       @og_image = "https://#{request.host_with_port}#{image_path}"
       @og_site_name = I18n.t('common.schengen_calculator')
+      localized_home_url = view_context.seo_url('/', locale: I18n.locale)
       
       # Structured data for visits page
       @json_ld_data = {
@@ -429,8 +431,8 @@ class VisitsController < ApplicationController
             {
               "@type" => "ListItem",
               "position" => 1,
-              "name" => "Home",
-              "item" => "https://#{request.host_with_port}/"
+              "name" => I18n.t('common.home'),
+              "item" => localized_home_url
             },
             {
               "@type" => "ListItem",
@@ -443,7 +445,7 @@ class VisitsController < ApplicationController
         "mainEntity" => {
           "@type" => "SoftwareApplication",
           "name" => I18n.t('common.schengen_calculator'),
-          "applicationCategory" => "UtilityApplication",
+          "applicationCategory" => "UtilitiesApplication",
           "description" => I18n.t('visits.page_description', default: I18n.t('default_description'))
         }
       }

@@ -49,15 +49,30 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Scroll to specific month if parameter is present (do this FIRST, before tooltips)
   var scrollTarget = document.querySelector('#calendar-scroll-target');
+  var calendarRoot = document.querySelector('.calendar-view-container');
+  var viewerParams = new URL(window.location.href).searchParams;
+
+  function normalizeCalendarPart(value, minimum, maximum) {
+    if (!/^\d{1,2}$/.test(value || '')) return null;
+
+    var number = parseInt(value, 10);
+    return number >= minimum && number <= maximum ? String(number) : null;
+  }
+
+  var viewerMonth = normalizeCalendarPart(viewerParams.get('month'), 1, 12);
+  var targetMonth = viewerMonth || normalizeCalendarPart(
+    scrollTarget && scrollTarget.getAttribute('data-month'),
+    1,
+    12
+  );
+  var targetDay = viewerMonth
+    ? normalizeCalendarPart(viewerParams.get('day'), 1, 31)
+    : normalizeCalendarPart(scrollTarget && scrollTarget.getAttribute('data-day'), 1, 31);
   
-  if (scrollTarget) {
-    var targetMonth = scrollTarget.getAttribute('data-month');
-    var targetDay = scrollTarget.getAttribute('data-day');
-    
-    if (targetMonth) {
+  if (targetMonth) {
       // If specific day is provided, scroll to and highlight it
       if (targetDay) {
-        var year = new URL(window.location.href).searchParams.get('year') || new Date().getFullYear();
+        var year = (calendarRoot && calendarRoot.getAttribute('data-selected-year')) || new Date().getFullYear();
         var month = targetMonth.padStart(2, '0');
         var day = targetDay.padStart(2, '0');
         var targetDate = year + '-' + month + '-' + day;
@@ -101,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
           }, 500); // Increased delay to 500ms
         }
       }
-    }
   }
   
   // Initialize Bootstrap tooltips on day cells (only if Bootstrap is available)
@@ -148,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
     currentDayCell.classList.add('current-day');
     
     // Only scroll to current day if we're NOT scrolling to a specific month
-    if (!scrollTarget) {
+    if (!targetMonth) {
       // Use requestAnimationFrame to batch layout reads and avoid forced reflow
       requestAnimationFrame(function() {
         setTimeout(function() {

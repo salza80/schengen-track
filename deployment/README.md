@@ -19,8 +19,8 @@ npm ci
 
 | Stack | Purpose |
 | --- | --- |
-| `RailsLambdaStack` | Staging at `test.schengen-calculator.com`, with a 15-minute anonymous calculator cache. |
-| `SchengTrackProd` | Production at `schengen-calculator.com`, with a 24-hour anonymous calculator cache. |
+| `RailsLambdaStack` | Staging at `test.schengen-calculator.com`, with a 30-day anonymous calculator cache. |
+| `SchengTrackProd` | Production at `schengen-calculator.com`, with a 30-day anonymous calculator cache. |
 
 The deployment workflows resolve the `OpsLambdaFunctionName` stack output to
 run database operations.
@@ -103,12 +103,14 @@ Any failed smoke test or cache warm-up fails the workflow.
 
 ## Cache invariants
 
-- Root, About, blog, and legal pages are session-free and publicly cached for
-  one hour by localized URL.
-- Anonymous Trips and Calendar pages are cached for 15 minutes in staging and
-  24 hours in production. Requests with a Rails session or calculator-session
-  hint bypass the anonymous cache. Calendar entries vary only by normalized
-  `year`.
+- Root, About, blog, legal, and SEO-document pages are session-free and publicly
+  cached for 30 days by localized URL.
+- Anonymous Trips and Calendar pages are cached for 30 days in staging and
+  production, with a seven-day stale fallback. Requests with a Rails session or
+  calculator-session hint bypass the anonymous cache. Calendar entries vary
+  only by normalized `year`.
+- Fingerprinted assets are cached immutably for one year. Fixed-name icons use
+  a seven-day edge and browser cache so they can change without renaming.
 - On public pages, personalized menus, notices, and CSRF tokens come from
   uncached endpoints. Never put user data or CSRF tokens in cached HTML.
 - Forms on cached pages fetch a CSRF token immediately before their first

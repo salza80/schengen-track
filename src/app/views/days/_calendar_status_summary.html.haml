@@ -9,9 +9,10 @@
           %h5.mb-1
             %i.fa{class: status_icon_class(@status_summary[:status]), "aria-hidden": "true"}
             = t('days.current_status')
-          %small.text-muted
+          %small.text-muted.calendar-current-date-container{class: ('d-none' if @public_calculator_page)}
             = t('common.as_of')
-            = l(Time.zone.today, format: :long)
+            %span.calendar-current-date
+              = l(Time.zone.today, format: :long) unless @public_calculator_page
           - tracked_people = current_user_or_guest_user&.people&.ordered&.to_a || []
           - if tracked_people.any?
             .mobile-status-person.mt-2
@@ -75,6 +76,7 @@
             = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm flex-grow-1" do
               %i.fa.fa-list.mr-1{"aria-hidden" => "true"}
               = t('days.view_table')
-            = link_to days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale), class: "btn btn-outline-primary btn-sm flex-grow-1" do
+            - jump_today_path = @public_calculator_page ? days_path(locale: I18n.locale) : days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale)
+            = link_to jump_today_path, class: "btn btn-outline-primary btn-sm flex-grow-1 calendar-jump-today" do
               %i.fa.fa-calendar-day.mr-1{"aria-hidden" => "true"}
               = t('days.jump_to_today')

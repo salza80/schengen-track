@@ -19,7 +19,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       assert_empty calculator_record_queries(database_queries),
                    "expected #{path} not to load users, people, trips, or visas"
       assert_includes response.headers['Cache-Control'], 'public'
-      assert_includes response.headers['Cache-Control'], 's-maxage=900'
+      assert_includes response.headers['Cache-Control'], 's-maxage=2592000'
       assert_includes response.headers['Cache-Control'], 'stale-while-revalidate=604800'
       assert_equal 'Cookie', response.headers['Vary']
       assert_nil response.headers['Set-Cookie']
@@ -29,6 +29,12 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       assert_select 'noscript input[type="submit"]', count: 0
       assert_select '#public-user-menu', count: 1
       assert_select '#personDropdown', count: 0
+      assert_select '.calendar-current-date', minimum: 1
+      assert_select '.calendar-jump-today', minimum: 1
+      assert css_select('.calendar-current-date').all? { |node| node.text.strip.empty? },
+             'expected public HTML to leave the current date for the browser to populate'
+      assert_select '.calendar-jump-today[href="/en/days"]', minimum: 1
+      assert_select '.day-cell.current-day', count: 0 if path.start_with?('/en/days')
 
       canonical_path = path.start_with?('/en/days') ? '/days' : '/visits'
       assert_select "link[rel=\"canonical\"][href=\"https://www.example.com#{canonical_path}\"]", count: 1

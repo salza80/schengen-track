@@ -7,7 +7,7 @@ module CalculatorIndexCache
   extend ActiveSupport::Concern
 
   SESSION_INDICATOR_COOKIES = %w[_schengen_track_session has_calculator_session].freeze
-  DEFAULT_EDGE_TTL = 15.minutes.to_i
+  DEFAULT_EDGE_TTL = 30.days.to_i
   STALE_TTL = 7.days.to_i
 
   included do

@@ -8,3 +8,4 @@
 //= require app
 //= require csrf_bootstrap
 //= require public_header
+//= require current_date

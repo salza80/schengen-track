@@ -62,7 +62,7 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
-    const publicCalculatorCacheTtlSeconds = props.publicCalculatorCacheTtlSeconds ?? 86400;
+    const publicCalculatorCacheTtlSeconds = props.publicCalculatorCacheTtlSeconds ?? cdk.Duration.days(30).toSeconds();
     const cloudFrontOriginAuthParamName = `${props.paramPath}cloudfront_origin_auth_header`;
     const agentAuthParamName = `${props.paramPath}secrets/schengen_agent_auth_header`;
     // CloudFront origin custom headers do not support ssm-secure dynamic
@@ -317,8 +317,8 @@ export class HttpApiConstruct extends Construct {
       enableAcceptEncodingBrotli: true,
       enableAcceptEncodingGzip: true,
       minTtl: cdk.Duration.seconds(0),
-      defaultTtl: cdk.Duration.hours(1),
-      maxTtl: cdk.Duration.days(1)
+      defaultTtl: cdk.Duration.days(30),
+      maxTtl: cdk.Duration.days(30)
     })
 
     const calculatorCachePolicyProps = {
@@ -382,7 +382,18 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    // Allow aggressive browser caching for static assets (fingerprinted, so safe to cache long-term)
+    const immutableAssetsCachePolicy = new cloudfront.CachePolicy(this, "immutableAssetsCachePolicy", {
+      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
+      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
+      enableAcceptEncodingBrotli: true,
+      enableAcceptEncodingGzip: true,
+      minTtl: cdk.Duration.seconds(0),
+      defaultTtl: cdk.Duration.days(365),
+      maxTtl: cdk.Duration.days(365)
+    });
+
+    // Allow aggressive browser caching for fingerprinted static assets.
     const assetsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "assetsBrowserCache", {
       customHeadersBehavior: {
         customHeaders: [{
@@ -393,6 +404,27 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
+    const namedAssetBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "namedAssetBrowserCache", {
+      customHeadersBehavior: {
+        customHeaders: [{
+          header: 'Cache-Control',
+          value: 'public, max-age=604800, must-revalidate',
+          override: true
+        }]
+      }
+    });
+
+    const namedAssetCachePolicy = new cloudfront.CachePolicy(this, "namedAssetCachePolicy", {
+      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
+      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
+      enableAcceptEncodingBrotli: true,
+      enableAcceptEncodingGzip: true,
+      minTtl: cdk.Duration.seconds(0),
+      defaultTtl: cdk.Duration.days(7),
+      maxTtl: cdk.Duration.days(7)
+    });
+
     const seoDocsCachePolicy = new cloudfront.CachePolicy(this, "seoDocsCache", {
       headerBehavior: cloudfront.CacheHeaderBehavior.none(),
       cookieBehavior: cloudfront.CacheCookieBehavior.none(),
@@ -400,8 +432,8 @@ export class HttpApiConstruct extends Construct {
       enableAcceptEncodingBrotli: true,
       enableAcceptEncodingGzip: true,
       minTtl: cdk.Duration.seconds(0),
-      maxTtl: cdk.Duration.days(1),
-      defaultTtl: cdk.Duration.hours(1)
+      maxTtl: cdk.Duration.days(30),
+      defaultTtl: cdk.Duration.days(30)
     });
 
     const seoDocsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "seoDocsBrowserCache", {
@@ -473,8 +505,17 @@ export class HttpApiConstruct extends Construct {
       origin: origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+      cachePolicy: immutableAssetsCachePolicy,
       responseHeadersPolicy: assetsBrowserCachePolicy,
+      functionAssociations
+    };
+
+    const publicNamedAssetCacheBehavior = {
+      origin: origin,
+      allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
+      viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      cachePolicy: namedAssetCachePolicy,
+      responseHeadersPolicy: namedAssetBrowserCachePolicy,
       functionAssociations
     };
 
@@ -568,8 +609,8 @@ export class HttpApiConstruct extends Construct {
         "/llms-full.txt": publicSeoDocsCacheBehavior,
         "/openapi.json": publicSeoDocsCacheBehavior,
         "/sitemap*": publicSeoDocsCacheBehavior,
-        "/favicon.ico": publicAssetsCacheBehavior,
-        "/med.png": publicAssetsCacheBehavior,
+        "/favicon.ico": publicNamedAssetCacheBehavior,
+        "/med.png": publicNamedAssetCacheBehavior,
         "/ads.txt": publicSeoDocsCacheBehavior
       }
     });

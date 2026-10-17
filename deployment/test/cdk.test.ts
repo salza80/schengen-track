@@ -117,10 +117,38 @@ test('Facebook web login workaround is off by default and can be explicitly enab
 test('public HTML ignores query parameters in both cache keys and origin requests', () => {
   for (const path of ['/', '/en', '/fr', '/ar', '/about*', '/*/about*', '/blog*', '/*/blog*']) {
     const b = behavior(path);
+    expect(cacheConfig(b).DefaultTTL).toBe(2592000);
+    expect(cacheConfig(b).MaxTTL).toBe(2592000);
     expect(cacheConfig(b).ParametersInCacheKeyAndForwardedToOrigin.QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(originConfig(b).CookiesConfig.CookieBehavior).toBe('none');
     expect(cacheConfig(b).ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('none');
+  }
+});
+
+test('fingerprinted and fixed-name assets use safe independent cache policies', () => {
+  const fingerprinted = behavior('assets/*');
+  const fingerprintedPolicy = cacheConfig(fingerprinted);
+  expect(fingerprintedPolicy.MinTTL).toBe(0);
+  expect(fingerprintedPolicy.DefaultTTL).toBe(31536000);
+  expect(fingerprintedPolicy.MaxTTL).toBe(31536000);
+  expect(responseConfig(fingerprinted).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
+    Header: 'Cache-Control',
+    Value: 'public, max-age=31536000, immutable',
+    Override: true
+  }));
+
+  for (const path of ['/favicon.ico', '/med.png']) {
+    const fixedName = behavior(path);
+    const fixedNamePolicy = cacheConfig(fixedName);
+    expect(fixedNamePolicy.MinTTL).toBe(0);
+    expect(fixedNamePolicy.DefaultTTL).toBe(604800);
+    expect(fixedNamePolicy.MaxTTL).toBe(604800);
+    expect(responseConfig(fixedName).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
+      Header: 'Cache-Control',
+      Value: 'public, max-age=604800, must-revalidate',
+      Override: true
+    }));
   }
 });
 
@@ -147,8 +175,8 @@ test('calculator indexes use exact session-aware cache behaviours', () => {
     const b = behavior(path);
     const policy = cacheConfig(b);
     expect(policy.MinTTL).toBe(0);
-    expect(policy.DefaultTTL).toBe(86400);
-    expect(policy.MaxTTL).toBe(691200);
+    expect(policy.DefaultTTL).toBe(2592000);
+    expect(policy.MaxTTL).toBe(3196800);
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('whitelist');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.Cookies).toEqual(
       expect.arrayContaining(['_schengen_track_session', 'has_calculator_session'])
@@ -169,8 +197,8 @@ test('calculator indexes use exact session-aware cache behaviours', () => {
     const b = behavior(path);
     const policy = cacheConfig(b);
     expect(policy.MinTTL).toBe(0);
-    expect(policy.DefaultTTL).toBe(86400);
-    expect(policy.MaxTTL).toBe(691200);
+    expect(policy.DefaultTTL).toBe(2592000);
+    expect(policy.MaxTTL).toBe(3196800);
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.Cookies).toEqual(
       expect.arrayContaining(['_schengen_track_session', 'has_calculator_session'])
     );
@@ -256,8 +284,8 @@ test('alternate hostname redirects preserve query parameters', () => {
   }));
 });
 
-test('staging can use a shorter calculator fresh TTL', () => {
-  const staging = new RailsLambdaStack(new cdk.App(), 'ShortCalculatorCacheTest', {
+test('calculator fresh TTL override is applied consistently', () => {
+  const overridden = new RailsLambdaStack(new cdk.App(), 'ShortCalculatorCacheTest', {
     env: { account: '123456789012', region: 'eu-central-1' },
     domain: 'test.example.com',
     altDomain: 'test2.example.com',
@@ -265,8 +293,8 @@ test('staging can use a shorter calculator fresh TTL', () => {
     paramPath: '/test/',
     publicCalculatorCacheTtlSeconds: 900
   });
-  const stagingResources = Template.fromStack(staging).toJSON().Resources;
-  const policies = Object.values(stagingResources)
+  const overriddenResources = Template.fromStack(overridden).toJSON().Resources;
+  const policies = Object.values(overriddenResources)
     .filter((resource: any) => resource.Type === 'AWS::CloudFront::CachePolicy')
     .map((resource: any) => resource.Properties.CachePolicyConfig);
   const calculatorPolicies = policies.filter((policy: any) =>
@@ -275,7 +303,7 @@ test('staging can use a shorter calculator fresh TTL', () => {
   expect(calculatorPolicies.every((policy: any) => policy.DefaultTTL === 900)).toBe(true);
   expect(calculatorPolicies.every((policy: any) => policy.MaxTTL === 605700)).toBe(true);
 
-  const apiFunction = Object.entries(stagingResources)
+  const apiFunction = Object.entries(overriddenResources)
     .find(([logicalId, resource]: [string, any]) => logicalId.includes('HttpApiFunction') && resource.Type === 'AWS::Lambda::Function')?.[1] as any;
   expect(apiFunction.Properties.Environment.Variables.PUBLIC_CALCULATOR_CACHE_TTL).toBe('900');
 });
@@ -289,12 +317,14 @@ test('dynamic and authentication requests still forward query parameters', () =>
 });
 
 test('legal pages and API docs share a session-free cache', () => {
-  for (const path of ['/disclaimer*', '/*/disclaimer*', '/privacy*', '/*/privacy*', '/datadeletion*', '/*/datadeletion*', '/api/docs']) {
+  for (const path of ['/disclaimer*', '/*/disclaimer*', '/privacy*', '/*/privacy*', '/datadeletion*', '/*/datadeletion*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const b = behavior(path);
     const policy = cacheConfig(b);
     expect(b.OriginRequestPolicyId).toBeUndefined();
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('none');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(policy.MinTTL).toBe(0);
+    expect(policy.DefaultTTL).toBe(2592000);
+    expect(policy.MaxTTL).toBe(2592000);
   }
 });

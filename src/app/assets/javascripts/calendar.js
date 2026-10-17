@@ -60,7 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   var viewerMonth = normalizeCalendarPart(viewerParams.get('month'), 1, 12);
-  var targetMonth = viewerMonth || normalizeCalendarPart(
+  var browserToday = new Date();
+  var selectedYear = calendarRoot && calendarRoot.getAttribute('data-selected-year');
+  var currentMonth = selectedYear === String(browserToday.getFullYear())
+    ? String(browserToday.getMonth() + 1)
+    : null;
+  var targetMonth = viewerMonth || currentMonth || normalizeCalendarPart(
     scrollTarget && scrollTarget.getAttribute('data-month'),
     1,
     12
@@ -154,8 +159,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  // Keep date-dependent presentation accurate even when the public calendar
+  // HTML has remained at the edge for an extended period.
+  var today = [
+    browserToday.getFullYear(),
+    String(browserToday.getMonth() + 1).padStart(2, '0'),
+    String(browserToday.getDate()).padStart(2, '0')
+  ].join('-');
+  document.querySelectorAll('.day-cell.current-day').forEach(function(cell) {
+    cell.classList.remove('current-day');
+  });
+
   // Highlight current day
-  var today = new Date().toISOString().split('T')[0];
   var currentDayCell = document.querySelector('[data-date="' + today + '"]');
   
   if (currentDayCell) {

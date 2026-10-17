@@ -1,6 +1,9 @@
 module Api
   class DocsController < ActionController::API
     def show
+      # CloudFront uses the origin header for caching; its viewer response
+      # policy alone cannot override Rails' default private cache directive.
+      response.headers['Cache-Control'] = "public, max-age=0, s-maxage=#{PublicPage::EDGE_TTL}"
       render json: {
         name: 'Schengen Calculator API',
         description: 'Programmatic API for creating saved Schengen 90/180-day calculations. Agents should prefer this API or the MCP endpoint over driving the web UI.',

@@ -56,6 +56,12 @@ fetch calendar-second /en/days
 assert_header calendar-second x-cache 'Hit from cloudfront'
 assert_no_header calendar-second set-cookie
 
+echo "Checking API documentation caching"
+fetch api-docs-first /api/docs
+fetch api-docs-second /api/docs
+assert_header api-docs-second x-cache 'Hit from cloudfront'
+assert_no_header api-docs-second set-cookie
+
 echo "Checking session traffic bypasses the shared cache"
 fetch visits-session-first /en/visits -H 'Cookie: has_calculator_session=1'
 fetch visits-session-second /en/visits -H 'Cookie: has_calculator_session=1'

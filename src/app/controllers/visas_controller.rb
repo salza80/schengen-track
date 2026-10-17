@@ -1,5 +1,6 @@
 class VisasController < ApplicationController
   before_action :set_private_calculator_cache
+  before_action :require_calculator_record_account!, only: [:show, :edit, :update, :destroy]
   before_action :set_visa, only: [:show, :edit, :update, :destroy]
   
   # Skip CSRF verification for .js GET requests (new, edit)

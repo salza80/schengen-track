@@ -3,6 +3,7 @@ class VisitsController < ApplicationController
   include CalculatorIndexCache
   before_action :set_private_calculator_cache, except: :index
   
+  before_action :require_calculator_record_account!, only: [:show, :edit, :update, :destroy]
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
   before_action :set_country_continent, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
@@ -401,9 +402,11 @@ class VisitsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
       permitted = params.require(:visit).permit(:entry_date, :exit_date, :country_id, :country_code)
-      country_code = permitted.delete(:country_code)
-      if country_code.present?
-        permitted[:country_id] = Country.find_by(country_code: country_code.to_s.upcase)&.id
+      if permitted.key?(:country_code)
+        country_code = permitted.delete(:country_code)
+        # An explicit blank clears the association for validation; omission
+        # preserves it for partial updates and legacy country_id submissions.
+        permitted[:country_id] = country_code.present? ? Country.find_by(country_code: country_code.to_s.upcase)&.id : nil
       end
       permitted
     end

@@ -219,6 +219,38 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_select '.guest-registration-card', count: 0
   end
 
+  test 'anonymous requests cannot access saved trips' do
+    trip = visits(:one)
+    [[:get, visit_path(trip, locale: :en, format: :json)],
+     [:get, edit_visit_path(trip, locale: :en, format: :json)],
+     [:patch, visit_path(trip, locale: :en, format: :json)],
+     [:delete, visit_path(trip, locale: :en, format: :json)]].each do |method, path|
+      reset!
+      queries = capture_database_queries { public_send(method, path) }
+      assert_response :not_found
+      assert_empty queries
+    end
+
+    get edit_visit_path(trip, locale: :en, format: :js), xhr: true
+    assert_response :success
+    assert_includes response.body, 'window.location.href'
+    assert Visit.exists?(trip.id)
+  end
+
+  test 'anonymous requests cannot access saved visas' do
+    visa = visas(:one)
+    [[:get, edit_visa_path(visa, locale: :en, format: :js)],
+     [:patch, visa_path(visa, locale: :en, format: :json)],
+     [:delete, visa_path(visa, locale: :en, format: :json)]].each do |method, path|
+      reset!
+      queries = capture_database_queries do
+        assert_raises(ActiveRecord::RecordNotFound) { public_send(method, path) }
+      end
+      assert_empty queries
+    end
+    assert Visa.exists?(visa.id)
+  end
+
   private
 
   def country_queries(queries)

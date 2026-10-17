@@ -101,6 +101,15 @@ deployment timestamp in Parameter Store, invalidates `/*` in CloudFront, waits
 for completion, runs deployed smoke tests, and pre-warms the configured URLs.
 Any failed smoke test or cache warm-up fails the workflow.
 
+Warm-up target files contain only the environment hostname. The generator expands
+shared public routes across all catalogue locales and adds eligible nationality
+pages, language sitemaps, and public documents. It uses four concurrent requests.
+Production uses the `full` profile; staging uses `sample`, warming only the
+American nationality page per language alongside every core public page and
+document. Preview staging with
+`node scripts/recache_urls.cjs scripts/urls-staging.txt sample`, or production
+with `node scripts/recache_urls.cjs scripts/urls-prod.txt full`.
+
 ## Cache invariants
 
 - Root, About, blog, legal, and SEO-document pages are session-free and publicly

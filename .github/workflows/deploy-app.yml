@@ -17,6 +17,10 @@ on:
         required: false
         type: string
         default: ''
+      recache_profile:
+        required: false
+        type: string
+        default: full
       smoke_base_url:
         required: true
         type: string
@@ -146,5 +150,6 @@ jobs:
         if: ${{ inputs.recache_urls_file != '' }}
         env:
           RECACHE_URLS_FILE: ${{ inputs.recache_urls_file }}
-        run: ./recache.sh "$RECACHE_URLS_FILE"
+          RECACHE_PROFILE: ${{ inputs.recache_profile }}
+        run: ./recache.sh "$RECACHE_URLS_FILE" "$RECACHE_PROFILE"
         working-directory: ./deployment/scripts

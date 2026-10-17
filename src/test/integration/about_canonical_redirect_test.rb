@@ -60,7 +60,7 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
       selector = document.at_css('#user_nationality_id')
       heading = I18n.with_locale(locale) do
         I18n.t('about.nationality.tourist_travel_requirements_title',
-               nationality_plural: Country.find_by(country_code: 'US').nationality_plural)
+               nationality_plural: CountryCatalog.find_by_code('US', locale: locale).nationality_plural)
       end
       # The first following heading belongs to the nationality information.
       following_heading = selector.xpath('following::h3').first
@@ -73,6 +73,13 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
 
   test 'redirects lowercase nationality to canonical stored slug' do
     get '/about/american'
+
+    assert_response :moved_permanently
+    assert_redirected_to '/about/American'
+  end
+
+  test 'redirects plural nationality to its singular canonical slug' do
+    get '/about/Americans'
 
     assert_response :moved_permanently
     assert_redirected_to '/about/American'
@@ -112,16 +119,6 @@ class AboutCanonicalRedirectTest < ActionDispatch::IntegrationTest
   end
 
   test 'redirects space separated nationality to canonical underscore slug' do
-    Country.create!(
-      name: 'Saudi Arabia',
-      nationality: 'Saudi Arabian',
-      country_code: 'SA',
-      continent: continents(:Asia),
-      visa_required: 'A',
-      EU_member_state: false,
-      additional_visa_waiver: false
-    )
-
     get '/ar/about/Saudi%20Arabian'
 
     assert_response :moved_permanently

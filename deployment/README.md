@@ -19,8 +19,8 @@ npm ci
 
 | Stack | Purpose |
 | --- | --- |
-| `RailsLambdaStack` | Staging at `test.schengen-calculator.com`, with a 15-minute anonymous calculator cache. |
-| `SchengTrackProd` | Production at `schengen-calculator.com`, with a 24-hour anonymous calculator cache. |
+| `RailsLambdaStack` | Staging at `test.schengen-calculator.com`, with a 30-day anonymous calculator cache. |
+| `SchengTrackProd` | Production at `schengen-calculator.com`, with a 30-day anonymous calculator cache. |
 
 The deployment workflows resolve the `OpsLambdaFunctionName` stack output to
 run database operations.
@@ -101,16 +101,34 @@ deployment timestamp in Parameter Store, invalidates `/*` in CloudFront, waits
 for completion, runs deployed smoke tests, and pre-warms the configured URLs.
 Any failed smoke test or cache warm-up fails the workflow.
 
+Warm-up target files contain only the environment hostname. The generator expands
+shared public routes across all catalogue locales and adds eligible nationality
+pages, language sitemaps, and public documents. It uses four concurrent requests.
+The deploy workflow generates fresh catalogues in its checkout before warm-up;
+the Lambda image build also generates its own copy. For local previews, run
+`bundle exec rails country_catalog:generate` from `src/` first.
+Production uses the `full` profile; staging uses `sample`, warming only the
+American nationality page per language alongside every core public page and
+document. Preview staging with
+`node scripts/recache_urls.cjs scripts/urls-staging.txt sample`, or production
+with `node scripts/recache_urls.cjs scripts/urls-prod.txt full`.
+
 ## Cache invariants
 
-- Root, About, blog, and legal pages are session-free and publicly cached for
-  one hour by localized URL.
-- Anonymous Trips and Calendar pages are cached for 15 minutes in staging and
-  24 hours in production. Requests with a Rails session or calculator-session
-  hint bypass the anonymous cache. Calendar entries vary only by normalized
-  `year`.
+- Root, About, blog, legal, and SEO-document pages are session-free and publicly
+  cached for 30 days by localized URL.
+- Anonymous Trips and Calendar pages are cached for up to 30 days in staging
+  and production, with a seven-day stale fallback. The yearless Calendar entry
+  expires, including its stale window, before the next year begins. Requests
+  with a Rails session or calculator-session hint bypass the anonymous cache.
+  Calendar entries vary only by normalized `year`.
+- Fingerprinted assets are cached immutably for one year. Fixed-name icons use
+  a seven-day edge and browser cache so they can change without renaming.
 - On public pages, personalized menus, notices, and CSRF tokens come from
   uncached endpoints. Never put user data or CSRF tokens in cached HTML.
+- Localized country catalogues are generated from the country XML and locale
+  files during the Lambda image build, so public country selectors do not query
+  the database.
 - Forms on cached pages fetch a CSRF token immediately before their first
   submission.
 - Keep origin forwarding aligned with cache keys: never forward an unkeyed

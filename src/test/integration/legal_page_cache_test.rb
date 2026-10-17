@@ -33,7 +33,8 @@ class LegalPageCacheTest < ActionDispatch::IntegrationTest
   def assert_public_page
     assert_response :success
     assert_includes response.headers['Cache-Control'], 'public'
-    assert_includes response.headers['Cache-Control'], 'max-age=3600'
+    assert_includes response.headers['Cache-Control'], 'max-age=0'
+    assert_includes response.headers['Cache-Control'], 's-maxage=2592000'
     assert_nil response.headers['Set-Cookie']
     assert_select 'meta[name="csrf-token"]', count: 0
     assert_select 'input[name="authenticity_token"]', count: 0

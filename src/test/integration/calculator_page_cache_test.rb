@@ -2,6 +2,7 @@ require 'test_helper'
 
 class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include ActiveSupport::Testing::TimeHelpers
 
   PUBLIC_PATHS = ['/en/visits', '/en/days?year=2027'].freeze
 
@@ -17,9 +18,9 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
 
       assert_response :success
       assert_empty calculator_record_queries(database_queries),
-                   "expected #{path} not to load users, people, trips, or visas"
+                   "expected #{path} not to load calculator or country records"
       assert_includes response.headers['Cache-Control'], 'public'
-      assert_includes response.headers['Cache-Control'], 's-maxage=900'
+      assert_includes response.headers['Cache-Control'], 's-maxage=2592000'
       assert_includes response.headers['Cache-Control'], 'stale-while-revalidate=604800'
       assert_equal 'Cookie', response.headers['Vary']
       assert_nil response.headers['Set-Cookie']
@@ -29,6 +30,12 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       assert_select 'noscript input[type="submit"]', count: 0
       assert_select '#public-user-menu', count: 1
       assert_select '#personDropdown', count: 0
+      assert_select '.calendar-current-date', minimum: 1
+      assert_select '.calendar-jump-today', minimum: 1
+      assert css_select('.calendar-current-date').all? { |node| node.text.strip.empty? },
+             'expected public HTML to leave the current date for the browser to populate'
+      assert_select '.calendar-jump-today[href="/en/days"]', minimum: 1
+      assert_select '.day-cell.current-day', count: 0 if path.start_with?('/en/days')
 
       canonical_path = path.start_with?('/en/days') ? '/days' : '/visits'
       assert_select "link[rel=\"canonical\"][href=\"https://www.example.com#{canonical_path}\"]", count: 1
@@ -44,6 +51,22 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       assert_includes response.headers['Cache-Control'], 'public'
       assert_select 'body[data-public-calculator-page="true"]', count: 1
       assert_nil response.headers['Set-Cookie']
+    end
+  end
+
+  test 'yearless calendar cache freshness and stale delivery end before the new year' do
+    travel_to Time.zone.local(2026, 12, 20, 12, 0, 0) do
+      get days_path(locale: :en)
+
+      assert_response :success
+      cache_control = response.headers['Cache-Control']
+      fresh_ttl = cache_control[/s-maxage=(\d+)/, 1].to_i
+      stale_ttl = cache_control[/stale-while-revalidate=(\d+)/, 1].to_i
+      seconds_until_new_year = (Time.zone.local(2027, 1, 1) - Time.zone.now).to_i
+
+      assert_operator fresh_ttl, :>, 0
+      assert_operator fresh_ttl + stale_ttl, :<=, seconds_until_new_year
+      assert_includes cache_control, "stale-if-error=#{stale_ttl}"
     end
   end
 
@@ -105,7 +128,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
 
   test 'nationality guest and registered sessions receive private calculator pages' do
     patch calculator_preferences_path(locale: :en), params: {
-      nationality_id: countries(:India).id,
+      nationality_code: 'IN',
       destination: 'trips'
     }
     assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
@@ -140,7 +163,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     assert_calculator_data(visit_rows: nil, travel_days: 0, nationality_step: true)
 
     patch calculator_preferences_path(locale: :en), params: {
-      nationality_id: countries(:India).id,
+      nationality_code: 'IN',
       destination: 'trips'
     }
     get visits_path(locale: :en)
@@ -201,6 +224,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     assert_includes response.headers['Set-Cookie'], '_schengen_track_session='
     assert_nil session[:guest_user_id]
     assert_nil session[:calculator_nationality_id]
+    assert_nil session[:calculator_nationality_code]
   end
 
   private
@@ -237,17 +261,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     assert_select '.day-cell.has-travel', count: travel_days unless travel_days.nil?
   end
 
-  def capture_database_queries(&block)
-    queries = []
-    subscriber = lambda do |_name, _started, _finished, _unique_id, payload|
-      queries << payload[:sql] unless payload[:cached]
-    end
-
-    ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record', &block)
-    queries
-  end
-
   def calculator_record_queries(queries)
-    queries.grep(/\b(?:FROM|JOIN)\s+"(?:users|people|visits|visas)"/i)
+    queries.grep(/\b(?:FROM|JOIN)\s+"(?:users|people|visits|visas|countries|continents)"/i)
   end
 end

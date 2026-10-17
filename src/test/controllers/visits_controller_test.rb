@@ -70,6 +70,31 @@ class VisitsControllerTest < ActionController::TestCase
     assert_redirected_to visits_path
   end
 
+  test 'blank country code rejects the update and preserves the saved trip' do
+    original_attributes = @visit.attributes
+    patch :update, params: { id: @visit, visit: { country_code: '', exit_date: @visit.exit_date - 1.day } }, format: :js
+
+    assert_response :success
+    assert assigns(:visit).errors.of_kind?(:country, :blank)
+    assert_includes response.body, 'Visit update failed'
+    assert_equal original_attributes, @visit.reload.attributes
+  end
+
+  test 'omitted country code preserves the country during a partial update' do
+    country_id = @visit.country_id
+    patch :update, params: { id: @visit, visit: { exit_date: @visit.exit_date - 1.day } }
+
+    assert_redirected_to visits_path
+    assert_equal country_id, @visit.reload.country_id
+  end
+
+  test 'country code updates resolve the selected country' do
+    patch :update, params: { id: @visit, visit: { country_code: 'AU' } }
+
+    assert_redirected_to visits_path
+    assert_equal countries(:Australia), @visit.reload.country
+  end
+
   # Test safe_redirect_path? security validation
   test 'safe_redirect_path? allows valid calendar paths with query params' do
     controller = VisitsController.new

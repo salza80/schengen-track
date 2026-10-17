@@ -180,7 +180,7 @@ class ApplicationController < ActionController::Base
   end
 
   def draft_calculator_person
-    @draft_calculator_person ||= Person.new(
+    @draft_calculator_person ||= AnonymousCalculator::DraftPerson.new(
       first_name: 'Guest',
       last_name: 'User',
       nationality: calculator_nationality
@@ -195,8 +195,26 @@ class ApplicationController < ActionController::Base
     return @selected_calculator_nationality if defined?(@selected_calculator_nationality)
     return @selected_calculator_nationality = nil if public_static_page?
 
+    country_code = session[:calculator_nationality_code]
+    if country_code.present?
+      entry = CountryCatalog.find_by_code(country_code)
+      return @selected_calculator_nationality = entry
+    end
+
+    # Compatibility for sessions created before nationality codes were used.
     country_id = session[:calculator_nationality_id]
     @selected_calculator_nationality = country_id.present? ? Country.find_by(id: country_id) : nil
+  end
+
+  def calculator_nationality_record
+    # Catalogue entries are presentation objects. Resolve the stable code to an
+    # Active Record Country only when a state-changing action needs persistence.
+    Country.find_by(country_code: calculator_nationality.country_code)
+  end
+
+  def clear_calculator_nationality_session
+    session.delete(:calculator_nationality_id)
+    session.delete(:calculator_nationality_code)
   end
 
   def render_calculator_nationality_required(open_trip: false)
@@ -215,7 +233,7 @@ class ApplicationController < ActionController::Base
   def establish_guest_session(user, person)
     session[:guest_user_id] = user.id
     session[:current_person_id] = person.id
-    session.delete(:calculator_nationality_id)
+    clear_calculator_nationality_session
     @current_user_or_guest_user = user
     @current_person = person
     sync_session_hint_cookie
@@ -235,17 +253,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_guest_country
-    # country = request.location.data[:country_name]
-    # c = Country.find_by(name: country)
-    # c || Country.find_by(country_code: 'US')
-    Country.find_by(country_code: 'US')
-
-  end
-
-  def extract_locale_from_accept_language_header
-    # code = request.env['HTTP_ACCEPT_LANGUAGE']
-    # puts code
-    # code ? code.scan(/^[a-z]{2}/).first.upcase : 'AU'
+    CountryCatalog.find_by_code('US')
   end
 
   private

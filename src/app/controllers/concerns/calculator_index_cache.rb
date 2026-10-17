@@ -7,7 +7,7 @@ module CalculatorIndexCache
   extend ActiveSupport::Concern
 
   SESSION_INDICATOR_COOKIES = %w[_schengen_track_session has_calculator_session].freeze
-  DEFAULT_EDGE_TTL = 15.minutes.to_i
+  DEFAULT_EDGE_TTL = 30.days.to_i
   STALE_TTL = 7.days.to_i
 
   included do
@@ -30,9 +30,26 @@ module CalculatorIndexCache
   end
 
   def public_calculator_cache_control
-    fresh_ttl = Integer(ENV.fetch('PUBLIC_CALCULATOR_CACHE_TTL', DEFAULT_EDGE_TTL), 10)
-    "public, max-age=0, s-maxage=#{fresh_ttl}, stale-while-revalidate=#{STALE_TTL}, stale-if-error=#{STALE_TTL}"
+    fresh_ttl = configured_fresh_ttl
+    fresh_ttl, stale_ttl = cache_durations_before_year_boundary(fresh_ttl)
+    "public, max-age=0, s-maxage=#{fresh_ttl}, stale-while-revalidate=#{stale_ttl}, stale-if-error=#{stale_ttl}"
+  end
+
+  def configured_fresh_ttl
+    Integer(ENV.fetch('PUBLIC_CALCULATOR_CACHE_TTL', DEFAULT_EDGE_TTL), 10)
   rescue ArgumentError
-    "public, max-age=0, s-maxage=#{DEFAULT_EDGE_TTL}, stale-while-revalidate=#{STALE_TTL}, stale-if-error=#{STALE_TTL}"
+    DEFAULT_EDGE_TTL
+  end
+
+  def cache_durations_before_year_boundary(fresh_ttl)
+    return [fresh_ttl, STALE_TTL] unless controller_name == 'days' && params[:year].blank?
+
+    now = Time.zone.now
+    year_boundary = Time.zone.local(now.year + 1, 1, 1)
+    seconds_remaining = [(year_boundary - now).floor, 0].max
+    bounded_fresh_ttl = [fresh_ttl, seconds_remaining].min
+    bounded_stale_ttl = [STALE_TTL, seconds_remaining - bounded_fresh_ttl].min
+
+    [bounded_fresh_ttl, bounded_stale_ttl]
   end
 end

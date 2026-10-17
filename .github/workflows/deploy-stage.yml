@@ -42,4 +42,5 @@ jobs:
       cloudfront_distribution_id: E2J7FXI85QUSUM
       robots_source: robots.txt.staging
       recache_urls_file: urls-staging.txt
+      recache_profile: sample
       smoke_base_url: https://test.schengen-calculator.com

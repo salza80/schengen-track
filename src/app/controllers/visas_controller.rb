@@ -1,5 +1,6 @@
 class VisasController < ApplicationController
   before_action :set_private_calculator_cache
+  before_action :require_calculator_record_account!, only: [:show, :edit, :update, :destroy]
   before_action :set_visa, only: [:show, :edit, :update, :destroy]
   
   # Skip CSRF verification for .js GET requests (new, edit)
@@ -41,7 +42,7 @@ class VisasController < ApplicationController
       return render_calculator_nationality_required unless calculator_nationality_selected?
 
       result = AnonymousCalculator::FirstSave.call(
-        nationality: selected_calculator_nationality,
+        nationality: calculator_nationality_record,
         record_class: Visa,
         attributes: visa_params
       )

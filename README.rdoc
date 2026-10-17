@@ -22,10 +22,14 @@ From the repository root:
   cp config/secrets.yml.example config/secrets.yml
   docker compose up -d postgres
   bundle exec rails db:prepare
-  bundle exec rails server
+  bundle exec ruby bin/dev
 
 Use another Ruby version manager if preferred; <tt>src/.ruby-version</tt> is the
 source of truth. Open http://localhost:3000/en/about after the server starts.
+
+<tt>bin/dev</tt> regenerates the country catalogues before starting Rails. Restart
+it after changing country data or translations. If starting Rails another way,
+run <tt>bundle exec rails country_catalog:generate</tt> first.
 
 <tt>db:prepare</tt> initializes and seeds a new local database or migrates an
 existing one. Do not run <tt>db:seed</tt> against valuable data: this project's
@@ -52,8 +56,13 @@ names, Schengen membership dates, and visa requirements. After changing it, run
 from <tt>src</tt>:
 
   bundle exec rails db:update_countries
+  bundle exec rails country_catalog:generate
 
-Deployments run the same non-destructive update automatically.
+The first command updates persisted country records. The second regenerates the
+localized, file-backed country catalogues used to render public pages without a
+database query. Deployments update the database and build the catalogues into
+the Lambda image automatically. Catalogue JSON is generated locally and ignored
+by Git; do not edit it directly. CI generates it before tests and cache warm-up.
 
 
 == Translations
@@ -79,6 +88,7 @@ be detected statically are configured in <tt>src/config/i18n-tasks.yml</tt>.
 With PostgreSQL running, run the Rails suite from <tt>src</tt>:
 
   RAILS_ENV=test bundle exec rails db:prepare
+  RAILS_ENV=test bundle exec rails country_catalog:generate
   bundle exec rails test
 
 Run a focused test by passing its path to <tt>bundle exec rails test</tt>.
@@ -88,6 +98,15 @@ Run infrastructure and header JavaScript tests from <tt>deployment</tt>:
   npm ci
   npm run build
   npm test -- --runInBand
+
+
+== Public page rendering
+
+Cacheable public pages render without SQL so anonymous traffic does not wake the
+database. They use the generated <tt>CountryCatalog</tt> and a lightweight draft
+person for presentation, resolving country codes to Active Record objects only
+when submitted data is saved. A cold-render integration test enforces this
+boundary across every supported locale.
 
 
 == Facebook OAuth

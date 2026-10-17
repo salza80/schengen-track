@@ -2,7 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vm from 'vm';
 
-const script = fs.readFileSync(path.join(__dirname, '../../src/app/assets/javascripts/public_header.js'), 'utf8');
+const script = ['public_page_hydration.js', 'public_header.js'].map(file => fs.readFileSync(
+  path.join(__dirname, '../../src/app/assets/javascripts', file),
+  'utf8'
+)).join('\n');
 
 async function runHeader(cookie: string, status: number, probed = false, fail = false,
                          payload = { html: 'Personal menu', csrf_token: 'session-token', notice_html: '' }) {

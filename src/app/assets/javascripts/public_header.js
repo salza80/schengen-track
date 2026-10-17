@@ -1,14 +1,10 @@
 (function () {
-  function loadHeader() {
+  function hydratePublicHeader() {
     var container = document.getElementById('public-user-menu');
     if (!container) return;
 
-    var hasSession = document.cookie.split(';').some(function (cookie) {
-      return cookie.trim() === 'has_calculator_session=1';
-    });
-    var hasFlash = document.cookie.split(';').some(function (cookie) {
-      return cookie.trim() === 'has_flash_message=1';
-    });
+    var hasSession = window.PublicPageHydration.hasCookie('has_calculator_session', '1');
+    var hasFlash = window.PublicPageHydration.hasCookie('has_flash_message', '1');
     // Probe once per tab for sessions created before the hint cookie existed.
     // A visitor without a session receives 204 and never creates a guest.
     try {
@@ -38,6 +34,6 @@
       })
       .catch(function () { /* Keep the public navigation usable on failure. */ });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadHeader);
-  else loadHeader();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hydratePublicHeader);
+  else hydratePublicHeader();
 })();

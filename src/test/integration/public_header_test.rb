@@ -32,12 +32,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
   end
 
   test 'header endpoint does not query the database without calculator state' do
-    database_queries = []
-    subscriber = lambda do |_name, _started, _finished, _unique_id, payload|
-      database_queries << payload[:sql] unless payload[:cached]
-    end
-
-    ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record') do
+    database_queries = capture_database_queries do
       get '/en/session_header'
     end
 
@@ -47,7 +42,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
 
   test 'nationality-only calculator state keeps its hint without rendering a person menu' do
     patch calculator_preferences_path(locale: :en), params: {
-      nationality_id: countries(:India).id,
+      nationality_code: 'IN',
       destination: 'trips'
     }
     follow_redirect!

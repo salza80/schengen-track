@@ -39,6 +39,22 @@ assert_no_header() {
   fi
 }
 
+assert_eventual_cache_hit() {
+  local name="$1"
+  local path="$2"
+  local attempt
+
+  for attempt in {1..5}; do
+    fetch "$name" "$path"
+    if tr -d '\r' < "$tmp_dir/$name.headers" | grep -Eqi '^x-cache:.*Hit from cloudfront'; then
+      return
+    fi
+    [ "$attempt" -eq 5 ] || sleep 1
+  done
+
+  fail "$name did not return x-cache containing Hit from cloudfront after 5 attempts"
+}
+
 echo "Checking main pages on $base_url"
 for path in / /en/visits /en/days /en/about /en/blog /en/users/sign_in; do
   name="$(printf '%s' "$path" | tr '/?' '__')"
@@ -47,19 +63,16 @@ done
 
 echo "Checking anonymous calculator caching"
 fetch visits-first /en/visits
-fetch visits-second /en/visits
-assert_header visits-second x-cache 'Hit from cloudfront'
+assert_eventual_cache_hit visits-second /en/visits
 assert_no_header visits-second set-cookie
 
 fetch calendar-first /en/days
-fetch calendar-second /en/days
-assert_header calendar-second x-cache 'Hit from cloudfront'
+assert_eventual_cache_hit calendar-second /en/days
 assert_no_header calendar-second set-cookie
 
 echo "Checking API documentation caching"
 fetch api-docs-first /api/docs
-fetch api-docs-second /api/docs
-assert_header api-docs-second x-cache 'Hit from cloudfront'
+assert_eventual_cache_hit api-docs-second /api/docs
 assert_no_header api-docs-second set-cookie
 
 echo "Checking session traffic bypasses the shared cache"

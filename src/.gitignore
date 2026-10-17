@@ -20,4 +20,5 @@ config/secrets.yml
 
 .env
 /config/master.key
+/config/country_catalog/*.json
 

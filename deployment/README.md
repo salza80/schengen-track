@@ -104,6 +104,9 @@ Any failed smoke test or cache warm-up fails the workflow.
 Warm-up target files contain only the environment hostname. The generator expands
 shared public routes across all catalogue locales and adds eligible nationality
 pages, language sitemaps, and public documents. It uses four concurrent requests.
+The deploy workflow generates fresh catalogues in its checkout before warm-up;
+the Lambda image build also generates its own copy. For local previews, run
+`bundle exec rails country_catalog:generate` from `src/` first.
 Production uses the `full` profile; staging uses `sample`, warming only the
 American nationality page per language alongside every core public page and
 document. Preview staging with

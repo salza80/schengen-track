@@ -67,6 +67,17 @@ jobs:
         run: cp secrets.yml.example secrets.yml
         working-directory: ./src/config
 
+      - name: Set up Ruby for country catalogue generation
+        uses: ruby/setup-ruby@v1.319.0
+        with:
+          ruby-version: '3.3.12'
+          bundler-cache: true
+          working-directory: src
+
+      - name: Generate country catalogues for cache warm-up
+        run: bundle exec rails country_catalog:generate
+        working-directory: src
+
       - name: Copy robots.txt override
         if: ${{ inputs.robots_source != '' }}
         env:

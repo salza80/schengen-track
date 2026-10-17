@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# Rebuild presentation data before boot so source/translation edits are visible.
+require 'rbconfig'
+Dir.chdir(File.expand_path('..', __dir__)) do
+  rails = File.expand_path('rails', __dir__)
+  abort 'Country catalogue generation failed' unless system(RbConfig.ruby, rails, 'country_catalog:generate')
+  exec RbConfig.ruby, rails, 'server', *ARGV
+end

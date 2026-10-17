@@ -71,6 +71,13 @@ jobs:
         env:
           CI: true
 
+      - name: Generate country catalogues
+        run: bundle exec rails country_catalog:generate
+        working-directory: src
+        env:
+          CI: true
+          RAILS_ENV: test
+
       - name: Run tests
         run: bundle exec rake test
         working-directory: src

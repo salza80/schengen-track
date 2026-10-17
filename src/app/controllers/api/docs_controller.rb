@@ -1,6 +1,8 @@
 module Api
   class DocsController < ActionController::API
     def show
+      # Keep this shared response session-free even for signed-in requests.
+      request.session_options[:skip] = true
       # CloudFront uses the origin header for caching; its viewer response
       # policy alone cannot override Rails' default private cache directive.
       response.headers['Cache-Control'] = "public, max-age=0, s-maxage=#{PublicPage::EDGE_TTL}"

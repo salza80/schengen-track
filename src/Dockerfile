@@ -45,5 +45,5 @@ ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_ENV="production" \
     BUNDLE_WITHOUT="development"
 
-# Precompile assets
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+# Generate static country data and precompile assets.
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails country_catalog:generate assets:precompile

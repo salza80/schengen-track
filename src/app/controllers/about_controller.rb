@@ -32,9 +32,8 @@ class AboutController < ApplicationController
     return if params[:nationality].blank?
 
     nationality = params[:nationality].to_s.downcase.tr(' ', '_')
-    @country = Country.find_by_nationality(nationality)
-                      .outside_schengen
-                      .first
+    @country = CountryCatalog.find_by_nationality_slug(nationality)
+    @country = nil if @country&.visa_required == 'F'
     fail ActionController::RoutingError, 'Page Not Found' if @country.nil?
 
     canonical_path = canonical_nationality_path(@country)

@@ -16,7 +16,7 @@ class Users::SessionsController < Devise::SessionsController
         resource.ensure_primary_person
         session[:guest_current_person_id] = guest_person_id if guest_person_id
         session.delete(:current_person_id)
-        session.delete(:calculator_nationality_id)
+        clear_calculator_nationality_session
         @current_user_or_guest_user = resource
         remove_instance_variable(:@current_person) if defined?(@current_person)
         sync_session_hint_cookie

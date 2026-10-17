@@ -11,9 +11,10 @@ class Visit < ApplicationRecord
   # initialise a new visit
 
   def self.with_default(person)
-    # register_oauth_with_matching_email(auth)
     new do |v|
-      v.person = person
+      # Anonymous pages use DraftPerson to avoid loading Person schema metadata.
+      # The persisted association is attached by FirstSave after form submit.
+      v.person = person if person.is_a?(Person)
       v.entry_date = person.visits.last.exit_date unless person.visits.empty?
       v.exit_date  = v.entry_date + 1.day unless v.entry_date.nil?
     end

@@ -6,14 +6,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
     @user = User.new_with_session({}, session)
     prefill_registration_from_guest(@user)
-    @user.nationality = calculator_nationality if @user.nationality_id.blank?
+    @selected_nationality_code = registration_nationality_code
   end
 
   # POST /resource
   def create
     @guest_user = current_user_or_guest_user
     attributes = sign_up_params.to_h
-    attributes['nationality_id'] = registration_nationality_id if attributes['nationality_id'].blank?
+    submitted_nationality_code = attributes.delete('nationality_code')
+    if attributes['nationality_id'].blank?
+      attributes['nationality_id'] = registration_nationality_id(submitted_nationality_code)
+    end
     @user = User.new(attributes)
     if @user.save
       @user.copy_from(@guest_user)
@@ -21,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       session.delete(:guest_user_id)
       session.delete(:guest_current_person_id)
       session.delete(:current_person_id)
-      session.delete(:calculator_nationality_id)
+      clear_calculator_nationality_session
       Analytics::GoogleMeasurementProtocol.track(
         'user_signup',
         request: request,
@@ -35,6 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       )
       redirect_to visits_path
     else
+      @selected_nationality_code = submitted_nationality_code.presence || registration_nationality_code
       render :new
     end
   end
@@ -74,8 +78,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user.nationality_id = profile.nationality_id if user.nationality_id.blank?
   end
 
-  def registration_nationality_id
-    guest_registration_profile&.nationality_id || calculator_nationality.id
+  def registration_nationality_code
+    guest_registration_profile&.nationality&.country_code || calculator_nationality.country_code
+  end
+
+  def registration_nationality_id(submitted_code = nil)
+    return Country.find_by(country_code: submitted_code.to_s.upcase)&.id if submitted_code.present?
+
+    guest_registration_profile&.nationality_id || calculator_nationality_record&.id
   end
 
   def guest_registration_profile
@@ -87,7 +97,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # You can put the params you want to permit in the empty array.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :nationality_id ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :nationality_id, :nationality_code])
   end
 
   # You can put the params you want to permit in the empty array.

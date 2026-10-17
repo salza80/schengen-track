@@ -2,7 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vm from 'vm';
 
-const script = fs.readFileSync(path.join(__dirname, '../../src/app/assets/javascripts/csrf_bootstrap.js'), 'utf8');
+const script = ['public_page_hydration.js', 'csrf_bootstrap.js'].map(file => fs.readFileSync(
+  path.join(__dirname, '../../src/app/assets/javascripts', file),
+  'utf8'
+)).join('\n');
 
 function setup(cookie = '') {
   const listeners: Record<string, Function> = {};

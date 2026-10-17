@@ -32,13 +32,14 @@
     .col-sm-2.my-auto
       = f.label t('common.continent'), class: "col-form-label"
     .col-sm-10
-      = select_tag t('common.continent'), options_from_collection_for_select(@continent, "id", "name", @continent_default_id), class: "custom-select custom-select", "aria-label": t('common.continent')
+      = select_tag t('common.continent'), options_from_collection_for_select(@continents, :code, :name, @continent_default_code), class: "custom-select custom-select", "aria-label": t('common.continent')
   .form-group.row
     .col-sm-2.my-auto
       = f.label :country, class: "col-form-label"
     .col-sm-10
-      = f.collection_select(:country_id,  Country.where(continent_id: @continent_default_id), :id, :name, { include_blank: true }, class: "form-control custom-select", "aria-label": t('common.country'))
-    / = f.select :country_id, options_from_collection_for_select(@countries, "id", "name")
+      - selected_country_code = @visit.country&.country_code
+      - countries = CountryCatalog.for_continent(@continent_default_code)
+      = select_tag 'visit[country_code]', options_from_collection_for_select(countries, :country_code, :name, selected_country_code), include_blank: true, id: 'visit_country_id', class: "form-control custom-select", "aria-label": t('common.country')
 %script
   != "(function() {"
   != "  function initCascade() {"
@@ -47,7 +48,7 @@
   != "      return;"
   != "    }"
   != "    const country = #{@country_options};"
-  != "    const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'id', 'name', 'continent_id');"
+  != "    const CountriesList = new App.Cascade($('#Continent'), $('#visit_country_id'), country, 'country_code', 'name', 'continent_code');"
   != "    "
   != "    // Translation strings"
   != "    const i18n = {"
@@ -61,7 +62,7 @@
   != "      var year = $('#visit_entry_date_1i').val();"
   != "      var month = $('#visit_entry_date_2i').val();"
   != "      var day = $('#visit_entry_date_3i').val();"
-  != "      var countryId = $('#visit_country_id').val();"
+  != "      var countryCode = $('#visit_country_id').val();"
   != "      "
   != "      if (!year || !month || !day) return;"
   != "      "
@@ -70,8 +71,8 @@
   != "      var visitId = '#{@visit.persisted? ? @visit.id : ''}';"
   != "      "
   != "      var ajaxData = { date: date };"
-  != "      if (countryId) {"
-  != "        ajaxData.country_id = countryId;"
+  != "      if (countryCode) {"
+  != "        ajaxData.country_code = countryCode;"
   != "      }"
   != "      if (visitId) {"
   != "        ajaxData.visit_id = visitId;"

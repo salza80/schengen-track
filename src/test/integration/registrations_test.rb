@@ -196,7 +196,35 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "input[name='user[first_name]'][value='Anna']"
     assert_select "input[name='user[last_name]'][value='Traveller']"
-    assert_select "select[name='user[nationality_id]'] option[selected][value='#{countries(:Australia).id}']"
+    assert_select "select[name='user[nationality_code]'] option[selected][value='AU']"
+  end
+
+  test 'registration form renders its nationality selector from the static catalogue' do
+    Country.reset_column_information
+    CountryCatalog.reset!
+    queries = capture_database_queries { get new_user_registration_path(locale: :en) }
+
+    assert_response :success
+    assert_select "select[name='user[nationality_code]'] option[value='IN']", text: 'India'
+    assert_empty queries.grep(/countries/i)
+  end
+
+  test 'registration resolves a submitted catalogue country code when saving' do
+    email = "catalog-registration-#{SecureRandom.hex(8)}@example.com"
+
+    post user_registration_path(locale: :en), params: {
+      user: {
+        first_name: 'Catalog',
+        last_name: 'User',
+        nationality_code: 'AU',
+        email: email,
+        password: 'password123',
+        password_confirmation: 'password123'
+      }
+    }
+
+    assert_response :redirect
+    assert_equal countries(:Australia), User.find_by!(email: email).nationality
   end
 
   test 'registration uses the guest nationality when the submitted nationality is blank' do
@@ -375,7 +403,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     patch calculator_preferences_path(locale: :en), params: {
-      nationality_id: countries(:India).id,
+      nationality_code: 'IN',
       destination: 'trips'
     }
     assert_response :redirect
@@ -524,4 +552,5 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     # Verify we can access the person
     assert_equal person, user.people.find_by(is_primary: true)
   end
+
 end

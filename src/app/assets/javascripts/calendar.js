@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var scrollTarget = document.querySelector('#calendar-scroll-target');
   var calendarRoot = document.querySelector('.calendar-view-container');
   var viewerParams = new URL(window.location.href).searchParams;
+  var isPublicCalculator = window.PublicPageHydration.isCalculatorPage();
 
   function normalizeCalendarPart(value, minimum, maximum) {
     if (!/^\d{1,2}$/.test(value || '')) return null;
@@ -62,9 +63,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var viewerMonth = normalizeCalendarPart(viewerParams.get('month'), 1, 12);
   var browserToday = new Date();
   var selectedYear = calendarRoot && calendarRoot.getAttribute('data-selected-year');
-  var currentMonth = selectedYear === String(browserToday.getFullYear())
-    ? String(browserToday.getMonth() + 1)
-    : null;
+  function publicCurrentMonth() {
+    if (!isPublicCalculator || selectedYear !== String(browserToday.getFullYear())) return null;
+    return String(browserToday.getMonth() + 1);
+  }
+
+  var currentMonth = publicCurrentMonth();
   var targetMonth = viewerMonth || currentMonth || normalizeCalendarPart(
     scrollTarget && scrollTarget.getAttribute('data-month'),
     1,
@@ -159,19 +163,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // Keep date-dependent presentation accurate even when the public calendar
-  // HTML has remained at the edge for an extended period.
-  var today = [
-    browserToday.getFullYear(),
-    String(browserToday.getMonth() + 1).padStart(2, '0'),
-    String(browserToday.getDate()).padStart(2, '0')
-  ].join('-');
-  document.querySelectorAll('.day-cell.current-day').forEach(function(cell) {
-    cell.classList.remove('current-day');
-  });
+  function hydratePublicCurrentDay() {
+    // Cached HTML must not retain the day that was current at render time.
+    document.querySelectorAll('.day-cell.current-day').forEach(function(cell) {
+      cell.classList.remove('current-day');
+    });
+    return window.PublicPageHydration.localDateKey(browserToday);
+  }
+
+  function currentDayKey() {
+    return isPublicCalculator
+      ? hydratePublicCurrentDay()
+      : browserToday.toISOString().split('T')[0];
+  }
 
   // Highlight current day
-  var currentDayCell = document.querySelector('[data-date="' + today + '"]');
+  var currentDayCell = document.querySelector('[data-date="' + currentDayKey() + '"]');
   
   if (currentDayCell) {
     currentDayCell.classList.add('current-day');

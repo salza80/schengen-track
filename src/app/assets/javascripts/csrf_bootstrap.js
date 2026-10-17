@@ -89,10 +89,8 @@
   }, true);
 
   window.addEventListener('pageshow', function(event) {
-    if (!event.persisted || !document.body || document.body.dataset.publicCalculatorPage !== 'true') return;
-    var hasCalculatorSession = document.cookie.split(';').some(function(cookie) {
-      return cookie.trim() === 'has_calculator_session=1';
-    });
+    if (!event.persisted || !window.PublicPageHydration.isCalculatorPage()) return;
+    var hasCalculatorSession = window.PublicPageHydration.hasCookie('has_calculator_session', '1');
     if (hasCalculatorSession) window.location.reload();
   });
 

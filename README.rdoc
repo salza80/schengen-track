@@ -52,8 +52,12 @@ names, Schengen membership dates, and visa requirements. After changing it, run
 from <tt>src</tt>:
 
   bundle exec rails db:update_countries
+  bundle exec rails country_catalog:generate
 
-Deployments run the same non-destructive update automatically.
+The first command updates persisted country records. The second regenerates the
+localized, file-backed country catalogues used to render public pages without a
+database query. Deployments update the database and build the catalogues into
+the Lambda image automatically; do not edit generated catalogue files directly.
 
 
 == Translations
@@ -88,6 +92,15 @@ Run infrastructure and header JavaScript tests from <tt>deployment</tt>:
   npm ci
   npm run build
   npm test -- --runInBand
+
+
+== Public page rendering
+
+Cacheable public pages render without SQL so anonymous traffic does not wake the
+database. They use the generated <tt>CountryCatalog</tt> and a lightweight draft
+person for presentation, resolving country codes to Active Record objects only
+when submitted data is saved. A cold-render integration test enforces this
+boundary across every supported locale.
 
 
 == Facebook OAuth

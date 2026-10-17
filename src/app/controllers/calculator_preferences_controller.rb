@@ -5,13 +5,21 @@ class CalculatorPreferencesController < ApplicationController
     nationality_selected = false
 
     if anonymous_calculator?
-      nationality = Country.find_by(id: params[:nationality_id])
-      unless nationality
+      country_entry = CountryCatalog.find_by_code(params[:nationality_code])
+
+      # Compatibility for forms cached before country codes were introduced.
+      if country_entry.nil? && params[:nationality_id].present?
+        legacy_country = Country.find_by(id: params[:nationality_id])
+        country_entry = CountryCatalog.find_by_code(legacy_country&.country_code)
+      end
+
+      unless country_entry
         redirect_to destination_path(destination), alert: t('common.invalid_nationality')
         return
       end
 
-      session[:calculator_nationality_id] = nationality.id
+      session[:calculator_nationality_code] = country_entry.country_code
+      session.delete(:calculator_nationality_id)
       nationality_selected = true
     end
 

@@ -41,7 +41,7 @@ class VisasController < ApplicationController
       return render_calculator_nationality_required unless calculator_nationality_selected?
 
       result = AnonymousCalculator::FirstSave.call(
-        nationality: selected_calculator_nationality,
+        nationality: calculator_nationality_record,
         record_class: Visa,
         attributes: visa_params
       )

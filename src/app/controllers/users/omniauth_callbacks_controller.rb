@@ -9,7 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     guest_person_id = session[:current_person_id] if guest
     existing_account = User.find_by(provider: auth.provider, uid: auth.uid)
     existing_account ||= User.find_by(email: auth.info.email) if auth.info.email.present?
-    @user = User.from_omniauth(auth, guest, calculator_nationality)
+    @user = User.from_omniauth(auth, guest, calculator_nationality_record)
 
     if @user.persisted?
       sign_in @user, :event => :authentication #this will throw if @user is not activated
@@ -32,7 +32,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         session.delete(:guest_current_person_id)
       end
       session.delete(:current_person_id)
-      session.delete(:calculator_nationality_id)
+      clear_calculator_nationality_session
       set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       redirect_to visits_path
     else

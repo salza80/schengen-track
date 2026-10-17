@@ -14,13 +14,9 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
       check();
     JS
 
-    database_queries = []
-    subscriber = lambda do |_name, _started, _finished, _unique_id, payload|
-      database_queries << payload[:sql] unless payload[:cached]
-    end
-
-    status = ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record') do
-      page.evaluate_async_script(<<~JS)
+    status = nil
+    database_queries = capture_database_queries do
+      status = page.evaluate_async_script(<<~JS)
         const done = arguments[0];
         const menu = document.getElementById('public-user-menu');
         fetch(menu.dataset.sessionHeaderUrl, { credentials: 'same-origin', cache: 'no-store' })
@@ -317,10 +313,10 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
   test 'citizenship selection remains visible after navigating between nationality pages' do
     visit '/en/about'
-    select 'United States of America', from: 'Select your country of citizenship'
+    select 'United States', from: 'Select your country of citizenship'
     assert_current_path '/en/about/American', ignore_query: true
     assert_equal '/en/about/American', page.current_path
-    assert_selector :select, 'Select your country of citizenship', selected: 'United States of America'
+    assert_selector :select, 'Select your country of citizenship', selected: 'United States'
 
     select 'Australia', from: 'Select your country of citizenship'
     assert_current_path '/en/about/Australian', ignore_query: true
@@ -344,7 +340,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_no_selector '#personDropdown'
     assert_selector 'h3.section-heading .fa-globe'
     assert_selector 'h3.section-heading', text: I18n.t('common.select_nationality', locale: :en)
-    assert_selector 'select[name="nationality_id"]'
+    assert_selector 'select[name="nationality_code"]'
     assert_selector 'a', text: I18n.t('common.login', locale: :en)
     assert_selector "a.btn-add[href='/en/visits?open=trip']", text: I18n.t('visits.add_travel', locale: :en)
 
@@ -357,7 +353,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     visit '/en/visits'
     assert_no_selector '.calculator-nationality-form input[name="authenticity_token"]', visible: :all
     select 'India', from: 'calculator_nationality_selector'
-    assert_selector 'select[name="nationality_id"] option[selected]', text: 'India'
+    assert_selector 'select[name="nationality_code"] option[selected]', text: 'India'
 
     find('[data-action="add-visit"]', match: :first).click
     assert_selector '#visitModal.show', text: I18n.t('visits.add_record', locale: :en)
@@ -373,7 +369,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
     assert_selector '#personDropdown', text: 'Guest User', wait: 10
     assert_equal 'Guest User', find('#personDropdown .person-name').text
-    assert_no_selector 'select[name="nationality_id"]'
+    assert_no_selector 'select[name="nationality_code"]'
   end
 
   test 'add trip asks for nationality first when no preference was selected' do

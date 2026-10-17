@@ -6,6 +6,8 @@
 //= require popper
 //= require bootstrap
 //= require app
+//= require public_page_hydration
 //= require csrf_bootstrap
 //= require public_header
-//= require current_date
+//= require current_year
+//= require public_calculator_date_hydration

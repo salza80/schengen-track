@@ -77,7 +77,7 @@ class VisitsController < ApplicationController
 
   # GET /visits/1/edit
   def edit
-    @continent_default_id = @visit.country.continent.id.to_s
+    @continent_default_code = @visit.country.continent.continent_code
     if @visit.country && !@visit.country.affiliate_booking_html.nil?
       @advertise_country = @visit.country
     end
@@ -94,7 +94,7 @@ class VisitsController < ApplicationController
       return render_calculator_nationality_required(open_trip: true) unless calculator_nationality_selected?
 
       result = AnonymousCalculator::FirstSave.call(
-        nationality: selected_calculator_nationality,
+        nationality: calculator_nationality_record,
         record_class: Visit,
         attributes: visit_params
       )
@@ -123,7 +123,7 @@ class VisitsController < ApplicationController
         format.json { render :show, status: :created, location: @visit }
         format.js   # AJAX request from calendar
       else
-        @continent_default_id = @visit&.country&.continent&.id&.to_s || @continent_default_id
+        @continent_default_code = @visit&.country&.continent&.continent_code || @continent_default_code
         format.html { render :new }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
         format.js   # AJAX request from calendar - show errors
@@ -234,7 +234,10 @@ class VisitsController < ApplicationController
     
     # If no country selected, assume Schengen
     # If country selected, check if it's actually Schengen
-    if params[:country_id].present?
+    if params[:country_code].present?
+      country = Country.find_by!(country_code: params[:country_code].to_s.upcase)
+      is_schengen = country.schengen?(date)
+    elsif params[:country_id].present?
       country = Country.find(params[:country_id])
       is_schengen = country.schengen?(date)
     else
@@ -397,13 +400,18 @@ class VisitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:entry_date, :exit_date, :country_id)
+      permitted = params.require(:visit).permit(:entry_date, :exit_date, :country_id, :country_code)
+      country_code = permitted.delete(:country_code)
+      if country_code.present?
+        permitted[:country_id] = Country.find_by(country_code: country_code.to_s.upcase)&.id
+      end
+      permitted
     end
 
     def set_country_continent
-      @continent = Continent.all
-      @continent_default_id = Continent.find_by(continent_code: 'EU').id.to_s
-      @country_options = Country.all.order_by_name.to_json(:only => [:id, :name, :continent_id])
+      @continents = CountryCatalog.continents
+      @continent_default_code ||= 'EU'
+      @country_options = CountryCatalog.country_options.to_json
     end
     
     def set_visits_meta_tags

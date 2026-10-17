@@ -59,6 +59,18 @@ class ActiveSupport::TestCase
     analytics&.define_singleton_method(:track, original_track) if original_track
   end
 
+  # Capture every uncached SQL notification emitted by the block. Public-page
+  # tests intentionally include schema queries because those also wake Neon.
+  def capture_database_queries(&block)
+    queries = []
+    subscriber = lambda do |_name, _started, _finished, _unique_id, payload|
+      queries << payload[:sql] unless payload[:cached]
+    end
+
+    ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record', &block)
+    queries
+  end
+
   def login
     @request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in  users(:Sally)

@@ -54,15 +54,9 @@ $bp-homer: 75em;
       font-weight: 600;
       color: $gray-800;
       padding: 0.75rem 0.5rem;
-      border-bottom: 1px solid $gray-200;
       
       &:first-of-type {
         text-align: left;
-        border-top-left-radius: 0.5rem;
-      }
-      
-      &:last-of-type {
-        border-top-right-radius: 0.5rem;
       }
     }
   }
@@ -89,6 +83,10 @@ $bp-homer: 75em;
   td {
     padding: .5em;
     vertical-align: middle;
+    // Separate borders must be drawn once, rather than on both adjacent cells.
+    // Set the color explicitly: row border resets otherwise inherit text colors.
+    border: 0;
+    border-bottom: 1px solid var(--bs-table-border-color);
     
     @media (min-width: $bp-lisa) {
       padding: .75em .5em; 
@@ -108,6 +106,32 @@ $bp-homer: 75em;
       padding: .75em; 
     }
   }
+
+  @include media-breakpoint-up(md) {
+    thead tr {
+      border: 0;
+    }
+
+    th,
+    td {
+      border-inline-end: 1px solid var(--bs-table-border-color);
+
+      &:first-child {
+        border-inline-start: 1px solid var(--bs-table-border-color);
+      }
+    }
+
+    thead tr:first-child th {
+      border-top: 1px solid var(--bs-table-border-color);
+
+      &:first-child { border-start-start-radius: 0.5rem; }
+      &:last-child { border-start-end-radius: 0.5rem; }
+    }
+
+    tbody tr:last-child > * {
+      border-bottom: 0;
+    }
+  }
   
   caption {
     padding: 1rem;
@@ -119,7 +143,7 @@ $bp-homer: 75em;
     background-color: $gray-100;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-    border-top: 1px solid $gray-200;
+    border-top: 1px solid var(--bs-table-border-color);
     caption-side: bottom;
     
     @media (min-width: $bp-bart) {
@@ -146,15 +170,15 @@ $bp-homer: 75em;
     tr {
       margin-bottom: 1em;
       background: white;
-      border: 1px solid $gray-200;
+      border: 1px solid var(--bs-table-border-color);
       border-radius: 0.25rem;
+      overflow: hidden;
       
       @media (min-width: $bp-bart) {
         // Undo display: block 
         display: table-row;
         border: none;
         border-radius: 0;
-        border-bottom: 1px solid rgba($gray-300, 0.5);
         
         &:hover {
           background-color: rgba($primary, 0.02);
@@ -163,10 +187,12 @@ $bp-homer: 75em;
       
       &:last-of-type {
         margin-bottom: 0;
-        
-        @media (min-width: $bp-bart) {
-          border-bottom: none;
-        }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      tr > :last-child {
+        border-bottom: 0;
       }
     }
     

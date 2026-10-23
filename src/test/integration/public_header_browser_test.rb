@@ -502,6 +502,17 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     tables = all('table.responsive-table', count: 2)
     tables.each do |table|
       refute_includes table[:class].split, 'table-striped'
+      cells = table.all('tbody tr:first-child > *')
+      cells.each do |cell|
+        assert_equal 'rgba(222, 226, 230, 1)', cell.style('border-right-color')['border-right-color']
+        assert_equal '1px', cell.style('border-right-width')['border-right-width']
+      end
+      cells.drop(1).each do |cell|
+        assert_equal '0px', cell.style('border-left-width')['border-left-width']
+      end
+      table.all('thead tr:nth-child(2) th').each do |cell|
+        assert_equal '0px', cell.style('border-top-left-radius')['border-top-left-radius']
+      end
     end
 
     all('table.responsive-table tbody tr', minimum: 2).each do |row|
@@ -528,6 +539,14 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     mobile_header = find('table.responsive-table tbody .bg-md-header', match: :first)
     assert_equal status_blue['background-color'], mobile_header.style('background-color')['background-color']
     assert_equal 'rgba(255, 255, 255, 1)', mobile_header.style('color')['color']
+
+    visit visits_path(locale: :en)
+    all('table.responsive-table', count: 2).each do |table|
+      table.all('tbody tr:first-child > *').each do |cell|
+        assert_equal '0px', cell.style('border-left-width')['border-left-width']
+        assert_equal '0px', cell.style('border-right-width')['border-right-width']
+      end
+    end
   ensure
     page.current_window.resize_to(1400, 1000)
   end

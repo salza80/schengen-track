@@ -52,6 +52,17 @@
 @import "responsive_table";
 @import "calendar_status_card";
 
+// Bootstrap 5 applies $btn-box-shadow to the base .btn. Previously only filled
+// variants had it; keep outline, link, and unstyled OAuth buttons flat.
+.btn {
+  --bs-btn-box-shadow: none;
+}
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    --bs-btn-box-shadow: #{$btn-box-shadow};
+  }
+}
+
 // Bootstrap derives info alerts from $info, which gives the purple theme color
 // a warm pink surface. Keep the purple accent but use the theme's cool lavender
 // information surface for every info alert.

@@ -641,4 +641,40 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_equal 'rgba(61, 90, 31, 1)', badge.style('color')['color']
   end
 
+
+  test 'responsive pages fit and login controls stay readable' do
+    [390, 1400].each do |width|
+      page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 1000, deviceScaleFactor: 1, mobile: false)
+      assert_equal width, page.evaluate_script('window.innerWidth')
+      visit visits_path(locale: :en)
+      assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
+    end
+
+    visit new_user_session_path(locale: :en)
+    assert_equal 'none', find('.facebook-oauth-form .btn').style('box-shadow')['box-shadow']
+    checkbox = find('#user_remember_me')
+    assert_equal '1px', checkbox.style('border-width')['border-width']
+    assert_equal 'rgb(102, 102, 102)', checkbox.style('border-color')['border-color']
+    checkbox.check
+    assert checkbox.checked?
+  ensure
+    page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
+    page.current_window.resize_to(1400, 1000)
+  end
+
+  test 'outline calendar controls stay flat and mobile actions have one spacing gap' do
+    visit days_path(locale: :en, year: 2027)
+    assert_equal 'none', find('.btn-prev-year', match: :first).style('box-shadow')['box-shadow']
+
+    page.current_window.resize_to(390, 1000)
+    user_login
+    visit days_path(locale: :en, year: 2014)
+    actions = all('.calendar-status-card .gap-2 > .btn', count: 2)
+    first_bounds = actions.first.native.rect
+    second_bounds = actions.last.native.rect
+    assert_in_delta 8, second_bounds.y - first_bounds.y - first_bounds.height, 1
+  ensure
+    page.current_window.resize_to(1400, 1000)
+  end
+
 end

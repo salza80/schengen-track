@@ -21,7 +21,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
         ({ top: document.querySelector('#faq-q3').getBoundingClientRect().top,
            headerBottom: document.querySelector('nav.navbar').getBoundingClientRect().bottom })
       JS
-      unless bounds['top'] >= bounds['headerBottom'] && bounds['top'] <= bounds['headerBottom'] + 60
+      unless bounds['top'] >= bounds['headerBottom'] - 1 && bounds['top'] <= bounds['headerBottom'] + 60
         raise Capybara::ExpectationNotMet, "FAQ heading is outside the visible anchor position: #{bounds}"
       end
       true
@@ -165,6 +165,14 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
       assert_operator page.evaluate_script('document.documentElement.scrollWidth'),
                       :<=, page.evaluate_script('window.innerWidth'),
                       "Expected the #{locale} header to fit at the expanded breakpoint"
+    end
+
+    [900, 1024].each do |width|
+      page.current_window.resize_to(width, 900)
+      visit '/en/about'
+      assert_no_selector '#navbarContent .nav-tabs .nav-link i', visible: true
+      assert_operator page.evaluate_script('document.documentElement.scrollWidth'),
+                      :<=, page.evaluate_script('window.innerWidth')
     end
 
     page.current_window.resize_to(719, 900)

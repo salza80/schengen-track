@@ -45,8 +45,7 @@
 @import "bootstrap/close";
 @import "bootstrap/helpers";
 @import "bootstrap/utilities/api";
-@import "font-awesome";
-@import "font_display"; // Font display optimization for performance
+@import "font_awesome";
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)
 @import "about"; // Shared About and legal-page layout
 @import "responsive_table";
@@ -205,7 +204,8 @@ html {
 }
 
 $header-expanded-breakpoint: 720px;
-$header-full-breakpoint: 900px;
+// Keep the compact navigation until the wider Font Awesome 7 icon canvases fit.
+$header-full-breakpoint: 1200px;
 
 .header-desktop-only {
   display: none;

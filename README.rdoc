@@ -52,8 +52,9 @@ Keep Bootstrap data attributes namespaced as <tt>data-bs-*</tt>. jQuery and
 <tt>jquery_ujs</tt> remain in use for remote Rails forms and existing calculator
 interactions. Bootstrap's jQuery bridge is available, but component instances
 must be read with Bootstrap's <tt>getInstance</tt> API rather than jQuery data.
-Font Awesome still brings in <tt>sassc</tt> as a dependency; stylesheet compilation
-uses Dart Sass.
+Font Awesome Free 7 is self-hosted under <tt>src/vendor/assets</tt>. Its Sass
+modules use the same Dart Sass compiler, and Sprockets fingerprints its WOFF2
+fonts. See the vendored asset README for version, license and update instructions.
 
 
 == Configuration

@@ -1,4 +1,8 @@
 ENV['RAILS_ENV'] ||= 'test'
+# OAuth redirect tests must not depend on a developer's local secrets.yml.
+# Configure dummy credentials before Devise initializes the provider.
+ENV['FACEBOOK_ID'] = 'test-facebook-client-id' if ENV['FACEBOOK_ID'].to_s.empty?
+ENV['FACEBOOK_SECRET'] = 'test-facebook-client-secret' if ENV['FACEBOOK_SECRET'].to_s.empty?
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'

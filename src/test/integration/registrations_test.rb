@@ -27,10 +27,10 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     post user_session_path(locale: :en), params: {
       user: { email: account.email, password: 'password123' }
     }
-    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+    assert_includes response_cookie_headers, 'has_calculator_session=1;'
 
     delete destroy_user_session_path(locale: :en)
-    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
+    assert_match(/has_calculator_session=;.*max-age=0/, response_cookie_headers)
   end
 
   test 'logging into an existing account does not copy guest travelers' do

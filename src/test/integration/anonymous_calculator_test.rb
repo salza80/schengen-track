@@ -5,19 +5,19 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
 
   test 'calculator no longer emits the legacy country and guest cache cookie' do
     get visits_path(locale: :en)
-    assert_not_includes response.headers['Set-Cookie'].to_s, 'cache_country_guest='
+    assert_not_includes response_cookie_headers, 'cache_country_guest='
 
     patch calculator_preferences_path(locale: :en), params: {
       nationality_code: 'IN',
       destination: 'trips'
     }
-    assert_not_includes response.headers['Set-Cookie'].to_s, 'cache_country_guest='
+    assert_not_includes response_cookie_headers, 'cache_country_guest='
   end
 
   test 'calculator session hint is removed when no calculator state remains' do
     get visits_path(locale: :en), headers: { 'Cookie' => 'has_calculator_session=1' }
 
-    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
+    assert_match(/has_calculator_session=;.*max-age=0/, response_cookie_headers)
   end
 
   test 'calculator GET requests do not create persisted records' do

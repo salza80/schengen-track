@@ -1,3 +1,4 @@
+# Load before devise.rb captures OAuth credentials during initialization.
 # Load secrets from secrets.yml into ENV for development and test environments
 # This allows us to use ENV vars consistently across all environments while
 # keeping development secrets in a local YAML file (not committed to production)

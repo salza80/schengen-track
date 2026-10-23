@@ -58,7 +58,7 @@ module Api
 
         render json: {
           errors: [error]
-        }, status: :payload_too_large
+        }, status: :content_too_large
       end
 
       def rate_limit!

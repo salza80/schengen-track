@@ -83,6 +83,11 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
+  # Rack 3 exposes Set-Cookie as separate values; inspect all cookie lines.
+  def response_cookie_headers
+    Array(response.headers['Set-Cookie']).join("\n")
+  end
+
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
   include ActionDispatch::TestProcess

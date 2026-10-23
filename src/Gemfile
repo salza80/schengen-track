@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.4'
+gem 'rails', '~> 8.0.5'
 
 # Use SassC for SCSS stylesheets (modern C-based Sass compiler)
 gem 'sassc-rails'
@@ -19,6 +19,10 @@ gem 'jbuilder', '~> 2.0'
 # gem 'sdoc', group: :doc
 
 gem 'haml-rails', '~> 3.0'
+# Haml's attribute parser requires Prism 1.x.
+gem 'prism', '~> 1.9'
+# Rails 8.0 still passes JSON options removed in JSON 3.
+gem 'json', '< 3'
 gem 'bootstrap', '~> 4.6', '>= 4.6.2'
 gem "font-awesome-sass", "~> 6.7"
 gem "devise", ">= 4.9.2"

@@ -340,7 +340,7 @@
       %p.mb-4
         = t('about.about.last_updated.description', date: l(@last_reviewed_date.to_time, format: :mid))
 :javascript
-  // Initialize scrollspy and smooth scroll after page load
+  // Use the same CSS offset for sidebar clicks and direct fragment links.
   // This runs AFTER deferred scripts (core.js with jQuery) have loaded
   window.addEventListener('load', function() {
     // Double-check jQuery is available (should be loaded by now)
@@ -350,19 +350,26 @@
     }
     
     // Initialize Bootstrap scrollspy for sidebar navigation
-    $('body').scrollspy({ target: '.page-sidebar', offset: 130 });
-    
-    // Smooth scroll for sidebar links
-    $('.page-sidebar li a').click(function(event) {
-      event.preventDefault();
-      const target = $(this).attr('href');
-      const $target = $(target);
-      if ($target.length) {
-        const scrollToPosition = $target.offset().top - 120;
-        $('html, body').animate({
-          scrollTop: scrollToPosition
-        }, 400);
-      }
+    $('body').scrollspy({ target: '.page-sidebar', rootMargin: '-120px 0px -25%' });
+
+    function scrollToSection(hash, behavior) {
+      const target = document.getElementById(hash.slice(1));
+      if (!target) return;
+      const offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      window.scrollTo({ top: window.scrollY + target.getBoundingClientRect().top - offset, behavior: behavior });
+    }
+
+    document.querySelectorAll('.page-sidebar a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        history.pushState(null, '', link.hash);
+        scrollToSection(link.hash, 'smooth');
+      });
+    });
+
+    // Font loading can move the target after the browser's initial fragment jump.
+    document.fonts.ready.then(function() {
+      if (window.location.hash) scrollToSection(window.location.hash, 'instant');
     });
   });
   

@@ -1,6 +1,33 @@
 require 'test_helper'
 
 class PublicHeaderBrowserTest < JavascriptIntegrationTest
+  test 'FAQ anchors keep questions below the sticky header' do
+    [390, 1400].each do |width|
+      page.current_window.resize_to(width, 1000)
+      visit '/en/about#faq-q3'
+      assert faq_question_clears_header?
+    end
+
+    visit '/en/about'
+    click_link 'Can I reset my 90 days by leaving the Schengen Area?'
+    assert faq_question_clears_header?
+  ensure
+    page.current_window.resize_to(1400, 1000)
+  end
+
+  def faq_question_clears_header?
+    page.document.synchronize(5) do
+      bounds = page.evaluate_script(<<~JS)
+        ({ top: document.querySelector('#faq-q3').getBoundingClientRect().top,
+           headerBottom: document.querySelector('nav.navbar').getBoundingClientRect().bottom })
+      JS
+      unless bounds['top'] >= bounds['headerBottom'] && bounds['top'] <= bounds['headerBottom'] + 60
+        raise Capybara::ExpectationNotMet, "FAQ heading is outside the visible anchor position: #{bounds}"
+      end
+      true
+    end
+  end
+
   test 'anonymous main page header probe does not query the database' do
     visit '/'
     assert_selector '#public-user-menu'

@@ -19,34 +19,34 @@
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="mb-3 row">
-        <%= f.label :first_name, class: "col-sm-2 col-form-label" %>
-        <div class="col-sm-10">
+        <%= f.label :first_name, class: "col-lg-3 col-form-label" %>
+        <div class="col-lg-9">
           <%= f.text_field :first_name, class: "form-control" %>
         </div>
       </div>
       <div class="mb-3 row">
-        <%= f.label :last_name, class: "col-sm-2 col-form-label" %>
-        <div class="col-sm-10">
+        <%= f.label :last_name, class: "col-lg-3 col-form-label" %>
+        <div class="col-lg-9">
           <%= f.text_field :last_name, class: "form-control" %>
         </div>
       </div>
       <div class="mb-3 row">
-        <%= label_tag 'user_nationality_code', t('helpers.label.user.nationality'), class: "col-sm-2 col-form-label" %>
-        <div class="col-sm-10">
+        <%= label_tag 'user_nationality_code', t('helpers.label.user.nationality'), class: "col-lg-3 col-form-label" %>
+        <div class="col-lg-9">
           <%= select_tag 'user[nationality_code]', options_from_collection_for_select(CountryCatalog.all, :country_code, :name, @selected_nationality_code), include_blank: true, id: 'user_nationality_code', class: "form-select" %>
         </div>
       </div>
 
       <div class="mb-3 row">
-        <%= f.label :email, class: "col-sm-2 col-form-label" %>
-        <div class="col-sm-10">
+        <%= f.label :email, class: "col-lg-3 col-form-label" %>
+        <div class="col-lg-9">
           <%= f.email_field :email, autofocus: true, class: "form-control" %>
         </div>
       </div>
 
       <div class="mb-3 row">
-        <%= f.label :password, class: "col-sm-2 col-form-label" %>
-        <div class="col-sm-10">
+        <%= f.label :password, class: "col-lg-3 col-form-label" %>
+        <div class="col-lg-9">
           <% if @validatable %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %>
@@ -55,8 +55,8 @@
       </div>
 
       <div class="mb-3 row">
-        <%= f.label :password_confirmation, class: "col-sm-2 col-form-label" %>
-        <div class="col-sm-10">
+        <%= f.label :password_confirmation, class: "col-lg-3 col-form-label" %>
+        <div class="col-lg-9">
           <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
         </div>
       </div>

@@ -9,7 +9,7 @@ a.nationality_anchor {
 
 // Scroll offset for all heading anchors
 .about-section {
-  h1[id], h2[id], h3[id], h4[id] {
+  h1[id], h2[id], h3[id], h4[id], .faq-item[id] {
     scroll-margin-top: 120px; // Offset for sticky header
   }
 }

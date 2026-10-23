@@ -1,6 +1,6 @@
 -# Breadcrumb navigation and schema (hidden but accessible)
 - breadcrumbs = [{ name: t('common.home'), url: seo_url('/', locale: I18n.locale) }, { name: t('days.page_title'), url: seo_canonical_url }]
-.sr-only-heading
+.visually-hidden
   = render_breadcrumbs(breadcrumbs)
   - unless anonymous_calculator?
     %h1= t('days.page_title')

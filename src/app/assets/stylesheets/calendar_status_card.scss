@@ -8,12 +8,7 @@
     }
 
     .dropdown-toggle span {
-      display: inline-block;
       max-width: 14rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      vertical-align: bottom;
-      white-space: nowrap;
     }
 
     .dropdown-menu {
@@ -22,19 +17,12 @@
       overflow-y: auto;
     }
 
-    .mobile-status-person-form {
-      margin: 0;
-    }
-
     .dropdown-item.active {
       background-color: rgba($primary, 0.1);
       color: $dark;
       font-weight: 500;
     }
 
-    .mobile-status-person-check-placeholder {
-      display: inline-block;
-    }
   }
 
   // Larger badges for mobile
@@ -57,10 +45,6 @@
   
   // Responsive adjustments
   @media (max-width: 575px) {
-    .card-body {
-      padding: 1rem !important;
-    }
-    
     .h3 {
       font-size: 2rem;
     }

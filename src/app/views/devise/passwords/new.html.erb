@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <%= form_for(resource, as: resource_name, url: user_password_path(locale: I18n.locale), html: { method: :post, class: "form-horizontal" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: user_password_path(locale: I18n.locale), html: { method: :post }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
       <div class="mb-3 row">
         <%= f.label :email, class: "col-sm-2 col-form-label" %>

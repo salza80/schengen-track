@@ -8,7 +8,7 @@
         <%= image_tag("facebook_icon.png", alt: "Facebook", class: "me-2") %>
       </div>
     </div>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form-horizontal" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="mb-3">

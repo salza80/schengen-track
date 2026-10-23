@@ -21,14 +21,14 @@
                 .dropdown.mobile-status-person-switcher.d-inline-block
                   %button.btn.btn-outline-primary.btn-sm.dropdown-toggle{type: "button", id: "mobileStatusPersonDropdown", "data-bs-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
                     %i.fa.fa-user.me-1{"aria-hidden": "true"}
-                    %span{dir: "auto"}= current_person.full_name
+                    %span.d-inline-block.text-truncate.align-bottom{dir: "auto"}= current_person.full_name
                   .dropdown-menu{"aria-labelledby": "mobileStatusPersonDropdown"}
                     - tracked_people.each do |person|
-                      = button_to set_current_person_path(locale: I18n.locale, id: person), class: ['dropdown-item', 'text-start', ('active' if person == current_person)], form: { class: 'mobile-status-person-form', data: { turbo: false } } do
+                      = button_to set_current_person_path(locale: I18n.locale, id: person), class: ['dropdown-item', 'text-start', ('active' if person == current_person)], form: { class: 'mobile-status-person-form m-0', data: { turbo: false } } do
                         - if person == current_person
                           %i.fa.fa-check.me-2{"aria-hidden": "true"}
                         - else
-                          %span.mobile-status-person-check-placeholder.me-4
+                          %span.d-inline-block.me-4
                         %span{dir: "auto"}= person.full_name
               - else
                 .mobile-status-person-name

@@ -1,4 +1,4 @@
-= form_for @visa, html: { class: "form-horizontal" }, remote: true do |f|
+= form_for @visa, remote: true do |f|
   - if anonymous_calculator?
     .alert.alert-light.border
       = t('common.nationality_summary', nationality: current_person.nationality.localized_name)
@@ -13,13 +13,13 @@
   .mb-3.row
     .col-sm-2.my-auto
       = f.label :start_date, class: "col-form-label"
-    .col-sm-10.date-form-group
-      = f.date_select :start_date, {}, { class: "form-select" }
+    .col-sm-10
+      = f.date_select :start_date, {}, { class: "form-select d-inline-block w-auto" }
   .mb-3.row
     .col-sm-2.my-auto
       = f.label :end_date, class: "col-form-label"
-    .col-sm-10.date-form-group
-      = f.date_select :end_date, {}, { class: "form-select" }
+    .col-sm-10
+      = f.date_select :end_date, {}, { class: "form-select d-inline-block w-auto" }
   .mb-3.row
     .col-sm-2.my-auto
       = f.label :no_entries, class: "col-form-label"

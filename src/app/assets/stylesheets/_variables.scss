@@ -70,7 +70,7 @@ $input-btn-padding-x:       1rem !default;
 // Forms
 
 $input-padding-y:                1rem !default;
-$input-padding-x:                0 !default;
+$input-padding-x:                1rem !default;
 $input-padding-y-sm:             0 !default;
 $input-padding-x-sm:             0 !default;
 $input-padding-y-lg:             ($font-size-base * 1.25) !default;
@@ -88,6 +88,7 @@ $input-group-addon-bg:           transparent !default;
 $form-check-input-bg: $white !default;
 $form-check-input-border: 1px solid $gray-600 !default;
 $form-check-input-border-radius: 2px !default;
+$form-select-indicator-padding: 2.25rem !default;
 $form-select-border-radius: 0 !default;
 $form-select-box-shadow: none !default;
 $form-select-bg: $input-bg !default;

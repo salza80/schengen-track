@@ -7,19 +7,6 @@ $bp-bart: 48em;
 $bp-marge: 62em;
 $bp-homer: 75em;
 
-// Styles
-* {
- box-sizing: border-box;
- &:before,
- &:after {
-  box-sizing: border-box;
- }
-}
-
-.no-wrap{
-  white-space: nowrap;
-}
-
 .responsive-table-container {
   width: 100%;
   max-width: 100%;
@@ -53,26 +40,15 @@ $bp-homer: 75em;
   }
   
   thead {
-    // Accessibly hide <thead> on narrow viewports
-    position: absolute;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0;
-    border: 0;
-    height: 1px; 
-    width: 1px; 
-    overflow: hidden;
-    
-    @media (min-width: $bp-bart) {
-      // Unhide <thead> on wide viewports
-      position: relative;
-      clip: auto;
-      height: auto;
-      width: auto;
-      overflow: auto;
+    // Bootstrap's accessible hiding helper preserves headers for screen readers.
+    @include media-breakpoint-down(md) {
+      @include visually-hidden;
+    }
+
+    @include media-breakpoint-up(md) {
       background-color: $gray-100;
     }
-    
+
     th {
       text-align: center;
       font-weight: 600;
@@ -203,10 +179,6 @@ $bp-homer: 75em;
     td {
       text-align: right;
       
-      @media (min-width: $bp-lisa) {
-
-      }
-      
       @media (min-width: $bp-bart) {
         text-align: center; 
       }
@@ -241,18 +213,6 @@ $bp-homer: 75em;
   
   &:hover {
     background-color: rgba(33, 150, 243, 0.1) !important; // Light blue hover - match primary color
-  }
-}
-
-// Action buttons container for proper spacing
-.action-buttons {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-  
-  @media (max-width: $bp-bart) {
-    justify-content: flex-end;
   }
 }
 

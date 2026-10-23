@@ -16,7 +16,7 @@
       - @days.each_with_index do |day, index|
         %tr
           %th{ scope: "col", class: 'bg-md-header' }
-            %span.no-wrap
+            %span.text-nowrap
               = day.the_date.strftime('%d-%b-%Y')
             %span.d-md-none
               = "-"

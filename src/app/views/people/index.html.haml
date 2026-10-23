@@ -54,7 +54,7 @@
                     = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: t('people.index.table.make_primary.title'), "aria-label": t('people.index.table.make_primary.aria', name: person.full_name), form: { class: "d-inline" } do
                       = t('people.index.table.make_primary.label')
                 %td{"data-title": t('people.index.table.columns.actions'), onclick: "event.stopPropagation();"}
-                  .action-buttons
+                  .d-flex.gap-2.justify-content-end.justify-content-md-center.align-items-center
                     = link_to edit_person_path(person, locale: I18n.locale), class: "btn btn-sm btn-icon", title: t('common.edit'), "aria-label": t('people.index.table.actions.edit_aria', name: person.full_name) do
                       %i.fa.fa-pencil-alt{"aria-hidden": "true"}
                     - unless person.is_primary

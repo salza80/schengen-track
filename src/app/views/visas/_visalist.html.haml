@@ -20,15 +20,15 @@
         - @visas.each do |visa|
           %tr
             %th{ scope: "row", class: 'bg-md-header'}
-              %span.no-wrap 
+              %span.text-nowrap
                 = visa.start_date.strftime(t('date.formats.default'))
               = " #{t('visas.to')} "
-              %span.no-wrap
+              %span.text-nowrap
                 = visa.end_date.strftime(t('date.formats.default'))
             %td{"data-title": t('visas.columns.no_entries')} 
               = visa.no_entries
             %td{"data-title": t('visas.columns.modify')} 
-              .action-buttons
+              .d-flex.gap-2.justify-content-end.justify-content-md-center.align-items-center
                 %a.btn.btn-sm.btn-icon.edit-visa-link{href: "#", "data-visa-id" => visa.id, title: t('common.edit'), "aria-label": t('common.edit')}
                   %i.fa.fa-pencil-alt
                 %a.btn.btn-sm.btn-icon.delete-visa-link{href: "#", "data-visa-id" => visa.id, "data-delete-url" => visa_path(visa, locale: I18n.locale), title: t('common.delete'), "aria-label": t('common.delete')}

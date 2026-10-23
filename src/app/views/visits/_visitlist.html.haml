@@ -14,14 +14,14 @@
         = t('visits.list_caption')
       %thead.bg-table-header
         %tr.table-top-header
-          %th.center-heading.text-white{ colspan: "4", scope: "col" }
+          %th.text-center.text-white{ colspan: "4", scope: "col" }
             = t('visits.travel_details')
           - if current_person.visa_required?
-            %th.center-heading.text-white{ colspan: "3", scope: "col" }
+            %th.text-center.text-white{ colspan: "3", scope: "col" }
               = t('visits.visa_details')
-          %th.center-heading.text-white{ colspan: "2", scope: "col" }
+          %th.text-center.text-white{ colspan: "2", scope: "col" }
             = t('visits.schengen_days')
-          %th.center-heading.text-white{ scope: "col", class: "modify-col" }
+          %th.text-center.text-white{ scope: "col", class: "modify-col" }
             = t('visits.modify')
         %tr
           %th.text-white{ scope: "col" }
@@ -50,10 +50,10 @@
             %th{ scope: "row", class: 'bg-md-header' }
               %span.d-md-none
                 = visit.country.name
-              %span.no-wrap
+              %span.text-nowrap
                 = visit.entry_date.strftime('%d-%b-%Y')
               = " to "
-              %span.no-wrap
+              %span.text-nowrap
                 = visit.exit_date.strftime('%d-%b-%Y')
               %span.d-md-none
                 (
@@ -90,7 +90,7 @@
             %td{ "data-title": t('visits.schengen_days_overstay'), class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
               = visit.schengen_overstay_days
             %td{ "data-title": t('visits.modify') }
-              .action-buttons
+              .d-flex.gap-2.justify-content-end.justify-content-md-center.align-items-center
                 %a.btn.btn-sm.btn-icon.edit-visit-link{href: "#", "data-visit-id" => visit.id, title: t('common.edit'), "aria-label": "#{t('common.edit')} #{visit.country.name} #{t('visits.travel_record')}"}
                   %i.fa.fa-pencil-alt{"aria-hidden": "true"}
                 %a.btn.btn-sm.btn-icon.delete-visit-link{href: "#", "data-visit-id" => visit.id, "data-delete-url" => visit_path(visit, locale: I18n.locale), title: t('common.delete'), "aria-label": "#{t('common.delete')} #{visit.country.name} #{t('visits.travel_record')}"}

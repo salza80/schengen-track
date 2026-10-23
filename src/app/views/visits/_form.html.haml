@@ -1,5 +1,5 @@
 - visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale) : visits_path(locale: I18n.locale, format: :js)
-= form_for @visit, url: visit_form_url, html: { class: "form-horizontal" }, remote: true do |f|
+= form_for @visit, url: visit_form_url, remote: true do |f|
   - if @visit.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
       %button.btn-close{"type" => "button", "data-bs-dismiss" => "alert", "aria-label" => "Close"}
@@ -13,8 +13,8 @@
   .mb-3.row
     .col-sm-2.my-auto
       = f.label :entry_date, class: "col-form-label"
-    .col-sm-10.date-form-group
-      = f.date_select :entry_date, {}, { class: "form-select", "aria-label": t('visits.entry_date') }
+    .col-sm-10
+      = f.date_select :entry_date, {}, { class: "form-select d-inline-block w-auto", "aria-label": t('visits.entry_date') }
   - unless current_person.nationality.visa_required == 'F'
     #entry-date-info.mb-3.row{style: 'display: none;'}
       .col-sm-2
@@ -26,8 +26,8 @@
   .mb-3.row
     .col-sm-2.my-auto
       = f.label :exit_date, class: "col-form-label"
-    .col-sm-10.date-form-group
-      = f.date_select :exit_date, {}, { class: "form-select", "aria-label": t('visits.exit_date') }
+    .col-sm-10
+      = f.date_select :exit_date, {}, { class: "form-select d-inline-block w-auto", "aria-label": t('visits.exit_date') }
   .mb-3.row
     .col-sm-2.my-auto
       = f.label t('common.continent'), class: "col-form-label"

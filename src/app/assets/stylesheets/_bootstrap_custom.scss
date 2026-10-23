@@ -18,7 +18,7 @@ $link-hover-color:                  #003d82 !default;  // Even darker on hover
 
 // Text colors
 $body-color:                        #212529 !default;  // Dark gray for body text
-$text-muted:                        #495057 !default;  // Darker muted text for better readability (was #6c757d)
+$body-secondary-color:              #495057 !default;  // Bootstrap 5 muted/secondary text
 
 // Calendar status colors (semantic naming)
 $calendar-outside: #e9ecef !default;      // Gray - recorded travel outside Schengen

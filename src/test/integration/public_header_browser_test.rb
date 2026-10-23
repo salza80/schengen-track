@@ -648,10 +648,18 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
       assert_equal width, page.evaluate_script('window.innerWidth')
       visit visits_path(locale: :en)
       assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
+      visit days_path(locale: :en, year: 2027)
+      grid = find('.calendar-grid', match: :first)
+      assert_equal 7, grid.style('grid-template-columns')['grid-template-columns'].split.size
+      assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
+
     end
 
     visit new_user_session_path(locale: :en)
     assert_equal 'none', find('.facebook-oauth-form .btn').style('box-shadow')['box-shadow']
+    assert_equal find('main input[type="submit"]').style('color'), find('.header-auth-button').style('color'),
+                 'Button links should use the same contrast colors as form buttons'
+
     checkbox = find('#user_remember_me')
     assert_equal '1px', checkbox.style('border-width')['border-width']
     assert_equal 'rgb(102, 102, 102)', checkbox.style('border-color')['border-color']

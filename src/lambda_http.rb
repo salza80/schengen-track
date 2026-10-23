@@ -1,8 +1,9 @@
 require 'json'
 require 'rack'
 require 'base64'
+require 'stringio'
 
-$app ||= Rack::Builder.parse_file("#{__dir__}/config.ru").first
+$app ||= Rack::Builder.parse_file("#{__dir__}/config.ru")
 
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
@@ -29,51 +30,41 @@ def trusted_cloudfront_request?(request_headers)
   Rack::Utils.secure_compare(provided, expected)
 end
 
-# allow static file to be served from lambda
-def serve_static_file(path)
-  app = Rack::Builder.new do
-    use Rack::Static, root: 'public', urls: [''], mime_types: { ".ico" => "image/x-icon" }
-    run lambda { |env|
-      if env['REQUEST_METHOD'] == 'GET'
-        Rack::Static.new(
-          lambda { |inner_env| [404, {}, ['Not Found']] },
-          root: 'public',
-          urls: ['/assets']
-        ).call(env)
-      else
-        [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]
-      end
-    }
-  end
-
-  response = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
+# Buffer Rack's enumerable responses for API Gateway HTTP API payload v2.
+# Streaming (call-only) bodies require a different Lambda integration.
+def lambda_response(status, headers, body, head: false)
   content = String.new(encoding: Encoding::BINARY)
   begin
-    response[2].each { |part| content << part }
+    raise 'Streaming Rack bodies are not supported by this Lambda integration' unless body.respond_to?(:each)
+
+    body.each { |part| content << part } unless head
   ensure
-    response[2].close if response[2].respond_to?(:close)
+    body.close if body.respond_to?(:close)
   end
 
-  isBase64 = is_binary_content?(response[1])
-  unless isBase64
-    # Rack reads files as binary strings. JSON 3 rejects non-ASCII bytes in
-    # those strings even when they contain valid UTF-8 CSS or JavaScript.
-    text = content.dup.force_encoding(Encoding::UTF_8)
-    isBase64 = !text.valid_encoding?
-    content = text unless isBase64
-  end
-  content = Base64.strict_encode64(content) if isBase64
-  {
-    'statusCode' => response[0],
-    'headers' => response[1],
-    'body' => content,
-    'isBase64Encoded' => isBase64
+  text = content.dup.force_encoding(Encoding::UTF_8)
+  base64 = !content.empty? && (is_binary_content?(headers) || !text.valid_encoding?)
+  response = {
+    'statusCode' => status,
+    'headers' => headers.reject { |key, _| key == 'set-cookie' }.transform_values { |value| Array(value).join(',') },
+    'body' => base64 ? Base64.strict_encode64(content) : text,
+    'isBase64Encoded' => base64
   }
+  cookies = headers['set-cookie']
+  response['cookies'] = Array(cookies) if cookies
+  response
+end
+
+def serve_static_file(path, method: 'GET')
+  status, headers, body = Rack::Files.new(File.join(__dir__, 'public')).call(
+    'PATH_INFO' => path, 'SCRIPT_NAME' => '', 'REQUEST_METHOD' => method
+  )
+  lambda_response(status, headers, body, head: method == 'HEAD')
 end
 
 # Function to determine if content type is binary
 def is_binary_content?(headers)
-  content_type = headers['Content-Type']
+  content_type = headers['content-type']
 
   # Return true if Content-Type header is not present
   return true if content_type.nil?
@@ -119,7 +110,7 @@ def handler(event:, context:)
   # These must be handled before API format checking since .txt and .xml are considered API formats
   # Handle: robots.txt, llms.txt, ads.txt, openapi.json, sitemap.xml, sitemap-*.xml
   if path == '/robots.txt' || path == '/llms.txt' || path == '/llms-full.txt' || path == '/ads.txt' || path == '/openapi.json' || path == '/sitemap.xml' || path.start_with?('/sitemap')
-    response = serve_static_file(path)
+    response = serve_static_file(path, method: httpMethod)
     return response if response['statusCode'] != 404
   end
   
@@ -130,13 +121,13 @@ def handler(event:, context:)
   
   if (path.start_with?('/assets/') || path.start_with?('/public/')) || (extname != '' && !is_api_format)
     # Serve static files directly
-    response = serve_static_file(path)
+    response = serve_static_file(path, method: httpMethod)
     return response if response['statusCode'] != 404
   end
 
   requestTimeEpoch = requestContext['timeEpoch']
 
-  rawQueryString = event['rawQueryString']
+  rawQueryString = event['rawQueryString'] || ''
   cookies = event['cookies'] || []
 
   requestHeaders = event.fetch('headers')
@@ -149,7 +140,7 @@ def handler(event:, context:)
   if event['isBase64Encoded']
     requestBody = Base64.decode64(requestBody)
   end
-  requestBodyContent = StringIO.new(requestBody)
+  requestBodyContent = StringIO.new(requestBody.b)
 
   # Set environment for Rack application
   # https://github.com/rack/rack/blob/main/SPEC.rdoc
@@ -163,7 +154,6 @@ def handler(event:, context:)
     Rack::SERVER_PROTOCOL => protocol,
     'REMOTE_ADDR' => client_ip,
 
-    Rack::RACK_VERSION => Rack::VERSION,
     Rack::RACK_URL_SCHEME => scheme,
     Rack::RACK_INPUT => requestBodyContent,
     Rack::RACK_ERRORS => $stderr,
@@ -197,82 +187,9 @@ def handler(event:, context:)
   env['HTTP_X_REQUEST_ID'] ||= context.aws_request_id
   env['HTTP_X_REQUEST_START'] ||= "t=#{requestTimeEpoch}" if requestTimeEpoch
 
-  begin
-    # Execute Rack application and get response
-    status, responseHeaders, responseBody = $app.call(env)
-
-    # Build response body
-    responseBodyContent = ''
-
-    # if responseBody.respond_to?(:each)
-    #   responseBody.each do |item|
-    #     responseBodyContent << item if item
-    #   end
-    # end
-    responseBodyContent = if responseBody.respond_to?(:each)
-      if responseBody.respond_to?(:binmode)
-        # If responseBody supports binmode, set it to binary mode
-        responseBody.binmode
-      end
-    
-      # If the content is binary, return it directly
-      if responseBody.respond_to?(:read)
-        responseBody.read
-      else
-        # If the content is not binary, concatenate as a string
-        responseBody.each.to_a.join unless responseBodyContent.nil?
-      end
-    end    
-
-    if responseBody.respond_to?(:close)
-      responseBody.close
-    end
-
-    # Generate response conforming to HTTP API output format 2.0
-    # https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html#http-api-develop-integrations-lambda.v2
-    response = {
-      'statusCode' => status,
-      'body' => responseBodyContent
-    }
-
-    # If 'Set-Cookie' response header is present, split it and set as 'cookies' response field
-    responseCookies = []
-    if setCookie = responseHeaders&.delete('Set-Cookie')
-      if setCookie.is_a?(::Array)
-        responseCookies = setCookie
-      elsif setCookie.is_a?(::String)
-        responseCookies = setCookie.split("\n")
-      end
-    end
-    if !responseCookies.empty?
-      response['cookies'] = responseCookies
-    end
-
-    # Set response headers as 'headers' response field
-    unifiedResponseHeaders = {}
-    responseHeaders&.each { |key, value|
-      if value.is_a?(::Array)
-        unifiedResponseHeaders[key] = value.join(',')
-      elsif value.is_a?(::String)
-        unifiedResponseHeaders[key] = value.split("\n").join(',')
-      end
-    }
-    if !unifiedResponseHeaders.empty?
-      response['headers'] = unifiedResponseHeaders
-    end
-
-    # Debug logging for OAuth redirects
-    if status == 302 || status == 301
-      puts "[OAUTH DEBUG] Redirect response: status=#{status}, Location=#{unifiedResponseHeaders['Location']}"
-    end
-
-    return response
-
-  rescue Exception => exception
-    return {
-      'statusCode' => 500,
-      # For debug purpose only. It is not recommended to include error messages in the response body
-      'body' => exception.message
-    }
-  end
+  status, response_headers, response_body = $app.call(env)
+  lambda_response(status, response_headers, response_body, head: httpMethod == 'HEAD')
+rescue StandardError => exception
+  warn "Lambda HTTP error: #{exception.class}: #{exception.message}"
+  { 'statusCode' => 500, 'body' => 'Internal Server Error' }
 end

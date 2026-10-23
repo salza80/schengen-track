@@ -409,7 +409,7 @@ module Api
              params: { padding: 'x' * (Api::V1::CalculationsController::MAX_REQUEST_BYTES + 1) }.to_json,
              headers: { 'CONTENT_TYPE' => 'application/json' }
 
-        assert_response :payload_too_large
+        assert_response :content_too_large
 
         error = JSON.parse(response.body).dig('errors', 0)
         assert_equal 'payload_too_large', error['code']
@@ -428,7 +428,7 @@ module Api
                headers: { 'CONTENT_TYPE' => 'application/json' }
         end
 
-        assert_response :payload_too_large
+        assert_response :content_too_large
 
         error = JSON.parse(response.body).dig('errors', 0)
         assert_equal 'payload_too_large', error['code']

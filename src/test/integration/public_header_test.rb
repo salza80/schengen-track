@@ -51,7 +51,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
 
     assert_response :no_content
-    refute_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'].to_s)
+    refute_match(/has_calculator_session=;.*max-age=0/, response_cookie_headers)
   end
 
   test 'existing guests receive only their own menu and stale sessions create nothing' do
@@ -72,8 +72,8 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     guest.destroy!
     assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
     assert_response :no_content
-    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
-    assert_not_includes response.headers['Set-Cookie'], '_schengen_track_session='
+    assert_match(/has_calculator_session=;.*max-age=0/, response_cookie_headers)
+    assert_not_includes response_cookie_headers, '_schengen_track_session='
   end
 
   test 'signed-in header includes correct person links and logout form' do
@@ -97,7 +97,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
   test 'invalid calculation alerts are delivered once outside the public cache' do
     get '/calculations/invalid-token'
     assert_response :redirect
-    assert_includes response.headers['Set-Cookie'], 'has_flash_message=1;'
+    assert_includes response_cookie_headers, 'has_flash_message=1;'
     follow_redirect!
     message = 'Calculation link is invalid or has expired.'
     assert_not_includes response.body, message
@@ -115,8 +115,8 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     sign_in users(:Sally)
     delete '/en/my_details'
     assert_response :redirect
-    assert_match(/has_calculator_session=;.*max-age=0/, response.headers['Set-Cookie'])
-    assert_includes response.headers['Set-Cookie'], 'has_flash_message=1;'
+    assert_match(/has_calculator_session=;.*max-age=0/, response_cookie_headers)
+    assert_includes response_cookie_headers, 'has_flash_message=1;'
     follow_redirect!
     message = 'Your account has been successfully deleted.'
     assert_not_includes response.body, message
@@ -128,7 +128,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_nil response.parsed_body['html']
     assert_nil response.parsed_body['csrf_token']
     assert_includes response.headers['Cache-Control'], 'no-store'
-    assert_match(/has_flash_message=;.*max-age=0/, response.headers['Set-Cookie'])
+    assert_match(/has_flash_message=;.*max-age=0/, response_cookie_headers)
     get '/en/session_header'
     assert_response :no_content
   end

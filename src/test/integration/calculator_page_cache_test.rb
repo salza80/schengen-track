@@ -131,7 +131,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       nationality_code: 'IN',
       destination: 'trips'
     }
-    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+    assert_includes response_cookie_headers, 'has_calculator_session=1;'
     get visits_path(locale: :en)
     assert_private_response
 
@@ -203,7 +203,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       user: { email: users(:Sally).email, password: 'password' }
     }
     assert_response :redirect
-    assert_includes response.headers['Set-Cookie'], 'has_calculator_session=1;'
+    assert_includes response_cookie_headers, 'has_calculator_session=1;'
     get visits_path(locale: :en)
     assert_calculator_data(visit_rows: 3, travel_days: nil, nationality_step: false)
     get days_path(locale: :en, year: 2014)
@@ -221,7 +221,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     assert_equal 'Cookie', response.headers['Vary']
     assert response.parsed_body['token'].present?
     assert_equal 'authenticity_token', response.parsed_body['param']
-    assert_includes response.headers['Set-Cookie'], '_schengen_track_session='
+    assert_includes response_cookie_headers, '_schengen_track_session='
     assert_nil session[:guest_user_id]
     assert_nil session[:calculator_nationality_id]
     assert_nil session[:calculator_nationality_code]

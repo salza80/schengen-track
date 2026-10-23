@@ -37,6 +37,8 @@ class FacebookOauthLinkTest < ActionDispatch::IntegrationTest
     assert_equal 'https://www.facebook.com/v26.0/dialog/oauth', "#{authorization_url.scheme}://#{authorization_url.host}#{authorization_url.path}"
     assert_equal 'https://graph.facebook.com/v26.0', Devise.omniauth_configs.fetch(:facebook).options.fetch(:client_options).fetch(:site)
     query = Rack::Utils.parse_query(authorization_url.query)
+    assert_equal AppConfig.facebook_id, query['client_id']
+    assert query['client_id'].present?
     if AppConfig.facebook_web_login_workaround?
       assert_equal 'joey', query['sdk']
     else

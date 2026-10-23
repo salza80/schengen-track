@@ -5,7 +5,7 @@
     %h4= t('visits.no_trips')
     %p= t('visits.add_first_trip_hint')
     %button.btn.btn-add.btn-lg{"data-action" => "add-visit", "aria-label": t('visits.add_travel')}
-      %i.fa.fa-plus.mr-2{"aria-hidden" => "true"}
+      %i.fa.fa-plus.me-2{"aria-hidden" => "true"}
       = t('visits.add_travel')
 - else
   .responsive-table-container
@@ -28,22 +28,22 @@
             = t('visits.dates')
           %th.text-white{ scope: "col" }
             = t('visits.country')
-          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_area_tooltip') }
+          %th.text-white{ scope: "col", "data-bs-toggle": "tooltip", title: t('visits.schengen_area_tooltip') }
             = t('visits.schengen_area')
-          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_days_tooltip') }
+          %th.text-white{ scope: "col", "data-bs-toggle": "tooltip", title: t('visits.number_of_days_tooltip') }
             = t('visits.no_days')
           - if current_person.visa_required?
-            %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.exits_tooltip') }
+            %th.text-white{ scope: "col", "data-bs-toggle": "tooltip", title: t('visits.exits_tooltip') }
               = t('visits.exits')
-            %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.number_of_entries_tooltip') }
+            %th.text-white{ scope: "col", "data-bs-toggle": "tooltip", title: t('visits.number_of_entries_tooltip') }
               = t('visits.no_entries')
-            %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
+            %th.text-white{ scope: "col", "data-bs-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
               = t('visits.days_overstay')
-          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.schengen_days_calculation_tooltip') }
+          %th.text-white{ scope: "col", "data-bs-toggle": "tooltip", title: t('visits.schengen_days_calculation_tooltip') }
             = t('visits.schengen_days_calculation')
-          %th.text-white{ scope: "col", "data-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
+          %th.text-white{ scope: "col", "data-bs-toggle": "tooltip", title: t('visits.days_overstay_tooltip') }
             = t('visits.days_overstay')
-          %th.text-white{ scope: "col", "data-toggle": "tooltip" }
+          %th.text-white{ scope: "col", "data-bs-toggle": "tooltip" }
       %tbody
         - @visits.each do |visit|
           %tr{class: 'clickable-visit-row', 'data-clickable-row': 'true', 'data-entry-year': visit.entry_date.year, 'data-entry-month': visit.entry_date.month, 'data-entry-day': visit.entry_date.day}

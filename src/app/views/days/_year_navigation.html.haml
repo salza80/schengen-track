@@ -3,7 +3,7 @@
   - prev_icon_classes = ['fa', 'fa-chevron-left']
   - next_icon_classes = ['fa', 'fa-chevron-right']
   .d-flex.align-items-center.py-3{dir: (rtl_layout ? 'ltr' : nil)}
-    .flex-fill.text-left
+    .flex-fill.text-start
       - if @prev_year
         = link_to days_path(locale: I18n.locale, year: @prev_year), class: 'btn btn-outline-primary btn-prev-year', "aria-label": "Previous year #{@prev_year}" do
           %i{class: prev_icon_classes.join(' '), "aria-hidden": "true"}
@@ -14,10 +14,10 @@
 
     .flex-fill.text-center
       %h3.mb-0{"aria-current": "page"}
-        %i.fa.fa-calendar.mr-2{"aria-hidden": "true"}
+        %i.fa.fa-calendar.me-2{"aria-hidden": "true"}
         = @selected_year
 
-    .flex-fill.text-right
+    .flex-fill.text-end
       - if @next_year
         = link_to days_path(locale: I18n.locale, year: @next_year), class: 'btn btn-outline-primary btn-next-year', "aria-label": "Next year #{@next_year}" do
           = @next_year

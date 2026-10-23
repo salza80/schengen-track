@@ -28,7 +28,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress CSS using a preprocessor.
-  # Use CSSO for CSS compression (Bootstrap 4.6.2+ compatible, replaces :sass)
+  # Use CSSO for CSS compression after Dart Sass compilation
   config.assets.css_compressor = :csso
 
   # Compress JavaScript using Terser (modern minifier with ES6+ support)

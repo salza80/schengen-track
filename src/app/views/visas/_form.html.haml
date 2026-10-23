@@ -4,23 +4,23 @@
       = t('common.nationality_summary', nationality: current_person.nationality.localized_name)
   - if @visa.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
-      %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
-        %span{"aria-hidden" => "true"} &times;
+      %button.btn-close{"type" => "button", "data-bs-dismiss" => "alert", "aria-label" => "Close"}
+
       %strong= t('errors.prohibited_saving_visa', count: @visa.errors.count)
       %ul.mb-0.mt-2
         - @visa.errors.full_messages.each do |msg|
           %li= msg
-  .form-group.row
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :start_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :start_date, {}, { class: "form-control custom-select" }
-  .form-group.row
+      = f.date_select :start_date, {}, { class: "form-select" }
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :end_date, class: "col-form-label"
     .col-sm-10.date-form-group
-      = f.date_select :end_date, {}, { class: "form-control custom-select" }
-  .form-group.row
+      = f.date_select :end_date, {}, { class: "form-select" }
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :no_entries, class: "col-form-label"
     .col-sm-10

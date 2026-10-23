@@ -14,22 +14,22 @@
         %p.lead= t('visits.page_description')
         - if anonymous_calculator?
           %h3.section-heading.mt-0
-            %i.fa.fa-globe.mr-2{"aria-hidden" => "true"}
+            %i.fa.fa-globe.me-2{"aria-hidden" => "true"}
             = t('common.select_nationality')
           = render 'shared/calculator_nationality_selector', destination: 'trips', hide_label: true
         - else
           %p.text-muted
             = t('visits.nationality_set_to', nationality: current_person.nationality.name, settings_link: link_to(t('visits.change_settings'), edit_person_path(current_person, locale: I18n.locale))).html_safe
     - else
-      %h1.sr-only= t('visits.page_title')
+      %h1.visually-hidden= t('visits.page_title')
 
     - if current_person.visa_required? && (!anonymous_calculator? || calculator_nationality_selected?)
       %h3.section-heading.mt-0
-        %i.fa.fa-passport.mr-2
+        %i.fa.fa-passport.me-2
         = t('visits.schengen_visa_list')
       - if @visas.any?
         .row.py-1.mb-2
-          .col-md-12.text-right
+          .col-md-12.text-end
             %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visa", "aria-label": t('visits.add_visa')}
               %i.fa.fa-plus{"aria-hidden" => "true"}
               =t('visits.add_visa')
@@ -38,17 +38,17 @@
           = render 'visas/visalist'
 
     %h3.section-heading
-      %i.fa.fa-plane.mr-2
+      %i.fa.fa-plane.me-2
       = t('visits.travel_record')
     - if @visits.any?
       .row.py-1.mb-2
-        .col-auto.ml-auto
+        .col-auto.ms-auto
           - if @visits.count > 0
-            = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md mr-2", "aria-label": t('visits.export_to_csv') do
-              %i.fa.fa-download.mr-2{"aria-hidden" => "true"}
+            = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md me-2", "aria-label": t('visits.export_to_csv') do
+              %i.fa.fa-download.me-2{"aria-hidden" => "true"}
               = t('visits.export_to_csv')
-            = link_to days_path(locale: I18n.locale), class: "btn btn-outline-primary btn-md mr-2", "aria-label": t('common.calendar') do
-              %i.fa.fa-calendar.mr-2{"aria-hidden" => "true"}
+            = link_to days_path(locale: I18n.locale), class: "btn btn-outline-primary btn-md me-2", "aria-label": t('common.calendar') do
+              %i.fa.fa-calendar.me-2{"aria-hidden" => "true"}
               = t('common.calendar')
           %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit", "aria-label": t('visits.add_travel')}
             %i.fa.fa-plus{"aria-hidden" => "true"}
@@ -78,8 +78,8 @@
     .modal-content
       .modal-header
         %h5#visitModalLabel.modal-title= nationality_gate ? t('common.choose_nationality') : t('visits.add_record')
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
-          %span{"aria-hidden" => "true"} &times;
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+
       .modal-body
         - if nationality_gate
           = render 'shared/calculator_nationality_step', destination: 'trips'
@@ -87,22 +87,22 @@
           -# Form will be loaded here via AJAX
       .modal-footer.d-flex
         - if rtl_locale?
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
-          .mr-auto
-            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
-              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
+          .me-auto
+            %button#deleteVisitButton.btn.btn-danger.me-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
+              %i.fa.fa-trash.me-1{"aria-hidden" => "true"}
               = t('common.delete')
             %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": (nationality_gate ? t('common.continue') : t('common.save'))}
-              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              %i.fa.fa-save.me-1{"aria-hidden" => "true"}
               = nationality_gate ? t('common.continue') : t('common.save')
         - else
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
-          .ml-auto
-            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
-              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
+          .ms-auto
+            %button#deleteVisitButton.btn.btn-danger.me-2{type: "button", style: "display:none;", "aria-label": t('common.delete')}
+              %i.fa.fa-trash.me-1{"aria-hidden" => "true"}
               = t('common.delete')
             %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": (nationality_gate ? t('common.continue') : t('common.save'))}
-              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              %i.fa.fa-save.me-1{"aria-hidden" => "true"}
               = nationality_gate ? t('common.continue') : t('common.save')
 
 -# Modal for adding/editing visas
@@ -111,28 +111,28 @@
     .modal-content
       .modal-header
         %h5#visaModalLabel.modal-title= t('visas.add_visa')
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
-          %span{"aria-hidden" => "true"} &times;
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+
       .modal-body
         -# Form will be loaded here via AJAX
       .modal-footer.d-flex
         - if rtl_locale?
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
-          .mr-auto
-            %button#deleteVisaButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
-              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"}= t('common.cancel')
+          .me-auto
+            %button#deleteVisaButton.btn.btn-danger.me-2{type: "button", style: "display:none;"}
+              %i.fa.fa-trash.me-1{"aria-hidden" => "true"}
               = t('common.delete')
             %button#saveVisaButton.btn.btn-primary{type: "button"}
-              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              %i.fa.fa-save.me-1{"aria-hidden" => "true"}
               = t('common.save')
         - else
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
-          .ml-auto
-            %button#deleteVisaButton.btn.btn-danger.mr-2{type: "button", style: "display:none;"}
-              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"}= t('common.cancel')
+          .ms-auto
+            %button#deleteVisaButton.btn.btn-danger.me-2{type: "button", style: "display:none;"}
+              %i.fa.fa-trash.me-1{"aria-hidden" => "true"}
               = t('common.delete')
             %button#saveVisaButton.btn.btn-primary{type: "button"}
-              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              %i.fa.fa-save.me-1{"aria-hidden" => "true"}
               = t('common.save')
 
 #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
@@ -140,16 +140,16 @@
     .modal-content
       .modal-header.delete-warning
         %h5#deleteModalLabel.modal-title
-          %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
+          %i.fa.fa-exclamation-triangle.me-2{"aria-hidden" => "true"}
           = t('common.confirm_delete')
-        %button.close.text-white{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
-          %span{"aria-hidden" => "true"} &times;
+        %button.btn-close.btn-close-white{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+
       .modal-body
         %p#deleteModalMessage= t('common.delete_warning')
       .modal-footer
-        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"}= t('common.cancel')
         %a#deleteConfirmButton.btn.btn-danger{href: "#"}
-          %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
+          %i.fa.fa-trash.me-2{"aria-hidden" => "true"}
           = t('common.delete')
 
 :javascript

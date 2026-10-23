@@ -5,24 +5,24 @@
       %ul
         - @person.errors.full_messages.each do |msg|
           %li= msg
-  .form-group.row
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :first_name, class: "col-form-label"
     .col-sm-10
       = f.text_field :first_name, :class => "form-control", required: true
       %small.form-text.text-muted= t('people.form.required_hint')
-  .form-group.row
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :last_name, class: "col-form-label"
     .col-sm-10
       = f.text_field :last_name, :class => "form-control"
       %small.form-text.text-muted= t('people.form.optional_hint')
-  .form-group.row
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :nationality_id, class: "col-form-label"
     .col-sm-10
-      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name, {include_blank: t('people.form.nationality_placeholder')}, {:class => "form-control custom-select"})
+      = f.collection_select(:nationality_id, Country.all.order_by_name, :id, :name, {include_blank: t('people.form.nationality_placeholder')}, {:class => "form-select"})
   .actions
-    .form-group.row
+    .mb-3.row
       .col-sm-12
-        = f.submit t('common.save'), class: "btn btn-primary form-btn float-right"
+        = f.submit t('common.save'), class: "btn btn-primary form-btn float-end"

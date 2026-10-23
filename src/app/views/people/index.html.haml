@@ -1,22 +1,22 @@
 .row.mt-4
   .col-lg-9
     %h1.h3.mb-3
-      %i.fa.fa-users.mr-2
+      %i.fa.fa-users.me-2
       = t('common.manage_people')
 
     - if @people.count == 1
       .alert.alert-info.people-info-notice{role: 'note'}
-        %i.fa.fa-info-circle.mr-2
+        %i.fa.fa-info-circle.me-2
         = t('people.index.single_person_notice')
 
     .row.py-1.mb-3
       .col-auto
         = link_to my_details_path(locale: I18n.locale), class: "btn btn-outline-primary btn-md" do
-          %i.fa.fa-user-cog.mr-2
+          %i.fa.fa-user-cog.me-2
           = t('common.manage_account')
-      .col-auto.ml-auto
+      .col-auto.ms-auto
         = link_to new_person_path(locale: I18n.locale), class: "btn btn-add btn-md" do
-          %i.fa.fa-plus.mr-2
+          %i.fa.fa-plus.me-2
           = t('common.add_person')
 
     - if @people.empty?
@@ -26,7 +26,7 @@
         %h4= t('people.index.empty_state.title')
         %p= t('people.index.empty_state.description')
         = link_to new_person_path(locale: I18n.locale), class: "btn btn-add btn-lg" do
-          %i.fa.fa-plus.mr-2
+          %i.fa.fa-plus.me-2
           = t('common.add_person')
     - else
       .responsive-table-container
@@ -47,9 +47,9 @@
                   = person.nationality&.localized_name || t('common.person_not_set')
                 %td{"data-title": t('people.index.table.columns.status'), onclick: "event.stopPropagation();"}
                   - if person == current_person
-                    %span.badge.badge-success.people-status-badge.mr-2= t('people.index.table.badges.active')
+                    %span.badge.text-bg-success.people-status-badge.me-2= t('people.index.table.badges.active')
                   - if person.is_primary
-                    %span.badge.badge-info.people-status-badge= t('people.index.table.badges.primary')
+                    %span.badge.text-bg-info.people-status-badge= t('people.index.table.badges.primary')
                   - else
                     = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: t('people.index.table.make_primary.title'), "aria-label": t('people.index.table.make_primary.aria', name: person.full_name), form: { class: "d-inline" } do
                       = t('people.index.table.make_primary.label')
@@ -78,16 +78,16 @@
     .modal-content
       .modal-header.delete-warning
         %h5#deleteModalLabel.modal-title
-          %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
+          %i.fa.fa-exclamation-triangle.me-2{"aria-hidden" => "true"}
           = t('common.confirm_delete')
-        %button.close.text-white{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
-          %span{"aria-hidden" => "true"} &times;
+        %button.btn-close.btn-close-white{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+
       .modal-body
         %p#deleteModalMessage= t('common.delete_warning')
       .modal-footer
-        %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button"}= t('common.cancel')
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"}= t('common.cancel')
         %a#deleteConfirmButton.btn.btn-danger{href: "#"}
-          %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
+          %i.fa.fa-trash.me-2{"aria-hidden" => "true"}
           = t('common.delete')
 
 :javascript

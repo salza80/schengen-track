@@ -18,5 +18,5 @@
     - after_date ||= ''
     %p.alert.alert-info.mb-2
       = before_date
-      = link_to(entry_date, days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: 'next-entry-link-text text-primary font-weight-bold')
+      = link_to(entry_date, days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: 'next-entry-link-text text-primary fw-bold')
       = after_date

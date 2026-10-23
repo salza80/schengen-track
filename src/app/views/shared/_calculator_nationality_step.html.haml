@@ -1,5 +1,5 @@
 .alert.alert-info.mb-4{role: 'note'}
-  %i.fa.fa-info-circle.mr-2{"aria-hidden" => "true"}
+  %i.fa.fa-info-circle.me-2{"aria-hidden" => "true"}
   = t('common.nationality_help')
 
 - nationality_control_id = 'calculator_nationality_step'
@@ -10,8 +10,8 @@
     = hidden_field_tag :year, params[:year]
     = hidden_field_tag :month, params[:month]
     = hidden_field_tag :day, params[:day]
-  .form-group.row.mb-0
+  .row.mb-0
     .col-sm-2.my-auto
       = label_tag nationality_control_id, t('common.nationality'), class: 'col-form-label'
     .col-sm-10
-      = select_tag :nationality_code, options_from_collection_for_select(CountryCatalog.all, :country_code, :localized_name), id: nationality_control_id, class: 'form-control custom-select', prompt: t('common.select_nationality'), required: true
+      = select_tag :nationality_code, options_from_collection_for_select(CountryCatalog.all, :country_code, :localized_name), id: nationality_control_id, class: 'form-select', prompt: t('common.select_nationality'), required: true

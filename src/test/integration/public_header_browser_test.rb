@@ -409,7 +409,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_no_selector '#visitModal form[id^="new_visit"]'
 
     within '#visitModal' do
-      find('button.close').click
+      find('button.btn-close').click
     end
 
     assert_no_selector '#visitModal.show'
@@ -461,7 +461,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     visit days_path(locale: :en, year: 2014)
 
     find('#personDropdown').click
-    assert_selector '.person-switcher.show .dropdown-menu.show'
+    assert_selector '.person-switcher .dropdown-menu.show'
     action_group = find('.person-switcher .dropdown-menu > .header-desktop-only')
     menu_children = action_group.all(:xpath, './*', visible: :all)
     add_index = menu_children.index { |item| item[:href].to_s.end_with?(new_person_path(locale: :en)) }
@@ -472,7 +472,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_equal edit_index + 2, manage_index
 
     first('.day-cell').click
-    assert_no_selector '.person-switcher.show .dropdown-menu.show'
+    assert_no_selector '.person-switcher .dropdown-menu.show'
   end
 
   test 'logout matches outlined actions and the person selector height' do
@@ -541,7 +541,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
     assert_selector '#visitModal.show form[id^="new_visit"]', wait: 10
     within '#visitModal' do
-      find('button.close').click
+      find('button.btn-close').click
     end
     assert_no_selector '#visitModal.show'
     assert_selector '.day-cell:focus'
@@ -609,4 +609,36 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_selector '#visaModal.show .alert-danger', wait: 10
     assert find('#visaModal .alert-danger').visible?
   end
+
+  test 'touch calendar shows a tooltip before opening the visit modal on the second tap' do
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: true, maxTouchPoints: 1)
+    page.current_window.resize_to(390, 844)
+    user_login
+    visit days_path(locale: :en, year: 2014)
+    cell = find('.day-cell.has-travel', match: :first)
+
+    # Dispatch a tap without Selenium moving a mouse over the cell first.
+    page.execute_script('arguments[0].click()', cell)
+    assert_selector '.tooltip.show .tooltip-inner strong'
+    assert_equal cell['aria-describedby'], find('.tooltip.show')[:id]
+    assert_no_selector '#visitModal.show'
+
+    page.execute_script('arguments[0].click()', cell)
+    assert_selector '#visitModal.show form', wait: 10
+    assert_no_selector '.tooltip.show'
+    within('#visitModal') { find('button.btn-close').click }
+    assert_no_selector '#visitModal.show'
+  ensure
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: false)
+    page.current_window.resize_to(1400, 1000)
+  end
+
+  test 'calendar status badges retain their semantic colors' do
+    user_login
+    visit visits_path(locale: :en)
+    badge = find('.badge.text-bg-success', match: :first)
+    assert_equal 'rgba(232, 245, 217, 1)', badge.style('background-color')['background-color']
+    assert_equal 'rgba(61, 90, 31, 1)', badge.style('color')['color']
+  end
+
 end

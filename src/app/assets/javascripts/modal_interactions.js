@@ -28,10 +28,10 @@
             trigger.focus();
           }, 0);
         })
-        .off('click.modalFocusGuard', '[data-dismiss="modal"]')
-        .on('click.modalFocusGuard', '[data-dismiss="modal"]', function(event) {
+        .off('click.modalFocusGuard', '[data-bs-dismiss="modal"]')
+        .on('click.modalFocusGuard', '[data-bs-dismiss="modal"]', function(event) {
           var $modal = $(this).closest('.modal');
-          var modalInstance = $modal.data('bs.modal');
+          var modalInstance = bootstrap.Modal.getInstance($modal.get(0));
           this.blur();
           if (modalInstance && modalInstance._isTransitioning) {
             event.preventDefault();

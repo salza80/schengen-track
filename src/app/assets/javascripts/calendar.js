@@ -129,12 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize Bootstrap tooltips on day cells (only if Bootstrap is available)
   if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       try {
-        return new bootstrap.Tooltip(tooltipTriggerEl, {
+        return bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl, {
           html: true,
-          boundary: 'window'
+          boundary: document.body
         });
       } catch(e) {
         return null;

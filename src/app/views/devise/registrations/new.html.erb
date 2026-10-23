@@ -5,7 +5,7 @@
         <h3><%= t('sign_up_page.title') %></h3>
       </div>
       <div class="col-md-7">
-        <div class="float-right">
+        <div class="float-end">
           <%= button_to user_facebook_omniauth_authorize_path(display: 'page'), method: :post, class: "btn", style: "background-color: white; color: #333; border: 1px solid #007bff; text-decoration: none;", form: { class: "facebook-oauth-form", data: { turbo: false } } do %>
             <div style="display: flex; align-items: center;">
               <%= image_tag("facebook_icon.png", alt: "Facebook", style: "margin-right: 0.5rem; margin-bottom: 0;") %>
@@ -18,33 +18,33 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-horizontal new_user" }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="form-group row">
+      <div class="mb-3 row">
         <%= f.label :first_name, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.text_field :first_name, class: "form-control" %>
         </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
         <%= f.label :last_name, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.text_field :last_name, class: "form-control" %>
         </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
         <%= label_tag 'user_nationality_code', t('helpers.label.user.nationality'), class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
-          <%= select_tag 'user[nationality_code]', options_from_collection_for_select(CountryCatalog.all, :country_code, :name, @selected_nationality_code), include_blank: true, id: 'user_nationality_code', class: "form-control custom-select" %>
+          <%= select_tag 'user[nationality_code]', options_from_collection_for_select(CountryCatalog.all, :country_code, :name, @selected_nationality_code), include_blank: true, id: 'user_nationality_code', class: "form-select" %>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="mb-3 row">
         <%= f.label :email, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.email_field :email, autofocus: true, class: "form-control" %>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="mb-3 row">
         <%= f.label :password, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <% if @validatable %>
@@ -54,14 +54,14 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="mb-3 row">
         <%= f.label :password_confirmation, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
         </div>
       </div>
 
-      <div class="form-group row mt-4">
+      <div class="mb-3 row mt-4">
         <div class="col-12 d-flex justify-content-between">
           <%= link_to t('common.cancel', default: 'Cancel'), about_path(locale: I18n.locale), class: "btn btn-secondary" %>
           <%= f.submit t('sign_up_page.sign_up_button'), class: "btn btn-primary form-btn" %>

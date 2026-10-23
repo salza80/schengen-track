@@ -41,6 +41,21 @@ If stale precompiled assets hide local CSS or JavaScript changes, run:
   bundle exec rails assets:clobber
 
 
+== Frontend assets
+
+Bootstrap 5.3 styles are compiled with Dart Sass through
+<tt>dartsass-sprockets</tt>. Sprockets fingerprints and serves the CSS,
+JavaScript, images, and Font Awesome fonts; no separate Node package build is
+required. Run <tt>bundle exec rails assets:precompile</tt> to verify the build.
+
+Keep Bootstrap data attributes namespaced as <tt>data-bs-*</tt>. jQuery and
+<tt>jquery_ujs</tt> remain in use for remote Rails forms and existing calculator
+interactions. Bootstrap's jQuery bridge is available, but component instances
+must be read with Bootstrap's <tt>getInstance</tt> API rather than jQuery data.
+Font Awesome still brings in <tt>sassc</tt> as a dependency; stylesheet compilation
+uses Dart Sass.
+
+
 == Configuration
 
 Development and test settings are loaded from <tt>src/config/secrets.yml</tt>

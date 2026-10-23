@@ -96,6 +96,14 @@ jobs:
       - name: Run MCP server tests
         run: python3 -m unittest discover -s mcp-server/tests
 
+      - name: Compile production assets
+        run: bundle exec rails country_catalog:generate assets:precompile
+        working-directory: src
+        env:
+          CI: true
+          RAILS_ENV: production
+          SECRET_KEY_BASE_DUMMY: '1'
+
       - name: Install CDK dependencies
         run: npm ci
         working-directory: deployment

@@ -47,10 +47,21 @@ def serve_static_file(path)
   end
 
   response = app.call('PATH_INFO' => path, 'REQUEST_METHOD' => 'GET')
-  content = ''
-  response[2].each { |part| content << part }
+  content = String.new(encoding: Encoding::BINARY)
+  begin
+    response[2].each { |part| content << part }
+  ensure
+    response[2].close if response[2].respond_to?(:close)
+  end
 
   isBase64 = is_binary_content?(response[1])
+  unless isBase64
+    # Rack reads files as binary strings. JSON 3 rejects non-ASCII bytes in
+    # those strings even when they contain valid UTF-8 CSS or JavaScript.
+    text = content.dup.force_encoding(Encoding::UTF_8)
+    isBase64 = !text.valid_encoding?
+    content = text unless isBase64
+  end
   content = Base64.strict_encode64(content) if isBase64
   {
     'statusCode' => response[0],

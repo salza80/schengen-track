@@ -1,7 +1,33 @@
 require 'test_helper'
 require Rails.root.join('lambda_http')
+require 'tempfile'
 
 class LambdaHttpTest < ActiveSupport::TestCase
+  test 'UTF-8 static stylesheets and scripts survive Lambda JSON serialization' do
+    %w[css js].each do |extension|
+      content = "/* café — 日本語 */\n"
+      with_static_asset(extension, content) do |path|
+        response = JSON.parse(JSON.generate(serve_static_file(path)))
+
+        assert_equal 200, response.fetch('statusCode')
+        assert_equal false, response.fetch('isBase64Encoded')
+        assert_equal content, response.fetch('body')
+        assert_equal content.bytesize.to_s, response.fetch('headers').fetch('Content-Length')
+      end
+    end
+  end
+
+  test 'non UTF-8 static text is safely base64 encoded without losing bytes' do
+    content = "/* \xFF */".b
+    with_static_asset('css', content) do |path|
+      response = JSON.parse(JSON.generate(serve_static_file(path)))
+
+      assert_equal 200, response.fetch('statusCode')
+      assert_equal true, response.fetch('isBase64Encoded')
+      assert_equal content, Base64.strict_decode64(response.fetch('body'))
+    end
+  end
+
   test 'returns a CSRF token and session cookie through API Gateway' do
     response = lambda_get('/en/csrf_token')
 
@@ -95,6 +121,16 @@ class LambdaHttpTest < ActiveSupport::TestCase
   end
 
   private
+
+  def with_static_asset(extension, content)
+    file = Tempfile.new(['lambda-asset-', ".#{extension}"], Rails.root.join('public'))
+    file.binmode
+    file.write(content)
+    file.close
+    yield "/#{File.basename(file.path)}"
+  ensure
+    file&.unlink
+  end
 
   def lambda_get(path)
     event = {

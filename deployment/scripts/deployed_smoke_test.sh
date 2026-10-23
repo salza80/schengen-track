@@ -70,6 +70,16 @@ fetch calendar-first /en/days
 assert_eventual_cache_hit calendar-second /en/days
 assert_no_header calendar-second set-cookie
 
+echo "Checking calculator assets"
+asset_paths="$(grep -oE '(src|href)="/assets/[^\"]+"' "$tmp_dir/visits-first.body" | cut -d '"' -f 2 | sort -u || true)"
+[ -n "$asset_paths" ] || fail 'calculator HTML did not reference any local assets'
+asset_index=0
+while IFS= read -r asset_path; do
+  asset_index=$((asset_index + 1))
+  fetch "asset-$asset_index" "$asset_path"
+  [ -s "$tmp_dir/asset-$asset_index.body" ] || fail "empty asset: $asset_path"
+done <<< "$asset_paths"
+
 echo "Checking API documentation caching"
 fetch api-docs-first /api/docs
 assert_eventual_cache_hit api-docs-second /api/docs

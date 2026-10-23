@@ -175,10 +175,10 @@ class DaysHelperTest < ActionView::TestCase
   end
   
   test "status_badge_class returns correct badge styles" do
-    assert_equal 'badge-success', status_badge_class('safe')
-    assert_equal 'badge-warning', status_badge_class('warning')
-    assert_equal 'badge-danger', status_badge_class('overstay')
-    assert_equal 'badge-info', status_badge_class('unknown')
+    assert_equal 'text-bg-success', status_badge_class('safe')
+    assert_equal 'text-bg-warning', status_badge_class('warning')
+    assert_equal 'text-bg-danger', status_badge_class('overstay')
+    assert_equal 'text-bg-info', status_badge_class('unknown')
   end
   
   # ====================

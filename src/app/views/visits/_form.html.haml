@@ -1,45 +1,45 @@
 - visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale) : visits_path(locale: I18n.locale, format: :js)
-= form_for @visit, url: visit_form_url, html: { class: "form-horizontal" }, remote: true do |f|
+= form_for @visit, url: visit_form_url, remote: true do |f|
   - if @visit.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
-      %button.close{"type" => "button", "data-dismiss" => "alert", "aria-label" => "Close"}
-        %span{"aria-hidden" => "true"} &times;
+      %button.btn-close{"type" => "button", "data-bs-dismiss" => "alert", "aria-label" => "Close"}
+
       %strong
         = pluralize(@visit.errors.count, "error")
         prohibited this visit from being saved:
       %ul.mb-0.mt-2
         - @visit.errors.full_messages.each do |msg|
           %li= msg
-  .form-group.row
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :entry_date, class: "col-form-label"
-    .col-sm-10.date-form-group
-      = f.date_select :entry_date, {}, { class: "form-control custom-select", "aria-label": t('visits.entry_date') }
+    .col-sm-10
+      = f.date_select :entry_date, {}, { class: "form-select d-inline-block w-auto", "aria-label": t('visits.entry_date') }
   - unless current_person.nationality.visa_required == 'F'
-    #entry-date-info.form-group.row{style: 'display: none;'}
+    #entry-date-info.mb-3.row{style: 'display: none;'}
       .col-sm-2
       .col-sm-10
         .alert.alert-info.mb-0
           %small
             %strong= t('visits.max_stay_label')
             %span#max-stay-info Loading...
-  .form-group.row
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :exit_date, class: "col-form-label"
-    .col-sm-10.date-form-group
-      = f.date_select :exit_date, {}, { class: "form-control custom-select", "aria-label": t('visits.exit_date') }
-  .form-group.row
+    .col-sm-10
+      = f.date_select :exit_date, {}, { class: "form-select d-inline-block w-auto", "aria-label": t('visits.exit_date') }
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label t('common.continent'), class: "col-form-label"
     .col-sm-10
-      = select_tag t('common.continent'), options_from_collection_for_select(@continents, :code, :name, @continent_default_code), class: "custom-select custom-select", "aria-label": t('common.continent')
-  .form-group.row
+      = select_tag t('common.continent'), options_from_collection_for_select(@continents, :code, :name, @continent_default_code), class: "form-select", "aria-label": t('common.continent')
+  .mb-3.row
     .col-sm-2.my-auto
       = f.label :country, class: "col-form-label"
     .col-sm-10
       - selected_country_code = @visit.country&.country_code
       - countries = CountryCatalog.for_continent(@continent_default_code)
-      = select_tag 'visit[country_code]', options_from_collection_for_select(countries, :country_code, :name, selected_country_code), include_blank: true, id: 'visit_country_id', class: "form-control custom-select", "aria-label": t('common.country')
+      = select_tag 'visit[country_code]', options_from_collection_for_select(countries, :country_code, :name, selected_country_code), include_blank: true, id: 'visit_country_id', class: "form-select", "aria-label": t('common.country')
 %script
   != "(function() {"
   != "  function initCascade() {"

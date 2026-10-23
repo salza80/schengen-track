@@ -1,5 +1,4 @@
-// Materia 4.6.2
-// Bootswatch
+// Application theme, originally based on Bootswatch Materia.
 
 //
 // Color system
@@ -48,7 +47,7 @@ $alert-info-bg:     #e8eaf6 !default;
 $alert-info-border: #c5cae9 !default;
 
 
-$yiq-contrasted-threshold:  170 !default;
+$min-contrast-ratio: 4.5 !default;
 
 $enable-gradients: true !default;
 
@@ -71,7 +70,7 @@ $input-btn-padding-x:       1rem !default;
 // Forms
 
 $input-padding-y:                1rem !default;
-$input-padding-x:                0 !default;
+$input-padding-x:                1rem !default;
 $input-padding-y-sm:             0 !default;
 $input-padding-x-sm:             0 !default;
 $input-padding-y-lg:             ($font-size-base * 1.25) !default;
@@ -86,15 +85,13 @@ $input-border-radius-lg:         0 !default;
 $input-border-radius-sm:         0 !default;
 $input-placeholder-color:        rgba(0, 0, 0, .4) !default;
 $input-group-addon-bg:           transparent !default;
-$custom-control-gutter:          1.75rem !default;
-$custom-control-indicator-focus-box-shadow: 0 !default;
-$custom-control-indicator-size:  1.25rem !default;
-$custom-control-indicator-bg:    $white !default;
-$custom-checkbox-indicator-border-radius: 2px !default;
-$custom-control-indicator-disabled-bg: $gray-100 !default;
-$custom-radio-indicator-icon-checked: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='4' fill='#{$blue}'/></svg>") !default;
-$custom-select-border-radius:       0 !default;
-$custom-select-box-shadow:          none !default;
+$form-check-input-bg: $white !default;
+$form-check-input-border: 1px solid $gray-600 !default;
+$form-check-input-border-radius: 2px !default;
+$form-select-indicator-padding: 2.25rem !default;
+$form-select-border-radius: 0 !default;
+$form-select-box-shadow: none !default;
+$form-select-bg: $input-bg !default;
 
 // Navs
 
@@ -103,6 +100,7 @@ $nav-tabs-border-color:         transparent !default;
 
 // Navbar
 
+$navbar-padding-x:                  1rem !default;
 $navbar-padding-y:                  1rem !default;
 $navbar-dark-color:                 rgba($white, .75) !default;
 $navbar-dark-hover-color:           $white !default;
@@ -124,11 +122,6 @@ $modal-content-border-color:        transparent !default;
 
 $progress-height:               .375rem !default;
 $progress-border-radius:        0 !default;
-
-// Close
-
-$close-font-size:             2.125rem !default;
-$close-font-weight:           300 !default;
 
 // Box shadows
 

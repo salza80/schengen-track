@@ -100,7 +100,7 @@
         
         // On mobile, first click shows tooltip, second click opens modal
         if (self.state.isMobileDevice) {
-          var $tooltip = $cell.data('bs.tooltip');
+          var $tooltip = bootstrap.Tooltip.getInstance(this);
           
           // Safely check if tooltip is shown
           var isTooltipShown = false;

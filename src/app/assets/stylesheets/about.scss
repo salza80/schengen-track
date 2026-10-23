@@ -9,7 +9,7 @@ a.nationality_anchor {
 
 // Scroll offset for all heading anchors
 .about-section {
-  h1[id], h2[id], h3[id], h4[id] {
+  h1[id], h2[id], h3[id], h4[id], .faq-item[id] {
     scroll-margin-top: 120px; // Offset for sticky header
   }
 }
@@ -154,7 +154,7 @@ a.nationality_anchor {
       max-width: 100%;
     }
 
-    .custom-select {
+    .form-select {
       flex: 1 1 16rem;
       width: auto;
       min-width: 0;
@@ -162,8 +162,8 @@ a.nationality_anchor {
     }
   }
 
-  .custom-select {
-    padding: 0.75rem 1rem;
+  .form-select {
+    padding: 0.75rem 2.25rem 0.75rem 1rem;
     font-size: 1rem;
     border: 2px solid #dee2e6;
     border-radius: 8px;

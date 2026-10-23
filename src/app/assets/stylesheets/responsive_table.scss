@@ -7,19 +7,6 @@ $bp-bart: 48em;
 $bp-marge: 62em;
 $bp-homer: 75em;
 
-// Styles
-* {
- box-sizing: border-box;
- &:before,
- &:after {
-  box-sizing: border-box;
- }
-}
-
-.no-wrap{
-  white-space: nowrap;
-}
-
 .responsive-table-container {
   width: 100%;
   max-width: 100%;
@@ -53,40 +40,23 @@ $bp-homer: 75em;
   }
   
   thead {
-    // Accessibly hide <thead> on narrow viewports
-    position: absolute;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0;
-    border: 0;
-    height: 1px; 
-    width: 1px; 
-    overflow: hidden;
-    
-    @media (min-width: $bp-bart) {
-      // Unhide <thead> on wide viewports
-      position: relative;
-      clip: auto;
-      height: auto;
-      width: auto;
-      overflow: auto;
+    // Bootstrap's accessible hiding helper preserves headers for screen readers.
+    @include media-breakpoint-down(md) {
+      @include visually-hidden;
+    }
+
+    @include media-breakpoint-up(md) {
       background-color: $gray-100;
     }
-    
+
     th {
       text-align: center;
       font-weight: 600;
       color: $gray-800;
       padding: 0.75rem 0.5rem;
-      border-bottom: 1px solid $gray-200;
       
       &:first-of-type {
         text-align: left;
-        border-top-left-radius: 0.5rem;
-      }
-      
-      &:last-of-type {
-        border-top-right-radius: 0.5rem;
       }
     }
   }
@@ -113,6 +83,10 @@ $bp-homer: 75em;
   td {
     padding: .5em;
     vertical-align: middle;
+    // Separate borders must be drawn once, rather than on both adjacent cells.
+    // Set the color explicitly: row border resets otherwise inherit text colors.
+    border: 0;
+    border-bottom: 1px solid var(--bs-table-border-color);
     
     @media (min-width: $bp-lisa) {
       padding: .75em .5em; 
@@ -132,6 +106,32 @@ $bp-homer: 75em;
       padding: .75em; 
     }
   }
+
+  @include media-breakpoint-up(md) {
+    thead tr {
+      border: 0;
+    }
+
+    th,
+    td {
+      border-inline-end: 1px solid var(--bs-table-border-color);
+
+      &:first-child {
+        border-inline-start: 1px solid var(--bs-table-border-color);
+      }
+    }
+
+    thead tr:first-child th {
+      border-top: 1px solid var(--bs-table-border-color);
+
+      &:first-child { border-start-start-radius: 0.5rem; }
+      &:last-child { border-start-end-radius: 0.5rem; }
+    }
+
+    tbody tr:last-child > * {
+      border-bottom: 0;
+    }
+  }
   
   caption {
     padding: 1rem;
@@ -143,7 +143,7 @@ $bp-homer: 75em;
     background-color: $gray-100;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-    border-top: 1px solid $gray-200;
+    border-top: 1px solid var(--bs-table-border-color);
     caption-side: bottom;
     
     @media (min-width: $bp-bart) {
@@ -170,15 +170,15 @@ $bp-homer: 75em;
     tr {
       margin-bottom: 1em;
       background: white;
-      border: 1px solid $gray-200;
+      border: 1px solid var(--bs-table-border-color);
       border-radius: 0.25rem;
+      overflow: hidden;
       
       @media (min-width: $bp-bart) {
         // Undo display: block 
         display: table-row;
         border: none;
         border-radius: 0;
-        border-bottom: 1px solid rgba($gray-300, 0.5);
         
         &:hover {
           background-color: rgba($primary, 0.02);
@@ -187,10 +187,12 @@ $bp-homer: 75em;
       
       &:last-of-type {
         margin-bottom: 0;
-        
-        @media (min-width: $bp-bart) {
-          border-bottom: none;
-        }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      tr > :last-child {
+        border-bottom: 0;
       }
     }
     
@@ -202,10 +204,6 @@ $bp-homer: 75em;
     
     td {
       text-align: right;
-      
-      @media (min-width: $bp-lisa) {
-
-      }
       
       @media (min-width: $bp-bart) {
         text-align: center; 
@@ -241,18 +239,6 @@ $bp-homer: 75em;
   
   &:hover {
     background-color: rgba(33, 150, 243, 0.1) !important; // Light blue hover - match primary color
-  }
-}
-
-// Action buttons container for proper spacing
-.action-buttons {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-  
-  @media (max-width: $bp-bart) {
-    justify-content: flex-end;
   }
 }
 

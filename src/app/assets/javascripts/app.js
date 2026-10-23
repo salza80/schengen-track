@@ -18,10 +18,11 @@ $(window).on('load', function() {
 // document handler from closing an open person switcher. Capture outside clicks
 // before page-specific handlers run so the switcher behaves consistently.
 document.addEventListener('click', function(event) {
-  var openSwitcher = document.querySelector('.person-switcher.show');
+  var openMenu = document.querySelector('.person-switcher .dropdown-menu.show');
+  var openSwitcher = openMenu && openMenu.closest('.person-switcher');
   if (!openSwitcher || openSwitcher.contains(event.target)) return;
 
-  var toggle = openSwitcher.querySelector('[data-toggle="dropdown"]');
+  var toggle = openSwitcher.querySelector('[data-bs-toggle="dropdown"]');
   if (toggle && window.jQuery && jQuery.fn.dropdown) {
     jQuery(toggle).dropdown('toggle');
   }

@@ -102,10 +102,10 @@ module DaysHelper
   # Returns Bootstrap badge class for status
   def status_badge_class(status)
     case status.to_s
-    when 'safe' then 'badge-success'
-    when 'warning' then 'badge-warning'
-    when 'overstay' then 'badge-danger'
-    else 'badge-info'
+    when 'safe' then 'text-bg-success'
+    when 'warning' then 'text-bg-warning'
+    when 'overstay' then 'text-bg-danger'
+    else 'text-bg-info'
     end
   end
 

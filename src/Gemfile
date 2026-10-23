@@ -3,9 +3,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.1.4'
 
-# Use SassC for SCSS stylesheets (modern C-based Sass compiler)
-gem 'sassc-rails'
-# Use CSSO for CSS compression (alternative to Sass compressor for Bootstrap 4.6.2+ compatibility)
+# Compile SCSS with Dart Sass through the existing Sprockets pipeline
+gem 'dartsass-sprockets'
+# Use CSSO for CSS compression (after Dart Sass compilation)
 gem 'csso-rails'
 # Use Terser as compressor for JavaScript assets (modern minifier, supports ES6+)
 gem 'terser'
@@ -21,8 +21,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'haml-rails', '~> 3.0'
 # Haml 7.5's attribute parser is incompatible with Prism 2.
 gem 'prism', '~> 1.9'
-gem 'bootstrap', '~> 4.6', '>= 4.6.2'
-gem "font-awesome-sass", "~> 6.7"
+gem 'bootstrap', '~> 5.3', '>= 5.3.8'
 gem "devise", ">= 4.9.2"
 gem 'nokogiri', '>= 1.18.10'
 gem 'geocoder'

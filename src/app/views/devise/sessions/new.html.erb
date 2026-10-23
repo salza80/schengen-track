@@ -5,7 +5,7 @@
         <h3><%= t('log_in_page.title') %></h3>
       </div>
       <div class="col-md-7">
-        <div class="float-right">
+        <div class="float-end">
           <%= button_to user_facebook_omniauth_authorize_path(display: 'page'), method: :post, class: "btn", style: "background-color: white; color: #333; border: 1px solid #007bff; text-decoration: none;", form: { class: "facebook-oauth-form", data: { turbo: false } } do %>
             <div style="display: flex; align-items: center;">
               <%= image_tag("facebook_icon.png", alt: "Facebook", style: "margin-right: 0.5rem; margin-bottom: 0;") %>
@@ -15,15 +15,15 @@
         </div>
       </div>
     </div>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login', class: "form-horizontal" }) do |f| %>
-      <div class="form-group row">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'login' }) do |f| %>
+      <div class="mb-3 row">
         <%= f.label :email, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.email_field :email, autofocus: true, class: "form-control" %>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="mb-3 row">
         <%= f.label :password, class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
@@ -31,7 +31,7 @@
       </div>
 
       <% if devise_mapping.rememberable? -%>
-        <div class="form-group row">
+        <div class="mb-3 row">
           <%= f.label :remember_me, t('log_in_page.remember_me_label'), class: "form-check-label col-form-label col-sm-2" %>
           <div class="col-sm-10">
             <div class="form-check">
@@ -41,7 +41,7 @@
         </div>
       <% end -%>
 
-      <div class="form-group row mt-4">
+      <div class="mb-3 row mt-4">
         <div class="col-12 d-flex justify-content-between">
           <%= link_to t('common.cancel', default: 'Cancel'), about_path(locale: I18n.locale), class: "btn btn-secondary" %>
           <%= f.submit t('log_in_page.log_in_button'), class: "btn btn-primary form-btn" %>

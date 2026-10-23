@@ -1,4 +1,5 @@
 //= link_tree ../images
+//= link_tree ../../../vendor/assets/fonts
 //= link application.js
 //= link application.css
 //= link core.js

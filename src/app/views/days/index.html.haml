@@ -1,6 +1,6 @@
 -# Breadcrumb navigation and schema (hidden but accessible)
 - breadcrumbs = [{ name: t('common.home'), url: seo_url('/', locale: I18n.locale) }, { name: t('days.page_title'), url: seo_canonical_url }]
-.sr-only-heading
+.visually-hidden
   = render_breadcrumbs(breadcrumbs)
   - unless anonymous_calculator?
     %h1= t('days.page_title')
@@ -48,21 +48,21 @@
       .modal-content
         .modal-header
           %h5#visitModalLabel.modal-title= nationality_gate ? t('common.choose_nationality') : t('visits.add_record')
-          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
-            %span{"aria-hidden" => "true"} &times;
+          %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+
         .modal-body
           - if nationality_gate
             = render 'shared/calculator_nationality_step', destination: 'calendar'
           - else
             -# Form will be loaded here via AJAX
         .modal-footer.d-flex.justify-content-between
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
-          .ml-auto
-            %button#deleteVisitButton.btn.btn-danger.mr-2{type: "button", style: "display:none", "aria-label": t('common.delete')}
-              %i.fa.fa-trash.mr-1{"aria-hidden" => "true"}
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
+          .ms-auto
+            %button#deleteVisitButton.btn.btn-danger.me-2{type: "button", style: "display:none", "aria-label": t('common.delete')}
+              %i.fa.fa-trash.me-1{"aria-hidden" => "true"}
               = t('common.delete')
             %button#saveVisitButton.btn.btn-primary{type: "button", "aria-label": (nationality_gate ? t('common.continue') : t('common.save'))}
-              %i.fa.fa-save.mr-1{"aria-hidden" => "true"}
+              %i.fa.fa-save.me-1{"aria-hidden" => "true"}
               = nationality_gate ? t('common.continue') : t('common.save')
   
   -# Context menu for days with multiple visits
@@ -76,14 +76,14 @@
       .modal-content
         .modal-header.delete-warning
           %h5#deleteModalLabel.modal-title
-            %i.fa.fa-exclamation-triangle.mr-2{"aria-hidden" => "true"}
+            %i.fa.fa-exclamation-triangle.me-2{"aria-hidden" => "true"}
             = t('common.confirm_delete')
-          %button.close.text-white{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
-            %span{"aria-hidden" => "true"} &times;
+          %button.btn-close.btn-close-white{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+
         .modal-body
           %p#deleteModalMessage= t('common.delete_warning')
         .modal-footer
-          %button.btn.btn-secondary{"data-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
           %a#deleteConfirmButton.btn.btn-danger{href: "#", "aria-label": t('common.delete')}
-            %i.fa.fa-trash.mr-2{"aria-hidden" => "true"}
+            %i.fa.fa-trash.me-2{"aria-hidden" => "true"}
             = t('common.delete')

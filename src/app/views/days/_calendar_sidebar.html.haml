@@ -6,7 +6,7 @@
   .sidebar-section.card.mb-2.calendar-sidebar-status{class: ('d-none' unless show_status)}
     .card-header.bg-primary.text-white
       .d-flex.justify-content-between.align-items-start
-        .flex-grow-1.mr-3
+        .flex-grow-1.me-3
           %h6.mb-0
             %i.fa.fa-chart-line
             = t('days.current_status')
@@ -16,7 +16,7 @@
               = l(Time.zone.today, format: :long) unless @public_calculator_page
         - jump_today_path = @public_calculator_page ? days_path(locale: I18n.locale) : days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale)
         = link_to jump_today_path, class: "btn btn-outline-light btn-sm d-flex align-items-center calendar-jump-today", "aria-label": t('days.jump_to_today') do
-          %i.fa.fa-calendar.mr-1.flex-shrink-0{"aria-hidden": "true"}
+          %i.fa.fa-calendar.me-1.flex-shrink-0{"aria-hidden": "true"}
           %span= t('days.jump_to_today')
     .card-body.p-3
       .status-info{"aria-live": "polite", "aria-atomic": "true"}
@@ -26,16 +26,16 @@
             %strong= @status_summary ? @status_summary[:current_days] : 0
             %span.text-muted / 90
             - if @status_summary
-              %span.badge.ml-2{class: status_badge_class(@status_summary[:status]), title: (@status_summary[:status] == 'overstay' ? t('days.overstay_tooltip') : nil), data: (@status_summary[:status] == 'overstay' ? {toggle: 'tooltip', placement: 'top'} : {})}
+              %span.badge.ms-2{class: status_badge_class(@status_summary[:status]), title: (@status_summary[:status] == 'overstay' ? t('days.overstay_tooltip') : nil), data: (@status_summary[:status] == 'overstay' ? {bs_toggle: 'tooltip', bs_placement: 'top'} : {})}
                 - if @status_summary[:status] == 'overstay'
                   %i.fa.fa-exclamation-triangle
                 = t("days.status_#{@status_summary[:status]}")
               - if @status_summary[:in_waiting_period] && @status_summary[:outside_schengen]
-                %span.badge.badge-warning.ml-2{title: t('days.waiting_period_tooltip'), data: {toggle: 'tooltip', placement: 'top'}}
+                %span.badge.text-bg-warning.ms-2{title: t('days.waiting_period_tooltip'), data: {bs_toggle: 'tooltip', bs_placement: 'top'}}
                   %i.fa.fa-clock
                   = t('days.legend_waiting')
             - else
-              %span.badge.badge-success.ml-2= t("days.status_safe")
+              %span.badge.text-bg-success.ms-2= t("days.status_safe")
         .mb-2
           %small.text-muted= t('days.days_remaining')
           .h5.mb-0{class: @status_summary ? "text-#{status_text_class(@status_summary[:status])}" : "text-success"}
@@ -46,30 +46,30 @@
               %small.text-muted= t('days.visa_status_label')
               - if controller_name != 'visits'
                 = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm", "aria-label": t('days.go_to_visas') do
-                  %i.fa.fa-passport.mr-1{"aria-hidden": "true"}
+                  %i.fa.fa-passport.me-1{"aria-hidden": "true"}
                   = t('days.go_to_visas')
             - if @status_summary && @status_summary[:visa_status]
               .h5.mb-0
                 - if @status_summary[:visa_status] == 'ok'
-                  %span.badge.badge-success{title: t('days.visa_ok_tooltip'), data: {toggle: 'tooltip', placement: 'top'}}
+                  %span.badge.text-bg-success{title: t('days.visa_ok_tooltip'), data: {bs_toggle: 'tooltip', bs_placement: 'top'}}
                     %i.fa.fa-check
                     = t('days.visa_status_ok')
                   - if @status_summary[:visa_entries_display]
-                    %small.ml-2.text-muted
+                    %small.ms-2.text-muted
                       = @status_summary[:visa_entries_display]
                 - elsif @status_summary[:visa_issue_type] == 'entry_limit_exceeded'
                   - if @status_summary[:visa_entries_display]
-                    %strong.mr-2= @status_summary[:visa_entries_display]
-                  %span.badge.badge-danger
+                    %strong.me-2= @status_summary[:visa_entries_display]
+                  %span.badge.text-bg-danger
                     %i.fa.fa-exclamation-triangle
                     = t('days.entry_limit_exceeded')
                 - else
-                  %span.badge.badge-danger
+                  %span.badge.text-bg-danger
                     %i.fa.fa-exclamation-triangle
                     = t('days.visa_warning')
             - else
               .h5.mb-0
-                %span.badge.badge-info
+                %span.badge.text-bg-info
                   %i.fa.fa-info-circle
                   = t('days.no_visa_entered')
   -# Legend
@@ -81,17 +81,17 @@
           = t('days.legend')
       .card-body.p-2
         .legend-item.d-flex.align-items-center.mb-2
-          .legend-color.outside-schengen.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+          .legend-color.outside-schengen.me-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
           %small= t('days.legend_outside')
         .legend-item.d-flex.align-items-center.mb-2
-          .legend-color.in-schengen-safe.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+          .legend-color.in-schengen-safe.me-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
           %small= t('days.legend_safe')
         .legend-item.d-flex.align-items-center.mb-2
-          .legend-color.overstay.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+          .legend-color.overstay.me-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
           %small= t('days.legend_overstay')
         - if @overstay
           .legend-item.d-flex.align-items-center
-            .legend-color.waiting-period.mr-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
+            .legend-color.waiting-period.me-2{style: "width: 30px; height: 30px; border-radius: 4px;"}
             %small= t('days.legend_waiting')
   -# Next entry options
   - if @next_entry_days && @next_entry_days.any?
@@ -111,7 +111,7 @@
               %small
                 = t('days.stay_for_days', days: day.max_remaining_days)
                 - if day.max_remaining_days == 90
-                  %span.badge.badge-success.ml-1= t('days.full_stay')
+                  %span.badge.text-bg-success.ms-1= t('days.full_stay')
             .entry-until
               %small.text-muted
                 = t('days.until_date', date: l(day.the_date + (day.max_remaining_days - 1).days, format: :long))
@@ -127,5 +127,5 @@
     .card-body.text-center.py-3
       %small.text-muted.d-block.mb-2= t('days.need_help')
       = link_to about_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm" do
-        %i.fa.fa-question-circle.mr-1
+        %i.fa.fa-question-circle.me-1
         = t('days.learn_about_rule')

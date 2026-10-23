@@ -1,6 +1,33 @@
 require 'test_helper'
 
 class PublicHeaderBrowserTest < JavascriptIntegrationTest
+  test 'FAQ anchors keep questions below the sticky header' do
+    [390, 1400].each do |width|
+      page.current_window.resize_to(width, 1000)
+      visit '/en/about#faq-q3'
+      assert faq_question_clears_header?
+    end
+
+    visit '/en/about'
+    click_link 'Can I reset my 90 days by leaving the Schengen Area?'
+    assert faq_question_clears_header?
+  ensure
+    page.current_window.resize_to(1400, 1000)
+  end
+
+  def faq_question_clears_header?
+    page.document.synchronize(5) do
+      bounds = page.evaluate_script(<<~JS)
+        ({ top: document.querySelector('#faq-q3').getBoundingClientRect().top,
+           headerBottom: document.querySelector('nav.navbar').getBoundingClientRect().bottom })
+      JS
+      unless bounds['top'] >= bounds['headerBottom'] - 1 && bounds['top'] <= bounds['headerBottom'] + 60
+        raise Capybara::ExpectationNotMet, "FAQ heading is outside the visible anchor position: #{bounds}"
+      end
+      true
+    end
+  end
+
   test 'anonymous main page header probe does not query the database' do
     visit '/'
     assert_selector '#public-user-menu'
@@ -138,6 +165,14 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
       assert_operator page.evaluate_script('document.documentElement.scrollWidth'),
                       :<=, page.evaluate_script('window.innerWidth'),
                       "Expected the #{locale} header to fit at the expanded breakpoint"
+    end
+
+    [900, 1024].each do |width|
+      page.current_window.resize_to(width, 900)
+      visit '/en/about'
+      assert_no_selector '#navbarContent .nav-tabs .nav-link i', visible: true
+      assert_operator page.evaluate_script('document.documentElement.scrollWidth'),
+                      :<=, page.evaluate_script('window.innerWidth')
     end
 
     page.current_window.resize_to(719, 900)
@@ -409,7 +444,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_no_selector '#visitModal form[id^="new_visit"]'
 
     within '#visitModal' do
-      find('button.close').click
+      find('button.btn-close').click
     end
 
     assert_no_selector '#visitModal.show'
@@ -461,7 +496,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     visit days_path(locale: :en, year: 2014)
 
     find('#personDropdown').click
-    assert_selector '.person-switcher.show .dropdown-menu.show'
+    assert_selector '.person-switcher .dropdown-menu.show'
     action_group = find('.person-switcher .dropdown-menu > .header-desktop-only')
     menu_children = action_group.all(:xpath, './*', visible: :all)
     add_index = menu_children.index { |item| item[:href].to_s.end_with?(new_person_path(locale: :en)) }
@@ -472,7 +507,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_equal edit_index + 2, manage_index
 
     first('.day-cell').click
-    assert_no_selector '.person-switcher.show .dropdown-menu.show'
+    assert_no_selector '.person-switcher .dropdown-menu.show'
   end
 
   test 'logout matches outlined actions and the person selector height' do
@@ -502,6 +537,17 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     tables = all('table.responsive-table', count: 2)
     tables.each do |table|
       refute_includes table[:class].split, 'table-striped'
+      cells = table.all('tbody tr:first-child > *')
+      cells.each do |cell|
+        assert_equal 'rgba(222, 226, 230, 1)', cell.style('border-right-color')['border-right-color']
+        assert_equal '1px', cell.style('border-right-width')['border-right-width']
+      end
+      cells.drop(1).each do |cell|
+        assert_equal '0px', cell.style('border-left-width')['border-left-width']
+      end
+      table.all('thead tr:nth-child(2) th').each do |cell|
+        assert_equal '0px', cell.style('border-top-left-radius')['border-top-left-radius']
+      end
     end
 
     all('table.responsive-table tbody tr', minimum: 2).each do |row|
@@ -528,6 +574,14 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     mobile_header = find('table.responsive-table tbody .bg-md-header', match: :first)
     assert_equal status_blue['background-color'], mobile_header.style('background-color')['background-color']
     assert_equal 'rgba(255, 255, 255, 1)', mobile_header.style('color')['color']
+
+    visit visits_path(locale: :en)
+    all('table.responsive-table', count: 2).each do |table|
+      table.all('tbody tr:first-child > *').each do |cell|
+        assert_equal '0px', cell.style('border-left-width')['border-left-width']
+        assert_equal '0px', cell.style('border-right-width')['border-right-width']
+      end
+    end
   ensure
     page.current_window.resize_to(1400, 1000)
   end
@@ -541,7 +595,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
     assert_selector '#visitModal.show form[id^="new_visit"]', wait: 10
     within '#visitModal' do
-      find('button.close').click
+      find('button.btn-close').click
     end
     assert_no_selector '#visitModal.show'
     assert_selector '.day-cell:focus'
@@ -609,4 +663,80 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_selector '#visaModal.show .alert-danger', wait: 10
     assert find('#visaModal .alert-danger').visible?
   end
+
+  test 'touch calendar shows a tooltip before opening the visit modal on the second tap' do
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: true, maxTouchPoints: 1)
+    page.current_window.resize_to(390, 844)
+    user_login
+    visit days_path(locale: :en, year: 2014)
+    cell = find('.day-cell.has-travel', match: :first)
+
+    # Dispatch a tap without Selenium moving a mouse over the cell first.
+    page.execute_script('arguments[0].click()', cell)
+    assert_selector '.tooltip.show .tooltip-inner strong'
+    assert_equal cell['aria-describedby'], find('.tooltip.show')[:id]
+    assert_no_selector '#visitModal.show'
+
+    page.execute_script('arguments[0].click()', cell)
+    assert_selector '#visitModal.show form', wait: 10
+    assert_no_selector '.tooltip.show'
+    within('#visitModal') { find('button.btn-close').click }
+    assert_no_selector '#visitModal.show'
+  ensure
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: false)
+    page.current_window.resize_to(1400, 1000)
+  end
+
+  test 'calendar status badges retain their semantic colors' do
+    user_login
+    visit visits_path(locale: :en)
+    badge = find('.badge.text-bg-success', match: :first)
+    assert_equal 'rgba(232, 245, 217, 1)', badge.style('background-color')['background-color']
+    assert_equal 'rgba(61, 90, 31, 1)', badge.style('color')['color']
+  end
+
+
+  test 'responsive pages fit and login controls stay readable' do
+    [390, 1400].each do |width|
+      page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 1000, deviceScaleFactor: 1, mobile: false)
+      assert_equal width, page.evaluate_script('window.innerWidth')
+      visit visits_path(locale: :en)
+      assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
+      visit days_path(locale: :en, year: 2027)
+      grid = find('.calendar-grid', match: :first)
+      assert_equal 7, grid.style('grid-template-columns')['grid-template-columns'].split.size
+      assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
+
+    end
+
+    visit new_user_session_path(locale: :en)
+    assert_equal 'none', find('.facebook-oauth-form .btn').style('box-shadow')['box-shadow']
+    assert_equal find('main input[type="submit"]').style('color'), find('.header-auth-button').style('color'),
+                 'Button links should use the same contrast colors as form buttons'
+
+    checkbox = find('#user_remember_me')
+    assert_equal '1px', checkbox.style('border-width')['border-width']
+    assert_equal 'rgb(102, 102, 102)', checkbox.style('border-color')['border-color']
+    checkbox.check
+    assert checkbox.checked?
+  ensure
+    page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
+    page.current_window.resize_to(1400, 1000)
+  end
+
+  test 'outline calendar controls stay flat and mobile actions have one spacing gap' do
+    visit days_path(locale: :en, year: 2027)
+    assert_equal 'none', find('.btn-prev-year', match: :first).style('box-shadow')['box-shadow']
+
+    page.current_window.resize_to(390, 1000)
+    user_login
+    visit days_path(locale: :en, year: 2014)
+    actions = all('.calendar-status-card .gap-2 > .btn', count: 2)
+    first_bounds = actions.first.native.rect
+    second_bounds = actions.last.native.rect
+    assert_in_delta 8, second_bounds.y - first_bounds.y - first_bounds.height, 1
+  ensure
+    page.current_window.resize_to(1400, 1000)
+  end
+
 end

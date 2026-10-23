@@ -2,13 +2,13 @@
   - title @country.nationality_plural
 
 -# Breadcrumb navigation and schema (hidden but accessible)
-.sr-only-heading
+.visually-hidden
   - breadcrumbs = [{ :name => t('common.home'), :url => root_url(:locale => I18n.locale) }, { :name => t('about.link'), :url => about_url(:locale => I18n.locale) }]
   = render_breadcrumbs(breadcrumbs)
 
 .row{style: "padding-bottom: 150px;"}
   .col-lg-4{:role => "complementary"}
-    %nav.page-sidebar.hidden-print.d-none.d-lg-block{style: "position: sticky; top: 10px;", "aria-label": t('about.about.contents_title')}
+    %nav.page-sidebar.d-print-none.d-none.d-lg-block{style: "position: sticky; top: 10px;", "aria-label": t('about.about.contents_title')}
       %h4.title
         = t('about.about.contents_title')
       %ul.nav.flex-column.page-sidenav{role: "list"}
@@ -135,7 +135,7 @@
       %p.mb-4
         %blockquote.blockquote
           = t('about.about.90_days_definition_blockquote')
-          %footer.blockquote-footer
+          %footer.blockquote-footer.mt-3.mb-0
             %cite{title: "European Commission"}
               =t('about.about.european_commission_link')
       %p.mb-4
@@ -151,7 +151,7 @@
         = t('about.about.nationality_section.heading')
       .nationality-selector.mb-4
         = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt')
-        = collection_select(:user, :nationality_id, CountryCatalog.outside_schengen, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt'), selected: @country&.nationality_english}, {:class => "form-control custom-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
+        = collection_select(:user, :nationality_id, CountryCatalog.outside_schengen, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt'), selected: @country&.nationality_english}, {:class => "form-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
       = render "nationality" if @country
       .text-center.mb-4
         = link_to t('about.about.button_text'), days_path(locale: I18n.locale), class: "btn btn-add btn-lg btn-calendar-start", "aria-label": t('about.about.button_text')
@@ -340,7 +340,7 @@
       %p.mb-4
         = t('about.about.last_updated.description', date: l(@last_reviewed_date.to_time, format: :mid))
 :javascript
-  // Initialize scrollspy and smooth scroll after page load
+  // Use the same CSS offset for sidebar clicks and direct fragment links.
   // This runs AFTER deferred scripts (core.js with jQuery) have loaded
   window.addEventListener('load', function() {
     // Double-check jQuery is available (should be loaded by now)
@@ -350,19 +350,26 @@
     }
     
     // Initialize Bootstrap scrollspy for sidebar navigation
-    $('body').scrollspy({ target: '.page-sidebar', offset: 130 });
-    
-    // Smooth scroll for sidebar links
-    $('.page-sidebar li a').click(function(event) {
-      event.preventDefault();
-      const target = $(this).attr('href');
-      const $target = $(target);
-      if ($target.length) {
-        const scrollToPosition = $target.offset().top - 120;
-        $('html, body').animate({
-          scrollTop: scrollToPosition
-        }, 400);
-      }
+    $('body').scrollspy({ target: '.page-sidebar', rootMargin: '-120px 0px -25%' });
+
+    function scrollToSection(hash, behavior) {
+      const target = document.getElementById(hash.slice(1));
+      if (!target) return;
+      const offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      window.scrollTo({ top: window.scrollY + target.getBoundingClientRect().top - offset, behavior: behavior });
+    }
+
+    document.querySelectorAll('.page-sidebar a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        history.pushState(null, '', link.hash);
+        scrollToSection(link.hash, 'smooth');
+      });
+    });
+
+    // Font loading can move the target after the browser's initial fragment jump.
+    document.fonts.ready.then(function() {
+      if (window.location.hash) scrollToSection(window.location.hash, 'instant');
     });
   });
   

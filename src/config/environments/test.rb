@@ -57,6 +57,6 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
   
-  # Use CSSO CSS compression (compatible with Bootstrap 4.6.2+)
+  # Use CSSO CSS compression after Dart Sass compilation
   config.assets.css_compressor = :csso
 end

@@ -19,12 +19,15 @@
 // Selective Bootstrap imports to reduce bundle size
 @import "bootstrap/functions";
 @import "bootstrap/variables";
+@import "bootstrap/variables-dark";
+@import "bootstrap/maps";
 @import "bootstrap/mixins";
+@import "bootstrap/utilities";
 @import "bootstrap/root";
 @import "bootstrap/reboot";
 @import "bootstrap/type";
 @import "bootstrap/images";
-@import "bootstrap/code";
+@import "bootstrap/containers";
 @import "bootstrap/grid";
 @import "bootstrap/tables";
 @import "bootstrap/forms";
@@ -32,8 +35,6 @@
 @import "bootstrap/transitions";
 @import "bootstrap/dropdown";
 @import "bootstrap/button-group";
-@import "bootstrap/input-group";
-@import "bootstrap/custom-forms";
 @import "bootstrap/nav";
 @import "bootstrap/navbar";
 @import "bootstrap/card";
@@ -42,14 +43,24 @@
 @import "bootstrap/modal";
 @import "bootstrap/tooltip";
 @import "bootstrap/close";
-@import "bootstrap/utilities";
-@import "bootstrap/print";
-@import "font-awesome";
-@import "font_display"; // Font display optimization for performance
+@import "bootstrap/helpers";
+@import "bootstrap/utilities/api";
+@import "font_awesome";
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)
 @import "about"; // Shared About and legal-page layout
 @import "responsive_table";
 @import "calendar_status_card";
+
+// Bootstrap 5 applies $btn-box-shadow to the base .btn. Previously only filled
+// variants had it; keep outline, link, and unstyled OAuth buttons flat.
+.btn {
+  --bs-btn-box-shadow: none;
+}
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    --bs-btn-box-shadow: #{$btn-box-shadow};
+  }
+}
 
 // Bootstrap derives info alerts from $info, which gives the purple theme color
 // a warm pink surface. Keep the purple accent but use the theme's cool lavender
@@ -66,20 +77,20 @@
   }
 }
 
-// Override badge colors to match calendar colors
-.badge-success {
-  background-color: $calendar-safe;
-  color: $calendar-safe-text;
+// Match calendar badges; Bootstrap text-bg helpers use !important.
+.badge.text-bg-success {
+  background-color: $calendar-safe !important;
+  color: $calendar-safe-text !important;
 }
 
-.badge-warning {
-  background-color: $calendar-warning;
-  color: $calendar-warning-text;
+.badge.text-bg-warning {
+  background-color: $calendar-warning !important;
+  color: $calendar-warning-text !important;
 }
 
-.badge-danger {
-  background-color: $calendar-overstay;
-  color: $calendar-overstay-text;
+.badge.text-bg-danger {
+  background-color: $calendar-overstay !important;
+  color: $calendar-overstay-text !important;
 }
 
 .people-status-badge {
@@ -177,31 +188,24 @@ html {
   
   // Mobile optimizations
   @media (max-width: 991px) {
-    .py-2 {
-      padding-top: 0.5rem !important;
-      padding-bottom: 0.5rem !important;
-    }
-    
     .footer-links .mx-2 {
       margin-left: 0.25rem !important;
       margin-right: 0.25rem !important;
     }
     
-    .mb-2 {
-      margin-bottom: 0.5rem !important;
-    }
   }
 }
 
-.bg-md-header {       
-  @include media-breakpoint-down(sm) { 
+.responsive-table .bg-md-header {
+  @include media-breakpoint-down(md) {
     color: $white;
     background: $primary;
   }
 }
 
 $header-expanded-breakpoint: 720px;
-$header-full-breakpoint: 900px;
+// Keep the compact navigation until the wider Font Awesome 7 icon canvases fit.
+$header-full-breakpoint: 1200px;
 
 .header-desktop-only {
   display: none;
@@ -551,33 +555,13 @@ $header-full-breakpoint: 900px;
 
 // Ensure sticky header stays on top
 .navbar.sticky-top {
-  z-index: 1020; // Bootstrap's default sticky navbar z-index
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-// Accessibility contrast colors for navbar and links are now controlled
-// via Bootstrap theme variables in _bootstrap_custom.scss
-// This eliminates the need for most !important overrides
-
-// Fix button text colors when buttons are rendered as links (<a class="btn">)
-// The !important is necessary because $link-color and button colors have equal specificity.
-// When both apply, we need to ensure button colors win for proper contrast.
-a.btn-primary,
-a.btn-success,
-a.btn-danger,
-a.btn-info,
-a.btn-dark {
-  color: #fff !important; // White text on colored buttons
-}
-
-a.btn-warning,
-a.btn-light {
-  color: #212529 !important; // Dark text on light backgrounds
-}
-
+// Use Bootstrap's table variables so cell backgrounds and text stay in sync.
 .table-danger {
-  background-color: $calendar-overstay !important;
-  color: $calendar-overstay-text !important;
+  --bs-table-bg: #{$calendar-overstay};
+  --bs-table-color: #{$calendar-overstay-text};
 }
 
 body {
@@ -618,70 +602,54 @@ html[dir='rtl'] {
     text-align: right;
   }
 
-  .ml-auto {
+  .ms-auto {
     margin-left: 0 !important;
     margin-right: auto !important;
   }
 
-  .mr-auto {
+  .me-auto {
     margin-right: 0 !important;
     margin-left: auto !important;
   }
 
-  .mr-1 {
+  .me-1 {
     margin-right: 0 !important;
     margin-left: 0.25rem !important;
   }
 
-  .mr-2 {
+  .me-2 {
     margin-right: 0 !important;
     margin-left: 0.5rem !important;
   }
 
-  .mr-3 {
+  .me-3 {
     margin-right: 0 !important;
     margin-left: 1rem !important;
   }
 
-  .mr-4 {
+  .me-4 {
     margin-right: 0 !important;
     margin-left: 1.5rem !important;
   }
 
-  .ml-1 {
+  .ms-1 {
     margin-left: 0 !important;
     margin-right: 0.25rem !important;
   }
 
-  .ml-2 {
+  .ms-2 {
     margin-left: 0 !important;
     margin-right: 0.5rem !important;
   }
 
-  .text-left {
+  .text-start {
     text-align: right !important;
   }
 
-  .text-right {
+  .text-end {
     text-align: left !important;
   }
 }
-
-// Screen reader only content (visually hidden but accessible)
-.sr-only-heading {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-// Global link contrast is now controlled by Bootstrap theme variables
-// in _bootstrap_custom.scss ($link-color, $link-hover-color)
 
 // Content links should be underlined for accessibility (distinguishable without color)
 // Exclude navigation, buttons, and UI elements
@@ -729,15 +697,6 @@ html[dir='rtl'] {
   }
 }
 
-// Rounded corners for all cards and card headers (consistent with tables and buttons)
-.card {
-  border-radius: 0.375rem !important;
-  
-  .card-header {
-    border-top-left-radius: 0.375rem !important;
-    border-top-right-radius: 0.375rem !important;
-  }
-}
 .form-btn {
   min-width: 100px;
 }
@@ -745,19 +704,10 @@ html[dir='rtl'] {
   font-weight: bold;
 }
 
-.center-heading{
-  text-align: center;
-}
-
 // Match the Trips and Visas table headers to the Current Status header.
 .bg-table-header {
-  background-color: $primary !important;
-  background-image: none !important;
-
-  th {
-    background-color: $primary !important;
-    background-image: none !important;
-  }
+  --bs-table-bg: #{$primary};
+  --bs-table-color: #{$white};
 }
 
 .table-top-header {
@@ -767,20 +717,6 @@ html[dir='rtl'] {
 
 .modify-col {
   width: 100px;
-}
-
-// bootstrap fix padding for input form elements
-input.form-control {
-  padding: 1rem;
-}
-
-select.form-control, select.custom-select {
-  padding: 1rem;
-}
-
-.date-form-group>select{
-  width: auto;
-  display: inline;
 }
 
 .ad-block {

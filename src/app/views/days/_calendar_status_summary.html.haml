@@ -19,20 +19,20 @@
               %small.text-muted.d-block.mb-1= t('common.current_traveler')
               - if tracked_people.many?
                 .dropdown.mobile-status-person-switcher.d-inline-block
-                  %button.btn.btn-outline-primary.btn-sm.dropdown-toggle{type: "button", id: "mobileStatusPersonDropdown", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
-                    %i.fa.fa-user.mr-1{"aria-hidden": "true"}
-                    %span{dir: "auto"}= current_person.full_name
+                  %button.btn.btn-outline-primary.btn-sm.dropdown-toggle{type: "button", id: "mobileStatusPersonDropdown", "data-bs-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"}
+                    %i.fa.fa-user.me-1{"aria-hidden": "true"}
+                    %span.d-inline-block.text-truncate.align-bottom{dir: "auto"}= current_person.full_name
                   .dropdown-menu{"aria-labelledby": "mobileStatusPersonDropdown"}
                     - tracked_people.each do |person|
-                      = button_to set_current_person_path(locale: I18n.locale, id: person), class: ['dropdown-item', 'text-left', ('active' if person == current_person)], form: { class: 'mobile-status-person-form', data: { turbo: false } } do
+                      = button_to set_current_person_path(locale: I18n.locale, id: person), class: ['dropdown-item', 'text-start', ('active' if person == current_person)], form: { class: 'mobile-status-person-form m-0', data: { turbo: false } } do
                         - if person == current_person
-                          %i.fa.fa-check.mr-2{"aria-hidden": "true"}
+                          %i.fa.fa-check.me-2{"aria-hidden": "true"}
                         - else
-                          %span.mobile-status-person-check-placeholder.mr-4
+                          %span.d-inline-block.me-4
                         %span{dir: "auto"}= person.full_name
               - else
                 .mobile-status-person-name
-                  %i.fa.fa-user.mr-1{"aria-hidden": "true"}
+                  %i.fa.fa-user.me-1{"aria-hidden": "true"}
                   %strong{dir: "auto"}= current_person.full_name
         
         -# Status badge (prominent)
@@ -43,7 +43,7 @@
         -# Days information (two columns, compact)
         .status-metrics.mb-3
           .row
-            .col-6.text-center.border-right
+            .col-6.text-center.border-end
               %small.text-muted.d-block.mb-1= t('days.days_used')
               .h3.mb-0
                 %strong= @status_summary[:current_days]
@@ -58,25 +58,25 @@
         - if current_person.visa_required? && @status_summary[:visa_status]
           .visa-status-info.text-center.mb-3.pb-3.border-bottom
             - if @status_summary[:visa_status] == 'ok'
-              %span.badge.badge-success.px-3.py-2
+              %span.badge.text-bg-success.px-3.py-2
                 %i.fa.fa-check
                 = t('days.visa_status_ok')
             - else
-              %span.badge.badge-danger.px-3.py-2
+              %span.badge.text-bg-danger.px-3.py-2
                 %i.fa.fa-exclamation-triangle
                 = t('days.visa_warning')
             - if @status_summary[:visa_entries_display]
               %div.mt-2
-                %small{class: (@status_summary[:visa_entries_exceeded] ? 'text-danger font-weight-bold' : 'text-muted')}
+                %small{class: (@status_summary[:visa_entries_exceeded] ? 'text-danger fw-bold' : 'text-muted')}
                   = @status_summary[:visa_entries_display]
         
         - if show_actions
           -# Action buttons (responsive stacking)
           .d-flex.flex-column.flex-sm-row.justify-content-center.gap-2
             = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm flex-grow-1" do
-              %i.fa.fa-list.mr-1{"aria-hidden" => "true"}
+              %i.fa.fa-list.me-1{"aria-hidden" => "true"}
               = t('days.view_table')
             - jump_today_path = @public_calculator_page ? days_path(locale: I18n.locale) : days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale)
             = link_to jump_today_path, class: "btn btn-outline-primary btn-sm flex-grow-1 calendar-jump-today" do
-              %i.fa.fa-calendar-day.mr-1{"aria-hidden" => "true"}
+              %i.fa.fa-calendar-day.me-1{"aria-hidden" => "true"}
               = t('days.jump_to_today')

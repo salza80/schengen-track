@@ -7,16 +7,16 @@
         %th{ scope: "col" }= t('days.table_headers.date')
         %th{ scope: "col" }= t('days.table_headers.country')
         %th{ scope: "col" }= t('days.table_headers.schengen_area')
-        %th{ scope: "col", "data-toggle":"tooltip", title: t('days.table_headers.schengen_days_used_tooltip') }= t('days.table_headers.schengen_days_used')
-        %th{ scope: "col", "data-toggle":"tooltip", title: t('days.table_headers.max_remaining_days_tooltip') }= t('days.table_headers.max_remaining_days')
+        %th{ scope: "col", "data-bs-toggle":"tooltip", title: t('days.table_headers.schengen_days_used_tooltip') }= t('days.table_headers.schengen_days_used')
+        %th{ scope: "col", "data-bs-toggle":"tooltip", title: t('days.table_headers.max_remaining_days_tooltip') }= t('days.table_headers.max_remaining_days')
         -if @overstay
           %th{ scope: "col" }= t('days.table_headers.overstay_days')
-          %th{ scope: "col", "data-toggle":"tooltip", title: t('days.table_headers.overstay_wait_tooltip') }= t('days.table_headers.overstay_wait')
+          %th{ scope: "col", "data-bs-toggle":"tooltip", title: t('days.table_headers.overstay_wait_tooltip') }= t('days.table_headers.overstay_wait')
     %tbody
       - @days.each_with_index do |day, index|
         %tr
           %th{ scope: "col", class: 'bg-md-header' }
-            %span.no-wrap
+            %span.text-nowrap
               = day.the_date.strftime('%d-%b-%Y')
             %span.d-md-none
               = "-"
@@ -30,11 +30,11 @@
               = t('days.schengen_yes')
             - else
               = t('days.schengen_no')
-          %td{ "data-title": "#{t('days.table_headers.schengen_days_used_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?}"}
+          %td{ "data-title": "#{t('days.table_headers.schengen_days_used_tooltip')}", "data-bs-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?}"}
             = day.schengen_days_count || "-"
             - if day.remaining_wait
               *
-          %td{ "data-title": "#{t('days.table_headers.max_remaining_days_tooltip')}", "data-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}
+          %td{ "data-title": "#{t('days.table_headers.max_remaining_days_tooltip')}", "data-bs-toggle":"tooltip", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?} #{'d-none d-md-table-cell' if !day.max_remaining_days}"}
             = day.max_remaining_days || "-"
           -if @overstay
             %td{"data-title": "#{t('days.table_headers.overstay_days')}", class: "#{'danger' if day.danger?} #{'waiting-period' if day.warning?}"}

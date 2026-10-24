@@ -116,9 +116,9 @@ jobs:
         working-directory: src/config
 
       - name: Set up Ruby for country catalogue generation
-        uses: ruby/setup-ruby@v1.319.0
+        uses: ruby/setup-ruby@v1.334.0
         with:
-          ruby-version: '3.3.12'
+          ruby-version: '3.3.13'
           bundler-cache: true
           working-directory: src
 

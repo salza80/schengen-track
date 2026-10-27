@@ -288,7 +288,9 @@ GEM
     pp (0.6.4)
       prettyprint
     prettyprint (0.2.1)
-    prism (1.9.0)
+    prism (2.0.0)
+    prism (2.0.0-arm64-darwin)
+    prism (2.0.0-x86_64-linux-gnu)
     pry (0.16.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -456,7 +458,7 @@ DEPENDENCIES
   nokogiri (>= 1.18.10)
   omniauth-facebook
   pg
-  prism (~> 1.9)
+  prism (~> 2.0)
   pry
   puma (~> 8.0, >= 8.0.2)
   rack (~> 3.2)

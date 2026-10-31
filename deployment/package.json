@@ -14,15 +14,15 @@
     "@types/aws-lambda": "^8.10.164",
     "@types/jest": "^30.0.0",
     "@types/node": "24.19.2",
-    "aws-cdk": "2.1145.0",
-    "cdk": "2.1145.0",
+    "aws-cdk": "2.1146.1",
+    "cdk": "2.1146.1",
     "jest": "^30.5.2",
     "ts-jest": "^29.4.15",
     "ts-node": "^10.9.2",
     "typescript": "~6.0.3"
   },
   "dependencies": {
-    "aws-cdk-lib": "2.273.0",
+    "aws-cdk-lib": "2.275.0",
     "constructs": "^10.8.1",
     "source-map-support": "^0.5.21"
   },

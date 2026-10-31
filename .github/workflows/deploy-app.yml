@@ -57,7 +57,7 @@ jobs:
         run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 
       - name: Install CDK
-        run: npm install -g aws-cdk@2.1145.0
+        run: npm install -g aws-cdk@2.1146.1
 
       - name: Install CDK Dependencies
         run: npm ci

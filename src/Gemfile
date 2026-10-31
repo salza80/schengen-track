@@ -27,7 +27,6 @@ gem 'nokogiri', '>= 1.18.10'
 gem 'geocoder'
 gem 'omniauth-facebook'
 gem 'puma', '~> 8.0', '>= 8.0.2'
-gem 'amazon-ecs'
 gem 'pg'
 gem 'listen'
 gem "sprockets-rails"

@@ -26,14 +26,6 @@ class AppConfig
       ENV['FACEBOOK_WEB_LOGIN_WORKAROUND'] == 'true'
     end
 
-    def aws_access_key_id
-      fetch_optional('AWS_ACCESS_KEY_ID')
-    end
-
-    def aws_secret_key
-      fetch_optional('AWS_SECRET_KEY')
-    end
-
     def brevo_login
       fetch_optional('BREVO_LOGIN')
     end

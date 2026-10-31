@@ -10,14 +10,14 @@ Live site: https://schengen-calculator.com
 == Local setup
 
 Requirements:
-* Ruby 3.3.13
+* Ruby 4.0.9
 * PostgreSQL (the included Docker Compose configuration can provide it)
 * Chrome and ChromeDriver for browser tests
 
 From the repository root:
 
   cd src
-  rvm use 3.3.13
+  rvm use 4.0.9
   bundle install
   cp config/secrets.yml.example config/secrets.yml
   docker compose up -d postgres

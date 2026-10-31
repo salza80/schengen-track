@@ -1,18 +1,41 @@
 require 'test_helper'
 
 class PublicHeaderBrowserTest < JavascriptIntegrationTest
-  test 'FAQ anchors keep questions below the sticky header' do
-    [390, 1400].each do |width|
-      page.current_window.resize_to(width, 1000)
+  [390, 1400].each do |width|
+    test "FAQ anchors keep questions below the sticky header at #{width}px" do
+      page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 1000, deviceScaleFactor: 1, mobile: false)
+      assert_equal width, page.evaluate_script('window.innerWidth')
       visit '/en/about#faq-q3'
       assert faq_question_clears_header?
+      page.execute_script(<<~JS)
+        const spacer = document.createElement('div');
+        spacer.style.height = '280px';
+        document.querySelector('.about-section').prepend(spacer);
+      JS
+      assert faq_question_clears_header?
+      if width == 1400
+        visit '/en/about'
+        click_link 'Can I reset my 90 days by leaving the Schengen Area?'
+        assert faq_question_clears_header?
+      end
+    ensure
+      page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
     end
+  end
 
-    visit '/en/about'
-    click_link 'Can I reset my 90 days by leaving the Schengen Area?'
+  test 'FAQ alignment stops correcting after the visitor scrolls away' do
+    visit '/en/about#faq-q3'
     assert faq_question_clears_header?
-  ensure
-    page.current_window.resize_to(1400, 1000)
+    page.driver.browser.execute_cdp('Input.dispatchMouseEvent', type: 'mouseWheel', x: 300, y: 200, deltaX: 0, deltaY: -600)
+    page.execute_script("window.scrollTo({ top: 0, behavior: 'instant' })")
+    page.evaluate_async_script(<<~JS)
+      const done = arguments[0];
+      const spacer = document.createElement('div');
+      spacer.style.height = '280px';
+      document.querySelector('.about-section').prepend(spacer);
+      requestAnimationFrame(() => requestAnimationFrame(done));
+    JS
+    assert_in_delta 0, page.evaluate_script('window.scrollY'), 1
   end
 
   def faq_question_clears_header?

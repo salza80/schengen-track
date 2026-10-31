@@ -359,18 +359,37 @@
       window.scrollTo({ top: window.scrollY + target.getBoundingClientRect().top - offset, behavior: behavior });
     }
 
+    let activeHash = window.location.hash;
+    function alignActiveSection() {
+      if (activeHash) scrollToSection(activeHash, 'instant');
+    }
+
+    // Fonts and ads can change layout after load. Preserve the fragment position
+    // until the visitor starts interacting, then let them scroll freely.
+    if (typeof ResizeObserver !== 'undefined') {
+      const anchorObserver = new ResizeObserver(alignActiveSection);
+      anchorObserver.observe(document.body);
+      anchorObserver.observe(document.querySelector('.about-section'));
+    }
+    ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function(eventName) {
+      window.addEventListener(eventName, function() { activeHash = ''; }, { passive: true });
+    });
+    window.addEventListener('hashchange', function() {
+      activeHash = window.location.hash;
+      alignActiveSection();
+    });
+
     document.querySelectorAll('.page-sidebar a[href^="#"]').forEach(function(link) {
       link.addEventListener('click', function(event) {
         event.preventDefault();
         history.pushState(null, '', link.hash);
-        scrollToSection(link.hash, 'smooth');
+        activeHash = link.hash;
+        alignActiveSection();
       });
     });
 
     // Font loading can move the target after the browser's initial fragment jump.
-    document.fonts.ready.then(function() {
-      if (window.location.hash) scrollToSection(window.location.hash, 'instant');
-    });
+    document.fonts.ready.then(alignActiveSection);
   });
   
   // Initialize AdSense ads

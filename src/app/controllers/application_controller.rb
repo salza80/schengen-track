@@ -1,5 +1,3 @@
-require 'aws/book_query'
-
 class ApplicationController < ActionController::Base
   CANONICAL_SITE_URL = 'https://schengen-calculator.com'.freeze
   SEO_LOCALE_PREFIX_PATTERN = %r{\A/(?:#{Regexp.union(I18n.available_locales.map(&:to_s))})(?=/|\z)}.freeze
@@ -31,7 +29,7 @@ class ApplicationController < ActionController::Base
   # skip_before_action :verify_authenticity_token
 
   helper_method :current_user_or_guest_user, :current_person, :anonymous_calculator?,
-                :calculator_nationality_selected?, :amazon, :seo_canonical_path
+                :calculator_nationality_selected?, :seo_canonical_path
   around_action :switch_locale
 
   def default_url_options
@@ -89,18 +87,6 @@ class ApplicationController < ActionController::Base
   def route_locale
     raw_locale = request.path_parameters[:locale].presence
     I18n.available_locales.find { |locale| locale.to_s == raw_locale.to_s }
-  end
-
-  def amazon
-    visits = current_user_or_guest_user.visits.find_by_date(Date.today + 1.month, Date.new(3000, 1, 1))
-    search = ''
-    unless visits.empty?
-      search = visits.first.country.name +  ' '
-    end
-
-    search += 'europe'
-    s = Aws::BookQuery.new(current_user_or_guest_user.nationality.country_code)
-    s.query(search)
   end
 
   def current_user_or_guest_user

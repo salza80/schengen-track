@@ -71,32 +71,28 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     end
   end
 
-  test 'anonymous main page header probe does not query the database' do
-    visit '/'
-    assert_selector '#public-user-menu'
-    assert_no_selector '#personDropdown'
-    assert page.evaluate_async_script(<<~JS)
-      const done = arguments[0];
-      const check = () => {
-        if (sessionStorage.getItem('session-header-probed') === '1') return done(true);
-        setTimeout(check, 25);
+  test 'anonymous public pages do not request session headers or create accounts' do
+    header_script = page.driver.browser.execute_cdp('Page.addScriptToEvaluateOnNewDocument', source: <<~JS).fetch('identifier')
+      window.sessionHeaderRequests = [];
+      const originalFetch = window.fetch;
+      window.fetch = function(input, options) {
+        const url = new URL(input instanceof Request ? input.url : input, window.location.href);
+        if (url.pathname.endsWith('/session_header')) window.sessionHeaderRequests.push(url.pathname);
+        return originalFetch.call(this, input, options);
       };
-      check();
     JS
 
-    status = nil
-    database_queries = capture_database_queries do
-      status = page.evaluate_async_script(<<~JS)
-        const done = arguments[0];
-        const menu = document.getElementById('public-user-menu');
-        fetch(menu.dataset.sessionHeaderUrl, { credentials: 'same-origin', cache: 'no-store' })
-          .then(response => done(response.status))
-          .catch(() => done(-1));
-      JS
+    assert_no_difference(['User.count', 'Person.count']) do
+      ['/', '/en/about', '/fr/blog/extended-schengen-stay'].each do |path|
+        visit path
+        assert_selector '#public-user-menu'
+        assert_no_selector '#personDropdown'
+        page.evaluate_async_script('const done = arguments[0]; requestAnimationFrame(() => requestAnimationFrame(done));')
+        assert_empty page.evaluate_script('window.sessionHeaderRequests')
+      end
     end
-
-    assert_equal 204, status
-    assert_empty database_queries
+  ensure
+    page.driver.browser.execute_cdp('Page.removeScriptToEvaluateOnNewDocument', identifier: header_script) if header_script
   end
 
   test 'information alerts use the themed cool purple treatment' do

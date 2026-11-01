@@ -132,6 +132,12 @@ person for presentation, resolving country codes to Active Record objects only
 when submitted data is saved. A cold-render integration test enforces this
 boundary across every supported locale.
 
+Cached public pages fetch personalized header state only when
+<tt>has_calculator_session=1</tt> or <tt>has_flash_message=1</tt> is present.
+Anonymous visitors make no <tt>/session_header</tt> request. Older sessions
+without a hint cookie keep the generic header until a dynamic calculator route
+restores the hint.
+
 
 == Facebook OAuth
 

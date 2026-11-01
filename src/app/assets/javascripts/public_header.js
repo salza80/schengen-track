@@ -5,18 +5,11 @@
 
     var hasSession = window.PublicPageHydration.hasCookie('has_calculator_session', '1');
     var hasFlash = window.PublicPageHydration.hasCookie('has_flash_message', '1');
-    // Probe once per tab for sessions created before the hint cookie existed.
-    // A visitor without a session receives 204 and never creates a guest.
-    try {
-      if (!hasSession && !hasFlash && sessionStorage.getItem('session-header-probed')) return;
-    } catch (_) {}
+    if (!hasSession && !hasFlash) return;
 
     fetch(container.dataset.sessionHeaderUrl, { credentials: 'same-origin', cache: 'no-store' })
       .then(function (response) {
-        if (response.status === 204) {
-          try { sessionStorage.setItem('session-header-probed', '1'); } catch (_) {}
-          return null;
-        }
+        if (response.status === 204) return null;
         if (!response.ok) return null;
         return response.json();
       })

@@ -100,6 +100,8 @@ After the application and database operations succeed, the workflow updates the
 deployment timestamp in Parameter Store, invalidates `/*` in CloudFront, waits
 for completion, runs deployed smoke tests, and pre-warms the configured URLs.
 Any failed smoke test or cache warm-up fails the workflow.
+Smoke tests fetch linked page assets and the Font Awesome fonts referenced by
+compiled CSS, checking that fonts are nonempty and have the expected MIME type.
 
 Warm-up target files contain only the environment hostname. The generator expands
 shared public routes across all catalogue locales and adds eligible nationality

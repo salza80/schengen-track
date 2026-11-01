@@ -74,11 +74,23 @@ echo "Checking calculator assets"
 asset_paths="$(grep -oE '(src|href)="/assets/[^\"]+"' "$tmp_dir/visits-first.body" | cut -d '"' -f 2 | sort -u || true)"
 [ -n "$asset_paths" ] || fail 'calculator HTML did not reference any local assets'
 asset_index=0
+font_index=0
 while IFS= read -r asset_path; do
   asset_index=$((asset_index + 1))
   fetch "asset-$asset_index" "$asset_path"
   [ -s "$tmp_dir/asset-$asset_index.body" ] || fail "empty asset: $asset_path"
+  if [[ "$asset_path" == *.css ]]; then
+    font_paths="$(grep -oE '/assets/[^"()[:space:]]+\.woff2' "$tmp_dir/asset-$asset_index.body" | sort -u || true)"
+    while IFS= read -r font_path; do
+      [ -n "$font_path" ] || continue
+      font_index=$((font_index + 1))
+      fetch "font-$font_index" "$font_path"
+      [ -s "$tmp_dir/font-$font_index.body" ] || fail "empty font: $font_path"
+      assert_header "font-$font_index" content-type 'font/woff2'
+    done <<< "$font_paths"
+  fi
 done <<< "$asset_paths"
+[ "$font_index" -gt 0 ] || fail 'calculator stylesheets did not reference any local fonts'
 
 echo "Checking API documentation caching"
 fetch api-docs-first /api/docs

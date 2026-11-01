@@ -39,7 +39,7 @@ jobs:
 
       - uses: ruby/setup-ruby@v1.334.0
         with:
-          ruby-version: '3.3.13'
+          ruby-version: '4.0.9'
           bundler-cache: true
           working-directory: src
 

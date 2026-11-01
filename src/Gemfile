@@ -56,4 +56,9 @@ group :development, :test do
   gem 'pry'
   gem 'i18n-tasks', '~> 1.1.2'
 end
-ruby '3.3.13'
+
+group :test do
+  gem 'ostruct'
+end
+
+ruby '4.0.9'

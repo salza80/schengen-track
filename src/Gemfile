@@ -39,7 +39,7 @@ gem 'net-imap', '>= 0.5.7'
 gem 'uri', '>= 0.13.3'
 gem 'webrick', '>= 1.8.2'
 gem 'thor', '>= 1.4.0'
-gem 'minitest', '~> 5.22'
+gem 'minitest', '~> 6.0'
 
 group :production do
   gem 'rails_12factor'

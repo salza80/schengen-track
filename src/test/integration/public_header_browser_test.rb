@@ -23,9 +23,11 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     end
   end
 
-  test 'FAQ alignment stops correcting after the visitor scrolls away' do
+  test 'FAQ alignment stops correcting after manual scrolling and history navigation' do
+    visit '/en/about'
     visit '/en/about#faq-q3'
     assert faq_question_clears_header?
+    page.execute_script("document.documentElement.style.scrollBehavior = 'auto'")
     page.driver.browser.execute_cdp('Input.dispatchMouseEvent', type: 'mouseWheel', x: 300, y: 200, deltaX: 0, deltaY: -600)
     page.execute_script("window.scrollTo({ top: 0, behavior: 'instant' })")
     page.evaluate_async_script(<<~JS)
@@ -36,6 +38,24 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
       requestAnimationFrame(() => requestAnimationFrame(done));
     JS
     assert_in_delta 0, page.evaluate_script('window.scrollY'), 1
+
+    page.execute_script("window.scrollTo({ top: 600, behavior: 'instant' })")
+    page.evaluate_async_script('const done = arguments[0]; requestAnimationFrame(() => requestAnimationFrame(done));')
+    reading_scroll = page.evaluate_script('window.scrollY')
+    page.execute_script('document.querySelector(\'.page-sidebar a[href="#intro"]\').click()')
+    page.evaluate_async_script('const done = arguments[0]; requestAnimationFrame(() => requestAnimationFrame(done));')
+    section_scroll = page.evaluate_script('window.scrollY')
+    assert_operator section_scroll, :>, 0
+
+    page.go_back
+    page.evaluate_async_script('const done = arguments[0]; requestAnimationFrame(() => requestAnimationFrame(done));')
+    assert_equal '#faq-q3', page.evaluate_script('window.location.hash')
+    assert_in_delta reading_scroll, page.evaluate_script('window.scrollY'), 1
+
+    page.go_forward
+    page.evaluate_async_script('const done = arguments[0]; requestAnimationFrame(() => requestAnimationFrame(done));')
+    assert_equal '#intro', page.evaluate_script('window.location.hash')
+    assert_in_delta section_scroll, page.evaluate_script('window.scrollY'), 1
   end
 
   def faq_question_clears_header?

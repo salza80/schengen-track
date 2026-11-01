@@ -360,6 +360,10 @@
     }
 
     let activeHash = window.location.hash;
+    let nextHistoryEntry = 0;
+    let currentHistoryEntry = nextHistoryEntry;
+    const scrollPositions = new Map();
+    history.replaceState({ ...history.state, aboutScrollEntry: currentHistoryEntry }, '');
     function alignActiveSection() {
       if (activeHash) scrollToSection(activeHash, 'instant');
     }
@@ -374,15 +378,34 @@
     ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function(eventName) {
       window.addEventListener(eventName, function() { activeHash = ''; }, { passive: true });
     });
-    window.addEventListener('hashchange', function() {
-      activeHash = window.location.hash;
-      alignActiveSection();
+    // Preserve reading positions when traversing our custom fragment entries.
+    window.addEventListener('popstate', function(event) {
+      scrollPositions.set(currentHistoryEntry, window.scrollY);
+      currentHistoryEntry = event.state?.aboutScrollEntry;
+      if (currentHistoryEntry === undefined) {
+        // A new native fragment navigation still needs late-layout alignment.
+        currentHistoryEntry = ++nextHistoryEntry;
+        history.replaceState({ ...event.state, aboutScrollEntry: currentHistoryEntry }, '');
+        activeHash = window.location.hash;
+        alignActiveSection();
+        return;
+      }
+      activeHash = '';
+      const restoredEntry = currentHistoryEntry;
+      const restoredScroll = scrollPositions.get(restoredEntry);
+      if (restoredScroll !== undefined) {
+        requestAnimationFrame(function() {
+          if (currentHistoryEntry === restoredEntry) window.scrollTo({ top: restoredScroll, behavior: 'instant' });
+        });
+      }
     });
 
     document.querySelectorAll('.page-sidebar a[href^="#"]').forEach(function(link) {
       link.addEventListener('click', function(event) {
         event.preventDefault();
-        history.pushState(null, '', link.hash);
+        scrollPositions.set(currentHistoryEntry, window.scrollY);
+        currentHistoryEntry = ++nextHistoryEntry;
+        history.pushState({ aboutScrollEntry: currentHistoryEntry }, '', link.hash);
         activeHash = link.hash;
         alignActiveSection();
       });

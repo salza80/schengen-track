@@ -224,6 +224,8 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
   test 'collapsed header aligns navigation, traveler actions, and legal links consistently' do
     page.current_window.resize_to(1400, 1000)
     user_login
+    visit '/en/about'
+    assert_selector '#public-user-menu #personDropdown', text: 'Sally Mclean'
     page.current_window.resize_to(680, 900)
     visit days_path(locale: :en, year: 2014)
 
@@ -444,6 +446,11 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert_selector '#personDropdown', text: 'Guest User', wait: 10
     assert_equal 'Guest User', find('#personDropdown .person-name').text
     assert_no_selector 'select[name="nationality_code"]'
+
+    assert_no_difference(['User.count', 'Person.count']) do
+      visit '/fr/blog/extended-schengen-stay'
+      assert_selector '#public-user-menu #personDropdown', text: 'Guest User'
+    end
   end
 
   test 'add trip asks for nationality first when no preference was selected' do

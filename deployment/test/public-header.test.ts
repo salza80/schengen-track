@@ -40,13 +40,20 @@ test('existing sessions replace only the menu and install the session CSRF token
   expect(result.menu.innerHTML).toBe('Personal menu');
   expect(result.meta['meta[name="csrf-token"]'].content).toBe('session-token');
   expect(result.installToken).toHaveBeenCalledWith({ param: 'authenticity_token', token: 'session-token' });
+
+  const stale = await runHeader('has_calculator_session=1', 204);
+  expect(stale.fetch).toHaveBeenCalledTimes(1);
+  expect(stale.menu.innerHTML).toBe('Log in');
+  expect(stale.installToken).not.toHaveBeenCalled();
 });
 
 test('anonymous visitors keep the public menu without requesting session state', async () => {
-  const result = await runHeader('', 204);
-  expect(result.menu.innerHTML).toBe('Log in');
-  expect(result.fetch).not.toHaveBeenCalled();
-  expect(result.installToken).not.toHaveBeenCalled();
+  for (const cookie of ['', '_schengen_track_session=legacy', 'has_calculator_session=0; has_flash_message=0']) {
+    const result = await runHeader(cookie, 204);
+    expect(result.menu.innerHTML).toBe('Log in');
+    expect(result.fetch).not.toHaveBeenCalled();
+    expect(result.installToken).not.toHaveBeenCalled();
+  }
 });
 
 test('network failures leave usable public navigation', async () => {

@@ -56,6 +56,14 @@ Font Awesome Free 7 is self-hosted under <tt>src/vendor/assets</tt>. Its Sass
 modules use the same Dart Sass compiler, and Sprockets fingerprints its WOFF2
 fonts. See the vendored asset README for version, license and update instructions.
 
+Shared deferred startup lives in <tt>third_party_scripts.js</tt>, while
+<tt>adsense.js</tt> owns SDK loading and slot requests in the core bundle. Views
+provide public configuration through data attributes and render
+<tt>adsense-slot</tt> placeholders; the initializer adds Google's class
+and requests each slot once the SDK is loaded and the slot is visible with a
+positive width. Pending slots are observed for responsive layout changes. Keep
+ad requests out of individual views.
+
 
 == Configuration
 

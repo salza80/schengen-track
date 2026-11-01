@@ -740,16 +740,66 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
 
   test 'responsive pages fit and login controls stay readable' do
+    ad_script = page.driver.browser.execute_cdp('Page.addScriptToEvaluateOnNewDocument', source: <<~JS).fetch('identifier')
+      window.adSlotRequests = [];
+      window.adSlotFailures = [];
+      window.adLibraryLoaded = false;
+      window.adsbygoogle = [];
+      const adLibrary = {
+        push() {
+          const slot = document.querySelector('ins.adsbygoogle:not([data-adsbygoogle-status])');
+          if (!slot || slot.getBoundingClientRect().width <= 0) {
+            window.adSlotFailures.push(slot ? 'zero-width ad slot' : 'no available ad slot');
+            return;
+          }
+          slot.dataset.adsbygoogleStatus = 'done';
+          window.adSlotRequests.push(slot);
+        }
+      };
+      const appendChild = Element.prototype.appendChild;
+      Element.prototype.appendChild = function(node) {
+        if (node.tagName === 'SCRIPT' && node.src.startsWith('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')) {
+          node.removeAttribute('src');
+          const result = appendChild.call(this, node);
+          queueMicrotask(() => {
+            const queuedRequests = window.adsbygoogle;
+            window.adsbygoogle = adLibrary;
+            queuedRequests.forEach(request => window.adsbygoogle.push(request));
+            window.adLibraryLoaded = true;
+            node.dispatchEvent(new Event('load'));
+          });
+          return result;
+        }
+        return appendChild.call(this, node);
+      };
+    JS
     [390, 1400].each do |width|
       page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 1000, deviceScaleFactor: 1, mobile: false)
       assert_equal width, page.evaluate_script('window.innerWidth')
       visit visits_path(locale: :en)
       assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
+      assert_visible_ads_initialized
+      if width == 390
+        page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: 1400, height: 1000, deviceScaleFactor: 1, mobile: false)
+        assert_visible_ads_initialized
+        requested_ads = page.evaluate_script('window.adSlotRequests.length')
+        page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: 390, height: 1000, deviceScaleFactor: 1, mobile: false)
+        assert_visible_ads_initialized
+        page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: 1400, height: 1000, deviceScaleFactor: 1, mobile: false)
+        assert_visible_ads_initialized
+        assert_equal requested_ads, page.evaluate_script('window.adSlotRequests.length')
+        page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 1000, deviceScaleFactor: 1, mobile: false)
+      end
       visit days_path(locale: :en, year: 2027)
       grid = find('.calendar-grid', match: :first)
       assert_equal 7, grid.style('grid-template-columns')['grid-template-columns'].split.size
       assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
-
+      assert_visible_ads_initialized
+      [about_path(locale: :en), blog_index_path(locale: :en), new_user_session_path(locale: :en)].each do |path|
+        visit path
+        assert_operator page.evaluate_script('document.documentElement.scrollWidth'), :<=, width
+        assert_visible_ads_initialized
+      end
     end
 
     visit new_user_session_path(locale: :en)
@@ -763,8 +813,33 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     checkbox.check
     assert checkbox.checked?
   ensure
+    page.driver.browser.execute_cdp('Page.removeScriptToEvaluateOnNewDocument', identifier: ad_script) if ad_script
     page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
     page.current_window.resize_to(1400, 1000)
+  end
+
+  def assert_visible_ads_initialized
+    result = page.evaluate_async_script(<<~JS)
+      const done = arguments[0];
+      const deadline = performance.now() + 5000;
+      window.dispatchEvent(new Event('mousemove'));
+      const check = () => {
+        const pending = Array.from(document.querySelectorAll('ins[data-ad-slot]')).filter(slot =>
+          slot.getBoundingClientRect().width > 0 && getComputedStyle(slot).visibility === 'visible' &&
+          !slot.dataset.adsbygoogleStatus);
+        if ((window.adLibraryLoaded && pending.length === 0) || window.adSlotFailures.length || performance.now() >= deadline) {
+          return done({ loaded: window.adLibraryLoaded, pending: pending.length,
+            failures: window.adSlotFailures, requests: window.adSlotRequests.length,
+            uniqueRequests: new Set(window.adSlotRequests).size });
+        }
+        requestAnimationFrame(check);
+      };
+      requestAnimationFrame(check);
+    JS
+    assert result['loaded'], 'AdSense library did not load'
+    assert_empty result['failures']
+    assert_equal 0, result['pending'], 'Visible ad slots were not initialized'
+    assert_equal result['uniqueRequests'], result['requests'], 'An ad slot was requested more than once'
   end
 
   test 'outline calendar controls stay flat and mobile actions have one spacing gap' do

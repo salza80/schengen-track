@@ -156,7 +156,7 @@
       .text-center.mb-4
         = link_to t('about.about.button_text'), days_path(locale: I18n.locale), class: "btn btn-add btn-lg btn-calendar-start", "aria-label": t('about.about.button_text')
       .ad-block.mb-4
-        %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
+        %ins.adsense-slot{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "4337735818", :style => "display:block"}
       %p.mb-4
         = t('about.about.blog_link_intro')
         = link_to t('blog.extendedTravel.title'), blog_path(locale: I18n.locale, slug: 'extended-schengen-stay'), "aria-label": t('blog.extendedTravel.title')
@@ -414,6 +414,3 @@
     // Font loading can move the target after the browser's initial fragment jump.
     document.fonts.ready.then(alignActiveSection);
   });
-  
-  // Initialize AdSense ads
-  (adsbygoogle = window.adsbygoogle || []).push({});

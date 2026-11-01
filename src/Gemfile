@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'haml-rails', '~> 3.0'
 # Haml 7.5's attribute parser is incompatible with Prism 2.
-gem 'prism', '~> 1.9'
+gem 'prism', '~> 2.1'
 gem 'bootstrap', '~> 5.3', '>= 5.3.8'
 gem "devise", ">= 4.9.2"
 gem 'nokogiri', '>= 1.18.10'

@@ -64,7 +64,7 @@
     .row
       .col-lg-10.col-md-12
         .ad-block-limit.d-none.d-md-block
-          %ins.adsbygoogle{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
+          %ins.adsense-slot{"data-ad-client" => "ca-pub-8290979932488448", "data-ad-format" => "auto", "data-ad-slot" => "3629950616", :style => "display:block"}
   .col-lg-3.d-none.d-lg-block.mb-5{style: "padding-bottom: 220px;"}
     = render 'days/calendar_sidebar', show_legend: false
 
@@ -89,9 +89,6 @@
         %a#deleteConfirmButton.btn.btn-danger{href: "#"}
           %i.fa.fa-trash.me-2{"aria-hidden" => "true"}
           = t('common.delete')
-
-:javascript
-  (adsbygoogle = window.adsbygoogle || []).push({});
 
 :javascript
   document.addEventListener('DOMContentLoaded', function() {

@@ -6,6 +6,8 @@
 //= require popper
 //= require bootstrap
 //= require app
+//= require adsense
+//= require third_party_scripts
 //= require public_page_hydration
 //= require csrf_bootstrap
 //= require public_header

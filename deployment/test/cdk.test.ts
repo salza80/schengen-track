@@ -126,6 +126,27 @@ test('public HTML ignores query parameters in both cache keys and origin request
   }
 });
 
+test('public HTML and SEO/docs reuse a cache policy while retaining their browser and forwarding policies', () => {
+  expect(Object.values(resources).filter((resource: any) => resource.Type === 'AWS::CloudFront::CachePolicy')).toHaveLength(6);
+  for (const path of ['/privacy*', '/api/docs', '/robots.txt', '/sitemap*']) {
+    const docs = behavior(path);
+    expect(docs.CachePolicyId).toEqual(behavior('/').CachePolicyId);
+    expect(docs.OriginRequestPolicyId).toBeUndefined();
+    expect(docs.ResponseHeadersPolicyId).not.toEqual(behavior('/').ResponseHeadersPolicyId);
+    expect(responseConfig(docs).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
+      Header: 'Cache-Control',
+      Value: 'public, max-age=3600, must-revalidate',
+      Override: true
+    }));
+  }
+  expect(responseConfig(behavior('/')).RemoveHeadersConfig.Items).toContainEqual({ Header: 'Set-Cookie' });
+  expect(responseConfig(behavior('/')).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
+    Header: 'Cache-Control',
+    Value: 'no-cache, no-store, must-revalidate',
+    Override: true
+  }));
+});
+
 test('fingerprinted and fixed-name assets use safe independent cache policies', () => {
   const fingerprinted = behavior('assets/*');
   const fingerprintedPolicy = cacheConfig(fingerprinted);

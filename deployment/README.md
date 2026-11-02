@@ -25,6 +25,62 @@ npm ci
 The deployment workflows resolve the `OpsLambdaFunctionName` stack output to
 run database operations.
 
+## Shared CloudFront cache policies
+
+`SchengTrackProd` owns six custom cache policies, and `RailsLambdaStack` imports
+their IDs through the versioned `SchengenCachePolicies-v1-*` CloudFormation
+exports. Public HTML and SEO/docs share one policy; their origin forwarding and
+browser response headers remain independent. The other five policies cover
+Trips, Calendar, authenticated/default routes, immutable assets, and named assets.
+The calculator TTL is also exported so the staging Lambda uses the same fresh
+window as the shared policies.
+
+The six production policies keep their existing logical IDs, physical names,
+and settings. The rollout creates no cache policies and needs no spare quota.
+Staging CI first reads the CloudFormation exports in `eu-central-1`. Before
+production publishes the exports, staging keeps its six existing policies and
+removes only the redundant SEO/docs policy. Once all seven exports (six IDs and
+the calculator TTL) exist, the next staging deployment imports them and removes
+its local policies. Failed lookups and incomplete exports stop deployment;
+they must not trigger a fallback to creating local policies.
+
+For the **first rollout**, let the PR deploy staging with local policies, merge,
+run the normal production deployment, then rerun the staging deployment.
+Schengen goes from 14 policies to 13 after the first staging deployment, 12
+after production, and six once staging imports the shared policies. Production
+can also deploy first; staging will then go straight to shared policies.
+AWS-managed policies and the other projects' policies are unaffected.
+
+For manual CDK commands before production has published exports, explicitly
+select the staging migration mode:
+
+```bash
+npx cdk diff RailsLambdaStack --exclusively --context stagingCachePolicies=local
+npx cdk deploy RailsLambdaStack --exclusively --context stagingCachePolicies=local
+npx cdk diff SchengTrackProd --exclusively
+npx cdk deploy SchengTrackProd --exclusively
+npx cdk diff RailsLambdaStack --exclusively
+npx cdk deploy RailsLambdaStack --exclusively
+```
+
+Use the normal production deployment process for its migrations, invalidation,
+smoke tests, and warm-up as well. The initial production diff should remove only
+`HttpseoDocsCacheAECA73F5` among cache-policy resources; it must not add or replace
+any of the six surviving policies. Initial staging in local mode should remove
+only its SEO/docs policy; switching staging to shared mode removes its remaining
+six local policies. Neither stage should create any cache policies. The default
+CDK staging mode is `shared`; `stagingCachePolicies=local` is for the initial
+migration before exports exist, not routine deployments after migration.
+
+After that first rollout, staging and production deploy independently. Explicit
+imports deliberately avoid a CDK dependency that could deploy production while
+deploying staging. CloudFormation prevents deleting the exported production
+policies while staging uses them. Shared policy changes affect both
+distributions, so treat `v1` as a stable contract: introduce new versioned
+policies and migrate consumers deliberately for future behavior changes.
+Before rolling production back to a pre-sharing revision, roll staging back
+first and verify it no longer imports these exports.
+
 ## Parameter Store
 
 The stacks expect environment-scoped SSM parameters under `paramPath`

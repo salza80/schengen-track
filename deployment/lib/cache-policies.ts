@@ -2,22 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { Construct } from 'constructs';
 
-export type SharedCachePolicyRole = 'owner' | 'consumer';
-export type StagingCachePolicyMode = 'local' | 'shared';
-
-export function stagingCachePolicyProps(mode: unknown, calculatorTtlSeconds: number): {
-  sharedCachePolicyRole?: SharedCachePolicyRole;
-  publicCalculatorCacheTtlSeconds?: number;
-} {
-  if (mode === 'local') return { publicCalculatorCacheTtlSeconds: calculatorTtlSeconds };
-  if (mode === 'shared') return { sharedCachePolicyRole: 'consumer' };
-  throw new Error('stagingCachePolicies must be local or shared');
-}
-
-// Production owns these exports. Consumers use explicit imports so deploying
-// staging never implicitly deploys the production application as a dependency.
-export const SHARED_CACHE_POLICY_EXPORT_PREFIX = 'SchengenCachePolicies-v1';
-export const CACHE_POLICY_KEYS = [
+const CACHE_POLICY_KEYS = [
   'publicHtml',
   'tripsIndex',
   'calendarIndex',
@@ -26,34 +11,21 @@ export const CACHE_POLICY_KEYS = [
   'namedAsset',
 ] as const;
 
-export type SchengenCachePolicies = Readonly<Record<typeof CACHE_POLICY_KEYS[number], cloudfront.ICachePolicy>> & {
-  readonly publicCalculatorCacheTtlSeconds: string;
-};
+export type CachePolicyIds = Readonly<Record<typeof CACHE_POLICY_KEYS[number], string>>;
+type SchengenCachePolicies = Record<typeof CACHE_POLICY_KEYS[number], cloudfront.ICachePolicy>;
 
 export function schengenCachePolicies(
   scope: Construct,
-  role?: SharedCachePolicyRole,
-  calculatorTtlSeconds?: number,
+  calculatorTtlSeconds: number,
+  existingPolicyIds?: CachePolicyIds,
 ): SchengenCachePolicies {
-  if (role === 'consumer') {
-    if (calculatorTtlSeconds !== undefined) {
-      throw new Error('Shared cache policy consumers must use the calculator TTL exported by the owner');
-    }
-
-    return {
-      ...Object.fromEntries(CACHE_POLICY_KEYS.map(key => [
-        key,
-        cloudfront.CachePolicy.fromCachePolicyId(
-          scope,
-          `shared${key}CachePolicy`,
-          cdk.Fn.importValue(`${SHARED_CACHE_POLICY_EXPORT_PREFIX}-${key}`),
-        ),
-      ])) as Record<typeof CACHE_POLICY_KEYS[number], cloudfront.ICachePolicy>,
-      publicCalculatorCacheTtlSeconds: cdk.Fn.importValue(`${SHARED_CACHE_POLICY_EXPORT_PREFIX}-calculatorTtlSeconds`),
-    };
+  if (existingPolicyIds) {
+    return Object.fromEntries(CACHE_POLICY_KEYS.map(key => [
+      key,
+      cloudfront.CachePolicy.fromCachePolicyId(scope, `shared${key}CachePolicy`, existingPolicyIds[key]),
+    ])) as SchengenCachePolicies;
   }
 
-  const freshTtl = calculatorTtlSeconds ?? cdk.Duration.days(30).toSeconds();
   const publicCacheProps = {
     headerBehavior: cloudfront.CacheHeaderBehavior.none(),
     cookieBehavior: cloudfront.CacheCookieBehavior.none(),
@@ -65,14 +37,14 @@ export function schengenCachePolicies(
   const calculatorCacheProps = {
     ...publicCacheProps,
     cookieBehavior: cloudfront.CacheCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session'),
-    defaultTtl: cdk.Duration.seconds(freshTtl),
+    defaultTtl: cdk.Duration.seconds(calculatorTtlSeconds),
     // Preserve the fresh window plus the full seven-day stale fallback.
-    maxTtl: cdk.Duration.seconds(freshTtl + cdk.Duration.days(7).toSeconds()),
+    maxTtl: cdk.Duration.seconds(calculatorTtlSeconds + cdk.Duration.days(7).toSeconds()),
   };
 
   // Keep the original construct IDs and scope: these are existing production
   // resources, and moving or renaming them would consume new quota slots.
-  const policies: SchengenCachePolicies = {
+  return {
     publicHtml: new cloudfront.CachePolicy(scope, 'publicHtmlCachePolicy', {
       ...publicCacheProps,
       // Public HTML and SEO/docs use the same path-only cache key and TTLs.
@@ -103,21 +75,5 @@ export function schengenCachePolicies(
       defaultTtl: cdk.Duration.days(7),
       maxTtl: cdk.Duration.days(7),
     }),
-    publicCalculatorCacheTtlSeconds: freshTtl.toString(),
   };
-
-  if (role === 'owner') {
-    for (const key of CACHE_POLICY_KEYS) {
-      new cdk.CfnOutput(scope, `SharedCachePolicy${key}`, {
-        value: policies[key].cachePolicyId,
-        exportName: `${SHARED_CACHE_POLICY_EXPORT_PREFIX}-${key}`,
-      });
-    }
-    new cdk.CfnOutput(scope, 'SharedCachePolicyCalculatorTtlSeconds', {
-      value: policies.publicCalculatorCacheTtlSeconds,
-      exportName: `${SHARED_CACHE_POLICY_EXPORT_PREFIX}-calculatorTtlSeconds`,
-    });
-  }
-
-  return policies;
 }

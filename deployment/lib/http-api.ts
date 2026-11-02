@@ -10,7 +10,7 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 import { createRedirectFunction } from './createRedirectFunction';
 import { McpLambdaConstruct } from './mcp-lambda';
-import { schengenCachePolicies, SharedCachePolicyRole } from './cache-policies';
+import { schengenCachePolicies, CachePolicyIds } from './cache-policies';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
@@ -25,7 +25,7 @@ export interface HttpApiConstructProps {
   paramPath: string,
   facebookWebLoginWorkaround?: boolean,
   publicCalculatorCacheTtlSeconds?: number,
-  sharedCachePolicyRole?: SharedCachePolicyRole
+  cachePolicyIds?: CachePolicyIds
 }
 /**
  * CDK construct to create API Gateway HTTP API with Lambda proxy integration 2.0
@@ -64,8 +64,8 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
-    const cachePolicies = schengenCachePolicies(this, props.sharedCachePolicyRole, props.publicCalculatorCacheTtlSeconds);
-    const publicCalculatorCacheTtlSeconds = cachePolicies.publicCalculatorCacheTtlSeconds;
+    const publicCalculatorCacheTtlSeconds = props.publicCalculatorCacheTtlSeconds ?? cdk.Duration.days(30).toSeconds();
+    const cachePolicies = schengenCachePolicies(this, publicCalculatorCacheTtlSeconds, props.cachePolicyIds);
     const cloudFrontOriginAuthParamName = `${props.paramPath}cloudfront_origin_auth_header`;
     const agentAuthParamName = `${props.paramPath}secrets/schengen_agent_auth_header`;
     // CloudFront origin custom headers do not support ssm-secure dynamic

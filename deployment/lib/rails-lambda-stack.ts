@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { HttpApiConstruct } from './http-api';
-import { SharedCachePolicyRole } from './cache-policies';
+import type { CachePolicyIds } from './cache-policies';
 
 export interface RailsLambdaStackProps extends cdk.StackProps {
   domain: string,
@@ -10,7 +10,7 @@ export interface RailsLambdaStackProps extends cdk.StackProps {
   altDomain: string,
   facebookWebLoginWorkaround?: boolean,
   publicCalculatorCacheTtlSeconds?: number,
-  sharedCachePolicyRole?: SharedCachePolicyRole
+  cachePolicyIds?: CachePolicyIds
 }
 
 export class RailsLambdaStack extends cdk.Stack {
@@ -23,7 +23,7 @@ export class RailsLambdaStack extends cdk.Stack {
       paramPath: props.paramPath,
       facebookWebLoginWorkaround: props.facebookWebLoginWorkaround,
       publicCalculatorCacheTtlSeconds: props.publicCalculatorCacheTtlSeconds,
-      sharedCachePolicyRole: props.sharedCachePolicyRole
+      cachePolicyIds: props.cachePolicyIds
     });
   }
 }

@@ -1,0 +1,133 @@
+{
+  "HttppublicHtmlCachePolicy69B911B7": {
+    "DefaultTTL": 2592000,
+    "MaxTTL": 2592000,
+    "MinTTL": 0,
+    "Name": "SchengTrackProdHttppublicHtmlCachePolicy4D2594EA-eu-central-1",
+    "ParametersInCacheKeyAndForwardedToOrigin": {
+      "CookiesConfig": {
+        "CookieBehavior": "none"
+      },
+      "EnableAcceptEncodingBrotli": true,
+      "EnableAcceptEncodingGzip": true,
+      "HeadersConfig": {
+        "HeaderBehavior": "none"
+      },
+      "QueryStringsConfig": {
+        "QueryStringBehavior": "none"
+      }
+    }
+  },
+  "HttptripsIndexCachePolicyC91F29DA": {
+    "DefaultTTL": 2592000,
+    "MaxTTL": 3196800,
+    "MinTTL": 0,
+    "Name": "SchengTrackProdHttptripsIndexCachePolicy505FF149-eu-central-1",
+    "ParametersInCacheKeyAndForwardedToOrigin": {
+      "CookiesConfig": {
+        "CookieBehavior": "whitelist",
+        "Cookies": [
+          "_schengen_track_session",
+          "has_calculator_session"
+        ]
+      },
+      "EnableAcceptEncodingBrotli": true,
+      "EnableAcceptEncodingGzip": true,
+      "HeadersConfig": {
+        "HeaderBehavior": "none"
+      },
+      "QueryStringsConfig": {
+        "QueryStringBehavior": "none"
+      }
+    }
+  },
+  "HttpcalendarIndexCachePolicy64CD6BFD": {
+    "DefaultTTL": 2592000,
+    "MaxTTL": 3196800,
+    "MinTTL": 0,
+    "Name": "SchengTrackProdHttpcalendarIndexCachePolicy716D5795-eu-central-1",
+    "ParametersInCacheKeyAndForwardedToOrigin": {
+      "CookiesConfig": {
+        "CookieBehavior": "whitelist",
+        "Cookies": [
+          "_schengen_track_session",
+          "has_calculator_session"
+        ]
+      },
+      "EnableAcceptEncodingBrotli": true,
+      "EnableAcceptEncodingGzip": true,
+      "HeadersConfig": {
+        "HeaderBehavior": "none"
+      },
+      "QueryStringsConfig": {
+        "QueryStringBehavior": "whitelist",
+        "QueryStrings": [
+          "year"
+        ]
+      }
+    }
+  },
+  "HttpauthenticatedUserCacheB38197ED": {
+    "DefaultTTL": 0,
+    "MaxTTL": 1,
+    "MinTTL": 0,
+    "Name": "SchengTrackProdHttpauthenticatedUserCache72D272E1-eu-central-1",
+    "ParametersInCacheKeyAndForwardedToOrigin": {
+      "CookiesConfig": {
+        "CookieBehavior": "whitelist",
+        "Cookies": [
+          "_schengen_track_session"
+        ]
+      },
+      "EnableAcceptEncodingBrotli": true,
+      "EnableAcceptEncodingGzip": true,
+      "HeadersConfig": {
+        "HeaderBehavior": "whitelist",
+        "Headers": [
+          "Origin"
+        ]
+      },
+      "QueryStringsConfig": {
+        "QueryStringBehavior": "all"
+      }
+    }
+  },
+  "HttpimmutableAssetsCachePolicyA85A18CA": {
+    "DefaultTTL": 31536000,
+    "MaxTTL": 31536000,
+    "MinTTL": 0,
+    "Name": "SchengTrackProdHttpimmutableAssetsCachePolicyAF378420-eu-central-1",
+    "ParametersInCacheKeyAndForwardedToOrigin": {
+      "CookiesConfig": {
+        "CookieBehavior": "none"
+      },
+      "EnableAcceptEncodingBrotli": true,
+      "EnableAcceptEncodingGzip": true,
+      "HeadersConfig": {
+        "HeaderBehavior": "none"
+      },
+      "QueryStringsConfig": {
+        "QueryStringBehavior": "none"
+      }
+    }
+  },
+  "HttpnamedAssetCachePolicy11F74B52": {
+    "DefaultTTL": 604800,
+    "MaxTTL": 604800,
+    "MinTTL": 0,
+    "Name": "SchengTrackProdHttpnamedAssetCachePolicy808541D0-eu-central-1",
+    "ParametersInCacheKeyAndForwardedToOrigin": {
+      "CookiesConfig": {
+        "CookieBehavior": "none"
+      },
+      "EnableAcceptEncodingBrotli": true,
+      "EnableAcceptEncodingGzip": true,
+      "HeadersConfig": {
+        "HeaderBehavior": "none"
+      },
+      "QueryStringsConfig": {
+        "QueryStringBehavior": "none"
+      }
+    }
+  }
+}

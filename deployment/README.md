@@ -25,6 +25,29 @@ npm ci
 The deployment workflows resolve the `OpsLambdaFunctionName` stack output to
 run database operations.
 
+## Shared CloudFront cache policies
+
+`SchengTrackProd` owns six custom policies. Staging references their existing
+IDs from `lib/production-cache-policy-ids.ts`, which is account configuration
+for `360298971790`. It creates no policies of its own. Both environments use
+the calculator TTL configured once in `bin/cdk.ts`.
+
+Public HTML and SEO/docs share one policy; their origin forwarding and browser
+headers remain independent. The other five policies cover Trips, Calendar,
+authenticated/default routes, immutable assets, and named assets.
+
+Deploy staging and production normally, in either order: the referenced policies
+already exist. Staging removes its seven local policies; production removes its
+redundant SEO/docs policy. After both deployments, Schengen uses six policies
+instead of 14. No new policies or spare quota slots are needed.
+
+Keep the six production policies' construct IDs and scope unchanged to preserve
+their CloudFormation identities and physical names. Changes to shared settings
+affect both environments. If a policy is replaced or this app moves to another
+account, update the configured IDs deliberately. Detach staging before removing
+its production policies, and account for the quota needed to recreate local
+policies when rolling staging back to a pre-sharing revision.
+
 ## Parameter Store
 
 The stacks expect environment-scoped SSM parameters under `paramPath`

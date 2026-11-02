@@ -10,6 +10,7 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 import { createRedirectFunction } from './createRedirectFunction';
 import { McpLambdaConstruct } from './mcp-lambda';
+import { schengenCachePolicies, SharedCachePolicyRole } from './cache-policies';
 
 import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
@@ -23,7 +24,8 @@ export interface HttpApiConstructProps {
   sslArn: string,
   paramPath: string,
   facebookWebLoginWorkaround?: boolean,
-  publicCalculatorCacheTtlSeconds?: number
+  publicCalculatorCacheTtlSeconds?: number,
+  sharedCachePolicyRole?: SharedCachePolicyRole
 }
 /**
  * CDK construct to create API Gateway HTTP API with Lambda proxy integration 2.0
@@ -62,7 +64,8 @@ export class HttpApiConstruct extends Construct {
   
     const customDomain = props.domain;
     const altDomain = props.altDomain;
-    const publicCalculatorCacheTtlSeconds = props.publicCalculatorCacheTtlSeconds ?? cdk.Duration.days(30).toSeconds();
+    const cachePolicies = schengenCachePolicies(this, props.sharedCachePolicyRole, props.publicCalculatorCacheTtlSeconds);
+    const publicCalculatorCacheTtlSeconds = cachePolicies.publicCalculatorCacheTtlSeconds;
     const cloudFrontOriginAuthParamName = `${props.paramPath}cloudfront_origin_auth_header`;
     const agentAuthParamName = `${props.paramPath}secrets/schengen_agent_auth_header`;
     // CloudFront origin custom headers do not support ssm-secure dynamic
@@ -307,57 +310,6 @@ export class HttpApiConstruct extends Construct {
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     })
 
-    const publicHtmlCachePolicy = new cloudfront.CachePolicy(this, "publicHtmlCachePolicy", {
-      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
-      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
-      // Public HTML pages are selected entirely by their path/locale. Ignore
-      // tracking and other incidental query parameters so bots cannot
-      // fragment the cache with effectively identical URLs.
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
-      enableAcceptEncodingBrotli: true,
-      enableAcceptEncodingGzip: true,
-      minTtl: cdk.Duration.seconds(0),
-      defaultTtl: cdk.Duration.days(30),
-      maxTtl: cdk.Duration.days(30)
-    })
-
-    const calculatorCachePolicyProps = {
-      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
-      cookieBehavior: cloudfront.CacheCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session'),
-      enableAcceptEncodingBrotli: true,
-      enableAcceptEncodingGzip: true,
-      minTtl: cdk.Duration.seconds(0),
-      defaultTtl: cdk.Duration.seconds(publicCalculatorCacheTtlSeconds),
-      // Maximum TTL caps both fresh and stale delivery. Add the fresh window
-      // so the full seven-day stale period remains available.
-      maxTtl: cdk.Duration.seconds(publicCalculatorCacheTtlSeconds + cdk.Duration.days(7).toSeconds()),
-    };
-
-    const tripsIndexCachePolicy = new cloudfront.CachePolicy(this, "tripsIndexCachePolicy", {
-      ...calculatorCachePolicyProps,
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
-    });
-
-    const calendarIndexCachePolicy = new cloudfront.CachePolicy(this, "calendarIndexCachePolicy", {
-      ...calculatorCachePolicyProps,
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.allowList('year'),
-    });
-
-    // Cache policy for authenticated user pages to enable text compression (Brotli/Gzip) without actual caching
-    // This solves Lighthouse "Document request latency" warnings by compressing HTML/CSS/JS responses
-    // TTL is set to 0-1 seconds so CloudFront applies compression but doesn't cache dynamic content
-    // Respects session cookies to ensure user-specific content is always fresh
-    const authenticatedUserCachePolicy = new cloudfront.CachePolicy(this, "authenticatedUserCache", {
-      headerBehavior: cloudfront.CacheHeaderBehavior.allowList('Origin'),
-      cookieBehavior: cloudfront.CacheCookieBehavior.allowList('_schengen_track_session'),
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
-      enableAcceptEncodingBrotli: true,
-      enableAcceptEncodingGzip: true,
-      minTtl: cdk.Duration.seconds(0),
-      maxTtl: cdk.Duration.seconds(1),
-      defaultTtl: cdk.Duration.seconds(0)
-    })
-
     //stop browser caching files that are cached in cloudfront to ensure invalidation works
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
       removeHeaders: ['Set-Cookie'],
@@ -382,17 +334,6 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    const immutableAssetsCachePolicy = new cloudfront.CachePolicy(this, "immutableAssetsCachePolicy", {
-      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
-      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
-      enableAcceptEncodingBrotli: true,
-      enableAcceptEncodingGzip: true,
-      minTtl: cdk.Duration.seconds(0),
-      defaultTtl: cdk.Duration.days(365),
-      maxTtl: cdk.Duration.days(365)
-    });
-
     // Allow aggressive browser caching for fingerprinted static assets.
     const assetsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "assetsBrowserCache", {
       customHeadersBehavior: {
@@ -412,28 +353,6 @@ export class HttpApiConstruct extends Construct {
           override: true
         }]
       }
-    });
-
-    const namedAssetCachePolicy = new cloudfront.CachePolicy(this, "namedAssetCachePolicy", {
-      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
-      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
-      enableAcceptEncodingBrotli: true,
-      enableAcceptEncodingGzip: true,
-      minTtl: cdk.Duration.seconds(0),
-      defaultTtl: cdk.Duration.days(7),
-      maxTtl: cdk.Duration.days(7)
-    });
-
-    const seoDocsCachePolicy = new cloudfront.CachePolicy(this, "seoDocsCache", {
-      headerBehavior: cloudfront.CacheHeaderBehavior.none(),
-      cookieBehavior: cloudfront.CacheCookieBehavior.none(),
-      queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
-      enableAcceptEncodingBrotli: true,
-      enableAcceptEncodingGzip: true,
-      minTtl: cdk.Duration.seconds(0),
-      maxTtl: cdk.Duration.days(30),
-      defaultTtl: cdk.Duration.days(30)
     });
 
     const seoDocsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "seoDocsBrowserCache", {
@@ -457,7 +376,7 @@ export class HttpApiConstruct extends Construct {
       origin: origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: publicHtmlCachePolicy,
+      cachePolicy: cachePolicies.publicHtml,
       originRequestPolicy: publicOriginRequestPolicy,
       responseHeadersPolicy: customNoBrowserHeaderResponsePolicy,
       functionAssociations
@@ -485,7 +404,7 @@ export class HttpApiConstruct extends Construct {
       origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: tripsIndexCachePolicy,
+      cachePolicy: cachePolicies.tripsIndex,
       originRequestPolicy: calculatorIndexRequestPolicy,
       responseHeadersPolicy: calculatorNoBrowserCachePolicy,
       functionAssociations
@@ -495,7 +414,7 @@ export class HttpApiConstruct extends Construct {
       origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: calendarIndexCachePolicy,
+      cachePolicy: cachePolicies.calendarIndex,
       originRequestPolicy: calculatorIndexRequestPolicy,
       responseHeadersPolicy: calculatorNoBrowserCachePolicy,
       functionAssociations
@@ -505,7 +424,7 @@ export class HttpApiConstruct extends Construct {
       origin: origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: immutableAssetsCachePolicy,
+      cachePolicy: cachePolicies.immutableAssets,
       responseHeadersPolicy: assetsBrowserCachePolicy,
       functionAssociations
     };
@@ -514,7 +433,7 @@ export class HttpApiConstruct extends Construct {
       origin: origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: namedAssetCachePolicy,
+      cachePolicy: cachePolicies.namedAsset,
       responseHeadersPolicy: namedAssetBrowserCachePolicy,
       functionAssociations
     };
@@ -523,7 +442,7 @@ export class HttpApiConstruct extends Construct {
       origin: origin,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-      cachePolicy: seoDocsCachePolicy,
+      cachePolicy: cachePolicies.publicHtml,
       responseHeadersPolicy: seoDocsBrowserCachePolicy,
       functionAssociations
     };
@@ -565,7 +484,7 @@ export class HttpApiConstruct extends Construct {
         origin: origin,
         allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-        cachePolicy: authenticatedUserCachePolicy,
+        cachePolicy: cachePolicies.authenticatedUser,
         originRequestPolicy: customOriginRequestPolicy,
         functionAssociations
       },

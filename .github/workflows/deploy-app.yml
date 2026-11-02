@@ -77,7 +77,14 @@ jobs:
       - name: CDK Deploy
         env:
           STACK_NAME: ${{ inputs.stack_name }}
-        run: cdk deploy "$STACK_NAME" --require-approval never
+        run: |
+          set -euo pipefail
+          set --
+          if [ "$STACK_NAME" = "RailsLambdaStack" ]; then
+            cache_mode=$(npx ts-node --prefer-ts-exts scripts/staging-cache-policy-mode.ts)
+            set -- --context "stagingCachePolicies=$cache_mode"
+          fi
+          cdk deploy "$STACK_NAME" --exclusively --require-approval never "$@"
         working-directory: ./deployment
 
       - name: Resolve Ops Lambda Function

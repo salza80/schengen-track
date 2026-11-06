@@ -66,3 +66,23 @@ test('invalid modal form remains enabled so it can be corrected and resubmitted'
   expect(requestSubmit).not.toHaveBeenCalled();
   expect(disabled).toBe(false);
 });
+
+test('modal allocation errors display the server message and restore the submit button', () => {
+  const callbacks: Record<string, Function> = {};
+  const prop = jest.fn();
+  const document = {};
+  const chain: any = {
+    off: () => chain,
+    on: (event: string, selector: string, callback: Function) => { callbacks[event] = callback; return chain; }
+  };
+  const jquery = (target: unknown) => target === document ? chain : { prop };
+  const window: any = { jQuery: jquery, alert: jest.fn() };
+  vm.runInNewContext(script, { window, document });
+  window.ModalInteractions.bindSubmissionReset('#form', '#submit');
+  callbacks['ajax:error.calculatorLimits']({}, { status: 429, responseText: JSON.stringify({ error: { code: 'calculator_capacity_reached', message: 'Remove unused trips.' } }) });
+  expect(window.alert).toHaveBeenCalledWith('Remove unused trips.');
+  callbacks['ajax:complete.modalSubmission']();
+  expect(prop).toHaveBeenCalledWith('disabled', false);
+  callbacks['ajax:error.calculatorLimits']({}, { status: 503, responseText: '<html>unavailable</html>' });
+  expect(window.alert).toHaveBeenCalledTimes(1);
+});

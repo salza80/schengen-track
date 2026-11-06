@@ -9,6 +9,9 @@ en:
     as_of: As of
     back: Back
     blog: Blog
+    calculator_capacity_reached: This guest calculator has reached its storage limit. Delete unused travelers, trips or visas before adding more.
+    calculator_rate_limited: Too many calculator requests. Please try again later.
+    calculator_service_unavailable: The calculator is temporarily unavailable. Please try again later.
     calendar: Calendar
     cancel: Cancel
     choose_nationality: Choose your nationality

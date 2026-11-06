@@ -9,6 +9,9 @@ ar:
     as_of: اعتباراً من
     back: رجوع
     blog: مدونة
+    calculator_capacity_reached: وصلت حاسبة الضيف إلى حد التخزين. احذف المسافرين أو الرحلات أو التأشيرات غير المستخدمة قبل إضافة المزيد.
+    calculator_rate_limited: طلبات كثيرة جدًا للحاسبة. يرجى المحاولة مرة أخرى لاحقًا.
+    calculator_service_unavailable: الحاسبة غير متاحة مؤقتًا. يرجى المحاولة مرة أخرى لاحقًا.
     calendar: التقويم
     cancel: إلغاء
     choose_nationality: اختر جنسيتك

@@ -1,4 +1,5 @@
 class Visa < ApplicationRecord
+  include GuestCalculatorCapacity
   belongs_to :person
   validates :start_date, :end_date, :person, :visa_type, :no_entries, presence: true
   validates :visa_type, inclusion: { in: %w(R S), message: "%{value} is not a valid visa type" }

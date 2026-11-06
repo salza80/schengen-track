@@ -77,6 +77,16 @@
         .off('ajax:complete.modalSubmission', formSelector)
         .on('ajax:complete.modalSubmission', formSelector, function() {
           $(buttonSelector).prop('disabled', false);
+        })
+        .off('ajax:error.calculatorLimits', formSelector)
+        .on('ajax:error.calculatorLimits', formSelector, function(event, xhr) {
+          if (!xhr || (xhr.status !== 429 && xhr.status !== 503)) return;
+          try {
+            var error = JSON.parse(xhr.responseText).error;
+            if (error && ['rate_limited', 'calculator_capacity_reached', 'service_unavailable'].indexOf(error.code) !== -1) {
+              window.alert(error.message);
+            }
+          } catch (ignored) {}
         });
     },
 

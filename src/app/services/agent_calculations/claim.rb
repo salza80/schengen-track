@@ -4,8 +4,8 @@ module AgentCalculations
   class Claim
     class Unavailable < StandardError; end
     class TooLarge < StandardError; end
-    MAX_PEOPLE = 20
-    MAX_RECORDS = 500
+    MAX_PEOPLE = GuestCalculations::Capacity::MAX_PEOPLE
+    MAX_RECORDS = GuestCalculations::Capacity::MAX_RECORDS
     Result = Struct.new(:user, :person, keyword_init: true)
 
     def self.find_available_source!(token)
@@ -26,7 +26,10 @@ module AgentCalculations
     def call
       User.transaction do
         source = self.class.find_available_source!(@token)
-        source.lock!
+        # Importing an existing guest must see a stable capacity snapshot.
+        # Use the same lock as ordinary guest inserts, in a consistent order.
+        User.where(id: [source.id, @guest&.id].compact).order(:id).lock.load
+        source.reload
         raise Unavailable if source.calculation_claimed_at.present?
         validate_import_size!(source)
 

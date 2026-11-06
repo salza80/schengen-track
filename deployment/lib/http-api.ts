@@ -238,6 +238,8 @@ export class HttpApiConstruct extends Construct {
 
     // Parameters excluded from the public cache key must not influence the
     // origin response (e.g. ?nationality=American can redirect the homepage).
+    // Explicitly forward Authorization so CloudFront retains the origin
+    // signer's header on GET/HEAD. The signer overwrites viewer credentials.
     const publicOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "publicRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.none(),
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
@@ -299,6 +301,21 @@ export class HttpApiConstruct extends Construct {
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     })
+
+    // CloudFront supports forwarding Authorization individually. CDK's L2
+    // validation still rejects it, so set this supported option on the L1.
+    // https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html
+    for (const policy of [customOriginRequestPolicy, publicOriginRequestPolicy,
+      sessionHeaderRequestPolicy, calculatorIndexRequestPolicy,
+      authOriginRequestPolicy, agentApiOriginRequestPolicy, mcpOriginRequestPolicy]) {
+      const resource = policy.node.defaultChild as cloudfront.CfnOriginRequestPolicy;
+      const config = resource.originRequestPolicyConfig as cloudfront.CfnOriginRequestPolicy.OriginRequestPolicyConfigProperty;
+      const headers = config.headersConfig as cloudfront.CfnOriginRequestPolicy.HeadersConfigProperty;
+      resource.originRequestPolicyConfig = {
+        ...config,
+        headersConfig: { headerBehavior: 'whitelist', headers: [...(headers.headers || []), 'Authorization'] },
+      };
+    }
 
     //stop browser caching files that are cached in cloudfront to ensure invalidation works
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
@@ -424,6 +441,7 @@ export class HttpApiConstruct extends Construct {
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cachePolicies.immutableAssets,
+      originRequestPolicy: publicOriginRequestPolicy,
       responseHeadersPolicy: assetsBrowserCachePolicy,
       functionAssociations
     };
@@ -434,6 +452,7 @@ export class HttpApiConstruct extends Construct {
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cachePolicies.namedAsset,
+      originRequestPolicy: publicOriginRequestPolicy,
       responseHeadersPolicy: namedAssetBrowserCachePolicy,
       functionAssociations
     };
@@ -444,6 +463,7 @@ export class HttpApiConstruct extends Construct {
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cachePolicies.publicHtml,
+      originRequestPolicy: publicOriginRequestPolicy,
       responseHeadersPolicy: seoDocsBrowserCachePolicy,
       functionAssociations
     };

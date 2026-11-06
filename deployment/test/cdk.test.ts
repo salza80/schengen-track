@@ -36,6 +36,11 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
   for (const b of [config.DefaultCacheBehavior, ...config.CacheBehaviors]) {
     expect(b.LambdaFunctionAssociations).toHaveLength(1);
     expect(b.LambdaFunctionAssociations[0]).toEqual(expect.objectContaining({ EventType: 'origin-request', IncludeBody: true }));
+    // CloudFront otherwise removes Authorization from GET/HEAD origin requests.
+    const headers = originConfig(b).HeadersConfig;
+    expect(headers.HeaderBehavior).toBe('whitelist');
+    expect(headers.Headers).toContain('Authorization');
+    expect(headers.Headers.length).toBeLessThanOrEqual(10);
   }
   for (const origin of config.Origins) expect(origin.OriginCustomHeaders).toBeUndefined();
   const httpFunctions = Object.entries(resources).filter(([id]) =>
@@ -158,7 +163,7 @@ test('public HTML and SEO/docs reuse a cache policy while retaining their browse
   for (const path of ['/privacy*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const docs = behavior(path);
     expect(docs.CachePolicyId).toEqual(behavior('/').CachePolicyId);
-    expect(docs.OriginRequestPolicyId).toBeUndefined();
+    expect(docs.OriginRequestPolicyId).toEqual(behavior('/').OriginRequestPolicyId);
     expect(docs.ResponseHeadersPolicyId).not.toEqual(behavior('/').ResponseHeadersPolicyId);
     expect(responseConfig(docs).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
       Header: 'Cache-Control',
@@ -434,7 +439,9 @@ test('legal pages and API docs share a session-free cache', () => {
   for (const path of ['/disclaimer*', '/*/disclaimer*', '/privacy*', '/*/privacy*', '/datadeletion*', '/*/datadeletion*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const b = behavior(path);
     const policy = cacheConfig(b);
-    expect(b.OriginRequestPolicyId).toBeUndefined();
+    expect(originConfig(b).HeadersConfig.Headers).toEqual(['Authorization']);
+    expect(originConfig(b).CookiesConfig.CookieBehavior).toBe('none');
+    expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('none');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(policy.MinTTL).toBe(0);

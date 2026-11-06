@@ -123,6 +123,12 @@ forms and OAuth retain their original bodies, URLs and cookies; clients do not
 perform signing. Cached hits avoid the origin signer. This adds Lambda@Edge
 invocations for cache misses and private requests.
 
+Every origin request policy explicitly forwards `Authorization`, including
+public assets and documents, so CloudFront retains the generated signature on
+GET/HEAD requests. The signer replaces viewer-supplied credentials. This header
+authenticates CloudFront to the origin; application sessions still control
+private content, and public cache keys remain independent of the signature.
+
 `npm run build` bundles the locked AWS signing SDK into the edge asset before
 synthesis. The deployment workflow verifies that both direct API endpoints
 return 403 for unsigned requests with forged identity headers, then runs the

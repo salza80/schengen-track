@@ -123,11 +123,17 @@ forms and OAuth retain their original bodies, URLs and cookies; clients do not
 perform signing. Cached hits avoid the origin signer. This adds Lambda@Edge
 invocations for cache misses and private requests.
 
-Every origin request policy explicitly forwards `Authorization` and all signed
-date, session-token, payload-hash and client-IP headers, including for public
-assets and documents. The signer replaces viewer-supplied credentials. The signature
-authenticates CloudFront to the origin; application sessions still control
-private content, and public cache keys remain independent of the signature.
+Origin policies forward all viewer headers except `Host` so generated SigV4
+headers survive forwarding. Each behavior selects a trusted header/cookie
+profile through origin configuration. Before signing, the function strips
+viewer headers and cookies outside that profile and preserves CloudFront's
+read-only transport headers. Public and calculator profiles exclude `Accept`
+so unkeyed content negotiation cannot populate their HTML cache with another
+format; public profiles also discard session cookies. Authentication retains
+native form, OAuth and CSRF headers and cookies. Viewer headers cannot select
+a profile. Cache keys and query forwarding remain defined by the original
+CloudFront policies. The signature authenticates CloudFront to the origin;
+application sessions control private content.
 
 Calculator GET/HEAD cache misses (including localized and format variants)
 share a 120-request UTC-minute quota per native viewer IPv4 address or IPv6

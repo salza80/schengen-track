@@ -3,6 +3,7 @@ const { HttpRequest } = require('@smithy/protocol-http');
 const { Sha256 } = require('@aws-crypto/sha256-js');
 const { isIP } = require('node:net');
 const { checkCalculatorReadLimit } = require('./calculator-read-limit.cjs');
+const { filterOriginRequest } = require('./request-profile.cjs');
 
 const failure = (status, message) => ({
   status: String(status),
@@ -23,6 +24,7 @@ exports.handler = async (event) => {
   if (!accessKeyId || !secretAccessKey || !sessionToken) return failure(503, 'Origin unavailable');
 
   try {
+    if (!filterOriginRequest(request)) return failure(503, 'Origin unavailable');
     const quota = await checkCalculatorReadLimit(request, match[2]);
     if (quota) {
       const response = failure(quota.status, quota.status === 429

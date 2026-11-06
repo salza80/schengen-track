@@ -9,7 +9,8 @@ const { handler } = require('../origin-signer/index.cjs');
 const event = (changes: any = {}) => ({ Records: [{ cf: { request: {
   clientIp: '203.0.113.8', method: 'GET', uri: '/en/visits', querystring: '',
   origin: { custom: { domainName: 'abc123.execute-api.eu-central-1.amazonaws.com', path: '',
-    customHeaders: { 'x-schengen-read-quota-table': [{ value: 'trusted-environment-table' }] } } },
+    customHeaders: { 'x-schengen-read-quota-table': [{ value: 'trusted-environment-table' }],
+      'x-schengen-header-profile': [{ value: 'calculator' }] } } },
   headers: { cookie: [{ value: '_schengen_track_session=invalid; has_calculator_session=arbitrary' }],
     'x-schengen-client-ip': [{ value: '198.51.100.1' }] },
   ...changes,
@@ -86,7 +87,7 @@ test('store failures and missing trusted configuration fail closed, while unrela
   expect(mockSend.mock.calls[0][1].abortSignal).toBeInstanceOf(AbortSignal);
   mockSend.mockClear();
   const missing: any = event();
-  missing.Records[0].cf.request.origin.custom.customHeaders = {};
+  delete missing.Records[0].cf.request.origin.custom.customHeaders['x-schengen-read-quota-table'];
   missing.Records[0].cf.request.headers['x-schengen-read-quota-table'] = [{ value: 'viewer-forged' }];
   expect((await handler(missing)).status).toBe('503');
   for (const changes of [{ uri: '/assets/core.js' }, { uri: '/mcp' }, { uri: '/en/users/sign_in' },

@@ -30,6 +30,13 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
   const edgeStack = stack.node.root.node.findChild('CacheTestOriginEdge') as cdk.Stack;
   expect(edgeStack.synthesizer).toBeInstanceOf(cdk.CliCredentialsStackSynthesizer);
   expect(edgeStack.synthesizer.cloudFormationExecutionRole).toBeUndefined();
+  const versions = Object.values(Template.fromStack(edgeStack).toJSON().Resources)
+    .filter((r: any) => r.Type === 'AWS::Lambda::Version') as any[];
+  expect(versions.length).toBeGreaterThan(0);
+  for (const version of versions) {
+    expect(version.DeletionPolicy).toBe('Retain');
+    expect(version.UpdateReplacePolicy).toBe('Retain');
+  }
   const routes = Object.values(resources).filter((r: any) => r.Type === 'AWS::ApiGatewayV2::Route') as any[];
   expect(routes).toHaveLength(2);
   for (const route of routes) expect(route.Properties.AuthorizationType).toBe('AWS_IAM');

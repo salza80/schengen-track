@@ -163,6 +163,10 @@ probe for successful signed origin requests before running the full smoke
 suite. Persistent failures still fail the release. Validate staging before
 scheduling that production change.
 
+Published edge versions are retained because CloudFront may keep replicas
+after disassociation. Remove obsolete versions only after AWS has removed
+their replicas; they must not block stack updates while still associated.
+
 ## CDK commands
 
 ```bash

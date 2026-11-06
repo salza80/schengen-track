@@ -32,6 +32,9 @@ export class OriginSigner extends Construct {
       stackId, role, runtime: lambda.Runtime.NODEJS_24_X, handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../origin-signer/dist')),
       memorySize: 128, timeout: cdk.Duration.seconds(5),
+      // CloudFront replicas may remain after disassociation. Stack cleanup
+      // must not try to delete published versions while replicas still exist.
+      currentVersionOptions: { removalPolicy: cdk.RemovalPolicy.RETAIN },
     });
     this.roleArn = `arn:${parent.partition}:iam::${parent.account}:role/${roleName}`;
     // Attach the API-specific policy in the regional stack to avoid a circular

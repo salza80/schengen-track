@@ -145,6 +145,11 @@ markup and localized link/form routes allowed. Keep logout as a native submit
 button and keep event handlers out of menu HTML. See the DOMPurify vendor README
 for its version and manual security-update instructions.
 
+Account deletion requires a signed-in registered user. Guest and anonymous
+requests to the account-deletion endpoint receive HTTP 403, including requests
+with a valid CSRF token. Registered users retain CSRF-protected deletion of
+their own account and its travel records.
+
 
 == Facebook OAuth
 

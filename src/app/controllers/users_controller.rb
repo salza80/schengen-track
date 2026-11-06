@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_registered_account_for_deletion!, only: :destroy
   before_action :require_calculator_account!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_primary_person, only: [:edit, :update]
@@ -44,6 +45,10 @@ class UsersController < ApplicationController
   end
 
   private
+    def require_registered_account_for_deletion!
+      head :forbidden unless current_user && !current_user.is_guest?
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = current_user_or_guest_user

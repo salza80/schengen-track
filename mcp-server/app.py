@@ -21,6 +21,10 @@ except ImportError:
 
 SERVER_VERSION = "0.1.0"
 DEFAULT_API_BASE_URL = "https://schengen-calculator.com"
+CALCULATION_API_URLS = {
+    "https://schengen-calculator.com": "https://schengen-calculator.com/api/v1/calculations",
+    "https://test.schengen-calculator.com": "https://test.schengen-calculator.com/api/v1/calculations",
+}
 AGENT_SOURCE = "mcp"
 AGENT_SOURCE_HEADER = "x-schengen-agent-source"
 AGENT_AUTH_HEADER = "x-schengen-agent-auth"
@@ -266,6 +270,12 @@ def http_request(request, timeout):
 
 def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
     api_base_url = os.environ.get("SCHENGEN_API_BASE_URL", DEFAULT_API_BASE_URL).rstrip("/")
+    api_url = CALCULATION_API_URLS.get(api_base_url)
+    if api_url is None:
+        return {
+            "status": "error",
+            "error": {"message": "Unsupported calculation API origin", "type": "ConfigurationError"},
+        }
     timeout = float(os.environ.get("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", "10"))
     headers = {
         "content-type": "application/json",
@@ -279,7 +289,7 @@ def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
         headers[AGENT_AUTH_HEADER] = agent_auth_header
 
     request = urllib.request.Request(
-        f"{api_base_url}/api/v1/calculations",
+        api_url,
         data=json.dumps(payload).encode("utf-8"),
         headers=headers,
         method="POST",

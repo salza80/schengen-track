@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.1.4', '>= 8.1.4.1'
+# Keep the Rails frameworks we use without the unused upload/mailbox/rich-text
+# engines and their file-identification dependencies.
+gem 'railties', '~> 8.1.4', '>= 8.1.4.1'
+gem 'activerecord', '~> 8.1.4', '>= 8.1.4.1'
+gem 'actionmailer', '~> 8.1.4', '>= 8.1.4.1'
+gem 'actioncable', '~> 8.1.4', '>= 8.1.4.1'
 
 # Compile SCSS with Dart Sass through the existing Sprockets pipeline
 gem 'dartsass-sprockets'

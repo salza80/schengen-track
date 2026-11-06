@@ -4,6 +4,10 @@
 
 A Rails application for tracking the Schengen 90/180-day rule.
 
+The bundle loads the Rails frameworks used by the calculator, mail and WebSocket
+support explicitly. Active Storage, Action Mailbox and Action Text are not
+installed: the application has no upload or rich-text features.
+
 Live site: https://schengen-calculator.com
 
 
@@ -216,7 +220,8 @@ HMAC-blinded in the limiter store, and email parameters are filtered from logs.
 Existing and unknown accounts, including suppressed recipient requests, get the
 same confirmation. Client throttling returns HTTP 429; unavailable limiter
 storage returns HTTP 503 before token replacement or mail. Recovery remains a
-native, CSRF-protected Devise flow. Auth routes receive an identity-only edge
+native, CSRF-protected Devise flow with paranoid responses enabled globally.
+Auth routes receive an identity-only edge
 function that overwrites viewer IP headers without changing OAuth URLs.
 
 Guest calculation links use the same protected layout. Opening a link never
@@ -299,6 +304,7 @@ The signer filters headers and cookies using trusted per-behavior profiles
 before authenticating requests to the origin.
 
 Pin external GitHub Actions to full commit SHAs and retain version comments.
+Disable checkout credential persistence in jobs that do not push commits.
 Dependabot checks for Actions updates weekly using <tt>.github/dependabot.yml</tt>.
 
 See the {deployment guide}[deployment/README.md].

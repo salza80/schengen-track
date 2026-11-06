@@ -26,6 +26,30 @@ export function createRedirectFunction(altDomain: string, targetDomain: string):
         headers['x-schengen-client-ip'] = { value: event.viewer.ip };
       }
 
+      // Navigate to the private confirmation before any cached HTML renders.
+      // A URI rewrite alone keeps the bearer in the browser's address bar and
+      // does not select the calculation-link cache behavior.
+      if (/^\\/(?:[^\\/]+\\/)?(?:days|visits)$/.test(request.uri) &&
+          (request.method === 'GET' || request.method === 'HEAD')) {
+        var guestCalculation = request.querystring.guest_calculation;
+        if (guestCalculation) {
+          var token = guestCalculation.value;
+          if (guestCalculation.multiValue) {
+            token = guestCalculation.multiValue.length === 1 ? guestCalculation.multiValue[0].value : '';
+          }
+          if (typeof token !== 'string' || token.length > 2048) token = '';
+          return {
+            statusCode: 302,
+            statusDescription: 'Found',
+            headers: {
+              'location': { value: 'https://${targetDomain}/calculations/' + encodeURIComponent(token || 'invalid-token') },
+              'cache-control': { value: 'private, no-store' },
+              'referrer-policy': { value: 'no-referrer' }
+            }
+          };
+        }
+      }
+
       // Redirect the alternate hostname and the retired generic Portuguese
       // locale directly to their canonical replacement in a single hop.
       var targetUri = request.uri;
@@ -46,13 +70,6 @@ export function createRedirectFunction(altDomain: string, targetDomain: string):
       // Calendar presentation parameters stay in the viewer URL for the
       // browser, but only one normalized year reaches the cache key/origin.
       if (/^\\/(?:[^\\/]+\\/)?days$/.test(request.uri)) {
-        var guestCalculation = request.querystring.guest_calculation;
-        if (guestCalculation && guestCalculation.value) {
-          request.uri = '/calculations/' + encodeURIComponent(guestCalculation.value);
-          request.querystring = {};
-          return request;
-        }
-
         var currentYear = new Date().getUTCFullYear();
         var yearValue = request.querystring.year && request.querystring.year.value;
         var year = /^\\d{4}$/.test(yearValue || '') ? parseInt(yearValue, 10) : currentYear;

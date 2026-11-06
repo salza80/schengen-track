@@ -161,4 +161,9 @@ with `node scripts/recache_urls.cjs scripts/urls-prod.txt full`.
   submission.
 - Keep origin forwarding aligned with cache keys: never forward an unkeyed
   value that can change a cached response.
+- Legacy `guest_calculation` links on Trips or Calendar return a non-cacheable
+  HTTP redirect to the private confirmation route before the cache is read.
+  Keep this as a viewer redirect: a URI rewrite leaves the token in the browser
+  URL and retains the original cache behavior. These redirects suppress
+  referrers, and ordinary pages send only an origin to cross-origin recipients.
 - Deployments invalidate `/*`, run smoke tests, and then warm configured URLs.

@@ -13,6 +13,7 @@ require_relative '../lib/app_config'
 module SchengenTrack
   class Application < Rails::Application
     config.load_defaults 8.1
+    config.action_dispatch.default_headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
     config.i18n.available_locales = [:en, :de, :es, :tr, :'zh-CN', :hi, :'pt-BR', :ar, :fr]
     config.i18n.fallbacks = [:en]

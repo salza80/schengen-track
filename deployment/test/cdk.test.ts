@@ -22,7 +22,7 @@ const viewerRequestHandler = () => {
   return new Function(`${functionResource.Properties.FunctionCode}; return handler;`)();
 };
 const viewerRequest = (uri: string, querystring: any = {}, host = 'example.com') => ({
-  request: { uri, querystring, headers: { host: { value: host } } },
+  request: { method: 'GET', uri, querystring, headers: { host: { value: host } } },
   viewer: { ip: '192.0.2.1' }
 });
 
@@ -251,9 +251,6 @@ test('calendar viewer requests normalize and isolate the year query', () => {
   expect(handler(viewerRequest('/en/days', { month: { value: '4' } })).querystring).toEqual({
     year: { value: String(currentYear) }
   });
-  expect(handler(viewerRequest('/en/days', { guest_calculation: { value: 'signed--token' } }))).toEqual(
-    expect.objectContaining({ uri: '/calculations/signed--token', querystring: {} })
-  );
   expect(handler(viewerRequest('/days', {
     year: { value: '9999' },
     month: { value: '4' },
@@ -262,6 +259,52 @@ test('calendar viewer requests normalize and isolate the year query', () => {
   expect(handler(viewerRequest('/en/visits', { open: { value: 'trip' } })).querystring).toEqual({
     open: { value: 'trip' }
   });
+});
+
+test('guest tokens leave every calculator URL before cached HTML can render', () => {
+  const handler = viewerRequestHandler();
+  const locales = ['', '/en', '/de', '/es', '/tr', '/zh-CN', '/hi', '/pt-BR', '/ar', '/fr', '/pt'];
+  for (const prefix of locales) {
+    for (const page of ['visits', 'days']) {
+      const b = behavior(prefix ? '/*/' + page : '/' + page);
+      expect(b.FunctionAssociations).toEqual(config.DefaultCacheBehavior.FunctionAssociations);
+      for (const host of ['example.com', 'www.example.com']) {
+        for (const method of ['GET', 'HEAD']) {
+          const event = viewerRequest(prefix + '/' + page, {
+            guest_calculation: { value: 'signed/token+value' }, year: { value: '2027' }
+          }, host);
+          event.request.method = method;
+          expect(handler(event)).toEqual({
+            statusCode: 302,
+            statusDescription: 'Found',
+            headers: {
+              location: { value: 'https://example.com/calculations/signed%2Ftoken%2Bvalue' },
+              'cache-control': { value: 'private, no-store' },
+              'referrer-policy': { value: 'no-referrer' }
+            }
+          });
+        }
+      }
+    }
+  }
+});
+
+test('ambiguous empty and oversized guest tokens never fall through to cached HTML', () => {
+  const handler = viewerRequestHandler();
+  for (const parameter of [
+    { value: '' },
+    { value: '', multiValue: [{ value: '' }, { value: 'valid-second-bearer' }] },
+    { value: 'first-bearer', multiValue: [{ value: 'first-bearer' }, { value: 'second-bearer' }] },
+    { value: 'x'.repeat(2049) }
+  ]) {
+    for (const uri of ['/en/visits', '/en/days']) {
+      const result = handler(viewerRequest(uri, { guest_calculation: parameter }));
+      expect(result.statusCode).toBe(302);
+      expect(result.headers.location.value).toBe('https://example.com/calculations/invalid-token');
+      expect(result.headers['referrer-policy'].value).toBe('no-referrer');
+      expect(result.headers['cache-control'].value).toBe('private, no-store');
+    }
+  }
 });
 
 test('viewer requests permanently redirect legacy Portuguese URLs to pt-BR', () => {

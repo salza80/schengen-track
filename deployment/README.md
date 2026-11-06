@@ -99,11 +99,10 @@ bucket and the caller's credentials. It does not assume or pass the region's
 administrator-backed CDK deployment/execution roles. The current account's
 additional deployer policy is versioned in `iam/origin-edge-deploy.json` and
 scopes CloudFormation, Lambda and version-reference parameter writes to the
-staging Schengen edge stack. Existing workload-role and asset-bucket permissions
+two Schengen edge stacks. Existing workload-role and asset-bucket permissions
 remain prerequisites. Apply it as a separate `SchengenOriginEdgeDeploy` inline
-policy on `sst3-template-deploy` when configuring staging in this account.
-Production edge deployment requires separately approved production permissions.
-Workflows use
+policy on `sst3-template-deploy` when configuring this account. Production
+continues to use the existing manual release workflow. Workflows use
 CDK's `--method direct` so this policy needs no account-wide change-set access;
 CloudFormation still handles updates and rollback.
 

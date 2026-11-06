@@ -12,7 +12,8 @@
         "cloudformation:ContinueUpdateRollback"
       ],
       "Resource": [
-        "arn:aws:cloudformation:us-east-1:360298971790:stack/RailsLambdaStackOriginEdge/*"
+        "arn:aws:cloudformation:us-east-1:360298971790:stack/RailsLambdaStackOriginEdge/*",
+        "arn:aws:cloudformation:us-east-1:360298971790:stack/SchengTrackProdOriginEdge/*"
       ]
     },
     {
@@ -35,7 +36,8 @@
         "lambda:UntagResource"
       ],
       "Resource": [
-        "arn:aws:lambda:us-east-1:360298971790:function:RailsLambdaStackOriginEdge-*"
+        "arn:aws:lambda:us-east-1:360298971790:function:RailsLambdaStackOriginEdge-*",
+        "arn:aws:lambda:us-east-1:360298971790:function:SchengTrackProdOriginEdge-*"
       ]
     },
     {
@@ -51,7 +53,8 @@
         "ssm:ListTagsForResource"
       ],
       "Resource": [
-        "arn:aws:ssm:us-east-1:360298971790:parameter/cdk/EdgeFunctionArn/eu-central-1/RailsLambdaStack/Http/OriginSigner/Function"
+        "arn:aws:ssm:us-east-1:360298971790:parameter/cdk/EdgeFunctionArn/eu-central-1/RailsLambdaStack/Http/OriginSigner/Function",
+        "arn:aws:ssm:us-east-1:360298971790:parameter/cdk/EdgeFunctionArn/eu-central-1/SchengTrackProd/Http/OriginSigner/Function"
       ]
     }
   ]

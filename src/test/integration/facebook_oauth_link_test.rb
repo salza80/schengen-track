@@ -84,7 +84,8 @@ class FacebookOauthLinkTest < ActionDispatch::IntegrationTest
     guest = create_facebook_guest
     person = guest.people.find_by!(is_primary: true)
     person.visits.create!(entry_date: Date.new(2027, 1, 1), exit_date: Date.new(2027, 1, 5), country: countries(:Germany))
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
+    person = guest.people.find_by!(is_primary: true)
 
     capture_analytics_events do |events|
       assert_no_difference(['User.count', 'Person.count', 'Visit.count']) do
@@ -110,7 +111,8 @@ class FacebookOauthLinkTest < ActionDispatch::IntegrationTest
     guest = create_facebook_guest
     person = guest.people.find_by!(is_primary: true)
     person.visits.create!(entry_date: Date.new(2027, 2, 1), exit_date: Date.new(2027, 2, 5), country: countries(:Germany))
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
+    person = guest.people.find_by!(is_primary: true)
 
     capture_analytics_events do |events|
       assert_difference('User.count', 1) do

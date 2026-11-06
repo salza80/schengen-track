@@ -1,0 +1,10 @@
+---
+fr:
+  calculation_claim:
+    cancel: Conserver mon calculateur actuel
+    confirm: Importer le calcul
+    explanation: Importez une copie privée. Les modifications ultérieures ne seront pas partagées avec l’expéditeur du lien. Ce lien ne peut être utilisé qu’une fois.
+    invalid: Le lien du calcul est invalide, expiré ou déjà utilisé.
+    preserve: Vos voyageurs actuels seront conservés.
+    title: Ouvrir ce calcul ?
+    too_large: Ce calcul est trop volumineux pour être importé. Votre calculateur actuel n’a pas été modifié.

@@ -182,6 +182,17 @@ caching. Their content policy permits only local styles, fonts, images, and
 form submissions. Keep third-party resources out of this layout so recovery
 tokens cannot reach them through referrers or page scripts.
 
+Guest calculation links use the same protected layout. Opening a link never
+adopts its guest identity. An explicit, CSRF-protected confirmation consumes
+the link once and imports an independent copy. Existing travelers are kept;
+registered accounts receive additional travelers, while anonymous browsers
+receive a private guest calculator. Later edits are never written back to the
+shared source, even if another browser previously accessed it. Legacy
+<tt>guest_calculation</tt> query links lead to the same confirmation flow.
+An import copies at most 20 travelers and 500 visits/visas in total, including
+any existing guest data that must be preserved. Oversized imports fail without
+changing the current calculator or consuming the link.
+
 
 == Deployment
 

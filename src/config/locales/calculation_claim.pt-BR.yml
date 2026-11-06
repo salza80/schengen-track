@@ -1,0 +1,10 @@
+---
+pt-BR:
+  calculation_claim:
+    cancel: Manter minha calculadora atual
+    confirm: Importar cálculo
+    explanation: Importe uma cópia privada. Alterações futuras não serão compartilhadas com quem enviou o link. Este link só pode ser usado uma vez.
+    invalid: O link do cálculo é inválido, expirou ou já foi usado.
+    preserve: Seus viajantes atuais serão mantidos.
+    title: Abrir este cálculo?
+    too_large: Este cálculo é grande demais para importar. Sua calculadora atual não foi alterada.

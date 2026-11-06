@@ -174,7 +174,7 @@ module AgentCalculations
                  "Your planned trips appear to use #{days_used} Schengen #{'day'.pluralize(days_used)}, leaving #{days_remaining} #{'day'.pluralize(days_remaining)}."
                end
 
-      "#{result} You can view, review, edit, or save the calculation at #{view_url}"
+      "#{result} You can view, review, edit, or save a private copy by opening and confirming this one-use link: #{view_url}"
     end
 
     def visit_payload(visit)

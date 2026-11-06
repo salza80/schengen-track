@@ -1,0 +1,10 @@
+---
+tr:
+  calculation_claim:
+    cancel: Mevcut hesaplayıcımı koru
+    confirm: Hesaplamayı içe aktar
+    explanation: Özel bir kopya içe aktarın. Sonraki değişiklikler bağlantıyı gönderen kişiyle paylaşılmaz. Bu bağlantı bir kez kullanılabilir.
+    invalid: Hesaplama bağlantısı geçersiz, süresi dolmuş veya zaten kullanılmış.
+    preserve: Mevcut yolcularınız korunacaktır.
+    title: Bu hesaplama açılsın mı?
+    too_large: Bu hesaplama içe aktarılamayacak kadar büyük. Mevcut hesaplayıcınız değişmedi.

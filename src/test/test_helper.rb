@@ -87,6 +87,20 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
+  # Exercise the explicit one-use import flow when another feature needs a
+  # guest calculator. Callers must use the returned private copy's records.
+  def import_guest_calculation(guest)
+    token = guest.signed_id(purpose: :agent_calculation)
+    get calculation_link_path(token)
+    assert_response :success
+    post claim_calculation_path, params: {
+      token: token,
+      authenticity_token: Nokogiri::HTML(response.body).at_css('input[name="authenticity_token"]')&.[]('value')
+    }
+    assert_response :see_other
+    User.find(session[:guest_user_id])
+  end
+
   # Rack 3 exposes Set-Cookie as separate values; inspect all cookie lines.
   def response_cookie_headers
     Array(response.headers['Set-Cookie']).join("\n")

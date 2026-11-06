@@ -1,0 +1,8 @@
+<h1><%= t('calculation_claim.title') %></h1>
+<p><%= t('calculation_claim.explanation') %></p>
+<p><%= t('calculation_claim.preserve') %></p>
+<%= form_tag claim_calculation_path do %>
+  <%= hidden_field_tag :token, @token %>
+  <%= submit_tag t('calculation_claim.confirm'), class: 'btn btn-primary' %>
+<% end %>
+<%= link_to t('calculation_claim.cancel'), visits_path(locale: I18n.locale) %>

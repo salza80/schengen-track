@@ -156,7 +156,10 @@ module Api
 
         get uri.request_uri
 
-        assert_response :redirect
+        assert_response :success
+        assert_nil session[:guest_user_id]
+        post claim_calculation_path, params: { token: body['calculation_id'] }
+        assert_response :see_other
         assert_equal User.order(:created_at).last.id, session[:guest_user_id]
         refute_includes response.location, 'guest_calculation='
         assert_includes response.location, 'year=2026'
@@ -179,6 +182,12 @@ module Api
         get days_path(locale: I18n.default_locale, guest_calculation: guest_token)
 
         assert_response :redirect
+        assert_redirected_to calculation_link_path(guest_token)
+        assert_nil session[:guest_user_id]
+        follow_redirect!
+        assert_response :success
+        post claim_calculation_path, params: { token: guest_token }
+        assert_response :see_other
         refute_includes response.location, 'guest_calculation='
         assert_includes response.location, 'year=2026'
         assert_includes response.location, 'month=7'
@@ -201,8 +210,11 @@ module Api
 
         get calculation_link_path(token)
 
-        assert_response :redirect
-        assert_equal user.id, session[:guest_user_id]
+        assert_response :success
+        assert_nil session[:guest_user_id]
+        post claim_calculation_path, params: { token: token }
+        assert_response :see_other
+        refute_equal user.id, session[:guest_user_id]
         assert_includes response.location, 'year=2026'
         assert_includes response.location, 'month=7'
         assert_includes response.location, 'day=1'
@@ -215,7 +227,7 @@ module Api
         get calculation_link_path(token)
 
         assert_redirected_to root_path(locale: I18n.default_locale)
-        assert_equal 'Calculation link is invalid or has expired.', flash[:alert]
+        assert_equal I18n.t('calculation_claim.invalid'), flash[:alert]
         refute_equal user.id, session[:guest_user_id]
         refute_equal user.people.first.id, session[:current_person_id]
       end
@@ -229,9 +241,9 @@ module Api
           last_name: 'Guest',
           nationality: countries(:USA)
         )
+        current_guest = import_guest_calculation(current_guest)
         current_guest_id = current_guest.id
         current_person = current_guest.people.first
-        get calculation_link_path(current_guest.signed_id(purpose: :agent_calculation))
         assert_response :redirect
         agent_guest = User.create!(
           guest: true,
@@ -259,7 +271,7 @@ module Api
           get days_path(locale: I18n.default_locale, guest_calculation: 'invalid-token')
         end
 
-        assert_response :success
+        assert_redirected_to calculation_link_path('invalid-token')
         assert_nil session[:guest_user_id]
         assert_nil session[:current_person_id]
       end

@@ -1,0 +1,10 @@
+---
+zh-CN:
+  calculation_claim:
+    cancel: 保留我当前的计算器
+    confirm: 导入计算
+    explanation: 导入私人副本。今后的更改不会与链接发送者共享。此链接只能使用一次。
+    invalid: 计算链接无效、已过期或已被使用。
+    preserve: 将保留您现有的旅行者。
+    title: 打开此计算？
+    too_large: 此计算过大，无法导入。您当前的计算器未发生更改。

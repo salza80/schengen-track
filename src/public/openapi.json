@@ -185,12 +185,12 @@
           "web_url": {
             "type": "string",
             "format": "uri",
-            "description": "Website URL agents should show to the user so they can check, review, edit, or save the calculation."
+            "description": "Website URL agents should show to the user. Opening it shows a confirmation; submitting that form consumes the link once and imports a private copy for review, editing, or saving. Later edits are not shared with other link holders."
           },
           "claim_url": {
             "type": "string",
             "format": "uri",
-            "description": "Same user-facing website URL as web_url; provided for clients that treat the link as a claim/review URL."
+            "description": "Same one-use confirmation URL as web_url. Opening it does not adopt a guest session; explicit CSRF-protected confirmation imports an independent copy."
           },
           "person": { "type": "object" },
           "trips": {

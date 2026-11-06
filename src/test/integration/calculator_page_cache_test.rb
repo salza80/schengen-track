@@ -145,7 +145,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       nationality: countries(:India)
     )
     guest.people.create!(first_name: 'Cache', last_name: 'Guest', nationality: countries(:India), is_primary: true)
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    import_guest_calculation(guest)
     follow_redirect!
     assert_private_response
 
@@ -191,7 +191,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       exit_date: Date.new(2027, 2, 5),
       country: countries(:Germany)
     )
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    import_guest_calculation(guest)
     follow_redirect!
     get visits_path(locale: :en)
     assert_calculator_data(visit_rows: 1, travel_days: nil, nationality_step: false)

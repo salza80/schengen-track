@@ -207,7 +207,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
       last_name: 'User',
       nationality: countries(:India)
     )
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    import_guest_calculation(guest)
     get visits_path(locale: :en, open: 'trip')
 
     assert_select '#visitModal[data-nationality-required]', count: 0

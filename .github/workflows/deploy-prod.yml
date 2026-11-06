@@ -54,7 +54,7 @@ jobs:
 
   deploy:
     needs: [prepare, tests]
-    if: ${{ !cancelled() && needs.prepare.result == 'success' && (needs.prepare.outputs.reuse_tests == 'true' || needs.tests.result == 'success') }}
+    if: ${{ !cancelled() && needs.prepare.result == 'success' && ((needs.prepare.outputs.reuse_tests == 'true' && needs.tests.result == 'skipped') || needs.tests.result == 'success') }}
     permissions:
       contents: read
       id-token: write

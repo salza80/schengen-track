@@ -89,8 +89,10 @@ pt-BR:
         forgot_your_password: Esqueceu sua senha?
         send_me_reset_password_instructions: Enviar instruções de redefinição de senha
       no_token: Você não pode acessar esta página sem vir de um e-mail de redefinição de senha. Se você veio de um e-mail de redefinição de senha, certifique-se de ter usado a URL completa fornecida.
+      rate_limited: Muitas solicitações de recuperação de senha. Tente novamente mais tarde.
       send_instructions: Você receberá um e-mail com instruções sobre como redefinir sua senha em alguns minutos.
       send_paranoid_instructions: Se seu endereço de e-mail existir em nosso banco de dados, você receberá um link de recuperação de senha em seu endereço de e-mail em alguns minutos.
+      temporarily_unavailable: A recuperação de senha está temporariamente indisponível. Tente novamente mais tarde.
       updated: Sua senha foi alterada com sucesso. Você está conectado agora.
       updated_not_active: Sua senha foi alterada com sucesso.
     registrations:

@@ -65,6 +65,15 @@ class GuestAllocationLimitsTest < ActionDispatch::IntegrationTest
     assert_equal 1, guest.people.count
   end
 
+  test 'exception-based guest capacity errors retain the requested locale' do
+    import_guest_calculation(source)
+    with_constant(GuestCalculations::Capacity, :MAX_PEOPLE, 1) do
+      post people_path(locale: :ar), params: { person: { first_name: 'Blocked' } }
+      assert_response :too_many_requests
+      assert_equal I18n.t('common.calculator_capacity_reached', locale: :ar).b, response.body.b
+    end
+  end
+
   test 'missing limiter storage rejects first save without allocating a guest' do
     select_nationality
     raw = Object.new

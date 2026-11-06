@@ -380,6 +380,29 @@ test('dynamic and authentication requests still forward query parameters', () =>
   expect(originConfig(config.DefaultCacheBehavior).CookiesConfig.Cookies).toContain('has_calculator_session');
 });
 
+test('authentication routes overwrite viewer identity without rewriting OAuth URLs', () => {
+  for (const path of ['/users/*', '/*/users/*']) {
+    const auth = behavior(path);
+    expect(auth.FunctionAssociations).toHaveLength(1);
+    expect(auth.FunctionAssociations).not.toEqual(config.DefaultCacheBehavior.FunctionAssociations);
+    expect(originConfig(auth).HeadersConfig.Headers).toContain('X-Schengen-Client-Ip');
+    const id = auth.FunctionAssociations[0].FunctionARN['Fn::GetAtt'][0];
+    const handler = new Function(`${resources[id].Properties.FunctionCode}; return handler;`)();
+    for (const uri of ['/users/auth/facebook/callback', '/ar/users/password', '/pt/users/password']) {
+      const event = viewerRequest(uri, { state: { value: 'oauth-state' } }, 'www.example.com');
+      event.request.method = 'POST';
+      (event.request.headers as any)['x-schengen-client-ip'] = { value: '198.51.100.50' };
+      const result = handler(event);
+      expect(result.uri).toBe(uri);
+      expect(result.method).toBe('POST');
+      expect(result.querystring).toEqual({ state: { value: 'oauth-state' } });
+      expect(result.headers.host.value).toBe('www.example.com');
+      expect(result.headers['x-schengen-client-ip']).toEqual({ value: '192.0.2.1' });
+      expect(result.statusCode).toBeUndefined();
+    }
+  }
+});
+
 test('legal pages and API docs share a session-free cache', () => {
   for (const path of ['/disclaimer*', '/*/disclaimer*', '/privacy*', '/*/privacy*', '/datadeletion*', '/*/datadeletion*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const b = behavior(path);

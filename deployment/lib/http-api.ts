@@ -9,6 +9,7 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as certificate from 'aws-cdk-lib/aws-certificatemanager';
 import { createRedirectFunction } from './createRedirectFunction';
+import { createClientIpFunction } from './createClientIpFunction';
 import { McpLambdaConstruct } from './mcp-lambda';
 import { schengenCachePolicies, CachePolicyIds } from './cache-policies';
 
@@ -371,6 +372,9 @@ export class HttpApiConstruct extends Construct {
         eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
       },
     ];
+    const authClientIpFunction = new cloudfront.Function(this, 'authClientIpFunction', {
+      code: cloudfront.FunctionCode.fromInline(createClientIpFunction())
+    });
 
     const publicHtmlBehavior = {
       origin: origin,
@@ -453,8 +457,8 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: authOriginRequestPolicy,
-      // Removed functionAssociations - auth flows don't need domain rewriting
-      // This prevents redirect chain issues on mobile browsers during OAuth
+      // Preserve OAuth's URL/redirect chain while overwriting viewer identity.
+      functionAssociations: [{ function: authClientIpFunction, eventType: cloudfront.FunctionEventType.VIEWER_REQUEST }]
     };
 
     const agentApiBehavior = {

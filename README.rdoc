@@ -193,6 +193,17 @@ caching. Their content policy permits only local styles, fonts, images, and
 form submissions. Keep third-party resources out of this layout so recovery
 tokens cannot reach them through referrers or page scripts.
 
+Recovery requests normalize recipient emails and apply a ten-minute recipient
+cooldown, five deliveries per recipient per UTC day, ten requests per client
+per 15 minutes, and a shared budget of 100 deliveries per hour. IPv6 privacy
+addresses share a /64 network bucket. Recipient and network identifiers are
+HMAC-blinded in the limiter store, and email parameters are filtered from logs.
+Existing and unknown accounts, including suppressed recipient requests, get the
+same confirmation. Client throttling returns HTTP 429; unavailable limiter
+storage returns HTTP 503 before token replacement or mail. Recovery remains a
+native, CSRF-protected Devise flow. Auth routes receive an identity-only edge
+function that overwrites viewer IP headers without changing OAuth URLs.
+
 Guest calculation links use the same protected layout. Opening a link never
 adopts its guest identity. An explicit, CSRF-protected confirmation consumes
 the link once and imports an independent copy. Existing travelers are kept;

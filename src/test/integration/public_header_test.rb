@@ -84,6 +84,11 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_includes html, users(:Sally).full_name
     assert_includes html, "/en/people/#{people(:sally_person).id}/edit"
     assert_includes html, 'logout-form'
+    fragment = Nokogiri::HTML5.fragment(html)
+    assert_equal 'post', fragment.at_css('#logout-form')['method']
+    assert_equal 'delete', fragment.at_css('#logout-form input[name="_method"]')['value']
+    assert fragment.at_css('#logout-form button[type="submit"]')
+    assert_empty fragment.css('[onclick]')
     assert_includes response.headers['Cache-Control'], 'no-store'
   end
 
@@ -106,9 +111,10 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
     assert_response :success
     assert_includes response.headers['Cache-Control'], 'no-store'
-    assert_includes response.parsed_body['notice_html'], message
+    assert_equal [{ 'type' => 'alert', 'text' => message }], response.parsed_body['messages']
+    refute response.parsed_body.key?('notice_html')
     get '/en/session_header'
-    assert_nil response.parsed_body['notice_html']
+    assert_response :no_content
   end
 
   test 'account deletion confirmation works without a surviving user or guest' do
@@ -124,13 +130,46 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     cookies[:has_flash_message] = '1'
     assert_no_difference(['User.count', 'Person.count']) { get '/en/session_header' }
     assert_response :success
-    assert_includes response.parsed_body['notice_html'], message
+    assert_equal [{ 'type' => 'notice', 'text' => message }], response.parsed_body['messages']
     assert_nil response.parsed_body['html']
     assert_nil response.parsed_body['csrf_token']
     assert_includes response.headers['Cache-Control'], 'no-store'
     assert_match(/has_flash_message=;.*max-age=0/, response_cookie_headers)
     get '/en/session_header'
     assert_response :no_content
+  end
+
+  test 'person names remain escaped in menu HTML and unencoded in one-time flash text' do
+    sign_in users(:Sally)
+    person = people(:sally_person)
+    person.update!(first_name: '<img src=x onerror="alert(1)">', last_name: '& Friend')
+
+    post set_current_person_path(person, locale: :en), headers: { 'HTTP_REFERER' => '/en/about' }
+    assert_response :redirect
+    get '/en/session_header'
+    assert_response :success
+    data = response.parsed_body
+    assert_equal [{ 'type' => 'notice', 'text' => "Switched to #{person.full_name}" }], data['messages']
+    refute data.key?('notice_html')
+    menu = Nokogiri::HTML5.fragment(data.fetch('html'))
+    assert_equal person.full_name, menu.at_css('.person-name').text
+    assert_empty menu.css('img, script, [onerror]')
+
+    get '/en/session_header'
+    assert_equal [], response.parsed_body['messages']
+  end
+
+  test 'primary-person notices are plain text and remain escaped on server-rendered pages' do
+    sign_in users(:Sally)
+    person = people(:sally_person_alt)
+    person.update!(first_name: '<svg onload="alert(1)">', last_name: '& Friend')
+
+    post make_primary_person_path(person, locale: :en)
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select '.alert-success', text: "#{person.full_name} is now your primary person"
+    assert_select '.alert-success svg, .alert-success [onload]', count: 0
   end
 
   private

@@ -10,6 +10,7 @@
 //= require third_party_scripts
 //= require public_page_hydration
 //= require csrf_bootstrap
+//= require dompurify/purify
 //= require public_header
 //= require current_year
 //= require public_calculator_date_hydration

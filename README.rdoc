@@ -138,6 +138,13 @@ Anonymous visitors make no <tt>/session_header</tt> request. Older sessions
 without a hint cookie keep the generic header until a dynamic calculator route
 restores the hint.
 
+The header endpoint returns flash messages as plain text, which JavaScript
+renders with <tt>textContent</tt>. Menu fragments pass through the locally
+vendored DOMPurify sanitizer before insertion, with only the menu's required
+markup and localized link/form routes allowed. Keep logout as a native submit
+button and keep event handlers out of menu HTML. See the DOMPurify vendor README
+for its version and manual security-update instructions.
+
 
 == Facebook OAuth
 
@@ -161,5 +168,8 @@ The Rails web app, private database operations, and MCP server run as
 container-based AWS Lambda functions behind API Gateway and CloudFront. GitHub
 Actions deploys the staging and production CDK stacks, runs migrations, verifies
 the deployed application, and refreshes the edge cache.
+
+Pin external GitHub Actions to full commit SHAs and retain version comments.
+Dependabot checks for Actions updates weekly using <tt>.github/dependabot.yml</tt>.
 
 See the {deployment guide}[deployment/README.md].

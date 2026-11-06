@@ -560,7 +560,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     user_login
     visit visits_path(locale: :en)
 
-    logout = find('a', text: I18n.t('common.log_out', locale: :en), exact_text: true)
+    logout = find('button', text: I18n.t('common.log_out', locale: :en), exact_text: true)
     export = find('a', text: I18n.t('visits.export_to_csv', locale: :en), exact_text: true)
     person_selector = find('#personDropdown')
 

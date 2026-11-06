@@ -58,12 +58,12 @@
       = t('common.register_to_save')
 - if user_signed_in?
   %li.nav-item.header-auth-item.d-flex.align-items-center.justify-content-end
-    %a.btn.btn-outline-primary.btn-md.header-auth-button.ms-2{href: "#", onclick: "document.getElementById('logout-form').submit(); return false;", "aria-label": t('common.log_out')}
-      %i.fa.fa-sign-out-alt.me-2{"aria-hidden": "true"}
-      = t('common.log_out')
-    %form#logout-form{action: destroy_user_session_path, method: :post, style: "display: none;"}
+    %form#logout-form.m-0{action: destroy_user_session_path, method: :post}
       = hidden_field_tag :_method, :delete
       = hidden_field_tag :authenticity_token, form_authenticity_token
+      %button.btn.btn-outline-primary.btn-md.header-auth-button.ms-2{type: "submit", "aria-label": t('common.log_out')}
+        %i.fa.fa-sign-out-alt.me-2{"aria-hidden": "true"}
+        = t('common.log_out')
 - else
   %li.nav-item.header-auth-item.d-flex.align-items-center.justify-content-end
     = link_to new_user_session_path(locale: I18n.locale), class: 'btn btn-primary btn-md header-auth-button ms-2' do

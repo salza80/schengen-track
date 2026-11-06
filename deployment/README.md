@@ -123,9 +123,9 @@ forms and OAuth retain their original bodies, URLs and cookies; clients do not
 perform signing. Cached hits avoid the origin signer. This adds Lambda@Edge
 invocations for cache misses and private requests.
 
-Every origin request policy explicitly forwards `Authorization`, including
-public assets and documents, so CloudFront retains the generated signature on
-GET/HEAD requests. The signer replaces viewer-supplied credentials. This header
+Every origin request policy explicitly forwards `Authorization` and all signed
+date, session-token, payload-hash and client-IP headers, including for public
+assets and documents. The signer replaces viewer-supplied credentials. The signature
 authenticates CloudFront to the origin; application sessions still control
 private content, and public cache keys remain independent of the signature.
 

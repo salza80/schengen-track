@@ -46,7 +46,9 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
     // CloudFront otherwise removes Authorization from GET/HEAD origin requests.
     const headers = originConfig(b).HeadersConfig;
     expect(headers.HeaderBehavior).toBe('whitelist');
-    expect(headers.Headers).toContain('Authorization');
+    expect(headers.Headers).toEqual(expect.arrayContaining([
+      'Authorization', 'X-Amz-Date', 'X-Amz-Security-Token', 'X-Amz-Content-Sha256', 'X-Schengen-Client-Ip',
+    ]));
     expect(headers.Headers.length).toBeLessThanOrEqual(10);
   }
   for (const origin of config.Origins) {
@@ -472,7 +474,9 @@ test('legal pages and API docs share a session-free cache', () => {
   for (const path of ['/disclaimer*', '/*/disclaimer*', '/privacy*', '/*/privacy*', '/datadeletion*', '/*/datadeletion*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const b = behavior(path);
     const policy = cacheConfig(b);
-    expect(originConfig(b).HeadersConfig.Headers).toEqual(['Authorization']);
+    expect(originConfig(b).HeadersConfig.Headers).toEqual([
+      'Authorization', 'X-Amz-Date', 'X-Amz-Security-Token', 'X-Amz-Content-Sha256', 'X-Schengen-Client-Ip',
+    ]);
     expect(originConfig(b).CookiesConfig.CookieBehavior).toBe('none');
     expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('none');

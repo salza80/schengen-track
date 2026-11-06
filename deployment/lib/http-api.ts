@@ -220,8 +220,6 @@ export class HttpApiConstruct extends Construct {
     const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const publicOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 
-        'Access-Control-Request-Method', 
-        'Access-Control-Request-Headers',
         'Accept',
         'Content-Type',
         'X-Requested-With',
@@ -233,8 +231,6 @@ export class HttpApiConstruct extends Construct {
     // the cache key, or a CSV response could populate the HTML cache entry.
     const calculatorIndexOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin',
-        'Access-Control-Request-Method',
-        'Access-Control-Request-Headers',
         'Content-Type',
         'X-Requested-With',
         'Referer',
@@ -272,8 +268,6 @@ export class HttpApiConstruct extends Construct {
     const authOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "authRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 
-        'Access-Control-Request-Method', 
-        'Access-Control-Request-Headers',
         'Accept',
         'X-Requested-With',
         'Referer',
@@ -289,8 +283,6 @@ export class HttpApiConstruct extends Construct {
     const agentApiOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "agentApiRequestPolicy", {
       headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin',
-        'Access-Control-Request-Method',
-        'Access-Control-Request-Headers',
         'X-Schengen-Client-Ip',
         'X-Schengen-Agent-Source',
         'X-Schengen-Agent-Auth',
@@ -312,6 +304,8 @@ export class HttpApiConstruct extends Construct {
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     })
 
+    // Forward every signed header explicitly. The application does not use
+    // CORS preflight negotiation headers, leaving room within the header quota.
     // CloudFront supports forwarding Authorization individually. CDK's L2
     // validation still rejects it, so set this supported option on the L1.
     // https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html
@@ -323,7 +317,8 @@ export class HttpApiConstruct extends Construct {
       const headers = config.headersConfig as cloudfront.CfnOriginRequestPolicy.HeadersConfigProperty;
       resource.originRequestPolicyConfig = {
         ...config,
-        headersConfig: { headerBehavior: 'whitelist', headers: [...(headers.headers || []), 'Authorization'] },
+        headersConfig: { headerBehavior: 'whitelist', headers: [...new Set([...(headers.headers || []),
+          'Authorization', 'X-Amz-Date', 'X-Amz-Security-Token', 'X-Amz-Content-Sha256', 'X-Schengen-Client-Ip'])] },
       };
     }
 

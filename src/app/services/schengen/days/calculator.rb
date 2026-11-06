@@ -5,17 +5,20 @@ module Schengen
     # calculates schengen days and continious days in schengen area
    
     class Calculator
-      # Maximum calculation span: ±20 years (20 past + 20 future = 40 years total)
-      MAX_CALCULATION_DAYS = 40.years.to_i
+      class SpanTooLarge < ArgumentError; end
+      # Date subtraction returns days: allow the ±20-year window plus forecast.
+      MAX_CALCULATION_DAYS = 40 * 366 + 190
       
       attr_reader :next_entry_days
-      def initialize(person, visits: nil)
+      def initialize(person, visits: nil, visa_history: nil)
         @person = person
-        @visits = (visits || @person.visits).to_a
+        source = visits || @person.visits
+        source = source.includes(:country) if source.is_a?(ActiveRecord::Relation)
+        @visits = source.to_a
         @calculated_days={}
         @next_entry_days=[]
         @person_requires_visa = @person.visa_required?
-        @person_visas = @person_requires_visa ? @person.visas.schengen.to_a : []
+        @visa_history = visa_history || VisaHistory.new(@person) if @person_requires_visa
         generate_days
       end
 
@@ -71,7 +74,7 @@ module Schengen
         return unless @person
         @calculated_days = {}
         return if @visits.empty?
-        return if too_many_days?
+        raise SpanTooLarge, 'Calculation span exceeds the supported day limit' if too_many_days?
 
         v = 0    
         i = 0
@@ -122,7 +125,7 @@ module Schengen
       def calc_continuous_days_count(sd, i)
         return 0 unless sd.schengen?
         return sd.schengen_day_int if i==0
-        calculated_days[i-1].continuous_days_count + 1
+        @calculated_days[sd.the_date - 1].continuous_days_count + 1
       end
 
       def calc_schengen_day_new_count(sd,i)
@@ -130,11 +133,11 @@ module Schengen
         if i == 0
           return sd.schengen_day_int
         end
-        prev_sd = calculated_days[i-1]
+        prev_sd = @calculated_days[sd.the_date - 1]
         count = prev_sd.schengen_days_count + sd.schengen_day_int
         if !prev_sd.overstay?
           if i >= 180
-            count -= calculated_days[i-180].schengen_day_int
+            count -= @calculated_days[sd.the_date - 180].schengen_day_int
           end
         else
           if sd.schengen?
@@ -180,8 +183,7 @@ module Schengen
         prev = nil
         #track of last 180 days change of schengen days
         rolling_window_tracker = Array.new(90,0)
-        @calculated_days.sort.reverse.each do |aday|
-          day = aday[1]
+        @calculated_days.values.reverse_each do |day|
           unless prev
             day.max_remaining_days =  90 - day.schengen_days_count
             prev = day
@@ -233,40 +235,12 @@ module Schengen
 
       def find_visa_for_date(date)
         return nil unless @person_requires_visa
-        @person_visas.find { |v| date.between?(v.start_date, v.end_date) }
+        @visa_history.visa_for_date(date)
       end
 
       def calc_visa_entry_count(current_date, visa)
         return nil unless visa
-        
-        # Get all visits on this visa up to current date
-        visits_on_visa = []
-        visa_visits.each do |visit|
-          next unless visit.schengen?
-          next unless visit.entry_date <= current_date
-          
-          # Check if visit's entry date falls within visa period
-          visit_visa = find_visa_for_date(visit.entry_date)
-          visits_on_visa << visit if visit_visa == visa
-        end
-        
-        # Count distinct entries (consecutive visits = one entry)
-        count = 0
-        prev_visit = nil
-        visits_on_visa.sort_by(&:entry_date).each do |v|
-          # New entry if: first visit OR gap > 1 day after previous exit
-          if prev_visit.nil? || v.entry_date - prev_visit.exit_date > 1
-            count += 1
-          end
-          prev_visit = v
-        end
-        count
-      end
-
-      def visa_visits
-        # Retained history counts toward a visa's lifetime limit, but only
-        # load it when the displayed days actually need an entry count.
-        @visa_visits ||= @person.visits.to_a
+        @visa_history.entry_count_on(current_date, visa)
       end
 
     end

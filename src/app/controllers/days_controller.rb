@@ -1,6 +1,8 @@
 class DaysController < ApplicationController
+  include GuestCalculatorAbuseControl
   include CalculatorVisits
   include CalculatorIndexCache
+  before_action :limit_guest_reads!, only: :index
   before_action :set_private_calculator_cache, except: :index
   
   before_action :set_visit, only: [:show, :edit, :update, :destroy]

@@ -21,7 +21,7 @@ class Visa < ApplicationRecord
   end
 
   def self.find_schengen_visa(vstart_date, vend_date)
-    schengen.find_visa_by_date(vstart_date, vend_date).where('(:start_date >= start_date and :start_date <= end_date)', start_date: vstart_date).last
+    schengen.find_visa_by_date(vstart_date, vend_date).where('(:start_date >= start_date and :start_date <= end_date)', start_date: vstart_date).order(:id).last
     
   end
 

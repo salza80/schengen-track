@@ -2,6 +2,7 @@ class VisitsController < ApplicationController
   include GuestCalculatorAbuseControl
   include CalculatorVisits
   include CalculatorIndexCache
+  before_action :limit_guest_reads!, only: [:index, :for_date, :max_stay_info]
   before_action :set_private_calculator_cache, except: :index
   
   before_action :require_calculator_record_account!, only: [:show, :edit, :update, :destroy]

@@ -1,8 +1,30 @@
 require 'test_helper'
+require 'minitest/mock'
 require 'timeout'
 require Rails.root.join('lib/lambda/task_executor')
 
 class LambdaTaskExecutorTest < ActiveSupport::TestCase
+  test 'rate-limit readiness exercises the shared counter and accepts a full window' do
+    freeze_time do
+      2.times do
+        assert_equal({ success: true }, Lambda::TaskExecutor.execute('command' => 'verify_rate_limit_store'))
+      end
+      counter = ApiRateLimit.find_by!(scope: 'deployment:readiness')
+      assert_equal 2, counter.count
+      assert_equal 'shared', counter.identifier
+    end
+  end
+
+  test 'rate-limit readiness fails when its store is unavailable' do
+    raw = Object.new
+    raw.define_singleton_method(:exec_params) { |*| raise PG::UndefinedTable, 'missing table' }
+    ActiveRecord::Base.connection.stub(:raw_connection, raw) do
+      assert_raises(RateLimiters::DatabaseFixedWindow::Unavailable) do
+        Lambda::TaskExecutor.execute('command' => 'verify_rate_limit_store')
+      end
+    end
+  end
+
   test 'run_rake invokes no-argument tasks without hanging' do
     task_name = "test:lambda_task_executor_no_args_#{SecureRandom.hex(8)}"
     invoked = false

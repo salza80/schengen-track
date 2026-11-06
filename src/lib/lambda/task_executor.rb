@@ -17,6 +17,11 @@ module Lambda
         when 'update_countries'
           run_rake('db:update_countries')
           { success: true }
+        when 'verify_rate_limit_store'
+          RateLimiters::DatabaseFixedWindow.new(
+            scope: 'deployment:readiness', identifier: 'shared', limit: 1, period: 1.minute
+          ).call
+          { success: true }
         when 'guest_cleanup'
           guest_cleanup(event)
         when 'fix_people_migration'

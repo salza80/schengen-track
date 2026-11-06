@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'minitest/mock'
 
 module RateLimiters
   class DatabaseFixedWindowTest < ActiveSupport::TestCase
@@ -56,31 +57,38 @@ module RateLimiters
       assert_not_nil ApiRateLimit.find_by(rate_limit_key: 'active')
     end
 
-    test 'allows requests when rate limit table is not migrated yet' do
-      limiter = DatabaseFixedWindow.new(
-        scope: 'test',
-        identifier: '127.0.0.1',
-        limit: 2,
-        period: 10.minutes
-      )
-      connection = ActiveRecord::Base.connection
-      original_raw_connection = connection.method(:raw_connection)
-      original_cleanup_sampled = limiter.method(:cleanup_sampled?)
-      missing_table = ActiveRecord::StatementInvalid.new('PG::UndefinedTable: ERROR: relation "api_rate_limits" does not exist')
-      fake_raw_connection = Object.new
-      fake_raw_connection.define_singleton_method(:exec_params) { |*| raise missing_table }
+    [PG::UndefinedTable, PG::ConnectionBad, ActiveRecord::StatementInvalid,
+     ActiveRecord::ConnectionNotEstablished, ActiveRecord::ConnectionTimeoutError].each do |error_class|
+      test "rejects requests when the counter fails with #{error_class}" do
+        limiter = DatabaseFixedWindow.new(scope: 'test', identifier: '127.0.0.1', limit: 2, period: 10.minutes)
+        error = error_class.new('database details must not be exposed')
+        fake_connection = Object.new
+        fake_connection.define_singleton_method(:exec_params) { |*| raise error }
 
-      connection.define_singleton_method(:raw_connection) { fake_raw_connection }
-      limiter.define_singleton_method(:cleanup_sampled?) { false }
+        limiter.stub(:cleanup_sampled?, false) do
+          ActiveRecord::Base.connection.stub(:raw_connection, fake_connection) do
+            raised = assert_raises(DatabaseFixedWindow::Unavailable) { limiter.call }
+            assert_same error, raised.cause
+            assert_equal 'Rate-limit store unavailable', raised.message
+          end
+        end
+      end
+    end
 
-      result = limiter.call
+    test 'cleanup failure cannot authorize a request' do
+      limiter = DatabaseFixedWindow.new(scope: 'test', identifier: '127.0.0.1', limit: 2, period: 10.minutes)
+      limiter.stub(:cleanup_sampled?, true) do
+        ApiRateLimit.stub(:delete_expired!, -> { raise PG::UndefinedTable, 'missing table' }) do
+          assert_raises(DatabaseFixedWindow::Unavailable) { limiter.call }
+        end
+      end
+    end
 
-      assert result.allowed?
-      assert_equal 2, result.remaining
-      assert_equal 0, result.count
-    ensure
-      connection.define_singleton_method(:raw_connection, original_raw_connection) if connection && original_raw_connection
-      limiter.define_singleton_method(:cleanup_sampled?, original_cleanup_sampled) if limiter && original_cleanup_sampled
+    test 'unexpected programming errors are not converted to store outages' do
+      limiter = DatabaseFixedWindow.new(scope: 'test', identifier: '127.0.0.1', limit: 2, period: 10.minutes)
+      limiter.stub(:cleanup_sampled?, -> { raise ArgumentError, 'invalid configuration' }) do
+        assert_raises(ArgumentError) { limiter.call }
+      end
     end
   end
 end

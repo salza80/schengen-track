@@ -16,6 +16,7 @@ module Api
 
       before_action :reject_large_payload!
       before_action :rate_limit!
+      rescue_from RateLimiters::DatabaseFixedWindow::Unavailable, with: :rate_limit_store_unavailable
 
       def create
         result = AgentCalculations::Create.new(
@@ -34,6 +35,14 @@ module Api
       end
 
       private
+
+      def rate_limit_store_unavailable
+        response.set_header('Retry-After', '60')
+        response.set_header('Cache-Control', 'private, no-store')
+        render json: {
+          errors: [{ code: 'service_unavailable', field: 'base', message: 'Calculation service is temporarily unavailable. Try again later.' }]
+        }, status: :service_unavailable
+      end
 
       def reject_large_payload!
         received_bytes = request.content_length.to_i

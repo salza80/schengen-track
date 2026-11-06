@@ -210,6 +210,14 @@ any existing guest data that must be preserved. Oversized imports fail without
 changing the current calculator or consuming the link.
 
 
+== Calculation API availability
+
+Calculation creation requires the shared database rate limiter. Missing tables,
+connection failures and other limiter database errors return HTTP 503 with a
+60-second <tt>Retry-After</tt> and save no calculation records. The usual
+30-request/10-minute quota still returns HTTP 429 when exhausted. A store outage
+never grants a fresh quota or bypasses the limiter.
+
 == Deployment
 
 The Rails web app, private database operations, and MCP server run as

@@ -9,7 +9,7 @@ module Api
       render json: {
         name: 'Schengen Calculator API',
         description: 'Programmatic API for creating saved Schengen 90/180-day calculations. Agents should prefer this API or the MCP endpoint over driving the web UI.',
-        agent_instruction: 'After creating a calculation, show the returned web_url or claim_url to the user so they can check, review, edit, or save the calculation.',
+        agent_instruction: 'After creating a calculation, show the returned web_url or claim_url to the user. Their confirmation imports a private copy for review, editing, or saving. Each link can be confirmed once; simply opening it does not import anything.',
         openapi_url: "#{request.base_url}/openapi.json",
         mcp_url: "#{request.base_url}/mcp",
         endpoints: [

@@ -1,0 +1,10 @@
+---
+de:
+  calculation_claim:
+    cancel: Meinen aktuellen Rechner behalten
+    confirm: Berechnung importieren
+    explanation: Importieren Sie eine private Kopie. Spätere Änderungen werden nicht mit dem Absender des Links geteilt. Dieser Link kann einmal verwendet werden.
+    invalid: Der Berechnungslink ist ungültig, abgelaufen oder wurde bereits verwendet.
+    preserve: Ihre bisherigen Reisenden bleiben erhalten.
+    title: Diese Berechnung öffnen?
+    too_large: Diese Berechnung ist zu groß zum Importieren. Ihr aktueller Rechner wurde nicht verändert.

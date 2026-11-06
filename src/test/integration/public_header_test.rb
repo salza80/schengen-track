@@ -104,7 +104,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_includes response_cookie_headers, 'has_flash_message=1;'
     follow_redirect!
-    message = 'Calculation link is invalid or has expired.'
+    message = I18n.t('calculation_claim.invalid')
     assert_not_includes response.body, message
     assert_includes response.headers['Cache-Control'], 'public'
 
@@ -183,7 +183,7 @@ class PublicHeaderTest < ActionDispatch::IntegrationTest
       last_name: 'User',
       nationality: countries(:USA)
     )
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
     follow_redirect!
     guest
   end

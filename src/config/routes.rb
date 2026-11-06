@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'calculations/claim', to: 'calculation_links#create', as: :claim_calculation
   get 'calculations/:token', to: 'calculation_links#show', as: :calculation_link
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

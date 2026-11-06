@@ -66,7 +66,9 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       country: countries(:Croatia)
     )
 
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
+    guest_person = guest.people.find_by!(is_primary: true)
+    guest_companion = guest.people.find_by!(first_name: 'Guest', last_name: 'Companion')
     assert_response :redirect
     post set_current_person_path(guest_companion, locale: :en)
     assert_equal guest_companion.id, session[:current_person_id]
@@ -138,7 +140,8 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       extra: { raw_info: nil }
     )
 
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
+    guest_person = guest.people.find_by!(is_primary: true)
     assert_response :redirect
     previous_test_mode = OmniAuth.config.test_mode
     previous_mock_auth = OmniAuth.config.mock_auth[:facebook]
@@ -189,7 +192,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       nationality: countries(:Australia)
     )
 
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
     assert_response :redirect
 
     get new_user_registration_path(locale: :en)
@@ -238,7 +241,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     )
     guest.people.find_by!(is_primary: true).update!(nationality: countries(:Australia))
 
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
     assert_response :redirect
 
     email = "registered_#{SecureRandom.hex(8)}@example.com"
@@ -363,7 +366,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       visa_type: 'S'
     )
 
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    guest = import_guest_calculation(guest)
 
     email = "multi-person-account-#{SecureRandom.hex(8)}@example.com"
     post user_registration_path(locale: :en), params: {

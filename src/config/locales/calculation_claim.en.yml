@@ -1,0 +1,10 @@
+---
+en:
+  calculation_claim:
+    cancel: Keep my current calculator
+    confirm: Import calculation
+    explanation: Import a private copy. Future changes will not be shared with the link's sender. This link can be used once.
+    invalid: Calculation link is invalid, expired, or already used.
+    preserve: Your existing travelers will be kept.
+    title: Open this calculation?
+    too_large: This calculation is too large to import. Your current calculator has not changed.

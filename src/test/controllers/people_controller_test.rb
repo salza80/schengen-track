@@ -198,7 +198,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
       last_name: 'User',
       nationality: countries(:USA)
     )
-    get calculation_link_path(guest.signed_id(purpose: :agent_calculation))
+    import_guest_calculation(guest)
     assert_response :redirect
 
     # Access as guest

@@ -1,18 +1,35 @@
 class CalculationLinksController < ApplicationController
+  include SensitiveTokenResponse
+
   def show
-    user = User.find_signed!(params[:token], purpose: :agent_calculation)
-    raise ActiveRecord::RecordNotFound unless user.is_guest?
+    AgentCalculations::Claim.find_available_source!(params[:token])
+    @token = params[:token]
+  rescue AgentCalculations::Claim::Unavailable
+    invalid_link
+  end
 
-    session[:guest_user_id] = user.id
-    person = user.people.where(is_primary: true).first || user.people.first
-    session[:current_person_id] = person&.id
+  def create
+    result = AgentCalculations::Claim.new(
+      token: params[:token], account: current_user, guest: guest_user
+    ).call
 
-    redirect_to days_path(short_link_redirect_params(person))
-  rescue ActiveSupport::MessageVerifier::InvalidSignature, ActiveRecord::RecordNotFound
-    redirect_to root_path(locale: I18n.default_locale), alert: 'Calculation link is invalid or has expired.'
+    if current_user
+      session[:current_person_id] = result.person.id
+    else
+      establish_guest_session(result.user, result.person)
+    end
+    redirect_to days_path(short_link_redirect_params(result.person)), status: :see_other
+  rescue AgentCalculations::Claim::TooLarge
+    redirect_to root_path(locale: I18n.default_locale), alert: t('calculation_claim.too_large'), status: :see_other
+  rescue AgentCalculations::Claim::Unavailable, ActiveRecord::RecordInvalid
+    invalid_link
   end
 
   private
+
+  def invalid_link
+    redirect_to root_path(locale: I18n.default_locale), alert: t('calculation_claim.invalid'), status: :see_other
+  end
 
   def short_link_redirect_params(person)
     params = { locale: I18n.default_locale }

@@ -79,11 +79,10 @@ Secrets loaded on demand:
 - `{paramPath}secrets/ga_api_secret`
 - `{paramPath}secrets/schengen_agent_auth_header`
 
-The CloudFront origin header must be an SSM `String` because CloudFront origin
-custom headers do not support `ssm-secure` dynamic references. Use a
-high-entropy value:
-
-- `{paramPath}cloudfront_origin_auth_header`
+The retired `{paramPath}cloudfront_origin_auth_header` parameter is no longer
+read, forwarded or accepted. Its value provides no access after this version
+is deployed to that environment. Remove the obsolete parameter after checking
+for other consumers; do not rotate a value still used by an older deployment.
 
 CDK injects the Facebook and Brevo non-secret values directly. For
 `SecureString` values it passes only parameter names, grants access to the
@@ -92,7 +91,55 @@ together and retained only in the running process.
 
 GitHub Actions authenticates to AWS through OIDC and reads the
 `AWS_DEFAULT_REGION` repository variable. The current stacks use
-`eu-central-1`; bootstrap the target account before its first deployment.
+`eu-central-1`. A separate `<stack name>OriginEdge` stack in `us-east-1` owns the
+origin signer and its execution role. Bootstrap both regions before the first
+deployment. CDK deploys the edge dependency before the application stack.
+The edge stack uses `CliCredentialsStackSynthesizer` with the existing staging
+bucket and the caller's credentials. It does not assume or pass the region's
+administrator-backed CDK deployment/execution roles. The current account's
+additional deployer policy is versioned in `iam/origin-edge-deploy.json` and
+scopes CloudFormation, Lambda and version-reference parameter writes to the
+two Schengen edge stacks. Existing workload-role and asset-bucket permissions
+remain prerequisites. Apply it as a separate `SchengenOriginEdgeDeploy` inline
+policy on `sst3-template-deploy` when configuring this account. Production
+continues to use the existing manual release workflow. Workflows use
+CDK's `--method direct` so this policy needs no account-wide change-set access;
+CloudFormation still handles updates and rollback.
+
+## Origin authentication
+
+Both HTTP APIs require IAM authorization on their default routes. Every
+CloudFront behavior signs origin requests with AWS SigV4 using a dedicated
+Lambda@Edge role's temporary credentials. The role can invoke only the two
+environment APIs. Rails and MCP accept the viewer IP only when API Gateway's
+verified IAM context names that exact role, and reject other callers before
+application work or static-file serving. Headers containing the old bearer
+and a forged viewer IP do not authenticate a request.
+
+The origin signer derives the viewer IP from CloudFront's read-only `clientIp`
+field and signs the method, path, query, complete body and IP header. Requests
+whose bodies exceed Lambda@Edge's 1 MiB inspection limit receive 413. Normal
+forms and OAuth retain their original bodies, URLs and cookies; clients do not
+perform signing. Cached hits avoid the origin signer. This adds Lambda@Edge
+invocations for cache misses and private requests.
+
+Every origin request policy explicitly forwards `Authorization`, including
+public assets and documents, so CloudFront retains the generated signature on
+GET/HEAD requests. The signer replaces viewer-supplied credentials. This header
+authenticates CloudFront to the origin; application sessions still control
+private content, and public cache keys remain independent of the signature.
+
+`npm run build` bundles the locked AWS signing SDK into the edge asset before
+synthesis. The deployment workflow verifies that both direct API endpoints
+return 403 for unsigned requests with forged identity headers, then runs the
+existing readiness and CloudFront smoke checks. Staging and production remain
+separate deployments; merging a PR deploys staging only. The first cutover
+updates API authorization, application enforcement and CloudFront in one stack
+update; uncached requests can temporarily receive 403 while it propagates.
+After invalidation, the workflow waits up to five minutes per public/private
+probe for successful signed origin requests before running the full smoke
+suite. Persistent failures still fail the release. Validate staging before
+scheduling that production change.
 
 ## CDK commands
 

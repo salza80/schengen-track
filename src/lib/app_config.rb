@@ -42,10 +42,6 @@ class AppConfig
       fetch_optional('GA_API_SECRET') || fetch_ssm_parameter('GA_API_SECRET_PARAM')
     end
 
-    def cloudfront_origin_auth_header
-      fetch_optional('CLOUDFRONT_ORIGIN_AUTH_HEADER') || fetch_ssm_parameter('CLOUDFRONT_ORIGIN_AUTH_PARAM')
-    end
-
     def schengen_agent_auth_header
       fetch_optional('SCHENGEN_AGENT_AUTH_HEADER') || fetch_ssm_parameter('SCHENGEN_AGENT_AUTH_PARAM')
     end

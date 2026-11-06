@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
+import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -11,8 +12,6 @@ export interface McpLambdaConstructProps {
   domain: string;
   agentAuthParamName: string;
   agentAuthParamArn: string;
-  cloudFrontOriginAuthParamName: string;
-  cloudFrontOriginAuthParamArn: string;
   googleAnalyticsApiSecretParamName: string;
   googleAnalyticsApiSecretParamArn: string;
 }
@@ -46,7 +45,6 @@ export class McpLambdaConstruct extends Construct {
       environment: {
         SCHENGEN_API_BASE_URL: `https://${props.domain}`,
         SCHENGEN_AGENT_AUTH_PARAM: props.agentAuthParamName,
-        CLOUDFRONT_ORIGIN_AUTH_PARAM: props.cloudFrontOriginAuthParamName,
         SCHENGEN_MCP_MAX_REQUEST_BYTES: '65536',
         SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS: '10',
         GA_MEASUREMENT_ID: 'G-E9CCZDHLJF',
@@ -62,12 +60,12 @@ export class McpLambdaConstruct extends Construct {
       resources: [
         props.googleAnalyticsApiSecretParamArn,
         props.agentAuthParamArn,
-        props.cloudFrontOriginAuthParamArn,
       ],
     }));
 
     this.httpApi = new apigwv2.HttpApi(this, 'HttpApi', {
       apiName: 'SchengenCalculatorMcpApi',
+      defaultAuthorizer: new HttpIamAuthorizer(),
       defaultIntegration: new apigwv2_integ.HttpLambdaIntegration('McpLambdaIntegration', this.function, {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,
       }),

@@ -65,6 +65,10 @@ jobs:
         run: npm ci
         working-directory: ./deployment
 
+      - name: Build CDK and origin signer
+        run: npm run build
+        working-directory: ./deployment
+
       - name: Copy secrets file
         run: cp secrets.yml.example secrets.yml
         working-directory: ./src/config
@@ -79,7 +83,7 @@ jobs:
       - name: CDK Deploy
         env:
           STACK_NAME: ${{ inputs.stack_name }}
-        run: cdk deploy "$STACK_NAME" --require-approval never
+        run: cdk deploy "$STACK_NAME" --require-approval never --method direct
         working-directory: ./deployment
 
       - name: Resolve Ops Lambda Function
@@ -87,6 +91,13 @@ jobs:
         uses: ./.github/actions/resolve-ops-lambda
         with:
           stack-name: ${{ inputs.stack_name }}
+
+      - name: Verify direct origin authentication
+        env:
+          STACK_NAME: ${{ inputs.stack_name }}
+        run: |
+          aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query 'Stacks[0].Outputs' --output json > /tmp/origin-endpoints.json
+          python3 deployment/scripts/check_origin_authentication.py /tmp/origin-endpoints.json
 
       - name: Run database migrations
         timeout-minutes: 20
@@ -170,6 +181,18 @@ jobs:
           CLOUDFRONT_DISTRIBUTION_ID: ${{ inputs.cloudfront_distribution_id }}
           INVALIDATION_ID: ${{ steps.cloudfront_invalidation.outputs.invalidationId }}
         run: aws cloudfront wait invalidation-completed --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --id "$INVALIDATION_ID"
+
+      - name: Wait for signed origin requests
+        env:
+          SMOKE_BASE_URL: ${{ inputs.smoke_base_url }}
+        run: |
+          set -euo pipefail
+          for path in / /en/users/password/new; do
+            status=$(curl --silent --show-error --fail --proto '=https' \
+              --retry 20 --retry-delay 10 --retry-max-time 300 --retry-all-errors --max-time 15 \
+              --output /dev/null --write-out '%{http_code}' "$SMOKE_BASE_URL$path")
+            test "$status" = 200
+          done
 
       - name: Run deployed smoke tests
         env:

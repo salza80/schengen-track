@@ -26,6 +26,38 @@ const viewerRequest = (uri: string, querystring: any = {}, host = 'example.com')
   viewer: { ip: '192.0.2.1' }
 });
 
+test('all origin paths require IAM signatures from the dedicated edge role', () => {
+  const edgeStack = stack.node.root.node.findChild('CacheTestOriginEdge') as cdk.Stack;
+  expect(edgeStack.synthesizer).toBeInstanceOf(cdk.CliCredentialsStackSynthesizer);
+  expect(edgeStack.synthesizer.cloudFormationExecutionRole).toBeUndefined();
+  const routes = Object.values(resources).filter((r: any) => r.Type === 'AWS::ApiGatewayV2::Route') as any[];
+  expect(routes).toHaveLength(2);
+  for (const route of routes) expect(route.Properties.AuthorizationType).toBe('AWS_IAM');
+  for (const b of [config.DefaultCacheBehavior, ...config.CacheBehaviors]) {
+    expect(b.LambdaFunctionAssociations).toHaveLength(1);
+    expect(b.LambdaFunctionAssociations[0]).toEqual(expect.objectContaining({ EventType: 'origin-request', IncludeBody: true }));
+    // CloudFront otherwise removes Authorization from GET/HEAD origin requests.
+    const headers = originConfig(b).HeadersConfig;
+    expect(headers.HeaderBehavior).toBe('whitelist');
+    expect(headers.Headers).toContain('Authorization');
+    expect(headers.Headers.length).toBeLessThanOrEqual(10);
+  }
+  for (const origin of config.Origins) expect(origin.OriginCustomHeaders).toBeUndefined();
+  const httpFunctions = Object.entries(resources).filter(([id]) =>
+    id.includes('HttpApiFunction') || id.includes('HttpMcpFunction')).map(([, r]: any) => r)
+    .filter((r: any) => r.Type === 'AWS::Lambda::Function');
+  expect(httpFunctions).toHaveLength(2);
+  for (const fn of httpFunctions) {
+    expect(fn.Properties.Environment.Variables.CLOUDFRONT_ORIGIN_AUTH_PARAM).toBeUndefined();
+    expect(JSON.stringify(fn.Properties.Environment.Variables.CLOUDFRONT_SIGNER_ROLE_ARN)).toContain(':role/CacheTest-OriginSigner');
+  }
+  const policy: any = Object.values(resources).find((r: any) => r.Type === 'AWS::IAM::Policy' &&
+    r.Properties.PolicyDocument.Statement.some((s: any) => s.Action === 'execute-api:Invoke'));
+  expect(policy.Properties.PolicyDocument.Statement).toHaveLength(1);
+  expect(policy.Properties.PolicyDocument.Statement[0].Resource).toHaveLength(2);
+  expect(JSON.stringify(policy.Properties.PolicyDocument.Statement)).not.toContain('cloudfront_origin_auth_header');
+});
+
 test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', () => {
   const functions = Object.entries(resources).filter(([, resource]: [string, any]) =>
     resource.Type === 'AWS::Lambda::Function') as [string, any][];
@@ -131,7 +163,7 @@ test('public HTML and SEO/docs reuse a cache policy while retaining their browse
   for (const path of ['/privacy*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const docs = behavior(path);
     expect(docs.CachePolicyId).toEqual(behavior('/').CachePolicyId);
-    expect(docs.OriginRequestPolicyId).toBeUndefined();
+    expect(docs.OriginRequestPolicyId).toEqual(behavior('/').OriginRequestPolicyId);
     expect(docs.ResponseHeadersPolicyId).not.toEqual(behavior('/').ResponseHeadersPolicyId);
     expect(responseConfig(docs).CustomHeadersConfig.Items).toContainEqual(expect.objectContaining({
       Header: 'Cache-Control',
@@ -407,7 +439,9 @@ test('legal pages and API docs share a session-free cache', () => {
   for (const path of ['/disclaimer*', '/*/disclaimer*', '/privacy*', '/*/privacy*', '/datadeletion*', '/*/datadeletion*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const b = behavior(path);
     const policy = cacheConfig(b);
-    expect(b.OriginRequestPolicyId).toBeUndefined();
+    expect(originConfig(b).HeadersConfig.Headers).toEqual(['Authorization']);
+    expect(originConfig(b).CookiesConfig.CookieBehavior).toBe('none');
+    expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('none');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(policy.MinTTL).toBe(0);

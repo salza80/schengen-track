@@ -1,9 +1,10 @@
 from contextvars import ContextVar
 import base64
 import hashlib
-import hmac
 import json
 import os
+import re
+import ipaddress
 from pathlib import Path
 import xml.etree.ElementTree as ET
 import urllib.error
@@ -26,10 +27,7 @@ AGENT_AUTH_HEADER = "x-schengen-agent-auth"
 AGENT_CLIENT_ID_HEADER = "x-schengen-agent-client-id"
 AGENT_AUTH_ENV = "SCHENGEN_AGENT_AUTH_HEADER"
 AGENT_AUTH_PARAM_ENV = "SCHENGEN_AGENT_AUTH_PARAM"
-CLOUDFRONT_ORIGIN_AUTH_HEADER = "x-schengen-origin-auth"
 CLOUDFRONT_CLIENT_IP_HEADER = "x-schengen-client-ip"
-CLOUDFRONT_ORIGIN_AUTH_ENV = "CLOUDFRONT_ORIGIN_AUTH_HEADER"
-CLOUDFRONT_ORIGIN_AUTH_PARAM_ENV = "CLOUDFRONT_ORIGIN_AUTH_PARAM"
 DEFAULT_MAX_REQUEST_BYTES = 64 * 1024
 GA_EVENT_CREATE_CALCULATION = "mcp_create_schengen_calculation_called"
 GA_EVENT_LIST_SUPPORTED_COUNTRIES = "mcp_list_supported_countries_called"
@@ -255,6 +253,17 @@ def apply_explicit_tool_schemas() -> None:
             mcp._tools["list_supported_countries"].input_schema = LIST_COUNTRIES_SCHEMA["inputSchema"]
 
 
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def http_request(request, timeout):
+    # Configuration fixes the destination; never forward agent headers or
+    # analytics payloads to a redirect target.
+    return urllib.request.build_opener(NoRedirect()).open(request, timeout=timeout)
+
+
 def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
     api_base_url = os.environ.get("SCHENGEN_API_BASE_URL", DEFAULT_API_BASE_URL).rstrip("/")
     timeout = float(os.environ.get("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", "10"))
@@ -277,10 +286,13 @@ def post_calculation(payload: dict[str, Any]) -> dict[str, Any]:
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
+        with http_request(request, timeout=timeout) as response:
             return json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as error:
-        body = error.read().decode("utf-8")
+        try:
+            body = error.read().decode("utf-8")
+        finally:
+            error.close()
         try:
             details = json.loads(body)
         except json.JSONDecodeError:
@@ -368,7 +380,7 @@ def track_ga_event(event_name: str, params: dict[str, Any]) -> None:
     )
 
     try:
-        urllib.request.urlopen(request, timeout=ga_timeout_seconds()).close()
+        http_request(request, timeout=ga_timeout_seconds()).close()
     except Exception:
         return
 
@@ -407,10 +419,6 @@ def ga_api_secret() -> Optional[str]:
 
 def agent_auth_secret() -> Optional[str]:
     return ssm_parameter_value(AGENT_AUTH_ENV, AGENT_AUTH_PARAM_ENV)
-
-
-def cloudfront_origin_auth_secret() -> Optional[str]:
-    return ssm_parameter_value(CLOUDFRONT_ORIGIN_AUTH_ENV, CLOUDFRONT_ORIGIN_AUTH_PARAM_ENV)
 
 
 def ssm_parameter_value(direct_env: str, param_env: str) -> Optional[str]:
@@ -501,6 +509,8 @@ def format_error_response(result: dict[str, Any]) -> str:
 
 
 def lambda_handler(event, context):
+    if (os.environ.get("AWS_LAMBDA_FUNCTION_NAME") or os.environ.get("CLOUDFRONT_SIGNER_ROLE_ARN")) and not trusted_cloudfront_request(event):
+        return {"statusCode": 403, "headers": {"cache-control": "private, no-store"}, "body": "Forbidden"}
     received_bytes = request_body_size(event)
     max_request_bytes = mcp_max_request_bytes()
     if received_bytes > max_request_bytes:
@@ -584,24 +594,27 @@ def mcp_tool_count() -> Optional[int]:
 def client_id_for_event(event: dict[str, Any]) -> Optional[str]:
     headers = event_headers(event)
     http_context = event.get("requestContext", {}).get("http", {}) if isinstance(event, dict) else {}
-    if trusted_cloudfront_request(headers):
+    if trusted_cloudfront_request(event):
         client_ip = header_value(headers, CLOUDFRONT_CLIENT_IP_HEADER)
         if client_ip:
-            seed = f"cloudfront:{client_ip}"
-            return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:32]
+            try:
+                seed = f"cloudfront:{ipaddress.ip_address(client_ip)}"
+                return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:32]
+            except ValueError:
+                pass
 
     source_ip = http_context.get("sourceIp")
     seed = f"source:{source_ip}" if source_ip else None
     return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:32] if seed else None
 
 
-def trusted_cloudfront_request(headers: dict[str, Any]) -> bool:
-    expected = cloudfront_origin_auth_secret()
-    provided = header_value(headers, CLOUDFRONT_ORIGIN_AUTH_HEADER)
-    if not expected or not provided:
+def trusted_cloudfront_request(event: dict[str, Any]) -> bool:
+    role = os.environ.get("CLOUDFRONT_SIGNER_ROLE_ARN", "")
+    if not re.fullmatch(r"arn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_-]+", role):
         return False
-
-    return hmac.compare_digest(provided, expected)
+    prefix = role.replace(":iam:", ":sts:").replace(":role/", ":assumed-role/") + "/"
+    caller = event.get("requestContext", {}).get("authorizer", {}).get("iam", {}).get("userArn", "")
+    return isinstance(caller, str) and caller.startswith(prefix) and bool(re.fullmatch(r"[^/]+", caller[len(prefix):]))
 
 
 def event_headers(event: dict[str, Any]) -> dict[str, Any]:

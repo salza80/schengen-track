@@ -10,7 +10,7 @@ export class OriginSigner extends Construct {
   readonly association: cloudfront.EdgeLambda;
   readonly invokePolicy: iam.Policy;
 
-  constructor(scope: Construct, id: string, apiArns: string[]) {
+  constructor(scope: Construct, id: string, apiArns: string[], quotaTableArn: string) {
     super(scope, id);
     const parent = cdk.Stack.of(this);
     const stackId = `${parent.stackName}OriginEdge`;
@@ -38,7 +38,10 @@ export class OriginSigner extends Construct {
     // dependency: the edge stack must exist before its version can be associated.
     this.invokePolicy = new iam.Policy(this, 'InvokePolicy', {
       roles: [iam.Role.fromRoleName(this, 'PolicyRole', roleName)],
-      statements: [new iam.PolicyStatement({ actions: ['execute-api:Invoke'], resources: apiArns })],
+      statements: [
+        new iam.PolicyStatement({ actions: ['execute-api:Invoke'], resources: apiArns }),
+        new iam.PolicyStatement({ actions: ['dynamodb:UpdateItem'], resources: [quotaTableArn] }),
+      ],
     });
     this.association = {
       functionVersion: signer.currentVersion,

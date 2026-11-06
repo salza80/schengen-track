@@ -42,7 +42,10 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
     expect(headers.Headers).toContain('Authorization');
     expect(headers.Headers.length).toBeLessThanOrEqual(10);
   }
-  for (const origin of config.Origins) expect(origin.OriginCustomHeaders).toBeUndefined();
+  for (const origin of config.Origins) {
+    expect((origin.OriginCustomHeaders || []).map((h: any) => h.HeaderName))
+      .not.toContain('X-Schengen-Origin-Auth');
+  }
   const httpFunctions = Object.entries(resources).filter(([id]) =>
     id.includes('HttpApiFunction') || id.includes('HttpMcpFunction')).map(([, r]: any) => r)
     .filter((r: any) => r.Type === 'AWS::Lambda::Function');
@@ -53,9 +56,32 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
   }
   const policy: any = Object.values(resources).find((r: any) => r.Type === 'AWS::IAM::Policy' &&
     r.Properties.PolicyDocument.Statement.some((s: any) => s.Action === 'execute-api:Invoke'));
-  expect(policy.Properties.PolicyDocument.Statement).toHaveLength(1);
+  expect(policy.Properties.PolicyDocument.Statement).toHaveLength(2);
   expect(policy.Properties.PolicyDocument.Statement[0].Resource).toHaveLength(2);
   expect(JSON.stringify(policy.Properties.PolicyDocument.Statement)).not.toContain('cloudfront_origin_auth_header');
+});
+
+test('calculator origin reads use one environment-specific on-demand quota before Rails', () => {
+  const tables = Object.entries(resources).filter(([, r]: any) => r.Type === 'AWS::DynamoDB::Table') as any[];
+  expect(tables).toHaveLength(1);
+  const [tableId, table] = tables[0];
+  expect(table.Properties).toEqual(expect.objectContaining({
+    BillingMode: 'PAY_PER_REQUEST',
+    KeySchema: [{ AttributeName: 'bucket', KeyType: 'HASH' }],
+    TimeToLiveSpecification: { AttributeName: 'expires_at', Enabled: true },
+    OnDemandThroughput: { MaxReadRequestUnits: 100, MaxWriteRequestUnits: 100 },
+  }));
+  const origin = config.Origins.find((o: any) => o.OriginCustomHeaders);
+  expect(origin.OriginCustomHeaders).toEqual([
+    { HeaderName: 'x-schengen-read-quota-table', HeaderValue: { Ref: tableId } },
+  ]);
+  const writes = Object.values(resources).filter((r: any) => r.Type === 'AWS::IAM::Policy')
+    .flatMap((r: any) => r.Properties.PolicyDocument.Statement)
+    .filter((s: any) => s.Action === 'dynamodb:UpdateItem');
+  expect(writes).toEqual([expect.objectContaining({
+    Resource: { 'Fn::GetAtt': [tableId, 'Arn'] },
+  })]);
+  expect(Object.values(resources).some((r: any) => r.Type.startsWith('AWS::WAF'))).toBe(false);
 });
 
 test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', () => {

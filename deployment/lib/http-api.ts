@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { OriginSigner } from './origin-signer';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
@@ -200,13 +201,22 @@ export class HttpApiConstruct extends Construct {
     });
 
     const sslCertificateArn = props.sslArn;
+    const calculatorReadQuota = new dynamodb.Table(this, 'CalculatorReadQuota', {
+      partitionKey: { name: 'bucket', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      timeToLiveAttribute: 'expires_at',
+      maxReadRequestUnits: 100,
+      maxWriteRequestUnits: 100,
+    });
     const signer = new OriginSigner(this, 'OriginSigner', [
       railsHttpApi.arnForExecuteApi(), mcp.httpApi.arnForExecuteApi(),
-    ]);
+    ], calculatorReadQuota.tableArn);
     apiFunction.addEnvironment('CLOUDFRONT_SIGNER_ROLE_ARN', signer.roleArn);
     mcp.function.addEnvironment('CLOUDFRONT_SIGNER_ROLE_ARN', signer.roleArn);
     const edgeLambdas = [signer.association];
-    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
+    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
+      customHeaders: { 'x-schengen-read-quota-table': calculatorReadQuota.tableName },
+    });
     const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
     const publicOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
         'Origin', 

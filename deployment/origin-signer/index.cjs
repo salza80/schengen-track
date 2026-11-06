@@ -2,6 +2,7 @@ const { SignatureV4 } = require('@smithy/signature-v4');
 const { HttpRequest } = require('@smithy/protocol-http');
 const { Sha256 } = require('@aws-crypto/sha256-js');
 const { isIP } = require('node:net');
+const { checkCalculatorReadLimit } = require('./calculator-read-limit.cjs');
 
 const failure = (status, message) => ({
   status: String(status),
@@ -22,6 +23,13 @@ exports.handler = async (event) => {
   if (!accessKeyId || !secretAccessKey || !sessionToken) return failure(503, 'Origin unavailable');
 
   try {
+    const quota = await checkCalculatorReadLimit(request, match[2]);
+    if (quota) {
+      const response = failure(quota.status, quota.status === 429
+        ? 'Too many calculator requests. Try again shortly.' : 'Calculator temporarily unavailable.');
+      response.headers['retry-after'] = [{ key: 'Retry-After', value: String(quota.retryAfter) }];
+      return response;
+    }
     const query = Object.create(null);
     // URLSearchParams preserves repeated keys and decodes form-style + values.
     for (const [key, value] of new URLSearchParams(request.querystring)) {

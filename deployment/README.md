@@ -129,6 +129,28 @@ GET/HEAD requests. The signer replaces viewer-supplied credentials. This header
 authenticates CloudFront to the origin; application sessions still control
 private content, and public cache keys remain independent of the signature.
 
+Calculator GET/HEAD cache misses (including localized and format variants)
+share a 120-request UTC-minute quota per native viewer IPv4 address or IPv6
+/64. The existing origin signer checks this quota before invoking Rails;
+cookies, query values and viewer identity headers cannot select another
+bucket. Private session responses remain `no-store`, and the six shared cache
+policies retain their existing keys and identities.
+
+Each environment owns a regional DynamoDB on-demand table. A conditional
+increment enforces the quota across edge replicas; time-window keys reset it
+without depending on TTL deletion. Stored keys contain SHA-256 network hashes,
+counts and expiry times, rather than raw IP addresses or cookies. TTL cleanup
+is asynchronous. The signer can only update items in its environment's table.
+Exceeded quotas return uncached 429 with `Retry-After`; unavailable or timed-out
+storage returns uncached 503. Requests have a 1.5-second storage deadline and
+no automatic SDK retries. Cached hits avoid both the signer and the counter.
+Shared networks use one allowance, including signed-in users.
+
+This adds DynamoDB request/storage charges and network time on calculator
+cache misses. The table uses pay-per-request billing with maximum read/write
+throughput configured at 100 request units per second; throttling fails
+closed. This is a throughput control, not an exact monetary spending cap.
+
 `npm run build` bundles the locked AWS signing SDK into the edge asset before
 synthesis. The deployment workflow verifies that both direct API endpoints
 return 403 for unsigned requests with forged identity headers, then runs the

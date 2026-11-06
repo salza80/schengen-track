@@ -10,6 +10,7 @@ on:
       - "mcp-server/**"
       - ".github/workflows/deploy-app.yml"
       - ".github/workflows/deploy-stage.yml"
+      - ".github/workflows/deploy-prod.yml"
       - ".github/workflows/test-suite.yml"
   pull_request:
     branches:
@@ -20,6 +21,7 @@ on:
       - "mcp-server/**"
       - ".github/workflows/deploy-app.yml"
       - ".github/workflows/deploy-stage.yml"
+      - ".github/workflows/deploy-prod.yml"
       - ".github/workflows/test-suite.yml"
 
 concurrency:

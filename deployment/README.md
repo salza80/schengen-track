@@ -202,6 +202,13 @@ Two GitHub Actions workflows deploy the application:
   deployed by their workflow.
 - `Deploy-Prod` manually deploys `SchengTrackProd`.
 
+Production releases must be dispatched from `master`. The workflow pins the
+dispatch commit for tests, deployment and cache warm-up. It reuses tests only
+when the latest staging push run for that exact commit completed successfully
+and its test job and required checks passed. Missing, incomplete or unavailable
+GitHub results cause the full test suite to run. Staging tests still run on
+merge; deployment verification, migrations and smoke checks always run.
+
 Each deployment builds and deploys the CDK stack, resolves its
 `OpsLambdaFunctionName` output, and invokes the private Ops Lambda to run database
 migrations, update country data and verify the shared rate-limit store with a

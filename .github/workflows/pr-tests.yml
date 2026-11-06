@@ -9,6 +9,7 @@ on:
       - "deployment/**"
       - "mcp-server/**"
       - ".github/workflows/pr-tests.yml"
+      - ".github/workflows/deploy-prod.yml"
       - ".github/workflows/test-suite.yml"
 
 jobs:

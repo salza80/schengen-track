@@ -27,6 +27,9 @@ const viewerRequest = (uri: string, querystring: any = {}, host = 'example.com')
 });
 
 test('all origin paths require IAM signatures from the dedicated edge role', () => {
+  const edgeStack = stack.node.root.node.findChild('CacheTestOriginEdge') as cdk.Stack;
+  expect(edgeStack.synthesizer).toBeInstanceOf(cdk.CliCredentialsStackSynthesizer);
+  expect(edgeStack.synthesizer.cloudFormationExecutionRole).toBeUndefined();
   const routes = Object.values(resources).filter((r: any) => r.Type === 'AWS::ApiGatewayV2::Route') as any[];
   expect(routes).toHaveLength(2);
   for (const route of routes) expect(route.Properties.AuthorizationType).toBe('AWS_IAM');
@@ -41,7 +44,7 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
   expect(httpFunctions).toHaveLength(2);
   for (const fn of httpFunctions) {
     expect(fn.Properties.Environment.Variables.CLOUDFRONT_ORIGIN_AUTH_PARAM).toBeUndefined();
-    expect(JSON.stringify(fn.Properties.Environment.Variables.CLOUDFRONT_SIGNER_ROLE_ARN)).toContain(':role/SchengenOrigin-');
+    expect(JSON.stringify(fn.Properties.Environment.Variables.CLOUDFRONT_SIGNER_ROLE_ARN)).toContain(':role/CacheTest-OriginSigner');
   }
   const policy: any = Object.values(resources).find((r: any) => r.Type === 'AWS::IAM::Policy' &&
     r.Properties.PolicyDocument.Statement.some((s: any) => s.Action === 'execute-api:Invoke'));

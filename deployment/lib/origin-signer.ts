@@ -3,7 +3,6 @@ import { Construct } from 'constructs';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { createHash } from 'crypto';
 import * as path from 'path';
 
 export class OriginSigner extends Construct {
@@ -17,8 +16,11 @@ export class OriginSigner extends Construct {
     const stackId = `${parent.stackName}OriginEdge`;
     const edgeStack = new cdk.Stack(cdk.Stage.of(this)!, stackId, {
       env: { account: parent.account, region: 'us-east-1' },
+      // Use the scoped deployer directly rather than assuming the region's
+      // administrator-backed bootstrap deployment/execution roles.
+      synthesizer: new cdk.CliCredentialsStackSynthesizer(),
     });
-    const roleName = `SchengenOrigin-${createHash('sha256').update(parent.stackName).digest('hex').slice(0, 16)}`;
+    const roleName = `${parent.stackName}-OriginSigner`;
     const role = new iam.Role(edgeStack, 'SignerRole', {
       roleName,
       assumedBy: new iam.CompositePrincipal(

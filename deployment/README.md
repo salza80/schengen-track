@@ -94,6 +94,18 @@ GitHub Actions authenticates to AWS through OIDC and reads the
 `eu-central-1`. A separate `<stack name>OriginEdge` stack in `us-east-1` owns the
 origin signer and its execution role. Bootstrap both regions before the first
 deployment. CDK deploys the edge dependency before the application stack.
+The edge stack uses `CliCredentialsStackSynthesizer` with the existing staging
+bucket and the caller's credentials. It does not assume or pass the region's
+administrator-backed CDK deployment/execution roles. The current account's
+additional deployer policy is versioned in `iam/origin-edge-deploy.json` and
+scopes CloudFormation, Lambda and version-reference parameter writes to the
+staging Schengen edge stack. Existing workload-role and asset-bucket permissions
+remain prerequisites. Apply it as a separate `SchengenOriginEdgeDeploy` inline
+policy on `sst3-template-deploy` when configuring staging in this account.
+Production edge deployment requires separately approved production permissions.
+Workflows use
+CDK's `--method direct` so this policy needs no account-wide change-set access;
+CloudFormation still handles updates and rollback.
 
 ## Origin authentication
 

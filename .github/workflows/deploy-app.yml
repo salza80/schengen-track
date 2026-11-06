@@ -83,7 +83,7 @@ jobs:
       - name: CDK Deploy
         env:
           STACK_NAME: ${{ inputs.stack_name }}
-        run: cdk deploy "$STACK_NAME" --require-approval never
+        run: cdk deploy "$STACK_NAME" --require-approval never --method direct
         working-directory: ./deployment
 
       - name: Resolve Ops Lambda Function

@@ -138,6 +138,13 @@ Anonymous visitors make no <tt>/session_header</tt> request. Older sessions
 without a hint cookie keep the generic header until a dynamic calculator route
 restores the hint.
 
+The header endpoint returns flash messages as plain text, which JavaScript
+renders with <tt>textContent</tt>. Menu fragments pass through the locally
+vendored DOMPurify sanitizer before insertion, with only the menu's required
+markup and localized link/form routes allowed. Keep logout as a native submit
+button and keep event handlers out of menu HTML. See the DOMPurify vendor README
+for its version and manual security-update instructions.
+
 
 == Facebook OAuth
 
@@ -154,6 +161,20 @@ CDK enables <tt>FACEBOOK_WEB_LOGIN_WORKAROUND</tt> in staging and production to
 keep the OAuth handoff in Android Chrome. The OAuth request must remain POST- and
 CSRF-protected.
 
+Facebook sign-in identifies an existing account only by its provider and user
+ID. Matching an email address never links an existing account automatically.
+If that email is already registered, the user must sign in with the existing
+password or recover the account through its password-reset flow. Review any
+account links created before this safeguard if account pre-hijacking is
+suspected; this change does not establish ownership of historical links.
+
+Production mail links use HTTPS and the deployment's <tt>DOMAIN</tt>, with
+<tt>schengen-calculator.com</tt> as the default. SMTP on port 587 requires
+STARTTLS and certificate verification; missing TLS or an invalid certificate
+causes delivery to fail. If prior plaintext exposure is suspected, rotate the
+SMTP credential and invalidate outstanding recovery tokens as part of the
+incident response.
+
 
 == Deployment
 
@@ -161,5 +182,8 @@ The Rails web app, private database operations, and MCP server run as
 container-based AWS Lambda functions behind API Gateway and CloudFront. GitHub
 Actions deploys the staging and production CDK stacks, runs migrations, verifies
 the deployed application, and refreshes the edge cache.
+
+Pin external GitHub Actions to full commit SHAs and retain version comments.
+Dependabot checks for Actions updates weekly using <tt>.github/dependabot.yml</tt>.
 
 See the {deployment guide}[deployment/README.md].

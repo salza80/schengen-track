@@ -3,10 +3,10 @@ class SessionHeadersController < ApplicationController
   prepend_before_action :disable_header_caching
 
   def show
-    notices = if flash[:notice].present? || flash[:alert].present?
-                render_to_string(partial: 'layouts/notice')
-              end
-    flash.discard if notices
+    messages = %i[notice alert].filter_map do |type|
+      { type: type, text: flash[type].to_s } if flash[type].present?
+    end
+    flash.discard if messages.any?
 
     unless current_user_or_guest_user && current_person
       # A nationality preference is valid calculator state, but it is not a
@@ -14,7 +14,7 @@ class SessionHeadersController < ApplicationController
       clear_session_hint unless selected_calculator_nationality
       # A deleted account can still have a confirmation to display. Commit the
       # consumed flash, without creating a guest or rendering a personal menu.
-      return render json: { notice_html: notices } if notices
+      return render json: { messages: messages } if messages.any?
 
       request.session_options[:skip] = true
       return head :no_content
@@ -22,7 +22,7 @@ class SessionHeadersController < ApplicationController
 
     set_session_hint
     render json: { html: render_to_string(partial: 'layouts/user_menu'),
-                   csrf_token: form_authenticity_token, notice_html: notices }
+                   csrf_token: form_authenticity_token, messages: messages }
   end
 
   private

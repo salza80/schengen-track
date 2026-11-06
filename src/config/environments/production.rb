@@ -3,7 +3,11 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   config.action_controller.forgery_protection_origin_check = false
 
-  Rails.application.routes.default_url_options[:host] = ENV['DOMAIN'] || "schengen-calculator.com"
+  # Mail is rendered outside a request, so the edge's HTTPS redirect cannot
+  # protect a bearer token in an accidentally generated HTTP recovery link.
+  public_url_options = { host: ENV['DOMAIN'].presence || "schengen-calculator.com", protocol: 'https' }
+  Rails.application.routes.default_url_options.merge!(public_url_options)
+  config.action_mailer.default_url_options = public_url_options
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -62,7 +66,8 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  # The Lambda adapter preserves API Gateway's forwarded HTTPS scheme.
+  config.force_ssl = true
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
@@ -107,13 +112,14 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  ActionMailer::Base.smtp_settings = {
+  config.action_mailer.smtp_settings = {
     :address        => 'smtp-relay.brevo.com',
     :port           => '587',
     :authentication => :plain,
     :user_name      => AppConfig.brevo_login,
     :password       => AppConfig.brevo_password,
     :domain         => 'schengen-calculator.com',
-    :enable_starttls_auto => true
+    :enable_starttls => :always,
+    :openssl_verify_mode => OpenSSL::SSL::VERIFY_PEER
   }
 end

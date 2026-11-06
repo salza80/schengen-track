@@ -61,8 +61,7 @@ class PeopleController < ApplicationController
 
   def set_current
     session[:current_person_id] = @person.id
-    safe_name = ERB::Util.html_escape(@person.full_name)
-    redirect_back_or_to root_path, notice: "Switched to #{safe_name}"
+    redirect_back_or_to root_path, notice: "Switched to #{@person.full_name}"
   end
 
   def make_primary
@@ -72,8 +71,7 @@ class PeopleController < ApplicationController
     # Make this person primary
     @person.update(is_primary: true)
 
-    safe_name = ERB::Util.html_escape(@person.full_name)
-    redirect_back_or_to people_path, notice: "#{safe_name} is now your primary person"
+    redirect_back_or_to people_path, notice: "#{@person.full_name} is now your primary person"
   end
 
   private

@@ -72,6 +72,7 @@ zh-CN:
         message: 由于多次登录失败，您的帐户已被锁定。
         subject: 帐户解锁信息
     omniauth_callbacks:
+      account_exists: 已有账户使用此电子邮箱。请使用邮箱和密码登录，或重置密码以恢复访问权限。
       failure: 由于%{reason}，无法从%{kind}获得授权。
       success: 成功地从%{kind}获得授权。
     passwords:

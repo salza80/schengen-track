@@ -76,6 +76,7 @@ pt-BR:
         message: Sua conta foi bloqueada devido a um número excessivo de tentativas de login malsucedidas.
         subject: Instruções de desbloqueio
     omniauth_callbacks:
+      account_exists: Já existe uma conta com este e-mail. Entre com seu e-mail e senha ou redefina sua senha para recuperar o acesso.
       failure: Não foi possível autenticá-lo do %{kind} porque "%{reason}".
       success: Autenticado com sucesso da conta %{kind}.
     passwords:

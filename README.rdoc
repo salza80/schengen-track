@@ -189,6 +189,11 @@ registered accounts receive additional travelers, while anonymous browsers
 receive a private guest calculator. Later edits are never written back to the
 shared source, even if another browser previously accessed it. Legacy
 <tt>guest_calculation</tt> query links lead to the same confirmation flow.
+CloudFront redirects both Trips and Calendar query links before serving any
+HTML. Ordinary pages use <tt>strict-origin-when-cross-origin</tt>, preserving
+local calendar return navigation while keeping paths and queries out of
+cross-origin referrers. Token confirmation and recovery pages keep their
+stricter <tt>no-referrer</tt> policy.
 An import copies at most 20 travelers and 500 visits/visas in total, including
 any existing guest data that must be preserved. Oversized imports fail without
 changing the current calculator or consuming the link.

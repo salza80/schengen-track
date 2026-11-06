@@ -16,9 +16,6 @@ module Schengen
         @next_entry_days=[]
         @person_requires_visa = @person.visa_required?
         @person_visas = @person_requires_visa ? @person.visas.schengen.to_a : []
-        # Retained history still counts toward a visa's lifetime entry limit,
-        # even when it is outside the displayed/calculated day window.
-        @visa_visits = @person_requires_visa ? @person.visits.to_a : []
         generate_days
       end
 
@@ -244,7 +241,7 @@ module Schengen
         
         # Get all visits on this visa up to current date
         visits_on_visa = []
-        @visa_visits.each do |visit|
+        visa_visits.each do |visit|
           next unless visit.schengen?
           next unless visit.entry_date <= current_date
           
@@ -264,6 +261,12 @@ module Schengen
           prev_visit = v
         end
         count
+      end
+
+      def visa_visits
+        # Retained history counts toward a visa's lifetime limit, but only
+        # load it when the displayed days actually need an entry count.
+        @visa_visits ||= @person.visits.to_a
       end
 
     end

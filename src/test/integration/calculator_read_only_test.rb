@@ -86,6 +86,24 @@ class CalculatorReadOnlyTest < ActionDispatch::IntegrationTest
     assert Visit.exists?(old.id)
   end
 
+  test 'an empty calendar window does not load archived visit rows' do
+    @person.visits.where.not(id: [@old.id, @future.id]).delete_all
+    @person.update!(nationality: countries(:India))
+    @person.visas.create!(visa_type: 'S', no_entries: 0, start_date: Date.today - 22.years,
+                         end_date: Date.today + 22.years)
+    loaded_visits = 0
+    subscriber = lambda do |_name, _start, _finish, _id, payload|
+      loaded_visits += payload[:record_count] if payload[:class_name] == 'Visit'
+    end
+    ActiveSupport::Notifications.subscribed(subscriber, 'instantiation.active_record') do
+      get days_path(locale: :en)
+    end
+    assert_response :success
+    assert_equal 0, loaded_visits
+    assert Visit.exists?(@old.id)
+    assert Visit.exists?(@future.id)
+  end
+
   private
 
   def legacy_visit(entry_date)

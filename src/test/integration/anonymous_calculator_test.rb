@@ -14,8 +14,8 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_not_includes response_cookie_headers, 'cache_country_guest='
   end
 
-  test 'calculator session hint is removed when no calculator state remains' do
-    get visits_path(locale: :en), headers: { 'Cookie' => 'has_calculator_session=1' }
+  test 'header removes a calculator session hint when no calculator state remains' do
+    get session_header_path(locale: :en), headers: { 'Cookie' => 'has_calculator_session=1' }
 
     assert_match(/has_calculator_session=;.*max-age=0/, response_cookie_headers)
   end
@@ -66,12 +66,12 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to days_path(locale: :en, year: '2027', month: '4', day: '12')
+    assert_redirected_to private_days_path(locale: :en, year: '2027', month: '4', day: '12')
     follow_redirect!
     assert_equal '1', cookies[:has_calculator_session]
     assert_select 'select[name="nationality_code"]', count: 0
 
-    get visits_path(locale: :en)
+    get private_visits_path(locale: :en)
     assert_select 'select[name="nationality_code"] option[selected]', text: countries(:India).localized_name
     assert_select 'select[name="nationality_code"] option[value=""]', count: 0
   end
@@ -91,7 +91,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     guest = User.where(guest: true).order(:id).last
     assert_equal countries(:India), guest.nationality
     assert_equal countries(:India), guest.people.find_by!(is_primary: true).nationality
-    assert_redirected_to visits_path(locale: :en)
+    assert_redirected_to private_visits_path(locale: :en)
   end
 
   test 'valid trip without an explicit nationality does not create calculator records' do
@@ -128,7 +128,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to visits_path(locale: :en)
+    assert_redirected_to private_visits_path(locale: :en)
     assert User.where(guest: true).order(:id).last.people.find_by!(is_primary: true).visas.exists?
   end
 
@@ -193,7 +193,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
 
   test 'persisted guests and signed-in users skip the nationality step' do
     sign_in users(:Sally)
-    get visits_path(locale: :en, open: 'trip'), headers: { 'Cookie' => 'has_calculator_session=1' }
+    get private_visits_path(locale: :en, open: 'trip'), headers: { 'Cookie' => 'has_calculator_session=1' }
     assert_select '#visitModal[data-nationality-required]', count: 0
     assert_select '.nationality-step-form', count: 0
     assert_select '.guest-registration-card', count: 0
@@ -208,14 +208,14 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
       nationality: countries(:India)
     )
     import_guest_calculation(guest)
-    get visits_path(locale: :en, open: 'trip')
+    get private_visits_path(locale: :en, open: 'trip')
 
     assert_select '#visitModal[data-nationality-required]', count: 0
     assert_select '.nationality-step-form', count: 0
     assert_select '.guest-registration-card', count: 1
     assert_select ".guest-registration-card a[href='#{new_user_registration_path(locale: :en)}']", count: 1
 
-    get days_path(locale: :en)
+    get private_days_path(locale: :en)
     assert_select '.guest-registration-card', count: 0
   end
 

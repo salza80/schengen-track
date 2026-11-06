@@ -138,6 +138,21 @@ Anonymous visitors make no <tt>/session_header</tt> request. Older sessions
 without a hint cookie keep the generic header until a dynamic calculator route
 restores the hint.
 
+Public <tt>/visits</tt> and <tt>/days</tt> pages always ignore session cookies.
+CloudFront removes cookies before their cache lookup, and the public controller
+subclasses never resolve a user or nationality session. Personal calculations
+use explicitly uncached <tt>/my/visits</tt> and <tt>/my/days</tt> routes, including
+localized URLs. These validate signed user, guest or nationality state before
+running a calculator; visitors without that state return to the public page.
+Forms keep their original mutation endpoints and redirect back to private
+state when appropriate. Public CSV URLs redirect to the private export.
+
+On public calculator pages, the header endpoint can return a private
+continuation only after validating the session. JavaScript accepts only the
+expected local route and preserves calendar presentation parameters. Flash
+messages are kept for that destination. The static My calculator link also
+works without JavaScript or when a browser has lost its hint cookie.
+
 Trips and Calendar reads preserve stored visits. Their displayed calculations,
 calendar helpers, and new-trip defaults use the supported ±20-year date window
 without deleting records outside it. Date validation still applies to new and

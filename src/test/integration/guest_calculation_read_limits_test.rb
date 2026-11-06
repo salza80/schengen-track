@@ -9,9 +9,9 @@ class GuestCalculationReadLimitsTest < ActionDispatch::IntegrationTest
     previous = GuestCalculatorAbuseControl::READ_LIMIT
     GuestCalculatorAbuseControl.send(:remove_const, :READ_LIMIT)
     GuestCalculatorAbuseControl.const_set(:READ_LIMIT, 2)
-    get visits_path(locale: :en), env: { 'schengen.client_ip' => '203.0.113.51' }
+    get private_visits_path(locale: :en), env: { 'schengen.client_ip' => '203.0.113.51' }
     assert_response :success
-    get days_path(locale: :en), env: { 'schengen.client_ip' => '203.0.113.52' }
+    get private_days_path(locale: :en), env: { 'schengen.client_ip' => '203.0.113.52' }
     assert_response :success
     get max_stay_info_visits_path(locale: :en, format: :json), params: { date: '2027-01-01' },
         env: { 'schengen.client_ip' => '203.0.113.53' }
@@ -38,7 +38,7 @@ class GuestCalculationReadLimitsTest < ActionDispatch::IntegrationTest
     import_guest_calculation(source)
     raw = Object.new
     raw.define_singleton_method(:exec_params) { |*| raise PG::ConnectionBad, 'outage' }
-    ActiveRecord::Base.connection.stub(:raw_connection, raw) { get days_path(locale: :en) }
+    ActiveRecord::Base.connection.stub(:raw_connection, raw) { get private_days_path(locale: :en) }
     assert_response :service_unavailable
     assert_equal '60', response.headers['Retry-After']
     assert_includes response.headers['Cache-Control'], 'no-store'
@@ -58,18 +58,19 @@ class GuestCalculationReadLimitsTest < ActionDispatch::IntegrationTest
     loaded = 0
     subscriber = ->(_name, _start, _finish, _id, payload) { loaded += payload[:record_count] if payload[:class_name] == 'Visit' }
     assert_no_difference('Visit.count') do
-      ActiveSupport::Notifications.subscribed(subscriber, 'instantiation.active_record') { get visits_path(locale: :en) }
+      ActiveSupport::Notifications.subscribed(subscriber, 'instantiation.active_record') { get private_visits_path(locale: :en) }
     end
     assert_response :too_many_requests
     assert_equal 100, loaded
     assert_select 'tr[data-visit-id]', count: 100
     assert_select 'form input[name="_method"][value="delete"]', count: 100
     first_page = css_select('tr[data-visit-id]').map { |row| row['data-visit-id'].to_i }
-    get visits_path(locale: :en, before_visit: first_page.last)
+    assert_select "a[href='#{private_visits_path(locale: :en, before_visit: first_page.last)}']", count: 1
+    get private_visits_path(locale: :en, before_visit: first_page.last)
     assert_response :too_many_requests
     second_page = css_select('tr[data-visit-id]').map { |row| row['data-visit-id'].to_i }
     assert_empty first_page & second_page
-    get days_path(locale: :en)
+    get private_days_path(locale: :en)
     assert_response :too_many_requests
     get for_date_visits_path(locale: :en, format: :json), params: { date: '2027-01-01' }
     assert_response :too_many_requests
@@ -77,7 +78,7 @@ class GuestCalculationReadLimitsTest < ActionDispatch::IntegrationTest
     delete visit_path(first_page.first, locale: :en)
     assert_response :redirect
     assert_equal 500, person.visits.count
-    get visits_path(locale: :en)
+    get private_visits_path(locale: :en)
     assert_response :success
   end
 end

@@ -28,7 +28,8 @@ class ElementStub {
 
 async function runHeader(cookie: string, status: number, fail = false,
                          payload: Record<string, unknown> = { html: 'Personal menu', csrf_token: 'session-token', messages: [] },
-                         sanitizer: boolean | 'unsupported' = true) {
+                         sanitizer: boolean | 'unsupported' = true,
+                         pageUrl = 'https://schengen.test/fr/about', publicCalculator = false) {
   const menu = new ElementStub('UL');
   menu.textContent = 'Log in';
   menu.dataset.sessionHeaderUrl = '/fr/session_header';
@@ -48,24 +49,46 @@ async function runHeader(cookie: string, status: number, fail = false,
     fragment.appendChild(item);
     return fragment;
   });
+  const currentUrl = new URL(pageUrl);
+  const replace = jest.fn();
   vm.runInNewContext(script, {
     window: {
-      location: { href: 'https://schengen.test/fr/about', origin: 'https://schengen.test' },
+      location: { href: currentUrl.href, origin: currentUrl.origin, pathname: currentUrl.pathname,
+        search: currentUrl.search, hash: currentUrl.hash, replace },
       DOMPurify: sanitizer ? { sanitize, isSupported: sanitizer !== 'unsupported' } : undefined,
       CsrfBootstrap: { installToken }
     },
     document: {
       cookie, readyState: 'complete',
+      body: { dataset: { publicCalculatorPage: String(publicCalculator) } },
       getElementById: (id: string) => id === 'public-user-menu' ? menu : id === 'public-notices' ? notices : null,
       createElement: (tag: string) => new ElementStub(tag.toUpperCase()),
       createDocumentFragment: () => new ElementStub('#fragment')
     },
     URL,
+    URLSearchParams,
     fetch
   });
   await new Promise(resolve => setImmediate(resolve));
-  return { menu, notices, meta, fetch, installToken, sanitize };
+  return { menu, notices, meta, fetch, installToken, sanitize, replace };
 }
+
+test('public calculators continue to a validated private path with presentation state only', async () => {
+  const result = await runHeader('has_calculator_session=1', 200, false,
+    { calculator_path: '/fr/my/days' }, true,
+    'https://schengen.test/fr/days?year=2027&month=3&guest_calculation=secret&host=evil.example#today', true);
+  expect(result.fetch).toHaveBeenCalledWith('/fr/session_header?calculator_page=days', expect.anything());
+  expect(result.replace).toHaveBeenCalledWith('https://schengen.test/fr/my/days?year=2027&month=3#today');
+});
+
+test('untrusted continuation URLs cannot navigate outside the expected local private routes', async () => {
+  for (const calculator_path of ['https://evil.example/fr/my/visits', '//evil.example/fr/my/visits',
+    'https://user:password@schengen.test/fr/my/visits', '/fr/my_details', '/fr/my/visits?redirect=evil']) {
+    const result = await runHeader('has_calculator_session=1', 200, false,
+      { calculator_path }, true, 'https://schengen.test/fr/visits', true);
+    expect(result.replace).not.toHaveBeenCalled();
+  }
+});
 
 test('existing sessions install the sanitized menu and session CSRF token', async () => {
   const result = await runHeader('has_calculator_session=1', 200);

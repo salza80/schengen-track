@@ -94,7 +94,7 @@ class DaysControllerTest < ActionController::TestCase
     
     get :index, params: { locale: 'en', year: too_old_year }
     
-    assert_redirected_to days_path(locale: 'en', year: min_allowed_year)
+    assert_redirected_to private_days_path(locale: 'en', year: min_allowed_year)
   end
 
   test "should redirect to closest year when navigating too far in future" do
@@ -106,7 +106,7 @@ class DaysControllerTest < ActionController::TestCase
     
     get :index, params: { locale: 'en', year: too_new_year }
     
-    assert_redirected_to days_path(locale: 'en', year: max_allowed_year)
+    assert_redirected_to private_days_path(locale: 'en', year: max_allowed_year)
   end
 
   test "should preserve month parameter when redirecting out of range year" do
@@ -117,7 +117,7 @@ class DaysControllerTest < ActionController::TestCase
     
     get :index, params: { locale: 'en', year: too_old_year, month: 6 }
     
-    assert_redirected_to days_path(locale: 'en', year: min_allowed_year, month: 6)
+    assert_redirected_to private_days_path(locale: 'en', year: min_allowed_year, month: 6)
   end
 
   test "should allow navigation to exactly 20 years ago" do
@@ -135,7 +135,7 @@ class DaysControllerTest < ActionController::TestCase
     sign_in users(:Sally)
     month = 'https://external.example/path'
     get :index, params: { locale: :en, year: Date.today.year + 21, month: month }
-    assert_redirected_to days_path(locale: :en, year: Date.today.year + 20, month: month)
+    assert_redirected_to private_days_path(locale: :en, year: Date.today.year + 20, month: month)
     assert_equal 'test.host', URI.parse(response.location).host
   end
 
@@ -218,11 +218,10 @@ class DaysControllerTest < ActionController::TestCase
     assert_equal 12, assigns(:calendar_months).length
   end
 
-  test "should handle guest user with no visits" do
-    # Don't sign in - acts as guest
+  test "private calculator redirects visitors without validated state to the public page" do
     get :index, params: { locale: 'en' }
-    assert_response :success
-    assert_not_nil assigns(:calendar_months)
+    assert_redirected_to days_path(locale: :en)
+    assert_nil assigns(:calendar_months)
   end
 
   # ====================

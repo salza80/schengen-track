@@ -121,7 +121,7 @@ class FacebookOauthLinkTest < ActionDispatch::IntegrationTest
       assert_equal ['user_signup'], events.map(&:first)
     end
 
-    assert_redirected_to visits_path(locale: :en)
+    assert_redirected_to private_visits_path(locale: :en)
     account = User.find_by!(email: 'new-facebook-account@example.com')
     assert_equal account, request.env['warden'].user(:user)
     assert_equal 'facebook', account.provider

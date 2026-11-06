@@ -37,7 +37,7 @@ class DaysController < ApplicationController
       closest_year = requested_year.clamp(min_year, max_year)
       redirect_params = { locale: I18n.locale, year: closest_year }
       redirect_params[:month] = params[:month] if params[:month].present?
-      redirect_to days_path(**redirect_params, only_path: true), allow_other_host: false
+      redirect_to calculator_days_path(**redirect_params, only_path: true), allow_other_host: false
       return
     end
     

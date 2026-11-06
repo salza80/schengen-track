@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-# Allows only completely cookie-free calculator index requests to use the
-# shared CloudFront cache. Any session hint or legacy calculation-claim token
-# is treated as private before Rails attempts to resolve it.
+# Public controllers never resolve sessions. Separate private routes validate
+# signed calculator state before doing any calculator work.
 module CalculatorIndexCache
   extend ActiveSupport::Concern
 
-  SESSION_INDICATOR_COOKIES = %w[_schengen_track_session has_calculator_session].freeze
   DEFAULT_EDGE_TTL = 30.days.to_i
   STALE_TTL = 7.days.to_i
 
@@ -17,8 +15,25 @@ module CalculatorIndexCache
   private
 
   def prepare_calculator_index_cache
-    if params[:guest_calculation].present? || SESSION_INDICATOR_COOKIES.any? { |name| request.cookies.key?(name) }
+    if params[:guest_calculation].present?
+      restore_guest_calculation
+      return
+    end
+
+    unless public_calculator_index?
       set_private_calculator_cache
+      unless active_calculator_context?
+        path = controller_name == 'days' ? days_path(calculator_redirect_parameters) : visits_path(calculator_redirect_parameters)
+        redirect_to path, status: :see_other, allow_other_host: false
+      end
+      return
+    end
+
+    unless request.format.html?
+      set_private_calculator_cache
+      options = calculator_redirect_parameters.merge(format: request.format.symbol)
+      path = controller_name == 'days' ? private_days_path(options) : private_visits_path(options)
+      redirect_to path, status: :see_other, allow_other_host: false
       return
     end
 
@@ -26,7 +41,14 @@ module CalculatorIndexCache
     @public_calculator_page = true
     request.session_options[:skip] = true
     response.headers['Cache-Control'] = public_calculator_cache_control
-    response.headers['Vary'] = 'Cookie'
+  end
+
+  def public_calculator_index?
+    false
+  end
+
+  def calculator_redirect_parameters
+    params.permit(:year, :month, :day, :open).to_h.symbolize_keys.merge(locale: route_locale || I18n.default_locale)
   end
 
   def public_calculator_cache_control

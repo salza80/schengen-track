@@ -127,15 +127,16 @@ Origin policies forward all viewer headers except `Host` so generated SigV4
 headers survive forwarding. Each behavior selects a trusted header/cookie
 profile through origin configuration. Before signing, the function strips
 viewer headers and cookies outside that profile and preserves CloudFront's
-read-only transport headers. Public and calculator profiles exclude `Accept`
+read-only transport headers. Public and calculator read profiles exclude `Accept`
 so unkeyed content negotiation cannot populate their HTML cache with another
-format; public profiles also discard session cookies. Authentication retains
+format; both discard session cookies on GET/HEAD. Calculator mutations retain
+the required session cookies, content type and CSRF headers. Authentication retains
 native form, OAuth and CSRF headers and cookies. Viewer headers cannot select
 a profile. Cache keys and query forwarding remain defined by the original
 CloudFront policies. The signature authenticates CloudFront to the origin;
 application sessions control private content.
 
-Calculator GET/HEAD cache misses (including localized and format variants)
+Calculator GET/HEAD cache misses (including private, localized and format variants)
 share a 120-request UTC-minute quota per native viewer IPv4 address or IPv6
 /64. The existing origin signer checks this quota before invoking Rails;
 cookies, query values and viewer identity headers cannot select another
@@ -233,9 +234,18 @@ and OAuth query parameters. Keep domain/locale redirects out of these behaviors.
   cached for 30 days by localized URL.
 - Anonymous Trips and Calendar pages are cached for up to 30 days in staging
   and production, with a seven-day stale fallback. The yearless Calendar entry
-  expires, including its stale window, before the next year begins. Requests
-  with a Rails session or calculator-session hint bypass the anonymous cache.
-  Calendar entries vary only by normalized `year`.
+  expires, including its stale window, before the next year begins. Their viewer
+  function strips all cookies before cache lookup, and the origin signer strips
+  them again before public reads reach Rails. Calendar entries vary only by
+  normalized `year`. Keep the six shared cache-policy IDs and configurations:
+  their legacy cookie allowlists receive no cookie values on these public reads.
+  This avoids changing production's shared policies during a staging release.
+- `/my/*` and `/*/my/*` have explicitly disabled caching. Signed calculator
+  context is validated before calculation; an invalid or absent session redirects
+  to the public page without doing calculator work. The read quota covers these
+  private URLs too. Public header continuation uses the allowlisted
+  `calculator_page` parameter on its uncached endpoint, preserving flash for
+  the private destination. Viewer cookie hints never authorize that continuation.
 - Fingerprinted assets are cached immutably for one year. Fixed-name icons use
   a seven-day edge and browser cache so they can change without renaming.
 - On public pages, personalized menus, notices, and CSRF tokens come from

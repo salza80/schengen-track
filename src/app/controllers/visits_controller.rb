@@ -119,7 +119,7 @@ class VisitsController < ApplicationController
 
     respond_to do |format|
       if @visit.persisted?
-        format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
+        format.html { redirect_to calculator_visits_path, notice: 'Visit was successfully created.' }
         format.json { render :show, status: :created, location: @visit }
         format.js   # AJAX request from calendar
       else
@@ -136,7 +136,7 @@ class VisitsController < ApplicationController
   def update
     respond_to do |format|
       if @visit.update(visit_params)
-        format.html { redirect_to visits_path, notice: 'Visit was successfully updated.' }
+        format.html { redirect_to calculator_visits_path, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
         format.js   # AJAX request from calendar
       else
@@ -176,7 +176,7 @@ class VisitsController < ApplicationController
                 
                 # Validate it's a safe redirect
                 if safe_redirect_path?(redirect_url)
-                  redirect_to redirect_url, notice: 'Visit was successfully deleted.'
+                  redirect_to redirect_url, notice: 'Visit was successfully deleted.', allow_other_host: false
                   return
                 end
               end
@@ -187,7 +187,7 @@ class VisitsController < ApplicationController
         end
         
         # Default fallback: redirect to visits list
-        redirect_to visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
+        redirect_to calculator_visits_path(locale: I18n.locale), notice: 'Visit was successfully deleted.'
       }
       format.json { head :no_content }
     end
@@ -465,7 +465,7 @@ class VisitsController < ApplicationController
     def visit_not_found
       respond_to do |format|
         format.html { 
-          redirect_to visits_path(locale: I18n.locale), 
+          redirect_to calculator_visits_path(locale: I18n.locale),
                       alert: 'Visit not found or you do not have permission to access it.'
         }
         format.json { render json: { error: 'Visit not found' }, status: :not_found }
@@ -502,9 +502,10 @@ class VisitsController < ApplicationController
       #   ✓ /days/2024/12
       #   ✓ /en/days?year=2025&month=1&day=15
       #   ✓ /visits/123/edit
-      allowed_paths = ['/days', '/visits', '/people', '/visas']
+      allowed_paths = ['/days', '/visits', '/people', '/visas', '/my/days', '/my/visits']
       I18n.available_locales.each do |locale|
-        allowed_paths += ["/#{locale}/days", "/#{locale}/visits", "/#{locale}/people", "/#{locale}/visas"]
+        allowed_paths += ["/#{locale}/days", "/#{locale}/visits", "/#{locale}/people", "/#{locale}/visas",
+                          "/#{locale}/my/days", "/#{locale}/my/visits"]
       end
       
       return false unless allowed_paths.any? { |allowed| path.start_with?(allowed) }

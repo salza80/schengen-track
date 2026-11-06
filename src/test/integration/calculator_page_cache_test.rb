@@ -22,7 +22,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       assert_includes response.headers['Cache-Control'], 'public'
       assert_includes response.headers['Cache-Control'], 's-maxage=2592000'
       assert_includes response.headers['Cache-Control'], 'stale-while-revalidate=604800'
-      assert_calculator_vary_headers
+      assert_calculator_vary_headers(public: true)
       assert_nil response.headers['Set-Cookie']
       assert_select 'body[data-public-calculator-page="true"]', count: 1
       assert_select 'meta[name="csrf-token"], input[name="authenticity_token"]', count: 0
@@ -70,17 +70,17 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'any calculator session indicator forces the private response path' do
+  test 'unvalidated cookies cannot change the public calculator response' do
     PUBLIC_PATHS.each do |path|
       ['_schengen_track_session=invalid', 'has_calculator_session=', 'has_calculator_session=attacker-value'].each do |cookie|
         reset!
         get path, headers: { 'Cookie' => cookie }
 
         assert_response :success
-        assert_includes response.headers['Cache-Control'], 'private'
-        assert_includes response.headers['Cache-Control'], 'no-store'
-        assert_calculator_vary_headers
-        assert_select 'body[data-public-calculator-page]', count: 0
+        assert_includes response.headers['Cache-Control'], 'public'
+        assert_nil response.headers['Set-Cookie']
+        assert_calculator_vary_headers(public: true)
+        assert_select 'body[data-public-calculator-page]', count: 1
       end
     end
   end
@@ -132,7 +132,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       destination: 'trips'
     }
     assert_includes response_cookie_headers, 'has_calculator_session=1;'
-    get visits_path(locale: :en)
+    get private_visits_path(locale: :en)
     assert_private_response
 
     reset!
@@ -151,7 +151,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
 
     reset!
     sign_in users(:Sally)
-    get days_path(locale: :en, year: 2027), headers: { 'Cookie' => 'has_calculator_session=1' }
+    get private_days_path(locale: :en, year: 2027), headers: { 'Cookie' => 'has_calculator_session=1' }
     assert_private_response
     assert_includes response.body, users(:Sally).first_name
   end
@@ -166,9 +166,9 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       nationality_code: 'IN',
       destination: 'trips'
     }
-    get visits_path(locale: :en)
+    get private_visits_path(locale: :en)
     assert_calculator_data(visit_rows: 0, travel_days: nil, nationality_step: false)
-    get days_path(locale: :en, year: 2027)
+    get private_days_path(locale: :en, year: 2027)
     assert_calculator_data(visit_rows: nil, travel_days: 0, nationality_step: false)
 
     reset!
@@ -193,9 +193,9 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     )
     import_guest_calculation(guest)
     follow_redirect!
-    get visits_path(locale: :en)
+    get private_visits_path(locale: :en)
     assert_calculator_data(visit_rows: 1, travel_days: nil, nationality_step: false)
-    get days_path(locale: :en, year: 2027)
+    get private_days_path(locale: :en, year: 2027)
     assert_calculator_data(visit_rows: nil, travel_days: 3, nationality_step: false)
 
     reset!
@@ -204,9 +204,9 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     }
     assert_response :redirect
     assert_includes response_cookie_headers, 'has_calculator_session=1;'
-    get visits_path(locale: :en)
+    get private_visits_path(locale: :en)
     assert_calculator_data(visit_rows: 3, travel_days: nil, nationality_step: false)
-    get days_path(locale: :en, year: 2014)
+    get private_days_path(locale: :en, year: 2014)
     assert_calculator_data(visit_rows: nil, travel_days: 19, nationality_step: false)
   end
 
@@ -229,9 +229,10 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
 
   private
 
-  def assert_calculator_vary_headers
-    # Rails' cache-poisoning fix preserves Cookie and adds content negotiation.
-    assert_equal %w[Accept Cookie X-Requested-With], response.headers.fetch('Vary').split(/,\s*/).sort
+  def assert_calculator_vary_headers(public: false)
+    # Public HTML has no cookie variation; Rails still adds content negotiation.
+    expected = public ? %w[Accept X-Requested-With] : %w[Accept Cookie X-Requested-With]
+    assert_equal expected, response.headers.fetch('Vary').split(/,\s*/).sort
   end
 
   def json_ld_objects

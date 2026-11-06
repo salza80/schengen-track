@@ -3,7 +3,7 @@ require 'test_helper'
 class CalculatorReadOnlyTest < ActionDispatch::IntegrationTest
   setup do
     post user_session_path(locale: :en), params: { user: { email: users(:Sally).email, password: 'password' } }
-    assert_redirected_to visits_path(locale: :en)
+    assert_redirected_to private_visits_path(locale: :en)
     @person = people(:sally_person)
     @old = legacy_visit(Date.today - 21.years)
     @future = legacy_visit(Date.today + 21.years)
@@ -21,7 +21,7 @@ class CalculatorReadOnlyTest < ActionDispatch::IntegrationTest
     legacy_visit(Date.today + 21.years)
     before = Visit.order(:id).map(&:attributes)
 
-    [visits_path(locale: :en), days_path(locale: :en)].each do |path|
+    [private_visits_path(locale: :en), private_days_path(locale: :en)].each do |path|
       get path, headers: { 'Sec-Fetch-Site' => 'cross-site' }
       assert_response :success
       assert_equal guest.id, session[:guest_user_id]
@@ -31,14 +31,14 @@ class CalculatorReadOnlyTest < ActionDispatch::IntegrationTest
 
   test 'cross-site GET and HEAD calculator navigation preserves all stored visits' do
     before = Visit.order(:id).map(&:attributes)
-    [[:get, visits_path(locale: :en)], [:get, days_path(locale: :en)],
-     [:head, visits_path(locale: :en)], [:head, days_path(locale: :en)]].each do |method, path|
+    [[:get, private_visits_path(locale: :en)], [:get, private_days_path(locale: :en)],
+     [:head, private_visits_path(locale: :en)], [:head, private_days_path(locale: :en)]].each do |method, path|
       public_send method, path, headers: { 'Sec-Fetch-Site' => 'cross-site', 'Referer' => 'https://external.example/' }
       assert_response :success
       assert_equal before, Visit.order(:id).map(&:attributes)
     end
 
-    get visits_path(locale: :en)
+    get private_visits_path(locale: :en)
     assert_select "a.edit-visit-link[data-visit-id='#{@active.id}']", count: 1
     assert_select "a.edit-visit-link[data-visit-id='#{@old.id}']", count: 0
     assert_select "a.edit-visit-link[data-visit-id='#{@future.id}']", count: 0
@@ -46,7 +46,7 @@ class CalculatorReadOnlyTest < ActionDispatch::IntegrationTest
 
   test 'CSV export uses the supported display window without purging excluded records' do
     before = Visit.order(:id).map(&:attributes)
-    get visits_path(locale: :en, format: :csv)
+    get private_visits_path(locale: :en, format: :csv)
     assert_response :success
     assert_includes response.body, @active.entry_date.iso8601
     assert_not_includes response.body, @old.entry_date.iso8601
@@ -79,7 +79,7 @@ class CalculatorReadOnlyTest < ActionDispatch::IntegrationTest
     assert_equal active.visa_entry_count, calc.find_by_date(active.entry_date).visa_entry_count
     assert_nil calc.find_by_date(old.entry_date)
 
-    get visits_path(locale: :en, format: :csv)
+    get private_visits_path(locale: :en, format: :csv)
     assert_response :success
     assert_includes response.body, '2 of Multi'
     assert_not_includes response.body, old.entry_date.iso8601
@@ -96,7 +96,7 @@ class CalculatorReadOnlyTest < ActionDispatch::IntegrationTest
       loaded_visits += payload[:record_count] if payload[:class_name] == 'Visit'
     end
     ActiveSupport::Notifications.subscribed(subscriber, 'instantiation.active_record') do
-      get days_path(locale: :en)
+      get private_days_path(locale: :en)
     end
     assert_response :success
     assert_equal 0, loaded_visits

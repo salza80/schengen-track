@@ -20,7 +20,7 @@ class UsersController < ApplicationController
           nationality_id: @user.nationality_id
         )
         
-        format.html { redirect_to visits_path, notice: 'Your details were successfully updated.' }
+        format.html { redirect_to calculator_visits_path, notice: 'Your details were successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }

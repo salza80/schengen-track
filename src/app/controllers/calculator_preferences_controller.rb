@@ -14,26 +14,27 @@ class CalculatorPreferencesController < ApplicationController
       end
 
       unless country_entry
-        redirect_to destination_path(destination), alert: t('common.invalid_nationality')
+        redirect_to destination_path(destination), alert: t('common.invalid_nationality'), allow_other_host: false
         return
       end
 
       session[:calculator_nationality_code] = country_entry.country_code
       session.delete(:calculator_nationality_id)
+      remove_instance_variable(:@selected_calculator_nationality) if defined?(@selected_calculator_nationality)
       nationality_selected = true
     end
 
     set_session_hint if nationality_selected
-    redirect_to destination_path(destination)
+    redirect_to destination_path(destination), allow_other_host: false
   end
 
   private
 
   def destination_path(destination)
     continuation = params[:open] == 'trip' ? { open: 'trip' } : {}
-    return visits_path({ locale: I18n.locale }.merge(continuation)) unless destination == 'calendar'
+    return calculator_visits_path({ locale: I18n.locale }.merge(continuation)) unless destination == 'calendar'
 
     date_params = params.permit(:year, :month, :day, :entry_date, :exit_date).to_h.compact_blank
-    days_path({ locale: I18n.locale }.merge(date_params).merge(continuation))
+    calculator_days_path({ locale: I18n.locale }.merge(date_params).merge(continuation))
   end
 end

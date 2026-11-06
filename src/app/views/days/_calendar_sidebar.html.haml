@@ -14,7 +14,7 @@
             = t('common.as_of')
             %span.calendar-current-date
               = l(Time.zone.today, format: :long) unless @public_calculator_page
-        - jump_today_path = @public_calculator_page ? days_path(locale: I18n.locale) : days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale)
+        - jump_today_path = @public_calculator_page ? calculator_days_path(locale: I18n.locale) : calculator_days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale)
         = link_to jump_today_path, class: "btn btn-outline-light btn-sm d-flex align-items-center calendar-jump-today", "aria-label": t('days.jump_to_today') do
           %i.fa.fa-calendar.me-1.flex-shrink-0{"aria-hidden": "true"}
           %span= t('days.jump_to_today')
@@ -45,7 +45,7 @@
             .d-flex.justify-content-between.align-items-center.mb-2
               %small.text-muted= t('days.visa_status_label')
               - if controller_name != 'visits'
-                = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm", "aria-label": t('days.go_to_visas') do
+                = link_to calculator_visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm", "aria-label": t('days.go_to_visas') do
                   %i.fa.fa-passport.me-1{"aria-hidden": "true"}
                   = t('days.go_to_visas')
             - if @status_summary && @status_summary[:visa_status]
@@ -104,7 +104,7 @@
         - @next_entry_days.each do |day|
           .next-entry-item.border-bottom.py-2.px-2
             .entry-date
-              = link_to days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: "d-inline-block next-entry-link-text" do
+              = link_to calculator_days_path(year: day.the_date.year, month: day.the_date.month, day: day.the_date.day, locale: I18n.locale), class: "d-inline-block next-entry-link-text" do
                 %strong.text-primary
                   = t('days.from_date_onwards', date: l(day.the_date, format: :long))
             .entry-duration

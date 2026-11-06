@@ -119,7 +119,7 @@
         var locale = $('html').attr('lang') || 'en';
         
         // Navigate to calendar page with year and month
-        window.location.href = '/' + locale + '/days?year=' + year + '&month=' + month + '&day=' + day;
+        window.location.href = '/' + locale + '/my/days?year=' + year + '&month=' + month + '&day=' + day;
       });
 
       // CloudFront intentionally does not forward Trips query parameters to

@@ -33,7 +33,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session.delete(:current_person_id)
       clear_calculator_nationality_session
       set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
-      redirect_to visits_path
+      redirect_to calculator_visits_path
     elsif @user.errors.of_kind?(:email, :taken)
       session.delete('devise.facebook_data')
       redirect_to new_user_session_path, alert: t('devise.omniauth_callbacks.account_exists')

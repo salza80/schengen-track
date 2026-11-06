@@ -45,7 +45,7 @@ test('rotating cookies, headers, locales, endpoints and formats share the native
   });
   const requests = Array.from({ length: 121 }, (_, i) => handler(event({
     uri: ['/visits', '/ar/days', '/en/visits.csv', '/%64ays',
-      '/en//visits/', '/en/unused/../days', '/%65n/%76isits'][i % 7],
+      '/en//visits/', '/en/unused/../days', '/%65n/%76isits', '/en/my/visits', '/my/days'][i % 9],
     method: i % 2 ? 'HEAD' : 'GET',
     querystring: `year=${2026 + i % 20}`,
     headers: { cookie: [{ value: `_schengen_track_session=forged-${i}` }],

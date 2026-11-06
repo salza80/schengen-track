@@ -19,7 +19,7 @@ class CalculationLinksController < ApplicationController
     else
       establish_guest_session(result.user, result.person)
     end
-    redirect_to days_path(short_link_redirect_params(result.person)), status: :see_other
+    redirect_to private_days_path(short_link_redirect_params(result.person)), status: :see_other
   rescue AgentCalculations::Claim::TooLarge
     redirect_to root_path(locale: I18n.default_locale), alert: t('calculation_claim.too_large'), status: :see_other
   rescue AgentCalculations::Claim::Unavailable, ActiveRecord::RecordInvalid

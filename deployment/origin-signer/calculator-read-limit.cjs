@@ -19,7 +19,7 @@ exports.checkCalculatorReadLimit = async (request, region) => {
     if (segment === '..') segments.pop(); else segments.push(segment);
   }
   path = '/' + segments.join('/');
-  if (!/^\/(?:[^/]+\/)?(?:visits|days)(?:\.[^/]+)?\/?$/.test(path)) return null;
+  if (!/^\/(?:[^/]+\/)?(?:my\/)?(?:visits|days)(?:\.[^/]+)?\/?$/.test(path)) return null;
 
   // Origin metadata is distribution configuration, not a viewer header.
   const table = request.origin.custom.customHeaders?.['x-schengen-read-quota-table']?.[0]?.value;

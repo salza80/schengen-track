@@ -62,6 +62,41 @@ class AppTest(unittest.TestCase):
         self.assertIn("do not pass country names", schema["properties"]["trips"]["description"])
         self.assertEqual("^[A-Z]{2}$", schema["properties"]["trips"]["items"]["properties"]["country_code"]["pattern"])
 
+    def test_calculation_upstream_rejects_unapproved_origins_before_credentials_or_network(self):
+        for origin in (
+            "http://schengen-calculator.com", "http://127.0.0.1", "https://127.0.0.1",
+            "http://169.254.169.254", "https://[::1]", "https://localhost", "https://example.test",
+            "https://schengen-calculator.com.example.test", "https://user@schengen-calculator.com",
+            "https://schengen-calculator.com:8443", "https://schengen-calculator.com/other",
+            "https://schengen-calculator.com?target=private", "https://schengen-calculator.com#private",
+            "https://schengen-calculator.com\n", "",
+        ):
+            with self.subTest(origin=origin):
+                os.environ["SCHENGEN_API_BASE_URL"] = origin
+                with mock.patch.object(self.app, "http_request") as send, \
+                     mock.patch.object(self.app, "agent_auth_secret") as credential:
+                    result = self.app.post_calculation({})
+                self.assertEqual("error", result["status"])
+                self.assertEqual("ConfigurationError", result["error"]["type"])
+                send.assert_not_called()
+                credential.assert_not_called()
+
+    def test_calculation_upstream_accepts_only_deployed_origins_and_default(self):
+        production = "https://schengen-calculator.com"
+        staging = "https://test.schengen-calculator.com"
+        for configured, expected in ((None, production), (production, production), (staging, staging),
+                                     (staging + "/", staging)):
+            with self.subTest(configured=configured):
+                if configured is None:
+                    os.environ.pop("SCHENGEN_API_BASE_URL", None)
+                else:
+                    os.environ["SCHENGEN_API_BASE_URL"] = configured
+                reply = mock.MagicMock()
+                reply.__enter__.return_value.read.return_value = b'{"status":"safe"}'
+                with mock.patch.object(self.app, "http_request", return_value=reply) as send:
+                    self.assertEqual({"status": "safe"}, self.app.post_calculation({}))
+                self.assertEqual(expected + "/api/v1/calculations", send.call_args.args[0].full_url)
+
     def test_tools_list_tracks_ga_event_when_configured(self):
         os.environ["GA_MEASUREMENT_ID"] = "G-TEST"
         os.environ["GA_API_SECRET"] = "secret"
@@ -150,7 +185,7 @@ class AppTest(unittest.TestCase):
         self.assertEqual(1, parse.call_count)
 
     def test_create_schengen_calculation_posts_to_rails_api(self):
-        os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_API_BASE_URL"] = "https://test.schengen-calculator.com"
         os.environ["SCHENGEN_AGENT_AUTH_HEADER"] = "agent-secret"
         captured = {}
 
@@ -197,7 +232,7 @@ class AppTest(unittest.TestCase):
         self.assertIn("https://example.test/en/days", result)
         self.assertIn("France: 2026-01-01 to 2026-01-10, 10 days", result)
         self.assertIn('"web_url": "https://example.test/en/days"', result)
-        self.assertEqual("https://example.test/api/v1/calculations", captured["url"])
+        self.assertEqual("https://test.schengen-calculator.com/api/v1/calculations", captured["url"])
         self.assertEqual(10, captured["timeout"])
         self.assertEqual([], captured["body"]["visas"])
         self.assertEqual("mcp", captured["headers"]["x-schengen-agent-source"])
@@ -205,7 +240,7 @@ class AppTest(unittest.TestCase):
         self.assertTrue(captured["headers"]["x-schengen-agent-client-id"])
 
     def test_create_schengen_calculation_reads_agent_auth_from_ssm_parameter(self):
-        os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_API_BASE_URL"] = "https://test.schengen-calculator.com"
         os.environ["SCHENGEN_AGENT_AUTH_PARAM"] = "/scheng/test/schengen_agent_auth_header"
         captured = {}
 
@@ -250,7 +285,7 @@ class AppTest(unittest.TestCase):
         self.assertEqual("agent-secret-from-ssm", captured["headers"]["x-schengen-agent-auth"])
 
     def test_tool_call_forwards_original_mcp_client_id_to_rails(self):
-        os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_API_BASE_URL"] = "https://test.schengen-calculator.com"
         os.environ["SCHENGEN_AGENT_AUTH_HEADER"] = "agent-secret"
         captured = {}
 
@@ -377,7 +412,7 @@ class AppTest(unittest.TestCase):
         self.assertIn("too_many_trips", result)
 
     def test_create_schengen_calculation_tracks_ga_event_when_configured(self):
-        os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_API_BASE_URL"] = "https://test.schengen-calculator.com"
         os.environ["GA_MEASUREMENT_ID"] = "G-TEST"
         os.environ["GA_API_SECRET"] = "secret"
         ga_payloads = []
@@ -436,7 +471,7 @@ class AppTest(unittest.TestCase):
         self.assertEqual({"Name": "/scheng/test/ga_api_secret", "WithDecryption": True}, fake_client.request)
 
     def test_tools_call_returns_assistant_ready_text_without_json_string_escaping(self):
-        os.environ["SCHENGEN_API_BASE_URL"] = "https://example.test"
+        os.environ["SCHENGEN_API_BASE_URL"] = "https://test.schengen-calculator.com"
 
         class FakeResponse:
             def __enter__(self):

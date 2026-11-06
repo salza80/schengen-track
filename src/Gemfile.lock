@@ -1,21 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    action_text-trix (2.1.19)
-      railties
     actioncable (8.1.4.1)
       actionpack (= 8.1.4.1)
       activesupport (= 8.1.4.1)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
       zeitwerk (~> 2.6)
-    actionmailbox (8.1.4.1)
-      actionpack (= 8.1.4.1)
-      activejob (= 8.1.4.1)
-      activerecord (= 8.1.4.1)
-      activestorage (= 8.1.4.1)
-      activesupport (= 8.1.4.1)
-      mail (>= 2.8.0)
     actionmailer (8.1.4.1)
       actionpack (= 8.1.4.1)
       actionview (= 8.1.4.1)
@@ -33,14 +24,6 @@ GEM
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
       useragent (~> 0.16)
-    actiontext (8.1.4.1)
-      action_text-trix (~> 2.1.15)
-      actionpack (= 8.1.4.1)
-      activerecord (= 8.1.4.1)
-      activestorage (= 8.1.4.1)
-      activesupport (= 8.1.4.1)
-      globalid (>= 0.6.0)
-      nokogiri (>= 1.8.5)
     actionview (8.1.4.1)
       activesupport (= 8.1.4.1)
       builder (~> 3.1)
@@ -56,12 +39,6 @@ GEM
       activemodel (= 8.1.4.1)
       activesupport (= 8.1.4.1)
       timeout (>= 0.4.0)
-    activestorage (8.1.4.1)
-      actionpack (= 8.1.4.1)
-      activejob (= 8.1.4.1)
-      activerecord (= 8.1.4.1)
-      activesupport (= 8.1.4.1)
-      marcel (~> 1.0)
     activesupport (8.1.4.1)
       base64
       bigdecimal
@@ -219,7 +196,6 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.2.1)
     matrix (0.4.3)
     method_source (1.1.0)
     mini_mime (1.1.5)
@@ -304,20 +280,6 @@ GEM
       rack (>= 1.3)
     rackup (2.3.1)
       rack (>= 3)
-    rails (8.1.4.1)
-      actioncable (= 8.1.4.1)
-      actionmailbox (= 8.1.4.1)
-      actionmailer (= 8.1.4.1)
-      actionpack (= 8.1.4.1)
-      actiontext (= 8.1.4.1)
-      actionview (= 8.1.4.1)
-      activejob (= 8.1.4.1)
-      activemodel (= 8.1.4.1)
-      activerecord (= 8.1.4.1)
-      activestorage (= 8.1.4.1)
-      activesupport (= 8.1.4.1)
-      bundler (>= 1.15.0)
-      railties (= 8.1.4.1)
     rails-controller-testing (1.0.5)
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
@@ -422,6 +384,9 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actioncable (~> 8.1.4, >= 8.1.4.1)
+  actionmailer (~> 8.1.4, >= 8.1.4.1)
+  activerecord (~> 8.1.4, >= 8.1.4.1)
   autoprefixer-rails
   aws-sdk-ssm (~> 1)
   aws_lambda_ric (~> 3.1)
@@ -445,8 +410,8 @@ DEPENDENCIES
   pry
   puma (~> 8.0, >= 8.0.2)
   rack (~> 3.2, >= 3.2.8)
-  rails (~> 8.1.4, >= 8.1.4.1)
   rails-controller-testing
+  railties (~> 8.1.4, >= 8.1.4.1)
   selenium-webdriver
   terser
   uri (>= 0.13.3)

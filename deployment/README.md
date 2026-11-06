@@ -6,6 +6,11 @@ API Gateways, and CloudFront distribution.
 Rails Lambda images exclude the development and test Bundler groups during
 gem installation and at runtime.
 
+The MCP calculation upstream accepts only the production or staging HTTPS origin
+(`https://schengen-calculator.com` or `https://test.schengen-calculator.com`).
+`SCHENGEN_API_BASE_URL` selects one of those origins; unsupported values fail
+before reading the agent credential or making a request. Redirects are disabled.
+
 ## Prerequisites
 
 - Node.js (`.nvmrc` is provided)

@@ -24,12 +24,20 @@ class PasswordRecoveryAbuseTest < ActionDispatch::IntegrationTest
 
   test 'existing and unknown accounts have the same HTML and JSON confirmation' do
     recover(users(:Sally).email)
-    expected = [response.status, response.location, flash[:notice]]
+    expected = [response.status, response.location, flash[:notice], response.body]
     assert_emails(0) { recover('unknown-recovery@example.invalid') }
-    assert_equal expected, [response.status, response.location, flash[:notice]]
-    post user_password_path(locale: :en), params: { user: { email: users(:Sally).email } }, as: :json
+    assert_equal expected, [response.status, response.location, flash[:notice], response.body]
+    assert_emails 1 do
+      post user_password_path(locale: :en), params: { user: { email: users(:VisaRequiredUser).email } }, as: :json
+    end
     expected_json = [response.status, response.parsed_body]
-    post user_password_path(locale: :en), params: { user: { email: 'another-unknown@example.invalid' } }, as: :json
+    assert_emails 0 do
+      post user_password_path(locale: :en), params: { user: { email: 'another-unknown@example.invalid' } }, as: :json
+    end
+    assert_equal expected_json, [response.status, response.parsed_body]
+    assert_emails 0 do
+      post user_password_path(locale: :en), params: { user: { email: users(:VisaRequiredUser).email } }, as: :json
+    end
     assert_equal expected_json, [response.status, response.parsed_body]
     assert_response :accepted
   end

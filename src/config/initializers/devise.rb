@@ -14,7 +14,6 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '7a03f2264f5a97dd4689e4eaa5bb6030a990ab2d25a89b2642525c5065e80ef4dc4a3888bc9bbb3276854db54705cb98b26cf7aeb1ea141578434d09fc151384'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -90,7 +89,7 @@ Devise.setup do |config|
   # It will change confirmation, password recovery and other workflows
   # to behave the same regardless if the e-mail provided was right or wrong.
   # Does not affect registerable.
-  # config.paranoid = true
+  config.paranoid = true
 
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.

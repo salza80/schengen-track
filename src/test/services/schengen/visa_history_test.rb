@@ -2,6 +2,51 @@ require 'test_helper'
 
 module Schengen
   class VisaHistoryTest < ActiveSupport::TestCase
+    test 'same-day border records preserve each visit count when the last stop is outside Schengen' do
+      person = people(:sally_person)
+      person.update!(nationality: countries(:India))
+      person.visits.delete_all
+      person.visas.delete_all
+      person.visas.create!(visa_type: 'S', no_entries: 2, start_date: '2027-01-01', end_date: '2027-12-31')
+      records = [:Germany, :Croatia, :Australia].map do |country|
+        person.visits.create!(country: countries(country), entry_date: '2027-06-01', exit_date: '2027-06-01')
+      end
+      history = VisaHistory.new(person)
+      records.each { |visit| assert_equal visit.visa_entry_count, history.entry_count_for(visit) }
+    end
+
+    test 'duplicate one-day visas use deterministic ID precedence in model and snapshot' do
+      person = people(:sally_person)
+      person.update!(nationality: countries(:India))
+      person.visas.delete_all
+      attributes = { visa_type: 'S', no_entries: 1, start_date: '2027-06-01', end_date: '2027-06-01' }
+      person.visas.create!(attributes)
+      expected = person.visas.create!(attributes.merge(no_entries: 2))
+      visit = person.visits.create!(country: countries(:Germany), entry_date: '2027-06-01', exit_date: '2027-06-01')
+      assert_equal expected, visit.schengen_visa
+      assert_equal expected, VisaHistory.new(person).visa_for_date(visit.entry_date)
+    end
+
+    test 'indexed same-day counts match the model for every four-stop border pattern' do
+      person = people(:sally_person)
+      person.update!(nationality: countries(:India))
+      person.visas.delete_all
+      person.visas.create!(visa_type: 'S', no_entries: 0, start_date: '2027-01-01', end_date: '2027-12-31')
+      [:Germany, :Australia].each do |previous_country|
+        [:Germany, :Australia].repeated_permutation(4) do |pattern|
+          person.visits.delete_all
+          person.visits.create!(country: countries(previous_country), entry_date: '2027-05-31', exit_date: '2027-05-31')
+          records = pattern.map do |country|
+            person.visits.create!(country: countries(country), entry_date: '2027-06-01', exit_date: '2027-06-01')
+          end
+          history = VisaHistory.new(person)
+          records.each do |visit|
+            assert_equal visit.visa_entry_count, history.entry_count_for(visit), "#{previous_country}: #{pattern.inspect}"
+          end
+        end
+      end
+    end
+
     test 'indexed visit counts match standalone calculations including absent visas' do
       person = people(:visa_required_person)
       history = VisaHistory.new(person)

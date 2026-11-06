@@ -7,7 +7,7 @@ class Visit < ApplicationRecord
   validate :dates_must_not_overlap
   validate :dates_must_be_within_reasonable_range
   
-  default_scope { order('entry_date ASC, exit_date ASC') }
+  default_scope { order('entry_date ASC, exit_date ASC, id ASC') }
 
   # initialise a new visit
 
@@ -81,12 +81,12 @@ class Visit < ApplicationRecord
     visa = schengen_visa
     return Visit.none unless visa
 
-    previous_visits.where(entry_date: visa.start_date..visa.end_date).where(<<~SQL.squish, start: visa.start_date, finish: visa.end_date)
+    previous_visits.where(entry_date: visa.start_date..visa.end_date).where(<<~SQL.squish, start: visa.start_date, finish: visa.end_date, visa_id: visa.id)
       NOT EXISTS (
         SELECT 1 FROM visas AS later_visa
         WHERE later_visa.person_id = visits.person_id AND later_visa.visa_type = 'S'
           AND later_visa.start_date <= visits.entry_date AND later_visa.end_date >= visits.entry_date
-          AND (later_visa.start_date, later_visa.end_date) > (:start, :finish)
+          AND (later_visa.start_date, later_visa.end_date, later_visa.id) > (:start, :finish, :visa_id)
       )
     SQL
   end

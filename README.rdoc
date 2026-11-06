@@ -245,7 +245,9 @@ and retained visits/countries once, computes entry counts once per visit and
 reuses them in row rendering and CSV. Calendar counts use indexed entry timelines
 and direct date lookups, preserving retained visa history without repeated
 database queries or day-array copies. Visa boundary precedence matches the
-latest applicable visa in the model. Do not cache derived visa state on persistent
+latest applicable visa in the model, with record ID breaking exact date ties.
+Same-day border groups preserve each visit's entry count in a linear pass.
+Do not cache derived visa state on persistent
 model instances. Day generation is bounded in days to the supported 40-year
 window plus the 190-day forecast; oversized direct-service spans raise an error.
 

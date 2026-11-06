@@ -40,7 +40,7 @@ module Schengen
 
     def visas
       @visas ||= begin
-        records = @person.visas.schengen.to_a
+        records = @person.visas.schengen.order(:id).to_a
         maximum = nil
         @maximum_end_dates = records.map do |visa|
           maximum = [maximum, visa.end_date].compact.max
@@ -53,7 +53,8 @@ module Schengen
       return if @visit_entries
 
       @visit_entries, @day_entries = {}, {}
-      previous, previous_schengen, counts, day_counts = {}, {}, Hash.new(0), Hash.new(0)
+      records_by_visa = Hash.new { |hash, key| hash[key] = [] }
+      previous_schengen, day_counts = {}, Hash.new(0)
       @person.visits.includes(:country).each do |visit|
         visa = visa_for_date(visit.entry_date)
         unless visa
@@ -61,12 +62,7 @@ module Schengen
           next
         end
         key = visa.id
-        prior = previous[key]
-        if visit.schengen? && (!prior || !prior.schengen? || visit.entry_date - prior.exit_date > 1)
-          counts[key] += 1
-        end
-        @visit_entries[visit.id] = counts[key]
-        previous[key] = visit
+        records_by_visa[key] << visit
 
         next unless visit.schengen?
 
@@ -75,6 +71,36 @@ module Schengen
         (@day_entries[key] ||= []) << [visit.entry_date, day_counts[key]]
         previous_schengen[key] = visit
       end
+
+      records_by_visa.each_value { |records| build_visit_entries(records) }
+    end
+
+    def build_visit_entries(records)
+      count, previous = 0, nil
+      records.chunk(&:entry_date).each do |_date, group|
+        before_group = previous
+        group.each do |visit|
+          count += entry_contribution(visit, previous)
+          previous = visit
+        end
+        # The model includes every other record on the current entry date,
+        # then appends the current visit. Adjust just its two neighbors rather
+        # than rescanning the group for every same-day border record.
+        group.each_with_index do |visit, index|
+          prior = index.zero? ? before_group : group[index - 1]
+          following = group[index + 1]
+          without = count - entry_contribution(visit, prior)
+          without += entry_contribution(following, prior) - entry_contribution(following, visit) if following
+          last_other = index == group.length - 1 ? prior : group.last
+          @visit_entries[visit.id] = without + entry_contribution(visit, last_other)
+        end
+      end
+    end
+
+    def entry_contribution(visit, previous)
+      return 0 unless visit&.schengen?
+
+      !previous || !previous.schengen? || visit.entry_date - previous.exit_date > 1 ? 1 : 0
     end
   end
 end

@@ -6,12 +6,6 @@
          <%=t('log_in_page.forgot_password') %>
         </h3>
       </div>
-      <div class="col-md-7">
-        <div class="d-flex float-end">
-          <%= image_tag("facebook_icon.png", alt: "Facebook", class: "me-2") %>
-          <%= button_to t('log_in_page.log_in_with_facebook'), user_facebook_omniauth_authorize_path(display: 'page'), class: "btn btn-link", data: { turbo: false } %>
-        </div>
-      </div>
     </div>
     <%= form_for(resource, as: resource_name, url: user_password_path(locale: I18n.locale), html: { method: :post }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>

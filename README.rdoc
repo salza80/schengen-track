@@ -175,6 +175,13 @@ causes delivery to fail. If prior plaintext exposure is suspected, rotate the
 SMTP credential and invalidate outstanding recovery tokens as part of the
 incident response.
 
+Password recovery uses its own layout without analytics, advertising, social
+SDKs, or JavaScript. Recovery responses, including validation errors and
+redirects, send <tt>Referrer-Policy: no-referrer</tt> and private/no-store
+caching. Their content policy permits only local styles, fonts, images, and
+form submissions. Keep third-party resources out of this layout so recovery
+tokens cannot reach them through referrers or page scripts.
+
 
 == Deployment
 

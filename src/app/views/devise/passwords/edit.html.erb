@@ -2,13 +2,7 @@
   <div class="card-body">
     <div class="row card-title">
       <div class="col-md-5">
-        <h3>Change your password</h3>
-      </div>
-      <div class="col-md-7">
-        <div class="d-flex float-end">
-          <%= image_tag("facebook_icon.png", alt: "Facebook", class: "me-2") %>
-          <%= button_to "Log in with Facebook", user_facebook_omniauth_authorize_path(display: 'page'), class: "btn btn-link", data: { turbo: false } %>
-        </div>
+        <h3><%= t('devise.passwords.edit.change_your_password') %></h3>
       </div>
     </div>
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
@@ -16,14 +10,14 @@
       <%= f.hidden_field :reset_password_token %>
 
       <div class="mb-3 row">
-        <%= f.label :password, "New password", class: "col-sm-2 col-form-label" %>
+        <%= f.label :password, t('devise.passwords.edit.new_password'), class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control" %>
         </div>
       </div>
 
       <div class="mb-3 row">
-        <%= f.label :password_confirmation, "Confirm new password", class: "col-sm-2 col-form-label" %>
+        <%= f.label :password_confirmation, t('devise.passwords.edit.confirm_new_password'), class: "col-sm-2 col-form-label" %>
         <div class="col-sm-10">
           <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
         </div>
@@ -31,14 +25,12 @@
 
       <div class="mb-3 row">
         <div class="col-sm-12">
-          <%= f.submit "Change my password", class: "btn btn-primary form-btn float-end" %>
+          <%= f.submit t('devise.passwords.edit.change_my_password'), class: "btn btn-primary form-btn float-end" %>
         </div>
       </div>
     <% end %>
   </div>
   <div class="card-footer">
-    <%= link_to "Log in", new_session_path(resource_name) %><br />
+    <%= link_to t('common.login'), new_session_path(resource_name) %><br />
   </div>
 </div>
-
-# <%= render "devise/shared/links" %>

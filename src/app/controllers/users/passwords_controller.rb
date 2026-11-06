@@ -1,32 +1,20 @@
 class Users::PasswordsController < Devise::PasswordsController
-  # GET /resource/password/new
-  # def new
-  #   super
-  # end
+  layout 'password_recovery'
+  # Native forms on a no-referrer page send Origin: null in Chrome. Require
+  # Rails' session-bound CSRF token while allowing that privacy-preserving form.
+  self.forgery_protection_origin_check = false
+  prepend_before_action :protect_recovery_response
 
-  # POST /resource/password
-  # def create
-  #   super
-  # end
+  private
 
-  # GET /resource/password/edit?reset_password_token=abcdef
-  # def edit
-  #   super
-  # end
-
-  # PUT /resource/password
-  # def update
-  #   super
-  # end
-
-  # protected
-
-  # def after_resetting_password_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sending reset password instructions
-  # def after_sending_reset_password_instructions_path_for(resource_name)
-  #   super(resource_name)
-  # end
+  def protect_recovery_response
+    # Cover redirects and failed submissions as well as the token-bearing page.
+    response.headers['Referrer-Policy'] = 'no-referrer'
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['Content-Security-Policy'] = [
+      "default-src 'none'", "style-src 'self'", "font-src 'self'",
+      "img-src 'self'", "form-action 'self'", "base-uri 'none'",
+      "frame-ancestors 'none'"
+    ].join('; ')
+  end
 end

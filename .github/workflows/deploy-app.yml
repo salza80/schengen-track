@@ -182,6 +182,18 @@ jobs:
           INVALIDATION_ID: ${{ steps.cloudfront_invalidation.outputs.invalidationId }}
         run: aws cloudfront wait invalidation-completed --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --id "$INVALIDATION_ID"
 
+      - name: Wait for signed origin requests
+        env:
+          SMOKE_BASE_URL: ${{ inputs.smoke_base_url }}
+        run: |
+          set -euo pipefail
+          for path in / /en/users/password/new; do
+            status=$(curl --silent --show-error --fail --proto '=https' \
+              --retry 20 --retry-delay 10 --retry-max-time 300 --retry-all-errors --max-time 15 \
+              --output /dev/null --write-out '%{http_code}' "$SMOKE_BASE_URL$path")
+            test "$status" = 200
+          done
+
       - name: Run deployed smoke tests
         env:
           SMOKE_BASE_URL: ${{ inputs.smoke_base_url }}

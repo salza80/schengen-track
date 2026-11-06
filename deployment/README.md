@@ -130,7 +130,10 @@ existing readiness and CloudFront smoke checks. Staging and production remain
 separate deployments; merging a PR deploys staging only. The first cutover
 updates API authorization, application enforcement and CloudFront in one stack
 update; uncached requests can temporarily receive 403 while it propagates.
-Validate staging before scheduling that production change.
+After invalidation, the workflow waits up to five minutes per public/private
+probe for successful signed origin requests before running the full smoke
+suite. Persistent failures still fail the release. Validate staging before
+scheduling that production change.
 
 ## CDK commands
 

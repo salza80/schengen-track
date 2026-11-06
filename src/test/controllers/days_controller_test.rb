@@ -55,7 +55,7 @@ class DaysControllerTest < ActionController::TestCase
 
     get :index, params: { locale: 'en', guest_calculation: 'invalid-token' }
 
-    assert_response :success
+    assert_redirected_to calculation_link_path('invalid-token')
     assert_nil assigns(:scroll_to_day)
   end
 

@@ -402,8 +402,8 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
   test 'invalid calculation links show their alert on the public page' do
     visit '/calculations/invalid-token'
-    assert_selector '#public-notices', text: 'Calculation link is invalid or has expired.'
-    assert_includes page.text, 'Calculation link is invalid or has expired.'
+    assert_selector '#public-notices', text: I18n.t('calculation_claim.invalid', locale: :en)
+    assert_includes page.text, I18n.t('calculation_claim.invalid', locale: :en)
   end
 
   test 'anonymous calculator navigation keeps the generic header' do

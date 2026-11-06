@@ -22,12 +22,24 @@ class AppTest(unittest.TestCase):
         os.environ.pop("SCHENGEN_AGENT_AUTH_PARAM", None)
         os.environ.pop("CLOUDFRONT_ORIGIN_AUTH_HEADER", None)
         os.environ.pop("CLOUDFRONT_ORIGIN_AUTH_PARAM", None)
+        os.environ.pop("CLOUDFRONT_SIGNER_ROLE_ARN", None)
         os.environ.pop("SCHENGEN_MCP_MAX_REQUEST_BYTES", None)
         os.environ.pop("SCHENGEN_MCP_UPSTREAM_TIMEOUT_SECONDS", None)
         os.environ.pop("GA_MEASUREMENT_ID", None)
         os.environ.pop("GA_API_SECRET", None)
         os.environ.pop("GA_API_SECRET_PARAM", None)
         self.app = importlib.reload(app)
+
+    def test_outbound_requests_never_follow_redirects(self):
+        handler = self.app.NoRedirect()
+        for status in (301, 302, 303, 307, 308):
+            self.assertIsNone(handler.redirect_request(None, None, status, "redirect", {}, "http://169.254.169.254/"))
+        fake = mock.Mock()
+        with mock.patch.object(self.app.urllib.request, "build_opener", return_value=fake) as build:
+            request = urllib.request.Request("https://example.invalid")
+            self.app.http_request(request, timeout=10)
+            self.assertIsInstance(build.call_args.args[0], self.app.NoRedirect)
+            fake.open.assert_called_once_with(request, timeout=10)
 
     def test_tools_list_exposes_create_calculation(self):
         response = self.app.lambda_handler(json_rpc_event("tools/list", {}), None)
@@ -69,7 +81,7 @@ class AppTest(unittest.TestCase):
             headers={"User-Agent": "ExampleAgent/1.0", "X-Forwarded-For": "203.0.113.7"},
             source_ip="198.51.100.9",
         )
-        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+        with mock.patch.object(self.app, "http_request", fake_urlopen):
             response = self.app.lambda_handler(event, None)
             self.app.lambda_handler(event, None)
 
@@ -108,7 +120,7 @@ class AppTest(unittest.TestCase):
             ga_payloads.append(json.loads(request.data.decode("utf-8")))
             return FakeGaResponse()
 
-        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+        with mock.patch.object(self.app, "http_request", fake_urlopen):
             result = self.app.list_supported_countries()
 
         countries = json.loads(result)["countries"]
@@ -174,7 +186,7 @@ class AppTest(unittest.TestCase):
             captured["headers"] = {key.lower(): value for key, value in request.header_items()}
             return FakeResponse()
 
-        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+        with mock.patch.object(self.app, "http_request", fake_urlopen):
             result = self.app.create_schengen_calculation(
                 user={"first_name": "Sam", "nationality": "US"},
                 trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
@@ -225,7 +237,7 @@ class AppTest(unittest.TestCase):
             return FakeResponse()
 
         with mock.patch.dict(sys.modules, {"boto3": fake_boto3}):
-            with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+            with mock.patch.object(self.app, "http_request", fake_urlopen):
                 self.app.create_schengen_calculation(
                     user={"first_name": "Sam", "nationality": "US"},
                     trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
@@ -274,7 +286,7 @@ class AppTest(unittest.TestCase):
             source_ip="198.51.100.9",
         )
 
-        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+        with mock.patch.object(self.app, "http_request", fake_urlopen):
             response = self.app.lambda_handler(event, None)
 
         self.assertEqual(200, response["statusCode"])
@@ -306,66 +318,28 @@ class AppTest(unittest.TestCase):
 
         self.assertEqual(self.app.client_id_for_event(event_one), self.app.client_id_for_event(event_two))
 
-    def test_client_id_uses_cloudfront_viewer_ip_only_with_origin_auth(self):
-        os.environ["CLOUDFRONT_ORIGIN_AUTH_HEADER"] = "origin-secret"
-        trusted_event = json_rpc_event(
-            "tools/list",
-            {},
-            headers={
-                "X-Schengen-Origin-Auth": "origin-secret",
-                "X-Schengen-Client-Ip": "203.0.113.7",
-                "X-Forwarded-For": "198.51.100.8",
-            },
-            source_ip="198.51.100.9",
-        )
-        untrusted_event = json_rpc_event(
-            "tools/list",
-            {},
-            headers={
-                "X-Schengen-Origin-Auth": "wrong-secret",
-                "X-Schengen-Client-Ip": "203.0.113.7",
-                "X-Forwarded-For": "198.51.100.8",
-            },
-            source_ip="198.51.100.9",
-        )
-
-        self.assertNotEqual(self.app.client_id_for_event(trusted_event), self.app.client_id_for_event(untrusted_event))
-        self.assertEqual(
-            self.app.client_id_for_event(untrusted_event),
-            self.app.client_id_for_event(json_rpc_event("tools/list", {}, source_ip="198.51.100.9")),
-        )
-
-    def test_client_id_reads_cloudfront_origin_auth_from_ssm_parameter(self):
-        os.environ["CLOUDFRONT_ORIGIN_AUTH_PARAM"] = "/scheng/test/cloudfront_origin_auth_header"
-
-        class FakeSsmClient:
-            def get_parameter(self, Name, WithDecryption):
-                self.request = {"Name": Name, "WithDecryption": WithDecryption}
-                return {"Parameter": {"Value": "origin-secret-from-ssm"}}
-
-        fake_client = FakeSsmClient()
-        fake_boto3 = types.SimpleNamespace(client=lambda service: fake_client)
-        event = json_rpc_event(
-            "tools/list",
-            {},
-            headers={
-                "X-Schengen-Origin-Auth": "origin-secret-from-ssm",
-                "X-Schengen-Client-Ip": "203.0.113.7",
-            },
-            source_ip="198.51.100.9",
-        )
-
-        with mock.patch.dict(sys.modules, {"boto3": fake_boto3}):
-            client_id = self.app.client_id_for_event(event)
-
-        self.assertEqual(
-            {"Name": "/scheng/test/cloudfront_origin_auth_header", "WithDecryption": True},
-            fake_client.request,
-        )
-        self.assertEqual(
-            hashlib.sha256("cloudfront:203.0.113.7".encode("utf-8")).hexdigest()[:32],
-            client_id,
-        )
+    def test_viewer_identity_requires_exact_verified_signer_role_not_bearer(self):
+        os.environ["CLOUDFRONT_SIGNER_ROLE_ARN"] = "arn:aws:iam::123456789012:role/OriginSigner"
+        event = json_rpc_event("tools/list", {}, headers={
+            "X-Schengen-Origin-Auth": "old-secret", "X-Schengen-Client-Ip": "203.0.113.7"
+        }, source_ip="198.51.100.9")
+        untrusted_id = self.app.client_id_for_event(event)
+        with mock.patch.object(self.app.mcp, "handle_request") as handle:
+            self.assertEqual(403, self.app.lambda_handler(event, None)["statusCode"])
+            handle.assert_not_called()
+        for arn in ["arn:aws:sts::123456789012:assumed-role/OtherRole/session",
+                    "arn:aws:sts::999999999999:assumed-role/OriginSigner/session",
+                    "arn:aws:sts::123456789012:assumed-role/OriginSignerExtra/session"]:
+            event["requestContext"]["authorizer"] = {"iam": {"userArn": arn}}
+            self.assertEqual(untrusted_id, self.app.client_id_for_event(event))
+            self.assertEqual(403, self.app.lambda_handler(event, None)["statusCode"])
+        event["requestContext"]["authorizer"] = {"iam": {
+            "userArn": "arn:aws:sts::123456789012:assumed-role/OriginSigner/session"}}
+        self.assertEqual(hashlib.sha256(b"cloudfront:203.0.113.7").hexdigest()[:32],
+                         self.app.client_id_for_event(event))
+        self.assertEqual(200, self.app.lambda_handler(event, None)["statusCode"])
+        event["headers"]["X-Schengen-Client-Ip"] = "bad,203.0.113.7"
+        self.assertEqual(untrusted_id, self.app.client_id_for_event(event))
 
     def test_lambda_handler_rejects_large_mcp_request_before_parsing(self):
         os.environ["SCHENGEN_MCP_MAX_REQUEST_BYTES"] = "10"
@@ -392,7 +366,7 @@ class AppTest(unittest.TestCase):
                 fp=Body(b'{"error":{"code":"too_many_trips","limit":50}}'),
             )
 
-        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+        with mock.patch.object(self.app, "http_request", fake_urlopen):
             result = self.app.create_schengen_calculation(
                 user={"first_name": "Sam", "nationality": "US"},
                 trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
@@ -433,7 +407,7 @@ class AppTest(unittest.TestCase):
                 return FakeGaResponse()
             return FakeApiResponse()
 
-        with mock.patch.object(self.app.urllib.request, "urlopen", fake_urlopen):
+        with mock.patch.object(self.app, "http_request", fake_urlopen):
             self.app.create_schengen_calculation(
                 user={"first_name": "Sam", "nationality": "US"},
                 trips=[{"country_code": "FR", "entry_date": "2026-01-01", "exit_date": "2026-01-10"}],
@@ -481,7 +455,7 @@ class AppTest(unittest.TestCase):
                     "trips": [],
                 }).encode("utf-8")
 
-        with mock.patch.object(self.app.urllib.request, "urlopen", lambda _request, timeout: FakeResponse()):
+        with mock.patch.object(self.app, "http_request", lambda _request, timeout: FakeResponse()):
             response = self.app.lambda_handler(
                 json_rpc_event(
                     "tools/call",

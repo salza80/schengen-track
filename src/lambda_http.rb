@@ -2,32 +2,29 @@ require 'json'
 require 'rack'
 require 'base64'
 require 'stringio'
+require 'ipaddr'
 
 $app ||= Rack::Builder.parse_file("#{__dir__}/config.ru")
 
 RELATIVE_URL_ROOT = ENV['RAILS_RELATIVE_URL_ROOT']
 
-def client_ip_from(http, request_headers)
-  if trusted_cloudfront_request?(request_headers)
-    cloudfront_client_ip = request_headers['x-schengen-client-ip'] || request_headers['X-Schengen-Client-Ip']
-    return cloudfront_client_ip.strip unless cloudfront_client_ip.to_s.strip.empty?
+def trusted_cloudfront_request?(request_context)
+  role = ENV['CLOUDFRONT_SIGNER_ROLE_ARN'].to_s
+  return false unless role.match?(%r{\Aarn:aws:iam::[0-9]{12}:role/[A-Za-z0-9+=,.@_-]+\z})
 
-    forwarded_for = request_headers['x-forwarded-for'] || request_headers['X-Forwarded-For']
-    forwarded_ip = forwarded_for.to_s.split(',').map(&:strip).find { |value| !value.empty? }
-    return forwarded_ip if forwarded_ip
-  end
-
-  http['sourceIp']
+  prefix = role.sub(':iam:', ':sts:').sub(':role/', ':assumed-role/') + '/'
+  caller = request_context.dig('authorizer', 'iam', 'userArn').to_s
+  caller.start_with?(prefix) && caller.delete_prefix(prefix).match?(%r{\A[^/]+\z})
 end
 
-def trusted_cloudfront_request?(request_headers)
-  expected = AppConfig.cloudfront_origin_auth_header
-  return false if expected.to_s.empty?
-
-  provided = (request_headers['x-schengen-origin-auth'] || request_headers['X-Schengen-Origin-Auth']).to_s
-  return false if provided.empty? || provided.bytesize != expected.bytesize
-
-  Rack::Utils.secure_compare(provided, expected)
+def client_ip_from(request_context, request_headers)
+  if trusted_cloudfront_request?(request_context)
+    ip = request_headers['x-schengen-client-ip'].to_s
+    return IPAddr.new(ip).to_s unless ip.empty?
+  end
+  request_context.fetch('http')['sourceIp']
+rescue IPAddr::InvalidAddressError
+  request_context.fetch('http')['sourceIp']
 end
 
 # Buffer Rack's enumerable responses for API Gateway HTTP API payload v2.
@@ -94,6 +91,9 @@ def handler(event:, context:)
   # Retrieve HTTP request parameters conforming to Lambda proxy integration input format 2.0 of AWS API Gateway HTTP API
   # https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html#http-api-develop-integrations-lambda.proxy-format
   requestContext = event.fetch('requestContext')
+  if (ENV['AWS_LAMBDA_FUNCTION_NAME'] || ENV['CLOUDFRONT_SIGNER_ROLE_ARN']) && !trusted_cloudfront_request?(requestContext)
+    return { 'statusCode' => 403, 'headers' => { 'cache-control' => 'private, no-store' }, 'body' => 'Forbidden' }
+  end
   http = requestContext.fetch('http')
   httpMethod = http.fetch('method')
   protocol = http['protocol'] || 'HTTP/1.1'
@@ -134,7 +134,7 @@ def handler(event:, context:)
   host = requestHeaders['x-forwarded-host'] || requestHeaders.fetch('host')
   port = requestHeaders.fetch('x-forwarded-port')
   scheme = requestHeaders['cloudfront-forwarded-proto'] || requestHeaders.fetch('x-forwarded-proto')
-  client_ip = client_ip_from(http, requestHeaders)
+  client_ip = client_ip_from(requestContext, requestHeaders)
 
   requestBody = event['body'] || ''
   if event['isBase64Encoded']

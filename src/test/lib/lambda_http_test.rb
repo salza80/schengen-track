@@ -174,60 +174,43 @@ class LambdaHttpTest < ActiveSupport::TestCase
     assert_equal '3.1.0', JSON.parse(response['body']).fetch('openapi')
   end
 
-  test 'client ip prefers CloudFront viewer header over forwarded chain' do
-    http = { 'sourceIp' => '198.51.100.10' }
-    headers = {
-      'x-schengen-origin-auth' => 'cloudfront-secret',
-      'x-schengen-client-ip' => '203.0.113.42',
-      'x-forwarded-for' => '192.0.2.99, 203.0.113.42, 198.51.100.10'
-    }
-
-    with_cloudfront_origin_auth('cloudfront-secret') do
-      assert_equal '203.0.113.42', client_ip_from(http, headers)
+  test 'viewer identity requires the exact IAM signer role, never the old bearer' do
+    with_signer_role do
+      headers = { 'x-schengen-client-ip' => '203.0.113.42',
+                  'x-forwarded-for' => '192.0.2.99', 'x-schengen-origin-auth' => 'old-secret' }
+      context = signer_context
+      assert_equal '203.0.113.42', client_ip_from(context, headers)
+      [nil, 'arn:aws:sts::123456789012:assumed-role/OtherRole/session',
+       'arn:aws:sts::999999999999:assumed-role/OriginSigner/session',
+       'arn:aws:sts::123456789012:assumed-role/OriginSignerExtra/session',
+       'arn:aws:iam::123456789012:role/OriginSigner'].each do |caller|
+        context['authorizer']['iam']['userArn'] = caller
+        assert_equal '198.51.100.10', client_ip_from(context, headers)
+      end
     end
   end
 
-  test 'client ip uses first forwarded address from authenticated CloudFront chain' do
-    http = { 'sourceIp' => '198.51.100.10' }
-    headers = {
-      'x-schengen-origin-auth' => 'cloudfront-secret',
-      'x-forwarded-for' => '203.0.113.42, 198.51.100.10'
-    }
-
-    with_cloudfront_origin_auth('cloudfront-secret') do
-      assert_equal '203.0.113.42', client_ip_from(http, headers)
+  test 'verified signer never falls back to a viewer supplied forwarded chain' do
+    with_signer_role do
+      assert_equal '198.51.100.10', client_ip_from(signer_context, 'x-forwarded-for' => '192.0.2.99')
+      assert_equal '198.51.100.10', client_ip_from(signer_context, 'x-schengen-client-ip' => 'bad,203.0.113.1')
     end
   end
 
-  test 'client ip ignores spoofed CloudFront headers without origin auth' do
-    http = { 'sourceIp' => '198.51.100.10' }
-    headers = {
-      'x-schengen-client-ip' => '203.0.113.42',
-      'x-forwarded-for' => '203.0.113.42, 198.51.100.10'
-    }
-
-    with_cloudfront_origin_auth('cloudfront-secret') do
-      assert_equal '198.51.100.10', client_ip_from(http, headers)
+  test 'origin rejection precedes static files and application work' do
+    with_signer_role do
+      ['/openapi.json', '/en/visits'].each do |path|
+        event = lambda_event(path)
+        event['headers']['x-schengen-origin-auth'] = 'old-secret'
+        event['headers']['x-schengen-client-ip'] = '203.0.113.42'
+        result = handler(event: event, context: lambda_context)
+        assert_equal 403, result['statusCode']
+        assert_equal 'private, no-store', result['headers']['cache-control']
+      end
+      event = lambda_event('/openapi.json')
+      event['requestContext']['authorizer'] = signer_context['authorizer']
+      assert_equal 200, handler(event: event, context: lambda_context)['statusCode']
     end
-  end
-
-  test 'client ip ignores CloudFront headers with mismatched origin auth' do
-    http = { 'sourceIp' => '198.51.100.10' }
-    headers = {
-      'x-schengen-origin-auth' => 'wrong-secret',
-      'x-schengen-client-ip' => '203.0.113.42',
-      'x-forwarded-for' => '203.0.113.42, 198.51.100.10'
-    }
-
-    with_cloudfront_origin_auth('cloudfront-secret') do
-      assert_equal '198.51.100.10', client_ip_from(http, headers)
-    end
-  end
-
-  test 'client ip falls back to API Gateway source ip' do
-    http = { 'sourceIp' => '198.51.100.10' }
-
-    assert_equal '198.51.100.10', client_ip_from(http, {})
   end
 
   private
@@ -273,15 +256,16 @@ class LambdaHttpTest < ActiveSupport::TestCase
     handler(event: lambda_event(path), context: lambda_context)
   end
 
-  def with_cloudfront_origin_auth(secret)
-    original = ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER']
-    ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = secret
+  def signer_context
+    { 'http' => { 'sourceIp' => '198.51.100.10' },
+      'authorizer' => { 'iam' => { 'userArn' => 'arn:aws:sts::123456789012:assumed-role/OriginSigner/session' } } }
+  end
+
+  def with_signer_role
+    original = ENV['CLOUDFRONT_SIGNER_ROLE_ARN']
+    ENV['CLOUDFRONT_SIGNER_ROLE_ARN'] = 'arn:aws:iam::123456789012:role/OriginSigner'
     yield
   ensure
-    if original.nil?
-      ENV.delete('CLOUDFRONT_ORIGIN_AUTH_HEADER')
-    else
-      ENV['CLOUDFRONT_ORIGIN_AUTH_HEADER'] = original
-    end
+    original.nil? ? ENV.delete('CLOUDFRONT_SIGNER_ROLE_ARN') : ENV['CLOUDFRONT_SIGNER_ROLE_ARN'] = original
   end
 end

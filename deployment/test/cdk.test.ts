@@ -26,6 +26,30 @@ const viewerRequest = (uri: string, querystring: any = {}, host = 'example.com')
   viewer: { ip: '192.0.2.1' }
 });
 
+test('all origin paths require IAM signatures from the dedicated edge role', () => {
+  const routes = Object.values(resources).filter((r: any) => r.Type === 'AWS::ApiGatewayV2::Route') as any[];
+  expect(routes).toHaveLength(2);
+  for (const route of routes) expect(route.Properties.AuthorizationType).toBe('AWS_IAM');
+  for (const b of [config.DefaultCacheBehavior, ...config.CacheBehaviors]) {
+    expect(b.LambdaFunctionAssociations).toHaveLength(1);
+    expect(b.LambdaFunctionAssociations[0]).toEqual(expect.objectContaining({ EventType: 'origin-request', IncludeBody: true }));
+  }
+  for (const origin of config.Origins) expect(origin.OriginCustomHeaders).toBeUndefined();
+  const httpFunctions = Object.entries(resources).filter(([id]) =>
+    id.includes('HttpApiFunction') || id.includes('HttpMcpFunction')).map(([, r]: any) => r)
+    .filter((r: any) => r.Type === 'AWS::Lambda::Function');
+  expect(httpFunctions).toHaveLength(2);
+  for (const fn of httpFunctions) {
+    expect(fn.Properties.Environment.Variables.CLOUDFRONT_ORIGIN_AUTH_PARAM).toBeUndefined();
+    expect(JSON.stringify(fn.Properties.Environment.Variables.CLOUDFRONT_SIGNER_ROLE_ARN)).toContain(':role/SchengenOrigin-');
+  }
+  const policy: any = Object.values(resources).find((r: any) => r.Type === 'AWS::IAM::Policy' &&
+    r.Properties.PolicyDocument.Statement.some((s: any) => s.Action === 'execute-api:Invoke'));
+  expect(policy.Properties.PolicyDocument.Statement).toHaveLength(1);
+  expect(policy.Properties.PolicyDocument.Statement[0].Resource).toHaveLength(2);
+  expect(JSON.stringify(policy.Properties.PolicyDocument.Statement)).not.toContain('cloudfront_origin_auth_header');
+});
+
 test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', () => {
   const functions = Object.entries(resources).filter(([, resource]: [string, any]) =>
     resource.Type === 'AWS::Lambda::Function') as [string, any][];

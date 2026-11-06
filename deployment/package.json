@@ -5,10 +5,11 @@
     "cdk": "bin/cdk.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:edge && tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "build:edge": "esbuild origin-signer/index.cjs --bundle --platform=node --target=node24 --outfile=origin-signer/dist/index.js"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.164",
@@ -16,12 +17,16 @@
     "@types/node": "24.19.2",
     "aws-cdk": "2.1146.1",
     "cdk": "2.1146.1",
+    "esbuild": "0.28.2",
     "jest": "^30.5.2",
     "ts-jest": "^29.4.15",
     "ts-node": "^10.9.2",
     "typescript": "~6.0.3"
   },
   "dependencies": {
+    "@aws-crypto/sha256-js": "5.2.0",
+    "@smithy/protocol-http": "5.6.2",
+    "@smithy/signature-v4": "5.7.5",
     "aws-cdk-lib": "2.275.0",
     "constructs": "^10.8.1",
     "source-map-support": "^0.5.21"

@@ -14,6 +14,9 @@ zh-CN:
     as_of: 截至
     back: 返回
     blog: 博客
+    calculator_capacity_reached: 此访客计算器已达到存储上限。请先删除不需要的旅客、行程或签证，再添加更多内容。
+    calculator_rate_limited: 计算器请求过多，请稍后重试。
+    calculator_service_unavailable: 计算器暂时无法使用，请稍后重试。
     calendar: 日历
     cancel: 取消
     choose_nationality: 选择您的国籍

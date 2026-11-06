@@ -218,6 +218,20 @@ connection failures and other limiter database errors return HTTP 503 with a
 30-request/10-minute quota still returns HTTP 429 when exhausted. A store outage
 never grants a fresh quota or bypasses the limiter.
 
+Guest web allocations share a 30-request/10-minute limit per verified client IP
+and per existing guest account across trips, visas, travelers and claim imports.
+Throttled requests return HTTP 429 before allocating a guest or travel records;
+limiter outages return HTTP 503. Changing sessions or viewer-supplied identity
+headers does not reset the IP quota. Registered accounts keep their normal saves.
+
+Guests retain at most 20 travelers and 500 combined trips/visas across all their
+travelers. Every model insert checks capacity while holding the guest user's
+database row lock, so concurrent writers cannot pass separate count checks.
+Imports use the same bounds and lock their source/existing guest in ID order
+before copying. Existing records remain readable, editable and removable;
+deletion frees space. Keep guest creation checks before password hashing and
+keep cached public GETs free of limiter writes.
+
 == Deployment
 
 The Rails web app, private database operations, and MCP server run as

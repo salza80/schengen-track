@@ -1,4 +1,5 @@
 class Person < ApplicationRecord
+  include GuestCalculatorCapacity
   belongs_to :user
   belongs_to :nationality, class_name: 'Country', foreign_key: :nationality_id, optional: true
   has_many :visits, dependent: :delete_all

@@ -10,6 +10,9 @@ de:
     as_of: Stand
     back: Zurück
     blog: Blog
+    calculator_capacity_reached: Dieser Gastrechner hat sein Speicherlimit erreicht. Löschen Sie nicht benötigte Reisende, Reisen oder Visa, bevor Sie weitere hinzufügen.
+    calculator_rate_limited: Zu viele Rechneranfragen. Bitte versuchen Sie es später erneut.
+    calculator_service_unavailable: Der Rechner ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.
     calendar: Kalender
     cancel: Abbrechen
     choose_nationality: Nationalität auswählen

@@ -9,6 +9,9 @@ fr:
     as_of: À partir de
     back: Retour
     blog: Blog
+    calculator_capacity_reached: Ce calculateur invité a atteint sa limite de stockage. Supprimez les voyageurs, voyages ou visas inutilisés avant d’en ajouter.
+    calculator_rate_limited: Trop de demandes au calculateur. Veuillez réessayer plus tard.
+    calculator_service_unavailable: Le calculateur est temporairement indisponible. Veuillez réessayer plus tard.
     calendar: Calendrier
     cancel: Annuler
     choose_nationality: Choisissez votre nationalité

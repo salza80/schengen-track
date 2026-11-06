@@ -1,4 +1,5 @@
 class VisitsController < ApplicationController
+  include GuestCalculatorAbuseControl
   include CalculatorVisits
   include CalculatorIndexCache
   before_action :set_private_calculator_cache, except: :index

@@ -1,4 +1,5 @@
 class Visit < ApplicationRecord
+  include GuestCalculatorCapacity
   belongs_to :country
   belongs_to :person
   validates :country, :person, :entry_date, presence: true

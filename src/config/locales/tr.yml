@@ -14,6 +14,9 @@ tr:
     as_of: İtibariyle
     back: Geri
     blog: Blog
+    calculator_capacity_reached: Bu misafir hesaplayıcı depolama sınırına ulaştı. Daha fazla eklemeden önce kullanılmayan yolcuları, seyahatleri veya vizeleri silin.
+    calculator_rate_limited: Çok fazla hesaplayıcı isteği yapıldı. Lütfen daha sonra tekrar deneyin.
+    calculator_service_unavailable: Hesaplayıcı geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.
     calendar: Takvim
     cancel: İptal
     choose_nationality: Milliyetinizi seçin

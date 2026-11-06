@@ -9,6 +9,9 @@ es:
     as_of: A partir de
     back: Atrás
     blog: Blog
+    calculator_capacity_reached: Esta calculadora de invitado ha alcanzado su límite de almacenamiento. Elimina viajeros, viajes o visados que no necesites antes de añadir más.
+    calculator_rate_limited: Demasiadas solicitudes a la calculadora. Inténtalo de nuevo más tarde.
+    calculator_service_unavailable: La calculadora no está disponible temporalmente. Inténtalo de nuevo más tarde.
     calendar: Calendario
     cancel: Cancelar
     choose_nationality: Elige tu nacionalidad

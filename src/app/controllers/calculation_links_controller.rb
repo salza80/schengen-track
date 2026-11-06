@@ -1,5 +1,6 @@
 class CalculationLinksController < ApplicationController
   include SensitiveTokenResponse
+  include GuestCalculatorAbuseControl
 
   def show
     AgentCalculations::Claim.find_available_source!(params[:token])

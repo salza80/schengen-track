@@ -10,7 +10,7 @@ export class OriginSigner extends Construct {
   readonly association: cloudfront.EdgeLambda;
   readonly invokePolicy: iam.Policy;
 
-  constructor(scope: Construct, id: string, apiArns: string[]) {
+  constructor(scope: Construct, id: string, apiArns: string[], quotaTableArn: string) {
     super(scope, id);
     const parent = cdk.Stack.of(this);
     const stackId = `${parent.stackName}OriginEdge`;
@@ -32,13 +32,19 @@ export class OriginSigner extends Construct {
       stackId, role, runtime: lambda.Runtime.NODEJS_24_X, handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../origin-signer/dist')),
       memorySize: 128, timeout: cdk.Duration.seconds(5),
+      // CloudFront replicas may remain after disassociation. Stack cleanup
+      // must not try to delete published versions while replicas still exist.
+      currentVersionOptions: { removalPolicy: cdk.RemovalPolicy.RETAIN },
     });
     this.roleArn = `arn:${parent.partition}:iam::${parent.account}:role/${roleName}`;
     // Attach the API-specific policy in the regional stack to avoid a circular
     // dependency: the edge stack must exist before its version can be associated.
     this.invokePolicy = new iam.Policy(this, 'InvokePolicy', {
       roles: [iam.Role.fromRoleName(this, 'PolicyRole', roleName)],
-      statements: [new iam.PolicyStatement({ actions: ['execute-api:Invoke'], resources: apiArns })],
+      statements: [
+        new iam.PolicyStatement({ actions: ['execute-api:Invoke'], resources: apiArns }),
+        new iam.PolicyStatement({ actions: ['dynamodb:UpdateItem'], resources: [quotaTableArn] }),
+      ],
     });
     this.association = {
       functionVersion: signer.currentVersion,

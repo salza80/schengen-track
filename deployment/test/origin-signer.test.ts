@@ -4,7 +4,8 @@ import { createHash } from 'crypto';
 const event = (changes: any = {}) => ({ Records: [{ cf: { request: {
   clientIp: '203.0.113.8', method: 'POST', uri: '/en/users/password',
   querystring: 'state=a%2Bb&state=x+y&empty=',
-  origin: { custom: { domainName: 'abc123.execute-api.eu-central-1.amazonaws.com', path: '' } },
+  origin: { custom: { domainName: 'abc123.execute-api.eu-central-1.amazonaws.com', path: '',
+    customHeaders: { 'x-schengen-header-profile': [{ value: 'auth' }] } } },
   headers: {
     host: [{ value: 'forged.example' }],
     authorization: [{ value: 'forged' }],

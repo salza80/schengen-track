@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
 import { OriginSigner } from './origin-signer';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as apigwv2_integ from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
@@ -200,122 +201,74 @@ export class HttpApiConstruct extends Construct {
     });
 
     const sslCertificateArn = props.sslArn;
+    const calculatorReadQuota = new dynamodb.Table(this, 'CalculatorReadQuota', {
+      partitionKey: { name: 'bucket', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      timeToLiveAttribute: 'expires_at',
+      maxReadRequestUnits: 100,
+      maxWriteRequestUnits: 100,
+    });
     const signer = new OriginSigner(this, 'OriginSigner', [
       railsHttpApi.arnForExecuteApi(), mcp.httpApi.arnForExecuteApi(),
-    ]);
+    ], calculatorReadQuota.tableArn);
     apiFunction.addEnvironment('CLOUDFRONT_SIGNER_ROLE_ARN', signer.roleArn);
     mcp.function.addEnvironment('CLOUDFRONT_SIGNER_ROLE_ARN', signer.roleArn);
     const edgeLambdas = [signer.association];
-    const origin = new origins.HttpOrigin(`${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
-    const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`);
-    const publicOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
-        'Origin', 
-        'Access-Control-Request-Method', 
-        'Access-Control-Request-Headers',
-        'Accept',
-        'Content-Type',
-        'X-Requested-With',
-        'Referer',
-        'X-Schengen-Client-Ip'
-      );
-    // The calculator indexes share one HTML cache variant. Do not forward
-    // content-negotiation headers such as Accept unless they are also part of
-    // the cache key, or a CSV response could populate the HTML cache entry.
-    const calculatorIndexOriginHeaders = cloudfront.OriginRequestHeaderBehavior.allowList(
-        'Origin',
-        'Access-Control-Request-Method',
-        'Access-Control-Request-Headers',
-        'Content-Type',
-        'X-Requested-With',
-        'Referer',
-        'X-Schengen-Client-Ip'
-      );
+    // Each behavior selects trusted filtering rules in the origin signer.
+    // Forwarding all headers except Host preserves generated SigV4 headers;
+    // the signer removes unkeyed viewer headers before they reach Rails.
+    const railsOrigin = (profile: string) => new origins.HttpOrigin(
+      `${railsHttpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
+        customHeaders: {
+          'x-schengen-header-profile': profile,
+          'x-schengen-read-quota-table': calculatorReadQuota.tableName,
+        },
+      });
+    const origin = railsOrigin('private');
+    const publicOrigin = railsOrigin('public');
+    const calculatorOrigin = railsOrigin('calculator');
+    const sessionOrigin = railsOrigin('session');
+    const authOrigin = railsOrigin('auth');
+    const agentOrigin = railsOrigin('agent');
+    const mcpOrigin = new origins.HttpOrigin(`${mcp.httpApi.apiId}.execute-api.${Stack.of(this).region}.amazonaws.com`, {
+      customHeaders: { 'x-schengen-header-profile': 'mcp' },
+    });
+    const signedOriginHeaders = cloudfront.OriginRequestHeaderBehavior.denyList('Host');
     const customOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "customDefaultRequestPolicy", {
-      headerBehavior: publicOriginHeaders,
+      headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
-    })
-
-    // Parameters excluded from the public cache key must not influence the
-    // origin response (e.g. ?nationality=American can redirect the homepage).
-    // Explicitly forward Authorization so CloudFront retains the origin
-    // signer's header on GET/HEAD. The signer overwrites viewer credentials.
+    });
     const publicOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "publicRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.none(),
+      headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     });
-
     const sessionHeaderRequestPolicy = new cloudfront.OriginRequestPolicy(this, "sessionHeaderRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.none(),
+      headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session', 'has_flash_message'),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     });
-
     const calculatorIndexRequestPolicy = new cloudfront.OriginRequestPolicy(this, "calculatorIndexRequestPolicy", {
-      headerBehavior: calculatorIndexOriginHeaders,
+      headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     });
-
-    // Separate policy for authentication flows that need all cookies for CSRF
     const authOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "authRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
-        'Origin', 
-        'Access-Control-Request-Method', 
-        'Access-Control-Request-Headers',
-        'Accept',
-        'X-Requested-With',
-        'Referer',
-        'X-Schengen-Client-Ip'
-      ),
+      headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.all(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
-    })
-
-    // Dedicated policy for the public calculation API. It forwards the private
-    // MCP-to-Rails headers without pushing the general/auth policies over the
-    // CloudFront header allow-list quota.
+    });
     const agentApiOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "agentApiRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
-        'Origin',
-        'Access-Control-Request-Method',
-        'Access-Control-Request-Headers',
-        'X-Schengen-Client-Ip',
-        'X-Schengen-Agent-Source',
-        'X-Schengen-Agent-Auth',
-        'X-Schengen-Agent-Client-Id'
-      ),
+      headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
-    })
-
+    });
     const mcpOriginRequestPolicy = new cloudfront.OriginRequestPolicy(this, "mcpRequestPolicy", {
-      headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList(
-        'Accept',
-        'Content-Type',
-        'Mcp-Protocol-Version',
-        'Mcp-Session-Id',
-        'X-Schengen-Client-Ip'
-      ),
+      headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.none(),
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
-    })
-
-    // CloudFront supports forwarding Authorization individually. CDK's L2
-    // validation still rejects it, so set this supported option on the L1.
-    // https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html
-    for (const policy of [customOriginRequestPolicy, publicOriginRequestPolicy,
-      sessionHeaderRequestPolicy, calculatorIndexRequestPolicy,
-      authOriginRequestPolicy, agentApiOriginRequestPolicy, mcpOriginRequestPolicy]) {
-      const resource = policy.node.defaultChild as cloudfront.CfnOriginRequestPolicy;
-      const config = resource.originRequestPolicyConfig as cloudfront.CfnOriginRequestPolicy.OriginRequestPolicyConfigProperty;
-      const headers = config.headersConfig as cloudfront.CfnOriginRequestPolicy.HeadersConfigProperty;
-      resource.originRequestPolicyConfig = {
-        ...config,
-        headersConfig: { headerBehavior: 'whitelist', headers: [...(headers.headers || []), 'Authorization'] },
-      };
-    }
+    });
 
     //stop browser caching files that are cached in cloudfront to ensure invalidation works
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
@@ -383,7 +336,7 @@ export class HttpApiConstruct extends Construct {
     });
 
     const publicHtmlBehavior = {
-      origin: origin,
+      origin: publicOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -394,7 +347,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const sessionHeaderBehavior = {
-      origin,
+      origin: sessionOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -414,7 +367,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const tripsIndexBehavior = {
-      origin,
+      origin: calculatorOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -425,7 +378,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const calendarIndexBehavior = {
-      origin,
+      origin: calculatorOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -436,7 +389,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const publicAssetsCacheBehavior = {
-      origin: origin,
+      origin: publicOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -447,7 +400,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const publicNamedAssetCacheBehavior = {
-      origin: origin,
+      origin: publicOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -458,7 +411,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const publicSeoDocsCacheBehavior = {
-      origin: origin,
+      origin: publicOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -469,7 +422,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const authFlowBehavior = {
-      origin: origin,
+      origin: authOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -480,7 +433,7 @@ export class HttpApiConstruct extends Construct {
     };
 
     const agentApiBehavior = {
-      origin: origin,
+      origin: agentOrigin,
       edgeLambdas,
       allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,

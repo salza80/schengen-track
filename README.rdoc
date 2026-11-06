@@ -276,6 +276,13 @@ after deployment. The edge stack runs in <tt>us-east-1</tt>; application stacks
 run in <tt>eu-central-1</tt>. See the deployment guide for bootstrap requirements,
 request-size limits and verification gates.
 
+Calculator cache misses share a per-network request quota at the edge before
+Rails runs. A separate on-demand DynamoDB counter in each environment enforces
+the limit across replicas; excessive requests receive 429 and storage failures
+receive 503. Public cache hits and private-session cache rules are preserved.
+The signer filters headers and cookies using trusted per-behavior profiles
+before authenticating requests to the origin.
+
 Pin external GitHub Actions to full commit SHAs and retain version comments.
 Dependabot checks for Actions updates weekly using <tt>.github/dependabot.yml</tt>.
 

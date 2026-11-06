@@ -16,6 +16,8 @@ const config = distribution.Properties.DistributionConfig;
 const behavior = (path: string) => config.CacheBehaviors.find((b: any) => b.PathPattern === path);
 const cacheConfig = (b: any) => resources[b.CachePolicyId.Ref].Properties.CachePolicyConfig;
 const originConfig = (b: any) => resources[b.OriginRequestPolicyId.Ref].Properties.OriginRequestPolicyConfig;
+const originProfile = (b: any) => config.Origins.find((o: any) => o.Id === b.TargetOriginId)
+  .OriginCustomHeaders.find((h: any) => h.HeaderName === 'x-schengen-header-profile').HeaderValue;
 const responseConfig = (b: any) => resources[b.ResponseHeadersPolicyId.Ref].Properties.ResponseHeadersPolicyConfig;
 const viewerRequestHandler = () => {
   const functionResource = Object.values(resources).find((r: any) => r.Type === 'AWS::CloudFront::Function') as any;
@@ -30,6 +32,13 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
   const edgeStack = stack.node.root.node.findChild('CacheTestOriginEdge') as cdk.Stack;
   expect(edgeStack.synthesizer).toBeInstanceOf(cdk.CliCredentialsStackSynthesizer);
   expect(edgeStack.synthesizer.cloudFormationExecutionRole).toBeUndefined();
+  const versions = Object.values(Template.fromStack(edgeStack).toJSON().Resources)
+    .filter((r: any) => r.Type === 'AWS::Lambda::Version') as any[];
+  expect(versions.length).toBeGreaterThan(0);
+  for (const version of versions) {
+    expect(version.DeletionPolicy).toBe('Retain');
+    expect(version.UpdateReplacePolicy).toBe('Retain');
+  }
   const routes = Object.values(resources).filter((r: any) => r.Type === 'AWS::ApiGatewayV2::Route') as any[];
   expect(routes).toHaveLength(2);
   for (const route of routes) expect(route.Properties.AuthorizationType).toBe('AWS_IAM');
@@ -38,11 +47,14 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
     expect(b.LambdaFunctionAssociations[0]).toEqual(expect.objectContaining({ EventType: 'origin-request', IncludeBody: true }));
     // CloudFront otherwise removes Authorization from GET/HEAD origin requests.
     const headers = originConfig(b).HeadersConfig;
-    expect(headers.HeaderBehavior).toBe('whitelist');
-    expect(headers.Headers).toContain('Authorization');
-    expect(headers.Headers.length).toBeLessThanOrEqual(10);
+    expect(headers.HeaderBehavior).toBe('allExcept');
+    expect(headers.Headers).toEqual(['Host']);
+    expect(['private', 'public', 'calculator', 'session', 'auth', 'agent', 'mcp']).toContain(originProfile(b));
   }
-  for (const origin of config.Origins) expect(origin.OriginCustomHeaders).toBeUndefined();
+  for (const origin of config.Origins) {
+    expect((origin.OriginCustomHeaders || []).map((h: any) => h.HeaderName))
+      .not.toContain('X-Schengen-Origin-Auth');
+  }
   const httpFunctions = Object.entries(resources).filter(([id]) =>
     id.includes('HttpApiFunction') || id.includes('HttpMcpFunction')).map(([, r]: any) => r)
     .filter((r: any) => r.Type === 'AWS::Lambda::Function');
@@ -53,9 +65,43 @@ test('all origin paths require IAM signatures from the dedicated edge role', () 
   }
   const policy: any = Object.values(resources).find((r: any) => r.Type === 'AWS::IAM::Policy' &&
     r.Properties.PolicyDocument.Statement.some((s: any) => s.Action === 'execute-api:Invoke'));
-  expect(policy.Properties.PolicyDocument.Statement).toHaveLength(1);
+  expect(policy.Properties.PolicyDocument.Statement).toHaveLength(2);
   expect(policy.Properties.PolicyDocument.Statement[0].Resource).toHaveLength(2);
   expect(JSON.stringify(policy.Properties.PolicyDocument.Statement)).not.toContain('cloudfront_origin_auth_header');
+});
+
+test('calculator origin reads use one environment-specific on-demand quota before Rails', () => {
+  const tables = Object.entries(resources).filter(([, r]: any) => r.Type === 'AWS::DynamoDB::Table') as any[];
+  expect(tables).toHaveLength(1);
+  const [tableId, table] = tables[0];
+  expect(table.Properties).toEqual(expect.objectContaining({
+    BillingMode: 'PAY_PER_REQUEST',
+    KeySchema: [{ AttributeName: 'bucket', KeyType: 'HASH' }],
+    TimeToLiveSpecification: { AttributeName: 'expires_at', Enabled: true },
+    OnDemandThroughput: { MaxReadRequestUnits: 100, MaxWriteRequestUnits: 100 },
+  }));
+  const railsOrigins = config.Origins.filter((o: any) => o.OriginCustomHeaders.some((h: any) =>
+    h.HeaderName === 'x-schengen-read-quota-table'));
+  expect(railsOrigins).toHaveLength(6);
+  for (const origin of railsOrigins) expect(origin.OriginCustomHeaders).toContainEqual(
+    { HeaderName: 'x-schengen-read-quota-table', HeaderValue: { Ref: tableId } });
+  const writes = Object.values(resources).filter((r: any) => r.Type === 'AWS::IAM::Policy')
+    .flatMap((r: any) => r.Properties.PolicyDocument.Statement)
+    .filter((s: any) => s.Action === 'dynamodb:UpdateItem');
+  expect(writes).toEqual([expect.objectContaining({
+    Resource: { 'Fn::GetAtt': [tableId, 'Arn'] },
+  })]);
+  expect(Object.values(resources).some((r: any) => r.Type.startsWith('AWS::WAF'))).toBe(false);
+});
+
+test('cache behaviors select trusted request filtering profiles', () => {
+  expect(originProfile(config.DefaultCacheBehavior)).toBe('private');
+  for (const [path, profile] of [['/', 'public'], ['assets/*', 'public'], ['/favicon.ico', 'public'],
+    ['/api/docs', 'public'], ['/visits', 'calculator'], ['/*/days', 'calculator'],
+    ['/session_header', 'session'], ['/csrf_token', 'private'], ['/users/*', 'auth'],
+    ['/*/users/*', 'auth'], ['/api/v1/calculations*', 'agent'], ['/mcp*', 'mcp']]) {
+    expect(originProfile(behavior(path))).toBe(profile);
+  }
 });
 
 test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', () => {
@@ -219,9 +265,7 @@ test('personalized menus are never edge cached and receive the real session', ()
 test('calculator indexes use exact session-aware cache behaviours', () => {
   const calculatorPaths = ['/visits', '/*/visits', '/days', '/*/days'];
   for (const path of calculatorPaths) {
-    const headers = originConfig(behavior(path)).HeadersConfig.Headers.map((header: string) => header.toLowerCase());
-    expect(headers).toContain('content-type');
-    expect(headers).not.toContain('accept');
+    expect(originProfile(behavior(path))).toBe('calculator');
   }
 
   for (const path of calculatorPaths.slice(0, 2)) {
@@ -417,7 +461,7 @@ test('authentication routes overwrite viewer identity without rewriting OAuth UR
     const auth = behavior(path);
     expect(auth.FunctionAssociations).toHaveLength(1);
     expect(auth.FunctionAssociations).not.toEqual(config.DefaultCacheBehavior.FunctionAssociations);
-    expect(originConfig(auth).HeadersConfig.Headers).toContain('X-Schengen-Client-Ip');
+    expect(originProfile(auth)).toBe('auth');
     const id = auth.FunctionAssociations[0].FunctionARN['Fn::GetAtt'][0];
     const handler = new Function(`${resources[id].Properties.FunctionCode}; return handler;`)();
     for (const uri of ['/users/auth/facebook/callback', '/ar/users/password', '/pt/users/password']) {
@@ -439,7 +483,7 @@ test('legal pages and API docs share a session-free cache', () => {
   for (const path of ['/disclaimer*', '/*/disclaimer*', '/privacy*', '/*/privacy*', '/datadeletion*', '/*/datadeletion*', '/api/docs', '/robots.txt', '/sitemap*']) {
     const b = behavior(path);
     const policy = cacheConfig(b);
-    expect(originConfig(b).HeadersConfig.Headers).toEqual(['Authorization']);
+    expect(originProfile(b)).toBe('public');
     expect(originConfig(b).CookiesConfig.CookieBehavior).toBe('none');
     expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('none');
     expect(policy.ParametersInCacheKeyAndForwardedToOrigin.CookiesConfig.CookieBehavior).toBe('none');

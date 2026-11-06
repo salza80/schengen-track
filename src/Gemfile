@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.1.4'
+gem 'rails', '~> 8.1.4', '>= 8.1.4.1'
 
 # Compile SCSS with Dart Sass through the existing Sprockets pipeline
 gem 'dartsass-sprockets'
@@ -19,30 +19,20 @@ gem 'jbuilder', '~> 2.0'
 # gem 'sdoc', group: :doc
 
 gem 'haml-rails', '~> 3.0'
-# Haml 7.5's attribute parser and Minitest 6 require Prism 1.x.
-gem 'prism', '~> 1.9'
 gem 'bootstrap', '~> 5.3', '>= 5.3.8'
 gem "devise", ">= 4.9.2"
-gem 'nokogiri', '>= 1.18.10'
+gem 'nokogiri', '>= 1.19.7'
 gem 'geocoder'
 gem 'omniauth-facebook'
 gem 'puma', '~> 8.0', '>= 8.0.2'
 gem 'pg'
-gem 'listen'
-gem "sprockets-rails"
 gem 'autoprefixer-rails'
 
 # Security-critical dependency version constraints
-gem 'rack', '~> 3.2'
-gem 'rails-html-sanitizer', '>= 1.6.2'
-gem 'net-imap', '>= 0.5.7'
+gem 'rack', '~> 3.2', '>= 3.2.8'
 gem 'uri', '>= 0.13.3'
-gem 'webrick', '>= 1.8.2'
-gem 'thor', '>= 1.4.0'
-gem 'minitest', '~> 6.0'
 
 group :production do
-  gem 'rails_12factor'
   gem 'aws_lambda_ric', '~> 3.1'
   gem 'aws-sdk-ssm', '~> 1'
 end
@@ -58,6 +48,8 @@ group :development, :test do
 end
 
 group :test do
+  # Minitest 6 also keeps Prism on the 1.x API required by Haml 7.5.
+  gem 'minitest', '~> 6.0'
   # Minitest 6 ships mocks and Object#stub in a separate gem.
   gem 'minitest-mock', '~> 5.27', require: 'minitest/mock'
   gem 'ostruct'

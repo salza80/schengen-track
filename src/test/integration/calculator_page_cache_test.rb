@@ -22,7 +22,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
       assert_includes response.headers['Cache-Control'], 'public'
       assert_includes response.headers['Cache-Control'], 's-maxage=2592000'
       assert_includes response.headers['Cache-Control'], 'stale-while-revalidate=604800'
-      assert_equal 'Cookie', response.headers['Vary']
+      assert_calculator_vary_headers
       assert_nil response.headers['Set-Cookie']
       assert_select 'body[data-public-calculator-page="true"]', count: 1
       assert_select 'meta[name="csrf-token"], input[name="authenticity_token"]', count: 0
@@ -79,7 +79,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
         assert_response :success
         assert_includes response.headers['Cache-Control'], 'private'
         assert_includes response.headers['Cache-Control'], 'no-store'
-        assert_equal 'Cookie', response.headers['Vary']
+        assert_calculator_vary_headers
         assert_select 'body[data-public-calculator-page]', count: 0
       end
     end
@@ -218,7 +218,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes response.headers['Cache-Control'], 'private'
     assert_includes response.headers['Cache-Control'], 'no-store'
-    assert_equal 'Cookie', response.headers['Vary']
+    assert_calculator_vary_headers
     assert response.parsed_body['token'].present?
     assert_equal 'authenticity_token', response.parsed_body['param']
     assert_includes response_cookie_headers, '_schengen_track_session='
@@ -228,6 +228,11 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def assert_calculator_vary_headers
+    # Rails' cache-poisoning fix preserves Cookie and adds content negotiation.
+    assert_equal %w[Accept Cookie X-Requested-With], response.headers.fetch('Vary').split(/,\s*/).sort
+  end
 
   def json_ld_objects
     css_select('script[type="application/ld+json"]').filter_map do |script|
@@ -241,7 +246,7 @@ class CalculatorPageCacheTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes response.headers['Cache-Control'], 'private'
     assert_includes response.headers['Cache-Control'], 'no-store'
-    assert_equal 'Cookie', response.headers['Vary']
+    assert_calculator_vary_headers
     assert_select 'body[data-public-calculator-page]', count: 0
   end
 

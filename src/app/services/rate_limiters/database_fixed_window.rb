@@ -1,8 +1,10 @@
 require 'digest'
+require 'pg'
 
 module RateLimiters
   class DatabaseFixedWindow
     CLEANUP_SAMPLE_RATE = 0.01
+    class Unavailable < StandardError; end
 
     Result = Struct.new(:allowed?, :limit, :remaining, :reset_at, :count, keyword_init: true)
 
@@ -24,17 +26,9 @@ module RateLimiters
         reset_at: window_end,
         count: count
       )
-    rescue StandardError => e
-      raise unless missing_rate_limit_table_error?(e)
-
-      Rails.logger.warn("API rate limiter skipped because api_rate_limits table is unavailable: #{e.class}: #{e.message}")
-      Result.new(
-        allowed?: true,
-        limit: limit,
-        remaining: limit,
-        reset_at: window_end,
-        count: 0
-      )
+    rescue ActiveRecord::ActiveRecordError, PG::Error => error
+      Rails.logger.error("Rate-limit store unavailable (#{error.class})")
+      raise Unavailable, 'Rate-limit store unavailable'
     end
 
     private
@@ -87,11 +81,6 @@ module RateLimiters
 
     def window_end
       @window_end ||= window_start + period
-    end
-
-    def missing_rate_limit_table_error?(error)
-      ([error, error.cause].compact).any? { |cause| cause.class.name == 'PG::UndefinedTable' } ||
-        (error.message.match?(/api_rate_limits/i) && error.message.match?(/does not exist|no such table/i))
     end
   end
 end

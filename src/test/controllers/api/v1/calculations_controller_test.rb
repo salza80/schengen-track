@@ -451,6 +451,37 @@ module Api
         assert_equal 'api', tracked.dig(0, 1, :source)
       end
 
+      [PG::UndefinedTable, PG::ConnectionBad].each do |error_class|
+        test "returns 503 without persisting records when the limiter raises #{error_class}" do
+          fake_connection = Object.new
+          fake_connection.define_singleton_method(:exec_params) { |*| raise error_class, 'sensitive database details' }
+          assert_no_difference(['User.count', 'Person.count', 'Visit.count', 'Visa.count']) do
+            ActiveRecord::Base.connection.stub(:raw_connection, fake_connection) do
+              post api_v1_calculations_path, params: calculation_payload, as: :json
+            end
+          end
+          assert_response :service_unavailable
+          assert_equal 'service_unavailable', response.parsed_body.dig('errors', 0, 'code')
+          assert_equal '60', response.headers['Retry-After']
+          assert_includes response.headers['Cache-Control'], 'no-store'
+          assert_nil response.headers['RateLimit-Remaining']
+          refute_includes response.body, 'sensitive database details'
+        end
+      end
+
+      test 'an actually missing rate-limit table returns 503 before calculation creation' do
+        assert_no_difference(['User.count', 'Person.count', 'Visit.count', 'Visa.count']) do
+          ActiveRecord::Base.transaction(requires_new: true) do
+            ActiveRecord::Base.connection.execute('ALTER TABLE api_rate_limits RENAME TO unavailable_api_rate_limits')
+            post api_v1_calculations_path, params: calculation_payload, as: :json
+            assert_response :service_unavailable
+            assert_equal 'service_unavailable', response.parsed_body.dig('errors', 0, 'code')
+            # Roll back the renamed table and the failed PostgreSQL statement.
+            raise ActiveRecord::Rollback
+          end
+        end
+      end
+
       test 'rate limits calculation requests by ip' do
         tracked = []
 

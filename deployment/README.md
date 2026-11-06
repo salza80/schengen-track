@@ -119,7 +119,10 @@ Two GitHub Actions workflows deploy the application:
 
 Each deployment builds and deploys the CDK stack, resolves its
 `OpsLambdaFunctionName` output, and invokes the private Ops Lambda to run database
-migrations and update country data. Guest cleanup runs through its separate
+migrations, update country data and verify the shared rate-limit store with a
+bounded counter write. Missing or unavailable limiter storage fails the
+deployment before cache refresh. Requests during deployment also fail closed
+with HTTP 503 if the limiter cannot enforce its quota. Guest cleanup runs through its separate
 scheduled or manually dispatched workflow.
 
 After the application and database operations succeed, the workflow updates the

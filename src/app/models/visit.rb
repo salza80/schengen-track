@@ -10,12 +10,12 @@ class Visit < ApplicationRecord
 
   # initialise a new visit
 
-  def self.with_default(person)
+  def self.with_default(person, visits: person.visits)
     new do |v|
       # Anonymous pages use DraftPerson to avoid loading Person schema metadata.
       # The persisted association is attached by FirstSave after form submit.
       v.person = person if person.is_a?(Person)
-      v.entry_date = person.visits.last.exit_date unless person.visits.empty?
+      v.entry_date = visits.last&.exit_date
       v.exit_date  = v.entry_date + 1.day unless v.entry_date.nil?
     end
   end

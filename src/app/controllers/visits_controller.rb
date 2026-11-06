@@ -1,5 +1,5 @@
 class VisitsController < ApplicationController
-  include VisitCleanup
+  include CalculatorVisits
   include CalculatorIndexCache
   before_action :set_private_calculator_cache, except: :index
   
@@ -18,10 +18,7 @@ class VisitsController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    # Clean up old visits (beyond ±20 years)
-    cleanup_old_visits
-
-    calc = Schengen::Calculator.new(current_person)
+    calc = Schengen::Calculator.new(current_person, visits: calculator_visits)
     @visits = calc.visits
     if current_person.visa_required?
       @visas = current_person.visas.all
@@ -63,7 +60,7 @@ class VisitsController < ApplicationController
 
   # GET /visits/new
   def new
-    @visit = Visit.with_default(current_person)
+    @visit = Visit.with_default(current_person, visits: calculator_visits)
     
     # Support pre-filling dates from calendar clicks
     if params[:entry_date]
@@ -198,7 +195,7 @@ class VisitsController < ApplicationController
   # Returns all visits that include the specified date (for calendar context menu)
   def for_date
     date = Date.parse(params[:date])
-    visits = current_person.visits.find_by_date(date, date)
+    visits = calculator_visits.find_by_date(date, date)
     
     respond_to do |format|
       format.json { 
@@ -221,7 +218,7 @@ class VisitsController < ApplicationController
     date = Date.parse(params[:date])
     
     # Check if there's a next visit after this date
-    next_visits = current_person.visits
+    next_visits = calculator_visits
       .where('entry_date > ?', date)
       .order(:entry_date)
     
@@ -249,7 +246,7 @@ class VisitsController < ApplicationController
     
     if is_schengen && requires_counting
       # Calculate Schengen days limit
-      calc = Schengen::Days::Calculator.new(current_person)
+      calc = Schengen::Days::Calculator.new(current_person, visits: calculator_visits)
       day_info = calc.find_by_date(date)
       
       # If no day_info (first visit), default to 90 days

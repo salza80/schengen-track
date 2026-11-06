@@ -138,6 +138,12 @@ Anonymous visitors make no <tt>/session_header</tt> request. Older sessions
 without a hint cookie keep the generic header until a dynamic calculator route
 restores the hint.
 
+Trips and Calendar reads preserve stored visits. Their displayed calculations,
+calendar helpers, and new-trip defaults use the supported ±20-year date window
+without deleting records outside it. Date validation still applies to new and
+updated visits. Retained history still counts toward a visa's lifetime entry
+limit. Scheduled guest-account cleanup runs separately from page views.
+
 The header endpoint returns flash messages as plain text, which JavaScript
 renders with <tt>textContent</tt>. Menu fragments pass through the locally
 vendored DOMPurify sanitizer before insertion, with only the menu's required

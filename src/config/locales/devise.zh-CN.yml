@@ -85,8 +85,10 @@ zh-CN:
         forgot_your_password: 忘记密码？
         send_me_reset_password_instructions: 请给我发送重设密码的邮件
       no_token: 无重置邮件不可访问密码重置页面。如果您是从重置邮件来到了这个页面，请确保您输入的URL完整。
+      rate_limited: 密码找回请求过多，请稍后重试。
       send_instructions: 几分钟后，您将收到重置密码的电子邮件。
       send_paranoid_instructions: 如果您的邮箱存在于我们的数据库中，您将收到一封找回密码的邮件。
+      temporarily_unavailable: 密码找回功能暂时无法使用，请稍后重试。
       updated: 您的密码已修改成功，您现在已登录。
       updated_not_active: 密码修改成功。
     registrations:

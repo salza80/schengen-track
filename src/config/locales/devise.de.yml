@@ -89,8 +89,10 @@ de:
         forgot_your_password: Haben Sie Ihr Passwort vergessen?
         send_me_reset_password_instructions: Anweisungen zum Zurücksetzen meines Passworts senden
       no_token: Sie können diese Seite nicht nutzen, es sei denn, Sie stammen von einer Passwort-Zurücksetzen-E-Mail. Wenn dies der Fall ist, stellen Sie sicher, dass Sie die vollständige URL verwendet haben.
+      rate_limited: Zu viele Anfragen zur Passwortwiederherstellung. Bitte versuchen Sie es später erneut.
       send_instructions: Sie erhalten in Kürze eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts.
       send_paranoid_instructions: Wenn Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in Kürze eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts.
+      temporarily_unavailable: Die Passwortwiederherstellung ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.
       updated: Ihr Passwort wurde geändert. Sie sind jetzt angemeldet.
       updated_not_active: Ihr Passwort wurde erfolgreich geändert.
     registrations:

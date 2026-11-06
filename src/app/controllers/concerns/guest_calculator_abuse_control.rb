@@ -68,12 +68,16 @@ module GuestCalculatorAbuseControl
   end
 
   def guest_capacity_exceeded
-    guest_allocation_error('calculator_capacity_reached', t('common.calculator_capacity_reached'), :too_many_requests)
+    I18n.with_locale(route_locale || I18n.default_locale) do
+      guest_allocation_error('calculator_capacity_reached', t('common.calculator_capacity_reached'), :too_many_requests)
+    end
   end
 
   def guest_limiter_unavailable
     response.set_header('Retry-After', '60')
-    guest_allocation_error('service_unavailable', t('common.calculator_service_unavailable'), :service_unavailable)
+    I18n.with_locale(route_locale || I18n.default_locale) do
+      guest_allocation_error('service_unavailable', t('common.calculator_service_unavailable'), :service_unavailable)
+    end
   end
 
   def guest_allocation_error(code, message, status)

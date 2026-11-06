@@ -85,8 +85,10 @@ tr:
         forgot_your_password: Parolanızı mı unuttunuz?
         send_me_reset_password_instructions: Parola yenileme talimatlarını gönder
       no_token: Bu sayfaya parola sıfırlama e-postasındaki bağlantıya tıklayarak gelmeniz gerekmektedir. Bağlantıya tıklamak yerine kopyaladıysanız, hata yapmış olabilirsiniz. Lütfen parola sıfırlama e-postasındaki bağlantıya tıklayın.
+      rate_limited: Çok fazla parola kurtarma isteği yapıldı. Lütfen daha sonra tekrar deneyin.
       send_instructions: Birkaç dakika içinde parolanızı nasıl sıfırlayacağınız ile ilgili bir e-posta alacaksınız.
       send_paranoid_instructions: Eğer e-posta adresiniz sistemimizde kayıtlı ise, birkaç dakika içinde parolanızı nasıl sıfırlayacağınız ile ilgili bir e-posta alacaksınız.
+      temporarily_unavailable: Parola kurtarma geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.
       updated: Parolanız başarıyla güncellendi. Şu an giriş yapmış bulunuyorsunuz.
       updated_not_active: Parolanız başarıyla güncellendi.
     registrations:

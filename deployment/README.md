@@ -146,6 +146,10 @@ with `node scripts/recache_urls.cjs scripts/urls-prod.txt full`.
 
 ## Cache invariants
 
+Authentication behaviors use a separate viewer function that overwrites the
+client-IP header from the viewer connection while preserving host, locale, path
+and OAuth query parameters. Keep domain/locale redirects out of these behaviors.
+
 - Root, About, blog, legal, and SEO-document pages are session-free and publicly
   cached for 30 days by localized URL.
 - Anonymous Trips and Calendar pages are cached for up to 30 days in staging

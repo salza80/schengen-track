@@ -89,8 +89,10 @@ fr:
         forgot_your_password: Mot de passe oublié ?
         send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
       no_token: Vous ne pouvez pas accéder à cette page si ce n'est via un lien de réinitialisation de mot de passe. Si vous venez d'un courriel de réinitialisation, assurez-vous d'avoir utilisé l'URL complète.
+      rate_limited: Trop de demandes de récupération de mot de passe. Veuillez réessayer plus tard.
       send_instructions: Vous allez recevoir un courriel avec des instructions sur la façon de réinitialiser votre mot de passe dans quelques minutes.
       send_paranoid_instructions: Si votre courriel existe dans notre base de données, vous recevrez un lien de réinitialisation de mot de passe dans votre boîte de réception.
+      temporarily_unavailable: La récupération du mot de passe est temporairement indisponible. Veuillez réessayer plus tard.
       updated: Votre mot de passe a été modifié avec succès. Vous êtes maintenant connecté.
       updated_not_active: Votre mot de passe a été modifié.
     registrations:

@@ -232,6 +232,23 @@ before copying. Existing records remain readable, editable and removable;
 deletion frees space. Keep guest creation checks before password hashing and
 keep cached public GETs free of limiter writes.
 
+Guest calculation reads share a 60-request/minute quota per verified client IP
+and guest account across Trips, Calendar and calendar lookups. Anonymous cached
+pages do not consume this quota or query its store. Read quotas also fail closed.
+Guests whose active traveler already exceeds the record cap get a private,
+non-calculating management page with at most 100 trips and 100 visas per page.
+Cursor navigation and CSRF-protected deletion remain available until the data
+fits the calculation limit; reads never prune legacy records.
+
+Each calculation owns one visa-history snapshot. It preloads applicable visas
+and retained visits/countries once, computes entry counts once per visit and
+reuses them in row rendering and CSV. Calendar counts use indexed entry timelines
+and direct date lookups, preserving retained visa history without repeated
+database queries or day-array copies. Visa boundary precedence matches the
+latest applicable visa in the model. Do not cache derived visa state on persistent
+model instances. Day generation is bounded in days to the supported 40-year
+window plus the 190-day forecast; oversized direct-service spans raise an error.
+
 == Deployment
 
 The Rails web app, private database operations, and MCP server run as

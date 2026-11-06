@@ -1,6 +1,23 @@
 module Schengen
   class SchengenDecorator < SimpleDelegator
 
+    def initialize(visit, visa_history: nil)
+      super(visit)
+      @visa_history = visa_history
+    end
+
+    def schengen_visa
+      @visa_history ? @visa_history.visa_for_date(entry_date) : __getobj__.schengen_visa
+    end
+
+    def visa_exists?
+      !schengen_visa.nil?
+    end
+
+    def visa_entries_allowed
+      schengen_visa&.no_entries
+    end
+
     attr_accessor :schengen_days
     attr_accessor :no_days_continuous_in_schengen
 
@@ -94,6 +111,8 @@ module Schengen
 
     # number of visits on current visa
     def visa_entry_count
+      return @visa_history.entry_count_for(self) if @visa_history
+
       p = previous_visits_on_current_visa.to_a << self
       return nil unless p
       cnt = 0

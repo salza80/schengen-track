@@ -78,9 +78,17 @@ class Visit < ApplicationRecord
   #get all previous visits on the current visa
   def previous_visits_on_current_visa
     return previous_visits unless person.visa_required?
-    return Visit.none unless visa_exists?
     visa = schengen_visa
-    previous_visits.select { |v| v.schengen_visa == visa }
+    return Visit.none unless visa
+
+    previous_visits.where(entry_date: visa.start_date..visa.end_date).where(<<~SQL.squish, start: visa.start_date, finish: visa.end_date)
+      NOT EXISTS (
+        SELECT 1 FROM visas AS later_visa
+        WHERE later_visa.person_id = visits.person_id AND later_visa.visa_type = 'S'
+          AND later_visa.start_date <= visits.entry_date AND later_visa.end_date >= visits.entry_date
+          AND (later_visa.start_date, later_visa.end_date) > (:start, :finish)
+      )
+    SQL
   end
 
  # number of days overstay if visa dates have been overstayed

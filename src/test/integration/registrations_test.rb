@@ -226,8 +226,11 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_response :redirect
+    assert_redirected_to private_visits_path(locale: :en)
     assert_equal countries(:Australia), User.find_by!(email: email).nationality
+    follow_redirect!
+    assert_response :success
+    assert_select '#personDropdown .person-name', text: 'Catalog User'
   end
 
   test 'registration uses the guest nationality when the submitted nationality is blank' do

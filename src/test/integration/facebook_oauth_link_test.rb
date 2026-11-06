@@ -107,6 +107,16 @@ class FacebookOauthLinkTest < ActionDispatch::IntegrationTest
     assert_select "a[href='#{new_user_password_path(locale: :en)}']"
   end
 
+  test 'Facebook callback without an existing calculator opens the private account page' do
+    with_facebook_callback(email: 'fresh-facebook-account@example.com') { post user_facebook_omniauth_callback_path }
+
+    assert_redirected_to private_visits_path(locale: :en)
+    follow_redirect!
+    assert_response :success
+    assert_select '#personDropdown', count: 1
+    assert_select 'body[data-public-calculator-page]', count: 0
+  end
+
   test 'Facebook callback creates an account for a new email and copies the guest calculation' do
     guest = create_facebook_guest
     person = guest.people.find_by!(is_primary: true)

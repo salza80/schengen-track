@@ -76,6 +76,7 @@ fr:
         message: Votre compte a été verrouillé en raison d'un nombre excessif de tentatives de connexion infructueuses.
         subject: Instructions de déverrouillage
     omniauth_callbacks:
+      account_exists: Un compte utilise déjà cette adresse e-mail. Connectez-vous avec votre adresse e-mail et votre mot de passe, ou réinitialisez votre mot de passe pour récupérer l'accès.
       failure: Vous n'avez pas été autorisé sur le compte %{kind} car "%{reason}".
       success: Vous avez été autorisé avec succès sur le compte %{kind}.
     passwords:

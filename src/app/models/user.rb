@@ -54,50 +54,45 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth, guest_user, fallback_nationality = nil)
-    puts auth
+    unless auth.provider == 'facebook' && auth.uid.present?
+      return new.tap { |user| user.errors.add(:base, :invalid) }
+    end
+
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     return user if user
-    user = register_oauth_with_matching_email(auth)
-    unless user
-      guest_profile = guest_user&.people&.find_by(is_primary: true) || guest_user&.people&.first || guest_user
-      user = User.create do |user|
-        user.provider = auth.provider
-        user.uid = auth.uid
-        user.email = auth.info.email
-        user.password = Devise.friendly_token[0, 20]
-        user.first_name = guest_profile&.first_name || auth.info.first_name || "New"
-        user.last_name = guest_profile&.last_name || auth.info.last_name || "User"
-        user.nationality = guest_profile&.nationality || fallback_nationality || Country.find_by(country_code: 'US')
-      end
-      user.copy_from(guest_user)
-      if data = auth['extra']['raw_info']
-        user.first_name =  data['first_name']
-        user.last_name = data['last_name'] 
-      end
-      user.save
-      user.reload
-      Analytics::GoogleMeasurementProtocol.track(
-        'user_signup',
-        client_id: Analytics::GoogleMeasurementProtocol.client_id_from_key("user:#{user.id}"),
-        params: {
-          category: 'users',
-          action: 'signup',
-          label: 'facebook',
-          signup_method: 'facebook',
-          value: 1
-        }
-      )
-    end
-    user
-  end
 
-  def self.register_oauth_with_matching_email(auth)
-    return nil unless auth.info.email
-    user = find_by(email: auth.info.email)
-    return nil unless user
-    user.uid = auth.uid
-    user.provider = auth.provider
+    # Matching email addresses do not prove ownership of a local account. A
+    # collision must fail validation rather than attaching this identity to it.
+    guest_profile = guest_user&.people&.find_by(is_primary: true) || guest_user&.people&.first || guest_user
+    user = User.new do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.first_name = guest_profile&.first_name || auth.info.first_name || "New"
+      user.last_name = guest_profile&.last_name || auth.info.last_name || "User"
+      user.nationality = guest_profile&.nationality || fallback_nationality || Country.find_by(country_code: 'US')
+    end
+    return user unless user.save
+
+    user.copy_from(guest_user)
+    if data = auth.dig('extra', 'raw_info')
+      user.first_name = data['first_name']
+      user.last_name = data['last_name']
+    end
     user.save
+    user.reload
+    Analytics::GoogleMeasurementProtocol.track(
+      'user_signup',
+      client_id: Analytics::GoogleMeasurementProtocol.client_id_from_key("user:#{user.id}"),
+      params: {
+        category: 'users',
+        action: 'signup',
+        label: 'facebook',
+        signup_method: 'facebook',
+        value: 1
+      }
+    )
     user
   end
 

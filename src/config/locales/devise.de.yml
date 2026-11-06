@@ -76,6 +76,7 @@ de:
         message: Aufgrund zahlreicher fehlgeschlagener Anmeldeversuche wurde Ihr Konto gesperrt.
         subject: Anweisungen zur Entsperrung Ihres Kontos
     omniauth_callbacks:
+      account_exists: Ein Konto verwendet bereits diese E-Mail-Adresse. Melden Sie sich mit Ihrer E-Mail-Adresse und Ihrem Passwort an oder setzen Sie Ihr Passwort zurück, um wieder Zugriff zu erhalten.
       failure: 'Die Anmeldung mit Ihrem %{kind}-Konto war aufgrund des folgenden Grundes nicht möglich: "%{reason}".'
       success: Sie haben sich erfolgreich über Ihr %{kind}-Konto angemeldet.
     passwords:

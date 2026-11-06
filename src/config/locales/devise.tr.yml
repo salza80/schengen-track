@@ -72,6 +72,7 @@ tr:
         message: Hesabınız çok fazla başarısız giriş denemesinden dolayı kilitlenmiştir.
         subject: Kilit açma talimatları
     omniauth_callbacks:
+      account_exists: Bu e-posta adresini kullanan bir hesap zaten var. E-posta adresiniz ve şifrenizle giriş yapın veya erişimi geri kazanmak için şifrenizi sıfırlayın.
       failure: Sizi %{kind} aracılığıyla tanıyamadık çünkü "%{reason}".
       success: "%{kind} aracılığıyla onaylandınız."
     passwords:

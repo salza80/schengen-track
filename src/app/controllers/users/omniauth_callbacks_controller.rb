@@ -8,7 +8,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     guest = guest_user
     guest_person_id = session[:current_person_id] if guest
     existing_account = User.find_by(provider: auth.provider, uid: auth.uid)
-    existing_account ||= User.find_by(email: auth.info.email) if auth.info.email.present?
     @user = User.from_omniauth(auth, guest, calculator_nationality_record)
 
     if @user.persisted?
@@ -35,8 +34,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       clear_calculator_nationality_session
       set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       redirect_to visits_path
+    elsif @user.errors.of_kind?(:email, :taken)
+      session.delete('devise.facebook_data')
+      redirect_to new_user_session_path, alert: t('devise.omniauth_callbacks.account_exists')
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
+      # Registration only needs these profile fields, never OAuth credentials.
+      session['devise.facebook_data'] = {
+        'extra' => { 'raw_info' => auth.info.slice('email', 'first_name', 'last_name').to_h }
+      }
       redirect_to new_user_registration_path
     end
 

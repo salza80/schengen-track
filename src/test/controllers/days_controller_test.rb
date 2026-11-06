@@ -131,6 +131,14 @@ class DaysControllerTest < ActionController::TestCase
     assert_equal min_allowed_year, assigns(:selected_year)
   end
 
+  test 'year redirects remain local when a presentation parameter contains a URL' do
+    sign_in users(:Sally)
+    month = 'https://external.example/path'
+    get :index, params: { locale: :en, year: Date.today.year + 21, month: month }
+    assert_redirected_to days_path(locale: :en, year: Date.today.year + 20, month: month)
+    assert_equal 'test.host', URI.parse(response.location).host
+  end
+
   test "should allow navigation to exactly 20 years in future" do
     sign_in users(:Sally)
     
@@ -437,10 +445,10 @@ class DaysControllerTest < ActionController::TestCase
   end
 
   # ====================
-  # H. Visit Cleanup Tests
+  # H. Stored Visit Preservation
   # ====================
 
-  test "should cleanup visits older than 20 years on page load" do
+  test "page loads preserve visits older than 20 years" do
     sign_in users(:Sally)
     
     # Create a visit 21 years ago (bypassing validation for test)
@@ -451,15 +459,15 @@ class DaysControllerTest < ActionController::TestCase
     )
     old_visit.save(validate: false)
     
-    assert_difference 'Visit.count', -1 do
+    assert_no_difference 'Visit.count' do
       get :index, params: { locale: 'en' }
     end
     
     assert_response :success
-    assert_nil Visit.find_by(id: old_visit.id)
+    assert_not_nil Visit.find_by(id: old_visit.id)
   end
 
-  test "should cleanup visits more than 20 years in future on page load" do
+  test "page loads preserve visits more than 20 years in future" do
     sign_in users(:Sally)
     
     # Create a visit 21 years in future (bypassing validation for test)
@@ -470,15 +478,15 @@ class DaysControllerTest < ActionController::TestCase
     )
     future_visit.save(validate: false)
     
-    assert_difference 'Visit.count', -1 do
+    assert_no_difference 'Visit.count' do
       get :index, params: { locale: 'en' }
     end
     
     assert_response :success
-    assert_nil Visit.find_by(id: future_visit.id)
+    assert_not_nil Visit.find_by(id: future_visit.id)
   end
 
-  test "should keep recent visits during cleanup" do
+  test "page loads preserve recent visits" do
     sign_in users(:Sally)
     
     # Create a visit 10 years ago (should be kept)

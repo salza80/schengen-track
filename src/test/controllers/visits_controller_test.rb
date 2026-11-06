@@ -15,6 +15,20 @@ class VisitsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:visits)
   end
 
+  test 'new trip defaults ignore retained visits outside the calculator window' do
+    person = people(:sally_person)
+    last_supported_visit = person.visits.last
+    future_visit = person.visits.new(country: countries(:Germany), entry_date: Date.today + 21.years,
+                                     exit_date: Date.today + 21.years + 5.days)
+    future_visit.save!(validate: false)
+
+    get :new, params: { locale: :en }, format: :js
+
+    assert_response :success
+    assert_equal last_supported_visit.exit_date, assigns(:visit).entry_date
+    assert Visit.exists?(future_visit.id)
+  end
+
   test 'should create visit' do
     capture_analytics_events do |events|
       assert_difference('Visit.count') do

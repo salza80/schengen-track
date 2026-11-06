@@ -1,5 +1,5 @@
 class DaysController < ApplicationController
-  include VisitCleanup
+  include CalculatorVisits
   include CalculatorIndexCache
   before_action :set_private_calculator_cache, except: :index
   
@@ -10,9 +10,7 @@ class DaysController < ApplicationController
   # GET /visits
   # GET /visits.json
   def index
-    cleanup_old_visits
-    
-    calc = Schengen::Days::Calculator.new(current_person)
+    calc = Schengen::Days::Calculator.new(current_person, visits: calculator_visits)
     @days = calc.calculated_days
     @overstay = calc.schengen_overstay?
     @next_entry_days = calc.next_entry_days
@@ -37,7 +35,7 @@ class DaysController < ApplicationController
       closest_year = requested_year.clamp(min_year, max_year)
       redirect_params = { locale: I18n.locale, year: closest_year }
       redirect_params[:month] = params[:month] if params[:month].present?
-      redirect_to days_path(redirect_params)
+      redirect_to days_path(**redirect_params, only_path: true), allow_other_host: false
       return
     end
     
@@ -75,7 +73,7 @@ class DaysController < ApplicationController
   end
   
   def calculate_year_summary(year_days, year)
-    visits_in_year = current_person.visits.where(
+    visits_in_year = calculator_visits.where(
       '(entry_date >= ? AND entry_date <= ?) OR (exit_date >= ? AND exit_date <= ?) OR (entry_date <= ? AND exit_date >= ?)',
       Date.new(year, 1, 1), Date.new(year, 12, 31),
       Date.new(year, 1, 1), Date.new(year, 12, 31),

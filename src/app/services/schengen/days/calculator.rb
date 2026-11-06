@@ -9,13 +9,16 @@ module Schengen
       MAX_CALCULATION_DAYS = 40.years.to_i
       
       attr_reader :next_entry_days
-      def initialize(person)
+      def initialize(person, visits: nil)
         @person = person
-        @visits = @person.visits.to_a
+        @visits = (visits || @person.visits).to_a
         @calculated_days={}
         @next_entry_days=[]
         @person_requires_visa = @person.visa_required?
         @person_visas = @person_requires_visa ? @person.visas.schengen.to_a : []
+        # Retained history still counts toward a visa's lifetime entry limit,
+        # even when it is outside the displayed/calculated day window.
+        @visa_visits = @person_requires_visa ? @person.visits.to_a : []
         generate_days
       end
 
@@ -53,7 +56,7 @@ module Schengen
       end
       private
       def too_many_days?
-        # With ±20 year cleanup (20 years past + 20 years future), max span is 40 years
+        # The web calculator supplies its supported date window without purging history.
         end_date - begin_date > MAX_CALCULATION_DAYS
       end
 
@@ -241,7 +244,7 @@ module Schengen
         
         # Get all visits on this visa up to current date
         visits_on_visa = []
-        @visits.each do |visit|
+        @visa_visits.each do |visit|
           next unless visit.schengen?
           next unless visit.entry_date <= current_date
           

@@ -12,7 +12,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     user_login
     
     # Navigate to days page with year=2014 (Sally's visits are in 2014)
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Should see calendar elements
     assert has_content?('2014'), "Should show year 2014 from Sally's visits"
@@ -39,7 +39,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     user_login
     
     # Visit the year with Sally's data (2014)
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Status summary appears when there's calculated data
     # Check for year summary which always appears
@@ -53,7 +53,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
   test "year navigation works" do
     user_login
     
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Should show 2014
     assert has_content?('2014'), "Should display 2014"
@@ -69,7 +69,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
   test "year navigation buttons appear when available" do
     user_login
     
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Should have prev/next year links
     assert has_link?('2013'), "Should have previous year link"
@@ -83,7 +83,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
   test "calendar shows all 12 months" do
     user_login
     
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Should show all month names
     assert has_content?('January'), "Should show January"
@@ -97,7 +97,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
   test "calendar shows year summary banner" do
     user_login
     
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Should show year summary with visit counts
     assert has_css?('.calendar-year-summary'), "Should have year summary banner"
@@ -112,7 +112,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
   test "mobile legend displays on page" do
     user_login
     
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Mobile legend should exist (even if hidden on desktop)
     # It has d-lg-none class which hides it on large screens
@@ -129,7 +129,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     visa_user_login
     
     # Navigate to days page
-    visit days_path(locale: 'en', year: 2012)
+    visit private_days_path(locale: 'en', year: 2012)
     
     # Should NOT be redirected to visits page
     assert_not current_path.include?('visits'), "Should not redirect to visits page"
@@ -140,7 +140,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     visa_user_login
     
     # Visit year with two-entry visa visits (2012)
-    visit days_path(locale: 'en', year: 2012)
+    visit private_days_path(locale: 'en', year: 2012)
     
     # Should see calendar display
     assert has_css?('.day-cell'), "Should have day cells"
@@ -151,7 +151,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     visa_user_login
     
     # Visit year with no visa (2016)
-    visit days_path(locale: 'en', year: 2016, month: 2)
+    visit private_days_path(locale: 'en', year: 2016, month: 2)
     
     # Days with visits but no visa should show as overstay
     assert has_css?('.calendar-cell.overstay'), "Should show overstay styling for missing visa"
@@ -161,7 +161,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     # Login as regular user (Sally)
     user_login
     
-    visit days_path(locale: 'en', year: 2014)
+    visit private_days_path(locale: 'en', year: 2014)
     
     # Should work as before - no visa information
     assert has_css?('.calendar-month'), "Should show calendar"
@@ -172,7 +172,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     visa_user_login
     
     # Visit any page
-    visit visits_path(locale: 'en')
+    visit private_visits_path(locale: 'en')
     
     # Should see Calendar link in navigation
     within('nav.navbar') do
@@ -184,7 +184,7 @@ class CalendarViewTest < ActionDispatch::IntegrationTest
     visa_user_login
     
     # Visit the visits page
-    visit visits_path(locale: 'en')
+    visit private_visits_path(locale: 'en')
     
     # Verify visit rows have clickable class and data attributes
     assert has_css?('tr.clickable-visit-row'), "Should have clickable visit rows"

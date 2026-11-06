@@ -61,10 +61,10 @@ class Users::SessionsController < Devise::SessionsController
   # Redirect to visits page after sign in (like Facebook OAuth does)
   # This ensures users land on an uncached page with fresh CSRF tokens
   def after_sign_in_path_for(resource)
-    visits_path
+    calculator_visits_path
   end
 
   def after_sign_out_path_for(_resource_or_scope)
-    visits_path
+    calculator_visits_path
   end
 end

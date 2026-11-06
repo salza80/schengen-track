@@ -30,7 +30,7 @@ class CalculationClaimSecurityBrowserTest < JavascriptIntegrationTest
 
     assert_difference('User.count', 1) do
       click_button I18n.t('calculation_claim.confirm', locale: :en)
-      assert_current_path days_path(locale: :en)
+      assert_current_path private_days_path(locale: :en)
     end
     assert source.reload.calculation_claimed_at.present?
     private_guest = User.order(:id).last

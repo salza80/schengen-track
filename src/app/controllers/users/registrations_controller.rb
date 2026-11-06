@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           value: 1
         }
       )
-      redirect_to visits_path
+      redirect_to private_visits_path
     else
       @selected_nationality_code = submitted_nationality_code.presence || registration_nationality_code
       render :new

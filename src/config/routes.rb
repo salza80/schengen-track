@@ -19,14 +19,17 @@ Rails.application.routes.draw do
     patch 'calculator_preferences', to: 'calculator_preferences#update'
     root 'about#about'
 
-    resources :visits do
+    get 'visits', to: 'public/visits#index', as: :public_visits
+    get 'my/visits', to: 'visits#index', as: :private_visits
+    get 'my/days', to: 'days#index', as: :private_days
+    resources :visits, except: [:index] do
       collection do
         get 'for_date' # Get visits for a specific date
         get 'max_stay_info' # Get max stay info for entry date
       end
     end
     resources :visas, except: [:index, :show]
-    resources :days, only: [:index]
+    get 'days', to: 'public/days#index', as: :days
     resources :people do
       member do
         post :set_current

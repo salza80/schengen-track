@@ -17,7 +17,7 @@
           %td= visit.country.name
           %td= button_to t('common.delete'), visit_path(visit), method: :delete, class: 'btn btn-outline-danger', data: { confirm: t('common.delete_warning') }
   - if @limited_visits.size == 100
-    = link_to t('common.continue'), visits_path(before_visit: @limited_visits.last.id, before_visa: params[:before_visa]), class: 'btn btn-secondary mb-3'
+    = link_to t('common.continue'), private_visits_path(before_visit: @limited_visits.last.id, before_visa: params[:before_visa]), class: 'btn btn-secondary mb-3'
   %h2= t('visits.schengen_visa_list')
   %table.table
     %thead
@@ -30,4 +30,4 @@
           %td= "#{visa.start_date} – #{visa.end_date}"
           %td= button_to t('common.delete'), visa_path(visa), method: :delete, class: 'btn btn-outline-danger', data: { confirm: t('common.delete_warning') }
   - if @limited_visas.size == 100
-    = link_to t('common.continue'), visits_path(before_visit: params[:before_visit], before_visa: @limited_visas.last.id), class: 'btn btn-secondary'
+    = link_to t('common.continue'), private_visits_path(before_visit: params[:before_visit], before_visa: @limited_visas.last.id), class: 'btn btn-secondary'

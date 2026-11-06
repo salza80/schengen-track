@@ -4,7 +4,7 @@
       = t('common.edit_my_details')
     = render 'form'
   .card-footer
-    = link_to t('common.back'), visits_path(locale: I18n.locale)
+    = link_to t('common.back'), calculator_visits_path(locale: I18n.locale)
     - unless @user.is_guest?
       %a#deleteAccountButton.btn.btn-link.text-danger.float-end.p-0{href: "#", data: {delete_url: delete_account_path}}
         = t('my_details_page.delete_account')

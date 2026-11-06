@@ -1,7 +1,7 @@
 export {};
 const { filterOriginRequest } = require('../origin-signer/request-profile.cjs');
 const request = (profile: string, headers: any = {}) => ({
-  headers, origin: { custom: { customHeaders: { 'x-schengen-header-profile': [{ value: profile }] } } },
+  method: 'GET', headers, origin: { custom: { customHeaders: { 'x-schengen-header-profile': [{ value: profile }] } } },
 });
 const header = (value: string) => [{ value }];
 
@@ -17,9 +17,18 @@ test('public and calculator profiles discard unkeyed content negotiation and arb
     expect(input.headers['x-schengen-agent-auth']).toBeUndefined();
     expect(input.headers['x-schengen-client-ip']).toBeUndefined();
     expect(input.headers['x-forwarded-for']).toBeUndefined();
-    expect(input.headers.cookie).toEqual(profile === 'calculator'
-      ? [{ key: 'Cookie', value: '_schengen_track_session=encrypted=; has_calculator_session=1' }] : undefined);
+    expect(input.headers.cookie).toBeUndefined();
   }
+});
+
+test('calculator mutations retain only their signed session and native form headers', () => {
+  const input = request('calculator', { cookie: header('tracking=bad; _schengen_track_session=encrypted=; has_calculator_session=1'),
+    origin: header('https://example.com'), 'content-type': header('application/x-www-form-urlencoded') });
+  input.method = 'POST';
+  expect(filterOriginRequest(input)).toBe(true);
+  expect(input.headers.cookie).toEqual([{ key: 'Cookie', value: '_schengen_track_session=encrypted=; has_calculator_session=1' }]);
+  expect(input.headers['content-type']).toBeDefined();
+  expect(input.headers.origin).toBeDefined();
 });
 
 test('read-only transport and conditional headers retain exactly their existing values', () => {

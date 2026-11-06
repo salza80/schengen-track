@@ -5,7 +5,7 @@
   .d-flex.align-items-center.py-3{dir: (rtl_layout ? 'ltr' : nil)}
     .flex-fill.text-start
       - if @prev_year
-        = link_to days_path(locale: I18n.locale, year: @prev_year), class: 'btn btn-outline-primary btn-prev-year', "aria-label": "Previous year #{@prev_year}" do
+        = link_to calculator_days_path(locale: I18n.locale, year: @prev_year), class: 'btn btn-outline-primary btn-prev-year', "aria-label": "Previous year #{@prev_year}" do
           %i{class: prev_icon_classes.join(' '), "aria-hidden": "true"}
           = @prev_year
       - else
@@ -19,7 +19,7 @@
 
     .flex-fill.text-end
       - if @next_year
-        = link_to days_path(locale: I18n.locale, year: @next_year), class: 'btn btn-outline-primary btn-next-year', "aria-label": "Next year #{@next_year}" do
+        = link_to calculator_days_path(locale: I18n.locale, year: @next_year), class: 'btn btn-outline-primary btn-next-year', "aria-label": "Next year #{@next_year}" do
           = @next_year
           %i{class: next_icon_classes.join(' '), "aria-hidden": "true"}
       - else

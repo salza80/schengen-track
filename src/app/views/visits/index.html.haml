@@ -44,10 +44,10 @@
       .row.py-1.mb-2
         .col-auto.ms-auto
           - if @visits.count > 0
-            = link_to visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md me-2", "aria-label": t('visits.export_to_csv') do
+            = link_to calculator_visits_path(locale: I18n.locale, format: "csv"), class: "btn btn-outline-primary btn-md me-2", "aria-label": t('visits.export_to_csv') do
               %i.fa.fa-download.me-2{"aria-hidden" => "true"}
               = t('visits.export_to_csv')
-            = link_to days_path(locale: I18n.locale), class: "btn btn-outline-primary btn-md me-2", "aria-label": t('common.calendar') do
+            = link_to calculator_days_path(locale: I18n.locale), class: "btn btn-outline-primary btn-md me-2", "aria-label": t('common.calendar') do
               %i.fa.fa-calendar.me-2{"aria-hidden" => "true"}
               = t('common.calendar')
           %button.btn.btn-add.btn-md.form-btn{"data-action" => "add-visit", "aria-label": t('visits.add_travel')}

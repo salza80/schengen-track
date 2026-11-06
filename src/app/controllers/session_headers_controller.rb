@@ -3,6 +3,16 @@ class SessionHeadersController < ApplicationController
   prepend_before_action :disable_header_caching
 
   def show
+    page = params[:calculator_page]
+    if %w[visits days].include?(page) && active_calculator_context?
+      set_session_hint
+      # The public page only navigates after the signed session was validated.
+      # Preserve one-time messages for the destination's server-rendered page.
+      flash.keep
+      path = page == 'days' ? private_days_path : private_visits_path
+      return render json: { calculator_path: path }
+    end
+
     messages = %i[notice alert].filter_map do |type|
       { type: type, text: flash[type].to_s } if flash[type].present?
     end

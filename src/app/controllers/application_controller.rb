@@ -29,7 +29,8 @@ class ApplicationController < ActionController::Base
   # skip_before_action :verify_authenticity_token
 
   helper_method :current_user_or_guest_user, :current_person, :anonymous_calculator?,
-                :calculator_nationality_selected?, :seo_canonical_path
+                :calculator_nationality_selected?, :seo_canonical_path,
+                :calculator_visits_path, :calculator_days_path
   around_action :switch_locale
 
   def default_url_options
@@ -66,6 +67,7 @@ class ApplicationController < ActionController::Base
 
   def seo_canonical_path(path = request.path, locale: I18n.locale)
     page_path = path.to_s.sub(SEO_LOCALE_PREFIX_PATTERN, '').presence || '/'
+    page_path = page_path.sub(%r{\A/my/(visits|days)(?=\.|/|\z)}, '/\1')
     return page_path if locale.to_sym == I18n.default_locale.to_sym
 
     "/#{locale}#{page_path == '/' ? '' : page_path}"
@@ -111,6 +113,22 @@ class ApplicationController < ActionController::Base
     current_user_or_guest_user.nil?
   end
 
+  def active_calculator_context?
+    current_user_or_guest_user.present? || selected_calculator_nationality.present?
+  end
+
+  def calculator_visits_path(options = {})
+    return visits_path(options) if public_static_page?
+
+    active_calculator_context? ? private_visits_path(options) : visits_path(options)
+  end
+
+  def calculator_days_path(options = {})
+    return days_path(options) if public_static_page?
+
+    active_calculator_context? ? private_days_path(options) : days_path(options)
+  end
+
   def calculator_nationality_selected?
     selected_calculator_nationality.present?
   end
@@ -127,7 +145,7 @@ class ApplicationController < ActionController::Base
 
   def restore_guest_calculation
     return if params[:guest_calculation].blank?
-    return unless request.get?
+    return unless request.get? || request.head?
 
     response.headers['Referrer-Policy'] = 'no-referrer'
     response.headers['Cache-Control'] = 'private, no-store'

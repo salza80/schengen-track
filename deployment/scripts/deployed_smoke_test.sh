@@ -42,10 +42,11 @@ assert_no_header() {
 assert_eventual_cache_hit() {
   local name="$1"
   local path="$2"
+  shift 2
   local attempt
 
   for attempt in {1..5}; do
-    fetch "$name" "$path"
+    fetch "$name" "$path" "$@"
     if tr -d '\r' < "$tmp_dir/$name.headers" | grep -Eqi '^x-cache:.*Hit from cloudfront'; then
       return
     fi
@@ -97,13 +98,23 @@ fetch api-docs-first /api/docs
 assert_eventual_cache_hit api-docs-second /api/docs
 assert_no_header api-docs-second set-cookie
 
-echo "Checking session traffic bypasses the shared cache"
-fetch visits-session-first /en/visits -H 'Cookie: has_calculator_session=1'
-fetch visits-session-second /en/visits -H 'Cookie: has_calculator_session=1'
-assert_header visits-session-first x-cache 'Miss from cloudfront'
-assert_no_header visits-session-first age
-assert_header visits-session-second x-cache 'Miss from cloudfront'
-assert_no_header visits-session-second age
+echo "Checking public calculator cookies share the anonymous cache"
+assert_eventual_cache_hit visits-cookie-hint /en/visits -H 'Cookie: has_calculator_session=1'
+assert_eventual_cache_hit visits-cookie-session /en/visits -H 'Cookie: _schengen_track_session=invalid-variant'
+assert_no_header visits-cookie-hint set-cookie
+assert_no_header visits-cookie-session set-cookie
+
+echo "Checking private calculator pages require a validated session"
+for private_path in /en/my/visits /en/my/days; do
+  private_status="$(curl --silent --show-error --proto '=https' \
+    -H 'Cookie: has_calculator_session=1; _schengen_track_session=invalid' \
+    -D "$tmp_dir/private.headers" -o "$tmp_dir/private.body" -w '%{http_code}' \
+    "$base_url$private_path")"
+  [ "$private_status" = '303' ] || fail "private calculator returned $private_status"
+  assert_header private cache-control 'private.*no-store'
+  assert_header private location '/en/(visits|days)'
+  assert_no_header private age
+done
 
 echo "Checking private session endpoints"
 session_status="$(curl --silent --show-error --compressed \

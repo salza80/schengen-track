@@ -1,7 +1,7 @@
 - rtl_layout = rtl_locale?
-- trip_cta_path = visits_path(locale: I18n.locale, open: 'trip')
+- trip_cta_path = calculator_visits_path(locale: I18n.locale, open: 'trip')
 %nav.navbar.navbar-expand-header.navbar-light.bg-light.sticky-top{role: "navigation", "aria-label": "Main navigation", dir: (rtl_layout ? 'ltr' : nil)}
-  %a.navbar-brand.header-brand.px-3{:href => visits_path(I18n.locale)}
+  %a.navbar-brand.header-brand.px-3{:href => calculator_visits_path(locale: I18n.locale)}
     = image_tag("logo.svg", alt: t('common.schengen_calculator'), width: 48, height: 48)
     %span.navbar-text.site-title{dir: "auto"}
       = t('common.schengen_calculator')
@@ -10,11 +10,11 @@
   .collapse.navbar-collapse{id: "navbarContent"}
     %ul.navbar-nav.nav-tabs.mx-auto
       %li.nav-item{class: (active_if(controller: 'visits')) }
-        %a.nav-link{href: visits_path(I18n.locale) }
+        %a.nav-link{href: calculator_visits_path(locale: I18n.locale) }
           %i.fa.fa-plane.me-2{"aria-hidden": "true"}
           = t('common.trips')
       %li.nav-item{class: (active_if(controller: 'days'))}
-        %a.nav-link{href: days_path(locale: I18n.locale)}
+        %a.nav-link{href: calculator_days_path(locale: I18n.locale)}
           %i.fa.fa-calendar.me-2{"aria-hidden": "true"}
           = t('common.calendar')
       %li.nav-item{class: (active_if(controller: 'about'))}
@@ -35,6 +35,9 @@
           = link_to t('common.login'), new_user_session_path(locale: I18n.locale), class: 'btn btn-primary btn-md header-auth-button ms-2'
       - else
         = render 'layouts/user_menu'
+      - if @public_calculator_page
+        %li.nav-item
+          = link_to t('common.my_calculator'), (controller_name == 'days' ? private_days_path(locale: I18n.locale) : private_visits_path(locale: I18n.locale)), class: 'nav-link'
     %ul.navbar-nav.text-end
       / Buy Me a Coffee - visible only on mobile
       %li.nav-item.header-mobile-only.mt-3.text-center

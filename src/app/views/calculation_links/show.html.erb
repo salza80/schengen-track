@@ -5,4 +5,4 @@
   <%= hidden_field_tag :token, @token %>
   <%= submit_tag t('calculation_claim.confirm'), class: 'btn btn-primary' %>
 <% end %>
-<%= link_to t('calculation_claim.cancel'), visits_path(locale: I18n.locale) %>
+<%= link_to t('calculation_claim.cancel'), calculator_visits_path(locale: I18n.locale) %>

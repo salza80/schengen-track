@@ -104,6 +104,37 @@ test('cache behaviors select trusted request filtering profiles', () => {
   }
 });
 
+test('private calculator routes are explicitly uncached and retain validated-session inputs', () => {
+  for (const path of ['/my/*', '/*/my/*']) {
+    const b = behavior(path);
+    expect(b.CachePolicyId).toBe('4135ea2d-6df8-44a3-9df3-4b5a84be39ad');
+    expect(originProfile(b)).toBe('private');
+    expect(originConfig(b).CookiesConfig.Cookies).toContain('_schengen_track_session');
+    expect(originConfig(b).QueryStringsConfig.QueryStringBehavior).toBe('all');
+  }
+});
+
+test('public calculator cookie variants collapse before cache lookup without stripping private or mutation sessions', () => {
+  const handler = viewerRequestHandler();
+  for (const uri of ['/visits', '/en/visits', '/ar/days', '/pt-BR/days']) {
+    for (const method of ['GET', 'HEAD']) {
+      const event: any = viewerRequest(uri);
+      event.request.method = method;
+      event.request.cookies = { _schengen_track_session: { value: 'arbitrary' }, has_calculator_session: { value: '1' } };
+      expect(handler(event).cookies).toEqual({});
+    }
+  }
+  for (const [uri, method] of [['/my/visits', 'GET'], ['/en/my/days', 'GET'], ['/en/visits', 'POST']]) {
+    const event: any = viewerRequest(uri, { month: { value: '3' } });
+    event.request.method = method;
+    event.request.cookies = { _schengen_track_session: { value: 'signed' } };
+    const result = handler(event);
+    expect(result.cookies).toEqual({ _schengen_track_session: { value: 'signed' } });
+    expect(result.querystring).toEqual({ month: { value: '3' } });
+  }
+  expect(originConfig(behavior('/session_header')).QueryStringsConfig.QueryStrings).toEqual(['calculator_page']);
+});
+
 test('HTTP Lambda uses the pooled database URL while Ops keeps the direct URL', () => {
   const functions = Object.entries(resources).filter(([, resource]: [string, any]) =>
     resource.Type === 'AWS::Lambda::Function') as [string, any][];

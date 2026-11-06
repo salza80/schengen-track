@@ -73,10 +73,10 @@
         - if show_actions
           -# Action buttons (responsive stacking)
           .d-flex.flex-column.flex-sm-row.justify-content-center.gap-2
-            = link_to visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm flex-grow-1" do
+            = link_to calculator_visits_path(locale: I18n.locale), class: "btn btn-outline-primary btn-sm flex-grow-1" do
               %i.fa.fa-list.me-1{"aria-hidden" => "true"}
               = t('days.view_table')
-            - jump_today_path = @public_calculator_page ? days_path(locale: I18n.locale) : days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale)
+            - jump_today_path = @public_calculator_page ? calculator_days_path(locale: I18n.locale) : calculator_days_path(year: Time.zone.today.year, month: Time.zone.today.month, day: Time.zone.today.day, locale: I18n.locale)
             = link_to jump_today_path, class: "btn btn-outline-primary btn-sm flex-grow-1 calendar-jump-today" do
               %i.fa.fa-calendar-day.me-1{"aria-hidden" => "true"}
               = t('days.jump_to_today')

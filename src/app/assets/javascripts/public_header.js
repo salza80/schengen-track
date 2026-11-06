@@ -28,7 +28,7 @@
   function menuUrlAllowed(value, prefix, paths) {
     try {
       var url = new URL(value, window.location.href);
-      return url.origin === window.location.origin && !url.search && !url.hash &&
+      return url.origin === window.location.origin && !url.username && !url.password && !url.search && !url.hash &&
         url.pathname.indexOf(prefix + '/') === 0 && paths.test(url.pathname.slice(prefix.length));
     } catch (error) {
       return false;
@@ -82,7 +82,11 @@
     var hasFlash = window.PublicPageHydration.hasCookie('has_flash_message', '1');
     if (!hasSession && !hasFlash) return;
 
-    fetch(container.dataset.sessionHeaderUrl, { credentials: 'same-origin', cache: 'no-store' })
+    var headerUrl = new URL(container.dataset.sessionHeaderUrl, window.location.href);
+    var calculatorPage = window.PublicPageHydration.isCalculatorPage() &&
+      window.location.pathname.match(/\/(visits|days)$/);
+    if (calculatorPage) headerUrl.searchParams.set('calculator_page', calculatorPage[1]);
+    fetch(headerUrl.pathname + headerUrl.search, { credentials: 'same-origin', cache: 'no-store' })
       .then(function (response) {
         if (response.status === 204) return null;
         if (!response.ok) return null;
@@ -90,6 +94,19 @@
       })
       .then(function (data) {
         if (!data) return;
+        if (calculatorPage && typeof data.calculator_path === 'string') {
+          var prefix = headerUrl.pathname.replace(/\/session_header$/, '');
+          if (menuUrlAllowed(data.calculator_path, prefix, /^\/my\/(?:visits|days)$/)) {
+            var destination = new URL(data.calculator_path, window.location.href);
+            var presentation = new URLSearchParams(window.location.search);
+            ['year', 'month', 'day', 'open'].forEach(function (name) {
+              if (presentation.has(name)) destination.searchParams.set(name, presentation.get(name));
+            });
+            destination.hash = window.location.hash;
+            window.location.replace(destination.toString());
+            return;
+          }
+        }
         renderMessages(document.getElementById('public-notices'), data.messages);
         if (typeof data.html === 'string' && data.html) {
           var menu = sanitizedMenu(data.html, container.dataset.sessionHeaderUrl);

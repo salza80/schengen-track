@@ -40,7 +40,7 @@ class VisitsControllerTest < ActionController::TestCase
       assert_equal 'user_add_visit', event_name
       assert_equal 'add_visit', options.dig(:params, :action)
     end
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 
   test 'should track CSV export' do
@@ -73,7 +73,7 @@ class VisitsControllerTest < ActionController::TestCase
 
   test 'should update visit' do
     patch :update, params: { id: @visit, visit: { entry_date: @visit.entry_date, country_id: @visit.country_id, exit_date: @visit.exit_date }}
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 
   test 'should destroy visit' do
@@ -81,7 +81,7 @@ class VisitsControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @visit }
     end
 
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 
   test 'blank country code rejects the update and preserves the saved trip' do
@@ -98,14 +98,14 @@ class VisitsControllerTest < ActionController::TestCase
     country_id = @visit.country_id
     patch :update, params: { id: @visit, visit: { exit_date: @visit.exit_date - 1.day } }
 
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
     assert_equal country_id, @visit.reload.country_id
   end
 
   test 'country code updates resolve the selected country' do
     patch :update, params: { id: @visit, visit: { country_code: 'AU' } }
 
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
     assert_equal countries(:Australia), @visit.reload.country
   end
 
@@ -184,14 +184,14 @@ class VisitsControllerTest < ActionController::TestCase
     @request.headers['HTTP_REFERER'] = 'http://evil.com/days'
     delete :destroy, params: { id: @visit }
     # Should fall back to default redirect
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 
   test 'destroy ignores referer to non-whitelisted path' do
     @request.headers['HTTP_REFERER'] = 'http://test.host/admin'
     delete :destroy, params: { id: @visit }
     # Should fall back to default redirect
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 
   test 'destroy respects referer header for calendar redirect' do

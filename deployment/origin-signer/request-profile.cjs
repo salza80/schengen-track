@@ -19,13 +19,15 @@ exports.filterOriginRequest = (request) => {
   const name = request.origin?.custom?.customHeaders?.['x-schengen-header-profile']?.[0]?.value;
   if (!Object.hasOwn(profiles, name)) return false;
   const profile = profiles[name];
-  const allowed = new Set([...readOnly, ...profile.headers]);
+  const publicCalculator = name === 'calculator' && ['GET', 'HEAD'].includes(request.method);
+  const allowed = new Set([...readOnly, ...(publicCalculator ? [] : profile.headers)]);
   for (const header of Object.keys(request.headers)) {
     if (header !== 'cookie' && !allowed.has(header)) delete request.headers[header];
   }
-  if (request.headers.cookie && profile.cookies !== 'all') {
+  const cookieNames = publicCalculator ? [] : profile.cookies;
+  if (request.headers.cookie && cookieNames !== 'all') {
     const cookies = request.headers.cookie.flatMap(header => header.value.split(';'))
-      .map(cookie => cookie.trim()).filter(cookie => profile.cookies.includes(cookie.split('=', 1)[0]));
+      .map(cookie => cookie.trim()).filter(cookie => cookieNames.includes(cookie.split('=', 1)[0]));
     if (cookies.length) request.headers.cookie = [{ key: 'Cookie', value: cookies.join('; ') }];
     else delete request.headers.cookie;
   }

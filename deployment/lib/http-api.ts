@@ -247,7 +247,7 @@ export class HttpApiConstruct extends Construct {
     const sessionHeaderRequestPolicy = new cloudfront.OriginRequestPolicy(this, "sessionHeaderRequestPolicy", {
       headerBehavior: signedOriginHeaders,
       cookieBehavior: cloudfront.OriginRequestCookieBehavior.allowList('_schengen_track_session', 'has_calculator_session', 'has_flash_message'),
-      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
+      queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.allowList('calculator_page'),
     });
     const calculatorIndexRequestPolicy = new cloudfront.OriginRequestPolicy(this, "calculatorIndexRequestPolicy", {
       headerBehavior: signedOriginHeaders,
@@ -282,8 +282,8 @@ export class HttpApiConstruct extends Construct {
       }
     });
 
-    // Calculator index responses can be public or session-specific. Keep them
-    // out of the browser cache without stripping cookies from private responses.
+    // Public calculator HTML stays out of browser caches. Mutation responses
+    // on the same behavior retain the cookies needed by their private redirect.
     const calculatorNoBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "calculatorNoBrowserCache", {
       customHeadersBehavior: {
         customHeaders: [{
@@ -467,6 +467,8 @@ export class HttpApiConstruct extends Construct {
         functionAssociations
       },
       additionalBehaviors: {
+        "/my/*": csrfTokenBehavior,
+        "/*/my/*": csrfTokenBehavior,
         "/mcp*": mcpBehavior,
         "/api/v1/calculations*": agentApiBehavior,
         "/users/*": authFlowBehavior,

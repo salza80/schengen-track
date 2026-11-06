@@ -7,7 +7,8 @@ module ApplicationHelper
   end
 
   def active_if(options)
-    'active' if params.merge(options) == params
+    current = params.merge(controller: params[:controller].to_s.delete_prefix('public/'))
+    'active' if current.merge(options) == current
   end
 
   # Check if the current locale uses RTL layout
@@ -59,9 +60,9 @@ module ApplicationHelper
     # Check if user requires visa - if so, send to visits page
     # Otherwise, send to calendar/days page with current year
     if current_user_or_guest_user&.visa_required?
-      visits_path(locale: I18n.locale)
+      calculator_visits_path(locale: I18n.locale)
     else
-      days_path(locale: I18n.locale, year: Date.today.year)
+      calculator_days_path(locale: I18n.locale, year: Date.today.year)
     end
   end
 

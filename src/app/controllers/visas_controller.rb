@@ -69,7 +69,7 @@ class VisasController < ApplicationController
 
     respond_to do |format|
       if @visa.persisted?
-        format.html { redirect_to visits_path, notice: 'Visa was successfully created.' }
+        format.html { redirect_to calculator_visits_path, notice: 'Visa was successfully created.' }
         format.json { render :show, status: :created, location: @visa }
         format.js   # AJAX request from visits page
       else
@@ -85,7 +85,7 @@ class VisasController < ApplicationController
   def update
     respond_to do |format|
       if @visa.update(visa_params)
-        format.html { redirect_to visits_path, notice: 'Visa was successfully updated.' }
+        format.html { redirect_to calculator_visits_path, notice: 'Visa was successfully updated.' }
         format.json { render :show, status: :ok, location: @visa }
         format.js   # AJAX request from visits page
       else
@@ -101,7 +101,7 @@ class VisasController < ApplicationController
   def destroy
     @visa.destroy
     respond_to do |format|
-      format.html { redirect_to visits_path, notice: 'Visa was successfully destroyed.' }
+      format.html { redirect_to calculator_visits_path, notice: 'Visa was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

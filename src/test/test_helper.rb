@@ -128,7 +128,7 @@ class ActionDispatch::IntegrationTest
     fill_in 'Email', with: 'smclean17@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    assert_current_path visits_path(locale: :en), ignore_query: true, wait: 10
+    assert_current_path private_visits_path(locale: :en), ignore_query: true, wait: 10
     assert_text 'Sally Mclean', wait: 10
   end
 
@@ -138,7 +138,7 @@ class ActionDispatch::IntegrationTest
     fill_in 'Email', with: 'smclean17@testvr.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    assert_current_path visits_path(locale: :en), ignore_query: true, wait: 10
+    assert_current_path private_visits_path(locale: :en), ignore_query: true, wait: 10
     assert_text 'Visa Required', wait: 10
   end
 end

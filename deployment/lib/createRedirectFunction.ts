@@ -67,9 +67,16 @@ export function createRedirectFunction(altDomain: string, targetDomain: string):
         };
       }
 
+      // Public calculator cache keys must never vary with session cookies.
+      // Private calculator pages have separate explicitly uncached behaviors.
+      if ((request.method === 'GET' || request.method === 'HEAD') &&
+          /^\\/(?:en\\/|de\\/|es\\/|fr\\/|ar\\/|hi\\/|pt-BR\\/|tr\\/|zh-CN\\/)?(?:visits|days)$/.test(request.uri)) {
+        request.cookies = {};
+      }
+
       // Calendar presentation parameters stay in the viewer URL for the
       // browser, but only one normalized year reaches the cache key/origin.
-      if (/^\\/(?:[^\\/]+\\/)?days$/.test(request.uri)) {
+      if (/^\\/(?:en\\/|de\\/|es\\/|fr\\/|ar\\/|hi\\/|pt-BR\\/|tr\\/|zh-CN\\/)?days$/.test(request.uri)) {
         var currentYear = new Date().getUTCFullYear();
         var yearValue = request.querystring.year && request.querystring.year.value;
         var year = /^\\d{4}$/.test(yearValue || '') ? parseInt(yearValue, 10) : currentYear;

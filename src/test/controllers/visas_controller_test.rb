@@ -25,7 +25,7 @@ class VisasControllerTest < ActionController::TestCase
       assert_equal 'add_visa', options.dig(:params, :action)
     end
 
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 
   test "should not track an invalid visa" do
@@ -41,7 +41,7 @@ class VisasControllerTest < ActionController::TestCase
 
   test "should update visa" do
     patch :update, params: { id: @visa, visa: { start_date: (@visa.start_date - 1.day), end_date: (@visa.end_date), no_entries: 1  } }
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 
   test "should destroy visa" do
@@ -49,6 +49,6 @@ class VisasControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @visa }
     end
 
-    assert_redirected_to visits_path
+    assert_redirected_to private_visits_path
   end
 end

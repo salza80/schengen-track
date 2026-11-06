@@ -3,6 +3,9 @@
 The TypeScript CDK stacks create the Rails HTTP and Ops Lambdas, MCP Lambda,
 API Gateways, and CloudFront distribution.
 
+Rails Lambda images exclude the development and test Bundler groups during
+gem installation and at runtime.
+
 ## Prerequisites
 
 - Node.js (`.nvmrc` is provided)

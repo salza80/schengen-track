@@ -2,6 +2,7 @@
 # Builder stage
 FROM public.ecr.aws/docker/library/ruby:4.0.9-slim AS builder
 WORKDIR /app
+ENV BUNDLE_WITHOUT="development:test"
 
 RUN apt-get update -qq && \
     apt-get upgrade -y -qq && \
@@ -21,7 +22,7 @@ RUN apt-get update -qq && apt-get upgrade -y -qq
 RUN apt-get install -y -qq curl bash ca-certificates libpq-dev xz-utils
 
 # Install Node.js for asset compilation only (Terser needs a JS runtime)
-ARG NODE_VERSION=24.21.0
+ARG NODE_VERSION=24.22.2
 RUN set -eux; \
     node_arch="$(dpkg --print-architecture)"; \
     case "$node_arch" in \
@@ -43,7 +44,7 @@ COPY . /app/
 ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_SERVE_STATIC_FILES="true" \
     RAILS_ENV="production" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development:test"
 
 # Generate static country data and precompile assets.
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails country_catalog:generate assets:precompile

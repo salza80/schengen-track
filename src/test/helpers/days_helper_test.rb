@@ -3,6 +3,25 @@ require 'ostruct'
 
 class DaysHelperTest < ActionView::TestCase
   include DaysHelper
+
+  test 'country labels localize same-day trips and country changes without changing country names' do
+    day = OpenStruct.new
+    germany = OpenStruct.new(name: 'Allemagne')
+    australia = OpenStruct.new(name: 'Australie')
+    I18n.with_locale(:fr) do
+      day.entered_country = germany
+      day.exited_country = australia
+      assert_equal 'Entrée : Allemagne · Sortie : Australie', day_country_name(day)
+      day.exited_country = germany
+      assert_equal 'Entrée et sortie : Allemagne', day_country_name(day)
+      day.entered_country = nil
+      assert_equal 'Allemagne', day_country_name(day)
+      day.exited_country = nil
+      assert_equal 'Hors Schengen', day_country_name(day)
+      day.stayed_country = germany
+      assert_equal 'Allemagne', day_country_name(day)
+    end
+  end
   
   # ====================
   # A. Day Cell Class Tests
@@ -88,7 +107,6 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'France',
       stayed_country: country,
       schengen_days_count: nil,
       max_remaining_days: nil,
@@ -133,7 +151,6 @@ class DaysHelperTest < ActionView::TestCase
     country = OpenStruct.new(name: 'Germany')
     day = OpenStruct.new(
       hasCountry?: true,
-      country_name: 'Germany',
       stayed_country: country,
       the_date: Date.new(2024, 1, 1),
       schengen_days_count: 60,
@@ -234,7 +251,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'France',
+      stayed_country: OpenStruct.new(name: 'France'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -255,7 +272,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Germany',
+      stayed_country: OpenStruct.new(name: 'Germany'),
       user_requires_visa?: true,
       schengen?: true,
       visa: nil,
@@ -276,7 +293,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Italy',
+      stayed_country: OpenStruct.new(name: 'Italy'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -300,7 +317,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Spain',
+      stayed_country: OpenStruct.new(name: 'Spain'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -325,7 +342,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'France',
+      stayed_country: OpenStruct.new(name: 'France'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -350,7 +367,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Germany',
+      stayed_country: OpenStruct.new(name: 'Germany'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -370,7 +387,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Australia',
+      stayed_country: OpenStruct.new(name: 'Australia'),
       user_requires_visa?: true,
       schengen?: false,  # Non-Schengen
       visa: nil,

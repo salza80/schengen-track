@@ -314,19 +314,6 @@ module Schengen
           (overstay? && schengen?)
         end
 
-        def country_name
-          return stayed_country.name if stayed_country
-          if exited_country && entered_country
-            if exited_country === entered_country
-              return "Entered and Exited: " + exited_country.name
-            end
-            return "Entered: " + entered_country.name + " Exited: " +  exited_country.name
-          end
-          return exited_country.name if exited_country
-          return entered_country.name if entered_country
-          return "Outside Schengen"
-        end
-
         def schengen_days_for_visit(v)
           return schengen_days_count  if v.entry_date == v.exit_date
           return schengen_days_count if !from_non_to_schengen?

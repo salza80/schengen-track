@@ -1,6 +1,9 @@
 ---
 tr:
   days:
+    country_labels:
+      country_change: 'Giriş: %{entered_country} · Çıkış: %{exited_country}'
+      same_day_trip: 'Giriş ve çıkış: %{country}'
     current_status: Mevcut Durum
     days_remaining: Kalan Günler
     days_used: Kullanılan Günler

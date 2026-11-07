@@ -1,6 +1,9 @@
 ---
 ar:
   days:
+    country_labels:
+      country_change: 'الدخول: %{entered_country} · الخروج: %{exited_country}'
+      same_day_trip: 'الدخول والخروج: %{country}'
     current_status: الحالة الحالية
     days_remaining: الأيام المتبقية
     days_used: الأيام المستخدمة

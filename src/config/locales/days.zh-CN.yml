@@ -1,6 +1,9 @@
 ---
 zh-CN:
   days:
+    country_labels:
+      country_change: 入境：%{entered_country} · 出境：%{exited_country}
+      same_day_trip: 入境及出境：%{country}
     current_status: 当前状态
     days_remaining: 剩余天数
     days_used: 已用天数

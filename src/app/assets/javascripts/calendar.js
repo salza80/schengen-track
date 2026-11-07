@@ -63,6 +63,28 @@ document.addEventListener('DOMContentLoaded', function() {
   var viewerParams = new URL(window.location.href).searchParams;
   var isPublicCalculator = window.PublicPageHydration.isCalculatorPage();
 
+  // The header can wrap, change language or expand its mobile menu. Keep the
+  // year controls and day scrolling below both sticky bars at their actual size.
+  var header = document.querySelector('nav.navbar');
+  function updateStickyOffsets() {
+    var yearNav = calendarRoot.querySelector('.calendar-year-nav.sticky-top');
+    calendarRoot.style.setProperty('--calendar-header-height', (header ? header.getBoundingClientRect().height : 0) + 'px');
+    calendarRoot.style.setProperty('--calendar-year-nav-height', (yearNav ? yearNav.getBoundingClientRect().height : 0) + 'px');
+  }
+  if (calendarRoot) {
+    updateStickyOffsets();
+    if (typeof ResizeObserver !== 'undefined') {
+      var stickyObserver = new ResizeObserver(updateStickyOffsets);
+      if (header) stickyObserver.observe(header);
+      stickyObserver.observe(calendarRoot);
+    }
+  }
+
+  function dayScrollOffset() {
+    var cell = document.querySelector('.day-cell');
+    return cell ? parseFloat(getComputedStyle(cell).scrollMarginTop) || 150 : 150;
+  }
+
   function normalizeCalendarPart(value, minimum, maximum) {
     if (!/^\d{1,2}$/.test(value || '')) return null;
 
@@ -101,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
           setTimeout(function() {
             if (initialScrollCancelled) return;
             // Scroll to the day cell
-            var offset = 150;
+            var offset = dayScrollOffset();
             var elementPosition = targetDayCell.getBoundingClientRect().top + window.pageYOffset;
             var offsetPosition = elementPosition - offset;
             
@@ -125,8 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Wait for page to fully render
           setTimeout(function() {
             if (initialScrollCancelled) return;
-            // Offset for sticky header (year nav is ~80-100px)
-            var offset = 100;
+            var offset = dayScrollOffset();
             var elementPosition = monthElement.getBoundingClientRect().top + window.pageYOffset;
             var offsetPosition = elementPosition - offset;
                       
@@ -190,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (initialScrollCancelled) return;
           // Batch all layout reads together
           var rect = currentDayCell.getBoundingClientRect();
-          var yOffset = -150; // Offset for sticky header
+          var yOffset = -dayScrollOffset();
           var y = rect.top + window.pageYOffset + yOffset;
           
           // Only scroll if current day is not visible

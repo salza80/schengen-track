@@ -87,6 +87,11 @@ Calendar grids retain left-to-right date columns in every locale; horizontal
 day-navigation keys follow that visual order even on an RTL page.
 Keep all seven grid tracks within the viewport; localized weekday labels wrap
 when fonts or text sizes need more room.
+Sticky year controls and date scrolling use the measured header and year-control
+heights, including when the mobile menu expands. Calendar language links retain
+the viewed year, month and day. Country-change labels belong to
+<tt>DaysHelper#day_country_name</tt> and the existing locale files, so cells,
+tooltips and dialog summaries share the same translation.
 Dialog controls use outlined white fields from <tt>calculator_forms.scss</tt>.
 A separate information panel below the fields follows the current entry date
 and country, using the allowance endpoint's entry and visa information. Keep

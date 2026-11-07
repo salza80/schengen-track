@@ -168,8 +168,14 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
         assert_selector '.calendar-view-container[data-selected-year="2014"]'
         assert_equal width, page.evaluate_script('innerWidth')
         assert_calendar_grid_fits
+        country_label = I18n.t('days.country_labels.country_change', locale: locale,
+                               entered_country: countries(:Australia).localized_name(locale),
+                               exited_country: countries(:Germany).localized_name(locale))
+        assert_selector '[data-date="2014-03-22"] .day-country', text: country_label
+        assert_includes find('[data-date="2014-03-22"]')['data-bs-title'], country_label
         find('[data-date="2014-03-22"]').click
         assert_selector '#visitModal.show #calendar-day-info'
+        assert_selector '#calendar-day-info', text: country_label
         within '#calendar-visit-form' do
           assert_selector 'button', count: 2, wait: 10
           date_range = [I18n.l(visits(:one).entry_date, locale: locale, format: :travel),

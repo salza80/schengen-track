@@ -1,6 +1,9 @@
 ---
 hi:
   days:
+    country_labels:
+      country_change: 'प्रवेश: %{entered_country} · प्रस्थान: %{exited_country}'
+      same_day_trip: 'प्रवेश और प्रस्थान: %{country}'
     current_status: वर्तमान स्थिति
     days_remaining: शेष दिन
     days_used: उपयोग किए गए दिन

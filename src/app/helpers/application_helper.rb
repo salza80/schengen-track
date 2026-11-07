@@ -81,11 +81,17 @@ module ApplicationHelper
       ar: 'العربية',
       fr: 'Français'
     }
+    calendar_parameters = if controller_name == 'days' && action_name == 'index'
+                            params.permit(:year, :month, :day).to_h.symbolize_keys
+                          else
+                            {}
+                          end
+    locale_paths = locales.index_with { |locale| url_for(calendar_parameters.merge(locale: locale)) }
   
     # Return both dropdown (for users) and hidden links (for SEO)
     dropdown = content_tag(:select, class: 'language-select form-control form-control-sm', 'aria-label': 'Select language') do
       locales.map do |locale|
-        option_url = url_for(locale: locale)
+        option_url = locale_paths.fetch(locale)
         locale_display = "#{locale.to_s.upcase} - #{locale_names[locale.to_sym]}"
         content_tag(:option, locale_display, value: option_url, selected: locale == current_locale)
       end.join.html_safe
@@ -95,7 +101,7 @@ module ApplicationHelper
     seo_links = content_tag(:div, class: 'language-links-seo', style: 'position:absolute;left:-9999px;') do
       locales.map do |locale|
         next if locale == current_locale
-        link_url = url_for(locale: locale)
+        link_url = locale_paths.fetch(locale)
         link_to(locale_names[locale.to_sym] || locale.to_s.upcase, link_url, hreflang: locale.to_s, lang: locale.to_s)
       end.compact.join(' | ').html_safe
     end

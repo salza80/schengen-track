@@ -25,7 +25,11 @@ function runCalendar(publicCalculator: boolean, keyboardDuringStartup = false) {
     classList: { add, remove },
     getBoundingClientRect: () => ({ top: 0, bottom: 10 })
   };
-  const calendarRoot = { getAttribute: () => '2026' };
+  const calendarRoot = {
+    getAttribute: () => '2026',
+    querySelector: () => null,
+    style: { setProperty: jest.fn() }
+  };
   const querySelector = jest.fn((selector: string) => {
     if (selector === '.calendar-view-container') return calendarRoot;
     if (selector === '#calendar-scroll-target') return null;

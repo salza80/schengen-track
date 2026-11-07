@@ -1,6 +1,9 @@
 ---
 fr:
   days:
+    country_labels:
+      country_change: 'Entrée : %{entered_country} · Sortie : %{exited_country}'
+      same_day_trip: 'Entrée et sortie : %{country}'
     current_status: Statut actuel
     days_remaining: Jours restants
     days_used: Jours utilisés

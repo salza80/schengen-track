@@ -273,6 +273,12 @@ export class HttpApiConstruct extends Construct {
     // Cover responses that bypass Rails, including static assets. Match Rails'
     // two-year/subdomain policy so assets cannot shorten the browser's host policy.
     const securityHeadersBehavior: cloudfront.ResponseSecurityHeadersBehavior = {
+      // Error/static HTML can bypass the Rails CSP middleware. These responses
+      // need no scripts; preserve each application's more specific origin policy.
+      contentSecurityPolicy: {
+        contentSecurityPolicy: "default-src 'none'; style-src 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+        override: false,
+      },
       strictTransportSecurity: {
         accessControlMaxAge: cdk.Duration.days(730),
         includeSubdomains: true,

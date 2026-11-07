@@ -39,6 +39,15 @@ test('every behavior sends HSTS while preserving a stronger origin policy', () =
   }
 });
 
+test('responses bypassing Rails get a script-free CSP without replacing origin policies', () => {
+  for (const b of [config.DefaultCacheBehavior, ...config.CacheBehaviors]) {
+    expect(responseConfig(b).SecurityHeadersConfig.ContentSecurityPolicy).toEqual({
+      ContentSecurityPolicy: "default-src 'none'; style-src 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      Override: false,
+    });
+  }
+});
+
 test('all origin paths require IAM signatures from the dedicated edge role', () => {
   const edgeStack = stack.node.root.node.findChild('CacheTestOriginEdge') as cdk.Stack;
   expect(edgeStack.synthesizer).toBeInstanceOf(cdk.CliCredentialsStackSynthesizer);

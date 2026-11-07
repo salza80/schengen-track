@@ -195,6 +195,45 @@ class CalendarUxBrowserTest < JavascriptIntegrationTest
     DaysController.define_method(:index, original_index) if original_index
   end
 
+  test 'a pending save refreshes the calendar after its dialog form has been replaced' do
+    original_update = VisitsController.instance_method(:update)
+    release_save = Queue.new
+    VisitsController.define_method(:update) do
+      original_update.bind_call(self)
+      release_save.pop if request.format.json?
+    end
+    user_login
+    visit '/en/my/days?year=2014&month=3&day=10'
+    find('[data-date="2014-03-10"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    fill_in 'visit_exit_date', with: Date.iso8601('2014-03-20')
+    page.execute_script(<<~JS)
+      jQuery(document).on('ajaxComplete.review', function(event, xhr, settings) {
+        if (settings.type === 'POST' && settings.url.includes('/visits/')) {
+          document.body.dataset.pendingSaveCompleted = 'true';
+          jQuery(document).off('ajaxComplete.review');
+        }
+      });
+    JS
+    click_button 'Save'
+    assert_selector '#saveVisitButton[disabled]', text: I18n.t('days.saving')
+    within('#visitModal') { click_button 'Cancel' }
+    assert_no_selector '#visitModal.show'
+    find('[data-date="2014-04-12"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    choose_visit_country('India')
+    release_save << true
+    assert_selector 'body[data-pending-save-completed="true"]', wait: 10
+    assert_selector '.day-cell.no-travel[data-date="2014-03-21"]', wait: 10
+    assert_selector '#visitModal.show'
+    assert_equal '2014-04-12', find('#visit_entry_date').value
+    assert_equal 'IN', find('#visit_country_code', visible: :all).value
+    assert_equal Date.new(2014, 3, 20), visits(:one).reload.exit_date
+  ensure
+    release_save << true if release_save
+    VisitsController.define_method(:update, original_update) if original_update
+  end
+
   [:for_date, :edit].each do |action|
     test "a failed calendar #{action} lookup can retry without showing an add form" do
       original_action = VisitsController.instance_method(action)

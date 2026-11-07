@@ -193,6 +193,9 @@ Tab stop with arrow keys, Home/End, and Enter/Space to open the selected day.
 Save feedback distinguishes a pending save from saved visits awaiting refreshed
 totals; retrying the totals never repeats the write. Cancelling a dialog also
 invalidates pending form loads and nationality continuations.
+Visit save completion follows the request even if a newer dialog replaces its
+form; refresh the calendar without changing that newer dialog. Startup scrolling
+yields to pointer, touch, wheel and keyboard interaction.
 
 Calendar dates open their visit dialog with one tap, with the day's allowance
 and visa details above the form. Desktop hover tooltips remain available.

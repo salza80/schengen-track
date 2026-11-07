@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('pointerdown', function() { initialScrollCancelled = true; }, { once: true });
   document.addEventListener('touchstart', function() { initialScrollCancelled = true; }, { once: true, passive: true });
   document.addEventListener('wheel', function() { initialScrollCancelled = true; }, { once: true, passive: true });
+  document.addEventListener('keydown', function() { initialScrollCancelled = true; }, { once: true });
   document.addEventListener('show.bs.modal', function() { initialScrollCancelled = true; });
 
   // Scroll to specific month if parameter is present (do this FIRST, before tooltips)

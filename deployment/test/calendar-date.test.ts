@@ -14,8 +14,10 @@ class FakeDate {
   toISOString() { return '2026-01-01T23:00:00.000Z'; }
 }
 
-function runCalendar(publicCalculator: boolean) {
-  const listeners: Record<string, () => void> = {};
+function runCalendar(publicCalculator: boolean, keyboardDuringStartup = false) {
+  const listeners: Record<string, Function[]> = {};
+  const timers: Function[] = [];
+  const scrollTo = jest.fn();
   const queriedDates: string[] = [];
   const remove = jest.fn();
   const add = jest.fn();
@@ -27,6 +29,9 @@ function runCalendar(publicCalculator: boolean) {
   const querySelector = jest.fn((selector: string) => {
     if (selector === '.calendar-view-container') return calendarRoot;
     if (selector === '#calendar-scroll-target') return null;
+    if (keyboardDuringStartup && selector.startsWith('.calendar-month[data-month=')) {
+      return { getBoundingClientRect: () => ({ top: 1000 }) };
+    }
     if (selector.startsWith('[data-date="')) {
       queriedDates.push(selector);
       return currentDayCell;
@@ -45,21 +50,25 @@ function runCalendar(publicCalculator: boolean) {
       location: { href: 'https://example.com/en/days' },
       pageYOffset: 0,
       innerHeight: 800,
-      scrollTo: jest.fn()
+      scrollTo
     },
     document: {
-      addEventListener: (event: string, callback: () => void) => { listeners[event] = callback; },
+      addEventListener: (event: string, callback: Function) => { (listeners[event] ||= []).push(callback); },
       querySelector,
       querySelectorAll,
       body: { getAttribute: () => publicCalculator ? 'true' : null }
     },
-    sessionStorage: { getItem: () => null, removeItem: jest.fn() },
     requestAnimationFrame: jest.fn(),
-    setTimeout: jest.fn()
+    setTimeout: (callback: Function) => { timers.push(callback); }
   });
-  listeners.DOMContentLoaded();
+  listeners.DOMContentLoaded.forEach(callback => callback());
+  if (keyboardDuringStartup) {
+    expect(timers).toHaveLength(1);
+    listeners.keydown.forEach(callback => callback({ key: 'Tab', target: { tagName: 'BUTTON' } }));
+    timers.shift()!();
+  }
 
-  return { queriedDates, querySelectorAll, remove };
+  return { queriedDates, querySelectorAll, remove, scrollTo };
 }
 
 test('private calendars preserve the server-aligned UTC current day', () => {
@@ -75,4 +84,8 @@ test('public cached calendars replace stale highlights with the browser-local da
   expect(result.queriedDates).toContain('[data-date="2026-01-02"]');
   expect(result.querySelectorAll).toHaveBeenCalledWith('.day-cell.current-day');
   expect(result.remove).toHaveBeenCalled();
+});
+
+test('startup scrolling yields to keyboard interaction', () => {
+  expect(runCalendar(true, true).scrollTo).not.toHaveBeenCalled();
 });

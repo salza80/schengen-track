@@ -78,9 +78,38 @@ locale; the date-input shortcut continues to use its separate ISO value.
 There is no continent prerequisite. Nationality controls remain independent.
 Persisted countries still belong to continents for country-data imports and
 localization; that domain association does not drive the visit form.
-Shared modal helpers handle transport/focus through caller callbacks; calendar
-modules own JSON rendering, request cancellation and continuation state.
+Shared modal helpers handle transport, sanitized form rendering and focus;
+page modules own refresh and continuation state, while each flow cancels its
+superseded form loads.
 Only the newest calendar refresh may replace results or feedback.
+Mouse range selection uses pointer events independently of touch capability.
+Calendar grids retain left-to-right date columns in every locale; horizontal
+day-navigation keys follow that visual order even on an RTL page.
+Dialog controls use outlined white fields from <tt>calculator_forms.scss</tt>.
+A separate information panel below the fields follows the current entry date
+and country, using the allowance endpoint's entry and visa information. Keep
+the selected-day summary for the nationality/visit-choice steps only; the visit
+form's date fields provide that context once editing begins.
+Calendar tooltips and that information panel share warning messages through
+<tt>DaysHelper#day_warnings</tt>. A next-trip constraint never grants a positive
+Schengen allowance when the calculated allowance is exhausted.
+<tt>visit_visa_flow.js</tt> owns the Add Visa substep shared by Calendar and Trips.
+It retains the original visit form DOM while loading a JSON visa form; Back,
+Escape, validation and successful saves preserve the visit draft. The owning
+page handles the <tt>visit:visa-saved</tt> event: Calendar refreshes in place;
+Trips refreshes after all dialogs close, or immediately if a late save finishes
+after they have closed. A pending refresh must preserve any newer dialog draft.
+Modal HTML rendering stays in the shared sanitizer-backed helper, including on
+nonce-free documents. Inline substeps use the shared form-focus helper to focus
+the first field or validation error when their content changes.
+The renderer emits <tt>modal:form-rendered</tt> for form initialization and the
+calendar's day-summary visibility, including after delayed visa-form loads and
+when restoring a retained visit draft.
+
+Trips keeps one set of Edit/Delete links per record. Below the desktop table
+breakpoint, <tt>responsive_table.scss</tt> places that action cell beside the
+country title, with the date range below. Keep these rules scoped to
+<tt>.trips-table</tt> so the visa and traveler tables keep their own layouts.
 
 Shared deferred startup lives in <tt>third_party_scripts.js</tt>, while
 <tt>adsense.js</tt> owns SDK loading and slot requests in the core bundle. Views
@@ -197,8 +226,10 @@ Visit save completion follows the request even if a newer dialog replaces its
 form; refresh the calendar without changing that newer dialog. Startup scrolling
 yields to pointer, touch, wheel and keyboard interaction.
 
-Calendar dates open their visit dialog with one tap, with the day's allowance
-and visa details above the form. Desktop hover tooltips remain available.
+Calendar dates open their visit dialog with one tap. The visit form shows
+allowance and visa details in one information panel below its editable fields;
+missing visas offer an Add Visa action within the same dialog. Desktop hover
+tooltips remain available.
 Calendar nationality steps and visit forms use JSON, including on cached public
 documents without a script nonce. After nationality selection or a visit save,
 the private Calendar JSON response renders the displayed year's content using

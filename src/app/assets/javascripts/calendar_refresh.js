@@ -33,7 +33,7 @@
     options = options || {};
     var content = document.getElementById('calendar-content');
     content.setAttribute('aria-busy', 'true');
-    if (options.savedVisit) feedback(content.dataset.updating, null, true);
+    if (options.saved) feedback(content.dataset.updating, null, true);
     var root = document.querySelector('.calendar-view-container');
     var url = '/' + document.documentElement.lang + '/my/days';
     return $.ajax({
@@ -90,22 +90,18 @@
       window.CalendarInteractions.showDayInfo(window.CalendarInteractions.selectedDate, false);
       window.PublicHeader.refresh();
       content.removeAttribute('aria-busy');
-      if (options.savedVisit) feedback(content.dataset.saved);
+      if (options.saved) feedback(content.dataset.saved);
       else document.getElementById('calendar-feedback').replaceChildren();
       if (afterRefresh) afterRefresh();
     }).fail(function() {
       if (version !== refreshVersion) return;
       content.removeAttribute('aria-busy');
-      feedback(options.savedVisit ? content.dataset.savedRefreshError : content.dataset.refreshError, function() { refresh(afterRefresh, options); });
+      feedback(options.saved ? content.dataset.savedRefreshError : content.dataset.refreshError, function() { refresh(afterRefresh, options); });
     });
   }
 
   function showForm(data) {
-    document.getElementById('calendar-visit-form').replaceChildren(fragment(data.html));
-    document.querySelector('#visitModal .modal-body').scrollTop = 0;
-    $('#visitModal .modal-title').text(data.title);
-    $('#saveVisitButton').data('save-label', data.save_label).text(data.save_label).attr('aria-label', data.save_label).prop('disabled', false).show();
-    $('#calendar-visit-form').trigger('calendar:form-loaded');
+    window.ModalInteractions.renderForm('#visitModal', '#calendar-visit-form', '#saveVisitButton', data);
   }
 
   $(document).on('ajax:beforeSend', '#calendar-visit-form form[data-calendar-visit-form="true"]', function(event, xhr) {
@@ -116,6 +112,10 @@
     xhr.done(function(data) { saved.call(form, data, version); })
       .fail(function(response) { saveFailed.call(form, response, version); })
       .always(function() { completeSave.call(form); });
+  });
+
+  $(document).on('visit:visa-saved', '#visitModal', function(event, refreshInfo) {
+    refresh(refreshInfo, { saved: true });
   });
 
   function beforeSave() {
@@ -138,7 +138,7 @@
     var $modal = $('#visitModal');
     var modal = bootstrap.Modal.getInstance($modal.get(0));
     var afterHide = function() {
-      refresh(null, { savedVisit: true });
+      refresh(null, { saved: true });
     };
     if (!window.CalendarInteractions.isDialogCurrent(version)) {
       afterHide();

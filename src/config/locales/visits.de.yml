@@ -18,12 +18,11 @@ de:
       one: Tag
       other: Tage
     days: Tage
-    days_in_schengen_zone: " im Schengen-Raum"
-    days_outside_schengen_zone: " außerhalb des Schengen-Raums"
     days_overstay: Überzogene Tage
     days_overstay_tooltip: Die Anzahl der Tage im Schengen-Raum, die nicht vom eingegebenen Visum erlaubt sind.
     edit_title: Reiseaufzeichnung bearbeiten
     entry_date: Einreisedatum
+    entry_info: Informationen zur Einreise
     exit_date: Ausreisedatum
     exits: Ausgänge
     exits_tooltip: Gibt an, ob ein Visum für den Reisezeitraum eingegeben wurde.
@@ -40,6 +39,7 @@ de:
     no_days: Nr. Tage
     no_entries: Nr. Einträge
     no_trips: Noch keine Reisen
+    no_visa_for_date: Für dieses Datum ist kein Visum eingetragen.
     number_of_days_tooltip: Die Anzahl der Tage dieses Besuchs.
     number_of_entries_tooltip: Die Anzahl der Einreisen, die mit diesem Visum erlaubt sind.
     page_description: Verfolgen Sie Ihre Reisen in den Schengen-Raum und überwachen Sie Ihre Einhaltung der 90/180-Tage-Regel. Fügen Sie Ihre vergangenen und zukünftigen Besuche hinzu, um zu sehen, wie viele Tage Ihnen noch bleiben.

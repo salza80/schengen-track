@@ -69,6 +69,9 @@
               %div.mt-2
                 %small{class: (@status_summary[:visa_entries_exceeded] ? 'text-danger fw-bold' : 'text-muted')}
                   = @status_summary[:visa_entries_display]
+            - if @status_summary[:visa_status] != 'ok'
+              .mt-2
+                = link_to t('days.go_to_visas'), calculator_visits_path(locale: I18n.locale, anchor: 'visas'), class: 'btn btn-outline-primary btn-sm'
         
         - if show_actions
           -# Action buttons (responsive stacking)

@@ -5,7 +5,7 @@ tr:
     days_remaining: Kalan Günler
     days_used: Kullanılan Günler
     entry_limit_exceeded: Giriş Limiti Aşıldı
-    form_error: Ziyaret ayrıntıları yüklenemedi. Tekrar deneyin.
+    form_error: Bilgiler yüklenemedi. Tekrar deneyin.
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
     go_to_visas: Vizelere git
@@ -30,9 +30,9 @@ tr:
     page_title: Schengen 90/180 Gün Hesaplayıcı
     refresh_error: Takvim yenilenemedi. Son sonuçları görmek için tekrar deneyin.
     retry: Tekrar dene
-    save_error: Ziyaret kaydedilemedi. Bağlantınızı kontrol edip tekrar deneyin.
+    save_error: Değişiklikler kaydedilemedi. Bağlantınızı kontrol edip tekrar deneyin.
     saved: Kaydedildi.
-    saved_refresh_error: Ziyaretiniz kaydedildi. Takvim toplamlarını güncellemek için tekrar deneyin.
+    saved_refresh_error: Değişiklikleriniz kaydedildi. Takvim toplamlarını güncellemek için tekrar deneyin.
     saving: Kaydediliyor…
     schengen_days_in_year: Schengen'de Günler
     schengen_no: Hayır

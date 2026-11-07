@@ -18,12 +18,11 @@ en:
       one: day
       other: days
     days: days
-    days_in_schengen_zone: " in Schengen Zone"
-    days_outside_schengen_zone: " outside Schengen Zone"
     days_overstay: Days Overstay
     days_overstay_tooltip: The number of days inside the Schengen Area not allowed by the Visa's Entered.
     edit_title: Edit a Travel Record
     entry_date: Entry date
+    entry_info: Entry date information
     exit_date: Exit date
     exits: Exits
     exits_tooltip: Indicates if a Visa for the period of travel been entered.
@@ -40,6 +39,7 @@ en:
     no_days: No Days
     no_entries: No. Entries
     no_trips: No trips yet
+    no_visa_for_date: No visa recorded for this date.
     number_of_days_tooltip: The number of days of this visit.
     number_of_entries_tooltip: The number of entries allowed on this Visa.
     page_description: Track your trips to the Schengen Area and monitor your compliance with the 90/180 day rule. Add your past and upcoming visits to see how many days you have remaining.

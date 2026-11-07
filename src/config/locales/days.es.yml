@@ -5,7 +5,7 @@ es:
     days_remaining: Días restantes
     days_used: Días Usados
     entry_limit_exceeded: Límite de entradas excedido
-    form_error: No se pudieron cargar los detalles de la visita. Inténtalo de nuevo.
+    form_error: No se pudieron cargar los datos. Inténtalo de nuevo.
     from_date_onwards: Desde %{date} en adelante
     full_stay: "¡90 días completos!"
     go_to_visas: Ir a visas
@@ -30,9 +30,9 @@ es:
     page_title: Calculadora de Días 90/180 Schengen
     refresh_error: No se pudo actualizar el calendario. Inténtalo de nuevo para ver los últimos resultados.
     retry: Intentar de nuevo
-    save_error: No se pudo guardar la visita. Comprueba tu conexión e inténtalo de nuevo.
+    save_error: No se pudieron guardar los cambios. Comprueba tu conexión e inténtalo de nuevo.
     saved: Guardado.
-    saved_refresh_error: Tu visita está guardada. Inténtalo de nuevo para actualizar los totales del calendario.
+    saved_refresh_error: Tus cambios están guardados. Inténtalo de nuevo para actualizar los totales del calendario.
     saving: Guardando…
     schengen_days_in_year: Días en Schengen
     schengen_no: 'No'

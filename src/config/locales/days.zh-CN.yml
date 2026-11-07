@@ -5,7 +5,7 @@ zh-CN:
     days_remaining: 剩余天数
     days_used: 已用天数
     entry_limit_exceeded: 超出入境次数限制
-    form_error: 无法加载行程详情。请重试。
+    form_error: 无法加载信息。请重试。
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
     go_to_visas: 前往签证
@@ -30,9 +30,9 @@ zh-CN:
     page_title: 申根90/180天计算器
     refresh_error: 无法刷新日历。请重试以查看最新结果。
     retry: 重试
-    save_error: 无法保存行程。请检查网络连接并重试。
+    save_error: 无法保存更改。请检查网络连接后重试。
     saved: 已保存。
-    saved_refresh_error: 行程已保存。请重试以更新日历总计。
+    saved_refresh_error: 更改已保存。请重试以更新日历总计。
     saving: 正在保存…
     schengen_days_in_year: 在申根区的天数
     schengen_no: 否

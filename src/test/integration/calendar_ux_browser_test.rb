@@ -74,6 +74,90 @@ class CalendarUxBrowserTest < JavascriptIntegrationTest
     assert_selector '.calendar-view-container[data-selected-year="2027"]'
   end
 
+  test 'calendar arrow keys follow the visual grid inside an RTL page' do
+    user_login
+    visit '/ar/my/days?year=2027&month=4&day=12'
+    cell = find('.day-cell[tabindex="0"]')
+    original_x = cell.native.rect.x
+    assert_equal 'rtl', find('html')['dir']
+    assert_equal 'ltr', page.evaluate_script("getComputedStyle(document.querySelector('.calendar-grid')).direction")
+    cell.send_keys(:arrow_right)
+    assert_selector '.day-cell:focus[data-date="2027-04-13"]'
+    assert_operator find('.day-cell:focus').native.rect.x, :>, original_x
+    find('.day-cell:focus').send_keys(:arrow_left)
+    assert_selector '.day-cell:focus[data-date="2027-04-12"]'
+    find('.day-cell:focus').send_keys(:home)
+    assert_selector '.day-cell:focus[data-date="2027-04-11"]'
+    find('.day-cell:focus').send_keys(:end)
+    assert_selector '.day-cell:focus[data-date="2027-04-17"]'
+    assert_selector '.day-cell[tabindex="0"]', count: 1
+  end
+
+  test 'mouse range selection remains available on a touch capable desktop' do
+    user_login
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: true, maxTouchPoints: 1)
+    visit '/en/my/days?year=2027&month=4&day=12'
+    assert_operator page.evaluate_script('navigator.maxTouchPoints'), :>, 0
+    assert_selector '[data-date="2027-04-12"].highlight-day', wait: 3
+    start_cell = find('[data-date="2027-04-12"]')
+    end_cell = find('[data-date="2027-04-14"]')
+    page.driver.browser.action.move_to(start_cell.native).click_and_hold.move_to(end_cell.native).release.perform
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    assert_equal '2027-04-12', find('#visit_entry_date').value
+    assert_equal '2027-04-14', find('#visit_exit_date').value
+  ensure
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: false)
+  end
+
+  test 'losing window focus cancels an unfinished mouse range' do
+    user_login
+    visit '/en/my/days?year=2027&month=4&day=12'
+    start_cell = find('[data-date="2027-04-12"]')
+    end_cell = find('[data-date="2027-04-14"]')
+    page.driver.browser.action.move_to(start_cell.native).click_and_hold.move_to(end_cell.native).perform
+    assert_selector '.day-cell.selecting', count: 3
+    page.execute_script("window.dispatchEvent(new Event('blur'))")
+    assert_no_selector '.day-cell.selecting'
+    page.driver.browser.action.move_to(find('[data-date="2027-04-15"]').native).release.perform
+    assert_no_selector '.day-cell.selecting'
+    assert_no_selector '#visitModal.show'
+    find('[data-date="2027-04-20"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    assert_equal '2027-04-20', find('#visit_entry_date').value
+    assert_equal '2027-04-20', find('#visit_exit_date').value
+  end
+
+  test 'a calendar refresh preserves a mouse range and its focus return target' do
+    original_index = DaysController.instance_method(:index)
+    release_refresh = Queue.new
+    DaysController.define_method(:index) do
+      original_index.bind_call(self)
+      release_refresh.pop if request.format.json?
+    end
+    user_login
+    visit '/en/my/days?year=2027&month=4&day=12'
+    assert_selector '[data-date="2027-04-12"].highlight-day', wait: 3
+    page.execute_script('window.CalendarRefresh.refresh()')
+    assert_selector '#calendar-content[aria-busy="true"]'
+    start_cell = find('[data-date="2027-04-12"]')
+    end_cell = find('[data-date="2027-04-14"]')
+    page.driver.browser.action.move_to(start_cell.native).click_and_hold.move_to(end_cell.native).perform
+    assert_selector '.day-cell.selecting', count: 3
+    release_refresh << true
+    assert_no_selector '#calendar-content[aria-busy="true"]'
+    assert_selector '.day-cell.selecting', count: 3
+    page.driver.browser.action.release.perform
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    assert_equal '2027-04-12', find('#visit_entry_date').value
+    assert_equal '2027-04-14', find('#visit_exit_date').value
+    within('#visitModal') { click_button 'Cancel' }
+    assert_no_selector '.modal-backdrop'
+    assert_selector '.day-cell:focus[data-date="2027-04-12"]'
+  ensure
+    release_refresh << true if release_refresh
+    DaysController.define_method(:index, original_index) if original_index
+  end
+
   test 'native dates allow same day stays and prevent a departure before arrival' do
     user_login
     visit '/en/my/days?year=2027&month=4&day=12'

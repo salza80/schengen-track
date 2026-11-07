@@ -23,9 +23,11 @@ class VisasController < ApplicationController
   def new
     @visa = Visa.new
     @visa.no_entries = 0
+    @visa.assign_attributes(params.permit(:start_date, :end_date)) if request.format.json?
     
     respond_to do |format|
       format.js   # AJAX request from visits page
+      format.json { render_visa_form(t('visits.add_visa')) }
     end
   end
 
@@ -70,11 +72,19 @@ class VisasController < ApplicationController
     respond_to do |format|
       if @visa.persisted?
         format.html { redirect_to calculator_visits_path, notice: 'Visa was successfully created.' }
-        format.json { render :show, status: :created, location: @visa }
+        format.json do
+          request.xhr? ? render(json: { saved: true }, status: :created) : render(:show, status: :created, location: @visa)
+        end
         format.js   # AJAX request from visits page
       else
         format.html { render :new }
-        format.json { render json: @visa.errors, status: :unprocessable_entity }
+        format.json do
+          if request.xhr?
+            render_visa_form(t('visits.add_visa'), status: :unprocessable_entity)
+          else
+            render json: @visa.errors, status: :unprocessable_entity
+          end
+        end
         format.js   # AJAX request from visits page - show errors
       end
     end
@@ -107,6 +117,13 @@ class VisasController < ApplicationController
   end
 
   private
+    def render_visa_form(title, status: :ok)
+      render json: {
+        html: render_to_string(partial: 'visas/form', formats: [:html]),
+        title: title, save_label: t('common.save')
+      }, status: status
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_visa
       @visa = current_person.visas.find(params[:id])

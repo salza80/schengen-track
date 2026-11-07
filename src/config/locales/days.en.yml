@@ -5,7 +5,7 @@ en:
     days_remaining: Days Remaining
     days_used: Days Used
     entry_limit_exceeded: Entry Limit Exceeded
-    form_error: The visit details could not be loaded. Try again.
+    form_error: The details could not be loaded. Try again.
     from_date_onwards: From %{date} onwards
     full_stay: Full 90 days!
     go_to_visas: Go to Visas
@@ -27,9 +27,9 @@ en:
     overstay_tooltip: You have overstayed the 90/180 days
     refresh_error: The calendar could not be refreshed. Try again to show the latest results.
     retry: Try again
-    save_error: The visit could not be saved. Check your connection and try again.
+    save_error: The changes could not be saved. Check your connection and try again.
     saved: Saved.
-    saved_refresh_error: Your visit is saved. Try again to update the calendar totals.
+    saved_refresh_error: Your changes are saved. Try again to update the calendar totals.
     saving: Saving…
     schengen_days_in_year: Days in Schengen
     schengen_no: 'No'

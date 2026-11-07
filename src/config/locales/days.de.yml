@@ -5,7 +5,7 @@ de:
     days_remaining: Verbleibende Tage
     days_used: Verwendete Tage
     entry_limit_exceeded: Einreisegrenze überschritten
-    form_error: Die Aufenthaltsdetails konnten nicht geladen werden. Versuche es erneut.
+    form_error: Die Angaben konnten nicht geladen werden. Versuche es erneut.
     from_date_onwards: Ab %{date}
     full_stay: Volle 90 Tage!
     go_to_visas: Zu Visa gehen
@@ -30,9 +30,9 @@ de:
     page_title: Schengen 90/180-Tage-Rechner
     refresh_error: Der Kalender konnte nicht aktualisiert werden. Versuchen Sie es erneut, um die neuesten Ergebnisse anzuzeigen.
     retry: Erneut versuchen
-    save_error: Der Aufenthalt konnte nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.
+    save_error: Die Änderungen konnten nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.
     saved: Gespeichert.
-    saved_refresh_error: Dein Aufenthalt ist gespeichert. Versuche erneut, die Kalendersummen zu aktualisieren.
+    saved_refresh_error: Deine Änderungen sind gespeichert. Versuche erneut, die Kalendersummen zu aktualisieren.
     saving: Wird gespeichert…
     schengen_days_in_year: Tage im Schengen
     schengen_no: Nein

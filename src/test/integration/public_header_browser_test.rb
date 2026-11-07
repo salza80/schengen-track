@@ -716,8 +716,8 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     # Dispatch a tap without Selenium moving a mouse over the cell first.
     page.execute_script('arguments[0].click()', cell)
     assert_selector '#visitModal.show form', wait: 10
-    assert_selector '#calendar-day-info strong'
-    assert_selector '#calendar-day-info-content', text: 'Days used:'
+    assert_no_selector '#calendar-day-info'
+    assert_selector '#entry-date-info', text: 'Days used:'
     assert_no_selector '.tooltip.show'
     within('#visitModal') { find('button.btn-close').click }
     assert_no_selector '#visitModal.show'

@@ -57,13 +57,21 @@ module DaysHelper
       parts << t('days.tooltip.can_stay_html', days: remaining_days, date: exit_date_span).html_safe
     end
 
-    if day.overstay_days.positive?
-      parts << content_tag(:span, "⚠️ #{t('days.tooltip.overstay', days: day.overstay_days)}", class: 'text-danger')
-    end
-
-    parts << content_tag(:span, "⏱ #{t('days.tooltip.wait', days: day.remaining_wait)}", class: 'text-warning') if day.remaining_wait
+    warnings = day_warnings(day)
+    parts << content_tag(:span, "⚠️ #{warnings[:overstay]}", class: 'text-danger') if warnings[:overstay]
+    parts << content_tag(:span, "⏱ #{warnings[:wait]}", class: 'text-warning') if warnings[:wait]
 
     safe_join(parts, tag.br)
+  end
+
+  # Shared presentation for calendar tooltips and the editable visit's entry date.
+  def day_warnings(day)
+    return {} unless day
+
+    {
+      overstay: (t('days.tooltip.overstay', days: day.overstay_days) if day.overstay_days.positive?),
+      wait: (t('days.tooltip.wait', days: day.remaining_wait) if day.remaining_wait)
+    }.compact
   end
 
   # Extracts 2-letter ISO code from day's country

@@ -52,6 +52,7 @@
 @import "responsive_table";
 @import "calendar_status_card";
 @import "country_picker";
+@import "calculator_forms";
 
 // Bootstrap 5 applies $btn-box-shadow to the base .btn. Previously only filled
 // variants had it; keep outline, link, and unstyled OAuth buttons flat.
@@ -761,6 +762,7 @@ html[dir='rtl'] {
 
 // Section headings use the primary blue accent; reserve green for actions.
 .section-heading {
+  scroll-margin-block-start: 8rem;
   padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
   margin-top: 2rem;
@@ -957,15 +959,4 @@ nav.page-sidebar {
       }
     }
   }
-}
-
-// Compact visit forms share the same controls on Calendar and Trips.
-.visit-date-fields input[type="date"] {
-  min-width: 0;
-  width: 100%;
-  background-color: #fff;
-}
-[dir="rtl"] #visitModal .modal-header .btn-close {
-  margin-left: calc(-.5 * var(--bs-modal-header-padding-x));
-  margin-right: auto;
 }

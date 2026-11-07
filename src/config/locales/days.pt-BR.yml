@@ -5,7 +5,7 @@ pt-BR:
     days_remaining: Dias Restantes
     days_used: Dias Usados
     entry_limit_exceeded: Limite de Entradas Excedido
-    form_error: Não foi possível carregar os detalhes da visita. Tente novamente.
+    form_error: Não foi possível carregar os dados. Tente novamente.
     from_date_onwards: A partir de %{date}
     full_stay: 90 dias completos!
     go_to_visas: Ir para Vistos
@@ -27,9 +27,9 @@ pt-BR:
     overstay_tooltip: Você excedeu os 90/180 dias
     refresh_error: Não foi possível atualizar o calendário. Tente novamente para ver os resultados mais recentes.
     retry: Tentar novamente
-    save_error: Não foi possível salvar a visita. Verifique sua conexão e tente novamente.
+    save_error: Não foi possível salvar as alterações. Verifique sua conexão e tente novamente.
     saved: Salvo.
-    saved_refresh_error: Sua visita está salva. Tente novamente para atualizar os totais do calendário.
+    saved_refresh_error: Suas alterações foram salvas. Tente novamente para atualizar os totais do calendário.
     saving: Salvando…
     schengen_days_in_year: Dias em Schengen
     schengen_no: Não

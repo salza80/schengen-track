@@ -22,12 +22,11 @@ ar:
       two: يومين
       zero: أيام
     days: أيام
-    days_in_schengen_zone: " داخل منطقة شنغن"
-    days_outside_schengen_zone: " خارج منطقة شنغن"
     days_overstay: أيام الإقامة الزائدة
     days_overstay_tooltip: عدد الأيام داخل منطقة شنغن التي لا تغطيها التأشيرة المدخلة.
     edit_title: تعديل سجل سفر
     entry_date: تاريخ الدخول
+    entry_info: معلومات تاريخ الدخول
     exit_date: تاريخ الخروج
     exits: الخروج
     exits_tooltip: يوضّح ما إذا كانت هناك تأشيرة تغطي فترة السفر.
@@ -44,6 +43,7 @@ ar:
     no_days: لا توجد أيام
     no_entries: عدد الدخولات
     no_trips: لا توجد رحلات بعد
+    no_visa_for_date: لم تُسجّل تأشيرة لهذا التاريخ.
     number_of_days_tooltip: عدد أيام هذه الزيارة.
     number_of_entries_tooltip: عدد مرّات الدخول المسموح بها في هذه التأشيرة.
     page_description: تتبّع رحلاتك إلى منطقة شنغن وراقب التزامك بقاعدة ٩٠/١٨٠ يوماً. أضف زياراتك السابقة والمخطط لها لمعرفة الأيام المتبقية.

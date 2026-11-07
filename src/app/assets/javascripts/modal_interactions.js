@@ -106,7 +106,7 @@
         })
         .off('ajax:error.calculatorLimits', formSelector)
         .on('ajax:error.calculatorLimits', formSelector, function(event, xhr) {
-          if (this.dataset.calendarVisitForm === 'true') return;
+          if (this.dataset.calendarVisitForm === 'true' || this.dataset.inlineVisaForm === 'true') return;
           if (!xhr || (xhr.status !== 429 && xhr.status !== 503)) return;
           try {
             var error = JSON.parse(xhr.responseText).error;
@@ -115,6 +115,29 @@
             }
           } catch (ignored) {}
         });
+    },
+
+    renderForm: function(modalSelector, containerSelector, buttonSelector, data) {
+      document.querySelector(containerSelector).replaceChildren(window.DOMPurify.sanitize(
+        data.html, { USE_PROFILES: { html: true }, RETURN_DOM_FRAGMENT: true }
+      ));
+      document.querySelector(modalSelector + ' .modal-body').scrollTop = 0;
+      $(modalSelector + ' .modal-title').text(data.title);
+      $(buttonSelector).data('save-label', data.save_label).text(data.save_label)
+        .attr('aria-label', data.save_label).prop('disabled', false).show();
+      $(containerSelector).trigger('modal:form-rendered');
+    },
+
+    focusForm: function(form) {
+      var fields = Array.from(form.elements).filter(function(field) {
+        return !field.disabled && field.matches('input:not([type="hidden"]), select, textarea');
+      });
+      var target = fields.find(function(field) {
+        return field.getAttribute('aria-invalid') === 'true';
+      }) || form.querySelector('.alert-danger') || fields[0];
+      if (!target) return;
+      if (!canReceiveFocus(target)) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
     },
 
     loadForm: function(options) {

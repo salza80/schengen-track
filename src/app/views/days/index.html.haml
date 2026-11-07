@@ -32,6 +32,7 @@
           #calendar-day-info.border-bottom.pb-3.mb-3{hidden: true}
             %h6#calendar-day-info-date
             #calendar-day-info-content
+            = link_to t('visits.add_visa'), calculator_visits_path(locale: I18n.locale, open: 'visa', anchor: 'visas'), class: 'btn btn-outline-primary mt-2', hidden: true, data: {day_add_visa: true}
           #calendar-visit-form
             - if nationality_gate
               = render 'shared/calculator_nationality_step', destination: 'calendar'

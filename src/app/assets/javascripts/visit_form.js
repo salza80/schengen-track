@@ -1,4 +1,5 @@
 //= require country_picker
+//= require visit_visa_flow
 // Initialize server-rendered modal forms without embedding executable code in HTML.
 (function(window, document, $) {
   'use strict';
@@ -33,11 +34,36 @@
       $(entry).add(exit).on('input change', updateDuration);
       updateDuration();
       var maxStayRequest;
+      var info = form.querySelector('#entry-date-info');
+      if (!info) return;
+
+      function updateEntryInfo(result) {
+        var details = result.entry_info;
+        var daysUsed = info.querySelector('[data-entry-days-used]');
+        var visa = info.querySelector('[data-entry-visa]');
+        var entries = info.querySelector('[data-entry-visa-entries]');
+        daysUsed.textContent = details ? details.days_used : '';
+        daysUsed.classList.toggle('text-danger-emphasis', !!(details && details.overstay));
+        visa.hidden = !details || !details.visa_status;
+        info.querySelector('[data-entry-visa-status]').textContent = details ? details.visa_status || '' : '';
+        visa.classList.toggle('text-danger-emphasis', !!(details && details.visa_missing));
+        info.querySelector('[data-visit-add-visa]').hidden = !details || !details.visa_missing;
+        entries.hidden = !details || !details.visa_entries;
+        entries.textContent = details ? details.visa_entries || '' : '';
+        entries.classList.toggle('text-danger-emphasis', !!(details && details.visa_entries_exceeded));
+        ['overstay', 'wait'].forEach(function(kind) {
+          var warning = info.querySelector('[data-entry-' + kind + ']');
+          warning.textContent = details ? details[kind] || '' : '';
+          warning.hidden = !details || !details[kind];
+        });
+        info.querySelector('[data-entry-allowance]').hidden = !result.show || result.max_days <= 0;
+        info.hidden = !details && (!result.show || result.max_days <= 0);
+      }
 
       function updateMaxStayInfo() {
         var countryCode = $form.find('#visit_country_code').val();
         if (maxStayRequest) maxStayRequest.abort();
-        $form.find('#entry-date-info').hide();
+        info.hidden = true;
         if (!entry.value || !entry.validity.valid) return;
         var data = { date: entry.value };
         if (countryCode) data.country_code = countryCode;
@@ -47,10 +73,8 @@
           data: data,
           dataType: 'json',
           success: function(result) {
-            if (!result.show || result.max_days <= 0) {
-              $form.find('#entry-date-info').hide();
-              return;
-            }
+            updateEntryInfo(result);
+            if (!result.show || result.max_days <= 0) return;
             var parts = form.dataset.daysUntil.replace('__DAYS__', numbers.format(result.max_days)).split('__DATE__');
             var $message = $form.find('#max-stay-info').empty();
             $message.append(document.createTextNode(parts[0]));
@@ -68,19 +92,19 @@
                 $message.append(document.createTextNode(' ' + form.dataset.nextVisitConstraint.replace('__DATE__', result.next_entry_date)));
               }
             }
-            $form.find('#entry-date-info').show();
           },
-          error: function() { $form.find('#entry-date-info').hide(); }
+          error: function() { info.hidden = true; }
         });
       }
 
       $form.find('#visit_entry_date, #visit_country_code')
         .on('change', updateMaxStayInfo);
+      $form.on('visit:refresh-info', updateMaxStayInfo);
       updateMaxStayInfo();
     });
   }
 
   document.addEventListener('DOMContentLoaded', initializeForms);
   $(document).ajaxSuccess(initializeForms);
-  $(document).on('calendar:form-loaded', initializeForms);
+  $(document).on('modal:form-rendered', initializeForms);
 })(window, document, window.jQuery);

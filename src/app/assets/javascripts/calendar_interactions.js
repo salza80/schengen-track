@@ -10,8 +10,7 @@
       isSelecting: false,
       startDate: null,
       endDate: null,
-      selectedCells: [],
-      isMobileDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      selectedCells: []
     },
     
     // Store current visit ID for edit mode
@@ -29,11 +28,14 @@
 
       self.initialized = true;
       ModalInteractions.bindFocusGuard('#visitModal');
+      $('#visitModal').on('modal:form-rendered', function() {
+        document.getElementById('calendar-day-info').hidden = true;
+      });
       
       // Bind click handlers to day cells
       self.bindDayCellClicks();
       
-      if (!self.state.isMobileDevice) self.bindDragToSelect();
+      self.bindDragToSelect();
       
       $('#visitModal').on('hide.bs.modal', function() {
         self.dialogVersion += 1;
@@ -91,12 +93,12 @@
         var version = ++self.dialogVersion;
         window.CalendarPresentation.setActiveDay(this);
         $('#visitModal').data('focus-return', this);
+        if (!$('#visitModal').is('[data-nationality-required]')) self.showLoading();
         self.showDayInfo($cell.data('date'));
         $('.day-cell').each(function() {
           var tooltip = bootstrap.Tooltip.getInstance(this);
           if (tooltip) tooltip.hide();
         });
-        if (!$('#visitModal').is('[data-nationality-required]')) self.showLoading();
         $('#visitModal').modal('show');
 
         e.preventDefault();
@@ -140,13 +142,12 @@
     // Bind drag-to-select functionality
     bindDragToSelect: function() {
       var self = this;
-      var isMouseDown = false;
-      
-      $(document).on('mousedown', '.day-cell', function(e) {
-        if (e.which !== 1) return; // Only left mouse button
+
+      $(document).on('pointerdown', '.day-cell', function(e) {
+        var pointer = e.originalEvent || e;
+        if (pointer.pointerType !== 'mouse' || pointer.button !== 0) return;
         self.suppressNextClick = false;
         
-        isMouseDown = true;
         self.state.isSelecting = true;
         self.state.startDate = $(this).data('date');
         self.state.selectedCells = [this];
@@ -155,8 +156,8 @@
         e.preventDefault();
       });
       
-      $(document).on('mouseover', '.day-cell', function() {
-        if (!isMouseDown || !self.state.isSelecting) return;
+      $(document).on('pointerover', '.day-cell', function(e) {
+        if (!self.state.isSelecting || (e.originalEvent || e).pointerType !== 'mouse') return;
         
         var currentDate = $(this).data('date');
         if (!currentDate) return;
@@ -165,10 +166,8 @@
         self.updateSelection(self.state.startDate, currentDate);
       });
       
-      $(document).on('mouseup', function() {
-        if (!isMouseDown) return;
-        
-        isMouseDown = false;
+      $(document).on('pointerup', function(e) {
+        if (!self.state.isSelecting || (e.originalEvent || e).pointerType !== 'mouse') return;
         
         if (self.state.isSelecting && self.state.selectedCells.length > 1) {
           // Multi-day selection completed
@@ -182,6 +181,14 @@
         
         self.resetSelection();
       });
+
+      function cancelDrag() {
+        if (self.state.isSelecting) self.resetSelection();
+      }
+      $(document).on('pointercancel', function(e) {
+        if ((e.originalEvent || e).pointerType === 'mouse') cancelDrag();
+      });
+      $(window).on('blur', cancelDrag);
     },
     
     // Update visual selection during drag
@@ -235,7 +242,8 @@
       this.selectedDate = date;
       var cell = /^\d{4}-\d{2}-\d{2}$/.test(date || '') && document.querySelector('.day-cell[data-date="' + date + '"]');
       var summary = document.getElementById('calendar-day-info');
-      summary.hidden = !cell;
+      summary.hidden = !cell || !!document.querySelector('#calendar-visit-form form[data-visit-form], #calendar-visit-form form[data-inline-visa-form]');
+      summary.querySelector('[data-day-add-visa]').hidden = !cell || !cell.hasAttribute('data-visa-missing');
       if (!cell) return;
       if (activateDay !== false) window.CalendarPresentation.setActiveDay(cell);
       var parts = date.split('-').map(Number);
@@ -373,6 +381,7 @@
           .appendTo($list);
       });
       $('#calendar-visit-form').empty().append($list);
+      this.showDayInfo(this.selectedDate, false);
       $('#deleteVisitButton, #saveVisitButton').hide();
       $('#visitModal').modal('show');
     }

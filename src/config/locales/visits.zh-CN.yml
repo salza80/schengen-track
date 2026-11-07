@@ -18,12 +18,11 @@ zh-CN:
       one: 天
       other: 天
     days: 天
-    days_in_schengen_zone: 在申根区内
-    days_outside_schengen_zone: 在申根区外
     days_overstay: 逾期停留天数
     days_overstay_tooltip: 签证期限内不允许在申根区内停留的天数。
     edit_title: 编辑旅行记录
     entry_date: 入境日期
+    entry_info: 入境日期信息
     exit_date: 出境日期
     exits: 出境
     exits_tooltip: 指示是否已输入了旅行期间的签证。
@@ -40,6 +39,7 @@ zh-CN:
     no_days: 无天数
     no_entries: 无条目
     no_trips: 还没有旅行
+    no_visa_for_date: 尚未记录此日期适用的签证。
     number_of_days_tooltip: 此次访问的天数。
     number_of_entries_tooltip: 此签证允许的次数。
     page_description: 跟踪您到申根区的旅行，并监控您是否遵守 90/180 天规则。添加您过去和即将进行的访问，以查看剩余天数。

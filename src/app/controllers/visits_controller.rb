@@ -238,130 +238,62 @@ class VisitsController < ApplicationController
   # Accepts legacy country_id as well; no country defaults to Schengen.
   def max_stay_info
     date = Date.parse(params[:date])
-    
-    # Check if there's a next visit after this date
-    next_visits = calculator_visits
-      .where('entry_date > ?', date)
-      .order(:entry_date)
-    
-    # Exclude the current visit being edited if visit_id is provided
-    if params[:visit_id].present?
-      next_visits = next_visits.where.not(id: params[:visit_id])
-    end
-    
+    next_visits = calculator_visits.where('entry_date > ?', date).order(:entry_date)
+    next_visits = next_visits.where.not(id: params[:visit_id]) if params[:visit_id].present?
     next_visit = next_visits.first
-    next_visit_constraint_date = next_visit ? next_visit.entry_date - 1.day : nil
-    
-    # If no country selected, assume Schengen
-    # If country selected, check if it's actually Schengen
-    if params[:country_code].present?
-      country = Country.find_by!(country_code: params[:country_code].to_s.upcase)
-      is_schengen = country.schengen?(date)
-    elsif params[:country_id].present?
-      country = Country.find(params[:country_id])
-      is_schengen = country.schengen?(date)
-    else
-      is_schengen = true # Assume Schengen if no country selected
-    end
-    
-    requires_counting = current_person.nationality.visa_required != 'F'
-    
-    if is_schengen && requires_counting
-      # Calculate Schengen days limit
-      calc = Schengen::Days::Calculator.new(current_person, visits: calculator_visits)
-      day_info = calc.find_by_date(date)
-      
-      # If no day_info (first visit), default to 90 days
-      if day_info.nil?
-        max_remaining = 90
-        schengen_exit_date = date + (max_remaining - 1).days
-        
-        # Check against next visit constraint
-        if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
-          days_until_next = (next_visit.entry_date - date).to_i
-          render json: {
-            show: true,
-            max_days: days_until_next,
-            exit_date: I18n.l(next_visit_constraint_date, format: :long),
-            exit_date_iso: next_visit_constraint_date.iso8601,
-            constrained: true,
-            constraint_type: 'next_visit',
-            next_entry_date: I18n.l(next_visit.entry_date, format: :long)
-          }
-        else
-          render json: {
-            show: true,
-            max_days: max_remaining,
-            exit_date: I18n.l(schengen_exit_date, format: :long),
-            exit_date_iso: schengen_exit_date.iso8601,
-            constrained: true,
-            constraint_type: 'schengen'
-          }
-        end
-      elsif day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
-        # Exit date is entry date + (max_remaining_days - 1) because we count inclusively
-        # E.g., if you can stay 88 days: entry on day 1, exit on day 88 = entry + 87 days
-        schengen_exit_date = date + (day_info.max_remaining_days - 1).days
 
-        # Compare Schengen limit with next visit constraint
-        if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
-          # Next visit comes before Schengen limit
-          days_until_next = (next_visit.entry_date - date).to_i
-          render json: {
-            show: true,
-            max_days: days_until_next,
-            exit_date: I18n.l(next_visit_constraint_date, format: :long),
-            exit_date_iso: next_visit_constraint_date.iso8601,
-            constrained: true,
-            constraint_type: 'next_visit',
-            next_entry_date: I18n.l(next_visit.entry_date, format: :long)
-          }
-        else
-          # Schengen limit is the constraint (or no next visit)
-          render json: {
-            show: true,
-            max_days: day_info.max_remaining_days,
-            exit_date: I18n.l(schengen_exit_date, format: :long),
-            exit_date_iso: schengen_exit_date.iso8601,
-            constrained: true,
-            constraint_type: 'schengen'
-          }
-        end
-      else
-        # No Schengen days available, but might have next visit constraint
-        if next_visit_constraint_date
-          days_until_next = (next_visit.entry_date - date).to_i
-          render json: {
-            show: true,
-            max_days: days_until_next,
-            exit_date: I18n.l(next_visit_constraint_date, format: :long),
-            exit_date_iso: next_visit_constraint_date.iso8601,
-            constrained: true,
-            constraint_type: 'next_visit',
-            next_entry_date: I18n.l(next_visit.entry_date, format: :long)
-          }
-        else
-          render json: { show: false }
-        end
-      end
-    elsif next_visit_constraint_date
-      # Non-Schengen country but has next visit constraint
-      days_until_next = (next_visit.entry_date - date).to_i
-      render json: {
-        show: true,
-        max_days: days_until_next,
-        exit_date: I18n.l(next_visit_constraint_date, format: :long),
-        exit_date_iso: next_visit_constraint_date.iso8601,
-        constrained: true,
-        constraint_type: 'next_visit',
-        next_entry_date: I18n.l(next_visit.entry_date, format: :long)
-      }
-    else
-      render json: { show: false }
+    country = if params[:country_code].present?
+                Country.find_by!(country_code: params[:country_code].to_s.upcase)
+              elsif params[:country_id].present?
+                Country.find(params[:country_id])
+              end
+    is_schengen = country.nil? || country.schengen?(date)
+    entry_info = nil
+    remaining = nil
+
+    if is_schengen && current_person.nationality.visa_required != 'F'
+      visa_history = Schengen::VisaHistory.new(current_person) if current_person.visa_required?
+      calculator = Schengen::Days::Calculator.new(current_person, visits: calculator_visits, visa_history: visa_history)
+      day = calculator.find_by_date(date)
+      remaining = day.nil? ? 90 : day.max_remaining_days
+      entry_info = visit_entry_info(date, day, visa_history)
     end
+
+    exit_date = date + (remaining - 1).days if remaining&.positive?
+    result = { show: false, entry_info: entry_info }
+    # A later trip cannot grant days when the Schengen allowance is exhausted.
+    blocked = remaining && remaining <= 0
+    if !blocked && next_visit && (exit_date.nil? || exit_date >= next_visit.entry_date)
+      result.merge!(show: true, max_days: (next_visit.entry_date - date).to_i,
+                    exit_date: I18n.l(next_visit.entry_date - 1.day, format: :long),
+                    exit_date_iso: (next_visit.entry_date - 1.day).iso8601,
+                    constrained: true, constraint_type: 'next_visit',
+                    next_entry_date: I18n.l(next_visit.entry_date, format: :long))
+    elsif exit_date
+      result.merge!(show: true, max_days: remaining, exit_date: I18n.l(exit_date, format: :long),
+                    exit_date_iso: exit_date.iso8601, constrained: true, constraint_type: 'schengen')
+    end
+    render json: result
   end
 
   private
+    def visit_entry_info(date, day, visa_history)
+      info = { days_used: t('days.tooltip.days_used', count: day&.schengen_days_count || 0) }
+        .merge(helpers.day_warnings(day))
+      return info unless visa_history
+
+      visa = visa_history.visa_for_date(date)
+      info[:visa_missing] = visa.nil?
+      info[:visa_status] = visa ? t('days.tooltip.valid_visa') : t('visits.no_visa_for_date')
+      if visa && visa.no_entries.positive?
+        count = visa_history.entry_count_on(date, visa)
+        info[:visa_entries_exceeded] = count > visa.no_entries
+        key = info[:visa_entries_exceeded] ? 'days.tooltip.entries_exceeded' : 'days.tooltip.entries'
+        info[:visa_entries] = t(key, count: count, total: visa.no_entries)
+      end
+      info
+    end
+
     def render_visit_form(title, status: :ok)
       render json: {
         html: render_to_string(partial: 'visits/form', formats: [:html]),

@@ -1,7 +1,9 @@
-= form_for @visa, remote: true do |f|
+- form_format = request.format.json? ? :json : :js
+- form_url = @visa.persisted? ? visa_path(@visa, locale: I18n.locale, format: form_format) : visas_path(locale: I18n.locale, format: form_format)
+= form_for @visa, url: form_url, remote: true, data: { type: (request.format.json? ? 'json' : nil), inline_visa_form: request.format.json?, saving_label: t('days.saving'), save_error: t('days.save_error') } do |f|
   - if anonymous_calculator?
     .alert.alert-light.border
-      = t('common.nationality_summary', nationality: current_person.nationality.localized_name)
+      = t('common.nationality_summary', nationality: CountryCatalog.find_by_code(current_person.nationality.country_code).name)
   - if @visa.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert"}
       %button.btn-close{"type" => "button", "data-bs-dismiss" => "alert", "aria-label" => "Close"}
@@ -12,17 +14,17 @@
           %li= msg
   .mb-3.row
     .col-sm-2.my-auto
-      = f.label :start_date, class: "col-form-label"
-    .col-sm-10
-      = f.date_select :start_date, {}, { class: "form-select d-inline-block w-auto" }
+      = f.label :start_date, class: "col-form-label", id: 'visa-start-date-label'
+    .col-sm-10.visa-date-inputs{role: 'group', 'aria-labelledby': 'visa-start-date-label'}
+      = f.date_select :start_date, {}, { class: "form-select d-inline-block w-auto", aria: { invalid: (true if @visa.errors[:start_date].any?) } }
   .mb-3.row
     .col-sm-2.my-auto
-      = f.label :end_date, class: "col-form-label"
-    .col-sm-10
-      = f.date_select :end_date, {}, { class: "form-select d-inline-block w-auto" }
+      = f.label :end_date, class: "col-form-label", id: 'visa-end-date-label'
+    .col-sm-10.visa-date-inputs{role: 'group', 'aria-labelledby': 'visa-end-date-label'}
+      = f.date_select :end_date, {}, { class: "form-select d-inline-block w-auto", aria: { invalid: (true if @visa.errors[:end_date].any?) } }
   .mb-3.row
     .col-sm-2.my-auto
       = f.label :no_entries, class: "col-form-label"
     .col-sm-10
-      = f.number_field :no_entries, class: "form-control"
+      = f.number_field :no_entries, class: "form-control", aria: { invalid: (true if @visa.errors[:no_entries].any?) }
       = t('common.multi_unlimited_entries')

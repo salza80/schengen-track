@@ -46,10 +46,8 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     assert_no_selector 'meta[name="csp-nonce"]', visible: :all
     assert_in_delta initial_top, page.evaluate_script('document.querySelector(\'[data-date="2027-04-12"]\').getBoundingClientRect().top'), 2
     assert_equal '2027-04-12', find('#visit_entry_date').value
-    assert page.evaluate_script(<<~JS)
-      document.getElementById('calendar-day-info').getBoundingClientRect().top >=
-        document.querySelector('#visitModal .modal-body').getBoundingClientRect().top
-    JS
+    assert_no_selector '#calendar-day-info'
+    assert_selector '#entry-date-info', text: 'Days used: 0/90'
     fill_in 'visit_exit_date', with: Date.iso8601('2027-04-14')
     fill_in 'visit_country_search', with: 'Germany'
     touch_tap(find('#visit_country_results [role="option"]', text: 'Germany', exact_text: true))
@@ -91,7 +89,8 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     fill_in 'visit_exit_date', with: Date.iso8601('2014-03-23')
     click_button I18n.t('common.save')
     assert_selector '#calendar-visit-form .alert-danger', wait: 10
-    assert_selector '#calendar-day-info strong', text: 'Germany'
+    assert_no_selector '#calendar-day-info'
+    assert_selector '#entry-date-info', text: I18n.t('visits.entry_info')
     assert_equal '2014-03-23', find('#visit_exit_date').value
     assert_equal 'DE', find('#visit_country_code', visible: :all).value
     assert_equal 'original', page.evaluate_script('window.calendarDocumentMarker')
@@ -102,6 +101,58 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     assert_no_selector '#visitModal.show', wait: 10
     assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
     assert_equal 'original', page.evaluate_script('window.calendarDocumentMarker')
+  end
+
+  test 'a first visa can be added inside a nonce-free calendar without losing the trip' do
+    original_protection = ActionController::Base.allow_forgery_protection
+    original_limiter = RateLimiters::DatabaseFixedWindow.instance_method(:call)
+    # Browser fixtures share a connection across request threads. Keep this CSP
+    # test independent of concurrent raw-PG quota queries; quota behavior has its
+    # own integration coverage.
+    RateLimiters::DatabaseFixedWindow.define_method(:call) do
+      RateLimiters::DatabaseFixedWindow::Result.new(allowed?: true)
+    end
+    ActionController::Base.allow_forgery_protection = true
+    page.current_window.resize_to(390, 844)
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: true, maxTouchPoints: 1)
+    visit '/en/days?year=2027&month=4&day=12'
+    cell = find('[data-date="2027-04-12"]')
+    page.execute_script(<<~JS, cell)
+      document.dispatchEvent(new Event('pointerdown'));
+      arguments[0].scrollIntoView({ block: 'center', behavior: 'instant' });
+    JS
+    touch_tap(cell)
+    assert_selector '#visitModal.show .nationality-step-form'
+    select 'India', from: 'calculator_nationality_step'
+    click_button 'Continue'
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    fill_in 'visit_exit_date', with: Date.new(2027, 4, 16)
+    choose_visit_country('Germany')
+    page.execute_script("window.popupDocumentMarker = 'original'")
+    touch_tap(find('[data-visit-add-visa]'))
+    assert_selector '#visitModal form[data-inline-visa-form="true"]'
+    assert_no_selector 'meta[name="csp-nonce"]', visible: :all
+    assert_difference(['User.count', 'Person.count', 'Visa.count'], 1) do
+      assert_no_difference('Visit.count') do
+        click_button 'Save'
+        assert_selector '#visitModal.show form[data-visit-form]'
+        assert_selector '#entry-date-info', text: I18n.t('days.tooltip.valid_visa'), wait: 10
+      end
+    end
+    assert_equal '2027-04-16', find('#visit_exit_date').value
+    assert_equal 'DE', find('#visit_country_code', visible: :all).value
+    assert_equal 'original', page.evaluate_script('window.popupDocumentMarker')
+    assert_selector '#visit_country_search:focus'
+    assert_difference('Visit.count', 1) do
+      click_button 'Save'
+      assert_no_selector '#visitModal.show', wait: 10
+      assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
+    end
+  ensure
+    ActionController::Base.allow_forgery_protection = original_protection
+    RateLimiters::DatabaseFixedWindow.define_method(:call, original_limiter) if original_limiter
+    page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: false)
+    page.current_window.resize_to(1400, 1000)
   end
 
   test 'a border day offers its visits within the day information dialog' do
@@ -115,6 +166,25 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     end
     assert_selector '#visitModal.show', text: I18n.t('visits.edit_title'), wait: 10
     assert_equal 'DE', find('#visit_country_code', visible: :all).value
+  end
+
+  test 'missing visa information before choosing a visit links directly to Add Visa' do
+    people(:visa_required_person).visits.create!(country: countries(:Australia),
+      entry_date: Date.new(2016, 3, 8), exit_date: Date.new(2016, 3, 9))
+    visa_user_login
+    visit '/en/my/days?year=2016&month=3&day=8'
+    # A previous edit must not leave the later visit-choice summary hidden.
+    find('[data-date="2016-03-02"]').click
+    assert_selector '#visitModal.show form[data-visit-form]'
+    within('#visitModal') { click_button 'Cancel' }
+    assert_no_selector '.modal-backdrop'
+    find('[data-date="2016-03-08"]').click
+    assert_selector '#calendar-visit-form button', count: 2
+    assert_selector '#calendar-day-info', text: I18n.t('days.tooltip.no_visa')
+    assert_equal I18n.t('visits.add_visa'), find('[data-day-add-visa]').text
+    find('[data-day-add-visa]').click
+    assert_current_path private_visits_path(locale: :en), ignore_query: true
+    assert_selector '#visaModal.show form', wait: 10
   end
 
   test 'a failed calendar refresh can be retried without repeating the saved edit' do
@@ -158,7 +228,8 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
       initial_top = page.evaluate_script('arguments[0].getBoundingClientRect().top', cell)
       page.execute_script('arguments[0].click()', cell)
       assert_selector '#visitModal.show', text: I18n.t('visits.edit_title'), wait: 10
-      assert_selector '#calendar-day-info strong', text: 'Germany'
+      assert_no_selector '#calendar-day-info'
+      assert_selector '#entry-date-info', text: I18n.t('visits.entry_info')
       fill_in 'visit_entry_date', with: Date.iso8601('2015-03-10')
       fill_in 'visit_exit_date', with: Date.iso8601('2015-03-22')
       click_button I18n.t('common.save')

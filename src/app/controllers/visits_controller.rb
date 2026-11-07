@@ -7,7 +7,7 @@ class VisitsController < ApplicationController
   
   before_action :require_calculator_record_account!, only: [:show, :edit, :update, :destroy]
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
-  before_action :set_country_continent, only: [:new, :edit, :update, :create]
+  before_action :set_country_options, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
   
   # Handle RecordNotFound errors (e.g., visit doesn't belong to current person)
@@ -78,7 +78,6 @@ class VisitsController < ApplicationController
 
   # GET /visits/1/edit
   def edit
-    @continent_default_code = @visit.country.continent.continent_code
     if @visit.country && !@visit.country.affiliate_booking_html.nil?
       @advertise_country = @visit.country
     end
@@ -131,7 +130,6 @@ class VisitsController < ApplicationController
         end
         format.js   # AJAX request from calendar
       else
-        @continent_default_code = @visit&.country&.continent&.continent_code || @continent_default_code
         format.html { render :new }
         format.json do
           if request.xhr?
@@ -441,9 +439,7 @@ class VisitsController < ApplicationController
       permitted
     end
 
-    def set_country_continent
-      @continents = CountryCatalog.continents
-      @continent_default_code ||= 'EU'
+    def set_country_options
       @country_options = CountryCatalog.country_options.to_json
     end
     

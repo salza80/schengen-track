@@ -8,6 +8,10 @@ es:
     add_visa: Agregar visa
     change_settings: Cambiar configuración
     country: País
+    country_no_matches: No hay países coincidentes.
+    country_results: 'Países coincidentes: %{matches}'
+    country_search_placeholder: Buscar países
+    country_select_required: Elige un país de los resultados.
     dates: Fechas
     day_plural:
       one: día
@@ -49,6 +53,7 @@ es:
     schengen_days_calculation_tooltip: El número de días dentro del Área Schengen en los últimos 180 días.
     schengen_days_overstay: Días de exceso
     schengen_visa_list: Visas
+    stay_duration: "%{days} %{unit}, incluidos la llegada y la salida."
     travel_details: Detalles del Viaje
     travel_record: Viajes
     visa_days_overstay: Exceso de visa

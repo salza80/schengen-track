@@ -434,13 +434,9 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     find('[data-action="add-visit"]', match: :first).click
     assert_selector '#visitModal.show', text: I18n.t('visits.add_record', locale: :en)
     assert_no_selector '#visitModal .nationality-step-form'
-    select '2027', from: 'visit_entry_date_1i'
-    select 'January', from: 'visit_entry_date_2i'
-    select '10', from: 'visit_entry_date_3i'
-    select '2027', from: 'visit_exit_date_1i'
-    select 'January', from: 'visit_exit_date_2i'
-    select '15', from: 'visit_exit_date_3i'
-    select 'Germany', from: 'visit_country_id'
+    fill_in 'visit_entry_date', with: Date.iso8601('2027-01-10')
+    fill_in 'visit_exit_date', with: Date.iso8601('2027-01-15')
+    choose_visit_country('Germany')
     find('#saveVisitButton').click
 
     assert_selector '#personDropdown', text: 'Guest User', wait: 10

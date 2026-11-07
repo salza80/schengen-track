@@ -22,8 +22,8 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     form = Nokogiri::HTML.fragment(response.parsed_body['html'])
     assert_equal '/en/visits.json', form.at_css('form')['action']
     assert_equal 'json', form.at_css('form')['data-type']
-    assert_equal '12', form.at_css('#visit_entry_date_3i option[selected]')['value']
-    assert_equal '14', form.at_css('#visit_exit_date_3i option[selected]')['value']
+    assert_equal '2027-04-12', form.at_css('#visit_entry_date')['value']
+    assert_equal '2027-04-14', form.at_css('#visit_exit_date')['value']
     assert_match(/private, no-store/, response.headers['Cache-Control'])
   end
 
@@ -64,7 +64,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     form = Nokogiri::HTML.fragment(response.parsed_body['html'])
     assert form.at_css('.alert-danger')
-    assert_equal '9', form.at_css('#visit_exit_date_3i option[selected]')['value']
+    assert_equal '2014-03-09', form.at_css('#visit_exit_date')['value']
     assert_equal Date.new(2014, 3, 22), record.reload.exit_date
   end
 
@@ -127,7 +127,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_empty country_queries(queries)
     assert_includes response.body, 'visit[country_code]'
-    assert_includes response.body, 'value=\\"DE\\"'
+    assert_includes response.body, 'visit_country_search'
   end
 
   test 'nationality preference survives calendar redirect without creating records' do

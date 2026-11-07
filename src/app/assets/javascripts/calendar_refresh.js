@@ -8,7 +8,7 @@
     return window.DOMPurify.sanitize(html, { USE_PROFILES: { html: true }, RETURN_DOM_FRAGMENT: true });
   }
 
-  function feedback(message, retry) {
+  function feedback(message, retry, keepVisible) {
     window.clearTimeout(feedbackTimer);
     var container = document.getElementById('calendar-feedback');
     container.replaceChildren();
@@ -24,10 +24,14 @@
       notice.appendChild(button);
     }
     container.appendChild(notice);
-    if (!retry) feedbackTimer = window.setTimeout(function() { container.replaceChildren(); }, 4000);
+    if (!retry && !keepVisible) feedbackTimer = window.setTimeout(function() { container.replaceChildren(); }, 4000);
   }
 
-  function refresh(afterRefresh) {
+  function refresh(afterRefresh, options) {
+    options = options || {};
+    var content = document.getElementById('calendar-content');
+    content.setAttribute('aria-busy', 'true');
+    if (options.savedVisit) feedback(content.dataset.updating, null, true);
     var root = document.querySelector('.calendar-view-container');
     var url = '/' + document.documentElement.lang + '/my/days';
     return $.ajax({
@@ -58,6 +62,7 @@
         if (tooltip) tooltip.dispose();
       });
       content.replaceChildren(html);
+      window.CalendarPresentation.initializeDayNavigation();
       var replacement = date && content.querySelector('[data-date="' + date + '"]');
       window.scrollTo({
         top: replacement ? window.scrollY + replacement.getBoundingClientRect().top - top : scrollY,
@@ -79,12 +84,15 @@
       window.history.replaceState({}, '', destination.pathname + destination.search);
       window.CsrfBootstrap.installToken({ token: data.csrf_token });
       window.CalendarPresentation.initializeTooltips();
-      window.CalendarInteractions.showDayInfo(window.CalendarInteractions.selectedDate);
+      window.CalendarInteractions.showDayInfo(window.CalendarInteractions.selectedDate, false);
       window.PublicHeader.refresh();
-      document.getElementById('calendar-feedback').replaceChildren();
+      content.removeAttribute('aria-busy');
+      if (options.savedVisit) feedback(content.dataset.saved);
+      else document.getElementById('calendar-feedback').replaceChildren();
       if (afterRefresh) afterRefresh();
     }).fail(function() {
-      feedback(document.getElementById('calendar-content').dataset.refreshError, function() { refresh(afterRefresh); });
+      content.removeAttribute('aria-busy');
+      feedback(options.savedVisit ? content.dataset.savedRefreshError : content.dataset.refreshError, function() { refresh(afterRefresh, options); });
     });
   }
 
@@ -92,19 +100,36 @@
     document.getElementById('calendar-visit-form').replaceChildren(fragment(data.html));
     document.querySelector('#visitModal .modal-body').scrollTop = 0;
     $('#visitModal .modal-title').text(data.title);
-    $('#saveVisitButton').text(data.save_label).attr('aria-label', data.save_label).prop('disabled', false).show();
+    $('#saveVisitButton').data('save-label', data.save_label).text(data.save_label).attr('aria-label', data.save_label).prop('disabled', false).show();
     $('#calendar-visit-form').trigger('calendar:form-loaded');
   }
 
-  $(document).on('ajax:success', '#calendar-visit-form form[data-calendar-visit-form="true"]', function(event, data) {
+  var visitFormSelector = '#calendar-visit-form form[data-calendar-visit-form="true"]';
+
+  $(document).on('ajax:beforeSend', visitFormSelector, function() {
+    this.setAttribute('aria-busy', 'true');
+    $(this).find('.calendar-save-error').remove();
+    $(this).data('dialog-version', window.CalendarInteractions.dialogVersion);
+    var label = document.getElementById('calendar-content').dataset.saving;
+    $('#saveVisitButton').text(label).attr('aria-label', label).prop('disabled', true);
+  });
+
+  $(document).on('ajax:complete', visitFormSelector, function() {
+    this.removeAttribute('aria-busy');
+    if (!document.documentElement.contains(this)) return;
+    var $button = $('#saveVisitButton');
+    $button.text($button.data('save-label')).attr('aria-label', $button.data('save-label')).prop('disabled', false);
+  });
+
+  $(document).on('ajax:success', visitFormSelector, function(event, data) {
     if (!data.saved) return;
     // Close the keyboard and modal before measuring the background's viewport.
     var $modal = $('#visitModal');
     var modal = bootstrap.Modal.getInstance($modal.get(0));
     var afterHide = function() {
-      refresh(function() { feedback(document.getElementById('calendar-content').dataset.saved); });
+      refresh(null, { savedVisit: true });
     };
-    if (!modal || (!modal._isShown && !modal._isTransitioning)) {
+    if (!window.CalendarInteractions.isDialogCurrent($(this).data('dialog-version'))) {
       afterHide();
       return;
     }
@@ -117,20 +142,44 @@
     }
   });
 
-  $(document).on('ajax:error', '#calendar-visit-form form[data-calendar-visit-form="true"]', function(event, xhr) {
-    if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.html) showForm(xhr.responseJSON);
+  $(document).on('ajax:error', visitFormSelector, function(event, xhr) {
+    if (!window.CalendarInteractions.isDialogCurrent($(this).data('dialog-version'))) return;
+    if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.html) {
+      showForm(xhr.responseJSON);
+      return;
+    }
+    var error = document.createElement('div');
+    error.className = 'calendar-save-error alert alert-danger';
+    error.setAttribute('role', 'alert');
+    var detail = xhr.responseJSON && xhr.responseJSON.error;
+    error.textContent = detail && typeof detail.message === 'string' ? detail.message : document.getElementById('calendar-content').dataset.saveError;
+    this.prepend(error);
+    error.scrollIntoView({ block: 'nearest' });
+  });
+
+  $(document).on('ajax:beforeSend', '#calendar-visit-form .nationality-step-form', function() {
+    $(this).data('continuation', {
+      version: window.CalendarInteractions.dialogVersion,
+      entryDate: $(this).find('[name="entry_date"]').val(),
+      exitDate: $(this).find('[name="exit_date"]').val()
+    });
   });
 
   $(document).on('ajax:success', '#calendar-visit-form .nationality-step-form', function(event, data) {
     if (!data.selected) return;
-    var entryDate = $(this).find('[name="entry_date"]').val();
-    var exitDate = $(this).find('[name="exit_date"]').val();
+    var continuation = $(this).data('continuation');
     $('#visitModal').removeAttr('data-nationality-required');
-    window.CalendarInteractions.showLoading();
-    refresh(function() { window.CalendarInteractions.openAddModal(entryDate, exitDate); });
+    if (window.CalendarInteractions.isDialogCurrent(continuation.version)) window.CalendarInteractions.showLoading();
+    refresh(function() {
+      if (window.CalendarInteractions.isDialogCurrent(continuation.version)) {
+        window.CalendarInteractions.openAddModal(continuation.entryDate, continuation.exitDate);
+      }
+    });
   });
 
   $(document).on('ajax:error', '#calendar-visit-form .nationality-step-form', function(event, xhr) {
+    var continuation = $(this).data('continuation');
+    if (!continuation || !window.CalendarInteractions.isDialogCurrent(continuation.version)) return;
     if (xhr.responseJSON && typeof xhr.responseJSON.error === 'string') {
       var error = document.createElement('div');
       error.className = 'alert alert-danger';

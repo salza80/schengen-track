@@ -16,6 +16,7 @@
     
     // Store current visit ID for edit mode
     currentVisitId: null,
+    dialogVersion: 0,
     
     // Initialize on page load
     init: function() {
@@ -34,6 +35,11 @@
       
       if (!self.state.isMobileDevice) self.bindDragToSelect();
       
+      $('#visitModal').on('hide.bs.modal', function() {
+        self.dialogVersion += 1;
+        ModalInteractions.cancelVisitFormRequest();
+      });
+
       // Close modal cleanup
       $('#visitModal').on('hidden.bs.modal', function() {
         self.resetSelection();
@@ -75,12 +81,15 @@
       var self = this;
       
       $(document).on('click keydown', '.day-cell', function(e) {
+        if (e.type === 'keydown' && window.CalendarPresentation.moveDay(this, e)) return;
         if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
         if (self.suppressNextClick && e.type === 'click') {
           self.suppressNextClick = false;
           return;
         }
         var $cell = $(this);
+        var version = ++self.dialogVersion;
+        window.CalendarPresentation.setActiveDay(this);
         $('#visitModal').data('focus-return', this);
         self.showDayInfo($cell.data('date'));
         $('.day-cell').each(function() {
@@ -104,7 +113,7 @@
         // Check if this day has visits
         self.checkVisitsForDate(date, function(visits) {
           var modal = bootstrap.Modal.getInstance(document.getElementById('visitModal'));
-          if (self.selectedDate !== date || !modal || !modal._isShown) return;
+          if (self.dialogVersion !== version || self.selectedDate !== date || !modal || !modal._isShown) return;
           if (visits.length === 0) {
             // No visits - open ADD modal
             self.openAddModal(date, date);
@@ -117,6 +126,9 @@
           }
         });
       });
+      $(document).on('focusin', '.day-cell', function() {
+        window.CalendarPresentation.setActiveDay(this);
+      });
     },
     
     // Bind drag-to-select functionality
@@ -126,6 +138,7 @@
       
       $(document).on('mousedown', '.day-cell', function(e) {
         if (e.which !== 1) return; // Only left mouse button
+        self.suppressNextClick = false;
         
         isMouseDown = true;
         self.state.isSelecting = true;
@@ -155,7 +168,9 @@
           // Multi-day selection completed
           var dates = self.getSelectedDateRange();
           $('#visitModal').data('focus-return', self.state.selectedCells[0]);
+          // A drag's click may target the grid rather than either day cell.
           self.suppressNextClick = true;
+          setTimeout(function() { self.suppressNextClick = false; }, 0);
           self.openAddModal(dates.start, dates.end);
         }
         
@@ -210,12 +225,13 @@
       $('.day-cell').removeClass('selecting selected');
     },
     
-    showDayInfo: function(date) {
+    showDayInfo: function(date, activateDay) {
       this.selectedDate = date;
       var cell = /^\d{4}-\d{2}-\d{2}$/.test(date || '') && document.querySelector('.day-cell[data-date="' + date + '"]');
       var summary = document.getElementById('calendar-day-info');
       summary.hidden = !cell;
       if (!cell) return;
+      if (activateDay !== false) window.CalendarPresentation.setActiveDay(cell);
       var parts = date.split('-').map(Number);
       document.getElementById('calendar-day-info-date').textContent = new Intl.DateTimeFormat(
         document.documentElement.lang, { dateStyle: 'long' }
@@ -254,6 +270,7 @@
     // Open ADD modal
     openAddModal: function(entryDate, exitDate) {
       var self = this;
+      var version = ++self.dialogVersion;
       self.currentVisitId = null; // Clear current visit ID
       self.showDayInfo(entryDate);
       if ($('#visitModal').is('[data-nationality-required]')) {
@@ -293,6 +310,7 @@
       ModalInteractions.loadForm({
         url: '/' + locale + '/visits/new.json',
         dataType: 'json',
+        isCurrent: function() { return self.isDialogCurrent(version); },
         data: { 
           entry_date: entryDate,
           exit_date: exitDate
@@ -306,6 +324,7 @@
     // Open EDIT modal
     openEditModal: function(visitId) {
       var self = this;
+      var version = ++self.dialogVersion;
       self.currentVisitId = visitId; // Store current visit ID
       $('#saveVisitButton').show();
       self.showLoading();
@@ -314,10 +333,16 @@
       ModalInteractions.loadForm({
         url: '/' + locale + '/visits/' + visitId + '/edit.json',
         dataType: 'json',
+        isCurrent: function() { return self.isDialogCurrent(version); },
         deleteButtonSelector: '#deleteVisitButton',
         showDeleteButton: true,
         errorMessage: 'Failed to open visit form. Please try again.'
       });
+    },
+
+    isDialogCurrent: function(version) {
+      var modal = bootstrap.Modal.getInstance(document.getElementById('visitModal'));
+      return this.dialogVersion === version && modal && modal._isShown;
     },
     
     // Border days can belong to more than one visit. Keep the choice in the dialog.

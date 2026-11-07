@@ -26,7 +26,10 @@ en:
     overstay_tooltip: You have overstayed the 90/180 days
     refresh_error: The calendar could not be refreshed. Try again to show the latest results.
     retry: Try again
+    save_error: The visit could not be saved. Check your connection and try again.
     saved: Saved.
+    saved_refresh_error: Your visit is saved. Try again to update the calendar totals.
+    saving: Saving…
     schengen_days_in_year: Days in Schengen
     schengen_no: 'No'
     schengen_yes: 'Yes'
@@ -57,6 +60,7 @@ en:
       valid_visa: Valid visa
       wait: 'Wait: %{days} days'
     until_date: until %{date}
+    updating: Saved. Updating totals…
     view_table: View in Table
     visa_ok_tooltip: You have a valid visa as at today
     visa_status_label: Visa Status

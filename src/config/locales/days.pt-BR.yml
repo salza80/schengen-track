@@ -26,7 +26,10 @@ pt-BR:
     overstay_tooltip: Você excedeu os 90/180 dias
     refresh_error: Não foi possível atualizar o calendário. Tente novamente para ver os resultados mais recentes.
     retry: Tentar novamente
+    save_error: Não foi possível salvar a visita. Verifique sua conexão e tente novamente.
     saved: Salvo.
+    saved_refresh_error: Sua visita está salva. Tente novamente para atualizar os totais do calendário.
+    saving: Salvando…
     schengen_days_in_year: Dias em Schengen
     schengen_no: Não
     schengen_yes: Sim
@@ -57,6 +60,7 @@ pt-BR:
       valid_visa: Visto válido
       wait: 'Espera: %{days} dias'
     until_date: até %{date}
+    updating: Salvo. Atualizando totais…
     view_table: Ver em Tabela
     visa_ok_tooltip: Você tem um visto válido hoje
     visa_status_label: Status do Visto

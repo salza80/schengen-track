@@ -132,6 +132,11 @@ class ActionDispatch::IntegrationTest
     assert_text 'Sally Mclean', wait: 10
   end
 
+  def choose_visit_country(name)
+    fill_in 'visit_country_search', with: name
+    find('#visit_country_results [role="option"]', text: name, exact_text: true).click
+  end
+
   def visa_user_login
     visit new_user_session_path(locale: :en)
     assert_current_path new_user_session_path(locale: :en), ignore_query: true

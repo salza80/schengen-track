@@ -79,10 +79,12 @@ test('modal allocation errors display the server message and restore the submit 
   const window: any = { jQuery: jquery, alert: jest.fn() };
   vm.runInNewContext(script, { window, document });
   window.ModalInteractions.bindSubmissionReset('#form', '#submit');
-  callbacks['ajax:error.calculatorLimits']({}, { status: 429, responseText: JSON.stringify({ error: { code: 'calculator_capacity_reached', message: 'Remove unused trips.' } }) });
+  callbacks['ajax:error.calculatorLimits'].call({ dataset: {} }, {}, { status: 429, responseText: JSON.stringify({ error: { code: 'calculator_capacity_reached', message: 'Remove unused trips.' } }) });
   expect(window.alert).toHaveBeenCalledWith('Remove unused trips.');
   callbacks['ajax:complete.modalSubmission']();
   expect(prop).toHaveBeenCalledWith('disabled', false);
-  callbacks['ajax:error.calculatorLimits']({}, { status: 503, responseText: '<html>unavailable</html>' });
+  callbacks['ajax:error.calculatorLimits'].call({ dataset: {} }, {}, { status: 503, responseText: '<html>unavailable</html>' });
+  // Calendar forms render their own inline errors instead of a blocking alert.
+  callbacks['ajax:error.calculatorLimits'].call({ dataset: { calendarVisitForm: 'true' } }, {}, { status: 429, responseText: JSON.stringify({ error: { code: 'rate_limited', message: 'Try later.' } }) });
   expect(window.alert).toHaveBeenCalledTimes(1);
 });

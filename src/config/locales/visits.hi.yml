@@ -8,6 +8,10 @@ hi:
     add_visa: वीज़ा जोड़ें
     change_settings: सेटिंग्स बदलें
     country: देश
+    country_no_matches: कोई मेल खाता देश नहीं मिला।
+    country_results: 'मेल खाते देश: %{matches}'
+    country_search_placeholder: देश खोजें
+    country_select_required: परिणामों में से एक देश चुनें।
     dates: तारीखें
     day_plural:
       one: दिन
@@ -49,6 +53,7 @@ hi:
     schengen_days_calculation_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में बिताए गए दिनों की संख्या।
     schengen_days_overstay: अधिक रुकने के दिन
     schengen_visa_list: वीज़ा
+    stay_duration: आगमन और प्रस्थान सहित %{days} %{unit}।
     travel_details: यात्रा विवरण
     travel_record: यात्राएं
     visa_days_overstay: वीज़ा अधिक रुकना

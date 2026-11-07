@@ -6,6 +6,5 @@
 //= require modal_interactions
 //= require calendar_refresh
 //= require calendar_interactions
-//= require cascade_lists
 
 //= require visit_form

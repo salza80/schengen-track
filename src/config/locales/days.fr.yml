@@ -29,7 +29,10 @@ fr:
     page_title: Calculateur de jours Schengen 90/180
     refresh_error: Le calendrier n’a pas pu être actualisé. Réessayez pour afficher les derniers résultats.
     retry: Réessayer
+    save_error: Le séjour n’a pas pu être enregistré. Vérifiez votre connexion et réessayez.
     saved: Enregistré.
+    saved_refresh_error: Votre séjour est enregistré. Réessayez pour actualiser les totaux du calendrier.
+    saving: Enregistrement…
     schengen_days_in_year: Jours dans Schengen
     schengen_no: Non
     schengen_yes: Oui
@@ -60,6 +63,7 @@ fr:
       valid_visa: Visa valide
       wait: 'Attente : %{days} jours'
     until_date: jusqu'au %{date}
+    updating: Enregistré. Mise à jour des totaux…
     view_table: Voir en tableau
     visa_ok_tooltip: Vous avez un visa valide à la date d'aujourd'hui
     visa_status_label: Statut du visa

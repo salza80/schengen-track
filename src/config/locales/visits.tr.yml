@@ -8,6 +8,10 @@ tr:
     add_visa: Vize Ekle
     change_settings: Ayarları değiştir
     country: Ülke
+    country_no_matches: Eşleşen ülke yok.
+    country_results: 'Eşleşen ülkeler: %{matches}'
+    country_search_placeholder: Ülke ara
+    country_select_required: Sonuçlardan bir ülke seçin.
     dates: Tarihler
     day_plural:
       one: gün
@@ -49,6 +53,7 @@ tr:
     schengen_days_calculation_tooltip: Önceki 180 gün içinde Schengen Alanında geçirilen günlerin sayısı.
     schengen_days_overstay: Fazla Kalma Günleri
     schengen_visa_list: Vizeler
+    stay_duration: Giriş ve çıkış dahil %{days} %{unit}.
     travel_details: Seyahat Detayları
     travel_record: Seyahatler
     visa_days_overstay: Vize Fazla Kalma

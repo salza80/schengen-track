@@ -1,5 +1,43 @@
 // Tooltips remain a hover convenience; touch and keyboard users get details in the dialog.
 window.CalendarPresentation = {
+  activeDate: null,
+
+  setActiveDay: function(cell) {
+    document.querySelectorAll('.day-cell[tabindex="0"]').forEach(function(previous) {
+      if (previous !== cell) previous.tabIndex = -1;
+    });
+    cell.tabIndex = 0;
+    this.activeDate = cell.dataset.date;
+  },
+
+  initializeDayNavigation: function() {
+    var cells = Array.from(document.querySelectorAll('.day-cell[data-date]'));
+    if (!cells.length) return;
+    var viewer = new URLSearchParams(window.location.search);
+    var root = document.querySelector('.calendar-view-container');
+    var target = root.dataset.selectedYear + '-' + (viewer.get('month') || '').padStart(2, '0') + '-' + (viewer.get('day') || '').padStart(2, '0');
+    var active = cells.find(function(cell) { return cell.dataset.date === window.CalendarPresentation.activeDate; }) ||
+      cells.find(function(cell) { return cell.dataset.date === target; }) ||
+      cells.find(function(cell) { return cell.classList.contains('current-day'); }) || cells[0];
+    this.setActiveDay(active);
+  },
+
+  moveDay: function(cell, event) {
+    var offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+    if (!Object.prototype.hasOwnProperty.call(offsets, event.key) && event.key !== 'Home' && event.key !== 'End') return false;
+    event.preventDefault();
+    event.stopPropagation();
+    var cells = Array.from(document.querySelectorAll('.day-cell[data-date]'));
+    var index = cells.indexOf(cell);
+    var dayOfWeek = new Date(cell.dataset.date + 'T00:00:00Z').getUTCDay();
+    var offset = event.key === 'Home' ? -dayOfWeek : event.key === 'End' ? 6 - dayOfWeek : offsets[event.key];
+    var target = cells[Math.max(0, Math.min(cells.length - 1, index + offset))];
+    this.setActiveDay(target);
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+    return true;
+  },
+
   initializeTooltips: function() {
     if (typeof bootstrap === 'undefined' || !bootstrap.Tooltip) return;
     if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -108,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!document.querySelector('.calendar-container')) return;
     
     // Date selects and other dialog controls own their arrow keys.
-    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || (e.target.closest && e.target.closest('.modal'))) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || (e.target.closest && e.target.closest('.modal, .day-cell'))) return;
     
     if (e.key === 'ArrowLeft') {
       var prevButton = document.querySelector('.btn-prev-year');
@@ -162,4 +200,5 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   }
+  window.CalendarPresentation.initializeDayNavigation();
 });

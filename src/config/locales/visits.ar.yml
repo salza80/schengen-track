@@ -8,6 +8,10 @@ ar:
     add_visa: إضافة تأشيرة
     change_settings: تغيير الإعدادات
     country: الدولة
+    country_no_matches: لا توجد دول مطابقة.
+    country_results: 'الدول المطابقة: %{matches}'
+    country_search_placeholder: البحث عن دولة
+    country_select_required: اختر دولة من النتائج.
     dates: التواريخ
     day_plural:
       few: أيام
@@ -53,6 +57,7 @@ ar:
     schengen_days_calculation_tooltip: عدد الأيام التي قضيتها داخل شنغن خلال آخر ١٨٠ يوماً.
     schengen_days_overstay: أيام الإقامة الزائدة
     schengen_visa_list: التأشيرات
+    stay_duration: "%{days} %{unit}، بما في ذلك يومَا الوصول والمغادرة."
     travel_details: تفاصيل الرحلة
     travel_record: الرحلات
     visa_days_overstay: إقامة زائدة وفق التأشيرة

@@ -8,6 +8,10 @@ zh-CN:
     add_visa: 添加签证
     change_settings: 更改设置
     country: 国家
+    country_no_matches: 没有匹配的国家。
+    country_results: 匹配的国家：%{matches}
+    country_search_placeholder: 搜索国家
+    country_select_required: 请从结果中选择国家。
     dates: 日期
     day_plural:
       one: 天
@@ -49,6 +53,7 @@ zh-CN:
     schengen_days_calculation_tooltip: 过去180天内在申根区内的天数。
     schengen_days_overstay: 逾期停留天数
     schengen_visa_list: 签证
+    stay_duration: "%{days} %{unit}，包括抵达和离境当天。"
     travel_details: 旅行详情
     travel_record: 行程
     visa_days_overstay: 签证逾期

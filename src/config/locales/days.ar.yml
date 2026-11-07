@@ -26,7 +26,10 @@ ar:
     overstay_tooltip: لقد تجاوزت حد ٩٠/١٨٠ يوماً
     refresh_error: تعذر تحديث التقويم. حاول مجددًا لعرض أحدث النتائج.
     retry: حاول مجددًا
+    save_error: تعذّر حفظ الزيارة. تحقّق من اتصالك وحاول مرة أخرى.
     saved: تم الحفظ.
+    saved_refresh_error: تم حفظ زيارتك. حاول مرة أخرى لتحديث إجماليات التقويم.
+    saving: جارٍ الحفظ…
     schengen_days_in_year: أيام داخل شنغن
     schengen_no: لا
     schengen_yes: نعم
@@ -57,6 +60,7 @@ ar:
       valid_visa: تأشيرة صالحة
       wait: 'انتظار: %{days} يوم'
     until_date: حتى %{date}
+    updating: تم الحفظ. جارٍ تحديث الإجماليات…
     view_table: عرض في جدول
     visa_ok_tooltip: لديك تأشيرة سارية حتى اليوم
     visa_status_label: حالة التأشيرة

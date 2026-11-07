@@ -1,3 +1,4 @@
+//= require country_picker
 // Initialize server-rendered modal forms without embedding executable code in HTML.
 (function(window, document, $) {
   'use strict';
@@ -7,19 +8,38 @@
       if (form.dataset.visitFormInitialized) return;
       form.dataset.visitFormInitialized = 'true';
       var $form = $(form);
-      new App.Cascade($form.find('[data-continent-selector]'), $form.find('#visit_country_id'),
-        JSON.parse(form.dataset.countryOptions), 'country_code', 'name', 'continent_code');
+      new App.CountryPicker(form, JSON.parse(form.dataset.countryOptions));
+      var entry = form.querySelector('#visit_entry_date');
+      var exit = form.querySelector('#visit_exit_date');
+      function updateDuration() {
+        exit.min = entry.value || exit.dataset.firstDate;
+        var duration = form.querySelector('.visit-duration');
+        var start = Date.parse(entry.value + 'T00:00:00Z');
+        var finish = Date.parse(exit.value + 'T00:00:00Z');
+        if (!Number.isFinite(start) || !Number.isFinite(finish) || finish < start) {
+          duration.textContent = '';
+          return;
+        }
+        var days = Math.round((finish - start) / 86400000) + 1;
+        var units = JSON.parse(form.dataset.durationUnits);
+        var plural = new Intl.PluralRules(document.documentElement.lang).select(days);
+        duration.textContent = form.dataset.durationLabel
+          .replace('__DAYS__', new Intl.NumberFormat(document.documentElement.lang).format(days))
+          .replace('__UNIT__', units[plural] || units.other);
+      }
+      $(entry).add(exit).on('input change', updateDuration);
+      updateDuration();
+      var maxStayRequest;
 
       function updateMaxStayInfo() {
-        var year = $form.find('#visit_entry_date_1i').val();
-        var month = $form.find('#visit_entry_date_2i').val();
-        var day = $form.find('#visit_entry_date_3i').val();
         var countryCode = $form.find('#visit_country_id').val();
-        if (!year || !month || !day) return;
-        var data = { date: year + '-' + month.padStart(2, '0') + '-' + day.padStart(2, '0') };
+        if (maxStayRequest) maxStayRequest.abort();
+        $form.find('#entry-date-info').hide();
+        if (!entry.value || !entry.validity.valid) return;
+        var data = { date: entry.value };
         if (countryCode) data.country_code = countryCode;
         if (form.dataset.visitId) data.visit_id = form.dataset.visitId;
-        $.ajax({
+        maxStayRequest = $.ajax({
           url: '/' + document.documentElement.lang + '/visits/max_stay_info',
           data: data,
           dataType: 'json',
@@ -35,10 +55,7 @@
             $link.css({ textDecoration: 'underline', color: 'inherit', cursor: 'pointer' });
             $link.on('click', function(event) {
               event.preventDefault();
-              var date = result.exit_date_iso.split('-');
-              $form.find('#visit_exit_date_1i').val(date[0]);
-              $form.find('#visit_exit_date_2i').val(parseInt(date[1], 10));
-              $form.find('#visit_exit_date_3i').val(parseInt(date[2], 10));
+              $form.find('#visit_exit_date').val(result.exit_date_iso).trigger('change');
             });
             $message.append($link, document.createTextNode(parts.slice(1).join('__DATE__')));
             if (result.constrained) {
@@ -54,7 +71,7 @@
         });
       }
 
-      $form.find('#visit_entry_date_1i, #visit_entry_date_2i, #visit_entry_date_3i, #visit_country_id')
+      $form.find('#visit_entry_date, #visit_country_id')
         .on('change', updateMaxStayInfo);
       updateMaxStayInfo();
     });

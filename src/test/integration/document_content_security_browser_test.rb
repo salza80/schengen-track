@@ -32,7 +32,7 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
       window.calendarDocumentMarker = 'original';
     JS
     initial_top = page.evaluate_script('arguments[0].getBoundingClientRect().top', cell)
-    page.execute_script('arguments[0].click()', cell)
+    touch_tap(cell)
     assert_selector '#visitModal.show .nationality-step-form'
     assert_selector '#calendar-day-info-date', text: 'April 12, 2027'
     assert_selector '#calendar-day-info-content', text: 'Days used: 0/90'
@@ -45,13 +45,15 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     assert_equal 'original', page.evaluate_script('window.calendarDocumentMarker')
     assert_no_selector 'meta[name="csp-nonce"]', visible: :all
     assert_in_delta initial_top, page.evaluate_script('document.querySelector(\'[data-date="2027-04-12"]\').getBoundingClientRect().top'), 2
-    assert_equal '12', find('#visit_entry_date_3i').value
+    assert_equal '2027-04-12', find('#visit_entry_date').value
     assert page.evaluate_script(<<~JS)
       document.getElementById('calendar-day-info').getBoundingClientRect().top >=
         document.querySelector('#visitModal .modal-body').getBoundingClientRect().top
     JS
-    select '14', from: 'visit_exit_date_3i'
-    select 'Germany', from: 'visit_country_id'
+    fill_in 'visit_exit_date', with: Date.iso8601('2027-04-14')
+    fill_in 'visit_country_search', with: 'Germany'
+    touch_tap(find('#visit_country_results [role="option"]', text: 'Germany', exact_text: true))
+    assert_equal 'DE', find('#visit_country_id', visible: :all).value
     click_button I18n.t('common.save')
     assert_no_selector '#visitModal.show', wait: 10
     assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
@@ -63,7 +65,7 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     # Refreshed cells remain interactive; an edit updates subsequent counts too.
     page.execute_script('document.querySelector(\'[data-date="2027-04-12"]\').click()')
     assert_selector '#visitModal.show', text: I18n.t('visits.edit_title'), wait: 10
-    select '15', from: 'visit_exit_date_3i'
+    fill_in 'visit_exit_date', with: Date.iso8601('2027-04-15')
     click_button I18n.t('common.save')
     assert_no_selector '#visitModal.show', wait: 10
     assert_selector '[data-date="2027-04-15"] .day-count strong', text: '4', wait: 10
@@ -81,16 +83,16 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     find('[data-date="2014-03-10"]').click
     assert_selector '#visitModal.show form[data-calendar-visit-form="true"]', wait: 10
     page.execute_script("window.calendarDocumentMarker = 'original'")
-    select '9', from: 'visit_exit_date_3i'
+    fill_in 'visit_exit_date', with: Date.iso8601('2014-03-23')
     click_button I18n.t('common.save')
     assert_selector '#calendar-visit-form .alert-danger', wait: 10
     assert_selector '#calendar-day-info strong', text: 'Germany'
-    assert_equal '9', find('#visit_exit_date_3i').value
-    assert_equal 'DE', find('#visit_country_id').value
+    assert_equal '2014-03-23', find('#visit_exit_date').value
+    assert_equal 'DE', find('#visit_country_id', visible: :all).value
     assert_equal 'original', page.evaluate_script('window.calendarDocumentMarker')
-    # Arrow keys in a date select must not trigger the calendar's year navigation.
-    page.execute_script("document.getElementById('visit_exit_date_3i').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }))")
-    select '21', from: 'visit_exit_date_3i'
+    # Arrow keys in a date input must not trigger the calendar's year navigation.
+    page.execute_script("document.getElementById('visit_exit_date').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }))")
+    fill_in 'visit_exit_date', with: Date.iso8601('2014-03-21')
     click_button I18n.t('common.save')
     assert_no_selector '#visitModal.show', wait: 10
     assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
@@ -107,7 +109,7 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
       find('button', text: 'Germany').click
     end
     assert_selector '#visitModal.show', text: I18n.t('visits.edit_title'), wait: 10
-    assert_equal 'DE', find('#visit_country_id').value
+    assert_equal 'DE', find('#visit_country_id', visible: :all).value
   end
 
   test 'a failed calendar refresh can be retried without repeating the saved edit' do
@@ -125,9 +127,9 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     visit '/en/my/days?year=2014&month=3&day=10'
     find('[data-date="2014-03-10"]').click
     assert_selector '#visitModal.show form[data-calendar-visit-form="true"]', wait: 10
-    select '21', from: 'visit_exit_date_3i'
+    fill_in 'visit_exit_date', with: Date.iso8601('2014-03-21')
     click_button I18n.t('common.save')
-    assert_selector '#calendar-feedback', text: I18n.t('days.refresh_error'), wait: 10
+    assert_selector '#calendar-feedback', text: I18n.t('days.saved_refresh_error'), wait: 10
     assert_equal Date.new(2014, 3, 21), visits(:one).reload.exit_date
     assert_no_difference('Visit.count') do
       within('#calendar-feedback') { click_button I18n.t('days.retry') }
@@ -152,8 +154,8 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
       page.execute_script('arguments[0].click()', cell)
       assert_selector '#visitModal.show', text: I18n.t('visits.edit_title'), wait: 10
       assert_selector '#calendar-day-info strong', text: 'Germany'
-      select '2015', from: 'visit_entry_date_1i'
-      select '2015', from: 'visit_exit_date_1i'
+      fill_in 'visit_entry_date', with: Date.iso8601('2015-03-10')
+      fill_in 'visit_exit_date', with: Date.iso8601('2015-03-22')
       click_button I18n.t('common.save')
       assert_no_selector '#visitModal.show', wait: 10
       assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
@@ -207,17 +209,10 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     find('[data-action="add-visit"]', match: :first).click
     assert_selector '#visitModal.show form[data-visit-form-initialized="true"]', wait: 10
     assert_no_selector '#visitModal script', visible: :all
-    assert_selector '#visitModal [data-continent-selector]'
     within '#visitModal' do
-      find('[data-continent-selector]').select('Asia')
-      assert_selector '#visit_country_id option[value="IN"]', visible: :all
-      find('#visit_country_id').select('India')
-      find('#visit_entry_date_1i').select('2015')
-      find('#visit_entry_date_2i').select('January')
-      find('#visit_entry_date_3i').select('10')
-      find('#visit_exit_date_1i').select('2015')
-      find('#visit_exit_date_2i').select('January')
-      find('#visit_exit_date_3i').select('12')
+      choose_visit_country('India')
+      fill_in 'visit_entry_date', with: Date.iso8601('2015-01-10')
+      fill_in 'visit_exit_date', with: Date.iso8601('2015-01-12')
     end
     click_button I18n.t('common.save'), match: :first
     assert_no_selector '#visitModal.show', wait: 10
@@ -234,5 +229,14 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     assert_selector 'meta[name="csp-nonce"]', visible: :all
     find('[data-action="add-visit"]', match: :first).click
     assert_selector '#visitModal.show form[data-visit-form-initialized="true"]', wait: 10
+  end
+
+  private
+
+  def touch_tap(element)
+    rect = page.evaluate_script('arguments[0].getBoundingClientRect().toJSON()', element)
+    point = { x: rect['left'] + rect['width'] / 2, y: rect['top'] + rect['height'] / 2 }
+    page.driver.browser.execute_cdp('Input.dispatchTouchEvent', type: 'touchStart', touchPoints: [point])
+    page.driver.browser.execute_cdp('Input.dispatchTouchEvent', type: 'touchEnd', touchPoints: [])
   end
 end

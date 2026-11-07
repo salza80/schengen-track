@@ -8,6 +8,10 @@ de:
     add_visa: Visum hinzufügen
     change_settings: Einstellungen ändern
     country: Land
+    country_no_matches: Keine passenden Länder.
+    country_results: 'Passende Länder: %{matches}'
+    country_search_placeholder: Länder suchen
+    country_select_required: Wähle ein Land aus den Ergebnissen.
     dates: Daten
     day_plural:
       one: Tag
@@ -49,6 +53,7 @@ de:
     schengen_days_calculation_tooltip: Die Anzahl der Tage im Schengen-Raum in den letzten 180 Tagen.
     schengen_days_overstay: Überschreitungstage
     schengen_visa_list: Visa
+    stay_duration: "%{days} %{unit}, einschließlich An- und Abreise."
     travel_details: Reisedetails
     travel_record: Reisen
     visa_days_overstay: Visum-Überschreitung

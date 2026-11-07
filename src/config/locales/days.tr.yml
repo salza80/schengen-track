@@ -29,7 +29,10 @@ tr:
     page_title: Schengen 90/180 Gün Hesaplayıcı
     refresh_error: Takvim yenilenemedi. Son sonuçları görmek için tekrar deneyin.
     retry: Tekrar dene
+    save_error: Ziyaret kaydedilemedi. Bağlantınızı kontrol edip tekrar deneyin.
     saved: Kaydedildi.
+    saved_refresh_error: Ziyaretiniz kaydedildi. Takvim toplamlarını güncellemek için tekrar deneyin.
+    saving: Kaydediliyor…
     schengen_days_in_year: Schengen'de Günler
     schengen_no: Hayır
     schengen_yes: Evet
@@ -60,6 +63,7 @@ tr:
       valid_visa: Geçerli vize
       wait: 'Bekleme: %{days} gün'
     until_date: "%{date} tarihine kadar"
+    updating: Kaydedildi. Toplamlar güncelleniyor…
     view_table: Tabloda Görüntüle
     visa_ok_tooltip: Bugün itibariyle geçerli bir vizeniz var
     visa_status_label: Vize Durumu

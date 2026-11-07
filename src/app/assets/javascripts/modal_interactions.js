@@ -6,6 +6,16 @@
     return element.matches('a[href], button, input, select, textarea, [tabindex]');
   }
 
+  function hideAfterOpening($modal, modalInstance) {
+    var hide = function() { $modal.modal('hide'); };
+    $modal.one('shown.bs.modal.focusGuard', hide);
+    // The transition may have completed while registering the listener.
+    if (!modalInstance._isTransitioning) {
+      $modal.off('shown.bs.modal.focusGuard', hide);
+      hide();
+    }
+  }
+
   window.ModalInteractions = {
     bindFocusGuard: function(modalSelector) {
       $(modalSelector)
@@ -33,21 +43,20 @@
           var $modal = $(this).closest('.modal');
           var modalInstance = bootstrap.Modal.getInstance($modal.get(0));
           this.blur();
-          if (modalInstance && modalInstance._isTransitioning) {
+          if (modalInstance && modalInstance._isShown && modalInstance._isTransitioning) {
             event.preventDefault();
             event.stopPropagation();
-            var hideAfterShown = function() {
-              $modal.modal('hide');
-            };
-            $modal.one('shown.bs.modal.focusGuard', hideAfterShown);
-
-            // The transition can finish between the state check and listener
-            // registration. In that case, hide immediately instead of waiting
-            // for an event that has already fired.
-            if (!modalInstance._isTransitioning) {
-              $modal.off('shown.bs.modal.focusGuard', hideAfterShown);
-              $modal.modal('hide');
-            }
+            hideAfterOpening($modal, modalInstance);
+          }
+        })
+        .off('keydown.modalFocusGuard')
+        .on('keydown.modalFocusGuard', function(event) {
+          if (event.key !== 'Escape' || event.isDefaultPrevented()) return;
+          var modalInstance = bootstrap.Modal.getInstance(this);
+          if (modalInstance && modalInstance._isShown && modalInstance._isTransitioning) {
+            event.preventDefault();
+            event.stopPropagation();
+            hideAfterOpening($(this), modalInstance);
           }
         });
     },
@@ -80,6 +89,7 @@
         })
         .off('ajax:error.calculatorLimits', formSelector)
         .on('ajax:error.calculatorLimits', formSelector, function(event, xhr) {
+          if (this.dataset.calendarVisitForm === 'true') return;
           if (!xhr || (xhr.status !== 429 && xhr.status !== 503)) return;
           try {
             var error = JSON.parse(xhr.responseText).error;
@@ -98,11 +108,13 @@
         data: options.data,
         dataType: options.dataType || 'script',
         success: function(data) {
+          if (options.isCurrent && !options.isCurrent()) return;
           if (options.dataType === 'json') window.CalendarRefresh.showForm(data);
           $(options.deleteButtonSelector).toggle(!!options.showDeleteButton);
         },
         error: function(xhr, status, error) {
           if (status === 'abort') return;
+          if (options.isCurrent && !options.isCurrent()) return;
           if (options.dataType === 'json') {
             $('#calendar-visit-form').text(options.errorMessage);
             return;
@@ -113,6 +125,11 @@
         }
       });
       if (options.dataType === 'json') this.visitFormRequest = request;
+    },
+
+    cancelVisitFormRequest: function() {
+      if (this.visitFormRequest) this.visitFormRequest.abort();
+      this.visitFormRequest = null;
     },
 
     openDeleteModal: function(deleteUrl, options) {

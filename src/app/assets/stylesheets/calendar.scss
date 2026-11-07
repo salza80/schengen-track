@@ -411,11 +411,11 @@
   }
 }
 
-// Modal customizations
-#visitModal {
-  .modal-body {
-    max-height: calc(100vh - 200px);
-    overflow-y: scroll; // Always show scrollbar so users know they can scroll
+.day-cell {
+  scroll-margin-block: 120px 80px;
+  &:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
   }
 }
 

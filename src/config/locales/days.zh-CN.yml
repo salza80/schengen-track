@@ -29,7 +29,10 @@ zh-CN:
     page_title: 申根90/180天计算器
     refresh_error: 无法刷新日历。请重试以查看最新结果。
     retry: 重试
+    save_error: 无法保存行程。请检查网络连接并重试。
     saved: 已保存。
+    saved_refresh_error: 行程已保存。请重试以更新日历总计。
+    saving: 正在保存…
     schengen_days_in_year: 在申根区的天数
     schengen_no: 否
     schengen_yes: 是
@@ -60,6 +63,7 @@ zh-CN:
       valid_visa: 签证有效
       wait: 等待：%{days} 天
     until_date: 直到 %{date}
+    updating: 已保存。正在更新总计…
     view_table: 表格视图
     visa_ok_tooltip: 您截至今天拥有有效签证
     visa_status_label: 签证状态

@@ -29,7 +29,10 @@ de:
     page_title: Schengen 90/180-Tage-Rechner
     refresh_error: Der Kalender konnte nicht aktualisiert werden. Versuchen Sie es erneut, um die neuesten Ergebnisse anzuzeigen.
     retry: Erneut versuchen
+    save_error: Der Aufenthalt konnte nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.
     saved: Gespeichert.
+    saved_refresh_error: Dein Aufenthalt ist gespeichert. Versuche erneut, die Kalendersummen zu aktualisieren.
+    saving: Wird gespeichert…
     schengen_days_in_year: Tage im Schengen
     schengen_no: Nein
     schengen_yes: Ja
@@ -60,6 +63,7 @@ de:
       valid_visa: Gültiges Visum
       wait: 'Wartezeit: %{days} Tage'
     until_date: bis %{date}
+    updating: Gespeichert. Summen werden aktualisiert…
     view_table: In Tabelle anzeigen
     visa_ok_tooltip: Sie haben ein gültiges Visum zum heutigen Tag
     visa_status_label: Visumstatus

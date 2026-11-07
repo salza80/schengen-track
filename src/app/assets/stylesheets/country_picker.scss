@@ -1,0 +1,33 @@
+.country-picker {
+  .country-search { position: relative; }
+
+  [data-country-search] {
+    min-width: 0;
+    width: 100%;
+    padding-inline-end: 3rem;
+    background-color: #fff;
+  }
+
+  .country-clear {
+    position: absolute;
+    inset-inline-end: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: var(--bs-secondary-color);
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+
+  .country-options {
+    position: relative;
+    max-height: min(12rem, 30dvh);
+    overflow-y: auto;
+    .list-group-item {
+      cursor: pointer;
+      min-height: 44px;
+    }
+  }
+}

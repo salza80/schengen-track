@@ -54,6 +54,11 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     fill_in 'visit_country_search', with: 'Germany'
     touch_tap(find('#visit_country_results [role="option"]', text: 'Germany', exact_text: true))
     assert_equal 'DE', find('#visit_country_code', visible: :all).value
+    touch_tap(find('[data-country-clear]'))
+    assert_equal '', find('#visit_country_code', visible: :all).value
+    assert_selector '#visit_country_search:focus'
+    fill_in 'visit_country_search', with: 'Germany'
+    touch_tap(find('#visit_country_results [role="option"]', text: 'Germany', exact_text: true))
     click_button I18n.t('common.save')
     assert_no_selector '#visitModal.show', wait: 10
     assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10

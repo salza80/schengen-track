@@ -8,6 +8,7 @@ fr:
     add_visa: Ajouter un visa
     change_settings: Modifier les paramètres
     country: Pays
+    country_clear: Effacer le pays
     country_no_matches: Aucun pays correspondant.
     country_results: 'Pays correspondants : %{matches}'
     country_search_placeholder: Rechercher un pays

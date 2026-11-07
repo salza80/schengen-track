@@ -51,6 +51,7 @@
 @import "about"; // Shared About and legal-page layout
 @import "responsive_table";
 @import "calendar_status_card";
+@import "country_picker";
 
 // Bootstrap 5 applies $btn-box-shadow to the base .btn. Previously only filled
 // variants had it; keep outline, link, and unstyled OAuth buttons flat.
@@ -959,21 +960,11 @@ nav.page-sidebar {
 }
 
 // Compact visit forms share the same controls on Calendar and Trips.
-.visit-date-fields input[type="date"], #visit_country_search {
+.visit-date-fields input[type="date"] {
   min-width: 0;
   width: 100%;
   background-color: #fff;
 }
-.country-options {
-  position: relative;
-  max-height: min(12rem, 30dvh);
-  overflow-y: auto;
-  .list-group-item {
-    cursor: pointer;
-    min-height: 44px;
-  }
-}
-
 [dir="rtl"] #visitModal .modal-header .btn-close {
   margin-left: calc(-.5 * var(--bs-modal-header-padding-x));
   margin-right: auto;

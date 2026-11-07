@@ -1,0 +1,9 @@
+.country-picker.mb-3{data: { country_picker: true, country_options: country_options, required_message: t('visits.country_select_required'), no_matches: t('visits.country_no_matches'), results_label: t('visits.country_results', matches: '__COUNT__') }}
+  = label_tag :visit_country_search, t('common.country'), class: 'form-label'
+  = hidden_field_tag 'visit[country_code]', country&.country_code, id: 'visit_country_code', data: { country_value: true }
+  .country-search
+    = text_field_tag :country_search, country&.name, id: 'visit_country_search', class: 'form-control', placeholder: t('visits.country_search_placeholder'), required: true, autocomplete: 'off', spellcheck: false, role: 'combobox', 'aria-autocomplete': 'list', 'aria-expanded': 'false', 'aria-controls': 'visit_country_results', 'aria-describedby': 'visit_country_status', data: { country_search: true }
+    %button.country-clear.btn.btn-link{type: 'button', hidden: true, 'aria-label': t('visits.country_clear'), data: { country_clear: true }}
+      %span{'aria-hidden': 'true'} ×
+  #visit_country_results.country-options.list-group{role: 'listbox', 'aria-label': t('common.country'), hidden: true, data: { country_results: true }}
+  #visit_country_status.form-text{role: 'status', 'aria-live': 'polite', data: { country_status: true }}

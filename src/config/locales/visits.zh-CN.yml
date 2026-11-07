@@ -8,6 +8,7 @@ zh-CN:
     add_visa: 添加签证
     change_settings: 更改设置
     country: 国家
+    country_clear: 清除国家
     country_no_matches: 没有匹配的国家。
     country_results: 匹配的国家：%{matches}
     country_search_placeholder: 搜索国家

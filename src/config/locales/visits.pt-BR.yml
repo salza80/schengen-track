@@ -8,6 +8,7 @@ pt-BR:
     add_visa: Adicionar Visto
     change_settings: Alterar configurações
     country: País
+    country_clear: Limpar país
     country_no_matches: Nenhum país encontrado.
     country_results: 'Países encontrados: %{matches}'
     country_search_placeholder: Buscar países

@@ -8,6 +8,7 @@ hi:
     add_visa: वीज़ा जोड़ें
     change_settings: सेटिंग्स बदलें
     country: देश
+    country_clear: देश साफ़ करें
     country_no_matches: कोई मेल खाता देश नहीं मिला।
     country_results: 'मेल खाते देश: %{matches}'
     country_search_placeholder: देश खोजें

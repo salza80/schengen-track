@@ -8,6 +8,7 @@ es:
     add_visa: Agregar visa
     change_settings: Cambiar configuración
     country: País
+    country_clear: Borrar país
     country_no_matches: No hay países coincidentes.
     country_results: 'Países coincidentes: %{matches}'
     country_search_placeholder: Buscar países

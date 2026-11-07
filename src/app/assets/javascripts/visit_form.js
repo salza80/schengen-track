@@ -8,7 +8,7 @@
       if (form.dataset.visitFormInitialized) return;
       form.dataset.visitFormInitialized = 'true';
       var $form = $(form);
-      new App.CountryPicker(form, JSON.parse(form.dataset.countryOptions));
+      new App.CountryPicker(form.querySelector('[data-country-picker]'));
       var entry = form.querySelector('#visit_entry_date');
       var exit = form.querySelector('#visit_exit_date');
       function updateDuration() {

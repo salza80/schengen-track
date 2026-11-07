@@ -8,6 +8,7 @@ tr:
     add_visa: Vize Ekle
     change_settings: Ayarları değiştir
     country: Ülke
+    country_clear: Ülkeyi temizle
     country_no_matches: Eşleşen ülke yok.
     country_results: 'Eşleşen ülkeler: %{matches}'
     country_search_placeholder: Ülke ara

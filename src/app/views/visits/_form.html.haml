@@ -2,7 +2,7 @@
 - visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale, format: form_format) : visits_path(locale: I18n.locale, format: form_format)
 - first_date = (Date.today - 20.years).iso8601
 - last_date = (Date.today + 20.years).iso8601
-= form_for @visit, url: visit_form_url, remote: true, data: { type: (request.format.json? ? 'json' : nil), calendar_visit_form: request.format.json?, visit_form: true, country_options: @country_options, country_required: t('visits.country_select_required'), country_no_matches: t('visits.country_no_matches'), country_results: t('visits.country_results', matches: '__COUNT__'), duration_units: t('visits.day_plural'), duration_label: t('visits.stay_duration', days: '__DAYS__', unit: '__UNIT__'), schengen_constraint: t('visits.max_stay_schengen_constraint'), next_visit_constraint: t('visits.max_stay_next_visit_constraint', date: '__DATE__'), days_until: t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__'), visit_id: (@visit.id if @visit.persisted?) } do |f|
+= form_for @visit, url: visit_form_url, remote: true, data: { type: (request.format.json? ? 'json' : nil), calendar_visit_form: request.format.json?, visit_form: true, duration_units: t('visits.day_plural'), duration_label: t('visits.stay_duration', days: '__DAYS__', unit: '__UNIT__'), schengen_constraint: t('visits.max_stay_schengen_constraint'), next_visit_constraint: t('visits.max_stay_next_visit_constraint', date: '__DATE__'), days_until: t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__'), visit_id: (@visit.id if @visit.persisted?) } do |f|
   - if @visit.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
       %button.btn-close{"type" => "button", "data-bs-dismiss" => "alert", "aria-label" => "Close"}
@@ -20,15 +20,10 @@
       = f.label :exit_date, class: 'form-label'
       = f.date_field :exit_date, class: 'form-control', min: (@visit.entry_date&.iso8601 || first_date), max: last_date, required: true, data: { first_date: first_date }
   .visit-duration.form-text.mb-3{role: 'status', 'aria-live': 'polite'}
+  = render 'country_picker', country: @visit.country, country_options: @country_options
   - unless current_person.nationality.visa_required == 'F'
     #entry-date-info.mb-3{style: 'display: none;'}
       .alert.alert-info.mb-0
         %small
           %strong= t('visits.max_stay_label')
           %span#max-stay-info
-  .country-picker.mb-3{data: { country_picker: true }}
-    = label_tag :visit_country_search, t('common.country'), class: 'form-label'
-    = hidden_field_tag 'visit[country_code]', @visit.country&.country_code, id: 'visit_country_code'
-    = text_field_tag :country_search, @visit.country&.name, id: 'visit_country_search', class: 'form-control', placeholder: t('visits.country_search_placeholder'), required: true, autocomplete: 'off', role: 'combobox', 'aria-autocomplete': 'list', 'aria-expanded': 'false', 'aria-controls': 'visit_country_results', 'aria-describedby': 'visit_country_status'
-    #visit_country_results.country-options.list-group{role: 'listbox', 'aria-label': t('common.country'), hidden: true}
-    #visit_country_status.form-text{role: 'status', 'aria-live': 'polite'}

@@ -126,4 +126,82 @@ class CountryPickerBrowserTest < JavascriptIntegrationTest
     assert_equal 'visit_country_search', page.evaluate_script('document.activeElement.id')
     assert_selector '#visit_country_results [role="option"]', text: 'India', exact_text: true
   end
+
+  test 'Enter never commits an unhighlighted country suggestion' do
+    user_login
+    visit '/en/my/days?year=2027&month=4&day=12'
+    find('[data-date="2027-04-12"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    find('#visit_country_search').click
+    find('#visit_country_search').send_keys(:enter)
+    assert_equal '', find('#visit_country_search').value
+    assert_equal '', find('#visit_country_code', visible: :all).value
+    fill_in 'visit_country_search', with: 'ger'
+    find('#visit_country_search').send_keys(:enter)
+    assert_equal 'ger', find('#visit_country_search').value
+    assert_equal '', find('#visit_country_code', visible: :all).value
+    find('#visit_country_search').send_keys(:arrow_down, :enter)
+    assert_equal 'Germany', find('#visit_country_search').value
+    assert_equal 'DE', find('#visit_country_code', visible: :all).value
+  end
+
+  test 'country search prioritizes name prefixes and exact ISO country codes' do
+    user_login
+    visit '/en/my/days?year=2027&month=4&day=12'
+    find('[data-date="2027-04-12"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    fill_in 'visit_country_search', with: 'ger'
+    assert_equal 'Germany', first('#visit_country_results [role="option"]').text
+    assert_selector '#visit_country_results [role="option"]', text: 'Algeria', exact_text: true
+    fill_in 'visit_country_search', with: 'us'
+    assert_equal 'United States', first('#visit_country_results [role="option"]').text
+    find('#visit_country_search').send_keys(:arrow_down, :enter)
+    assert_equal 'US', find('#visit_country_code', visible: :all).value
+    fill_in 'visit_country_search', with: 'india'
+    find('#visit_country_search').send_keys(:enter)
+    assert_equal 'India', find('#visit_country_search').value
+    assert_equal 'IN', find('#visit_country_code', visible: :all).value
+  end
+
+  test 'a selected country can be cleared and replaced without submitting the visit' do
+    user_login
+    visit '/en/my/days?year=2027&month=4&day=12'
+    find('[data-date="2027-04-12"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    choose_visit_country('Germany')
+    assert_no_difference('Visit.count') do
+      button = find('[data-country-clear]')
+      assert_equal I18n.t('visits.country_clear'), button['aria-label']
+      button.send_keys(:enter)
+      assert_equal '', find('#visit_country_search').value
+      assert_equal '', find('#visit_country_code', visible: :all).value
+      assert_selector '#visit_country_search:focus'
+      assert_selector '#visit_country_results [role="option"]', minimum: 100
+      assert_no_selector '[data-country-clear]'
+    end
+    choose_visit_country('India')
+    assert_equal 'IN', find('#visit_country_code', visible: :all).value
+  end
+
+  test 'allowance hint updates do not move the country control on mobile' do
+    original_info = VisitsController.instance_method(:max_stay_info)
+    VisitsController.define_method(:max_stay_info) do
+      sleep 1
+      original_info.bind_call(self)
+    end
+    page.current_window.resize_to(390, 844)
+    user_login
+    visit '/en/my/days?year=2027&month=4&day=12'
+    find('[data-date="2027-04-12"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    assert_selector '#max-stay-info .exit-date-link', wait: 10
+    top = page.evaluate_script("document.getElementById('visit_country_search').getBoundingClientRect().top")
+    choose_visit_country('Germany')
+    assert_in_delta top, page.evaluate_script("document.getElementById('visit_country_search').getBoundingClientRect().top"), 1
+    assert_selector '#max-stay-info .exit-date-link', wait: 10
+    assert_in_delta top, page.evaluate_script("document.getElementById('visit_country_search').getBoundingClientRect().top"), 1
+  ensure
+    VisitsController.define_method(:max_stay_info, original_info) if original_info
+    page.current_window.resize_to(1400, 1000)
+  end
 end

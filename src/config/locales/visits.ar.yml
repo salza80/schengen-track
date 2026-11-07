@@ -8,6 +8,7 @@ ar:
     add_visa: إضافة تأشيرة
     change_settings: تغيير الإعدادات
     country: الدولة
+    country_clear: مسح الدولة
     country_no_matches: لا توجد دول مطابقة.
     country_results: 'الدول المطابقة: %{matches}'
     country_search_placeholder: البحث عن دولة

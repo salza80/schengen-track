@@ -8,6 +8,7 @@ de:
     add_visa: Visum hinzufügen
     change_settings: Einstellungen ändern
     country: Land
+    country_clear: Land löschen
     country_no_matches: Keine passenden Länder.
     country_results: 'Passende Länder: %{matches}'
     country_search_placeholder: Länder suchen

@@ -85,6 +85,8 @@ Only the newest calendar refresh may replace results or feedback.
 Mouse range selection uses pointer events independently of touch capability.
 Calendar grids retain left-to-right date columns in every locale; horizontal
 day-navigation keys follow that visual order even on an RTL page.
+Keep all seven grid tracks within the viewport; localized weekday labels wrap
+when fonts or text sizes need more room.
 Dialog controls use outlined white fields from <tt>calculator_forms.scss</tt>.
 A separate information panel below the fields follows the current entry date
 and country, using the allowance endpoint's entry and visa information. Keep

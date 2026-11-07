@@ -155,15 +155,19 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     page.current_window.resize_to(1400, 1000)
   end
 
-  [390, 1400].each do |width|
+  [320, 390, 1400].each do |width|
     I18n.available_locales.each do |locale|
       test "#{locale} border-day visit choices use localized dates at #{width}px" do
         user_login
         page.current_window.resize_to(width, 1000)
+        page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 1000,
+                                        deviceScaleFactor: 1, mobile: width < 768)
         calendar_path = private_days_path(locale: locale, year: 2014, month: 3, day: 22)
         visit calendar_path
         assert_current_path calendar_path
         assert_selector '.calendar-view-container[data-selected-year="2014"]'
+        assert_equal width, page.evaluate_script('innerWidth')
+        assert_calendar_grid_fits
         find('[data-date="2014-03-22"]').click
         assert_selector '#visitModal.show #calendar-day-info'
         within '#calendar-visit-form' do
@@ -180,9 +184,28 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
         assert_equal 'DE', find('#visit_country_code', visible: :all).value
         assert_equal visits(:one).entry_date.iso8601, find('#visit_entry_date').value
       ensure
+        page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
         page.current_window.resize_to(1400, 1000)
       end
     end
+  end
+
+  test 'larger localized weekday labels keep the last calendar column reachable on mobile' do
+    user_login
+    page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: 390, height: 844,
+                                    deviceScaleFactor: 1, mobile: true)
+    visit '/hi/my/days?year=2014&month=3&day=22'
+    page.execute_script(<<~JS)
+      document.querySelectorAll('#month-3 .day-header').forEach(function(header) {
+        header.style.fontSize = '2rem';
+      });
+    JS
+    assert_calendar_grid_fits
+    find('[data-date="2014-03-22"]').click
+    assert_selector '#calendar-visit-form button', count: 2
+  ensure
+    page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
+    page.current_window.resize_to(1400, 1000)
   end
 
   test 'missing visa information before choosing a visit links directly to Add Visa' do
@@ -325,6 +348,18 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
   end
 
   private
+
+  def assert_calendar_grid_fits
+    grid = page.evaluate_script(<<~JS)
+      (function() {
+        const grid = document.querySelector('#month-3 .calendar-grid');
+        return { locale: document.documentElement.lang, viewport: innerWidth,
+                 width: grid.clientWidth, content: grid.scrollWidth,
+                 columns: getComputedStyle(grid).gridTemplateColumns };
+      })()
+    JS
+    assert_operator grid.fetch('content'), :<=, grid.fetch('width') + 2, grid.inspect
+  end
 
   def touch_tap(element)
     rect = page.evaluate_script('arguments[0].getBoundingClientRect().toJSON()', element)

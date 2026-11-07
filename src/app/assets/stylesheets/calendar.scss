@@ -64,7 +64,7 @@
 // Calendar grid
 .calendar-month .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 1px;
   background: #dee2e6;
   
@@ -76,11 +76,13 @@
     font-size: 0.875rem;
     border-bottom: 2px solid #dee2e6;
     min-height: 40px;
+    overflow-wrap: anywhere;
   }
 }
 
 // Calendar cells (Option B: Moderate reduction)
 .calendar-cell {
+  min-width: 0;
   min-height: 70px;
   background: white;
   position: relative;

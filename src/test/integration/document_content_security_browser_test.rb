@@ -34,6 +34,19 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     find('#csp-injection-probe').click
     assert_equal false, page.evaluate_script('!!window.cspInjected')
     assert_no_selector 'meta[name="csp-nonce"]', visible: :all
+    original_url = page.current_url
+    page.execute_script <<~JS
+      var select = document.querySelector('.language-select');
+      var option = select.options[select.selectedIndex];
+      var originalValue = option.value;
+      ['javascript:window.cspInjected=true', '//attacker.invalid/', '/\\\\attacker.invalid/'].forEach(function(value) {
+        option.value = value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      option.value = originalValue;
+    JS
+    assert_equal original_url, page.current_url
+    assert_equal false, page.evaluate_script('!!window.cspInjected')
     find('.language-select', match: :first).select('FR - Français')
     assert_selector 'html[lang="fr"]', wait: 10
   ensure

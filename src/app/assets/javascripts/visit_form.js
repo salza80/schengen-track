@@ -11,6 +11,10 @@
       new App.CountryPicker(form.querySelector('[data-country-picker]'));
       var entry = form.querySelector('#visit_entry_date');
       var exit = form.querySelector('#visit_exit_date');
+      var locale = document.documentElement.lang;
+      var numbers = new Intl.NumberFormat(locale);
+      var plurals = new Intl.PluralRules(locale);
+      var units = JSON.parse(form.dataset.durationUnits);
       function updateDuration() {
         exit.min = entry.value || exit.dataset.firstDate;
         var duration = form.querySelector('.visit-duration');
@@ -21,10 +25,9 @@
           return;
         }
         var days = Math.round((finish - start) / 86400000) + 1;
-        var units = JSON.parse(form.dataset.durationUnits);
-        var plural = new Intl.PluralRules(document.documentElement.lang).select(days);
+        var plural = plurals.select(days);
         duration.textContent = form.dataset.durationLabel
-          .replace('__DAYS__', new Intl.NumberFormat(document.documentElement.lang).format(days))
+          .replace('__DAYS__', numbers.format(days))
           .replace('__UNIT__', units[plural] || units.other);
       }
       $(entry).add(exit).on('input change', updateDuration);
@@ -48,7 +51,7 @@
               $form.find('#entry-date-info').hide();
               return;
             }
-            var parts = form.dataset.daysUntil.replace('__DAYS__', result.max_days).split('__DATE__');
+            var parts = form.dataset.daysUntil.replace('__DAYS__', numbers.format(result.max_days)).split('__DATE__');
             var $message = $form.find('#max-stay-info').empty();
             $message.append(document.createTextNode(parts[0]));
             var $link = $('<a>', { href: '#', class: 'exit-date-link' }).text(result.exit_date);

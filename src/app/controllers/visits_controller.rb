@@ -233,9 +233,9 @@ class VisitsController < ApplicationController
     end
   end
   
-  # GET /visits/max_stay_info?date=YYYY-MM-DD&country_id=X
+  # GET /visits/max_stay_info?date=YYYY-MM-DD&country_code=DE
   # Returns max stay information for a given entry date and country
-  # If country_id is not provided, assumes Schengen country
+  # Accepts legacy country_id as well; no country defaults to Schengen.
   def max_stay_info
     date = Date.parse(params[:date])
     
@@ -282,18 +282,18 @@ class VisitsController < ApplicationController
           render json: {
             show: true,
             max_days: days_until_next,
-            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
+            exit_date: I18n.l(next_visit_constraint_date, format: :long),
+            exit_date_iso: next_visit_constraint_date.iso8601,
             constrained: true,
             constraint_type: 'next_visit',
-            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+            next_entry_date: I18n.l(next_visit.entry_date, format: :long)
           }
         else
           render json: {
             show: true,
             max_days: max_remaining,
-            exit_date: schengen_exit_date.strftime('%b %d, %Y'),
-            exit_date_iso: schengen_exit_date.strftime('%Y-%m-%d'),
+            exit_date: I18n.l(schengen_exit_date, format: :long),
+            exit_date_iso: schengen_exit_date.iso8601,
             constrained: true,
             constraint_type: 'schengen'
           }
@@ -310,19 +310,19 @@ class VisitsController < ApplicationController
           render json: {
             show: true,
             max_days: days_until_next,
-            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
+            exit_date: I18n.l(next_visit_constraint_date, format: :long),
+            exit_date_iso: next_visit_constraint_date.iso8601,
             constrained: true,
             constraint_type: 'next_visit',
-            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+            next_entry_date: I18n.l(next_visit.entry_date, format: :long)
           }
         else
           # Schengen limit is the constraint (or no next visit)
           render json: {
             show: true,
             max_days: day_info.max_remaining_days,
-            exit_date: schengen_exit_date.strftime('%b %d, %Y'),
-            exit_date_iso: schengen_exit_date.strftime('%Y-%m-%d'),
+            exit_date: I18n.l(schengen_exit_date, format: :long),
+            exit_date_iso: schengen_exit_date.iso8601,
             constrained: true,
             constraint_type: 'schengen'
           }
@@ -334,11 +334,11 @@ class VisitsController < ApplicationController
           render json: {
             show: true,
             max_days: days_until_next,
-            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
+            exit_date: I18n.l(next_visit_constraint_date, format: :long),
+            exit_date_iso: next_visit_constraint_date.iso8601,
             constrained: true,
             constraint_type: 'next_visit',
-            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+            next_entry_date: I18n.l(next_visit.entry_date, format: :long)
           }
         else
           render json: { show: false }
@@ -350,11 +350,11 @@ class VisitsController < ApplicationController
       render json: {
         show: true,
         max_days: days_until_next,
-        exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-        exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
+        exit_date: I18n.l(next_visit_constraint_date, format: :long),
+        exit_date_iso: next_visit_constraint_date.iso8601,
         constrained: true,
         constraint_type: 'next_visit',
-        next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
+        next_entry_date: I18n.l(next_visit.entry_date, format: :long)
       }
     else
       render json: { show: false }

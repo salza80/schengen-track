@@ -1,3 +1,4 @@
+//= require country_picker/search
 // Searchable country control; only a catalogue country code is submitted.
 (function(window) {
   'use strict';
@@ -10,16 +11,14 @@
     var status = root.querySelector('[data-country-status]');
     var clear = root.querySelector('[data-country-clear]');
     var locale = document.documentElement.lang;
+    var countrySearch = new window.App.CountrySearch(countries, locale);
+    var numbers = new Intl.NumberFormat(locale);
     var active = -1;
     var matches = [];
     var dismissed = false;
 
     function updateClearButton() {
       clear.hidden = !input.value;
-    }
-
-    function normalized(value) {
-      return value.toLocaleLowerCase(locale).normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
     }
 
     function close() {
@@ -63,15 +62,7 @@
 
     function search() {
       dismissed = false;
-      var query = normalized(input.value);
-      var codeQuery = input.value.trim().toUpperCase();
-      matches = countries.map(function(country) {
-        var name = normalized(country.name);
-        var rank = country.country_code === codeQuery ? 0 : name.startsWith(query) ? 1 : name.includes(query) ? 2 : -1;
-        return { country: country, rank: rank };
-      }).filter(function(match) { return match.rank >= 0; })
-        .sort(function(left, right) { return left.rank - right.rank; })
-        .map(function(match) { return match.country; });
+      matches = countrySearch.matches(input.value);
       var nodes = document.createDocumentFragment();
       matches.forEach(function(country) {
         var option = document.createElement('div');
@@ -90,7 +81,7 @@
       list.scrollTop = 0;
       list.hidden = false;
       input.setAttribute('aria-expanded', 'true');
-      status.textContent = matches.length ? root.dataset.resultsLabel.replace('__COUNT__', new Intl.NumberFormat(locale).format(matches.length)) : root.dataset.noMatches;
+      status.textContent = matches.length ? root.dataset.resultsLabel.replace('__COUNT__', numbers.format(matches.length)) : root.dataset.noMatches;
       active = -1;
       input.removeAttribute('aria-activedescendant');
     }
@@ -103,8 +94,7 @@
     input.addEventListener('click', function() { if (list.hidden) search(); });
     input.addEventListener('input', function() {
       updateClearButton();
-      var exact = countries.find(function(country) { return normalized(country.name) === normalized(input.value); });
-      setCode(exact);
+      setCode(countrySearch.exact(input.value));
       search();
     });
     input.addEventListener('blur', close);

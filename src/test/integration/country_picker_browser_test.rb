@@ -204,4 +204,54 @@ class CountryPickerBrowserTest < JavascriptIntegrationTest
     VisitsController.define_method(:max_stay_info, original_info) if original_info
     page.current_window.resize_to(1400, 1000)
   end
+
+  [
+    ['en', 'ger', 'Germany', 'DE'],
+    ['de', 'oesterreich', 'Österreich', 'AT'],
+    ['fr', 'etats‑unis', 'États-Unis', 'US'],
+    ['es', 'alem', 'Alemania', 'DE'],
+    ['pt-BR', 'alem', 'Alemanha', 'DE'],
+    ['tr', 'irlanda', 'İrlanda', 'IE'],
+    ['hi', 'जर्म', 'जर्मनी', 'DE'],
+    ['ar', 'المانيا', 'ألمانيا', 'DE'],
+    ['zh-CN', '德国', '德国', 'DE']
+  ].each do |locale, query, name, code|
+    [320, 1440].each do |width|
+      test "#{locale} country search and clearing work at #{width}px" do
+        user_login
+        page.current_window.resize_to(width, 844)
+        page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 844,
+                                        deviceScaleFactor: 1, mobile: width == 320)
+        page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: width == 320, maxTouchPoints: 1)
+        visit "/#{locale}/my/days?year=2027&month=4&day=12"
+        find('[data-date="2027-04-12"]').click
+        assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+        fill_in 'visit_country_search', with: query
+        find('#visit_country_results [role="option"]', text: name, exact_text: true).click
+        assert_equal name, find('#visit_country_search').value
+        assert_equal code, find('#visit_country_code', visible: :all).value
+        # Exercise long localized labels as well as the search-specific sample.
+        fill_in 'visit_country_search', with: 'UM'
+        find('#visit_country_results-option-UM').click
+        assert_equal CountryCatalog.find_by_code('UM', locale: locale).name, find('#visit_country_search').value
+        assert_equal width, page.evaluate_script('innerWidth')
+        button = find('[data-country-clear]')
+        assert_equal I18n.t('visits.country_clear', locale: locale), button['aria-label']
+        assert page.evaluate_script('document.documentElement.scrollWidth <= innerWidth')
+        assert page.evaluate_script(<<~JS)
+          document.querySelector('#visitModal .modal-content').scrollWidth <=
+            document.querySelector('#visitModal .modal-content').clientWidth
+        JS
+        button.send_keys(:enter)
+        assert_equal '', find('#visit_country_code', visible: :all).value
+        assert_selector '#visit_country_search:focus'
+        fill_in 'visit_country_search', with: 'zzzz-no-country'
+        assert_selector '#visit_country_status', text: I18n.t('visits.country_no_matches', locale: locale)
+      ensure
+        page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
+        page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: false)
+        page.current_window.resize_to(1400, 1000)
+      end
+    end
+  end
 end

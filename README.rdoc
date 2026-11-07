@@ -63,13 +63,18 @@ fonts. See the vendored asset README for version, license and update instruction
 Calendar and Trips share <tt>visits/_form</tt> and <tt>visit_form.js</tt>.
 The country control's markup and configuration live in
 <tt>visits/_country_picker</tt>, its scoped styles in <tt>country_picker.scss</tt>,
-and its behavior in <tt>country_picker.js</tt>. It submits the stable country
+and its behavior in <tt>country_picker.js</tt>. The pure matcher in
+<tt>country_picker/search.js</tt> owns search and exact-name normalization together,
+including Arabic marks, German transliterations and typographic punctuation.
+It sorts suggestions with the active locale's collation and preserves displayed
+names and country codes. It submits the stable country
 code from the SQL-free catalogue. Exact country-code matches and name prefixes
 precede substring matches. Enter accepts a highlighted suggestion or an exact
 name already typed; it never commits an unhighlighted partial match. Clearing
 the control clears its submitted country code and restores input focus.
 Keep asynchronous allowance feedback below the country control so recalculation
-does not move its input or clear button.
+does not move its input or clear button. Hint dates and counts use the active
+locale; the date-input shortcut continues to use its separate ISO value.
 There is no continent prerequisite. Nationality controls remain independent.
 Persisted countries still belong to continents for country-data imports and
 localization; that domain association does not drive the visit form.

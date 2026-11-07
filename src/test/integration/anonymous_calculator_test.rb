@@ -3,6 +3,81 @@ require 'test_helper'
 class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  test 'calendar nationality selection and dated form load use JSON without allocating a guest' do
+    assert_no_difference(['User.count', 'Person.count', 'Visit.count']) do
+      queries = capture_database_queries do
+        patch calculator_preferences_path(locale: :en, format: :json), params: {
+          nationality_code: 'IN', destination: 'calendar'
+        }, xhr: true
+        assert_response :success
+        assert_equal true, response.parsed_body['selected']
+        get new_visit_path(locale: :en, format: :json), params: {
+          entry_date: '2027-04-12', exit_date: '2027-04-14'
+        }, xhr: true
+      end
+      assert_empty country_queries(queries)
+    end
+
+    assert_response :success
+    form = Nokogiri::HTML.fragment(response.parsed_body['html'])
+    assert_equal '/en/visits.json', form.at_css('form')['action']
+    assert_equal 'json', form.at_css('form')['data-type']
+    assert_equal '2027-04-12', form.at_css('#visit_entry_date')['value']
+    assert_equal '2027-04-14', form.at_css('#visit_exit_date')['value']
+    assert_match(/private, no-store/, response.headers['Cache-Control'])
+  end
+
+  test 'invalid JSON nationality stays in the dialog and keeps the previous preference' do
+    patch calculator_preferences_path(locale: :en, format: :json), params: { nationality_code: 'IN' }, xhr: true
+    patch calculator_preferences_path(locale: :en, format: :json), params: { nationality_code: 'invalid' }, xhr: true
+    assert_response :unprocessable_entity
+    assert_equal I18n.t('common.invalid_nationality'), response.parsed_body['error']
+    assert_equal 'IN', session[:calculator_nationality_code]
+  end
+
+  test 'a JSON first save refreshes calculated days through the uncached private fragment' do
+    patch calculator_preferences_path(locale: :en, format: :json), params: { nationality_code: 'US' }, xhr: true
+    assert_difference(['User.count', 'Person.count', 'Visit.count'], 1) do
+      post visits_path(locale: :en, format: :json), params: {
+        visit: { entry_date: '2027-01-10', exit_date: '2027-01-15', country_code: 'DE' }
+      }, xhr: true
+    end
+    assert_response :created
+    assert_equal true, response.parsed_body['saved']
+
+    get private_days_path(locale: :en, format: :json, year: 2027), xhr: true
+    assert_response :success
+    assert_match(/private, no-store/, response.headers['Cache-Control'])
+    fragment = Nokogiri::HTML.fragment(response.parsed_body['html'])
+    assert_equal 12, fragment.css('.calendar-month').length
+    assert_equal '6', fragment.at_css('[data-date="2027-01-15"] .day-count strong').text
+    assert_equal 0, fragment.css('#visitModal, script').length
+    assert response.parsed_body['csrf_token'].present?
+  end
+
+  test 'invalid JSON visit update returns the entered form without changing the saved visit' do
+    sign_in users(:Sally)
+    record = visits(:one)
+    patch visit_path(record, locale: :en, format: :json), params: {
+      visit: { entry_date: '2014-03-10', exit_date: '2014-03-09', country_code: 'DE' }
+    }, xhr: true
+    assert_response :unprocessable_entity
+    form = Nokogiri::HTML.fragment(response.parsed_body['html'])
+    assert form.at_css('.alert-danger')
+    assert_equal '2014-03-09', form.at_css('#visit_exit_date')['value']
+    assert_equal Date.new(2014, 3, 22), record.reload.exit_date
+  end
+
+  test 'a successful JSON visit edit acknowledges the saved change' do
+    sign_in users(:Sally)
+    patch visit_path(visits(:one), locale: :en, format: :json), params: {
+      visit: { exit_date: '2014-03-21' }
+    }, xhr: true
+    assert_response :success
+    assert_equal true, response.parsed_body['saved']
+    assert_equal Date.new(2014, 3, 21), visits(:one).reload.exit_date
+  end
+
   test 'calculator no longer emits the legacy country and guest cache cookie' do
     get visits_path(locale: :en)
     assert_not_includes response_cookie_headers, 'cache_country_guest='
@@ -52,7 +127,7 @@ class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_empty country_queries(queries)
     assert_includes response.body, 'visit[country_code]'
-    assert_includes response.body, 'value=\\"DE\\"'
+    assert_includes response.body, 'visit_country_search'
   end
 
   test 'nationality preference survives calendar redirect without creating records' do

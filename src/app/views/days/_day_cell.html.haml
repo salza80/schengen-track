@@ -1,4 +1,5 @@
-.calendar-cell.day-cell{class: [day_cell_class(day), (day.hasCountry? ? 'has-travel' : nil), (is_today?(day) && !@public_calculator_page ? 'current-day' : nil)], data: {bs_toggle: 'tooltip', bs_placement: 'top', bs_html: true, bs_title: day_tooltip(day), date: day.the_date.to_s}}
+- missing_visa = day.user_requires_visa? && day.schengen? && day.visa.nil?
+.calendar-cell.day-cell{role: 'button', tabindex: '-1', 'aria-label': l(day.the_date, format: :long), 'aria-haspopup': 'dialog', class: [day_cell_class(day), (day.hasCountry? ? 'has-travel' : nil), (is_today?(day) && !@public_calculator_page ? 'current-day' : nil)], data: {bs_toggle: 'tooltip', bs_placement: 'top', bs_html: true, bs_title: day_tooltip(day), date: day.the_date.to_s, visa_missing: (true if missing_visa)}}
   .day-number= day.the_date.day
 
   - if day.hasCountry?

@@ -9,7 +9,7 @@
       = t('visits.add_travel')
 - else
   .responsive-table-container
-    %table.table.table-bordered.table-hover.responsive-table
+    %table.table.table-bordered.table-hover.responsive-table.trips-table
       %caption
         = t('visits.list_caption')
       %thead.bg-table-header
@@ -47,21 +47,15 @@
       %tbody
         - @visits.each do |visit|
           %tr{class: 'clickable-visit-row', 'data-clickable-row': 'true', 'data-entry-year': visit.entry_date.year, 'data-entry-month': visit.entry_date.month, 'data-entry-day': visit.entry_date.day}
-            %th{ scope: "row", class: 'bg-md-header' }
-              %span.d-md-none
+            %th.bg-md-header.trip-heading{ scope: "row" }
+              %span.trip-country.d-md-none
                 = visit.country.name
-              %span.text-nowrap
-                = visit.entry_date.strftime('%d-%b-%Y')
-              = " to "
-              %span.text-nowrap
-                = visit.exit_date.strftime('%d-%b-%Y')
-              %span.d-md-none
-                (
-                = visit.no_days
-                = t('visits.day_plural', count: visit.no_days)
-                = t('visits.days_in_schengen_zone') if visit.schengen?
-                = t('visits.days_outside_schengen_zone') if !visit.schengen?
-                )
+              %span.trip-dates
+                %span.text-nowrap
+                  = visit.entry_date.strftime('%d-%b-%Y')
+                = t('common.to')
+                %span.text-nowrap
+                  = visit.exit_date.strftime('%d-%b-%Y')
             %th{ scope: "col", class: "d-none d-md-table-cell" }
               = visit.country.name
             %td{ "data-title": t('visits.schengen_area'), class: "d-none d-md-table-cell" } 
@@ -85,11 +79,11 @@
                   = t('visits.visa_required')
               %td{ "data-title": t('visits.visa_days_overstay'), class: (visit.visa_exists? == false && visit.schengen? ? "table-danger" : "d-none d-md-table-cell") }
                 = visit.visa_overstay_days
-            %td{ "data-title": t('visits.schengen_days') }
+            %td{ "data-title": t('visits.schengen_days'), class: ('trip-last-detail' unless visit.schengen_overstay?) }
               = "#{visit.schengen_days} #{t('common.of')} 90 #{t('visits.days')}"
-            %td{ "data-title": t('visits.schengen_days_overstay'), class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
+            %td.trip-last-detail{ "data-title": t('visits.schengen_days_overstay'), class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
               = visit.schengen_overstay_days
-            %td{ "data-title": t('visits.modify') }
+            %td.trip-actions
               .d-flex.gap-2.justify-content-end.justify-content-md-center.align-items-center
                 %a.btn.btn-sm.btn-icon.edit-visit-link{href: "#", "data-visit-id" => visit.id, title: t('common.edit'), "aria-label": "#{t('common.edit')} #{visit.country.name} #{t('visits.travel_record')}"}
                   %i.fa.fa-pencil-alt{"aria-hidden": "true"}

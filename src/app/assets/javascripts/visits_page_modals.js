@@ -22,6 +22,10 @@
       }
 
       ModalInteractions.bindFocusGuard('#visitModal, #visaModal');
+      $('#visitModal').on('visit:visa-saved', function(event, refreshInfo) {
+        refreshInfo();
+        self.refreshWhenDialogsClose();
+      });
       
       // Bind add visit button
       $('[data-action="add-visit"]').on('click', function(e) {
@@ -125,14 +129,28 @@
       // CloudFront intentionally does not forward Trips query parameters to
       // Rails. Continue the Add Travel flow from the viewer URL instead.
       var continuation = new URLSearchParams(window.location.search);
-      if (continuation.get('open') === 'trip') {
+      if (continuation.get('open') === 'trip' || continuation.get('open') === 'visa') {
+        var openVisa = continuation.get('open') === 'visa';
         continuation.delete('open');
         window.history.replaceState({}, '', window.location.pathname + (continuation.toString() ? '?' + continuation.toString() : ''));
-        self.openAddVisitModal();
+        if (openVisa) self.openAddVisaModal();
+        else self.openAddVisitModal();
       }
 
     },
     
+    // A save can finish after its dialog closes or while another draft is open.
+    refreshWhenDialogsClose: function() {
+      var self = this;
+      var $dialogs = $('.modal');
+      $dialogs.off('hidden.bs.modal.visaSaved');
+      if ($dialogs.is(':visible')) {
+        $dialogs.one('hidden.bs.modal.visaSaved', function() { self.refreshWhenDialogsClose(); });
+      } else {
+        window.location.reload();
+      }
+    },
+
     // Open ADD visit modal
     openAddVisitModal: function() {
       var self = this;
@@ -195,10 +213,4 @@
   $(document).ready(function() {
     VisitsPageModals.init();
   });
-  
-  // Also initialize on turbolinks page load (if using turbolinks)
-  $(document).on('turbolinks:load', function() {
-    VisitsPageModals.init();
-  });
-  
 })();

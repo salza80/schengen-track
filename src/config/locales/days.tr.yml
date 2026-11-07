@@ -5,6 +5,7 @@ tr:
     days_remaining: Kalan Günler
     days_used: Kullanılan Günler
     entry_limit_exceeded: Giriş Limiti Aşıldı
+    form_error: Bilgiler yüklenemedi. Tekrar deneyin.
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
     go_to_visas: Vizelere git
@@ -15,6 +16,7 @@ tr:
     legend_overstay: Süre Aşımı
     legend_safe: Schengen'de (Güvenli)
     legend_waiting: Bekleme Süresi
+    loading: Yükleniyor…
     max_days_reached: Zirve
     max_remaining_days: Maksimum kalan günler - Bu günde yeniden girdiğinizde Schengen alanında kalabileceğiniz maksimum süre.
     meta_description: 90/180 gün kuralını hesaplamak için görsel Schengen takvimi. Seyahatlerinizi ekleyin, kullandığınız günleri görün ve sonraki girişinizi planlayın.
@@ -26,6 +28,12 @@ tr:
     overstay_tooltip: 90/180 günü aştınız
     page_description: Seyahatlerinizi kaydetmek, 90/180 günlük hareketli hakkınızı hesaplamak ve gelecek seyahatleri planlamak için bu etkileşimli Schengen takvimini kullanın.
     page_title: Schengen 90/180 Gün Hesaplayıcı
+    refresh_error: Takvim yenilenemedi. Son sonuçları görmek için tekrar deneyin.
+    retry: Tekrar dene
+    save_error: Değişiklikler kaydedilemedi. Bağlantınızı kontrol edip tekrar deneyin.
+    saved: Kaydedildi.
+    saved_refresh_error: Değişiklikleriniz kaydedildi. Takvim toplamlarını güncellemek için tekrar deneyin.
+    saving: Kaydediliyor…
     schengen_days_in_year: Schengen'de Günler
     schengen_no: Hayır
     schengen_yes: Evet
@@ -56,6 +64,7 @@ tr:
       valid_visa: Geçerli vize
       wait: 'Bekleme: %{days} gün'
     until_date: "%{date} tarihine kadar"
+    updating: Kaydedildi. Toplamlar güncelleniyor…
     view_table: Tabloda Görüntüle
     visa_ok_tooltip: Bugün itibariyle geçerli bir vizeniz var
     visa_status_label: Vize Durumu

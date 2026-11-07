@@ -8,17 +8,21 @@ pt-BR:
     add_visa: Adicionar Visto
     change_settings: Alterar configurações
     country: País
+    country_clear: Limpar país
+    country_no_matches: Nenhum país encontrado.
+    country_results: 'Países encontrados: %{matches}'
+    country_search_placeholder: Buscar países
+    country_select_required: Escolha um país nos resultados.
     dates: Datas
     day_plural:
       one: dia
       other: dias
     days: dias
-    days_in_schengen_zone: " na Zona Schengen"
-    days_outside_schengen_zone: " fora da Zona Schengen"
     days_overstay: Dias de Permanência Excessiva
     days_overstay_tooltip: O número de dias dentro da Área Schengen não permitidos pelos Vistos Inseridos.
     edit_title: Editar um Registro de Viagem
     entry_date: Data de entrada
+    entry_info: Informações da data de entrada
     exit_date: Data de saída
     exits: Saídas
     exits_tooltip: Indica se um Visto para o período de viagem foi inserido.
@@ -35,6 +39,7 @@ pt-BR:
     no_days: Sem Dias
     no_entries: Nº de Entradas
     no_trips: Nenhuma viagem ainda
+    no_visa_for_date: Nenhum visto registrado para esta data.
     number_of_days_tooltip: O número de dias desta visita.
     number_of_entries_tooltip: O número de entradas permitidas neste Visto.
     page_description: Rastreie suas viagens para a Área Schengen e monitore sua conformidade com a regra de 90/180 dias. Adicione suas visitas passadas e futuras para ver quantos dias você tem restantes.
@@ -49,6 +54,7 @@ pt-BR:
     schengen_days_calculation_tooltip: O número de dias dentro da Área Schengen nos últimos 180 dias.
     schengen_days_overstay: Dias de Permanência Excessiva
     schengen_visa_list: Vistos
+    stay_duration: "%{days} %{unit}, incluindo chegada e partida."
     travel_details: Detalhes da Viagem
     travel_record: Viagens
     visa_days_overstay: Permanência Excessiva de Visto

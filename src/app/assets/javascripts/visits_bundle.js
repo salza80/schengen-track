@@ -3,6 +3,5 @@
 
 //= require modal_interactions
 //= require visits_page_modals
-//= require cascade_lists
 
 //= require visit_form

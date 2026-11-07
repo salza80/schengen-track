@@ -18,7 +18,6 @@ class CountryCatalog
     :base_nationality,
     :localized_nationality,
     :nationality_plural,
-    :continent_code,
     :schengen_start_date,
     :EU_member_state,
     :visa_required,
@@ -46,24 +45,13 @@ class CountryCatalog
     end
   end
 
-  # Read-only option value used by the public travel form.
-  Continent = Struct.new(:code, :name, keyword_init: true)
-
   class << self
     def all(locale: I18n.locale)
       catalog(locale)[:countries]
     end
 
-    def continents(locale: I18n.locale)
-      catalog(locale)[:continents]
-    end
-
     def outside_schengen(locale: I18n.locale)
       all(locale: locale).reject { |country| country.visa_required == 'F' }
-    end
-
-    def for_continent(code, locale: I18n.locale)
-      all(locale: locale).select { |country| country.continent_code == code }
     end
 
     def find_by_code(code, locale: I18n.locale)
@@ -84,8 +72,7 @@ class CountryCatalog
       all(locale: locale).map do |country|
         {
           country_code: country.country_code,
-          name: country.name,
-          continent_code: country.continent_code
+          name: country.name
         }
       end
     end
@@ -104,7 +91,10 @@ class CountryCatalog
     end
 
     def load_catalog(locale)
-      payload = JSON.parse(File.read(CATALOG_DIRECTORY.join("#{locale}.json")))
+      # The public lookup allowlists locales; also constrain the file boundary
+      # to one basename rather than accepting a relative path.
+      filename = File.basename("#{locale}.json")
+      payload = JSON.parse(File.read(CATALOG_DIRECTORY.join(filename)))
       countries = payload.fetch('countries').map do |country|
         Entry.new(
           country_code: country.fetch('country_code'),
@@ -113,21 +103,16 @@ class CountryCatalog
           base_nationality: country.fetch('base_nationality'),
           localized_nationality: country.fetch('localized_nationality'),
           nationality_plural: country.fetch('nationality_plural'),
-          continent_code: country.fetch('continent_code'),
           schengen_start_date: country['schengen_start_date'].present? ? Date.iso8601(country['schengen_start_date']) : nil,
           EU_member_state: country.fetch('EU_member_state'),
           visa_required: country.fetch('visa_required'),
           additional_visa_waiver: country.fetch('additional_visa_waiver')
         ).freeze
       end.sort_by { |country| country.name.downcase }
-      continents = payload.fetch('continents').map do |continent|
-        Continent.new(code: continent.fetch('code'), name: continent.fetch('name')).freeze
-      end
 
       {
         countries: countries.freeze,
-        countries_by_code: countries.index_by(&:country_code).freeze,
-        continents: continents.freeze
+        countries_by_code: countries.index_by(&:country_code).freeze
       }.freeze
     end
 

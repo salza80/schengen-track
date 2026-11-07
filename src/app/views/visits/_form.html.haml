@@ -1,42 +1,38 @@
-- visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale) : visits_path(locale: I18n.locale, format: :js)
-= form_for @visit, url: visit_form_url, remote: true, data: { visit_form: true, country_options: @country_options, schengen_constraint: t('visits.max_stay_schengen_constraint'), next_visit_constraint: t('visits.max_stay_next_visit_constraint', date: '__DATE__'), days_until: t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__'), visit_id: (@visit.id if @visit.persisted?) } do |f|
+- form_format = request.format.json? ? :json : :js
+- visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale, format: form_format) : visits_path(locale: I18n.locale, format: form_format)
+- first_date = (Date.today - 20.years).iso8601
+- last_date = (Date.today + 20.years).iso8601
+= form_for @visit, url: visit_form_url, remote: true, data: { type: (request.format.json? ? 'json' : nil), calendar_visit_form: request.format.json?, visit_form: true, loading_label: t('days.loading'), form_error: t('days.form_error'), retry_label: t('days.retry'), back_label: t('common.back'), duration_units: t('visits.day_plural'), duration_label: t('visits.stay_duration', days: '__DAYS__', unit: '__UNIT__'), schengen_constraint: t('visits.max_stay_schengen_constraint'), next_visit_constraint: t('visits.max_stay_next_visit_constraint', date: '__DATE__'), days_until: t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__'), visit_id: (@visit.id if @visit.persisted?) } do |f|
   - if @visit.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
       %button.btn-close{"type" => "button", "data-bs-dismiss" => "alert", "aria-label" => "Close"}
-
       %strong
         = pluralize(@visit.errors.count, "error")
         prohibited this visit from being saved:
       %ul.mb-0.mt-2
         - @visit.errors.full_messages.each do |msg|
           %li= msg
-  .mb-3.row
-    .col-sm-2.my-auto
-      = f.label :entry_date, class: "col-form-label"
-    .col-sm-10
-      = f.date_select :entry_date, {}, { class: "form-select d-inline-block w-auto", "aria-label": t('visits.entry_date') }
+  .row.g-3.mb-2.visit-date-fields
+    .col-12.col-md-6
+      = f.label :entry_date, class: 'form-label'
+      = f.date_field :entry_date, class: 'form-control', min: first_date, max: last_date, required: true
+    .col-12.col-md-6
+      = f.label :exit_date, class: 'form-label'
+      = f.date_field :exit_date, class: 'form-control', min: (@visit.entry_date&.iso8601 || first_date), max: last_date, required: true, data: { first_date: first_date }
+  .visit-duration.form-text.mb-3{role: 'status', 'aria-live': 'polite'}
+  = render 'country_picker', country: @visit.country, country_options: @country_options
   - unless current_person.nationality.visa_required == 'F'
-    #entry-date-info.mb-3.row{style: 'display: none;'}
-      .col-sm-2
-      .col-sm-10
-        .alert.alert-info.mb-0
-          %small
-            %strong= t('visits.max_stay_label')
-            %span#max-stay-info Loading...
-  .mb-3.row
-    .col-sm-2.my-auto
-      = f.label :exit_date, class: "col-form-label"
-    .col-sm-10
-      = f.date_select :exit_date, {}, { class: "form-select d-inline-block w-auto", "aria-label": t('visits.exit_date') }
-  .mb-3.row
-    .col-sm-2.my-auto
-      = f.label t('common.continent'), class: "col-form-label"
-    .col-sm-10
-      = select_tag t('common.continent'), options_from_collection_for_select(@continents, :code, :name, @continent_default_code), class: "form-select", data: { continent_selector: true }, "aria-label": t('common.continent')
-  .mb-3.row
-    .col-sm-2.my-auto
-      = f.label :country, class: "col-form-label"
-    .col-sm-10
-      - selected_country_code = @visit.country&.country_code
-      - countries = CountryCatalog.for_continent(@continent_default_code)
-      = select_tag 'visit[country_code]', options_from_collection_for_select(countries, :country_code, :name, selected_country_code), include_blank: true, id: 'visit_country_id', class: "form-select", "aria-label": t('common.country')
+    #entry-date-info.visit-info-panel.mb-3{role: 'note', 'aria-live': 'polite', hidden: true}
+      .visit-info-heading
+        %i.fa.fa-info-circle{'aria-hidden': 'true'}
+        %strong= t('visits.entry_info')
+      %div{data: {entry_days_used: true}}
+      %div{data: {entry_visa: true}, hidden: true}
+        %span{data: {entry_visa_status: true}}
+        = link_to t('visits.add_visa'), calculator_visits_path(locale: I18n.locale, open: 'visa', anchor: 'visas'), class: 'visit-visa-action', data: {visit_add_visa: true}
+      %div{data: {entry_visa_entries: true}, hidden: true}
+      %div.text-danger-emphasis.fw-semibold{data: {entry_overstay: true}, hidden: true}
+      %div.text-warning-emphasis.fw-semibold{data: {entry_wait: true}, hidden: true}
+      %div{data: {entry_allowance: true}, hidden: true}
+        %strong= t('visits.max_stay_label')
+        %span#max-stay-info

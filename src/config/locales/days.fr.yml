@@ -5,6 +5,7 @@ fr:
     days_remaining: Jours restants
     days_used: Jours utilisés
     entry_limit_exceeded: Limite d'entrées dépassée
+    form_error: Les informations n’ont pas pu être chargées. Réessayez.
     from_date_onwards: À partir du %{date}
     full_stay: 90 jours complets !
     go_to_visas: Aller aux visas
@@ -15,6 +16,7 @@ fr:
     legend_overstay: Dépassement de séjour
     legend_safe: Dans Schengen (Sûr)
     legend_waiting: Période d'attente
+    loading: Chargement…
     max_days_reached: Maximum
     max_remaining_days: Jours maximum restants - C'est le temps maximum que vous pouvez rester dans l'espace Schengen si vous entrez à nouveau ce jour-là.
     meta_description: Calendrier Schengen visuel pour calculer la règle des 90/180 jours. Ajoutez vos voyages, consultez les jours utilisés et planifiez votre prochaine entrée.
@@ -26,6 +28,12 @@ fr:
     overstay_tooltip: Vous avez dépassé les 90/180 jours
     page_description: Utilisez ce calendrier Schengen interactif pour enregistrer vos voyages, calculer votre quota glissant de 90/180 jours et planifier vos futurs déplacements.
     page_title: Calculateur de jours Schengen 90/180
+    refresh_error: Le calendrier n’a pas pu être actualisé. Réessayez pour afficher les derniers résultats.
+    retry: Réessayer
+    save_error: Les modifications n’ont pas pu être enregistrées. Vérifiez votre connexion et réessayez.
+    saved: Enregistré.
+    saved_refresh_error: Vos modifications sont enregistrées. Réessayez pour actualiser les totaux du calendrier.
+    saving: Enregistrement…
     schengen_days_in_year: Jours dans Schengen
     schengen_no: Non
     schengen_yes: Oui
@@ -56,6 +64,7 @@ fr:
       valid_visa: Visa valide
       wait: 'Attente : %{days} jours'
     until_date: jusqu'au %{date}
+    updating: Enregistré. Mise à jour des totaux…
     view_table: Voir en tableau
     visa_ok_tooltip: Vous avez un visa valide à la date d'aujourd'hui
     visa_status_label: Statut du visa

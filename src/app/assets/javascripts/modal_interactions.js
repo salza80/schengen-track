@@ -6,9 +6,36 @@
     return element.matches('a[href], button, input, select, textarea, [tabindex]');
   }
 
+  function hideAfterOpening($modal, modalInstance) {
+    var hide = function() { $modal.modal('hide'); };
+    $modal.one('shown.bs.modal.focusGuard', hide);
+    // The transition may have completed while registering the listener.
+    if (!modalInstance._isTransitioning) {
+      $modal.off('shown.bs.modal.focusGuard', hide);
+      hide();
+    }
+  }
+
   window.ModalInteractions = {
     bindFocusGuard: function(modalSelector) {
       $(modalSelector)
+        .off('show.bs.modal.focusGuard')
+        .on('show.bs.modal.focusGuard', function() { $(this).removeData('opening-focus'); })
+        .off('focusin.modalFocusGuard')
+        .on('focusin.modalFocusGuard', function(event) {
+          var modal = bootstrap.Modal.getInstance(this);
+          if (modal && modal._isShown && modal._isTransitioning && event.target !== this) {
+            $(this).data('opening-focus', event.target);
+          }
+        })
+        .off('shown.bs.modal.focusGuard')
+        .on('shown.bs.modal.focusGuard', function() {
+          // Bootstrap focuses the dialog when the animation finishes. Preserve
+          // input a user already started while it was opening.
+          var control = $(this).data('opening-focus');
+          $(this).removeData('opening-focus');
+          if (control && this.contains(control)) control.focus({ preventScroll: true });
+        })
         .off('hide.bs.modal.focusGuard')
         .on('hide.bs.modal.focusGuard', function() {
           if (this.contains(document.activeElement)) {
@@ -25,7 +52,7 @@
             trigger.setAttribute('tabindex', '-1');
           }
           window.setTimeout(function() {
-            trigger.focus();
+            trigger.focus({ preventScroll: true });
           }, 0);
         })
         .off('click.modalFocusGuard', '[data-bs-dismiss="modal"]')
@@ -33,21 +60,20 @@
           var $modal = $(this).closest('.modal');
           var modalInstance = bootstrap.Modal.getInstance($modal.get(0));
           this.blur();
-          if (modalInstance && modalInstance._isTransitioning) {
+          if (modalInstance && modalInstance._isShown && modalInstance._isTransitioning) {
             event.preventDefault();
             event.stopPropagation();
-            var hideAfterShown = function() {
-              $modal.modal('hide');
-            };
-            $modal.one('shown.bs.modal.focusGuard', hideAfterShown);
-
-            // The transition can finish between the state check and listener
-            // registration. In that case, hide immediately instead of waiting
-            // for an event that has already fired.
-            if (!modalInstance._isTransitioning) {
-              $modal.off('shown.bs.modal.focusGuard', hideAfterShown);
-              $modal.modal('hide');
-            }
+            hideAfterOpening($modal, modalInstance);
+          }
+        })
+        .off('keydown.modalFocusGuard')
+        .on('keydown.modalFocusGuard', function(event) {
+          if (event.key !== 'Escape' || event.isDefaultPrevented()) return;
+          var modalInstance = bootstrap.Modal.getInstance(this);
+          if (modalInstance && modalInstance._isShown && modalInstance._isTransitioning) {
+            event.preventDefault();
+            event.stopPropagation();
+            hideAfterOpening($(this), modalInstance);
           }
         });
     },
@@ -80,6 +106,7 @@
         })
         .off('ajax:error.calculatorLimits', formSelector)
         .on('ajax:error.calculatorLimits', formSelector, function(event, xhr) {
+          if (this.dataset.calendarVisitForm === 'true' || this.dataset.inlineVisaForm === 'true') return;
           if (!xhr || (xhr.status !== 429 && xhr.status !== 503)) return;
           try {
             var error = JSON.parse(xhr.responseText).error;
@@ -90,16 +117,47 @@
         });
     },
 
+    renderForm: function(modalSelector, containerSelector, buttonSelector, data) {
+      document.querySelector(containerSelector).replaceChildren(window.DOMPurify.sanitize(
+        data.html, { USE_PROFILES: { html: true }, RETURN_DOM_FRAGMENT: true }
+      ));
+      document.querySelector(modalSelector + ' .modal-body').scrollTop = 0;
+      $(modalSelector + ' .modal-title').text(data.title);
+      $(buttonSelector).data('save-label', data.save_label).text(data.save_label)
+        .attr('aria-label', data.save_label).prop('disabled', false).show();
+      $(containerSelector).trigger('modal:form-rendered');
+    },
+
+    focusForm: function(form) {
+      var fields = Array.from(form.elements).filter(function(field) {
+        return !field.disabled && field.matches('input:not([type="hidden"]), select, textarea');
+      });
+      var target = fields.find(function(field) {
+        return field.getAttribute('aria-invalid') === 'true';
+      }) || form.querySelector('.alert-danger') || fields[0];
+      if (!target) return;
+      if (!canReceiveFocus(target)) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    },
+
     loadForm: function(options) {
-      $.ajax({
+      return $.ajax({
         url: options.url,
         method: 'GET',
         data: options.data,
-        dataType: 'script',
-        success: function() {
+        dataType: options.dataType || 'script',
+        success: function(data) {
+          if (options.isCurrent && !options.isCurrent()) return;
+          if (options.onSuccess) options.onSuccess(data);
           $(options.deleteButtonSelector).toggle(!!options.showDeleteButton);
         },
         error: function(xhr, status, error) {
+          if (status === 'abort') return;
+          if (options.isCurrent && !options.isCurrent()) return;
+          if (options.onError) {
+            options.onError(xhr);
+            return;
+          }
           console.error(options.errorMessage, status, error);
           if (xhr && xhr.responseText) console.error('Response:', xhr.responseText);
           alert(options.errorMessage);

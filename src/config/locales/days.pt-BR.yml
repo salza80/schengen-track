@@ -5,6 +5,7 @@ pt-BR:
     days_remaining: Dias Restantes
     days_used: Dias Usados
     entry_limit_exceeded: Limite de Entradas Excedido
+    form_error: Não foi possível carregar os dados. Tente novamente.
     from_date_onwards: A partir de %{date}
     full_stay: 90 dias completos!
     go_to_visas: Ir para Vistos
@@ -15,6 +16,7 @@ pt-BR:
     legend_overstay: Permanência Excessiva
     legend_safe: Em Schengen (Seguro)
     legend_waiting: Período de Espera
+    loading: Carregando…
     max_days_reached: Pico
     max_remaining_days: Dias máximos restantes - É o tempo máximo que você pode permanecer na área Schengen se reentrar neste dia.
     need_help: Precisa de ajuda para entender a regra?
@@ -23,6 +25,12 @@ pt-BR:
     no_visits_this_year: Nenhuma visita em %{year}
     overstay_na: N/A
     overstay_tooltip: Você excedeu os 90/180 dias
+    refresh_error: Não foi possível atualizar o calendário. Tente novamente para ver os resultados mais recentes.
+    retry: Tentar novamente
+    save_error: Não foi possível salvar as alterações. Verifique sua conexão e tente novamente.
+    saved: Salvo.
+    saved_refresh_error: Suas alterações foram salvas. Tente novamente para atualizar os totais do calendário.
+    saving: Salvando…
     schengen_days_in_year: Dias em Schengen
     schengen_no: Não
     schengen_yes: Sim
@@ -53,6 +61,7 @@ pt-BR:
       valid_visa: Visto válido
       wait: 'Espera: %{days} dias'
     until_date: até %{date}
+    updating: Salvo. Atualizando totais…
     view_table: Ver em Tabela
     visa_ok_tooltip: Você tem um visto válido hoje
     visa_status_label: Status do Visto

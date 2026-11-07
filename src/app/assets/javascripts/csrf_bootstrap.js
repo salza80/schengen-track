@@ -89,7 +89,14 @@
   }, true);
 
   window.addEventListener('pageshow', function(event) {
-    if (!event.persisted || !window.PublicPageHydration.isCalculatorPage()) return;
+    if (!event.persisted) return;
+    // A public document personalized in place must revalidate its private route
+    // on history restoration, including after the session was cleared elsewhere.
+    if (document.body.dataset.privateCalendar === 'true') {
+      window.location.reload();
+      return;
+    }
+    if (!window.PublicPageHydration.isCalculatorPage()) return;
     var hasCalculatorSession = window.PublicPageHydration.hasCookie('has_calculator_session', '1');
     if (hasCalculatorSession) window.location.reload();
   });

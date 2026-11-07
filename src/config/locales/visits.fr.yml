@@ -8,17 +8,21 @@ fr:
     add_visa: Ajouter un visa
     change_settings: Modifier les paramètres
     country: Pays
+    country_clear: Effacer le pays
+    country_no_matches: Aucun pays correspondant.
+    country_results: 'Pays correspondants : %{matches}'
+    country_search_placeholder: Rechercher un pays
+    country_select_required: Choisissez un pays dans les résultats.
     dates: Dates
     day_plural:
       one: jour
       other: jours
     days: jours
-    days_in_schengen_zone: " dans la zone Schengen"
-    days_outside_schengen_zone: " hors de la zone Schengen"
     days_overstay: Jours de dépassement
     days_overstay_tooltip: Le nombre de jours dans l'espace Schengen non autorisés par le visa saisi.
     edit_title: Modifier un enregistrement de voyage
     entry_date: Date d'entrée
+    entry_info: Informations à la date d’entrée
     exit_date: Date de sortie
     exits: Sorties
     exits_tooltip: Indique si un visa a été saisi pour la période du voyage.
@@ -35,6 +39,7 @@ fr:
     no_days: Nbre jours
     no_entries: Nbre entrées
     no_trips: Pas encore de voyages
+    no_visa_for_date: Aucun visa enregistré pour cette date.
     number_of_days_tooltip: Le nombre de jours de cette visite.
     number_of_entries_tooltip: Le nombre d'entrées autorisées sur ce visa.
     page_description: Suivez vos voyages dans l'espace Schengen et surveillez votre conformité avec la règle 90/180 jours. Ajoutez vos visites passées et à venir pour voir combien de jours il vous reste.
@@ -49,6 +54,7 @@ fr:
     schengen_days_calculation_tooltip: Le nombre de jours dans l'espace Schengen au cours des 180 derniers jours.
     schengen_days_overstay: Jours de dépassement
     schengen_visa_list: Visas
+    stay_duration: "%{days} %{unit}, arrivée et départ inclus."
     travel_details: Détails du voyage
     travel_record: Voyages
     visa_days_overstay: Dépassement de visa

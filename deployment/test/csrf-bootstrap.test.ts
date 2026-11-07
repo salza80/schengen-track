@@ -49,7 +49,7 @@ function setup(cookie = '') {
     HTMLFormElement: function() {}
   });
 
-  return { listeners, metas, hidden, requestSubmit, reload, alert, fetch, form, window };
+  return { listeners, metas, hidden, requestSubmit, reload, alert, fetch, form, window, document };
 }
 
 test('public form fetches and installs a CSRF token before resubmitting', async () => {
@@ -88,6 +88,15 @@ test('concurrent submit attempts start only one bootstrap request', async () => 
 
 test('back-forward restoration reloads public calculator HTML after state exists', () => {
   const state = setup('has_calculator_session=1');
+  state.listeners.pageshow({ persisted: true });
+  expect(state.reload).toHaveBeenCalledTimes(1);
+});
+
+test('a calendar personalized in place revalidates on history restoration after its session is cleared', () => {
+  const state = setup();
+  state.document.body.dataset = { privateCalendar: 'true' };
+  state.listeners.pageshow({ persisted: false });
+  expect(state.reload).not.toHaveBeenCalled();
   state.listeners.pageshow({ persisted: true });
   expect(state.reload).toHaveBeenCalledTimes(1);
 });

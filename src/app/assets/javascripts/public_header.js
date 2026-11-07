@@ -94,7 +94,7 @@
       })
       .then(function (data) {
         if (!data) return;
-        if (calculatorPage && typeof data.calculator_path === 'string') {
+        if (calculatorPage && window.PublicPageHydration.isCalculatorPage() && typeof data.calculator_path === 'string') {
           var prefix = headerUrl.pathname.replace(/\/session_header$/, '');
           if (menuUrlAllowed(data.calculator_path, prefix, /^\/my\/(?:visits|days)$/)) {
             var destination = new URL(data.calculator_path, window.location.href);
@@ -121,6 +121,7 @@
       })
       .catch(function () { /* Keep the public navigation usable on failure. */ });
   }
+  window.PublicHeader = { refresh: hydratePublicHeader };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hydratePublicHeader);
   else hydratePublicHeader();
 })();

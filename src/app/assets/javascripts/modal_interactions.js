@@ -19,6 +19,23 @@
   window.ModalInteractions = {
     bindFocusGuard: function(modalSelector) {
       $(modalSelector)
+        .off('show.bs.modal.focusGuard')
+        .on('show.bs.modal.focusGuard', function() { $(this).removeData('opening-focus'); })
+        .off('focusin.modalFocusGuard')
+        .on('focusin.modalFocusGuard', function(event) {
+          var modal = bootstrap.Modal.getInstance(this);
+          if (modal && modal._isShown && modal._isTransitioning && event.target !== this) {
+            $(this).data('opening-focus', event.target);
+          }
+        })
+        .off('shown.bs.modal.focusGuard')
+        .on('shown.bs.modal.focusGuard', function() {
+          // Bootstrap focuses the dialog when the animation finishes. Preserve
+          // input a user already started while it was opening.
+          var control = $(this).data('opening-focus');
+          $(this).removeData('opening-focus');
+          if (control && this.contains(control)) control.focus({ preventScroll: true });
+        })
         .off('hide.bs.modal.focusGuard')
         .on('hide.bs.modal.focusGuard', function() {
           if (this.contains(document.activeElement)) {
@@ -101,22 +118,21 @@
     },
 
     loadForm: function(options) {
-      if (options.dataType === 'json' && this.visitFormRequest) this.visitFormRequest.abort();
-      var request = $.ajax({
+      return $.ajax({
         url: options.url,
         method: 'GET',
         data: options.data,
         dataType: options.dataType || 'script',
         success: function(data) {
           if (options.isCurrent && !options.isCurrent()) return;
-          if (options.dataType === 'json') window.CalendarRefresh.showForm(data);
+          if (options.onSuccess) options.onSuccess(data);
           $(options.deleteButtonSelector).toggle(!!options.showDeleteButton);
         },
         error: function(xhr, status, error) {
           if (status === 'abort') return;
           if (options.isCurrent && !options.isCurrent()) return;
-          if (options.dataType === 'json') {
-            $('#calendar-visit-form').text(options.errorMessage);
+          if (options.onError) {
+            options.onError(xhr);
             return;
           }
           console.error(options.errorMessage, status, error);
@@ -124,12 +140,6 @@
           alert(options.errorMessage);
         }
       });
-      if (options.dataType === 'json') this.visitFormRequest = request;
-    },
-
-    cancelVisitFormRequest: function() {
-      if (this.visitFormRequest) this.visitFormRequest.abort();
-      this.visitFormRequest = null;
     },
 
     openDeleteModal: function(deleteUrl, options) {

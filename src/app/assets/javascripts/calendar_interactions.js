@@ -37,7 +37,7 @@
       
       $('#visitModal').on('hide.bs.modal', function() {
         self.dialogVersion += 1;
-        ModalInteractions.cancelVisitFormRequest();
+        self.cancelFormRequest();
       });
 
       // Close modal cleanup
@@ -111,9 +111,15 @@
           return;
         }
         // Check if this day has visits
-        self.checkVisitsForDate(date, function(visits) {
+        self.checkVisitsForDate(date, function(visits, error) {
           var modal = bootstrap.Modal.getInstance(document.getElementById('visitModal'));
           if (self.dialogVersion !== version || self.selectedDate !== date || !modal || !modal._isShown) return;
+          if (error) {
+            self.showLoadError(function() {
+              document.querySelector('.day-cell[data-date="' + date + '"]').click();
+            });
+            return;
+          }
           if (visits.length === 0) {
             // No visits - open ADD modal
             self.openAddModal(date, date);
@@ -121,7 +127,7 @@
             // Single visit - open EDIT modal
             self.openEditModal(visits[0].id);
           } else {
-            // Multiple visits - show context menu
+            // Border day - choose a visit in the dialog
             self.showVisitChoices(visits);
           }
         });
@@ -186,7 +192,7 @@
       var isReverse = current < start;
       
       // Clear previous selection
-      $('.day-cell').removeClass('selecting selected');
+      $('.day-cell').removeClass('selecting');
       self.state.selectedCells = [];
       
       // Select all cells in range
@@ -222,7 +228,7 @@
       this.state.startDate = null;
       this.state.endDate = null;
       this.state.selectedCells = [];
-      $('.day-cell').removeClass('selecting selected');
+      $('.day-cell').removeClass('selecting');
     },
     
     showDayInfo: function(date, activateDay) {
@@ -260,20 +266,17 @@
         success: function(visits) {
           callback(visits);
         },
-        error: function() {
-          console.error('Failed to fetch visits for date:', date);
-          callback([]);
-        }
+        error: function() { callback(null, true); }
       });
     },
     
     // Open ADD modal
     openAddModal: function(entryDate, exitDate) {
       var self = this;
-      var version = ++self.dialogVersion;
       self.currentVisitId = null; // Clear current visit ID
       self.showDayInfo(entryDate);
       if ($('#visitModal').is('[data-nationality-required]')) {
+        self.dialogVersion += 1;
         var $preferenceForm = $('#visitModal .calculator-nationality-form');
         $preferenceForm.find('input[name="entry_date"], input[name="exit_date"], input[data-viewer-continuation="true"]').remove();
         var viewerParams = new URLSearchParams(window.location.search);
@@ -303,41 +306,56 @@
         $('#visitModal').modal('show');
         return;
       }
-      $('#saveVisitButton').show();
-      self.showLoading();
-      $('#visitModal').modal('show');
       var locale = $('html').attr('lang') || 'en';
-      ModalInteractions.loadForm({
-        url: '/' + locale + '/visits/new.json',
-        dataType: 'json',
-        isCurrent: function() { return self.isDialogCurrent(version); },
-        data: { 
-          entry_date: entryDate,
-          exit_date: exitDate
-        },
-        deleteButtonSelector: '#deleteVisitButton',
-        showDeleteButton: false,
-        errorMessage: 'Failed to open visit form. Please try again.'
-      });
+      self.loadVisitForm('/' + locale + '/visits/new.json', { entry_date: entryDate, exit_date: exitDate }, false);
     },
     
     // Open EDIT modal
     openEditModal: function(visitId) {
       var self = this;
-      var version = ++self.dialogVersion;
       self.currentVisitId = visitId; // Store current visit ID
+      var locale = $('html').attr('lang') || 'en';
+      self.loadVisitForm('/' + locale + '/visits/' + visitId + '/edit.json', {}, true);
+    },
+
+    loadVisitForm: function(url, data, showDelete) {
+      var self = this;
+      var version = ++self.dialogVersion;
+      self.cancelFormRequest();
       $('#saveVisitButton').show();
       self.showLoading();
       $('#visitModal').modal('show');
-      var locale = $('html').attr('lang') || 'en';
-      ModalInteractions.loadForm({
-        url: '/' + locale + '/visits/' + visitId + '/edit.json',
+      self.formRequest = ModalInteractions.loadForm({
+        url: url,
+        data: data,
         dataType: 'json',
         isCurrent: function() { return self.isDialogCurrent(version); },
+        onSuccess: window.CalendarRefresh.showForm,
+        onError: function() { self.showLoadError(function() { self.loadVisitForm(url, data, showDelete); }); },
         deleteButtonSelector: '#deleteVisitButton',
-        showDeleteButton: true,
-        errorMessage: 'Failed to open visit form. Please try again.'
+        showDeleteButton: showDelete
       });
+    },
+
+    cancelFormRequest: function() {
+      if (this.formRequest) this.formRequest.abort();
+      this.formRequest = null;
+    },
+
+    showLoadError: function(retry) {
+      var messages = document.getElementById('calendar-content').dataset;
+      var container = document.getElementById('calendar-visit-form');
+      var error = document.createElement('p');
+      error.setAttribute('role', 'alert');
+      error.textContent = messages.formError;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn btn-outline-primary';
+      button.textContent = messages.retry;
+      button.addEventListener('click', retry, { once: true });
+      container.replaceChildren(error, button);
+      $('#saveVisitButton').prop('disabled', true);
+      $('#deleteVisitButton').hide();
     },
 
     isDialogCurrent: function(version) {
@@ -366,10 +384,4 @@
   $(document).ready(function() {
     CalendarInteractions.init();
   });
-  
-  // Also initialize on turbolinks page load (if using turbolinks)
-  $(document).on('turbolinks:load', function() {
-    CalendarInteractions.init();
-  });
-  
 })();

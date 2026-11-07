@@ -5,6 +5,7 @@ de:
     days_remaining: Verbleibende Tage
     days_used: Verwendete Tage
     entry_limit_exceeded: Einreisegrenze überschritten
+    form_error: Die Aufenthaltsdetails konnten nicht geladen werden. Versuche es erneut.
     from_date_onwards: Ab %{date}
     full_stay: Volle 90 Tage!
     go_to_visas: Zu Visa gehen

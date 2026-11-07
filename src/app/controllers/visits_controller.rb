@@ -71,7 +71,7 @@ class VisitsController < ApplicationController
     end
     
     respond_to do |format|
-      format.js   # AJAX request from calendar
+      format.js   # Trips dialog
       format.json { render_visit_form(t('visits.add_record')) }
     end
   end
@@ -83,7 +83,7 @@ class VisitsController < ApplicationController
     end
     
     respond_to do |format|
-      format.js   # AJAX request from calendar
+      format.js   # Trips dialog
       format.json { render_visit_form(t('visits.edit_title')) }
     end
   end
@@ -128,7 +128,7 @@ class VisitsController < ApplicationController
             render :show, status: :created, location: @visit
           end
         end
-        format.js   # AJAX request from calendar
+        format.js   # Trips dialog
       else
         format.html { render :new }
         format.json do
@@ -138,7 +138,7 @@ class VisitsController < ApplicationController
             render json: @visit.errors, status: :unprocessable_entity
           end
         end
-        format.js   # AJAX request from calendar - show errors
+        format.js   # Trips dialog validation errors
       end
     end
   end
@@ -152,7 +152,7 @@ class VisitsController < ApplicationController
         format.json do
           request.xhr? ? render(json: { saved: true }) : render(:show, status: :ok, location: @visit)
         end
-        format.js   # AJAX request from calendar
+        format.js   # Trips dialog
       else
         format.html { render :edit }
         format.json do
@@ -162,7 +162,7 @@ class VisitsController < ApplicationController
             render json: @visit.errors, status: :unprocessable_entity
           end
         end
-        format.js   # AJAX request from calendar - show errors
+        format.js   # Trips dialog validation errors
       end
     end
   end
@@ -214,7 +214,7 @@ class VisitsController < ApplicationController
   end
 
   # GET /visits/for_date?date=YYYY-MM-DD
-  # Returns all visits that include the specified date (for calendar context menu)
+  # Returns all visits that include the specified date (for the calendar dialog)
   def for_date
     date = Date.parse(params[:date])
     visits = calculator_visits.find_by_date(date, date)

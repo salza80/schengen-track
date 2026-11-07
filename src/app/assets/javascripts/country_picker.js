@@ -4,15 +4,16 @@
 
   window.App.CountryPicker = function(form, countries) {
     var input = form.querySelector('#visit_country_search');
-    var code = form.querySelector('#visit_country_id');
+    var code = form.querySelector('#visit_country_code');
     var list = form.querySelector('#visit_country_results');
     var status = form.querySelector('#visit_country_status');
     var locale = document.documentElement.lang;
     var active = -1;
     var matches = [];
+    var dismissed = false;
 
     function normalized(value) {
-      return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase(locale).trim();
+      return value.toLocaleLowerCase(locale).normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
     }
 
     function close() {
@@ -35,6 +36,7 @@
       input.value = country.name;
       setCode(country);
       close();
+      dismissed = true;
     }
 
     function highlight(index) {
@@ -53,6 +55,7 @@
     }
 
     function search() {
+      dismissed = false;
       var query = normalized(input.value);
       matches = countries.filter(function(country) { return normalized(country.name).includes(query); });
       var nodes = document.createDocumentFragment();
@@ -70,6 +73,7 @@
         nodes.appendChild(option);
       });
       list.replaceChildren(nodes);
+      list.scrollTop = 0;
       list.hidden = false;
       input.setAttribute('aria-expanded', 'true');
       status.textContent = matches.length ? form.dataset.countryResults.replace('__COUNT__', String(matches.length)) : form.dataset.countryNoMatches;
@@ -80,7 +84,8 @@
     var selected = countries.find(function(country) { return country.country_code === code.value; });
     if (selected) input.value = selected.name;
     setCode(selected);
-    input.addEventListener('focus', search);
+    input.addEventListener('focus', function() { if (!dismissed) search(); });
+    input.addEventListener('click', function() { if (list.hidden) search(); });
     input.addEventListener('input', function() {
       var exact = countries.find(function(country) { return normalized(country.name) === normalized(input.value); });
       setCode(exact);
@@ -88,6 +93,7 @@
     });
     input.addEventListener('blur', close);
     input.addEventListener('keydown', function(event) {
+      if (event.isComposing || event.keyCode === 229) return;
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault();
         event.stopPropagation();
@@ -100,6 +106,7 @@
         event.preventDefault();
         event.stopPropagation();
         close();
+        dismissed = true;
       }
     });
   };

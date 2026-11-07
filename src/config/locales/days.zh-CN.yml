@@ -5,6 +5,7 @@ zh-CN:
     days_remaining: 剩余天数
     days_used: 已用天数
     entry_limit_exceeded: 超出入境次数限制
+    form_error: 无法加载行程详情。请重试。
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
     go_to_visas: 前往签证

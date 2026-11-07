@@ -5,6 +5,7 @@ es:
     days_remaining: Días restantes
     days_used: Días Usados
     entry_limit_exceeded: Límite de entradas excedido
+    form_error: No se pudieron cargar los detalles de la visita. Inténtalo de nuevo.
     from_date_onwards: Desde %{date} en adelante
     full_stay: "¡90 días completos!"
     go_to_visas: Ir a visas

@@ -3,6 +3,7 @@
   'use strict';
 
   var feedbackTimer;
+  var refreshVersion = 0;
 
   function fragment(html) {
     return window.DOMPurify.sanitize(html, { USE_PROFILES: { html: true }, RETURN_DOM_FRAGMENT: true });
@@ -28,6 +29,7 @@
   }
 
   function refresh(afterRefresh, options) {
+    var version = ++refreshVersion;
     options = options || {};
     var content = document.getElementById('calendar-content');
     content.setAttribute('aria-busy', 'true');
@@ -40,6 +42,7 @@
       dataType: 'json',
       cache: false
     }).then(function(data) {
+      if (version !== refreshVersion) return;
       if (!data || typeof data.html !== 'string') throw new Error('Missing calendar');
       var content = document.getElementById('calendar-content');
       // Read at response time so a user who scrolls while waiting keeps that position.
@@ -91,6 +94,7 @@
       else document.getElementById('calendar-feedback').replaceChildren();
       if (afterRefresh) afterRefresh();
     }).fail(function() {
+      if (version !== refreshVersion) return;
       content.removeAttribute('aria-busy');
       feedback(options.savedVisit ? content.dataset.savedRefreshError : content.dataset.refreshError, function() { refresh(afterRefresh, options); });
     });

@@ -5,6 +5,7 @@ ar:
     days_remaining: الأيام المتبقية
     days_used: الأيام المستخدمة
     entry_limit_exceeded: تم تجاوز حد الدخول
+    form_error: تعذّر تحميل تفاصيل الزيارة. حاول مرة أخرى.
     from_date_onwards: اعتباراً من %{date}
     full_stay: ٩٠ يوماً كاملة!
     go_to_visas: الانتقال إلى التأشيرات

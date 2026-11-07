@@ -5,12 +5,7 @@ class DaysController < ApplicationController
   before_action :limit_guest_reads!, only: :index
   before_action :set_private_calculator_cache, except: :index
   
-  before_action :set_visit, only: [:show, :edit, :update, :destroy]
-  before_action :set_country_continent, only: [:new, :edit, :update, :create]
-  #before_action :authenticate_user!
-
-  # GET /visits
-  # GET /visits.json
+  # GET /days and /my/days
   def index
     calc = Schengen::Days::Calculator.new(current_person, visits: calculator_visits)
     @days = calc.calculated_days

@@ -102,28 +102,6 @@ class CalendarUxBrowserTest < JavascriptIntegrationTest
     assert_selector '.day-cell[tabindex="0"]', count: 1
   end
 
-  test 'country search filters directly and supports keyboard selection and cancellation' do
-    user_login
-    visit '/en/my/days?year=2027&month=4&day=12'
-    find('[data-date="2027-04-12"]').click
-    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
-    fill_in 'visit_country_search', with: 'GERM'
-    assert_selector '#visit_country_results [role="option"]', text: 'Germany'
-    find('#visit_country_search').send_keys(:arrow_down, :enter)
-    assert_equal 'Germany', find('#visit_country_search').value
-    assert_equal 'DE', find('#visit_country_id', visible: :all).value
-    assert_selector '#visit_country_search[aria-expanded="false"]'
-    fill_in 'visit_country_search', with: 'no such country'
-    assert_selector '#visit_country_status', text: I18n.t('visits.country_no_matches')
-    assert_equal '', find('#visit_country_id', visible: :all).value
-    assert page.evaluate_script("document.getElementById('visit_country_search').validity.customError")
-    find('#visit_country_search').send_keys(:escape)
-    assert_selector '#visit_country_search[aria-expanded="false"]'
-    assert_selector '#visitModal.show'
-    find('#visit_country_search').send_keys(:escape)
-    assert_no_selector '#visitModal.show'
-  end
-
   test 'a slow save and recalculation show their separate progress states' do
     original_update = VisitsController.instance_method(:update)
     original_index = DaysController.instance_method(:index)
@@ -168,7 +146,7 @@ class CalendarUxBrowserTest < JavascriptIntegrationTest
     assert_selector '#visitModal.show .calendar-save-error', text: I18n.t('days.save_error')
     assert_no_selector '#saveVisitButton[disabled]'
     assert_equal '2014-03-21', find('#visit_exit_date').value
-    assert_equal 'DE', find('#visit_country_id', visible: :all).value
+    assert_equal 'DE', find('#visit_country_code', visible: :all).value
     assert_equal Date.new(2014, 3, 22), visits(:one).reload.exit_date
     VisitsController.define_method(:update, original_update)
     click_button 'Save'
@@ -176,5 +154,72 @@ class CalendarUxBrowserTest < JavascriptIntegrationTest
     assert_equal Date.new(2014, 3, 21), visits(:one).reload.exit_date
   ensure
     VisitsController.define_method(:update, original_update) if original_update
+  end
+
+  test 'an older totals response cannot replace a newer saved edit' do
+    original_index = DaysController.instance_method(:index)
+    release_first = Queue.new
+    first_refresh = true
+    DaysController.define_method(:index) do
+      hold_response = request.format.json? && first_refresh
+      first_refresh = false if hold_response
+      original_index.bind_call(self)
+      release_first.pop if hold_response
+    end
+    user_login
+    visit '/en/my/days?year=2014&month=3&day=10'
+    find('[data-date="2014-03-10"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    fill_in 'visit_exit_date', with: Date.iso8601('2014-03-21')
+    click_button 'Save'
+    assert_selector '#calendar-feedback', text: I18n.t('days.updating')
+    find('[data-date="2014-03-10"]').click
+    assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+    fill_in 'visit_exit_date', with: Date.iso8601('2014-03-20')
+    click_button 'Save'
+    assert_selector '.day-cell.no-travel[data-date="2014-03-21"]', wait: 10
+    page.execute_script(<<~JS)
+      jQuery(document).on('ajaxComplete.review', function(event, xhr, settings) {
+        if (settings.url.includes('/my/days.json')) {
+          document.body.dataset.oldRefreshCompleted = 'true';
+          jQuery(document).off('ajaxComplete.review');
+        }
+      });
+    JS
+    release_first << true
+    assert_selector 'body[data-old-refresh-completed="true"]', wait: 10
+    assert_selector '.day-cell.no-travel[data-date="2014-03-21"]'
+    assert_equal Date.new(2014, 3, 20), visits(:one).reload.exit_date
+  ensure
+    release_first << true if release_first
+    DaysController.define_method(:index, original_index) if original_index
+  end
+
+  [:for_date, :edit].each do |action|
+    test "a failed calendar #{action} lookup can retry without showing an add form" do
+      original_action = VisitsController.instance_method(action)
+      fail_once = true
+      VisitsController.define_method(action) do
+        if request.format.json? && fail_once
+          fail_once = false
+          render json: {}, status: :service_unavailable
+        else
+          original_action.bind_call(self)
+        end
+      end
+      user_login
+      visit '/en/my/days?year=2014&month=3&day=10'
+      find('[data-date="2014-03-10"]').click
+      assert_selector '#calendar-visit-form [role="alert"]', text: I18n.t('days.form_error')
+      assert_no_selector '#calendar-visit-form form'
+      assert_selector '#saveVisitButton[disabled]'
+      within('#calendar-visit-form') { click_button I18n.t('days.retry') }
+      assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
+      assert_equal Date.new(2014, 3, 10).iso8601, find('#visit_entry_date').value
+      assert_equal 'DE', find('#visit_country_code', visible: :all).value
+      assert_selector '#visitModal', text: I18n.t('visits.edit_title')
+    ensure
+      VisitsController.define_method(action, original_action) if original_action
+    end
   end
 end

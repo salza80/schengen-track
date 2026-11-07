@@ -32,7 +32,7 @@
       var maxStayRequest;
 
       function updateMaxStayInfo() {
-        var countryCode = $form.find('#visit_country_id').val();
+        var countryCode = $form.find('#visit_country_code').val();
         if (maxStayRequest) maxStayRequest.abort();
         $form.find('#entry-date-info').hide();
         if (!entry.value || !entry.validity.valid) return;
@@ -71,7 +71,7 @@
         });
       }
 
-      $form.find('#visit_entry_date, #visit_country_id')
+      $form.find('#visit_entry_date, #visit_country_code')
         .on('change', updateMaxStayInfo);
       updateMaxStayInfo();
     });

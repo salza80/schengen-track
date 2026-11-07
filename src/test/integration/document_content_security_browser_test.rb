@@ -53,7 +53,7 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     fill_in 'visit_exit_date', with: Date.iso8601('2027-04-14')
     fill_in 'visit_country_search', with: 'Germany'
     touch_tap(find('#visit_country_results [role="option"]', text: 'Germany', exact_text: true))
-    assert_equal 'DE', find('#visit_country_id', visible: :all).value
+    assert_equal 'DE', find('#visit_country_code', visible: :all).value
     click_button I18n.t('common.save')
     assert_no_selector '#visitModal.show', wait: 10
     assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
@@ -88,7 +88,7 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     assert_selector '#calendar-visit-form .alert-danger', wait: 10
     assert_selector '#calendar-day-info strong', text: 'Germany'
     assert_equal '2014-03-23', find('#visit_exit_date').value
-    assert_equal 'DE', find('#visit_country_id', visible: :all).value
+    assert_equal 'DE', find('#visit_country_code', visible: :all).value
     assert_equal 'original', page.evaluate_script('window.calendarDocumentMarker')
     # Arrow keys in a date input must not trigger the calendar's year navigation.
     page.execute_script("document.getElementById('visit_exit_date').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }))")
@@ -109,7 +109,7 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
       find('button', text: 'Germany').click
     end
     assert_selector '#visitModal.show', text: I18n.t('visits.edit_title'), wait: 10
-    assert_equal 'DE', find('#visit_country_id', visible: :all).value
+    assert_equal 'DE', find('#visit_country_code', visible: :all).value
   end
 
   test 'a failed calendar refresh can be retried without repeating the saved edit' do

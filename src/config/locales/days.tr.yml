@@ -5,6 +5,7 @@ tr:
     days_remaining: Kalan Günler
     days_used: Kullanılan Günler
     entry_limit_exceeded: Giriş Limiti Aşıldı
+    form_error: Ziyaret ayrıntıları yüklenemedi. Tekrar deneyin.
     from_date_onwards: "%{date} tarihinden itibaren"
     full_stay: Tam 90 gün!
     go_to_visas: Vizelere git

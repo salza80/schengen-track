@@ -28,7 +28,7 @@
           %span#max-stay-info
   .country-picker.mb-3{data: { country_picker: true }}
     = label_tag :visit_country_search, t('common.country'), class: 'form-label'
-    = hidden_field_tag 'visit[country_code]', @visit.country&.country_code, id: 'visit_country_id'
+    = hidden_field_tag 'visit[country_code]', @visit.country&.country_code, id: 'visit_country_code'
     = text_field_tag :country_search, @visit.country&.name, id: 'visit_country_search', class: 'form-control', placeholder: t('visits.country_search_placeholder'), required: true, autocomplete: 'off', role: 'combobox', 'aria-autocomplete': 'list', 'aria-expanded': 'false', 'aria-controls': 'visit_country_results', 'aria-describedby': 'visit_country_status'
     #visit_country_results.country-options.list-group{role: 'listbox', 'aria-label': t('common.country'), hidden: true}
     #visit_country_status.form-text{role: 'status', 'aria-live': 'polite'}

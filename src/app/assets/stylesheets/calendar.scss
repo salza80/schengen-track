@@ -112,13 +112,6 @@
     z-index: 10;
   }
   
-  // Mobile long-press visual feedback
-  &.long-pressing {
-    animation: longPressAnimation 0.5s ease-in-out;
-    transform: scale(0.95);
-    box-shadow: 0 0 0 3px rgba($primary, 0.3);
-  }
-  
   // Selecting state (for drag selection on desktop)
   &.selecting {
     background-color: rgba($primary, 0.2) !important;
@@ -345,70 +338,6 @@
     outline-offset: -2px;
   }
   
-  &.selected {
-    outline: 3px solid $primary;
-    outline-offset: -3px;
-  }
-}
-
-// Context menu for days with multiple visits
-.context-menu {
-  position: fixed;
-  background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  z-index: 1050;
-  min-width: 250px;
-  max-width: 350px;
-  
-  ul {
-    list-style: none;
-    padding: 0.5rem 0;
-    margin: 0;
-    
-    li {
-      padding: 0.75rem 1rem;
-      cursor: pointer;
-      transition: background 0.15s ease;
-      
-      &:hover:not(.divider) {
-        background: #f8f9fa;
-      }
-      
-      &:first-child {
-        border-radius: 8px 8px 0 0;
-      }
-      
-      &:last-child {
-        border-radius: 0 0 8px 8px;
-      }
-      
-      .visit-country {
-        font-weight: 600;
-        color: #212529;
-        font-size: 0.95rem;
-        margin-bottom: 0.25rem;
-      }
-      
-      .visit-dates {
-        font-size: 0.85rem;
-        color: #6c757d;
-      }
-    }
-    
-    .divider {
-      height: 0;
-      border-top: 1px solid #dee2e6;
-      margin: 0.5rem 0;
-      padding: 0;
-      cursor: default;
-      
-      &:hover {
-        background: transparent;
-      }
-    }
-  }
 }
 
 .day-cell {
@@ -422,52 +351,6 @@
 // ============================================================================
 // Visit Highlight Animations
 // ============================================================================
-
-// Green pulse animation for newly created visits
-@keyframes highlightPulseGreen {
-  0% { 
-    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
-    transform: scale(1);
-  }
-  50% { 
-    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
-    transform: scale(1.02);
-  }
-  100% { 
-    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
-    transform: scale(1);
-  }
-}
-
-.newly-created-visit {
-  animation: highlightPulseGreen 1s ease-in-out 2;
-  border: 2px solid #28a745 !important;
-  position: relative;
-  z-index: 10; // Ensure it appears above other cells
-}
-
-// Blue pulse animation for updated visits
-@keyframes highlightPulseBlue {
-  0% { 
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
-    transform: scale(1);
-  }
-  50% { 
-    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
-    transform: scale(1.02);
-  }
-  100% { 
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-    transform: scale(1);
-  }
-}
-
-.newly-updated-visit {
-  animation: highlightPulseBlue 1s ease-in-out 2;
-  border: 2px solid #007bff !important;
-  position: relative;
-  z-index: 10; // Ensure it appears above other cells
-}
 
 // Gold pulse animation for highlighted days (jump to today, next entry dates)
 @keyframes highlightPulseGold {
@@ -497,20 +380,7 @@
   transition: border 0.3s ease, transform 0.3s ease;
 }
 
-// Mobile long press animation
-@keyframes longPressAnimation {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(0.95);
-  }
-}
-
-// Mobile tooltip improvements
+// Tooltip layout on narrow screens
 @media (max-width: 767px) {
   .tooltip {
     // Make tooltips larger and easier to read on mobile

@@ -195,10 +195,4 @@
   $(document).ready(function() {
     VisitsPageModals.init();
   });
-  
-  // Also initialize on turbolinks page load (if using turbolinks)
-  $(document).on('turbolinks:load', function() {
-    VisitsPageModals.init();
-  });
-  
 })();

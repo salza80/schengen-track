@@ -60,6 +60,16 @@ Font Awesome Free 7 is self-hosted under <tt>src/vendor/assets</tt>. Its Sass
 modules use the same Dart Sass compiler, and Sprockets fingerprints its WOFF2
 fonts. See the vendored asset README for version, license and update instructions.
 
+Calendar and Trips share <tt>visits/_form</tt> and <tt>visit_form.js</tt>.
+<tt>country_picker.js</tt> owns country search, keyboard/touch selection and
+validation; it submits the stable country code from the SQL-free catalogue.
+There is no continent prerequisite. Nationality controls remain independent.
+Persisted countries still belong to continents for country-data imports and
+localization; that domain association does not drive the visit form.
+Shared modal helpers handle transport/focus through caller callbacks; calendar
+modules own JSON rendering, request cancellation and continuation state.
+Only the newest calendar refresh may replace results or feedback.
+
 Shared deferred startup lives in <tt>third_party_scripts.js</tt>, while
 <tt>adsense.js</tt> owns SDK loading and slot requests in the core bundle. Views
 provide public configuration through data attributes and render

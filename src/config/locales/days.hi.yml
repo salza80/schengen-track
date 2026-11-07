@@ -5,6 +5,7 @@ hi:
     days_remaining: शेष दिन
     days_used: उपयोग किए गए दिन
     entry_limit_exceeded: प्रवेश सीमा पार हो गई
+    form_error: यात्रा का विवरण लोड नहीं किया जा सका। फिर से प्रयास करें।
     from_date_onwards: "%{date} से आगे"
     full_stay: पूरे 90 दिन!
     go_to_visas: वीज़ा पर जाएं

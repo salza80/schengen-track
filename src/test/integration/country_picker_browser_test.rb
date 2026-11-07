@@ -57,9 +57,13 @@ class CountryPickerBrowserTest < JavascriptIntegrationTest
     visit '/en/my/days?year=2027&month=4&day=12'
     find('[data-date="2027-04-12"]').click
     assert_selector '#visitModal.show form[data-visit-form-initialized="true"]'
-    fill_in 'visit_country_search', with: ''
-    find('#visit_country_search').click
-    assert_selector '#visit_country_results [role="option"]', minimum: 100
+    fill_in 'visit_country_search', with: 'ger'
+    assert_selector '#visit_country_results [role="option"]', text: 'Germany', exact_text: true
+    find('[data-country-clear]').send_keys(:enter)
+    assert_selector '#visit_country_search:focus'
+    assert_selector '#visit_country_results:not([hidden])'
+    # The scrollable list contains the full catalogue, including offscreen rows.
+    assert_selector '#visit_country_results [role="option"]', minimum: 100, visible: :all
     page.execute_script("document.getElementById('visit_country_results').scrollTop = 300")
     assert_operator page.evaluate_script("document.getElementById('visit_country_results').scrollTop"), :>, 0
     fill_in 'visit_country_search', with: 'a'

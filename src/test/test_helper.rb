@@ -29,6 +29,12 @@ Capybara.register_driver :selenium_headless do |app|
   options.add_argument('--disable-site-isolation-trials')
   options.add_argument('--disable-web-security')
   options.add_argument('--window-size=1400,1000')
+  # Headless Linux runners may have no mouse hardware. Start with desktop
+  # capabilities; CDP touch emulation still overrides these for mobile tests.
+  options.add_argument(
+    '--blink-settings=primaryPointerType=4,availablePointerTypes=4,' \
+    'primaryHoverType=2,availableHoverTypes=2'
+  )
   options.binary = ENV['CHROME_BIN'] if ENV['CHROME_BIN'].present?
   
   # In CI, use container IP address

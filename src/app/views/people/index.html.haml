@@ -45,7 +45,7 @@
                   = person.full_name
                 %td{"data-title": t('people.index.table.columns.nationality')}
                   = person.nationality&.localized_name || t('common.person_not_set')
-                %td{"data-title": t('people.index.table.columns.status'), onclick: "event.stopPropagation();"}
+                %td{"data-title": t('people.index.table.columns.status'), "data-stop-person-switch": true}
                   - if person == current_person
                     %span.badge.text-bg-success.people-status-badge.me-2= t('people.index.table.badges.active')
                   - if person.is_primary
@@ -53,7 +53,7 @@
                   - else
                     = button_to make_primary_person_path(person, locale: I18n.locale), method: :post, class: "btn btn-sm btn-outline-primary", title: t('people.index.table.make_primary.title'), "aria-label": t('people.index.table.make_primary.aria', name: person.full_name), form: { class: "d-inline" } do
                       = t('people.index.table.make_primary.label')
-                %td{"data-title": t('people.index.table.columns.actions'), onclick: "event.stopPropagation();"}
+                %td{"data-title": t('people.index.table.columns.actions'), "data-stop-person-switch": true}
                   .d-flex.gap-2.justify-content-end.justify-content-md-center.align-items-center
                     = link_to edit_person_path(person, locale: I18n.locale), class: "btn btn-sm btn-icon", title: t('common.edit'), "aria-label": t('people.index.table.actions.edit_aria', name: person.full_name) do
                       %i.fa.fa-pencil-alt{"aria-hidden": "true"}
@@ -89,47 +89,3 @@
         %a#deleteConfirmButton.btn.btn-danger{href: "#"}
           %i.fa.fa-trash.me-2{"aria-hidden" => "true"}
           = t('common.delete')
-
-:javascript
-  document.addEventListener('DOMContentLoaded', function() {
-    // Handle row clicks to switch person
-    const rows = document.querySelectorAll('table tbody tr[data-person-url]');
-    
-    rows.forEach(function(row) {
-      row.addEventListener('click', function(e) {
-        const url = row.dataset.personUrl;
-        if (url) {
-          // Create and submit a form for POST request
-          const form = document.createElement('form');
-          form.method = 'POST';
-          form.action = url;
-          
-          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-          const csrfInput = document.createElement('input');
-          csrfInput.type = 'hidden';
-          csrfInput.name = 'authenticity_token';
-          csrfInput.value = csrfToken;
-          form.appendChild(csrfInput);
-          
-          document.body.appendChild(form);
-          form.submit();
-        }
-      });
-    });
-    
-    // Handle delete button clicks
-    const deleteButtons = document.querySelectorAll('.delete-person-link');
-    ModalInteractions.bindFocusGuard('#deleteModal');
-    
-    deleteButtons.forEach(function(button) {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        ModalInteractions.openDeleteModal(button.dataset.deleteUrl, {
-          trigger: button,
-          message: button.dataset.deleteMessage
-        });
-      });
-    });
-  });

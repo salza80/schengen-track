@@ -151,7 +151,7 @@
         = t('about.about.nationality_section.heading')
       .nationality-selector.mb-4
         = label_tag :user_nationality_id, t('about.about.nationality_section.select_prompt')
-        = collection_select(:user, :nationality_id, CountryCatalog.outside_schengen, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt'), selected: @country&.nationality_english}, {:class => "form-select", :onChange => "App.goToNationality(this.value,'nationality', '#{I18n.locale}')", "aria-label" => t('about.about.nationality_section.select_prompt')})
+        = collection_select(:user, :nationality_id, CountryCatalog.outside_schengen, :nationality_english, :name, {include_blank: t('about.about.nationality_section.select_prompt'), selected: @country&.nationality_english}, {:class => "form-select", data: { about_nationality: true }, "aria-label" => t('about.about.nationality_section.select_prompt')})
       = render "nationality" if @country
       .text-center.mb-4
         = link_to t('about.about.button_text'), days_path(locale: I18n.locale), class: "btn btn-add btn-lg btn-calendar-start", "aria-label": t('about.about.button_text')
@@ -339,78 +339,3 @@
         = t('about.about.last_updated.title')
       %p.mb-4
         = t('about.about.last_updated.description', date: l(@last_reviewed_date.to_time, format: :mid))
-:javascript
-  // Use the same CSS offset for sidebar clicks and direct fragment links.
-  // This runs AFTER deferred scripts (core.js with jQuery) have loaded
-  window.addEventListener('load', function() {
-    // Double-check jQuery is available (should be loaded by now)
-    if (typeof $ === 'undefined') {
-      console.warn('jQuery not loaded, skipping scrollspy initialization');
-      return;
-    }
-    
-    // Initialize Bootstrap scrollspy for sidebar navigation
-    $('body').scrollspy({ target: '.page-sidebar', rootMargin: '-120px 0px -25%' });
-
-    function scrollToSection(hash, behavior) {
-      const target = document.getElementById(hash.slice(1));
-      if (!target) return;
-      const offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
-      window.scrollTo({ top: window.scrollY + target.getBoundingClientRect().top - offset, behavior: behavior });
-    }
-
-    let activeHash = window.location.hash;
-    let nextHistoryEntry = 0;
-    let currentHistoryEntry = nextHistoryEntry;
-    const scrollPositions = new Map();
-    history.replaceState({ ...history.state, aboutScrollEntry: currentHistoryEntry }, '');
-    function alignActiveSection() {
-      if (activeHash) scrollToSection(activeHash, 'instant');
-    }
-
-    // Fonts and ads can change layout after load. Preserve the fragment position
-    // until the visitor starts interacting, then let them scroll freely.
-    if (typeof ResizeObserver !== 'undefined') {
-      const anchorObserver = new ResizeObserver(alignActiveSection);
-      anchorObserver.observe(document.body);
-      anchorObserver.observe(document.querySelector('.about-section'));
-    }
-    ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function(eventName) {
-      window.addEventListener(eventName, function() { activeHash = ''; }, { passive: true });
-    });
-    // Preserve reading positions when traversing our custom fragment entries.
-    window.addEventListener('popstate', function(event) {
-      scrollPositions.set(currentHistoryEntry, window.scrollY);
-      currentHistoryEntry = event.state?.aboutScrollEntry;
-      if (currentHistoryEntry === undefined) {
-        // A new native fragment navigation still needs late-layout alignment.
-        currentHistoryEntry = ++nextHistoryEntry;
-        history.replaceState({ ...event.state, aboutScrollEntry: currentHistoryEntry }, '');
-        activeHash = window.location.hash;
-        alignActiveSection();
-        return;
-      }
-      activeHash = '';
-      const restoredEntry = currentHistoryEntry;
-      const restoredScroll = scrollPositions.get(restoredEntry);
-      if (restoredScroll !== undefined) {
-        requestAnimationFrame(function() {
-          if (currentHistoryEntry === restoredEntry) window.scrollTo({ top: restoredScroll, behavior: 'instant' });
-        });
-      }
-    });
-
-    document.querySelectorAll('.page-sidebar a[href^="#"]').forEach(function(link) {
-      link.addEventListener('click', function(event) {
-        event.preventDefault();
-        scrollPositions.set(currentHistoryEntry, window.scrollY);
-        currentHistoryEntry = ++nextHistoryEntry;
-        history.pushState({ aboutScrollEntry: currentHistoryEntry }, '', link.hash);
-        activeHash = link.hash;
-        alignActiveSection();
-      });
-    });
-
-    // Font loading can move the target after the browser's initial fragment jump.
-    document.fonts.ready.then(alignActiveSection);
-  });

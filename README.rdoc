@@ -68,6 +68,20 @@ and requests each slot once the SDK is loaded and the slot is visible with a
 positive width. Pending slots are observed for responsive layout changes. Keep
 ad requests out of individual views.
 
+HTML responses enforce a content policy that authorizes fingerprinted script
+entrypoints by their Sprockets integrity hashes and blocks inline event handlers.
+Keep executable view code in bundled assets. Cached public documents have no
+nonces; uncached documents use fresh nonces for same-origin Rails AJAX scripts.
+Never put a nonce in shared cached HTML. Recovery and claim pages keep their
+stronger, script-free policy.
+
+Advertising and browser Analytics remain enabled. The policy permits eval for
+AdSense compatibility and inline CSS for the existing styles and widgets.
+Google's live Analytics and advertising SDKs cannot be pinned to immutable SRI
+hashes; their third-party script integrity risk remains accepted. Moving the
+Analytics loader into the trusted bundle does not remove that risk. Review these
+exceptions when changing vendors or their supported CSP requirements.
+
 
 == Configuration
 

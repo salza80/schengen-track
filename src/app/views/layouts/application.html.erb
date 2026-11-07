@@ -56,7 +56,7 @@
 
   <title><%= @meta_title || (content_for?(:title) ? t('title_with_content', content: yield(:title)) : t('default_title')) %></title>
   <!-- Load Google Fonts asynchronously to avoid render blocking -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Tajawal:wght@400;500;700&display=swap" media="print" onload="this.media='all'; this.onload=null;">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Tajawal:wght@400;500;700&display=swap" media="print" data-async-stylesheet>
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Tajawal:wght@400;500;700&display=swap"></noscript>
   
   <!-- Favicon links for all devices and browsers -->
@@ -66,22 +66,23 @@
   
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <% if controller_name == 'days' %>
-    <link rel="preload" href="<%= asset_path('calendar.css') %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="<%= asset_path('calendar.css') %>" as="style" data-async-stylesheet>
     <noscript><%= stylesheet_link_tag 'calendar', media: 'all' %></noscript>
   <% elsif controller_name == 'blogs' %>
-    <link rel="preload" href="<%= asset_path('blog.css') %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="<%= asset_path('blog.css') %>" as="style" data-async-stylesheet>
     <noscript><%= stylesheet_link_tag 'blog', media: 'all' %></noscript>
   <% end %>
-  <%= javascript_include_tag 'core', defer: true %>
+  <%= trusted_javascript_tag 'core' %>
   <% if controller_name == 'people' || controller_name == 'users' %>
-    <%= javascript_include_tag 'modal_interactions', defer: true %>
+    <%= trusted_javascript_tag 'modal_interactions' %>
   <% end %>
   <% if controller_name == 'days' %>
-    <%= javascript_include_tag 'calendar_bundle', defer: true %>
+    <%= trusted_javascript_tag 'calendar_bundle' %>
   <% elsif controller_name == 'visits' || controller_name == 'visas' %>
-    <%= javascript_include_tag 'visits_bundle', defer: true %>
+    <%= trusted_javascript_tag 'visits_bundle' %>
   <% end %>
   <%= csrf_meta_tags unless @public_static_page %>
+  <%= csp_meta_tag unless @public_static_page %>
 
   <!-- WebApplication Structured Data for SEO -->
   <% if controller_name == 'days' && action_name == 'index' %>

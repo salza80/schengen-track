@@ -28,6 +28,26 @@ const viewerRequest = (uri: string, querystring: any = {}, host = 'example.com')
   viewer: { ip: '192.0.2.1' }
 });
 
+test('every behavior sends HSTS while preserving a stronger origin policy', () => {
+  for (const b of [config.DefaultCacheBehavior, ...config.CacheBehaviors]) {
+    expect(responseConfig(b).SecurityHeadersConfig.StrictTransportSecurity).toEqual({
+      AccessControlMaxAgeSec: 63072000,
+      IncludeSubdomains: true,
+      Preload: false,
+      Override: false,
+    });
+  }
+});
+
+test('responses bypassing Rails get a script-free CSP without replacing origin policies', () => {
+  for (const b of [config.DefaultCacheBehavior, ...config.CacheBehaviors]) {
+    expect(responseConfig(b).SecurityHeadersConfig.ContentSecurityPolicy).toEqual({
+      ContentSecurityPolicy: "default-src 'none'; style-src 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      Override: false,
+    });
+  }
+});
+
 test('all origin paths require IAM signatures from the dedicated edge role', () => {
   const edgeStack = stack.node.root.node.findChild('CacheTestOriginEdge') as cdk.Stack;
   expect(edgeStack.synthesizer).toBeInstanceOf(cdk.CliCredentialsStackSynthesizer);
@@ -289,7 +309,7 @@ test('personalized menus are never edge cached and receive the real session', ()
     expect(originConfig(b).CookiesConfig.Cookies).toContain('_schengen_track_session');
     expect(originConfig(b).CookiesConfig.Cookies).toContain('has_calculator_session');
     expect(originConfig(b).CookiesConfig.Cookies).toContain('has_flash_message');
-    expect(b.ResponseHeadersPolicyId).toBeUndefined();
+    expect(responseConfig(b).CustomHeadersConfig).toBeUndefined();
   }
 });
 
@@ -347,7 +367,7 @@ test('CSRF bootstrap routes are never edge cached', () => {
     const b = behavior(path);
     expect(b.CachePolicyId).toBe('4135ea2d-6df8-44a3-9df3-4b5a84be39ad');
     expect(originConfig(b).CookiesConfig.Cookies).toContain('_schengen_track_session');
-    expect(b.ResponseHeadersPolicyId).toBeUndefined();
+    expect(responseConfig(b).CustomHeadersConfig).toBeUndefined();
   }
 });
 

@@ -26,16 +26,3 @@
         %a#deleteConfirmButton.btn.btn-danger{href: "#"}
           %i.fa.fa-trash.me-2{"aria-hidden" => "true"}
           = t('common.delete')
-
-:javascript
-  document.addEventListener('DOMContentLoaded', function() {
-    const deleteButton = document.getElementById('deleteAccountButton');
-    if (deleteButton) {
-      ModalInteractions.bindFocusGuard('#deleteModal');
-      
-      deleteButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        ModalInteractions.openDeleteModal(deleteButton.dataset.deleteUrl, { trigger: deleteButton });
-      });
-    }
-  });

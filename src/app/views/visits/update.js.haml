@@ -3,7 +3,7 @@
     // Visit update failed - show errors in modal
     $('#visitModal .modal-body').html('#{j render("form")}');
     
-    // Note: Cascade dropdowns are initialized by the script in _form.html.haml
+    // Note: The bundled visit_form initializer handles the replacement form after AJAX completes
 - else
   :plain
     // Visit was successfully updated

@@ -270,8 +270,23 @@ export class HttpApiConstruct extends Construct {
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     });
 
+    // Cover responses that bypass Rails, including static assets. Keep stronger
+    // origin headers, and do not opt additional subdomains into HSTS here.
+    const securityHeadersBehavior: cloudfront.ResponseSecurityHeadersBehavior = {
+      strictTransportSecurity: {
+        accessControlMaxAge: cdk.Duration.days(365),
+        includeSubdomains: false,
+        preload: false,
+        override: false,
+      },
+    };
+    const securityHeadersPolicy = new cloudfront.ResponseHeadersPolicy(this, 'securityHeaders', {
+      securityHeadersBehavior,
+    });
+
     //stop browser caching files that are cached in cloudfront to ensure invalidation works
     const customNoBrowserHeaderResponsePolicy = new cloudfront.ResponseHeadersPolicy(this, "noBrowserCache", {
+      securityHeadersBehavior,
       removeHeaders: ['Set-Cookie'],
       customHeadersBehavior: {
         customHeaders: [{
@@ -285,6 +300,7 @@ export class HttpApiConstruct extends Construct {
     // Public calculator HTML stays out of browser caches. Mutation responses
     // on the same behavior retain the cookies needed by their private redirect.
     const calculatorNoBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "calculatorNoBrowserCache", {
+      securityHeadersBehavior,
       customHeadersBehavior: {
         customHeaders: [{
           header: 'Cache-Control',
@@ -296,6 +312,7 @@ export class HttpApiConstruct extends Construct {
 
     // Allow aggressive browser caching for fingerprinted static assets.
     const assetsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "assetsBrowserCache", {
+      securityHeadersBehavior,
       customHeadersBehavior: {
         customHeaders: [{
           header: 'Cache-Control',
@@ -306,6 +323,7 @@ export class HttpApiConstruct extends Construct {
     });
 
     const namedAssetBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "namedAssetBrowserCache", {
+      securityHeadersBehavior,
       customHeadersBehavior: {
         customHeaders: [{
           header: 'Cache-Control',
@@ -316,6 +334,7 @@ export class HttpApiConstruct extends Construct {
     });
 
     const seoDocsBrowserCachePolicy = new cloudfront.ResponseHeadersPolicy(this, "seoDocsBrowserCache", {
+      securityHeadersBehavior,
       customHeadersBehavior: {
         customHeaders: [{
           header: 'Cache-Control',
@@ -353,6 +372,7 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: sessionHeaderRequestPolicy,
+      responseHeadersPolicy: securityHeadersPolicy,
       functionAssociations
     };
 
@@ -363,6 +383,7 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: customOriginRequestPolicy,
+      responseHeadersPolicy: securityHeadersPolicy,
       functionAssociations
     };
 
@@ -428,6 +449,7 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: authOriginRequestPolicy,
+      responseHeadersPolicy: securityHeadersPolicy,
       // Preserve OAuth's URL/redirect chain while overwriting viewer identity.
       functionAssociations: [{ function: authClientIpFunction, eventType: cloudfront.FunctionEventType.VIEWER_REQUEST }]
     };
@@ -439,6 +461,7 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: agentApiOriginRequestPolicy,
+      responseHeadersPolicy: securityHeadersPolicy,
       functionAssociations
     };
 
@@ -449,6 +472,7 @@ export class HttpApiConstruct extends Construct {
       viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
       originRequestPolicy: mcpOriginRequestPolicy,
+      responseHeadersPolicy: securityHeadersPolicy,
       functionAssociations
     };
 
@@ -464,6 +488,7 @@ export class HttpApiConstruct extends Construct {
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cachePolicies.authenticatedUser,
         originRequestPolicy: customOriginRequestPolicy,
+        responseHeadersPolicy: securityHeadersPolicy,
         functionAssociations
       },
       additionalBehaviors: {

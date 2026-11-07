@@ -112,35 +112,3 @@
                 %i.fa-brands.fa-facebook
               %a.share-btn.linkedin{href: "#", target: "_blank", rel: "noopener", data: {share: "linkedin"}}
                 %i.fa-brands.fa-linkedin
-
-:javascript
-  // Social media sharing functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const pageUrl = encodeURIComponent(window.location.href);
-    const pageTitle = encodeURIComponent(document.title);
-    
-    // Share button click handlers
-    document.querySelectorAll('.share-btn').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const platform = this.getAttribute('data-share');
-        let shareUrl = '';
-        
-        switch(platform) {
-          case 'twitter':
-            shareUrl = 'https://twitter.com/intent/tweet?url=' + pageUrl + '&text=' + pageTitle;
-            break;
-          case 'facebook':
-            shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + pageUrl;
-            break;
-          case 'linkedin':
-            shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl;
-            break;
-        }
-        
-        if (shareUrl) {
-          window.open(shareUrl, 'share-dialog', 'width=600,height=600');
-        }
-      });
-    });
-  });

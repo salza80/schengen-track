@@ -1,0 +1,192 @@
+// View interactions are bundled so cached pages need no inline JavaScript.
+(function(window, document) {
+  'use strict';
+  document.querySelectorAll('link[data-async-stylesheet]').forEach(function(link) {
+    link.rel = 'stylesheet';
+    link.media = 'all';
+  });
+  document.addEventListener('change', function(event) {
+    if (event.target.matches('.language-select')) window.location.href = event.target.value;
+    if (event.target.matches('[data-about-nationality]')) {
+      App.goToNationality(event.target.value, 'nationality', document.documentElement.lang);
+    }
+    if (event.target.matches('#calculator_nationality_selector')) {
+      var form = event.target.form;
+      if (form.requestSubmit) form.requestSubmit();
+      else form.submit();
+    }
+  });
+})(window, document);
+
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteButton = document.getElementById('deleteAccountButton');
+    if (deleteButton) {
+      ModalInteractions.bindFocusGuard('#deleteModal');
+
+      deleteButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        ModalInteractions.openDeleteModal(deleteButton.dataset.deleteUrl, { trigger: deleteButton });
+      });
+    }
+  });
+})();
+
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!document.querySelector('table tbody tr[data-person-url]')) return;
+    // Handle row clicks to switch person
+    const rows = document.querySelectorAll('table tbody tr[data-person-url]');
+
+    rows.forEach(function(row) {
+      row.addEventListener('click', function(e) {
+        if (e.target.closest('[data-stop-person-switch]')) return;
+        const url = row.dataset.personUrl;
+        if (url) {
+          // Create and submit a form for POST request
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = url;
+
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+          const csrfInput = document.createElement('input');
+          csrfInput.type = 'hidden';
+          csrfInput.name = 'authenticity_token';
+          csrfInput.value = csrfToken;
+          form.appendChild(csrfInput);
+
+          document.body.appendChild(form);
+          form.submit();
+        }
+      });
+    });
+
+    // Handle delete button clicks
+    const deleteButtons = document.querySelectorAll('.delete-person-link');
+    ModalInteractions.bindFocusGuard('#deleteModal');
+
+    deleteButtons.forEach(function(button) {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        ModalInteractions.openDeleteModal(button.dataset.deleteUrl, {
+          trigger: button,
+          message: button.dataset.deleteMessage
+        });
+      });
+    });
+  });
+})();
+
+(function() {
+  if (document.querySelector('.about-section')) {
+    // Use the same CSS offset for sidebar clicks and direct fragment links.
+    // This runs AFTER deferred scripts (core.js with jQuery) have loaded
+    window.addEventListener('load', function() {
+      // Double-check jQuery is available (should be loaded by now)
+      if (typeof $ === 'undefined') {
+        console.warn('jQuery not loaded, skipping scrollspy initialization');
+        return;
+      }
+
+      // Initialize Bootstrap scrollspy for sidebar navigation
+      $('body').scrollspy({ target: '.page-sidebar', rootMargin: '-120px 0px -25%' });
+
+      function scrollToSection(hash, behavior) {
+        const target = document.getElementById(hash.slice(1));
+        if (!target) return;
+        const offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+        window.scrollTo({ top: window.scrollY + target.getBoundingClientRect().top - offset, behavior: behavior });
+      }
+
+      let activeHash = window.location.hash;
+      let nextHistoryEntry = 0;
+      let currentHistoryEntry = nextHistoryEntry;
+      const scrollPositions = new Map();
+      history.replaceState({ ...history.state, aboutScrollEntry: currentHistoryEntry }, '');
+      function alignActiveSection() {
+        if (activeHash) scrollToSection(activeHash, 'instant');
+      }
+
+      // Fonts and ads can change layout after load. Preserve the fragment position
+      // until the visitor starts interacting, then let them scroll freely.
+      if (typeof ResizeObserver !== 'undefined') {
+        const anchorObserver = new ResizeObserver(alignActiveSection);
+        anchorObserver.observe(document.body);
+        anchorObserver.observe(document.querySelector('.about-section'));
+      }
+      ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function(eventName) {
+        window.addEventListener(eventName, function() { activeHash = ''; }, { passive: true });
+      });
+      // Preserve reading positions when traversing our custom fragment entries.
+      window.addEventListener('popstate', function(event) {
+        scrollPositions.set(currentHistoryEntry, window.scrollY);
+        currentHistoryEntry = event.state?.aboutScrollEntry;
+        if (currentHistoryEntry === undefined) {
+          // A new native fragment navigation still needs late-layout alignment.
+          currentHistoryEntry = ++nextHistoryEntry;
+          history.replaceState({ ...event.state, aboutScrollEntry: currentHistoryEntry }, '');
+          activeHash = window.location.hash;
+          alignActiveSection();
+          return;
+        }
+        activeHash = '';
+        const restoredEntry = currentHistoryEntry;
+        const restoredScroll = scrollPositions.get(restoredEntry);
+        if (restoredScroll !== undefined) {
+          requestAnimationFrame(function() {
+            if (currentHistoryEntry === restoredEntry) window.scrollTo({ top: restoredScroll, behavior: 'instant' });
+          });
+        }
+      });
+
+      document.querySelectorAll('.page-sidebar a[href^="#"]').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          scrollPositions.set(currentHistoryEntry, window.scrollY);
+          currentHistoryEntry = ++nextHistoryEntry;
+          history.pushState({ aboutScrollEntry: currentHistoryEntry }, '', link.hash);
+          activeHash = link.hash;
+          alignActiveSection();
+        });
+      });
+
+      // Font loading can move the target after the browser's initial fragment jump.
+      document.fonts.ready.then(alignActiveSection);
+    });
+  }
+})();
+
+(function() {
+  // Social media sharing functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    // Share button click handlers
+    document.querySelectorAll('.share-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const platform = this.getAttribute('data-share');
+        let shareUrl = '';
+
+        switch(platform) {
+          case 'twitter':
+            shareUrl = 'https://twitter.com/intent/tweet?url=' + pageUrl + '&text=' + pageTitle;
+            break;
+          case 'facebook':
+            shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + pageUrl;
+            break;
+          case 'linkedin':
+            shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl;
+            break;
+        }
+
+        if (shareUrl) {
+          window.open(shareUrl, 'share-dialog', 'width=600,height=600');
+        }
+      });
+    });
+  });
+})();

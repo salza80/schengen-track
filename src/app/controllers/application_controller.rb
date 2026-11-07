@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include DocumentContentSecurity
   CANONICAL_SITE_URL = 'https://schengen-calculator.com'.freeze
   SEO_LOCALE_PREFIX_PATTERN = %r{\A/(?:#{Regexp.union(I18n.available_locales.map(&:to_s))})(?=/|\z)}.freeze
   SCHENGEN_AREA_SOURCE_URL = 'https://home-affairs.ec.europa.eu/policies/schengen/schengen-area_en'.freeze

@@ -83,7 +83,7 @@ module ApplicationHelper
     }
   
     # Return both dropdown (for users) and hidden links (for SEO)
-    dropdown = content_tag(:select, class: 'language-select form-control form-control-sm', onchange: 'window.location.href = this.value;', 'aria-label': 'Select language') do
+    dropdown = content_tag(:select, class: 'language-select form-control form-control-sm', 'aria-label': 'Select language') do
       locales.map do |locale|
         option_url = url_for(locale: locale)
         locale_display = "#{locale.to_s.upcase} - #{locale_names[locale.to_sym]}"

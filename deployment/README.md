@@ -238,6 +238,14 @@ with `node scripts/recache_urls.cjs scripts/urls-prod.txt full`.
 
 ## Cache invariants
 
+Every CloudFront behavior supplies a one-year HSTS fallback, including static
+assets and uncached endpoints. Existing origin HSTS headers take precedence;
+the fallback does not add subdomain coverage or preload. HTML CSP comes from
+Rails and its fingerprinted asset metadata. Keep public HTML nonce-free and
+preserve the stronger policy on recovery/claim responses. Production domain
+scan results can still reflect an older release until a manual production
+deployment and cache invalidation complete.
+
 Authentication behaviors use a separate viewer function that overwrites the
 client-IP header from the viewer connection while preserving host, locale, path
 and OAuth query parameters. Keep domain/locale redirects out of these behaviors.

@@ -268,7 +268,12 @@
           if ($input.length) {
             $input.val(value);
           } else {
-            $preferenceForm.append($('<input>', { type: 'hidden', name: name, value: value, 'data-viewer-continuation': 'true' }));
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            input.dataset.viewerContinuation = 'true';
+            $preferenceForm.get(0).appendChild(input);
           }
         });
         if (entryDate) {

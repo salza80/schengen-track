@@ -31,8 +31,8 @@ const viewerRequest = (uri: string, querystring: any = {}, host = 'example.com')
 test('every behavior sends HSTS while preserving a stronger origin policy', () => {
   for (const b of [config.DefaultCacheBehavior, ...config.CacheBehaviors]) {
     expect(responseConfig(b).SecurityHeadersConfig.StrictTransportSecurity).toEqual({
-      AccessControlMaxAgeSec: 31536000,
-      IncludeSubdomains: false,
+      AccessControlMaxAgeSec: 63072000,
+      IncludeSubdomains: true,
       Preload: false,
       Override: false,
     });

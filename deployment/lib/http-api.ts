@@ -270,12 +270,12 @@ export class HttpApiConstruct extends Construct {
       queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.none(),
     });
 
-    // Cover responses that bypass Rails, including static assets. Keep stronger
-    // origin headers, and do not opt additional subdomains into HSTS here.
+    // Cover responses that bypass Rails, including static assets. Match Rails'
+    // two-year/subdomain policy so assets cannot shorten the browser's host policy.
     const securityHeadersBehavior: cloudfront.ResponseSecurityHeadersBehavior = {
       strictTransportSecurity: {
-        accessControlMaxAge: cdk.Duration.days(365),
-        includeSubdomains: false,
+        accessControlMaxAge: cdk.Duration.days(730),
+        includeSubdomains: true,
         preload: false,
         override: false,
       },

@@ -710,7 +710,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert find('#visaModal .alert-danger').visible?
   end
 
-  test 'touch calendar shows a tooltip before opening the visit modal on the second tap' do
+  test 'touch calendar opens the visit modal and day details on the first tap' do
     page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: true, maxTouchPoints: 1)
     page.current_window.resize_to(390, 844)
     user_login
@@ -719,12 +719,9 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
     # Dispatch a tap without Selenium moving a mouse over the cell first.
     page.execute_script('arguments[0].click()', cell)
-    assert_selector '.tooltip.show .tooltip-inner strong'
-    assert_equal cell['aria-describedby'], find('.tooltip.show')[:id]
-    assert_no_selector '#visitModal.show'
-
-    page.execute_script('arguments[0].click()', cell)
     assert_selector '#visitModal.show form', wait: 10
+    assert_selector '#calendar-day-info strong'
+    assert_selector '#calendar-day-info-content', text: 'Days used:'
     assert_no_selector '.tooltip.show'
     within('#visitModal') { find('button.btn-close').click }
     assert_no_selector '#visitModal.show'

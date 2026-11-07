@@ -15,6 +15,7 @@ tr:
     legend_overstay: Süre Aşımı
     legend_safe: Schengen'de (Güvenli)
     legend_waiting: Bekleme Süresi
+    loading: Yükleniyor…
     max_days_reached: Zirve
     max_remaining_days: Maksimum kalan günler - Bu günde yeniden girdiğinizde Schengen alanında kalabileceğiniz maksimum süre.
     meta_description: 90/180 gün kuralını hesaplamak için görsel Schengen takvimi. Seyahatlerinizi ekleyin, kullandığınız günleri görün ve sonraki girişinizi planlayın.
@@ -26,6 +27,9 @@ tr:
     overstay_tooltip: 90/180 günü aştınız
     page_description: Seyahatlerinizi kaydetmek, 90/180 günlük hareketli hakkınızı hesaplamak ve gelecek seyahatleri planlamak için bu etkileşimli Schengen takvimini kullanın.
     page_title: Schengen 90/180 Gün Hesaplayıcı
+    refresh_error: Takvim yenilenemedi. Son sonuçları görmek için tekrar deneyin.
+    retry: Tekrar dene
+    saved: Kaydedildi.
     schengen_days_in_year: Schengen'de Günler
     schengen_no: Hayır
     schengen_yes: Evet

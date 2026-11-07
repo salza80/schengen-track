@@ -15,6 +15,7 @@ en:
     legend_overstay: Overstay
     legend_safe: In Schengen (Safe)
     legend_waiting: Waiting Period
+    loading: Loading…
     max_days_reached: Peak
     max_remaining_days: Max remaining days - Is the maximum amount of time you can stay in the Schengen area if you re-enter on this day.
     need_help: Need help understanding the rule?
@@ -23,6 +24,9 @@ en:
     no_visits_this_year: No visits in %{year}
     overstay_na: N/A
     overstay_tooltip: You have overstayed the 90/180 days
+    refresh_error: The calendar could not be refreshed. Try again to show the latest results.
+    retry: Try again
+    saved: Saved.
     schengen_days_in_year: Days in Schengen
     schengen_no: 'No'
     schengen_yes: 'Yes'

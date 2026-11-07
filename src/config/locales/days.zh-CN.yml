@@ -15,6 +15,7 @@ zh-CN:
     legend_overstay: 超期停留
     legend_safe: 在申根区（安全）
     legend_waiting: 等待期
+    loading: 正在加载…
     max_days_reached: 峰值
     max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
     meta_description: 使用可视化申根日历计算90/180天规则。添加过去和未来的旅行，查看已使用天数，并规划下次入境日期。
@@ -26,6 +27,9 @@ zh-CN:
     overstay_tooltip: 您已超过90/180天规定
     page_description: 使用此交互式申根日历记录旅行、计算滚动90/180天停留额度，并规划未来行程。
     page_title: 申根90/180天计算器
+    refresh_error: 无法刷新日历。请重试以查看最新结果。
+    retry: 重试
+    saved: 已保存。
     schengen_days_in_year: 在申根区的天数
     schengen_no: 否
     schengen_yes: 是

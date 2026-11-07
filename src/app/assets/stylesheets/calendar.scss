@@ -280,9 +280,20 @@
   }
 }
 
-// Smooth scrolling
-html {
-  scroll-behavior: smooth;
+// Save feedback stays out of the calendar's layout.
+#calendar-feedback {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  z-index: 1060;
+}
+
+#calendar-day-info-content {
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 // Calendar sidebar

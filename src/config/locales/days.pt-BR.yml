@@ -15,6 +15,7 @@ pt-BR:
     legend_overstay: Permanência Excessiva
     legend_safe: Em Schengen (Seguro)
     legend_waiting: Período de Espera
+    loading: Carregando…
     max_days_reached: Pico
     max_remaining_days: Dias máximos restantes - É o tempo máximo que você pode permanecer na área Schengen se reentrar neste dia.
     need_help: Precisa de ajuda para entender a regra?
@@ -23,6 +24,9 @@ pt-BR:
     no_visits_this_year: Nenhuma visita em %{year}
     overstay_na: N/A
     overstay_tooltip: Você excedeu os 90/180 dias
+    refresh_error: Não foi possível atualizar o calendário. Tente novamente para ver os resultados mais recentes.
+    retry: Tentar novamente
+    saved: Salvo.
     schengen_days_in_year: Dias em Schengen
     schengen_no: Não
     schengen_yes: Sim

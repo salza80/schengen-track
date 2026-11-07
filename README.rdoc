@@ -165,6 +165,18 @@ running a calculator; visitors without that state return to the public page.
 Forms keep their original mutation endpoints and redirect back to private
 state when appropriate. Public CSV URLs redirect to the private export.
 
+Calendar dates open their visit dialog with one tap, with the day's allowance
+and visa details above the form. Desktop hover tooltips remain available.
+Calendar nationality steps and visit forms use JSON, including on cached public
+documents without a script nonce. After nationality selection or a visit save,
+the private Calendar JSON response renders the displayed year's content using
+the same partial as the HTML page. Replace only that content, retain the dialog,
+and preserve the visible day's screen position. Do not rerun startup scrolling
+or navigate to the saved visit's year. Public calendar GETs remain session-free;
+only validated, uncached private routes may return personalized fragments.
+Documents personalized in place revalidate their private route when restored
+from the browser's back/forward cache, including after a session is cleared.
+
 On public calculator pages, the header endpoint can return a private
 continuation only after validating the session. JavaScript accepts only the
 expected local route and preserves calendar presentation parameters. Flash

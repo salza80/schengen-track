@@ -72,6 +72,7 @@ class VisitsController < ApplicationController
     
     respond_to do |format|
       format.js   # AJAX request from calendar
+      format.json { render_visit_form(t('visits.add_record')) }
     end
   end
 
@@ -84,6 +85,7 @@ class VisitsController < ApplicationController
     
     respond_to do |format|
       format.js   # AJAX request from calendar
+      format.json { render_visit_form(t('visits.edit_title')) }
     end
   end
 
@@ -120,12 +122,24 @@ class VisitsController < ApplicationController
     respond_to do |format|
       if @visit.persisted?
         format.html { redirect_to calculator_visits_path, notice: 'Visit was successfully created.' }
-        format.json { render :show, status: :created, location: @visit }
+        format.json do
+          if request.xhr?
+            render json: { saved: true }, status: :created, location: @visit
+          else
+            render :show, status: :created, location: @visit
+          end
+        end
         format.js   # AJAX request from calendar
       else
         @continent_default_code = @visit&.country&.continent&.continent_code || @continent_default_code
         format.html { render :new }
-        format.json { render json: @visit.errors, status: :unprocessable_entity }
+        format.json do
+          if request.xhr?
+            render_visit_form(t('visits.add_record'), status: :unprocessable_entity)
+          else
+            render json: @visit.errors, status: :unprocessable_entity
+          end
+        end
         format.js   # AJAX request from calendar - show errors
       end
     end
@@ -137,11 +151,19 @@ class VisitsController < ApplicationController
     respond_to do |format|
       if @visit.update(visit_params)
         format.html { redirect_to calculator_visits_path, notice: 'Visit was successfully updated.' }
-        format.json { render :show, status: :ok, location: @visit }
+        format.json do
+          request.xhr? ? render(json: { saved: true }) : render(:show, status: :ok, location: @visit)
+        end
         format.js   # AJAX request from calendar
       else
         format.html { render :edit }
-        format.json { render json: @visit.errors, status: :unprocessable_entity }
+        format.json do
+          if request.xhr?
+            render_visit_form(t('visits.edit_title'), status: :unprocessable_entity)
+          else
+            render json: @visit.errors, status: :unprocessable_entity
+          end
+        end
         format.js   # AJAX request from calendar - show errors
       end
     end
@@ -342,6 +364,15 @@ class VisitsController < ApplicationController
   end
 
   private
+    def render_visit_form(title, status: :ok)
+      render json: {
+        html: render_to_string(partial: 'visits/form', formats: [:html]),
+        title: title,
+        save_label: t('common.save'),
+        errors: @visit.errors
+      }, status: status
+    end
+
     def setup_sidebar_data(calc)
       @days = calc.calculated_days
       @overstay = calc.schengen_overstay?

@@ -62,4 +62,5 @@
 
   document.addEventListener('DOMContentLoaded', initializeForms);
   $(document).ajaxSuccess(initializeForms);
+  $(document).on('calendar:form-loaded', initializeForms);
 })(window, document, window.jQuery);

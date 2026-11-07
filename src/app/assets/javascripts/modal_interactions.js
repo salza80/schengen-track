@@ -25,7 +25,7 @@
             trigger.setAttribute('tabindex', '-1');
           }
           window.setTimeout(function() {
-            trigger.focus();
+            trigger.focus({ preventScroll: true });
           }, 0);
         })
         .off('click.modalFocusGuard', '[data-bs-dismiss="modal"]')
@@ -91,20 +91,28 @@
     },
 
     loadForm: function(options) {
-      $.ajax({
+      if (options.dataType === 'json' && this.visitFormRequest) this.visitFormRequest.abort();
+      var request = $.ajax({
         url: options.url,
         method: 'GET',
         data: options.data,
-        dataType: 'script',
-        success: function() {
+        dataType: options.dataType || 'script',
+        success: function(data) {
+          if (options.dataType === 'json') window.CalendarRefresh.showForm(data);
           $(options.deleteButtonSelector).toggle(!!options.showDeleteButton);
         },
         error: function(xhr, status, error) {
+          if (status === 'abort') return;
+          if (options.dataType === 'json') {
+            $('#calendar-visit-form').text(options.errorMessage);
+            return;
+          }
           console.error(options.errorMessage, status, error);
           if (xhr && xhr.responseText) console.error('Response:', xhr.responseText);
           alert(options.errorMessage);
         }
       });
+      if (options.dataType === 'json') this.visitFormRequest = request;
     },
 
     openDeleteModal: function(deleteUrl, options) {

@@ -1,5 +1,6 @@
-- visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale) : visits_path(locale: I18n.locale, format: :js)
-= form_for @visit, url: visit_form_url, remote: true, data: { visit_form: true, country_options: @country_options, schengen_constraint: t('visits.max_stay_schengen_constraint'), next_visit_constraint: t('visits.max_stay_next_visit_constraint', date: '__DATE__'), days_until: t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__'), visit_id: (@visit.id if @visit.persisted?) } do |f|
+- form_format = request.format.json? ? :json : :js
+- visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale, format: form_format) : visits_path(locale: I18n.locale, format: form_format)
+= form_for @visit, url: visit_form_url, remote: true, data: { type: (request.format.json? ? 'json' : nil), calendar_visit_form: request.format.json?, visit_form: true, country_options: @country_options, schengen_constraint: t('visits.max_stay_schengen_constraint'), next_visit_constraint: t('visits.max_stay_next_visit_constraint', date: '__DATE__'), days_until: t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__'), visit_id: (@visit.id if @visit.persisted?) } do |f|
   - if @visit.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
       %button.btn-close{"type" => "button", "data-bs-dismiss" => "alert", "aria-label" => "Close"}

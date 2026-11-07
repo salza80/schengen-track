@@ -21,6 +21,16 @@ class DaysController < ApplicationController
     calculate_status_summary if @days.any?
     
     set_days_meta_tags
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          html: render_to_string(partial: 'days/content', formats: [:html]),
+          csrf_token: form_authenticity_token
+        }
+      end
+    end
   end
 
   private

@@ -1,0 +1,26 @@
+-# Status summary shown whenever the desktop sidebar is hidden
+= render 'calendar_status_summary'
+
+-# Mobile legend (shown only on mobile)
+.d-lg-none
+  = render 'legend_mobile'
+
+.row
+  -# Main calendar area
+  .col-lg-9.calendar-main-area
+    -# Year navigation (top)
+    = render 'year_navigation', position: 'top'
+    
+    -# Year summary banner
+    = render 'calendar_year_summary'
+    
+    -# Calendar months
+    = render 'calendar'
+    
+    -# Year navigation (bottom)
+    = render 'year_navigation', position: 'bottom'
+  
+  -# Sidebar (desktop only)
+  .col-lg-3.d-none.d-lg-block.calendar-sidebar-col
+    = render 'calendar_sidebar'
+

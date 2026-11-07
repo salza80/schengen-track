@@ -155,12 +155,15 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     page.current_window.resize_to(1400, 1000)
   end
 
-  test 'a border day offers its visits within the day information dialog' do
-    user_login
-    [390, 1400].each do |width|
-      page.current_window.resize_to(width, 1000)
-      I18n.available_locales.each do |locale|
-        visit private_days_path(locale: locale, year: 2014, month: 3, day: 22)
+  [390, 1400].each do |width|
+    I18n.available_locales.each do |locale|
+      test "#{locale} border-day visit choices use localized dates at #{width}px" do
+        user_login
+        page.current_window.resize_to(width, 1000)
+        calendar_path = private_days_path(locale: locale, year: 2014, month: 3, day: 22)
+        visit calendar_path
+        assert_current_path calendar_path
+        assert_selector '.calendar-view-container[data-selected-year="2014"]'
         find('[data-date="2014-03-22"]').click
         assert_selector '#visitModal.show #calendar-day-info'
         within '#calendar-visit-form' do
@@ -176,10 +179,10 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
         assert_selector '#visitModal.show', text: I18n.t('visits.edit_title', locale: locale), wait: 10
         assert_equal 'DE', find('#visit_country_code', visible: :all).value
         assert_equal visits(:one).entry_date.iso8601, find('#visit_entry_date').value
+      ensure
+        page.current_window.resize_to(1400, 1000)
       end
     end
-  ensure
-    page.current_window.resize_to(1400, 1000)
   end
 
   test 'missing visa information before choosing a visit links directly to Add Visa' do

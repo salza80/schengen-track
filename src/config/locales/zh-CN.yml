@@ -104,6 +104,7 @@ zh-CN:
       long: "%Y年%B%d日"
       month_year: "%Y年%B"
       short: "%m月%d日"
+      travel: "%Y年%b%d日"
     month_names:
     -
     - 一月

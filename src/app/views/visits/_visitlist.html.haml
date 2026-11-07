@@ -52,10 +52,10 @@
                 = visit.country.name
               %span.trip-dates
                 %span.text-nowrap
-                  = visit.entry_date.strftime('%d-%b-%Y')
+                  = l(visit.entry_date, format: :travel)
                 = t('common.to')
                 %span.text-nowrap
-                  = visit.exit_date.strftime('%d-%b-%Y')
+                  = l(visit.exit_date, format: :travel)
             %th{ scope: "col", class: "d-none d-md-table-cell" }
               = visit.country.name
             %td{ "data-title": t('visits.schengen_area'), class: "d-none d-md-table-cell" } 

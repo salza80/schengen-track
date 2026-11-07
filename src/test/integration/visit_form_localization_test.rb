@@ -3,6 +3,27 @@ require 'test_helper'
 class VisitFormLocalizationTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  test 'trip and visa lists share a localized named-month date with a full year' do
+    sign_in users(:VisaRequiredUser)
+    dates = { entry_date: Date.new(2027, 4, 12), exit_date: Date.new(2027, 4, 16) }
+    visits(:noVisaVisit1).update!(dates)
+    visas(:one).update!(start_date: dates[:entry_date], end_date: dates[:exit_date])
+    expected_dates = {
+      en: '12 Apr 2027', de: '12. Apr 2027', es: '12 abr 2027',
+      tr: '12 Nis 2027', :'zh-CN' => '2027年四月12日', hi: '12 अप्रै 2027',
+      :'pt-BR' => '12 Abr 2027', ar: '12 أبر 2027', fr: '12 avr 2027'
+    }
+
+    I18n.available_locales.each do |locale|
+      get private_visits_path(locale: locale)
+      assert_response :success
+      [expected_dates.fetch(locale), I18n.l(dates[:exit_date], locale: locale, format: :travel)].each do |date|
+        assert_select '.trips-table .trip-dates .text-nowrap', text: date, count: 1
+        assert_select '.responsive-table:not(.trips-table) tbody th .text-nowrap', text: date, count: 1
+      end
+    end
+  end
+
   test 'allowance dates use each requested locale while the date shortcut keeps ISO' do
     sign_in users(:Sally)
     I18n.available_locales.each do |locale|

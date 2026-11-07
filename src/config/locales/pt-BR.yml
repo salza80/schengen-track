@@ -99,6 +99,7 @@ pt-BR:
       long: "%e de %B de %Y"
       month_year: "%B de %Y"
       short: "%d de %b"
+      travel: "%d %b %Y"
     month_names:
     -
     - Janeiro

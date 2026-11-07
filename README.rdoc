@@ -164,6 +164,11 @@ The application supports English, German, Spanish, French, Hindi, Turkish,
 Simplified Chinese, Brazilian Portuguese, and Arabic. Locale files live in
 <tt>src/config/locales</tt>.
 
+Trip and visa lists share <tt>date.formats.travel</tt>: a localized month name
+and full year in the language's date order. Keep native visit date inputs in
+ISO form for submission; their visible format follows the browser locale.
+Calendar information and allowance hints use the localized long date format.
+
 From <tt>src</tt>:
 
   bundle exec rails i18n:check

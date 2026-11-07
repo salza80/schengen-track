@@ -115,6 +115,7 @@ hi:
       long: "%e %B %Y"
       month_year: "%B %Y"
       short: "%e %b"
+      travel: "%d %b %Y"
     month_names:
     -
     - जनवरी

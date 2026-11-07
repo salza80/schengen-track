@@ -99,6 +99,7 @@ es:
       long: "%e de %B de %Y"
       month_year: "%B de %Y"
       short: "%e %b"
+      travel: "%d %b %Y"
     month_names:
     -
     - enero

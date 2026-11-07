@@ -21,10 +21,10 @@
           %tr
             %th{ scope: "row", class: 'bg-md-header'}
               %span.text-nowrap
-                = visa.start_date.strftime(t('date.formats.default'))
+                = l(visa.start_date, format: :travel)
               = " #{t('visas.to')} "
               %span.text-nowrap
-                = visa.end_date.strftime(t('date.formats.default'))
+                = l(visa.end_date, format: :travel)
             %td{"data-title": t('visas.columns.no_entries')} 
               = visa.no_entries
             %td{"data-title": t('visas.columns.modify')} 

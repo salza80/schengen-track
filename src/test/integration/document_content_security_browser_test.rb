@@ -157,15 +157,29 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
 
   test 'a border day offers its visits within the day information dialog' do
     user_login
-    visit '/en/my/days?year=2014&month=3&day=22'
-    find('[data-date="2014-03-22"]').click
-    assert_selector '#visitModal.show #calendar-day-info'
-    within '#calendar-visit-form' do
-      assert_selector 'button', count: 2, wait: 10
-      find('button', text: 'Germany').click
+    [390, 1400].each do |width|
+      page.current_window.resize_to(width, 1000)
+      I18n.available_locales.each do |locale|
+        visit private_days_path(locale: locale, year: 2014, month: 3, day: 22)
+        find('[data-date="2014-03-22"]').click
+        assert_selector '#visitModal.show #calendar-day-info'
+        within '#calendar-visit-form' do
+          assert_selector 'button', count: 2, wait: 10
+          date_range = [I18n.l(visits(:one).entry_date, locale: locale, format: :travel),
+                        I18n.t('common.to', locale: locale),
+                        I18n.l(visits(:one).exit_date, locale: locale, format: :travel)].join(' ')
+          choice = find('button', text: countries(:Germany).localized_name(locale))
+          assert_includes choice.text, date_range
+          refute_includes choice.text, visits(:one).entry_date.iso8601
+          choice.click
+        end
+        assert_selector '#visitModal.show', text: I18n.t('visits.edit_title', locale: locale), wait: 10
+        assert_equal 'DE', find('#visit_country_code', visible: :all).value
+        assert_equal visits(:one).entry_date.iso8601, find('#visit_entry_date').value
+      end
     end
-    assert_selector '#visitModal.show', text: I18n.t('visits.edit_title'), wait: 10
-    assert_equal 'DE', find('#visit_country_code', visible: :all).value
+  ensure
+    page.current_window.resize_to(1400, 1000)
   end
 
   test 'missing visa information before choosing a visit links directly to Add Visa' do

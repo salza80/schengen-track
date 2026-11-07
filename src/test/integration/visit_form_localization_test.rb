@@ -3,6 +3,24 @@ require 'test_helper'
 class VisitFormLocalizationTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  test 'calendar visit choices localize their date range without changing ISO values' do
+    sign_in users(:Sally)
+    I18n.available_locales.each do |locale|
+      get for_date_visits_path(locale: locale, format: :json), params: { date: '2014-03-22' }
+      assert_response :success
+      assert_equal 2, response.parsed_body.length
+      response.parsed_body.each do |choice|
+        record = Visit.find(choice.fetch('id'))
+        assert_equal record.entry_date.iso8601, choice.fetch('entry_date')
+        assert_equal record.exit_date.iso8601, choice.fetch('exit_date')
+        expected = [I18n.l(record.entry_date, locale: locale, format: :travel),
+                    I18n.t('common.to', locale: locale),
+                    I18n.l(record.exit_date, locale: locale, format: :travel)].join(' ')
+        assert_equal expected, choice.fetch('date_range_label')
+      end
+    end
+  end
+
   test 'trip and visa lists share a localized named-month date with a full year' do
     sign_in users(:VisaRequiredUser)
     dates = { entry_date: Date.new(2027, 4, 12), exit_date: Date.new(2027, 4, 16) }

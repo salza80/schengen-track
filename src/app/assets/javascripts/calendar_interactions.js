@@ -376,7 +376,7 @@
       var $list = $('<div>', { class: 'list-group' });
       visits.forEach(function(visit) {
         $('<button>', { type: 'button', class: 'list-group-item list-group-item-action' })
-          .text(visit.country_name + ' · ' + visit.entry_date + ' – ' + visit.exit_date)
+          .text(visit.country_name + ' · ' + visit.date_range_label)
           .on('click', function() { CalendarInteractions.openEditModal(visit.id); })
           .appendTo($list);
       });

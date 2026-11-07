@@ -225,6 +225,7 @@ class VisitsController < ApplicationController
           id: v.id,
           entry_date: v.entry_date,
           exit_date: v.exit_date,
+          date_range_label: "#{I18n.l(v.entry_date, format: :travel)} #{t('common.to')} #{I18n.l(v.exit_date, format: :travel)}",
           country_name: v.country.name,
           country_id: v.country_id,
           schengen: v.schengen?

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+require 'open3'
+
 namespace :i18n do
   desc 'Check for missing, unused, and placeholder translations'
   task check: :environment do
@@ -88,14 +91,18 @@ namespace :i18n do
 
   desc 'Install pre-commit hook for i18n and strict local Sass validation'
   task install_hook: :environment do
-    # Git root is parent of Rails root (schengen-track, not schengen-track/src)
+    # Ask Git so worktrees and core.hooksPath use the same hook location as commits.
     git_root = Rails.root.parent
-    hook_path = git_root.join('.git', 'hooks', 'pre-commit')
+    hook_location, error, status = Open3.capture3(
+      'git', '-C', git_root.to_s, 'rev-parse', '--path-format=absolute', '--git-path', 'hooks/pre-commit'
+    )
+    abort "Cannot locate the Git pre-commit hook: #{error.strip}" unless status.success?
+    hook_path = Pathname.new(hook_location.strip)
 
     if File.exist?(hook_path)
       puts '⚠ Pre-commit hook already exists.'
       print 'Overwrite? (y/N): '
-      return unless $stdin.gets.chomp.downcase == 'y'
+      next unless $stdin.gets.to_s.strip.casecmp?('y')
     end
 
     hook_content = <<~HOOK
@@ -116,6 +123,7 @@ namespace :i18n do
       exit 0
     HOOK
 
+    FileUtils.mkdir_p(hook_path.dirname)
     File.write(hook_path, hook_content)
     File.chmod(0o755, hook_path)
 

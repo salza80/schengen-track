@@ -69,6 +69,8 @@ inside Bootstrap's Sass directory. New deprecation types still fail.
 Install or update the local pre-commit hook with
 <tt>bundle exec rails i18n:install_hook</tt>. It runs translation validation and
 the strict styles check; the latter is skipped when <tt>CI=true</tt>.
+The installer asks Git for the hook location, supporting linked worktrees and
+<tt>core.hooksPath</tt>. It replaces an existing hook only after an explicit yes.
 Normal asset builds, including CI and deployment, continue to report
 deprecations as nonblocking warnings; compilation errors still fail.
 

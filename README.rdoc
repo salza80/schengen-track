@@ -52,6 +52,28 @@ Bootstrap 5.3 styles are compiled with Dart Sass through
 JavaScript, images, and Font Awesome fonts; no separate Node package build is
 required. Run <tt>bundle exec rails assets:precompile</tt> to verify the build.
 
+App styles use Sass <tt>@use</tt> modules and share tokens in
+<tt>_theme.scss</tt>. Bootstrap 5.3 still requires legacy imports; keep them in
+<tt>_bootstrap_compat.scss</tt> until upstream supports modules. Do not modify
+Bootstrap's gem sources.
+Keep the helper aliases in <tt>application.scss</tt>: module scoping otherwise
+prevents Bootstrap's <tt>@extend</tt> rules from reaching app component styles.
+
+Run <tt>bundle exec rails styles:check</tt> from <tt>src</tt> for the strict local
+check. It compiles the declared assets with the same Sprockets/Dart Sass setup,
+using a fresh in-memory cache and writing no precompiled files. App deprecations
+fail this check. Its only exceptions are the bridge's theme/Bootstrap imports
+and known import, global built-in, color-function and old <tt>if()</tt> warnings
+inside Bootstrap's Sass directory. New deprecation types still fail.
+
+Install or update the local pre-commit hook with
+<tt>bundle exec rails i18n:install_hook</tt>. It runs translation validation and
+the strict styles check; the latter is skipped when <tt>CI=true</tt>.
+The installer asks Git for the hook location, supporting linked worktrees and
+<tt>core.hooksPath</tt>. It replaces an existing hook only after an explicit yes.
+Normal asset builds, including CI and deployment, continue to report
+deprecations as nonblocking warnings; compilation errors still fail.
+
 Keep Bootstrap data attributes namespaced as <tt>data-bs-*</tt>. jQuery and
 <tt>jquery_ujs</tt> remain in use for remote Rails forms and existing calculator
 interactions. Bootstrap's jQuery bridge is available, but component instances
@@ -212,6 +234,10 @@ With PostgreSQL running, run the Rails suite from <tt>src</tt>:
   bundle exec rails test
 
 Run a focused test by passing its path to <tt>bundle exec rails test</tt>.
+To select test names, use Minitest 6's <tt>--include</tt> (<tt>-i</tt>) option;
+the old <tt>--name</tt>/<tt>-n</tt> aliases emit a deprecation warning:
+
+  bundle exec rails test test/integration/public_header_browser_test.rb --include '/touch_calendar_opens/'
 
 Run infrastructure and header JavaScript tests from <tt>deployment</tt>:
 
@@ -219,6 +245,10 @@ Run infrastructure and header JavaScript tests from <tt>deployment</tt>:
   npm run build
   npm test -- --runInBand
 
+Prefer compatible upstream dependency updates over adding overrides.
+Keep <tt>@types/node</tt> on the same major as <tt>deployment/.nvmrc</tt>, and
+keep TypeScript within <tt>ts-jest</tt>'s supported peer range. Keep the CDK CLI
+versions in <tt>package.json</tt> and the deployment workflow aligned.
 
 == Public page rendering
 
@@ -310,6 +340,11 @@ CSRF-protected.
 Document CSP must allow form destinations at both <tt>https://www.facebook.com</tt>
 and <tt>https://m.facebook.com</tt>. Chrome checks the redirect chain, and Facebook
 can redirect Android browsers to its mobile host even with the handoff workaround.
+
+Token and profile requests use <tt>graph.facebook.com</tt>. Keep OAuth2's default
+protection against cross-origin HTTP redirects enabled so credentials cannot be
+forwarded to another origin. This server-side restriction is independent of the
+browser's Facebook login redirects and the document CSP allowlist.
 
 Facebook sign-in identifies an existing account only by its provider and user
 ID. Matching an email address never links an existing account automatically.

@@ -514,7 +514,7 @@ class AppTest(unittest.TestCase):
 
 def json_rpc_event(method, params, headers=None, source_ip="203.0.113.9"):
     return {
-        "headers": headers or {"User-Agent": "MCP test agent"},
+        "headers": {"Content-Type": "application/json", **(headers or {"User-Agent": "MCP test agent"})},
         "requestContext": {"http": {"method": "POST", "sourceIp": source_ip}},
         "body": json.dumps({"jsonrpc": "2.0", "id": 1, "method": method, "params": params}),
     }

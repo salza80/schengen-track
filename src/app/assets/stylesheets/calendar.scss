@@ -1,7 +1,6 @@
 // Calendar View Styles - Standalone bundle for days#index
-// Import variables and Bootstrap customizations needed for calendar colors
-@import "variables";
-@import "bootstrap_custom";
+@use "sass:color";
+@use "theme" as *;
 
 // Calendar View Styles
 
@@ -185,13 +184,13 @@
 .overstay {
   background-color: $calendar-overstay;
   color: $calendar-overstay-text;
-  border: 2px solid darken($calendar-overstay, 10%) !important;
+  border: 2px solid color.adjust($calendar-overstay, $lightness: -10%) !important;
 }
 
 .waiting-period {
   background-color: $calendar-waiting;
   color: $calendar-waiting-text;
-  border: 2px solid darken($calendar-waiting, 10%) !important;
+  border: 2px solid color.adjust($calendar-waiting, $lightness: -10%) !important;
   
   .day-wait {
     color: $calendar-waiting-text;

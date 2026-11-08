@@ -1,2 +1,3 @@
-awslabs.mcp-lambda-handler @ https://github.com/awslabs/mcp/archive/9c2ee9554560c1d32a4e4f3dd9e6b7d4574eac29.zip#subdirectory=src/mcp-lambda-handler
+# awslabs.mcp-lambda-handler 0.1.15, pinned to its upstream release source.
+awslabs.mcp-lambda-handler @ https://github.com/awslabs/mcp/archive/fd1247ecd797f18cb5594c11916bd3c09201d40f.zip#subdirectory=src/mcp-lambda-handler
 boto3>=1.34,<2

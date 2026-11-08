@@ -202,8 +202,14 @@ Two GitHub Actions workflows deploy the application:
   deployed by their workflow.
 - `Deploy-Prod` manually deploys `SchengTrackProd`.
 
-Production releases must be dispatched from `master`. The workflow pins the
-dispatch commit for tests, deployment and cache warm-up. It reuses tests only
+Production releases can be dispatched from `master` or a release tag whose
+commit belongs to `master`. Lightweight and annotated tags are supported. The
+workflow resolves and pins the dispatch commit for tests, deployment and cache
+warm-up, so later changes to the branch or tag cannot change what gets deployed.
+Create release tags after merging the changes they should contain; older tags
+retain the deployment workflow from their own revision.
+
+The production workflow reuses tests only
 when the latest staging push run for that exact commit completed successfully
 and its test job and required checks passed. Missing, incomplete or unavailable
 GitHub results cause the full test suite to run. Staging tests still run on

@@ -232,6 +232,72 @@ $bp-homer: 75em;
   }
 }
 
+// Keep one set of actions: the desktop column shares the mobile card heading.
+@include media-breakpoint-down(md) {
+  .trips-table tbody {
+    tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    tr > * {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .trip-heading {
+      grid-row: 1;
+    }
+
+    .trip-country {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-size: 1rem;
+      // Reserve two 44px targets, their gap, and breathing room for the title.
+      padding-inline-end: 6.5rem;
+      overflow-wrap: anywhere;
+    }
+
+    .trip-dates {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 400;
+    }
+
+    .trip-actions {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      padding: 0.5rem;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+
+      .btn-icon {
+        background: $white;
+        color: $gray-800;
+
+        &:hover {
+          background: $gray-100;
+        }
+
+        &:focus {
+          outline-color: $gray-800;
+        }
+      }
+
+      .delete-visit-link {
+        color: $red;
+      }
+    }
+
+    .trip-last-detail {
+      border-bottom: 0;
+    }
+  }
+}
+
 // Clickable visit row styling
 .clickable-visit-row {
   cursor: pointer;

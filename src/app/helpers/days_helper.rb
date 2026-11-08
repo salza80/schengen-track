@@ -2,6 +2,21 @@
 
 # Helper methods for days calendar view
 module DaysHelper
+  def day_country_name(day)
+    return day.stayed_country.name if day.stayed_country
+
+    if day.entered_country && day.exited_country
+      if day.entered_country == day.exited_country
+        return t('days.country_labels.same_day_trip', country: day.entered_country.name)
+      end
+
+      return t('days.country_labels.country_change', entered_country: day.entered_country.name,
+               exited_country: day.exited_country.name)
+    end
+
+    (day.entered_country || day.exited_country)&.name || t('days.legend_outside')
+  end
+
   # Returns CSS class for day cell based on status
   def day_cell_class(day)
     # Check for critical violations first
@@ -19,7 +34,12 @@ module DaysHelper
   def day_tooltip(day)
     parts = []
 
-    parts << content_tag(:strong, day.country_name) if day.hasCountry?
+    parts << content_tag(:strong, day_country_name(day)) if day.hasCountry?
+
+    if day.freedom_of_movement?
+      parts << t('days.tooltip.no_schengen_limit')
+      return safe_join(parts, tag.br)
+    end
     
     # Visa information (if applicable)
     if day.respond_to?(:user_requires_visa?) && day.user_requires_visa?
@@ -51,19 +71,27 @@ module DaysHelper
     
     # Show max remaining days
     remaining_days = day.max_remaining_days || (day.schengen? ? 90 : nil)
-    if remaining_days && day.the_date
-      exit_date = l(day.the_date + (remaining_days - 1).days, format: :long)
+    if remaining_days&.positive? && day.the_date
+      exit_date = l(day.the_date + remaining_days - (day.schengen? ? 0 : 1), format: :long)
       exit_date_span = content_tag(:span, exit_date, style: 'white-space: nowrap;')
       parts << t('days.tooltip.can_stay_html', days: remaining_days, date: exit_date_span).html_safe
     end
 
-    if day.overstay_days.positive?
-      parts << content_tag(:span, "⚠️ #{t('days.tooltip.overstay', days: day.overstay_days)}", class: 'text-danger')
-    end
-
-    parts << content_tag(:span, "⏱ #{t('days.tooltip.wait', days: day.remaining_wait)}", class: 'text-warning') if day.remaining_wait
+    warnings = day_warnings(day)
+    parts << content_tag(:span, "⚠️ #{warnings[:overstay]}", class: 'text-danger') if warnings[:overstay]
+    parts << content_tag(:span, "⏱ #{warnings[:wait]}", class: 'text-warning') if warnings[:wait]
 
     safe_join(parts, tag.br)
+  end
+
+  # Shared presentation for calendar tooltips and the editable visit's entry date.
+  def day_warnings(day)
+    return {} unless day
+
+    {
+      overstay: (t('days.tooltip.overstay', days: day.overstay_days) if day.overstay_days.positive?),
+      wait: (t('days.tooltip.wait', days: day.remaining_wait) if day.remaining_wait)
+    }.compact
   end
 
   # Extracts 2-letter ISO code from day's country

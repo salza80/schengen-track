@@ -14,6 +14,9 @@ class CalculatorPreferencesController < ApplicationController
       end
 
       unless country_entry
+        if request.format.json?
+          return render json: { error: t('common.invalid_nationality') }, status: :unprocessable_entity
+        end
         redirect_to destination_path(destination), alert: t('common.invalid_nationality'), allow_other_host: false
         return
       end
@@ -25,7 +28,10 @@ class CalculatorPreferencesController < ApplicationController
     end
 
     set_session_hint if nationality_selected
-    redirect_to destination_path(destination), allow_other_host: false
+    respond_to do |format|
+      format.html { redirect_to destination_path(destination), allow_other_host: false }
+      format.json { render json: { selected: true } }
+    end
   end
 
   private

@@ -10,7 +10,8 @@ Rails.application.configure do
     policy.font_src :self, 'https://fonts.gstatic.com'
     policy.object_src :none
     policy.base_uri :none
-    policy.form_action :self, 'https://www.facebook.com'
+    # Chrome checks form redirects; Facebook continues on its mobile host on Android.
+    policy.form_action :self, 'https://www.facebook.com', 'https://m.facebook.com'
     policy.frame_ancestors :self
   end
   config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(32) }

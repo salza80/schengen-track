@@ -20,11 +20,11 @@
               = day.the_date.strftime('%d-%b-%Y')
             %span.d-md-none
               = "-"
-              = day.country_name
+              = day_country_name(day)
               = " (#{t('days.schengen_yes')})" if day.schengen? && day.hasCountry?
               = " (#{t('days.schengen_no')})" if !day.schengen? && day.hasCountry?
           %th{ scope: "row", class: "d-none d-md-table-cell"}
-            = day.country_name
+            = day_country_name(day)
           %td{"data-title": "#{t('days.table_headers.schengen_area')}", class: "d-none d-md-table-cell"}
             -if day.schengen?
               = t('days.schengen_yes')

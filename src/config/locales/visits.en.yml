@@ -8,17 +8,22 @@ en:
     add_visa: Add Visa
     change_settings: Change settings
     country: Country
+    country_clear: Clear country
+    country_no_matches: No matching countries.
+    country_results: 'Matching countries: %{matches}'
+    country_search_placeholder: Search countries
+    country_select_required: Choose a country from the results.
     dates: Dates
     day_plural:
       one: day
       other: days
     days: days
-    days_in_schengen_zone: " in Schengen Zone"
-    days_outside_schengen_zone: " outside Schengen Zone"
     days_overstay: Days Overstay
     days_overstay_tooltip: The number of days inside the Schengen Area not allowed by the Visa's Entered.
+    departure_info: On departure
     edit_title: Edit a Travel Record
     entry_date: Entry date
+    entry_info: Entry date information
     exit_date: Exit date
     exits: Exits
     exits_tooltip: Indicates if a Visa for the period of travel been entered.
@@ -35,12 +40,14 @@ en:
     no_days: No Days
     no_entries: No. Entries
     no_trips: No trips yet
+    no_visa_for_date: No visa recorded for this date.
     number_of_days_tooltip: The number of days of this visit.
     number_of_entries_tooltip: The number of entries allowed on this Visa.
     page_description: Track your trips to the Schengen Area and monitor your compliance with the 90/180 day rule. Add your past and upcoming visits to see how many days you have remaining.
     page_title: Track Your Schengen Visits
     reenter_info: If you re-enter the Schengen Area on the %{date}, you can stay for %{max_days} %{day_plural} until %{end_date}.
     register_now: Register now
+    remaining_after_visit: 'Days remaining after this visit: %{count}'
     save_travel_plans: to save your travel plans!
     schengen_area: Schengen Area
     schengen_area_tooltip: Indicates if the country of this visit is included in the Schengen Area.
@@ -49,6 +56,8 @@ en:
     schengen_days_calculation_tooltip: The number of days inside the Schengen Area in the previous 180 days.
     schengen_days_overstay: Overstay Days
     schengen_visa_list: Visas
+    shared_entry_note: Excludes the next visit’s Schengen arrival on this date.
+    stay_duration: "%{days} %{unit}, including arrival and departure."
     travel_details: Travel Details
     travel_record: Trips
     visa_days_overstay: Visa Overstay

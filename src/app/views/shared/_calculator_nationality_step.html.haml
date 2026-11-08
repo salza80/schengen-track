@@ -3,7 +3,10 @@
   = t('common.nationality_help')
 
 - nationality_control_id = 'calculator_nationality_step'
-= form_with url: calculator_preferences_path(locale: I18n.locale), method: :patch, local: true, class: 'calculator-nationality-form nationality-step-form', authenticity_token: (@public_calculator_page ? false : nil), data: (@public_calculator_page ? { csrf_bootstrap_url: csrf_token_path(locale: I18n.locale) } : {}) do
+- calendar_step = destination == 'calendar'
+- form_data = @public_calculator_page ? { csrf_bootstrap_url: csrf_token_path(locale: I18n.locale) } : {}
+- form_data[:type] = 'json' if calendar_step
+= form_with url: calculator_preferences_path(locale: I18n.locale, format: (calendar_step ? :json : nil)), method: :patch, local: !calendar_step, class: 'calculator-nationality-form nationality-step-form', authenticity_token: (@public_calculator_page ? false : nil), data: form_data do
   = hidden_field_tag :destination, destination, id: 'calculator_nationality_step_destination'
   = hidden_field_tag :open, 'trip'
   - if destination == 'calendar'

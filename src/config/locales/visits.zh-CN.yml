@@ -8,17 +8,22 @@ zh-CN:
     add_visa: 添加签证
     change_settings: 更改设置
     country: 国家
+    country_clear: 清除国家
+    country_no_matches: 没有匹配的国家。
+    country_results: 匹配的国家：%{matches}
+    country_search_placeholder: 搜索国家
+    country_select_required: 请从结果中选择国家。
     dates: 日期
     day_plural:
       one: 天
       other: 天
     days: 天
-    days_in_schengen_zone: 在申根区内
-    days_outside_schengen_zone: 在申根区外
     days_overstay: 逾期停留天数
     days_overstay_tooltip: 签证期限内不允许在申根区内停留的天数。
+    departure_info: 出境时
     edit_title: 编辑旅行记录
     entry_date: 入境日期
+    entry_info: 入境日期信息
     exit_date: 出境日期
     exits: 出境
     exits_tooltip: 指示是否已输入了旅行期间的签证。
@@ -35,12 +40,14 @@ zh-CN:
     no_days: 无天数
     no_entries: 无条目
     no_trips: 还没有旅行
+    no_visa_for_date: 尚未记录此日期适用的签证。
     number_of_days_tooltip: 此次访问的天数。
     number_of_entries_tooltip: 此签证允许的次数。
     page_description: 跟踪您到申根区的旅行，并监控您是否遵守 90/180 天规则。添加您过去和即将进行的访问，以查看剩余天数。
     page_title: 跟踪您的申根访问
     reenter_info: 如果您在 %{date} 再次进入申根区，您可以在 %{end_date} 之前停留 %{max_days} %{day_plural}。
     register_now: 立即注册
+    remaining_after_visit: 本次旅行后的剩余天数：%{count}
     save_travel_plans: 以保存您的旅行计划！
     schengen_area: 申根区
     schengen_area_tooltip: 指示此次访问的国家是否包含在申根区内。
@@ -49,6 +56,8 @@ zh-CN:
     schengen_days_calculation_tooltip: 过去180天内在申根区内的天数。
     schengen_days_overstay: 逾期停留天数
     schengen_visa_list: 签证
+    shared_entry_note: 不包括下一次行程在此日期进入申根区的当天。
+    stay_duration: "%{days} %{unit}，包括抵达和离境当天。"
     travel_details: 旅行详情
     travel_record: 行程
     visa_days_overstay: 签证逾期

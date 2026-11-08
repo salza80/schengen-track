@@ -38,6 +38,7 @@
 @import "bootstrap/nav";
 @import "bootstrap/navbar";
 @import "bootstrap/card";
+@import "bootstrap/list-group";
 @import "bootstrap/badge";
 @import "bootstrap/alert";
 @import "bootstrap/modal";
@@ -50,6 +51,8 @@
 @import "about"; // Shared About and legal-page layout
 @import "responsive_table";
 @import "calendar_status_card";
+@import "country_picker";
+@import "calculator_forms";
 
 // Bootstrap 5 applies $btn-box-shadow to the base .btn. Previously only filled
 // variants had it; keep outline, link, and unstyled OAuth buttons flat.
@@ -759,6 +762,7 @@ html[dir='rtl'] {
 
 // Section headings use the primary blue accent; reserve green for actions.
 .section-heading {
+  scroll-margin-block-start: 8rem;
   padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
   margin-top: 2rem;

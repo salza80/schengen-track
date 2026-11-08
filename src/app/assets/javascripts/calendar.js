@@ -1,57 +1,89 @@
+// Tooltips remain a hover convenience; touch and keyboard users get details in the dialog.
+window.CalendarPresentation = {
+  activeDate: null,
+
+  setActiveDay: function(cell) {
+    document.querySelectorAll('.day-cell[tabindex="0"]').forEach(function(previous) {
+      if (previous !== cell) previous.tabIndex = -1;
+    });
+    cell.tabIndex = 0;
+    this.activeDate = cell.dataset.date;
+  },
+
+  initializeDayNavigation: function() {
+    var cells = Array.from(document.querySelectorAll('.day-cell[data-date]'));
+    if (!cells.length) return;
+    var viewer = new URLSearchParams(window.location.search);
+    var root = document.querySelector('.calendar-view-container');
+    var target = root.dataset.selectedYear + '-' + (viewer.get('month') || '').padStart(2, '0') + '-' + (viewer.get('day') || '').padStart(2, '0');
+    var active = cells.find(function(cell) { return cell.dataset.date === window.CalendarPresentation.activeDate; }) ||
+      cells.find(function(cell) { return cell.dataset.date === target; }) ||
+      cells.find(function(cell) { return cell.classList.contains('current-day'); }) || cells[0];
+    this.setActiveDay(active);
+  },
+
+  moveDay: function(cell, event) {
+    var offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+    if (!Object.prototype.hasOwnProperty.call(offsets, event.key) && event.key !== 'Home' && event.key !== 'End') return false;
+    event.preventDefault();
+    event.stopPropagation();
+    var cells = Array.from(document.querySelectorAll('.day-cell[data-date]'));
+    var index = cells.indexOf(cell);
+    var dayOfWeek = new Date(cell.dataset.date + 'T00:00:00Z').getUTCDay();
+    var offset = event.key === 'Home' ? -dayOfWeek : event.key === 'End' ? 6 - dayOfWeek : offsets[event.key];
+    var target = cells[Math.max(0, Math.min(cells.length - 1, index + offset))];
+    this.setActiveDay(target);
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+    return true;
+  },
+
+  initializeTooltips: function() {
+    if (typeof bootstrap === 'undefined' || !bootstrap.Tooltip) return;
+    if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function(element) {
+      bootstrap.Tooltip.getOrCreateInstance(element, { html: true, boundary: document.body, trigger: 'hover' });
+    });
+  }
+};
+
 // Calendar enhancements
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Check for newly created or updated visits (handle FIRST)
-  var newVisitDate = sessionStorage.getItem('newVisitDate');
-  var updatedVisitDate = sessionStorage.getItem('updatedVisitDate');
-  var savedScrollPosition = sessionStorage.getItem('scrollPosition');
-  
-  // Handle newly created visit highlight
-  if (newVisitDate) {
-    setTimeout(function() {
-      var visitCell = document.querySelector('[data-date="' + newVisitDate + '"]');
-      if (visitCell) {
-        visitCell.classList.add('newly-created-visit');
-        // Remove highlight after 3 seconds
-        setTimeout(function() {
-          visitCell.classList.remove('newly-created-visit');
-        }, 3000);
-      }
-    }, 600);
-    sessionStorage.removeItem('newVisitDate');
-  }
-  
-  // Handle updated visit highlight
-  if (updatedVisitDate) {
-    setTimeout(function() {
-      var visitCell = document.querySelector('[data-date="' + updatedVisitDate + '"]');
-      if (visitCell) {
-        visitCell.classList.add('newly-updated-visit');
-        // Remove highlight after 3 seconds
-        setTimeout(function() {
-          visitCell.classList.remove('newly-updated-visit');
-        }, 3000);
-      }
-    }, 600);
-    sessionStorage.removeItem('updatedVisitDate');
-  }
-  
-  // Restore scroll position for edits (only if not creating new visit)
-  if (savedScrollPosition && !newVisitDate) {
-    setTimeout(function() {
-      window.scrollTo({
-        top: parseInt(savedScrollPosition),
-        behavior: 'smooth'
-      });
-    }, 100);
-    sessionStorage.removeItem('scrollPosition');
-  }
-  
+  var initialScrollCancelled = false;
+  document.addEventListener('pointerdown', function() { initialScrollCancelled = true; }, { once: true });
+  document.addEventListener('touchstart', function() { initialScrollCancelled = true; }, { once: true, passive: true });
+  document.addEventListener('wheel', function() { initialScrollCancelled = true; }, { once: true, passive: true });
+  document.addEventListener('keydown', function() { initialScrollCancelled = true; }, { once: true });
+  document.addEventListener('show.bs.modal', function() { initialScrollCancelled = true; });
+
   // Scroll to specific month if parameter is present (do this FIRST, before tooltips)
   var scrollTarget = document.querySelector('#calendar-scroll-target');
   var calendarRoot = document.querySelector('.calendar-view-container');
   var viewerParams = new URL(window.location.href).searchParams;
   var isPublicCalculator = window.PublicPageHydration.isCalculatorPage();
+
+  // The header can wrap, change language or expand its mobile menu. Keep the
+  // year controls and day scrolling below both sticky bars at their actual size.
+  var header = document.querySelector('nav.navbar');
+  function updateStickyOffsets() {
+    var yearNav = calendarRoot.querySelector('.calendar-year-nav.sticky-top');
+    calendarRoot.style.setProperty('--calendar-header-height', (header ? header.getBoundingClientRect().height : 0) + 'px');
+    calendarRoot.style.setProperty('--calendar-year-nav-height', (yearNav ? yearNav.getBoundingClientRect().height : 0) + 'px');
+  }
+  if (calendarRoot) {
+    updateStickyOffsets();
+    if (typeof ResizeObserver !== 'undefined') {
+      var stickyObserver = new ResizeObserver(updateStickyOffsets);
+      if (header) stickyObserver.observe(header);
+      stickyObserver.observe(calendarRoot);
+    }
+  }
+
+  function dayScrollOffset() {
+    var cell = document.querySelector('.day-cell');
+    return cell ? parseFloat(getComputedStyle(cell).scrollMarginTop) || 150 : 150;
+  }
 
   function normalizeCalendarPart(value, minimum, maximum) {
     if (!/^\d{1,2}$/.test(value || '')) return null;
@@ -89,14 +121,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (targetDayCell) {
           setTimeout(function() {
+            if (initialScrollCancelled) return;
             // Scroll to the day cell
-            var offset = 150;
+            var offset = dayScrollOffset();
             var elementPosition = targetDayCell.getBoundingClientRect().top + window.pageYOffset;
             var offsetPosition = elementPosition - offset;
             
             window.scrollTo({
               top: offsetPosition,
-              behavior: 'smooth'
+              behavior: 'instant'
             });
             
             // Add flashing animation
@@ -113,42 +146,29 @@ document.addEventListener('DOMContentLoaded', function() {
         if (monthElement) {
           // Wait for page to fully render
           setTimeout(function() {
-            // Offset for sticky header (year nav is ~80-100px)
-            var offset = 100;
+            if (initialScrollCancelled) return;
+            var offset = dayScrollOffset();
             var elementPosition = monthElement.getBoundingClientRect().top + window.pageYOffset;
             var offsetPosition = elementPosition - offset;
                       
             window.scrollTo({
               top: offsetPosition,
-              behavior: 'smooth'
+              behavior: 'instant'
             });
           }, 500); // Increased delay to 500ms
         }
       }
   }
   
-  // Initialize Bootstrap tooltips on day cells (only if Bootstrap is available)
-  if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      try {
-        return bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl, {
-          html: true,
-          boundary: document.body
-        });
-      } catch(e) {
-        return null;
-      }
-    });
-  }
-  
+  window.CalendarPresentation.initializeTooltips();
+
   // Keyboard navigation for year controls
   document.addEventListener('keydown', function(e) {
     // Only activate if we're on calendar view
     if (!document.querySelector('.calendar-container')) return;
     
-    // Prevent default if input/textarea focused
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    // Date selects and other dialog controls own their arrow keys.
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || (e.target.closest && e.target.closest('.modal, .day-cell'))) return;
     
     if (e.key === 'ArrowLeft') {
       var prevButton = document.querySelector('.btn-prev-year');
@@ -188,17 +208,19 @@ document.addEventListener('DOMContentLoaded', function() {
       // Use requestAnimationFrame to batch layout reads and avoid forced reflow
       requestAnimationFrame(function() {
         setTimeout(function() {
+          if (initialScrollCancelled) return;
           // Batch all layout reads together
           var rect = currentDayCell.getBoundingClientRect();
-          var yOffset = -150; // Offset for sticky header
+          var yOffset = -dayScrollOffset();
           var y = rect.top + window.pageYOffset + yOffset;
           
           // Only scroll if current day is not visible
           if (rect.top < 0 || rect.bottom > window.innerHeight) {
-            window.scrollTo({ top: y, behavior: 'smooth' });
+            window.scrollTo({ top: y, behavior: 'instant' });
           }
         }, 500);
       });
     }
   }
+  window.CalendarPresentation.initializeDayNavigation();
 });

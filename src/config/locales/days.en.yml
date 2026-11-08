@@ -1,10 +1,14 @@
 ---
 en:
   days:
+    country_labels:
+      country_change: 'Entered: %{entered_country} · Exited: %{exited_country}'
+      same_day_trip: 'Entered and exited: %{country}'
     current_status: Current Status
     days_remaining: Days Remaining
     days_used: Days Used
     entry_limit_exceeded: Entry Limit Exceeded
+    form_error: The details could not be loaded. Try again.
     from_date_onwards: From %{date} onwards
     full_stay: Full 90 days!
     go_to_visas: Go to Visas
@@ -15,6 +19,7 @@ en:
     legend_overstay: Overstay
     legend_safe: In Schengen (Safe)
     legend_waiting: Waiting Period
+    loading: Loading…
     max_days_reached: Peak
     max_remaining_days: Max remaining days - Is the maximum amount of time you can stay in the Schengen area if you re-enter on this day.
     need_help: Need help understanding the rule?
@@ -23,6 +28,12 @@ en:
     no_visits_this_year: No visits in %{year}
     overstay_na: N/A
     overstay_tooltip: You have overstayed the 90/180 days
+    refresh_error: The calendar could not be refreshed. Try again to show the latest results.
+    retry: Try again
+    save_error: The changes could not be saved. Check your connection and try again.
+    saved: Saved.
+    saved_refresh_error: Your changes are saved. Try again to update the calendar totals.
+    saving: Saving…
     schengen_days_in_year: Days in Schengen
     schengen_no: 'No'
     schengen_yes: 'Yes'
@@ -47,12 +58,14 @@ en:
       days_used: 'Days used: %{count}/90'
       entries: 'Entries: %{count}/%{total}'
       entries_exceeded: 'Entry limit exceeded: %{count}/%{total}'
+      no_schengen_limit: The Schengen 90/180-day limit does not apply to your nationality.
       no_visa: NO VISA
       outside_visa: Outside visa period
       overstay: 'SCHENGEN OVERSTAY: +%{days} days'
       valid_visa: Valid visa
       wait: 'Wait: %{days} days'
     until_date: until %{date}
+    updating: Saved. Updating totals…
     view_table: View in Table
     visa_ok_tooltip: You have a valid visa as at today
     visa_status_label: Visa Status

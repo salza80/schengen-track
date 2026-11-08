@@ -14,16 +14,7 @@
     const message = '<div class="alert alert-success alert-dismissible fade show" role="alert">Visit was successfully created.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
     $('body').prepend(message);
     
-    // Get the saved visit's entry date (Rails already parsed the form submission)
-    const dateString = '#{@visit.entry_date.to_s}'; // Already in YYYY-MM-DD format
-    const dateParts = dateString.split('-');
-    const entryYear = dateParts[0];
-    const entryMonth = parseInt(dateParts[1]);
-    
-    // Store the date for highlighting after reload
-    sessionStorage.setItem('newVisitDate', dateString);
-    
-    // Reload and scroll to the month of the new visit
+    // Refresh the Trips list
     setTimeout(function() {
-      window.location.href = '?month=' + entryMonth + '&year=' + entryYear;
+      location.reload();
     }, 300);

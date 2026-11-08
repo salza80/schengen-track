@@ -1,0 +1,70 @@
+// Editable controls and read-only information have distinct surfaces in dialogs.
+.visit-date-fields input[type="date"] {
+  min-width: 0;
+  width: 100%;
+}
+
+[dir="rtl"] #visitModal .modal-header .btn-close {
+  margin-left: calc(-.5 * var(--bs-modal-header-padding-x));
+  margin-right: auto;
+}
+
+#visitModal, #visaModal {
+  .form-control, .form-select {
+    min-height: 44px;
+    border: 1px solid #89949e;
+    border-radius: .375rem;
+    background-color: #fff;
+    color: var(--bs-body-color);
+    box-shadow: none;
+
+    &:focus {
+      border-color: $primary;
+      outline: 2px solid $primary;
+      outline-offset: 2px;
+      box-shadow: none;
+    }
+  }
+
+  .visa-date-inputs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: .375rem;
+
+    .form-select {
+      min-width: 0;
+      width: 100% !important;
+      padding-inline: .5rem 1.75rem;
+      background-position: right .5rem center;
+
+      &:dir(rtl) { background-position: left .5rem center; }
+    }
+  }
+}
+
+.visit-info-panel {
+  padding: 1rem;
+  border: 1px solid var(--bs-info-border-subtle);
+  border-inline-start: 3px solid var(--bs-info);
+  border-radius: .375rem;
+  background: var(--bs-info-bg-subtle);
+  font-size: .875rem;
+  line-height: 1.6;
+
+  .visit-info-heading {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  .visit-visa-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: .5rem;
+    font-weight: 600;
+    text-decoration: underline;
+    color: var(--bs-primary-text-emphasis);
+  }
+}

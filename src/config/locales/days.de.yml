@@ -1,10 +1,14 @@
 ---
 de:
   days:
+    country_labels:
+      country_change: 'Einreise: %{entered_country} · Ausreise: %{exited_country}'
+      same_day_trip: 'Ein- und Ausreise: %{country}'
     current_status: Aktueller Status
     days_remaining: Verbleibende Tage
     days_used: Verwendete Tage
     entry_limit_exceeded: Einreisegrenze überschritten
+    form_error: Die Angaben konnten nicht geladen werden. Versuche es erneut.
     from_date_onwards: Ab %{date}
     full_stay: Volle 90 Tage!
     go_to_visas: Zu Visa gehen
@@ -15,6 +19,7 @@ de:
     legend_overstay: Überschreitung
     legend_safe: Im Schengen (Sicher)
     legend_waiting: Wartezeit
+    loading: Wird geladen…
     max_days_reached: Höchststand
     max_remaining_days: Maximale verbleibende Tage - Ist die maximale Aufenthaltsdauer im Schengen-Raum, wenn Sie an diesem Tag erneut einreisen.
     meta_description: Visueller Schengen-Kalender zur Berechnung der 90/180-Tage-Regel. Erfassen Sie Reisen, prüfen Sie verbrauchte Tage und planen Sie Ihre nächste Einreise.
@@ -26,6 +31,12 @@ de:
     overstay_tooltip: Sie haben die 90/180-Tage-Regel überschritten
     page_description: Nutzen Sie diesen interaktiven Schengen-Kalender, um Reisen zu erfassen, Ihr rollierendes 90/180-Tage-Kontingent zu berechnen und weitere Reisen zu planen.
     page_title: Schengen 90/180-Tage-Rechner
+    refresh_error: Der Kalender konnte nicht aktualisiert werden. Versuchen Sie es erneut, um die neuesten Ergebnisse anzuzeigen.
+    retry: Erneut versuchen
+    save_error: Die Änderungen konnten nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.
+    saved: Gespeichert.
+    saved_refresh_error: Deine Änderungen sind gespeichert. Versuche erneut, die Kalendersummen zu aktualisieren.
+    saving: Wird gespeichert…
     schengen_days_in_year: Tage im Schengen
     schengen_no: Nein
     schengen_yes: Ja
@@ -50,12 +61,14 @@ de:
       days_used: 'Genutzte Tage: %{count}/90'
       entries: 'Einreisen: %{count}/%{total}'
       entries_exceeded: 'Einreisegrenze überschritten: %{count}/%{total}'
+      no_schengen_limit: Die Schengen-Regel von 90 Tagen innerhalb von 180 Tagen gilt nicht für Ihre Staatsangehörigkeit.
       no_visa: Kein Visum
       outside_visa: Außerhalb des Visumszeitraums
       overstay: 'SCHENGEN-ÜBERZUG: +%{days} Tage'
       valid_visa: Gültiges Visum
       wait: 'Wartezeit: %{days} Tage'
     until_date: bis %{date}
+    updating: Gespeichert. Summen werden aktualisiert…
     view_table: In Tabelle anzeigen
     visa_ok_tooltip: Sie haben ein gültiges Visum zum heutigen Tag
     visa_status_label: Visumstatus

@@ -13,16 +13,7 @@
     const message = '<div class="alert alert-success alert-dismissible fade show" role="alert">Visit was successfully updated.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
     $('body').prepend(message);
     
-    // Get the saved visit's entry date (Rails already parsed the form submission)
-    const dateString = '#{@visit.entry_date.to_s}'; // Already in YYYY-MM-DD format
-    
-    // Store for highlighting after reload
-    sessionStorage.setItem('updatedVisitDate', dateString);
-    
-    // Store scroll position to preserve after reload
-    sessionStorage.setItem('scrollPosition', window.pageYOffset.toString());
-    
-    // Reload page to refresh calendar
+    // Reload the Trips list
     setTimeout(function() {
       location.reload();
     }, 300);

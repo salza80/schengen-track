@@ -7,7 +7,7 @@ class VisitsController < ApplicationController
   
   before_action :require_calculator_record_account!, only: [:show, :edit, :update, :destroy]
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
-  before_action :set_country_continent, only: [:new, :edit, :update, :create]
+  before_action :set_country_options, only: [:new, :edit, :update, :create]
   #before_action :authenticate_user!
   
   # Handle RecordNotFound errors (e.g., visit doesn't belong to current person)
@@ -71,19 +71,20 @@ class VisitsController < ApplicationController
     end
     
     respond_to do |format|
-      format.js   # AJAX request from calendar
+      format.js   # Trips dialog
+      format.json { render_visit_form(t('visits.add_record')) }
     end
   end
 
   # GET /visits/1/edit
   def edit
-    @continent_default_code = @visit.country.continent.continent_code
     if @visit.country && !@visit.country.affiliate_booking_html.nil?
       @advertise_country = @visit.country
     end
     
     respond_to do |format|
-      format.js   # AJAX request from calendar
+      format.js   # Trips dialog
+      format.json { render_visit_form(t('visits.edit_title')) }
     end
   end
 
@@ -120,13 +121,24 @@ class VisitsController < ApplicationController
     respond_to do |format|
       if @visit.persisted?
         format.html { redirect_to calculator_visits_path, notice: 'Visit was successfully created.' }
-        format.json { render :show, status: :created, location: @visit }
-        format.js   # AJAX request from calendar
+        format.json do
+          if request.xhr?
+            render json: { saved: true }, status: :created, location: @visit
+          else
+            render :show, status: :created, location: @visit
+          end
+        end
+        format.js   # Trips dialog
       else
-        @continent_default_code = @visit&.country&.continent&.continent_code || @continent_default_code
         format.html { render :new }
-        format.json { render json: @visit.errors, status: :unprocessable_entity }
-        format.js   # AJAX request from calendar - show errors
+        format.json do
+          if request.xhr?
+            render_visit_form(t('visits.add_record'), status: :unprocessable_entity)
+          else
+            render json: @visit.errors, status: :unprocessable_entity
+          end
+        end
+        format.js   # Trips dialog validation errors
       end
     end
   end
@@ -137,12 +149,20 @@ class VisitsController < ApplicationController
     respond_to do |format|
       if @visit.update(visit_params)
         format.html { redirect_to calculator_visits_path, notice: 'Visit was successfully updated.' }
-        format.json { render :show, status: :ok, location: @visit }
-        format.js   # AJAX request from calendar
+        format.json do
+          request.xhr? ? render(json: { saved: true }) : render(:show, status: :ok, location: @visit)
+        end
+        format.js   # Trips dialog
       else
         format.html { render :edit }
-        format.json { render json: @visit.errors, status: :unprocessable_entity }
-        format.js   # AJAX request from calendar - show errors
+        format.json do
+          if request.xhr?
+            render_visit_form(t('visits.edit_title'), status: :unprocessable_entity)
+          else
+            render json: @visit.errors, status: :unprocessable_entity
+          end
+        end
+        format.js   # Trips dialog validation errors
       end
     end
   end
@@ -194,7 +214,7 @@ class VisitsController < ApplicationController
   end
 
   # GET /visits/for_date?date=YYYY-MM-DD
-  # Returns all visits that include the specified date (for calendar context menu)
+  # Returns all visits that include the specified date (for the calendar dialog)
   def for_date
     date = Date.parse(params[:date])
     visits = calculator_visits.find_by_date(date, date)
@@ -205,6 +225,7 @@ class VisitsController < ApplicationController
           id: v.id,
           entry_date: v.entry_date,
           exit_date: v.exit_date,
+          date_range_label: "#{I18n.l(v.entry_date, format: :travel)} #{t('common.to')} #{I18n.l(v.exit_date, format: :travel)}",
           country_name: v.country.name,
           country_id: v.country_id,
           schengen: v.schengen?
@@ -213,135 +234,107 @@ class VisitsController < ApplicationController
     end
   end
   
-  # GET /visits/max_stay_info?date=YYYY-MM-DD&country_id=X
+  # GET /visits/max_stay_info?date=YYYY-MM-DD&country_code=DE
   # Returns max stay information for a given entry date and country
-  # If country_id is not provided, assumes Schengen country
+  # Accepts legacy country_id as well; no country defaults to Schengen.
   def max_stay_info
     date = Date.parse(params[:date])
-    
-    # Check if there's a next visit after this date
-    next_visits = calculator_visits
-      .where('entry_date > ?', date)
-      .order(:entry_date)
-    
-    # Exclude the current visit being edited if visit_id is provided
-    if params[:visit_id].present?
-      next_visits = next_visits.where.not(id: params[:visit_id])
-    end
-    
-    next_visit = next_visits.first
-    next_visit_constraint_date = next_visit ? next_visit.entry_date - 1.day : nil
-    
-    # If no country selected, assume Schengen
-    # If country selected, check if it's actually Schengen
-    if params[:country_code].present?
-      country = Country.find_by!(country_code: params[:country_code].to_s.upcase)
-      is_schengen = country.schengen?(date)
-    elsif params[:country_id].present?
-      country = Country.find(params[:country_id])
-      is_schengen = country.schengen?(date)
-    else
-      is_schengen = true # Assume Schengen if no country selected
-    end
-    
-    requires_counting = current_person.nationality.visa_required != 'F'
-    
-    if is_schengen && requires_counting
-      # Calculate Schengen days limit
-      calc = Schengen::Days::Calculator.new(current_person, visits: calculator_visits)
-      day_info = calc.find_by_date(date)
-      
-      # If no day_info (first visit), default to 90 days
-      if day_info.nil?
-        max_remaining = 90
-        schengen_exit_date = date + (max_remaining - 1).days
-        
-        # Check against next visit constraint
-        if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
-          days_until_next = (next_visit.entry_date - date).to_i
-          render json: {
-            show: true,
-            max_days: days_until_next,
-            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
-            constrained: true,
-            constraint_type: 'next_visit',
-            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
-          }
-        else
-          render json: {
-            show: true,
-            max_days: max_remaining,
-            exit_date: schengen_exit_date.strftime('%b %d, %Y'),
-            exit_date_iso: schengen_exit_date.strftime('%Y-%m-%d'),
-            constrained: true,
-            constraint_type: 'schengen'
-          }
-        end
-      elsif day_info && day_info.max_remaining_days && day_info.max_remaining_days > 0
-        # Exit date is entry date + (max_remaining_days - 1) because we count inclusively
-        # E.g., if you can stay 88 days: entry on day 1, exit on day 88 = entry + 87 days
-        schengen_exit_date = date + (day_info.max_remaining_days - 1).days
+    source = calculator_visits
+    source = source.where.not(id: params[:visit_id]) if params[:visit_id].present?
+    next_visit = source.where('entry_date > ?', date).order(:entry_date).first
 
-        # Compare Schengen limit with next visit constraint
-        if next_visit_constraint_date && schengen_exit_date >= next_visit.entry_date
-          # Next visit comes before Schengen limit
-          days_until_next = (next_visit.entry_date - date).to_i
-          render json: {
-            show: true,
-            max_days: days_until_next,
-            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
-            constrained: true,
-            constraint_type: 'next_visit',
-            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
-          }
-        else
-          # Schengen limit is the constraint (or no next visit)
-          render json: {
-            show: true,
-            max_days: day_info.max_remaining_days,
-            exit_date: schengen_exit_date.strftime('%b %d, %Y'),
-            exit_date_iso: schengen_exit_date.strftime('%Y-%m-%d'),
-            constrained: true,
-            constraint_type: 'schengen'
-          }
-        end
-      else
-        # No Schengen days available, but might have next visit constraint
-        if next_visit_constraint_date
-          days_until_next = (next_visit.entry_date - date).to_i
-          render json: {
-            show: true,
-            max_days: days_until_next,
-            exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-            exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
-            constrained: true,
-            constraint_type: 'next_visit',
-            next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
-          }
-        else
-          render json: { show: false }
-        end
+    country = if params[:country_code].present?
+                Country.find_by!(country_code: params[:country_code].to_s.upcase)
+              elsif params[:country_id].present?
+                Country.find(params[:country_id])
+              end
+    is_schengen = country.nil? || country.schengen?(date)
+    entry_info = nil
+    departure_info = nil
+    remaining = nil
+
+    if is_schengen && current_person.nationality.visa_required != 'F'
+      visa_history = Schengen::VisaHistory.new(current_person) if current_person.visa_required?
+      preview = visit_allowance_preview(country, date, source)
+      source = source.includes(:country) if source.is_a?(ActiveRecord::Relation)
+      history = source.to_a
+      records = preview ? (history + [preview]).sort_by { |visit| [visit.entry_date, visit.exit_date, visit.id || 0] } : history
+      calculator = Schengen::Days::Calculator.new(current_person, visits: records, visa_history: visa_history)
+      day = calculator.find_by_date(date)
+      remaining = calculator.maximum_stay_from(date)
+      entry_info = visit_entry_info(date, day, visa_history)
+      if preview && day.overstay?
+        # An attempted entry must not erase the waiting period it interrupts.
+        history_day = Schengen::Days::Calculator.new(current_person, visits: history, visa_history: visa_history).find_by_date(date)
+        entry_info[:wait] = helpers.day_warnings(history_day)[:wait]
       end
-    elsif next_visit_constraint_date
-      # Non-Schengen country but has next visit constraint
-      days_until_next = (next_visit.entry_date - date).to_i
-      render json: {
-        show: true,
-        max_days: days_until_next,
-        exit_date: next_visit_constraint_date.strftime('%b %d, %Y'),
-        exit_date_iso: next_visit_constraint_date.strftime('%Y-%m-%d'),
-        constrained: true,
-        constraint_type: 'next_visit',
-        next_entry_date: next_visit.entry_date.strftime('%b %d, %Y')
-      }
-    else
-      render json: { show: false }
+      if preview
+        departure = calculator.find_by_date(preview.exit_date)
+        used = departure.schengen_days_count
+        departure_info = {
+          days_used: t('days.tooltip.days_used', count: used),
+          remaining: t('visits.remaining_after_visit', count: [90 - used, 0].max)
+        }.merge(helpers.day_warnings(departure))
+      end
     end
+
+    exit_date = date + (remaining - 1).days if remaining&.positive?
+    result = { show: false, entry_info: entry_info, departure_info: departure_info }
+    # A later trip cannot grant days when the Schengen allowance is exhausted.
+    blocked = remaining && remaining <= 0
+    if !blocked && next_visit && (exit_date.nil? || exit_date >= next_visit.entry_date)
+      result.merge!(show: true, max_days: (next_visit.entry_date - date).to_i + 1,
+                    exit_date: I18n.l(next_visit.entry_date, format: :long),
+                    exit_date_iso: next_visit.entry_date.iso8601,
+                    constrained: true, constraint_type: 'next_visit',
+                    next_entry_date: I18n.l(next_visit.entry_date, format: :long))
+    elsif exit_date
+      result.merge!(show: true, max_days: remaining, exit_date: I18n.l(exit_date, format: :long),
+                    exit_date_iso: exit_date.iso8601, constrained: true, constraint_type: 'schengen')
+    end
+    render json: result
   end
 
   private
+    def visit_allowance_preview(country, entry_date, visits)
+      return unless country && params[:exit_date].is_a?(String) && params[:exit_date].present?
+
+      exit_date = Date.iso8601(params[:exit_date])
+      allowed_dates = Visit.allowed_date_range
+      return unless exit_date >= entry_date && allowed_dates.cover?(entry_date) && allowed_dates.cover?(exit_date)
+
+      preview = Visit.new(country: country, entry_date: entry_date, exit_date: exit_date)
+      preview unless preview.date_overlap?(visits: visits)
+    rescue Date::Error
+      nil
+    end
+
+    def visit_entry_info(date, day, visa_history)
+      info = { days_used: t('days.tooltip.days_used', count: day&.schengen_days_count || 0) }
+        .merge(helpers.day_warnings(day))
+      return info unless visa_history
+
+      visa = visa_history.visa_for_date(date)
+      info[:visa_missing] = visa.nil?
+      info[:visa_status] = visa ? t('days.tooltip.valid_visa') : t('visits.no_visa_for_date')
+      if visa && visa.no_entries.positive?
+        count = visa_history.entry_count_on(date, visa)
+        info[:visa_entries_exceeded] = count > visa.no_entries
+        key = info[:visa_entries_exceeded] ? 'days.tooltip.entries_exceeded' : 'days.tooltip.entries'
+        info[:visa_entries] = t(key, count: count, total: visa.no_entries)
+      end
+      info
+    end
+
+    def render_visit_form(title, status: :ok)
+      render json: {
+        html: render_to_string(partial: 'visits/form', formats: [:html]),
+        title: title,
+        save_label: t('common.save'),
+        errors: @visit.errors
+      }, status: status
+    end
+
     def setup_sidebar_data(calc)
       @days = calc.calculated_days
       @overstay = calc.schengen_overstay?
@@ -410,9 +403,7 @@ class VisitsController < ApplicationController
       permitted
     end
 
-    def set_country_continent
-      @continents = CountryCatalog.continents
-      @continent_default_code ||= 'EU'
+    def set_country_options
       @country_options = CountryCatalog.country_options.to_json
     end
     

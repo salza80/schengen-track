@@ -21,7 +21,6 @@ tr:
     cancel: İptal
     choose_nationality: Milliyetinizi seçin
     confirm_delete: Silmeyi Onayla
-    continent: Kıta
     continue: Devam et
     country: Ülke
     current_traveler: Mevcut gezgin
@@ -105,6 +104,7 @@ tr:
       long: "%e %B %Y"
       month_year: "%B %Y"
       short: "%e %b"
+      travel: "%d %b %Y"
     month_names:
     -
     - Ocak

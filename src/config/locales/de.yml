@@ -17,7 +17,6 @@ de:
     cancel: Abbrechen
     choose_nationality: Nationalität auswählen
     confirm_delete: Löschen bestätigen
-    continent: Kontinent
     continue: Weiter
     country: Land
     current_traveler: Aktuelle Person
@@ -101,6 +100,7 @@ de:
       long: "%e. %B %Y"
       month_year: "%B %Y"
       short: "%e. %b"
+      travel: "%d. %b %Y"
     month_names:
     -
     - Januar

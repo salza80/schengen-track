@@ -8,17 +8,22 @@ tr:
     add_visa: Vize Ekle
     change_settings: Ayarları değiştir
     country: Ülke
+    country_clear: Ülkeyi temizle
+    country_no_matches: Eşleşen ülke yok.
+    country_results: 'Eşleşen ülkeler: %{matches}'
+    country_search_placeholder: Ülke ara
+    country_select_required: Sonuçlardan bir ülke seçin.
     dates: Tarihler
     day_plural:
       one: gün
       other: gün
     days: gün
-    days_in_schengen_zone: " Schengen Bölgesinde"
-    days_outside_schengen_zone: " Schengen Bölgesi Dışında"
     days_overstay: Günler Geçikme
     days_overstay_tooltip: Vize Girişi tarafından izin verilmeyen Schengen Alanındaki günlerin sayısı.
+    departure_info: Çıkışta
     edit_title: Bir Seyahat Kaydını Düzenle
     entry_date: Giriş tarihi
+    entry_info: Giriş tarihi bilgileri
     exit_date: Çıkış tarihi
     exits: Çıkışlar
     exits_tooltip: Seyahat dönemi için Vize girilmiş mi?
@@ -35,12 +40,14 @@ tr:
     no_days: Gün No.
     no_entries: Giriş No.
     no_trips: Henüz seyahat yok
+    no_visa_for_date: Bu tarih için kayıtlı vize yok.
     number_of_days_tooltip: Bu ziyaretin gün sayısı.
     number_of_entries_tooltip: Bu Vize için izin verilen giriş sayısı.
     page_description: Schengen Bölgesi'ne yaptığınız seyahatleri takip edin ve 90/180 gün kuralına uygunluğunuzu izleyin. Geçmiş ve gelecek ziyaretlerinizi ekleyerek kaç gününüzün kaldığını görün.
     page_title: Schengen Ziyaretlerinizi Takip Edin
     reenter_info: Eğer %{date} tarihinde Schengen Alanına yeniden girerseniz, %{max_days} %{day_plural} boyunca %{end_date} tarihine kadar kalabilirsiniz.
     register_now: Şimdi kayıt olun
+    remaining_after_visit: 'Bu seyahatten sonra kalan gün: %{count}'
     save_travel_plans: seyahat planlarınızı kaydetmek için!
     schengen_area: Schengen Bölgesi
     schengen_area_tooltip: Bu ziyaretin ülkesinin Schengen Alanına dahil olup olmadığını gösterir.
@@ -49,6 +56,8 @@ tr:
     schengen_days_calculation_tooltip: Önceki 180 gün içinde Schengen Alanında geçirilen günlerin sayısı.
     schengen_days_overstay: Fazla Kalma Günleri
     schengen_visa_list: Vizeler
+    shared_entry_note: Bu tarihte sonraki seyahatin Schengen bölgesine girişi dahil değildir.
+    stay_duration: Giriş ve çıkış dahil %{days} %{unit}.
     travel_details: Seyahat Detayları
     travel_record: Seyahatler
     visa_days_overstay: Vize Fazla Kalma

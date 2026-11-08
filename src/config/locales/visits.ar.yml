@@ -8,6 +8,11 @@ ar:
     add_visa: إضافة تأشيرة
     change_settings: تغيير الإعدادات
     country: الدولة
+    country_clear: مسح الدولة
+    country_no_matches: لا توجد دول مطابقة.
+    country_results: 'الدول المطابقة: %{matches}'
+    country_search_placeholder: البحث عن دولة
+    country_select_required: اختر دولة من النتائج.
     dates: التواريخ
     day_plural:
       few: أيام
@@ -17,12 +22,12 @@ ar:
       two: يومين
       zero: أيام
     days: أيام
-    days_in_schengen_zone: " داخل منطقة شنغن"
-    days_outside_schengen_zone: " خارج منطقة شنغن"
     days_overstay: أيام الإقامة الزائدة
     days_overstay_tooltip: عدد الأيام داخل منطقة شنغن التي لا تغطيها التأشيرة المدخلة.
+    departure_info: عند المغادرة
     edit_title: تعديل سجل سفر
     entry_date: تاريخ الدخول
+    entry_info: معلومات تاريخ الدخول
     exit_date: تاريخ الخروج
     exits: الخروج
     exits_tooltip: يوضّح ما إذا كانت هناك تأشيرة تغطي فترة السفر.
@@ -39,12 +44,14 @@ ar:
     no_days: لا توجد أيام
     no_entries: عدد الدخولات
     no_trips: لا توجد رحلات بعد
+    no_visa_for_date: لم تُسجّل تأشيرة لهذا التاريخ.
     number_of_days_tooltip: عدد أيام هذه الزيارة.
     number_of_entries_tooltip: عدد مرّات الدخول المسموح بها في هذه التأشيرة.
     page_description: تتبّع رحلاتك إلى منطقة شنغن وراقب التزامك بقاعدة ٩٠/١٨٠ يوماً. أضف زياراتك السابقة والمخطط لها لمعرفة الأيام المتبقية.
     page_title: تتبّع زياراتك إلى شنغن
     reenter_info: إذا دخلت منطقة شنغن في %{date} يمكنك البقاء %{max_days} %{day_plural} حتى %{end_date}.
     register_now: سجّل الآن
+    remaining_after_visit: 'الأيام المتبقية بعد هذه الزيارة: %{count}'
     save_travel_plans: لحفظ خطط السفر!
     schengen_area: منطقة شنغن
     schengen_area_tooltip: يوضح ما إذا كانت دولة الزيارة ضمن منطقة شنغن.
@@ -53,6 +60,8 @@ ar:
     schengen_days_calculation_tooltip: عدد الأيام التي قضيتها داخل شنغن خلال آخر ١٨٠ يوماً.
     schengen_days_overstay: أيام الإقامة الزائدة
     schengen_visa_list: التأشيرات
+    shared_entry_note: لا يشمل يوم دخول شنغن للرحلة التالية في هذا التاريخ.
+    stay_duration: "%{days} %{unit}، بما في ذلك يومَا الوصول والمغادرة."
     travel_details: تفاصيل الرحلة
     travel_record: الرحلات
     visa_days_overstay: إقامة زائدة وفق التأشيرة

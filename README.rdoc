@@ -60,6 +60,78 @@ Font Awesome Free 7 is self-hosted under <tt>src/vendor/assets</tt>. Its Sass
 modules use the same Dart Sass compiler, and Sprockets fingerprints its WOFF2
 fonts. See the vendored asset README for version, license and update instructions.
 
+Calendar and Trips share <tt>visits/_form</tt> and <tt>visit_form.js</tt>.
+The country control's markup and configuration live in
+<tt>visits/_country_picker</tt>, its scoped styles in <tt>country_picker.scss</tt>,
+and its behavior in <tt>country_picker.js</tt>. The pure matcher in
+<tt>country_picker/search.js</tt> owns search and exact-name normalization together,
+including Arabic marks, German transliterations and typographic punctuation.
+It sorts suggestions with the active locale's collation and preserves displayed
+names and country codes. It submits the stable country
+code from the SQL-free catalogue. Exact country-code matches and name prefixes
+precede substring matches. Enter accepts a highlighted suggestion or an exact
+name already typed; it never commits an unhighlighted partial match. Clearing
+the control clears its submitted country code and restores input focus.
+Keep asynchronous allowance feedback below the country control so recalculation
+does not move its input or clear button. Hint dates and counts use the active
+locale; the date-input shortcut continues to use its separate ISO value.
+There is no continent prerequisite. Nationality controls remain independent.
+Persisted countries still belong to continents for country-data imports and
+localization; that domain association does not drive the visit form.
+Shared modal helpers handle transport, sanitized form rendering and focus;
+page modules own refresh and continuation state, while each flow cancels its
+superseded form loads.
+Only the newest calendar refresh may replace results or feedback.
+Mouse range selection uses pointer events independently of touch capability.
+Calendar grids retain left-to-right date columns in every locale; horizontal
+day-navigation keys follow that visual order even on an RTL page.
+Keep all seven grid tracks within the viewport; localized weekday labels wrap
+when fonts or text sizes need more room.
+Sticky year controls and date scrolling use the measured header and year-control
+heights, including when the mobile menu expands. Calendar language links retain
+the viewed year, month and day. Country-change labels belong to
+<tt>DaysHelper#day_country_name</tt> and the existing locale files, so cells,
+tooltips and dialog summaries share the same translation.
+Dialog controls use outlined white fields from <tt>calculator_forms.scss</tt>.
+A separate information panel below the fields follows the draft dates and
+country. It separates entry and visa information from the departure day's
+usage, remaining days and overstay warning. The allowance endpoint replaces an
+edited record with an unsaved draft for that preview and never writes records.
+Overlapping drafts use the model's overlap rule and omit the departure preview
+until their dates can be calculated as a valid itinerary.
+Keep the selected-day summary for the nationality/visit-choice steps only; the visit
+form's date fields provide that context once editing begins.
+Calendar tooltips and that information panel share warning messages through
+<tt>DaysHelper#day_warnings</tt>. A next-trip constraint never grants a positive
+Schengen allowance when the calculated allowance is exhausted.
+Next-trip limits include the shared departure/entry date, matching visit overlap
+validation. Freedom-of-movement calendar days show no 90/180-day deadline.
+Visit totals that exclude an arrival in Schengen on the shared departure date
+carry an explanatory note; the calendar includes that arrival in its daily total.
+<tt>Schengen::Days::Calculator#maximum_stay_from</tt> owns the inclusive
+arrival-to-departure allowance. Its forecast uses only actual historical days
+leaving the rolling 180-day window; recorded future trips never replenish it.
+For days already spent in Schengen, <tt>max_remaining_days</tt> describes the
+additional days after that date. Popups use the inclusive stay length, while
+calendar tooltips account for the day already counted.
+<tt>visit_visa_flow.js</tt> owns the Add Visa substep shared by Calendar and Trips.
+It retains the original visit form DOM while loading a JSON visa form; Back,
+Escape, validation and successful saves preserve the visit draft. The owning
+page handles the <tt>visit:visa-saved</tt> event: Calendar refreshes in place;
+Trips refreshes after all dialogs close, or immediately if a late save finishes
+after they have closed. A pending refresh must preserve any newer dialog draft.
+Modal HTML rendering stays in the shared sanitizer-backed helper, including on
+nonce-free documents. Inline substeps use the shared form-focus helper to focus
+the first field or validation error when their content changes.
+The renderer emits <tt>modal:form-rendered</tt> for form initialization and the
+calendar's day-summary visibility, including after delayed visa-form loads and
+when restoring a retained visit draft.
+
+Trips keeps one set of Edit/Delete links per record. Below the desktop table
+breakpoint, <tt>responsive_table.scss</tt> places that action cell beside the
+country title, with the date range below. Keep these rules scoped to
+<tt>.trips-table</tt> so the visa and traveler tables keep their own layouts.
+
 Shared deferred startup lives in <tt>third_party_scripts.js</tt>, while
 <tt>adsense.js</tt> owns SDK loading and slot requests in the core bundle. Views
 provide public configuration through data attributes and render
@@ -113,6 +185,12 @@ The application supports English, German, Spanish, French, Hindi, Turkish,
 Simplified Chinese, Brazilian Portuguese, and Arabic. Locale files live in
 <tt>src/config/locales</tt>.
 
+Trip and visa lists and calendar visit choices share
+<tt>date.formats.travel</tt>: a localized month name and full year in the
+language's date order. Keep native visit date inputs in
+ISO form for submission; their visible format follows the browser locale.
+Calendar information and allowance hints use the localized long date format.
+
 From <tt>src</tt>:
 
   bundle exec rails i18n:check
@@ -165,6 +243,30 @@ running a calculator; visitors without that state return to the public page.
 Forms keep their original mutation endpoints and redirect back to private
 state when appropriate. Public CSV URLs redirect to the private export.
 
+Visit forms use native entry and exit date inputs, show inclusive stay length,
+and search localized countries directly. Calendar keyboard navigation uses one
+Tab stop with arrow keys, Home/End, and Enter/Space to open the selected day.
+Save feedback distinguishes a pending save from saved visits awaiting refreshed
+totals; retrying the totals never repeats the write. Cancelling a dialog also
+invalidates pending form loads and nationality continuations.
+Visit save completion follows the request even if a newer dialog replaces its
+form; refresh the calendar without changing that newer dialog. Startup scrolling
+yields to pointer, touch, wheel and keyboard interaction.
+
+Calendar dates open their visit dialog with one tap. The visit form shows
+allowance and visa details in one information panel below its editable fields;
+missing visas offer an Add Visa action within the same dialog. Desktop hover
+tooltips remain available.
+Calendar nationality steps and visit forms use JSON, including on cached public
+documents without a script nonce. After nationality selection or a visit save,
+the private Calendar JSON response renders the displayed year's content using
+the same partial as the HTML page. Replace only that content, retain the dialog,
+and preserve the visible day's screen position. Do not rerun startup scrolling
+or navigate to the saved visit's year. Public calendar GETs remain session-free;
+only validated, uncached private routes may return personalized fragments.
+Documents personalized in place revalidate their private route when restored
+from the browser's back/forward cache, including after a session is cleared.
+
 On public calculator pages, the header endpoint can return a private
 continuation only after validating the session. JavaScript accepts only the
 expected local route and preserves calendar presentation parameters. Flash
@@ -204,6 +306,10 @@ then configure these callback URLs:
 CDK enables <tt>FACEBOOK_WEB_LOGIN_WORKAROUND</tt> in staging and production to
 keep the OAuth handoff in Android Chrome. The OAuth request must remain POST- and
 CSRF-protected.
+
+Document CSP must allow form destinations at both <tt>https://www.facebook.com</tt>
+and <tt>https://m.facebook.com</tt>. Chrome checks the redirect chain, and Facebook
+can redirect Android browsers to its mobile host even with the handoff workaround.
 
 Facebook sign-in identifies an existing account only by its provider and user
 ID. Matching an email address never links an existing account automatically.

@@ -3,6 +3,47 @@ require 'ostruct'
 
 class DaysHelperTest < ActionView::TestCase
   include DaysHelper
+
+  test 'freedom of movement tooltips explain the exemption without a false allowance' do
+    person = Person.new(nationality: countries(:Germany))
+    trip = Visit.new(country: countries(:Germany), entry_date: '2027-01-01', exit_date: '2027-04-01')
+    day = Schengen::Days::Calculator.new(person, visits: [trip]).find_by_date(Date.new(2027, 4, 1))
+    I18n.available_locales.each do |locale|
+      I18n.with_locale(locale) do
+        tooltip = day_tooltip(day)
+        assert_includes tooltip, I18n.t('days.tooltip.no_schengen_limit')
+        refute_includes tooltip, I18n.t('days.tooltip.days_used', count: 0)
+        refute_includes tooltip, I18n.l(Date.new(2027, 6, 30), format: :long)
+      end
+    end
+  end
+
+  test 'a tooltip extends an occupied day through its actual last permitted date' do
+    day = OpenStruct.new(the_date: Date.new(2027, 4, 29), schengen?: true, hasCountry?: false,
+                         schengen_days_count: 89, max_remaining_days: 1, overstay_days: 0, remaining_wait: nil)
+    assert_includes day_tooltip(day), 'April 30, 2027'
+    day.max_remaining_days = 0
+    refute_includes day_tooltip(day), 'Can stay:'
+  end
+
+  test 'country labels localize same-day trips and country changes without changing country names' do
+    day = OpenStruct.new
+    germany = OpenStruct.new(name: 'Allemagne')
+    australia = OpenStruct.new(name: 'Australie')
+    I18n.with_locale(:fr) do
+      day.entered_country = germany
+      day.exited_country = australia
+      assert_equal 'Entrée : Allemagne · Sortie : Australie', day_country_name(day)
+      day.exited_country = germany
+      assert_equal 'Entrée et sortie : Allemagne', day_country_name(day)
+      day.entered_country = nil
+      assert_equal 'Allemagne', day_country_name(day)
+      day.exited_country = nil
+      assert_equal 'Hors Schengen', day_country_name(day)
+      day.stayed_country = germany
+      assert_equal 'Allemagne', day_country_name(day)
+    end
+  end
   
   # ====================
   # A. Day Cell Class Tests
@@ -88,7 +129,6 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'France',
       stayed_country: country,
       schengen_days_count: nil,
       max_remaining_days: nil,
@@ -133,7 +173,6 @@ class DaysHelperTest < ActionView::TestCase
     country = OpenStruct.new(name: 'Germany')
     day = OpenStruct.new(
       hasCountry?: true,
-      country_name: 'Germany',
       stayed_country: country,
       the_date: Date.new(2024, 1, 1),
       schengen_days_count: 60,
@@ -234,7 +273,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'France',
+      stayed_country: OpenStruct.new(name: 'France'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -255,7 +294,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Germany',
+      stayed_country: OpenStruct.new(name: 'Germany'),
       user_requires_visa?: true,
       schengen?: true,
       visa: nil,
@@ -276,7 +315,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Italy',
+      stayed_country: OpenStruct.new(name: 'Italy'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -300,7 +339,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Spain',
+      stayed_country: OpenStruct.new(name: 'Spain'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -325,7 +364,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'France',
+      stayed_country: OpenStruct.new(name: 'France'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -350,7 +389,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Germany',
+      stayed_country: OpenStruct.new(name: 'Germany'),
       user_requires_visa?: true,
       schengen?: true,
       visa: visa,
@@ -370,7 +409,7 @@ class DaysHelperTest < ActionView::TestCase
     day = OpenStruct.new(
       the_date: Date.new(2024, 1, 1),
       hasCountry?: true,
-      country_name: 'Australia',
+      stayed_country: OpenStruct.new(name: 'Australia'),
       user_requires_visa?: true,
       schengen?: false,  # Non-Schengen
       visa: nil,

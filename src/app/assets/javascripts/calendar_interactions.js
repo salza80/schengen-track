@@ -10,44 +10,38 @@
       isSelecting: false,
       startDate: null,
       endDate: null,
-      selectedCells: [],
-      longPressTimer: null,
-      longPressTriggered: false,
-      isMobileDevice: 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      selectedCells: []
     },
     
     // Store current visit ID for edit mode
     currentVisitId: null,
+    dialogVersion: 0,
     
     // Initialize on page load
     init: function() {
       var self = this;
       
-      // Only run on calendar view
-      if (!$('.calendar-view-container').length) {
+      // Only bind once; refreshed calendar cells use delegated handlers.
+      if (self.initialized || !$('.calendar-view-container').length) {
         return;
       }
 
+      self.initialized = true;
       ModalInteractions.bindFocusGuard('#visitModal');
+      $('#visitModal').on('modal:form-rendered', function() {
+        document.getElementById('calendar-day-info').hidden = true;
+      });
       
       // Bind click handlers to day cells
       self.bindDayCellClicks();
       
-      // Bind mobile touch handlers for long press
-      if (self.state.isMobileDevice) {
-        self.bindMobileTouchHandlers();
-      } else {
-        // Bind drag-to-select handlers (desktop only)
-        self.bindDragToSelect();
-      }
+      self.bindDragToSelect();
       
-      // Close context menu when clicking outside
-      $(document).on('click', function(e) {
-        if (!$(e.target).closest('#visitContextMenu').length && !$(e.target).closest('.day-cell').length) {
-          $('#visitContextMenu').hide();
-        }
+      $('#visitModal').on('hide.bs.modal', function() {
+        self.dialogVersion += 1;
+        self.cancelFormRequest();
       });
-      
+
       // Close modal cleanup
       $('#visitModal').on('hidden.bs.modal', function() {
         self.resetSelection();
@@ -88,52 +82,25 @@
     bindDayCellClicks: function() {
       var self = this;
       
-      $(document).on('click', '.day-cell', function(e) {
-        // Skip if long press was triggered
-        if (self.state.longPressTriggered) {
-          self.state.longPressTriggered = false;
+      $(document).on('click keydown', '.day-cell', function(e) {
+        if (e.type === 'keydown' && window.CalendarPresentation.moveDay(this, e)) return;
+        if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+        if (self.suppressNextClick && e.type === 'click') {
+          self.suppressNextClick = false;
           return;
         }
-        
         var $cell = $(this);
+        var version = ++self.dialogVersion;
+        window.CalendarPresentation.setActiveDay(this);
         $('#visitModal').data('focus-return', this);
-        
-        // On mobile, first click shows tooltip, second click opens modal
-        if (self.state.isMobileDevice) {
-          var $tooltip = bootstrap.Tooltip.getInstance(this);
-          
-          // Safely check if tooltip is shown
-          var isTooltipShown = false;
-          try {
-            isTooltipShown = $tooltip && $tooltip.tip && $tooltip.tip.classList.contains('show');
-          } catch (e) {
-            // Tooltip not initialized or structure changed
-            isTooltipShown = false;
-          }
-          
-          // If tooltip is not shown, show it
-          if (!isTooltipShown) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Hide all other tooltips
-            $('.day-cell').tooltip('hide');
-            
-            // Show this tooltip
-            $cell.tooltip('show');
-            
-            // Auto-hide after 3 seconds
-            setTimeout(function() {
-              $cell.tooltip('hide');
-            }, 3000);
-            
-            return;
-          }
-          
-          // If tooltip is already shown, proceed to open modal
-          $cell.tooltip('hide');
-        }
-        
+        if (!$('#visitModal').is('[data-nationality-required]')) self.showLoading();
+        self.showDayInfo($cell.data('date'));
+        $('.day-cell').each(function() {
+          var tooltip = bootstrap.Tooltip.getInstance(this);
+          if (tooltip) tooltip.hide();
+        });
+        $('#visitModal').modal('show');
+
         e.preventDefault();
         e.stopPropagation();
         
@@ -141,8 +108,20 @@
         
         if (!date) return;
         
+        if ($('#visitModal').is('[data-nationality-required]')) {
+          self.openAddModal(date, date);
+          return;
+        }
         // Check if this day has visits
-        self.checkVisitsForDate(date, function(visits) {
+        self.checkVisitsForDate(date, function(visits, error) {
+          var modal = bootstrap.Modal.getInstance(document.getElementById('visitModal'));
+          if (self.dialogVersion !== version || self.selectedDate !== date || !modal || !modal._isShown) return;
+          if (error) {
+            self.showLoadError(function() {
+              document.querySelector('.day-cell[data-date="' + date + '"]').click();
+            });
+            return;
+          }
           if (visits.length === 0) {
             // No visits - open ADD modal
             self.openAddModal(date, date);
@@ -150,84 +129,25 @@
             // Single visit - open EDIT modal
             self.openEditModal(visits[0].id);
           } else {
-            // Multiple visits - show context menu
-            self.showContextMenu($cell, visits);
+            // Border day - choose a visit in the dialog
+            self.showVisitChoices(visits);
           }
         });
       });
-    },
-    
-    // Bind mobile touch handlers for long press
-    bindMobileTouchHandlers: function() {
-      var self = this;
-      var longPressDuration = 500; // milliseconds
-      
-      $(document).on('touchstart', '.day-cell', function(e) {
-        var $cell = $(this);
-        self.state.longPressTriggered = false;
-        $('#visitModal').data('focus-return', this);
-        
-        // Start long press timer
-        self.state.longPressTimer = setTimeout(function() {
-          self.state.longPressTriggered = true;
-          
-          // Vibrate if supported
-          if (navigator.vibrate) {
-            navigator.vibrate(50);
-          }
-          
-          // Hide tooltip if shown
-          $cell.tooltip('hide');
-          
-          // Trigger add/edit visit
-          var date = $cell.data('date');
-          if (!date) return;
-          
-          self.checkVisitsForDate(date, function(visits) {
-            if (visits.length === 0) {
-              self.openAddModal(date, date);
-            } else if (visits.length === 1) {
-              self.openEditModal(visits[0].id);
-            } else {
-              self.showContextMenu($cell, visits);
-            }
-          });
-        }, longPressDuration);
-        
-        // Visual feedback - add pressing class
-        $cell.addClass('long-pressing');
-      });
-      
-      $(document).on('touchend touchcancel', '.day-cell', function(e) {
-        // Clear timer
-        if (self.state.longPressTimer) {
-          clearTimeout(self.state.longPressTimer);
-          self.state.longPressTimer = null;
-        }
-        
-        // Remove visual feedback
-        $(this).removeClass('long-pressing');
-      });
-      
-      // Prevent default touch behavior on cells
-      $(document).on('touchmove', '.day-cell', function(e) {
-        if (self.state.longPressTimer) {
-          clearTimeout(self.state.longPressTimer);
-          self.state.longPressTimer = null;
-          $(this).removeClass('long-pressing');
-        }
+      $(document).on('focusin', '.day-cell', function() {
+        window.CalendarPresentation.setActiveDay(this);
       });
     },
     
     // Bind drag-to-select functionality
     bindDragToSelect: function() {
       var self = this;
-      var isMouseDown = false;
-      
-      $(document).on('mousedown', '.day-cell', function(e) {
-        if (e.which !== 1) return; // Only left mouse button
+
+      $(document).on('pointerdown', '.day-cell', function(e) {
+        var pointer = e.originalEvent || e;
+        if (pointer.pointerType !== 'mouse' || pointer.button !== 0) return;
+        self.suppressNextClick = false;
         
-        isMouseDown = true;
         self.state.isSelecting = true;
         self.state.startDate = $(this).data('date');
         self.state.selectedCells = [this];
@@ -236,8 +156,8 @@
         e.preventDefault();
       });
       
-      $(document).on('mouseover', '.day-cell', function() {
-        if (!isMouseDown || !self.state.isSelecting) return;
+      $(document).on('pointerover', '.day-cell', function(e) {
+        if (!self.state.isSelecting || (e.originalEvent || e).pointerType !== 'mouse') return;
         
         var currentDate = $(this).data('date');
         if (!currentDate) return;
@@ -246,20 +166,29 @@
         self.updateSelection(self.state.startDate, currentDate);
       });
       
-      $(document).on('mouseup', function() {
-        if (!isMouseDown) return;
-        
-        isMouseDown = false;
+      $(document).on('pointerup', function(e) {
+        if (!self.state.isSelecting || (e.originalEvent || e).pointerType !== 'mouse') return;
         
         if (self.state.isSelecting && self.state.selectedCells.length > 1) {
           // Multi-day selection completed
           var dates = self.getSelectedDateRange();
           $('#visitModal').data('focus-return', self.state.selectedCells[0]);
+          // A drag's click may target the grid rather than either day cell.
+          self.suppressNextClick = true;
+          setTimeout(function() { self.suppressNextClick = false; }, 0);
           self.openAddModal(dates.start, dates.end);
         }
         
         self.resetSelection();
       });
+
+      function cancelDrag() {
+        if (self.state.isSelecting) self.resetSelection();
+      }
+      $(document).on('pointercancel', function(e) {
+        if ((e.originalEvent || e).pointerType === 'mouse') cancelDrag();
+      });
+      $(window).on('blur', cancelDrag);
     },
     
     // Update visual selection during drag
@@ -270,7 +199,7 @@
       var isReverse = current < start;
       
       // Clear previous selection
-      $('.day-cell').removeClass('selecting selected');
+      $('.day-cell').removeClass('selecting');
       self.state.selectedCells = [];
       
       // Select all cells in range
@@ -306,9 +235,34 @@
       this.state.startDate = null;
       this.state.endDate = null;
       this.state.selectedCells = [];
-      $('.day-cell').removeClass('selecting selected');
+      $('.day-cell').removeClass('selecting');
     },
     
+    showDayInfo: function(date, activateDay) {
+      this.selectedDate = date;
+      var cell = /^\d{4}-\d{2}-\d{2}$/.test(date || '') && document.querySelector('.day-cell[data-date="' + date + '"]');
+      var summary = document.getElementById('calendar-day-info');
+      summary.hidden = !cell || !!document.querySelector('#calendar-visit-form form[data-visit-form], #calendar-visit-form form[data-inline-visa-form]');
+      summary.querySelector('[data-day-add-visa]').hidden = !cell || !cell.hasAttribute('data-visa-missing');
+      if (!cell) return;
+      if (activateDay !== false) window.CalendarPresentation.setActiveDay(cell);
+      var parts = date.split('-').map(Number);
+      document.getElementById('calendar-day-info-date').textContent = new Intl.DateTimeFormat(
+        document.documentElement.lang, { dateStyle: 'long' }
+      ).format(new Date(parts[0], parts[1] - 1, parts[2]));
+      document.getElementById('calendar-day-info-content').replaceChildren(window.DOMPurify.sanitize(
+        cell.getAttribute('data-bs-title'), {
+          ALLOWED_TAGS: ['strong', 'span', 'br'], ALLOWED_ATTR: ['class'], RETURN_DOM_FRAGMENT: true
+        }
+      ));
+    },
+
+    showLoading: function() {
+      $('#calendar-visit-form').text($('#calendar-content').data('loading'));
+      $('#saveVisitButton').prop('disabled', true);
+      $('#deleteVisitButton').hide();
+    },
+
     // Check if date has visits (AJAX call)
     checkVisitsForDate: function(date, callback) {
       var locale = $('html').attr('lang') || 'en';
@@ -320,10 +274,7 @@
         success: function(visits) {
           callback(visits);
         },
-        error: function() {
-          console.error('Failed to fetch visits for date:', date);
-          callback([]);
-        }
+        error: function() { callback(null, true); }
       });
     },
     
@@ -331,7 +282,9 @@
     openAddModal: function(entryDate, exitDate) {
       var self = this;
       self.currentVisitId = null; // Clear current visit ID
+      self.showDayInfo(entryDate);
       if ($('#visitModal').is('[data-nationality-required]')) {
+        self.dialogVersion += 1;
         var $preferenceForm = $('#visitModal .calculator-nationality-form');
         $preferenceForm.find('input[name="entry_date"], input[name="exit_date"], input[data-viewer-continuation="true"]').remove();
         var viewerParams = new URLSearchParams(window.location.search);
@@ -343,7 +296,12 @@
           if ($input.length) {
             $input.val(value);
           } else {
-            $preferenceForm.append($('<input>', { type: 'hidden', name: name, value: value, 'data-viewer-continuation': 'true' }));
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            input.dataset.viewerContinuation = 'true';
+            $preferenceForm.get(0).appendChild(input);
           }
         });
         if (entryDate) {
@@ -357,16 +315,7 @@
         return;
       }
       var locale = $('html').attr('lang') || 'en';
-      ModalInteractions.loadForm({
-        url: '/' + locale + '/visits/new.js',
-        data: { 
-          entry_date: entryDate,
-          exit_date: exitDate
-        },
-        deleteButtonSelector: '#deleteVisitButton',
-        showDeleteButton: false,
-        errorMessage: 'Failed to open visit form. Please try again.'
-      });
+      self.loadVisitForm('/' + locale + '/visits/new.json', { entry_date: entryDate, exit_date: exitDate }, false);
     },
     
     // Open EDIT modal
@@ -374,91 +323,74 @@
       var self = this;
       self.currentVisitId = visitId; // Store current visit ID
       var locale = $('html').attr('lang') || 'en';
-      ModalInteractions.loadForm({
-        url: '/' + locale + '/visits/' + visitId + '/edit.js',
+      self.loadVisitForm('/' + locale + '/visits/' + visitId + '/edit.json', {}, true);
+    },
+
+    loadVisitForm: function(url, data, showDelete) {
+      var self = this;
+      var version = ++self.dialogVersion;
+      self.cancelFormRequest();
+      $('#saveVisitButton').show();
+      self.showLoading();
+      $('#visitModal').modal('show');
+      self.formRequest = ModalInteractions.loadForm({
+        url: url,
+        data: data,
+        dataType: 'json',
+        isCurrent: function() { return self.isDialogCurrent(version); },
+        onSuccess: window.CalendarRefresh.showForm,
+        onError: function() { self.showLoadError(function() { self.loadVisitForm(url, data, showDelete); }); },
         deleteButtonSelector: '#deleteVisitButton',
-        showDeleteButton: true,
-        errorMessage: 'Failed to open visit form. Please try again.'
+        showDeleteButton: showDelete
       });
     },
+
+    cancelFormRequest: function() {
+      if (this.formRequest) this.formRequest.abort();
+      this.formRequest = null;
+    },
+
+    showLoadError: function(retry) {
+      var messages = document.getElementById('calendar-content').dataset;
+      var container = document.getElementById('calendar-visit-form');
+      var error = document.createElement('p');
+      error.setAttribute('role', 'alert');
+      error.textContent = messages.formError;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn btn-outline-primary';
+      button.textContent = messages.retry;
+      button.addEventListener('click', retry, { once: true });
+      container.replaceChildren(error, button);
+      $('#saveVisitButton').prop('disabled', true);
+      $('#deleteVisitButton').hide();
+    },
+
+    isDialogCurrent: function(version) {
+      var modal = bootstrap.Modal.getInstance(document.getElementById('visitModal'));
+      return this.dialogVersion === version && modal && modal._isShown;
+    },
     
-    // Show context menu for multiple visits
-    showContextMenu: function($cell, visits) {
-      var $menu = $('#visitContextMenu');
-      var $list = $menu.find('ul');
-      
-      // Clear existing items
-      $list.empty();
-      
-      // Add menu items for each visit
-      visits.forEach(function(visit, index) {
-        var $item = $('<li></li>');
-        $item.html(
-          '<div class="visit-country">' + visit.country_name + '</div>' +
-          '<div class="visit-dates">' + visit.entry_date + ' - ' + visit.exit_date + '</div>'
-        );
-        
-        $item.on('click', function(e) {
-          e.stopPropagation();
-          $menu.hide();
-          CalendarInteractions.openEditModal(visit.id);
-        });
-        
-        $list.append($item);
-        
-        // Add divider between items (except last)
-        if (index < visits.length - 1) {
-          $list.append('<li class="divider"></li>');
-        }
+    // Border days can belong to more than one visit. Keep the choice in the dialog.
+    showVisitChoices: function(visits) {
+      var $list = $('<div>', { class: 'list-group' });
+      visits.forEach(function(visit) {
+        $('<button>', { type: 'button', class: 'list-group-item list-group-item-action' })
+          .text(visit.country_name + ' · ' + visit.date_range_label)
+          .on('click', function() { CalendarInteractions.openEditModal(visit.id); })
+          .appendTo($list);
       });
-      
-      // Show menu to get its dimensions
-      $menu.show();
-      
-      // Get cell position relative to viewport
-      var cellRect = $cell[0].getBoundingClientRect();
-      var menuWidth = $menu.outerWidth();
-      var menuHeight = $menu.outerHeight();
-      
-      // Calculate initial position (below cell, centered)
-      var menuLeft = cellRect.left + (cellRect.width / 2) - (menuWidth / 2);
-      var menuTop = cellRect.bottom + 5;
-      
-      // Adjust horizontal position if menu would go off screen
-      if (menuLeft + menuWidth > $(window).width()) {
-        menuLeft = $(window).width() - menuWidth - 10;
-      }
-      if (menuLeft < 10) {
-        menuLeft = 10;
-      }
-      
-      // Adjust vertical position if menu would go off bottom of screen
-      if (menuTop + menuHeight > $(window).height()) {
-        // Position above the cell instead
-        menuTop = cellRect.top - menuHeight - 5;
-        
-        // If still off screen, position at top of viewport
-        if (menuTop < 10) {
-          menuTop = 10;
-        }
-      }
-      
-      // Apply position
-      $menu.css({
-        left: menuLeft + 'px',
-        top: menuTop + 'px'
-      });
+      $('#calendar-visit-form').empty().append($list);
+      this.showDayInfo(this.selectedDate, false);
+      $('#deleteVisitButton, #saveVisitButton').hide();
+      $('#visitModal').modal('show');
     }
   };
   
+  window.CalendarInteractions = CalendarInteractions;
+
   // Initialize when document is ready
   $(document).ready(function() {
     CalendarInteractions.init();
   });
-  
-  // Also initialize on turbolinks page load (if using turbolinks)
-  $(document).on('turbolinks:load', function() {
-    CalendarInteractions.init();
-  });
-  
 })();

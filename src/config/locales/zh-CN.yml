@@ -21,7 +21,6 @@ zh-CN:
     cancel: 取消
     choose_nationality: 选择您的国籍
     confirm_delete: 确认删除
-    continent: 大陆
     continue: 继续
     country: 国家
     current_traveler: 当前旅行者
@@ -105,6 +104,7 @@ zh-CN:
       long: "%Y年%B%d日"
       month_year: "%Y年%B"
       short: "%m月%d日"
+      travel: "%Y年%b%d日"
     month_names:
     -
     - 一月

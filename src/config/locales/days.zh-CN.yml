@@ -1,10 +1,14 @@
 ---
 zh-CN:
   days:
+    country_labels:
+      country_change: 入境：%{entered_country} · 出境：%{exited_country}
+      same_day_trip: 入境及出境：%{country}
     current_status: 当前状态
     days_remaining: 剩余天数
     days_used: 已用天数
     entry_limit_exceeded: 超出入境次数限制
+    form_error: 无法加载信息。请重试。
     from_date_onwards: 从 %{date} 起
     full_stay: 整整90天！
     go_to_visas: 前往签证
@@ -15,6 +19,7 @@ zh-CN:
     legend_overstay: 超期停留
     legend_safe: 在申根区（安全）
     legend_waiting: 等待期
+    loading: 正在加载…
     max_days_reached: 峰值
     max_remaining_days: 最大剩余天数 - 如果您在此日期重新进入，您可以在申根区停留的最长时间。
     meta_description: 使用可视化申根日历计算90/180天规则。添加过去和未来的旅行，查看已使用天数，并规划下次入境日期。
@@ -26,6 +31,12 @@ zh-CN:
     overstay_tooltip: 您已超过90/180天规定
     page_description: 使用此交互式申根日历记录旅行、计算滚动90/180天停留额度，并规划未来行程。
     page_title: 申根90/180天计算器
+    refresh_error: 无法刷新日历。请重试以查看最新结果。
+    retry: 重试
+    save_error: 无法保存更改。请检查网络连接后重试。
+    saved: 已保存。
+    saved_refresh_error: 更改已保存。请重试以更新日历总计。
+    saving: 正在保存…
     schengen_days_in_year: 在申根区的天数
     schengen_no: 否
     schengen_yes: 是
@@ -50,12 +61,14 @@ zh-CN:
       days_used: 已用天数：%{count}/90
       entries: 入境次数：%{count}/%{total}
       entries_exceeded: 入境次数超限：%{count}/%{total}
+      no_schengen_limit: 申根区每180天内停留90天的限制不适用于您的国籍。
       no_visa: 无签证
       outside_visa: 超出签证有效期
       overstay: 申根逗留超限：+%{days} 天
       valid_visa: 签证有效
       wait: 等待：%{days} 天
     until_date: 直到 %{date}
+    updating: 已保存。正在更新总计…
     view_table: 表格视图
     visa_ok_tooltip: 您截至今天拥有有效签证
     visa_status_label: 签证状态

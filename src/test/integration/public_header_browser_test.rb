@@ -434,13 +434,9 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     find('[data-action="add-visit"]', match: :first).click
     assert_selector '#visitModal.show', text: I18n.t('visits.add_record', locale: :en)
     assert_no_selector '#visitModal .nationality-step-form'
-    select '2027', from: 'visit_entry_date_1i'
-    select 'January', from: 'visit_entry_date_2i'
-    select '10', from: 'visit_entry_date_3i'
-    select '2027', from: 'visit_exit_date_1i'
-    select 'January', from: 'visit_exit_date_2i'
-    select '15', from: 'visit_exit_date_3i'
-    select 'Germany', from: 'visit_country_id'
+    fill_in 'visit_entry_date', with: Date.iso8601('2027-01-10')
+    fill_in 'visit_exit_date', with: Date.iso8601('2027-01-15')
+    choose_visit_country('Germany')
     find('#saveVisitButton').click
 
     assert_selector '#personDropdown', text: 'Guest User', wait: 10
@@ -710,7 +706,7 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
     assert find('#visaModal .alert-danger').visible?
   end
 
-  test 'touch calendar shows a tooltip before opening the visit modal on the second tap' do
+  test 'touch calendar opens the visit modal and day details on the first tap' do
     page.driver.browser.execute_cdp('Emulation.setTouchEmulationEnabled', enabled: true, maxTouchPoints: 1)
     page.current_window.resize_to(390, 844)
     user_login
@@ -719,12 +715,9 @@ class PublicHeaderBrowserTest < JavascriptIntegrationTest
 
     # Dispatch a tap without Selenium moving a mouse over the cell first.
     page.execute_script('arguments[0].click()', cell)
-    assert_selector '.tooltip.show .tooltip-inner strong'
-    assert_equal cell['aria-describedby'], find('.tooltip.show')[:id]
-    assert_no_selector '#visitModal.show'
-
-    page.execute_script('arguments[0].click()', cell)
     assert_selector '#visitModal.show form', wait: 10
+    assert_no_selector '#calendar-day-info'
+    assert_selector '#entry-date-info', text: 'Days used:'
     assert_no_selector '.tooltip.show'
     within('#visitModal') { find('button.btn-close').click }
     assert_no_selector '#visitModal.show'

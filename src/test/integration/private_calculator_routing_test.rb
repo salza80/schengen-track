@@ -3,6 +3,23 @@ require 'test_helper'
 class PrivateCalculatorRoutingTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  test 'language links retain only calendar presentation parameters on public and private routes' do
+    sign_in users(:Sally)
+    get session_header_path(locale: :en)
+    [days_path(locale: :en), private_days_path(locale: :en)].each do |path|
+      get path, params: { year: 2027, month: 4, day: 12, tracking: 'discard-me' }
+      assert_response :success
+      document = Nokogiri::HTML(response.body)
+      links = document.css('.language-select option, .language-links-seo a')
+      links.each do |link|
+        destination = URI.parse(link['value'] || link['href'])
+        assert_equal path.sub('/en/', '/fr/'), destination.path if link['lang'] == 'fr'
+        assert_equal({ 'year' => '2027', 'month' => '4', 'day' => '12' },
+                     Rack::Utils.parse_query(destination.query))
+      end
+    end
+  end
+
   test 'public calculators ignore even a real signed session and preserve it for private access' do
     original_forgery_protection = ActionController::Base.allow_forgery_protection
     ActionController::Base.allow_forgery_protection = true

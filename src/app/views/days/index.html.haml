@@ -15,46 +15,27 @@
   - if @scroll_to_month
     #calendar-scroll-target{data: {month: @scroll_to_month, day: @scroll_to_day}, style: 'display:none'}
   
-  -# Status summary shown whenever the desktop sidebar is hidden
-  = render 'calendar_status_summary'
-  
-  -# Mobile legend (shown only on mobile)
-  .d-lg-none
-    = render 'legend_mobile'
-  
-  .row
-    -# Main calendar area
-    .col-lg-9.calendar-main-area
-      -# Year navigation (top)
-      = render 'year_navigation', position: 'top'
-      
-      -# Year summary banner
-      = render 'calendar_year_summary'
-      
-      -# Calendar months
-      = render 'calendar'
-      
-      -# Year navigation (bottom)
-      = render 'year_navigation', position: 'bottom'
-    
-    -# Sidebar (desktop only)
-    .col-lg-3.d-none.d-lg-block.calendar-sidebar-col
-      = render 'calendar_sidebar'
-  
+  #calendar-content{data: {form_error: t('days.form_error'), refresh_error: t('days.refresh_error'), saved_refresh_error: t('days.saved_refresh_error'), save_error: t('days.save_error'), saving: t('days.saving'), updating: t('days.updating'), retry: t('days.retry'), saved: t('days.saved'), loading: t('days.loading')}}
+    = render 'content'
+  #calendar-feedback{role: 'status', 'aria-live': 'polite'}
+
   -# Modal for adding/editing visits
   - nationality_gate = anonymous_calculator? && !calculator_nationality_selected?
   #visitModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "visitModalLabel", role: "dialog", tabindex: "-1", data: { nationality_required: nationality_gate }}
-    .modal-dialog.modal-lg{role: "document"}
+    .modal-dialog.modal-lg.modal-dialog-scrollable{role: "document"}
       .modal-content
         .modal-header
           %h5#visitModalLabel.modal-title= nationality_gate ? t('common.choose_nationality') : t('visits.add_record')
           %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
 
         .modal-body
-          - if nationality_gate
-            = render 'shared/calculator_nationality_step', destination: 'calendar'
-          - else
-            -# Form will be loaded here via AJAX
+          #calendar-day-info.border-bottom.pb-3.mb-3{hidden: true}
+            %h6#calendar-day-info-date
+            #calendar-day-info-content
+            = link_to t('visits.add_visa'), calculator_visits_path(locale: I18n.locale, open: 'visa', anchor: 'visas'), class: 'btn btn-outline-primary mt-2', hidden: true, data: {day_add_visa: true}
+          #calendar-visit-form
+            - if nationality_gate
+              = render 'shared/calculator_nationality_step', destination: 'calendar'
         .modal-footer.d-flex.justify-content-between
           %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button", "aria-label": t('common.cancel')}= t('common.cancel')
           .ms-auto
@@ -65,11 +46,6 @@
               %i.fa.fa-save.me-1{"aria-hidden" => "true"}
               = nationality_gate ? t('common.continue') : t('common.save')
   
-  -# Context menu for days with multiple visits
-  #visitContextMenu.context-menu{style: "display: none", role: "menu", "aria-label": t('visits.travel_record')}
-    %ul.list-unstyled.mb-0{role: "list"}
-      -# Will be populated dynamically via JavaScript
-
   -# Modal for delete confirmation
   #deleteModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "deleteModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog{role: "document"}

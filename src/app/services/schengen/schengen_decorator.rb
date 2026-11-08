@@ -19,6 +19,7 @@ module Schengen
     end
 
     attr_accessor :schengen_days
+    attr_accessor :schengen_days_exclude_shared_entry
     attr_accessor :no_days_continuous_in_schengen
 
     def visit_check?

@@ -28,6 +28,12 @@ class CountryCatalogTest < ActiveSupport::TestCase
     assert_equal 'États-Unis', country.name
   end
 
+  test 'unsupported locale paths use the default catalogue' do
+    ['../en', 'en/../../Gemfile', 'en\\..\\Gemfile'].each do |locale|
+      assert_equal CountryCatalog.all(locale: :en), CountryCatalog.all(locale: locale)
+    end
+  end
+
   test 'plural nationality slugs retain their canonical compatibility' do
     country = CountryCatalog.find_by_nationality_slug('Americans')
 
@@ -35,16 +41,12 @@ class CountryCatalogTest < ActiveSupport::TestCase
     assert_equal 'American', country.nationality
   end
 
-  test 'continent filtering returns catalogue entries without database relations' do
-    european_countries = CountryCatalog.for_continent('EU')
-
-    assert_includes european_countries.map(&:country_code), 'DE'
-    assert european_countries.all? { |country| country.continent_code == 'EU' }
-  end
-
-  test 'continents are localized in generated catalogues' do
-    europe = CountryCatalog.continents(locale: :de).find { |continent| continent.code == 'EU' }
-
-    assert_equal 'Europa', europe.name
+  test 'search options include all countries and use localized names without SQL' do
+    options = nil
+    queries = capture_database_queries { options = CountryCatalog.country_options(locale: :de) }
+    assert_empty queries
+    assert_equal CountryCatalog.all(locale: :de).map(&:country_code).sort, options.map { |option| option[:country_code] }.sort
+    assert_equal({ country_code: 'DE', name: 'Deutschland' }, options.find { |option| option[:country_code] == 'DE' })
+    assert_equal({ country_code: 'IN', name: 'Indien' }, options.find { |option| option[:country_code] == 'IN' })
   end
 end

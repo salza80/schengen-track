@@ -16,7 +16,6 @@ ar:
     cancel: إلغاء
     choose_nationality: اختر جنسيتك
     confirm_delete: تأكيد الحذف
-    continent: قارة
     continue: متابعة
     country: دولة
     current_traveler: المسافر الحالي
@@ -100,6 +99,7 @@ ar:
       long: "%e %B %Y"
       month_year: "%B %Y"
       short: "%b %d"
+      travel: "%d %b %Y"
     month_names:
     -
     - يناير

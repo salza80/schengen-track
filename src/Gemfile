@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.0'
 # gem 'sdoc', group: :doc
 
 gem 'haml-rails', '~> 3.0'
+# Haml 7.5.2 handles Prism 2's tokens in nested attribute hashes.
+gem 'haml', '~> 7.5', '>= 7.5.2'
 gem 'bootstrap', '~> 5.3', '>= 5.3.8'
 gem "devise", ">= 4.9.2"
 gem 'nokogiri', '>= 1.19.7'
@@ -52,8 +54,8 @@ group :development, :test do
 end
 
 group :test do
-  # Minitest 6 also keeps Prism on the 1.x API required by Haml 7.5.
-  gem 'minitest', '~> 6.0'
+  # Minitest 6.1 supports Prism 2 alongside Haml's updated parser.
+  gem 'minitest', '~> 6.1'
   # Minitest 6 ships mocks and Object#stub in a separate gem.
   gem 'minitest-mock', '~> 5.27', require: 'minitest/mock'
   gem 'ostruct'

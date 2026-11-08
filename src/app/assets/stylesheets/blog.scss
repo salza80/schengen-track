@@ -1,6 +1,6 @@
 // Blog and article styling - Standalone bundle for blogs#show
 // Note: .page-sidebar styles are in application.scss (shared component)
-@import "variables";
+@use "theme" as *;
 
 // Blog and article styling for better visual appeal and SEO
 

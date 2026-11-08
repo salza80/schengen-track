@@ -1,0 +1,34 @@
+// Bootstrap 5.3 still requires shared globals and legacy imports. Keep that
+// boundary here until Bootstrap supports Sass modules; app styles use @use.
+@import "theme";
+
+// Preserve the selected components and theme override order.
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/variables-dark";
+@import "bootstrap/maps";
+@import "bootstrap/mixins";
+@import "bootstrap/utilities";
+@import "bootstrap/root";
+@import "bootstrap/reboot";
+@import "bootstrap/type";
+@import "bootstrap/images";
+@import "bootstrap/containers";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+@import "bootstrap/transitions";
+@import "bootstrap/dropdown";
+@import "bootstrap/button-group";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/card";
+@import "bootstrap/list-group";
+@import "bootstrap/badge";
+@import "bootstrap/alert";
+@import "bootstrap/modal";
+@import "bootstrap/tooltip";
+@import "bootstrap/close";
+@import "bootstrap/helpers";
+@import "bootstrap/utilities/api";

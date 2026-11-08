@@ -6,6 +6,7 @@ ENV['FACEBOOK_SECRET'] = 'test-facebook-client-secret' if ENV['FACEBOOK_SECRET']
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'capybara/minitest'
 require 'active_support/testing/time_helpers'
 
 # Configure Capybara for JavaScript testing
@@ -156,6 +157,10 @@ end
 
 # Base class for JavaScript-enabled integration tests
 class JavascriptIntegrationTest < ActionDispatch::IntegrationTest
+  # Capybara also defines assert_select for <select> controls. Keep these
+  # wrappers off Rails request tests, whose assert_select checks response HTML.
+  include Capybara::Minitest::Assertions
+
   def setup
     Capybara.current_driver = Capybara.javascript_driver
     # Explicitly set app_host to match the server host

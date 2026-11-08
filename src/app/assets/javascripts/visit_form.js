@@ -56,6 +56,13 @@
           warning.textContent = details ? details[kind] || '' : '';
           warning.hidden = !details || !details[kind];
         });
+        var departure = result.departure_info;
+        info.querySelector('[data-departure-info]').hidden = !departure;
+        info.querySelector('[data-departure-days-used]').textContent = departure ? departure.days_used : '';
+        info.querySelector('[data-departure-remaining]').textContent = departure ? departure.remaining : '';
+        var departureWarning = info.querySelector('[data-departure-overstay]');
+        departureWarning.textContent = departure ? departure.overstay || '' : '';
+        departureWarning.hidden = !departure || !departure.overstay;
         info.querySelector('[data-entry-allowance]').hidden = !result.show || result.max_days <= 0;
         info.hidden = !details && (!result.show || result.max_days <= 0);
       }
@@ -66,6 +73,7 @@
         info.hidden = true;
         if (!entry.value || !entry.validity.valid) return;
         var data = { date: entry.value };
+        if (exit.value && exit.validity.valid) data.exit_date = exit.value;
         if (countryCode) data.country_code = countryCode;
         if (form.dataset.visitId) data.visit_id = form.dataset.visitId;
         maxStayRequest = $.ajax({
@@ -97,7 +105,7 @@
         });
       }
 
-      $form.find('#visit_entry_date, #visit_country_code')
+      $form.find('#visit_entry_date, #visit_exit_date, #visit_country_code')
         .on('change', updateMaxStayInfo);
       $form.on('visit:refresh-info', updateMaxStayInfo);
       updateMaxStayInfo();

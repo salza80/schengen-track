@@ -93,13 +93,27 @@ the viewed year, month and day. Country-change labels belong to
 <tt>DaysHelper#day_country_name</tt> and the existing locale files, so cells,
 tooltips and dialog summaries share the same translation.
 Dialog controls use outlined white fields from <tt>calculator_forms.scss</tt>.
-A separate information panel below the fields follows the current entry date
-and country, using the allowance endpoint's entry and visa information. Keep
-the selected-day summary for the nationality/visit-choice steps only; the visit
+A separate information panel below the fields follows the draft dates and
+country. It separates entry and visa information from the departure day's
+usage, remaining days and overstay warning. The allowance endpoint replaces an
+edited record with an unsaved draft for that preview and never writes records.
+Overlapping drafts use the model's overlap rule and omit the departure preview
+until their dates can be calculated as a valid itinerary.
+Keep the selected-day summary for the nationality/visit-choice steps only; the visit
 form's date fields provide that context once editing begins.
 Calendar tooltips and that information panel share warning messages through
 <tt>DaysHelper#day_warnings</tt>. A next-trip constraint never grants a positive
 Schengen allowance when the calculated allowance is exhausted.
+Next-trip limits include the shared departure/entry date, matching visit overlap
+validation. Freedom-of-movement calendar days show no 90/180-day deadline.
+Visit totals that exclude an arrival in Schengen on the shared departure date
+carry an explanatory note; the calendar includes that arrival in its daily total.
+<tt>Schengen::Days::Calculator#maximum_stay_from</tt> owns the inclusive
+arrival-to-departure allowance. Its forecast uses only actual historical days
+leaving the rolling 180-day window; recorded future trips never replenish it.
+For days already spent in Schengen, <tt>max_remaining_days</tt> describes the
+additional days after that date. Popups use the inclusive stay length, while
+calendar tooltips account for the day already counted.
 <tt>visit_visa_flow.js</tt> owns the Add Visa substep shared by Calendar and Trips.
 It retains the original visit form DOM while loading a JSON visa form; Back,
 Escape, validation and successful saves preserve the visit draft. The owning

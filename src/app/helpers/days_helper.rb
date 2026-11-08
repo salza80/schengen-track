@@ -35,6 +35,11 @@ module DaysHelper
     parts = []
 
     parts << content_tag(:strong, day_country_name(day)) if day.hasCountry?
+
+    if day.freedom_of_movement?
+      parts << t('days.tooltip.no_schengen_limit')
+      return safe_join(parts, tag.br)
+    end
     
     # Visa information (if applicable)
     if day.respond_to?(:user_requires_visa?) && day.user_requires_visa?
@@ -66,8 +71,8 @@ module DaysHelper
     
     # Show max remaining days
     remaining_days = day.max_remaining_days || (day.schengen? ? 90 : nil)
-    if remaining_days && day.the_date
-      exit_date = l(day.the_date + (remaining_days - 1).days, format: :long)
+    if remaining_days&.positive? && day.the_date
+      exit_date = l(day.the_date + remaining_days - (day.schengen? ? 0 : 1), format: :long)
       exit_date_span = content_tag(:span, exit_date, style: 'white-space: nowrap;')
       parts << t('days.tooltip.can_stay_html', days: remaining_days, date: exit_date_span).html_safe
     end

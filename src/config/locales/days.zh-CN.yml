@@ -61,6 +61,7 @@ zh-CN:
       days_used: 已用天数：%{count}/90
       entries: 入境次数：%{count}/%{total}
       entries_exceeded: 入境次数超限：%{count}/%{total}
+      no_schengen_limit: 申根区每180天内停留90天的限制不适用于您的国籍。
       no_visa: 无签证
       outside_visa: 超出签证有效期
       overstay: 申根逗留超限：+%{days} 天

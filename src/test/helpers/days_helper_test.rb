@@ -4,6 +4,28 @@ require 'ostruct'
 class DaysHelperTest < ActionView::TestCase
   include DaysHelper
 
+  test 'freedom of movement tooltips explain the exemption without a false allowance' do
+    person = Person.new(nationality: countries(:Germany))
+    trip = Visit.new(country: countries(:Germany), entry_date: '2027-01-01', exit_date: '2027-04-01')
+    day = Schengen::Days::Calculator.new(person, visits: [trip]).find_by_date(Date.new(2027, 4, 1))
+    I18n.available_locales.each do |locale|
+      I18n.with_locale(locale) do
+        tooltip = day_tooltip(day)
+        assert_includes tooltip, I18n.t('days.tooltip.no_schengen_limit')
+        refute_includes tooltip, I18n.t('days.tooltip.days_used', count: 0)
+        refute_includes tooltip, I18n.l(Date.new(2027, 6, 30), format: :long)
+      end
+    end
+  end
+
+  test 'a tooltip extends an occupied day through its actual last permitted date' do
+    day = OpenStruct.new(the_date: Date.new(2027, 4, 29), schengen?: true, hasCountry?: false,
+                         schengen_days_count: 89, max_remaining_days: 1, overstay_days: 0, remaining_wait: nil)
+    assert_includes day_tooltip(day), 'April 30, 2027'
+    day.max_remaining_days = 0
+    refute_includes day_tooltip(day), 'Can stay:'
+  end
+
   test 'country labels localize same-day trips and country changes without changing country names' do
     day = OpenStruct.new
     germany = OpenStruct.new(name: 'Allemagne')

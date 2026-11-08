@@ -9,6 +9,10 @@ class Visit < ApplicationRecord
   
   default_scope { order('entry_date ASC, exit_date ASC, id ASC') }
 
+  def self.allowed_date_range
+    (Date.today - 20.years)..(Date.today + 20.years)
+  end
+
   # initialise a new visit
 
   def self.with_default(person, visits: person.visits)
@@ -143,9 +147,9 @@ class Visit < ApplicationRecord
     end
   end
 
-  def date_overlap?
-    return false unless person
-    vis = person.visits.find_by_date(entry_date, exit_date)
+  def date_overlap?(visits: person&.visits)
+    return false unless visits
+    vis = visits.find_by_date(entry_date, exit_date)
     vis = vis.select { |v|  v != self && v.exit_date != entry_date && v.entry_date != exit_date }
     vis.count > 0
   end
@@ -166,14 +170,13 @@ class Visit < ApplicationRecord
   end
 
   def dates_must_be_within_reasonable_range
-    cutoff_past = Date.today - 20.years
-    cutoff_future = Date.today + 20.years
+    allowed_dates = self.class.allowed_date_range
 
-    if entry_date.present? && (entry_date < cutoff_past || entry_date > cutoff_future)
+    if entry_date.present? && !allowed_dates.cover?(entry_date)
       errors.add(:entry_date, 'must be within 20 years of today')
     end
 
-    if exit_date.present? && (exit_date < cutoff_past || exit_date > cutoff_future)
+    if exit_date.present? && !allowed_dates.cover?(exit_date)
       errors.add(:exit_date, 'must be within 20 years of today')
     end
   end

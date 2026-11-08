@@ -1,7 +1,8 @@
 - form_format = request.format.json? ? :json : :js
 - visit_form_url = @visit.persisted? ? visit_path(@visit, locale: I18n.locale, format: form_format) : visits_path(locale: I18n.locale, format: form_format)
-- first_date = (Date.today - 20.years).iso8601
-- last_date = (Date.today + 20.years).iso8601
+- allowed_dates = Visit.allowed_date_range
+- first_date = allowed_dates.begin.iso8601
+- last_date = allowed_dates.end.iso8601
 = form_for @visit, url: visit_form_url, remote: true, data: { type: (request.format.json? ? 'json' : nil), calendar_visit_form: request.format.json?, visit_form: true, loading_label: t('days.loading'), form_error: t('days.form_error'), retry_label: t('days.retry'), back_label: t('common.back'), duration_units: t('visits.day_plural'), duration_label: t('visits.stay_duration', days: '__DAYS__', unit: '__UNIT__'), schengen_constraint: t('visits.max_stay_schengen_constraint'), next_visit_constraint: t('visits.max_stay_next_visit_constraint', date: '__DATE__'), days_until: t('visits.max_stay_days_until', days: '__DAYS__', date: '__DATE__'), visit_id: (@visit.id if @visit.persisted?) } do |f|
   - if @visit.errors.any?
     .alert.alert-danger.alert-dismissible.fade.show{role: "alert", "aria-live": "assertive"}
@@ -33,6 +34,11 @@
       %div{data: {entry_visa_entries: true}, hidden: true}
       %div.text-danger-emphasis.fw-semibold{data: {entry_overstay: true}, hidden: true}
       %div.text-warning-emphasis.fw-semibold{data: {entry_wait: true}, hidden: true}
+      .border-top.mt-2.pt-2{data: {departure_info: true}, hidden: true}
+        %strong= t('visits.departure_info')
+        %div{data: {departure_days_used: true}}
+        %div{data: {departure_remaining: true}}
+        %div.text-danger-emphasis.fw-semibold{data: {departure_overstay: true}, hidden: true}
       %div{data: {entry_allowance: true}, hidden: true}
         %strong= t('visits.max_stay_label')
         %span#max-stay-info

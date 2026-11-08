@@ -61,6 +61,7 @@ hi:
       days_used: 'उपयोग किए गए दिन: %{count}/90'
       entries: 'प्रवेश: %{count}/%{total}'
       entries_exceeded: 'प्रवेश सीमा पार: %{count}/%{total}'
+      no_schengen_limit: आपकी राष्ट्रीयता पर शेंगेन की 180 दिनों में 90 दिनों की सीमा लागू नहीं होती।
       no_visa: कोई वीज़ा नहीं
       outside_visa: वीज़ा अवधि के बाहर
       overstay: 'शेंगेन ओवरस्टे: +%{days} दिन'

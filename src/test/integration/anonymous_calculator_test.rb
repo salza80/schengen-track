@@ -3,6 +3,21 @@ require 'test_helper'
 class AnonymousCalculatorTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  test 'an anonymous draft previews its full stay without allocating a user or traveler' do
+    %w[AU IN].each do |nationality|
+      assert_no_difference(['User.count', 'Person.count', 'Visit.count']) do
+        patch calculator_preferences_path(locale: :en, format: :json), params: { nationality_code: nationality }
+        get max_stay_info_visits_path(locale: :en, format: :json), params: {
+          date: '2027-04-01', exit_date: '2027-04-30', country_code: 'DE'
+        }
+        assert_response :success
+        assert_equal 90, response.parsed_body['max_days']
+        assert_equal 'Days used: 1/90', response.parsed_body.dig('entry_info', 'days_used')
+        assert_equal 'Days used: 30/90', response.parsed_body.dig('departure_info', 'days_used')
+      end
+    end
+  end
+
   test 'calendar nationality selection and dated form load use JSON without allocating a guest' do
     assert_no_difference(['User.count', 'Person.count', 'Visit.count']) do
       queries = capture_database_queries do

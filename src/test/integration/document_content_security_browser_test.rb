@@ -368,7 +368,11 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
   end
 
   def touch_tap(element)
-    rect = page.evaluate_script('arguments[0].getBoundingClientRect().toJSON()', element)
+    # Live search can replace options. Re-find before reading geometry; never
+    # retry the touch itself or its assertions.
+    rect = element.synchronize do
+      page.evaluate_script('arguments[0].getBoundingClientRect().toJSON()', element)
+    end
     point = { x: rect['left'] + rect['width'] / 2, y: rect['top'] + rect['height'] / 2 }
     page.driver.browser.execute_cdp('Input.dispatchTouchEvent', type: 'touchStart', touchPoints: [point])
     page.driver.browser.execute_cdp('Input.dispatchTouchEvent', type: 'touchEnd', touchPoints: [])

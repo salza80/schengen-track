@@ -20,6 +20,7 @@ en:
     days: days
     days_overstay: Days Overstay
     days_overstay_tooltip: The number of days inside the Schengen Area not allowed by the Visa's Entered.
+    departure_info: On departure
     edit_title: Edit a Travel Record
     entry_date: Entry date
     entry_info: Entry date information
@@ -46,6 +47,7 @@ en:
     page_title: Track Your Schengen Visits
     reenter_info: If you re-enter the Schengen Area on the %{date}, you can stay for %{max_days} %{day_plural} until %{end_date}.
     register_now: Register now
+    remaining_after_visit: 'Days remaining after this visit: %{count}'
     save_travel_plans: to save your travel plans!
     schengen_area: Schengen Area
     schengen_area_tooltip: Indicates if the country of this visit is included in the Schengen Area.
@@ -54,6 +56,7 @@ en:
     schengen_days_calculation_tooltip: The number of days inside the Schengen Area in the previous 180 days.
     schengen_days_overstay: Overstay Days
     schengen_visa_list: Visas
+    shared_entry_note: Excludes the next visit’s Schengen arrival on this date.
     stay_duration: "%{days} %{unit}, including arrival and departure."
     travel_details: Travel Details
     travel_record: Trips

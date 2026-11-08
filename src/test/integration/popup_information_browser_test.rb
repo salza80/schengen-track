@@ -1,6 +1,82 @@
 require 'test_helper'
 
 class PopupInformationBrowserTest < JavascriptIntegrationTest
+  [390, 1400].each do |width|
+    test "shared border limits and visit attribution are clear at #{width}px" do
+      person = people(:sally_person)
+      person.visits.delete_all
+      [['2027-01-01', '2027-01-10', :Germany], ['2027-01-10', '2027-01-20', :Australia],
+       ['2027-01-20', '2027-01-21', :Germany]].each do |entry, exit_date, country|
+        person.visits.create!(country: countries(country), entry_date: entry, exit_date: exit_date)
+      end
+      page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 844,
+                                      deviceScaleFactor: 1, mobile: width == 390)
+      user_login
+      visit '/en/my/visits'
+      assert_selector '.trips-table .shared-entry-note', text: I18n.t('visits.shared_entry_note'), count: 1
+      find('.trips-table tbody tr', text: '01 Jan 2027').find('.edit-visit-link').click
+      assert_selector '#max-stay-info', text: '10 days until January 10, 2027'
+      find('#max-stay-info .exit-date-link').click
+      assert_equal '2027-01-10', find('#visit_exit_date').value
+      assert_selector '[data-departure-info]', text: 'Days used: 10/90'
+      click_button 'Save'
+      assert_no_selector '#visitModal.show'
+      assert_selector '.trips-table tbody tr', text: '10 Jan 2027'
+    ensure
+      page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
+    end
+
+    test "a saved final visit keeps its allowance and previews departure usage at #{width}px" do
+      person = people(:sally_person)
+      person.visits.delete_all
+      [['2027-01-01', '2027-01-30'], ['2027-02-10', '2027-03-11']].each do |entry, exit|
+        person.visits.create!(country: countries(:Germany), entry_date: entry, exit_date: exit)
+      end
+      page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: width, height: 844,
+                                      deviceScaleFactor: 1, mobile: width == 390)
+      user_login
+      visit '/en/my/days?year=2027&month=4&day=1'
+      find('[data-date="2027-04-01"]').click
+      assert_selector 'form[data-visit-form-initialized="true"]'
+      fill_in 'visit_exit_date', with: Date.new(2027, 4, 30)
+      choose_visit_country('Germany')
+      assert_selector '#max-stay-info', text: '30 days until April 30, 2027'
+      assert_selector '[data-departure-info]', text: 'Days used: 90/90'
+      assert_selector '[data-departure-remaining]', text: 'Days remaining after this visit: 0'
+      click_button 'Save'
+      assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
+      assert_selector '[data-date="2027-04-30"] .day-count', text: '90'
+
+      find('[data-date="2027-04-30"]').click
+      assert_selector '#entry-date-info [data-entry-days-used]', text: 'Days used: 61/90'
+      assert_selector '#max-stay-info', text: '30 days until April 30, 2027'
+      fill_in 'visit_exit_date', with: Date.new(2027, 5, 1)
+      assert_selector '[data-departure-info]', text: 'Days used: 91/90'
+      assert_selector '[data-departure-overstay]', text: I18n.t('days.tooltip.overstay', days: 1)
+      find('#max-stay-info .exit-date-link').click
+      assert_selector '[data-departure-info]', text: 'Days used: 90/90'
+      assert_no_selector '[data-departure-overstay]'
+      choose_visit_country('Australia')
+      assert_no_selector '#entry-date-info'
+      choose_visit_country('Germany')
+      assert_selector '[data-departure-info]', text: 'Days used: 90/90'
+      fill_in 'visit_entry_date', with: Date.new(2027, 4, 2)
+      fill_in 'visit_exit_date', with: Date.new(2027, 5, 1)
+      assert_selector '#max-stay-info', text: '30 days until May 1, 2027'
+      assert_selector '[data-departure-info]', text: 'Days used: 90/90'
+      within('#visitModal') { click_button 'Cancel' }
+      assert_no_selector '.modal-backdrop'
+
+      visit '/en/my/visits'
+      find('.trips-table tbody tr', text: '01 Apr 2027').find('.edit-visit-link').click
+      assert_selector '#max-stay-info', text: '30 days until April 30, 2027'
+      assert_selector '[data-departure-info]', text: 'Days used: 90/90'
+      assert_equal '2027-04-01', find('#visit_entry_date').value
+    ensure
+      page.driver.browser.execute_cdp('Emulation.clearDeviceMetricsOverride')
+    end
+  end
+
   test 'mobile fields are outlined and one information panel follows the entry date' do
     page.current_window.resize_to(390, 844)
     page.driver.browser.execute_cdp('Emulation.setDeviceMetricsOverride', width: 390, height: 844, deviceScaleFactor: 1, mobile: true)

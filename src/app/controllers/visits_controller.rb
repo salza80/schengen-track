@@ -239,9 +239,9 @@ class VisitsController < ApplicationController
   # Accepts legacy country_id as well; no country defaults to Schengen.
   def max_stay_info
     date = Date.parse(params[:date])
-    next_visits = calculator_visits.where('entry_date > ?', date).order(:entry_date)
-    next_visits = next_visits.where.not(id: params[:visit_id]) if params[:visit_id].present?
-    next_visit = next_visits.first
+    source = calculator_visits
+    source = source.where.not(id: params[:visit_id]) if params[:visit_id].present?
+    next_visit = source.where('entry_date > ?', date).order(:entry_date).first
 
     country = if params[:country_code].present?
                 Country.find_by!(country_code: params[:country_code].to_s.upcase)
@@ -250,24 +250,42 @@ class VisitsController < ApplicationController
               end
     is_schengen = country.nil? || country.schengen?(date)
     entry_info = nil
+    departure_info = nil
     remaining = nil
 
     if is_schengen && current_person.nationality.visa_required != 'F'
       visa_history = Schengen::VisaHistory.new(current_person) if current_person.visa_required?
-      calculator = Schengen::Days::Calculator.new(current_person, visits: calculator_visits, visa_history: visa_history)
+      preview = visit_allowance_preview(country, date, source)
+      source = source.includes(:country) if source.is_a?(ActiveRecord::Relation)
+      history = source.to_a
+      records = preview ? (history + [preview]).sort_by { |visit| [visit.entry_date, visit.exit_date, visit.id || 0] } : history
+      calculator = Schengen::Days::Calculator.new(current_person, visits: records, visa_history: visa_history)
       day = calculator.find_by_date(date)
-      remaining = day.nil? ? 90 : day.max_remaining_days
+      remaining = calculator.maximum_stay_from(date)
       entry_info = visit_entry_info(date, day, visa_history)
+      if preview && day.overstay?
+        # An attempted entry must not erase the waiting period it interrupts.
+        history_day = Schengen::Days::Calculator.new(current_person, visits: history, visa_history: visa_history).find_by_date(date)
+        entry_info[:wait] = helpers.day_warnings(history_day)[:wait]
+      end
+      if preview
+        departure = calculator.find_by_date(preview.exit_date)
+        used = departure.schengen_days_count
+        departure_info = {
+          days_used: t('days.tooltip.days_used', count: used),
+          remaining: t('visits.remaining_after_visit', count: [90 - used, 0].max)
+        }.merge(helpers.day_warnings(departure))
+      end
     end
 
     exit_date = date + (remaining - 1).days if remaining&.positive?
-    result = { show: false, entry_info: entry_info }
+    result = { show: false, entry_info: entry_info, departure_info: departure_info }
     # A later trip cannot grant days when the Schengen allowance is exhausted.
     blocked = remaining && remaining <= 0
     if !blocked && next_visit && (exit_date.nil? || exit_date >= next_visit.entry_date)
-      result.merge!(show: true, max_days: (next_visit.entry_date - date).to_i,
-                    exit_date: I18n.l(next_visit.entry_date - 1.day, format: :long),
-                    exit_date_iso: (next_visit.entry_date - 1.day).iso8601,
+      result.merge!(show: true, max_days: (next_visit.entry_date - date).to_i + 1,
+                    exit_date: I18n.l(next_visit.entry_date, format: :long),
+                    exit_date_iso: next_visit.entry_date.iso8601,
                     constrained: true, constraint_type: 'next_visit',
                     next_entry_date: I18n.l(next_visit.entry_date, format: :long))
     elsif exit_date
@@ -278,6 +296,19 @@ class VisitsController < ApplicationController
   end
 
   private
+    def visit_allowance_preview(country, entry_date, visits)
+      return unless country && params[:exit_date].is_a?(String) && params[:exit_date].present?
+
+      exit_date = Date.iso8601(params[:exit_date])
+      allowed_dates = Visit.allowed_date_range
+      return unless exit_date >= entry_date && allowed_dates.cover?(entry_date) && allowed_dates.cover?(exit_date)
+
+      preview = Visit.new(country: country, entry_date: entry_date, exit_date: exit_date)
+      preview unless preview.date_overlap?(visits: visits)
+    rescue Date::Error
+      nil
+    end
+
     def visit_entry_info(date, day, visa_history)
       info = { days_used: t('days.tooltip.days_used', count: day&.schengen_days_count || 0) }
         .merge(helpers.day_warnings(day))

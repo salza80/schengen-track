@@ -18,6 +18,8 @@ class CalendarNavigationBrowserTest < JavascriptIntegrationTest
         assert_year_controls_clear_header
         find('.navbar-toggler').click
         assert_no_selector '#navbarContent.show'
+        assert_no_selector '#navbarContent.collapsing'
+        assert_year_controls_clear_header
       end
 
       find('.calendar-year-nav.sticky-top .btn-next-year').click

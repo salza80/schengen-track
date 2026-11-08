@@ -20,6 +20,7 @@ pt-BR:
     days: dias
     days_overstay: Dias de Permanência Excessiva
     days_overstay_tooltip: O número de dias dentro da Área Schengen não permitidos pelos Vistos Inseridos.
+    departure_info: Na saída
     edit_title: Editar um Registro de Viagem
     entry_date: Data de entrada
     entry_info: Informações da data de entrada
@@ -46,6 +47,7 @@ pt-BR:
     page_title: Rastreie Suas Visitas Schengen
     reenter_info: Se você reentrar na Área Schengen em %{date}, você pode ficar por %{max_days} %{day_plural} até %{end_date}.
     register_now: Registre-se agora
+    remaining_after_visit: 'Dias restantes após esta viagem: %{count}'
     save_travel_plans: para salvar seus planos de viagem!
     schengen_area: Área Schengen
     schengen_area_tooltip: Indica se o país desta visita está incluído na Área Schengen.
@@ -54,6 +56,7 @@ pt-BR:
     schengen_days_calculation_tooltip: O número de dias dentro da Área Schengen nos últimos 180 dias.
     schengen_days_overstay: Dias de Permanência Excessiva
     schengen_visa_list: Vistos
+    shared_entry_note: Não inclui a entrada em Schengen da próxima viagem nesta data.
     stay_duration: "%{days} %{unit}, incluindo chegada e partida."
     travel_details: Detalhes da Viagem
     travel_record: Viagens

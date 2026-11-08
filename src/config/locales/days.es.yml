@@ -61,6 +61,7 @@ es:
       days_used: 'Días usados: %{count}/90'
       entries: 'Entradas: %{count}/%{total}'
       entries_exceeded: 'Límite de entradas superado: %{count}/%{total}'
+      no_schengen_limit: El límite de 90 días en 180 del espacio Schengen no se aplica a tu nacionalidad.
       no_visa: Sin visa
       outside_visa: Fuera del período de visa
       overstay: 'EXCESO EN SCHENGEN: +%{days} días'

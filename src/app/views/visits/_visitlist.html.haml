@@ -81,6 +81,8 @@
                 = visit.visa_overstay_days
             %td{ "data-title": t('visits.schengen_days'), class: ('trip-last-detail' unless visit.schengen_overstay?) }
               = "#{visit.schengen_days} #{t('common.of')} 90 #{t('visits.days')}"
+              - if visit.schengen_days_exclude_shared_entry
+                %small.d-block.text-muted.mt-1.shared-entry-note= t('visits.shared_entry_note')
             %td.trip-last-detail{ "data-title": t('visits.schengen_days_overstay'), class: ("table-danger" if visit.schengen_overstay?).to_s + (" d-none d-md-table-cell" if visit.schengen_overstay_days == 0).to_s }
               = visit.schengen_overstay_days
             %td.trip-actions

@@ -62,8 +62,8 @@ class VisitFormLocalizationTest < ActionDispatch::IntegrationTest
       }
       assert_response :success
       assert_equal 'next_visit', response.parsed_body['constraint_type']
-      assert_equal '2014-03-21', response.parsed_body['exit_date_iso']
-      assert_equal I18n.l(Date.new(2014, 3, 21), locale: locale, format: :long), response.parsed_body['exit_date']
+      assert_equal '2014-03-22', response.parsed_body['exit_date_iso']
+      assert_equal I18n.l(Date.new(2014, 3, 22), locale: locale, format: :long), response.parsed_body['exit_date']
       assert_equal I18n.l(Date.new(2014, 3, 22), locale: locale, format: :long), response.parsed_body['next_entry_date']
     end
   end
@@ -106,7 +106,7 @@ class VisitFormLocalizationTest < ActionDispatch::IntegrationTest
     # A trip outside Schengen is limited only by the next recorded trip.
     get max_stay_info_visits_path(locale: :en, format: :json), params: { date: '2016-02-01', country_code: 'AU' }
     assert_equal true, response.parsed_body['show']
-    assert_equal 9, response.parsed_body['max_days']
+    assert_equal 10, response.parsed_body['max_days']
     assert_nil response.parsed_body['entry_info']
   end
 

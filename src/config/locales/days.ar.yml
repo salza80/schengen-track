@@ -58,6 +58,7 @@ ar:
       days_used: 'الأيام المستخدمة: %{count}/٩٠'
       entries: 'عدد الدخولات: %{count}/%{total}'
       entries_exceeded: 'تم تجاوز حد الدخول: %{count}/%{total}'
+      no_schengen_limit: لا ينطبق حد شنغن البالغ 90 يومًا خلال 180 يومًا على جنسيتك.
       no_visa: لا توجد تأشيرة
       outside_visa: خارج فترة التأشيرة
       overstay: 'إقامة زائدة في شنغن: +%{days} يوم'

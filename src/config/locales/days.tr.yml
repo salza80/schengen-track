@@ -61,6 +61,7 @@ tr:
       days_used: 'Kullanılan gün: %{count}/90'
       entries: 'Girişler: %{count}/%{total}'
       entries_exceeded: 'Giriş sınırı aşıldı: %{count}/%{total}'
+      no_schengen_limit: Schengen bölgesindeki 180 günde 90 gün sınırı vatandaşlığınız için geçerli değildir.
       no_visa: Vize yok
       outside_visa: Vize süresi dışında
       overstay: 'SCHENGEN AŞIMI: +%{days} gün'

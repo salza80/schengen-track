@@ -201,7 +201,7 @@ class DaysController < ApplicationController
       # If no visit data exists for this date, create an empty SchengenDay object
       # so the cell is still clickable for adding new visits
       if day_data.nil?
-        day_data = Schengen::Days::SchengenDay.new(date)
+        day_data = Schengen::Days::SchengenDay.new(date, freedom_of_movement: current_person.nationality.visa_required == 'F')
       end
       
       current_week << day_data

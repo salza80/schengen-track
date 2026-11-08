@@ -20,6 +20,7 @@ de:
     days: Tage
     days_overstay: Überzogene Tage
     days_overstay_tooltip: Die Anzahl der Tage im Schengen-Raum, die nicht vom eingegebenen Visum erlaubt sind.
+    departure_info: Bei der Ausreise
     edit_title: Reiseaufzeichnung bearbeiten
     entry_date: Einreisedatum
     entry_info: Informationen zur Einreise
@@ -46,6 +47,7 @@ de:
     page_title: Verfolgen Sie Ihre Schengen-Besuche
     reenter_info: Wenn Sie am %{date} in den Schengen-Raum wieder einreisen, können Sie für %{max_days} %{day_plural} bis zum %{end_date} bleiben.
     register_now: Jetzt registrieren
+    remaining_after_visit: 'Verbleibende Tage nach dieser Reise: %{count}'
     save_travel_plans: um Ihre Reisepläne zu speichern!
     schengen_area: Schengen-Raum
     schengen_area_tooltip: Gibt an, ob das Land dieses Besuchs im Schengen-Raum enthalten ist.
@@ -54,6 +56,7 @@ de:
     schengen_days_calculation_tooltip: Die Anzahl der Tage im Schengen-Raum in den letzten 180 Tagen.
     schengen_days_overstay: Überschreitungstage
     schengen_visa_list: Visa
+    shared_entry_note: Die Schengen-Einreise der nächsten Reise an diesem Datum ist nicht enthalten.
     stay_duration: "%{days} %{unit}, einschließlich An- und Abreise."
     travel_details: Reisedetails
     travel_record: Reisen

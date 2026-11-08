@@ -20,6 +20,7 @@ hi:
     days: दिन
     days_overstay: अधिक दिन
     days_overstay_tooltip: वीजा द्वारा अनुमति नहीं दी गई शेंगेन क्षेत्र में बिताए गए दिनों की संख्या।
+    departure_info: प्रस्थान पर
     edit_title: यात्रा रिकॉर्ड संपादित करें
     entry_date: प्रवेश तिथि
     entry_info: प्रवेश तिथि की जानकारी
@@ -46,6 +47,7 @@ hi:
     page_title: अपनी शेंगेन यात्राओं को ट्रैक करें
     reenter_info: यदि आप %{date} को शेंगेन क्षेत्र में फिर से प्रवेश करते हैं, तो आप %{max_days} %{day_plural} तक %{end_date} तक रह सकते हैं।
     register_now: अभी पंजीकरण करें
+    remaining_after_visit: 'इस यात्रा के बाद शेष दिन: %{count}'
     save_travel_plans: अपनी यात्रा योजना सहेजें!
     schengen_area: शेंगेन क्षेत्र
     schengen_area_tooltip: इस यात्रा के देश के शेंगेन क्षेत्र में शामिल होने की संकेत देता है।
@@ -54,6 +56,7 @@ hi:
     schengen_days_calculation_tooltip: पिछले 180 दिनों में शेंगेन क्षेत्र में बिताए गए दिनों की संख्या।
     schengen_days_overstay: अधिक रुकने के दिन
     schengen_visa_list: वीज़ा
+    shared_entry_note: इस तारीख को अगली यात्रा का शेंगेन प्रवेश इसमें शामिल नहीं है।
     stay_duration: आगमन और प्रस्थान सहित %{days} %{unit}।
     travel_details: यात्रा विवरण
     travel_record: यात्राएं

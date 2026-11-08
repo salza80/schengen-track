@@ -20,6 +20,7 @@ zh-CN:
     days: 天
     days_overstay: 逾期停留天数
     days_overstay_tooltip: 签证期限内不允许在申根区内停留的天数。
+    departure_info: 出境时
     edit_title: 编辑旅行记录
     entry_date: 入境日期
     entry_info: 入境日期信息
@@ -46,6 +47,7 @@ zh-CN:
     page_title: 跟踪您的申根访问
     reenter_info: 如果您在 %{date} 再次进入申根区，您可以在 %{end_date} 之前停留 %{max_days} %{day_plural}。
     register_now: 立即注册
+    remaining_after_visit: 本次旅行后的剩余天数：%{count}
     save_travel_plans: 以保存您的旅行计划！
     schengen_area: 申根区
     schengen_area_tooltip: 指示此次访问的国家是否包含在申根区内。
@@ -54,6 +56,7 @@ zh-CN:
     schengen_days_calculation_tooltip: 过去180天内在申根区内的天数。
     schengen_days_overstay: 逾期停留天数
     schengen_visa_list: 签证
+    shared_entry_note: 不包括下一次行程在此日期进入申根区的当天。
     stay_duration: "%{days} %{unit}，包括抵达和离境当天。"
     travel_details: 旅行详情
     travel_record: 行程

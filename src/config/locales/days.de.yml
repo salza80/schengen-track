@@ -61,6 +61,7 @@ de:
       days_used: 'Genutzte Tage: %{count}/90'
       entries: 'Einreisen: %{count}/%{total}'
       entries_exceeded: 'Einreisegrenze überschritten: %{count}/%{total}'
+      no_schengen_limit: Die Schengen-Regel von 90 Tagen innerhalb von 180 Tagen gilt nicht für Ihre Staatsangehörigkeit.
       no_visa: Kein Visum
       outside_visa: Außerhalb des Visumszeitraums
       overstay: 'SCHENGEN-ÜBERZUG: +%{days} Tage'

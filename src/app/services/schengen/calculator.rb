@@ -109,6 +109,7 @@ module Schengen
         @visits.each do |v|
           last_day = @day_calc.find_by_date(v.exit_date)
           v.schengen_days = last_day.schengen_days_for_visit(v)
+          v.schengen_days_exclude_shared_entry = v.schengen_days < last_day.schengen_days_count
           v.no_days_continuous_in_schengen = last_day.continuous_days_for_visit(v)
         end
       end

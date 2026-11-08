@@ -20,6 +20,7 @@ tr:
     days: gün
     days_overstay: Günler Geçikme
     days_overstay_tooltip: Vize Girişi tarafından izin verilmeyen Schengen Alanındaki günlerin sayısı.
+    departure_info: Çıkışta
     edit_title: Bir Seyahat Kaydını Düzenle
     entry_date: Giriş tarihi
     entry_info: Giriş tarihi bilgileri
@@ -46,6 +47,7 @@ tr:
     page_title: Schengen Ziyaretlerinizi Takip Edin
     reenter_info: Eğer %{date} tarihinde Schengen Alanına yeniden girerseniz, %{max_days} %{day_plural} boyunca %{end_date} tarihine kadar kalabilirsiniz.
     register_now: Şimdi kayıt olun
+    remaining_after_visit: 'Bu seyahatten sonra kalan gün: %{count}'
     save_travel_plans: seyahat planlarınızı kaydetmek için!
     schengen_area: Schengen Bölgesi
     schengen_area_tooltip: Bu ziyaretin ülkesinin Schengen Alanına dahil olup olmadığını gösterir.
@@ -54,6 +56,7 @@ tr:
     schengen_days_calculation_tooltip: Önceki 180 gün içinde Schengen Alanında geçirilen günlerin sayısı.
     schengen_days_overstay: Fazla Kalma Günleri
     schengen_visa_list: Vizeler
+    shared_entry_note: Bu tarihte sonraki seyahatin Schengen bölgesine girişi dahil değildir.
     stay_duration: Giriş ve çıkış dahil %{days} %{unit}.
     travel_details: Seyahat Detayları
     travel_record: Seyahatler

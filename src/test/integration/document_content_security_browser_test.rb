@@ -234,30 +234,25 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
   end
 
   test 'a failed calendar refresh can be retried without repeating the saved edit' do
-    original_index = DaysController.instance_method(:index)
-    fail_next_refresh = true
-    DaysController.define_method(:index) do
-      if request.format.json? && fail_next_refresh
-        fail_next_refresh = false
-        render json: {}, status: :service_unavailable
-      else
-        original_index.bind_call(self)
-      end
-    end
     user_login
     visit '/en/my/days?year=2014&month=3&day=10'
     find('[data-date="2014-03-10"]').click
     assert_selector '#visitModal.show form[data-calendar-visit-form="true"]', wait: 10
     fill_in 'visit_exit_date', with: Date.iso8601('2014-03-21')
+    # Fail this browser's refresh, including retries, until explicitly restored.
+    # Queued requests from other tests cannot consume a one-shot server failure.
+    page.driver.browser.execute_cdp('Network.enable')
+    page.driver.browser.execute_cdp('Network.setBlockedURLs', urls: ['*/my/days.json*'])
     click_button I18n.t('common.save')
     assert_selector '#calendar-feedback', text: I18n.t('days.saved_refresh_error'), wait: 10
     assert_equal Date.new(2014, 3, 21), visits(:one).reload.exit_date
+    page.driver.browser.execute_cdp('Network.setBlockedURLs', urls: [])
     assert_no_difference('Visit.count') do
       within('#calendar-feedback') { click_button I18n.t('days.retry') }
       assert_selector '#calendar-feedback', text: I18n.t('days.saved'), wait: 10
     end
   ensure
-    DaysController.define_method(:index, original_index) if original_index
+    page.driver.browser.execute_cdp('Network.setBlockedURLs', urls: [])
   end
 
   [390, 1400].each do |width|

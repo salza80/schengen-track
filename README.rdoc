@@ -339,6 +339,11 @@ Document CSP must allow form destinations at both <tt>https://www.facebook.com</
 and <tt>https://m.facebook.com</tt>. Chrome checks the redirect chain, and Facebook
 can redirect Android browsers to its mobile host even with the handoff workaround.
 
+Token and profile requests use <tt>graph.facebook.com</tt>. Keep OAuth2's default
+protection against cross-origin HTTP redirects enabled so credentials cannot be
+forwarded to another origin. This server-side restriction is independent of the
+browser's Facebook login redirects and the document CSP allowlist.
+
 Facebook sign-in identifies an existing account only by its provider and user
 ID. Matching an email address never links an existing account automatically.
 If that email is already registered, the user must sign in with the existing

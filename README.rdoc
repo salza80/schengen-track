@@ -307,6 +307,10 @@ CDK enables <tt>FACEBOOK_WEB_LOGIN_WORKAROUND</tt> in staging and production to
 keep the OAuth handoff in Android Chrome. The OAuth request must remain POST- and
 CSRF-protected.
 
+Document CSP must allow form destinations at both <tt>https://www.facebook.com</tt>
+and <tt>https://m.facebook.com</tt>. Chrome checks the redirect chain, and Facebook
+can redirect Android browsers to its mobile host even with the handoff workaround.
+
 Facebook sign-in identifies an existing account only by its provider and user
 ID. Matching an email address never links an existing account automatically.
 If that email is already registered, the user must sign in with the existing

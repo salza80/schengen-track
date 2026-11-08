@@ -51,4 +51,14 @@ class DocumentContentSecurityTest < ActionDispatch::IntegrationTest
     refute_includes policy, 'strict-dynamic'
     assert_select 'script, meta[name="csp-nonce"]', count: 0
   end
+
+  test 'Facebook login and registration allow only local and Facebook desktop and mobile form destinations' do
+    [new_user_session_path(locale: :en), new_user_registration_path(locale: :en)].each do |path|
+      get path
+      assert_response :success
+      form_policy = response.headers.fetch('Content-Security-Policy').split(';').map(&:strip)
+        .find { |directive| directive.start_with?('form-action ') }
+      assert_equal "form-action 'self' https://www.facebook.com https://m.facebook.com", form_policy
+    end
+  end
 end

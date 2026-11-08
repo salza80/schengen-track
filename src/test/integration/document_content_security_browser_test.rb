@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'puma'
 
 Capybara.register_driver :selenium_csp do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -17,6 +18,34 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
     super
     # The general browser driver disables web security; this one must enforce CSP.
     Capybara.current_driver = :selenium_csp
+  end
+
+  test 'Facebook OAuth redirect chains obey the form allowlist' do
+    %w[www m untrusted].each do |login_host|
+      with_facebook_redirect_chain(login_host) do |start_url, requests|
+        visit start_url
+        page.execute_script(<<~JS)
+          document.addEventListener('securitypolicyviolation', function(event) {
+            document.body.dataset.blockedDirective = event.effectiveDirective;
+          });
+        JS
+        find('form.facebook-oauth-form button').click
+
+        expected_requests = [
+          ['POST', '127.0.0.1', '/users/auth/facebook'],
+          ['GET', 'www.facebook.localhost', '/authorize']
+        ]
+        if login_host == 'untrusted'
+          assert_selector 'body[data-blocked-directive="form-action"]'
+          assert_current_path start_url
+        else
+          assert_selector 'h1', text: "#{login_host} login reached"
+          assert_equal "#{login_host}.facebook.localhost", URI.parse(page.current_url).host
+          expected_requests << ['GET', 'm.facebook.localhost', '/login'] if login_host == 'm'
+        end
+        assert_equal expected_requests, requests.size.times.map { requests.pop }
+      end
+    end
   end
 
   test 'a first mobile calendar trip keeps its document and visible date through nationality and saves' do
@@ -349,6 +378,43 @@ class DocumentContentSecurityBrowserTest < JavascriptIntegrationTest
   end
 
   private
+
+  def with_facebook_redirect_chain(login_host)
+    get new_user_session_path(locale: :en)
+    form = Nokogiri::HTML(response.body).at_css('form.facebook-oauth-form').to_html
+    policy = response.headers.fetch('Content-Security-Policy')
+    requests = Queue.new
+    port = nil
+    server = Puma::Server.new(lambda do |env|
+      request = Rack::Request.new(env)
+      headers = { 'content-type' => 'text/html; charset=utf-8' }
+      if request.path == '/'
+        [200, headers.merge('content-security-policy' => policy), ["<!doctype html>#{form}"]]
+      elsif request.path == '/users/auth/facebook'
+        requests << [request.request_method, request.host, request.path]
+        [302, headers.merge('location' => "http://www.facebook.localhost:#{port}/authorize"), []]
+      elsif request.path == '/authorize' && login_host != 'www'
+        requests << [request.request_method, request.host, request.path]
+        [302, headers.merge('location' => "http://#{login_host}.facebook.localhost:#{port}/login"), []]
+      elsif %w[/authorize /login].include?(request.path)
+        requests << [request.request_method, request.host, request.path]
+        [200, headers, ["<h1>#{login_host} login reached</h1>"]]
+      else
+        [404, headers, []]
+      end
+    end)
+    server.add_tcp_listener('127.0.0.1', 0)
+    port = server.connected_ports.first
+    # Keep the real policy and form, substituting only the two provider origins
+    # with distinct loopback hosts so Chrome follows redirects without Meta I/O.
+    policy = policy.gsub(%r{https://(www|m)\.facebook\.com}) do
+      "http://#{Regexp.last_match(1)}.facebook.localhost:#{port}"
+    end
+    server.run
+    yield "http://127.0.0.1:#{port}/", requests
+  ensure
+    server&.stop(true)
+  end
 
   def assert_calendar_grid_fits
     grid = page.evaluate_script(<<~JS)

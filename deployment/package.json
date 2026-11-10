@@ -14,18 +14,18 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.164",
     "@types/jest": "^30.0.0",
-    "@types/node": "24.19.2",
-    "aws-cdk": "2.1146.1",
-    "cdk": "2.1146.1",
+    "@types/node": "26.6.6",
+    "aws-cdk": "2.1148.0",
+    "cdk": "2.1148.0",
     "esbuild": "0.28.2",
     "jest": "^30.5.2",
     "ts-jest": "^29.4.15",
     "ts-node": "^10.9.2",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   },
   "dependencies": {
     "@aws-crypto/sha256-js": "5.2.0",
-    "@aws-sdk/client-dynamodb": "3.1163.0",
+    "@aws-sdk/client-dynamodb": "3.1164.0",
     "@smithy/protocol-http": "5.6.2",
     "@smithy/signature-v4": "5.7.5",
     "aws-cdk-lib": "2.275.0",

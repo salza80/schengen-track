@@ -53,7 +53,7 @@ end
 
 group :test do
   # Minitest 6 also keeps Prism on the 1.x API required by Haml 7.5.
-  gem 'minitest', '~> 6.0'
+  gem 'minitest', '~> 6.1'
   # Minitest 6 ships mocks and Object#stub in a separate gem.
   gem 'minitest-mock', '~> 5.27', require: 'minitest/mock'
   gem 'ostruct'

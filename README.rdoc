@@ -68,11 +68,14 @@ inside Bootstrap's Sass directory. New deprecation types still fail.
 
 Install or update the local pre-commit hook with
 <tt>bundle exec rails i18n:install_hook</tt>. It runs translation validation and
-the strict styles check against a temporary copy of the Git index, including
-for partially staged files and linked worktrees. The styles check is skipped
-when <tt>CI=true</tt>. The installer prompts before replacing a repository hook.
+the strict styles check against the tree Git will commit, including for
+partially staged files and linked worktrees. Files marked only with
+<tt>git add -N</tt> are omitted. The check honors Bundler's frozen lockfile
+setting from the checkout. The styles check is skipped
+when <tt>CI=true</tt>. The installer prompts before replacing a custom hook file.
 For shared hook paths it registers a repository-local check alongside existing
-hooks on Git versions supporting <tt>git hook list</tt>. On older Git, a shared
+hooks on Git versions supporting <tt>git hook list</tt>. Rerun the installer
+after changing hook paths to keep a single active check. On older Git, a shared
 hook manager can invoke <tt>src/bin/check-staged</tt> for this repository.
 Normal asset builds, including CI and deployment, continue to report
 deprecations as nonblocking warnings; compilation errors still fail.

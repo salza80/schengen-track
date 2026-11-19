@@ -110,6 +110,38 @@ class I18nCheckTaskTest < Minitest::Test
     assert_empty shared.children
   end
 
+  def test_reinstall_after_changing_hook_paths_runs_the_project_checks_once
+    skip 'Git lacks configurable hooks' unless configurable_hooks?
+    install_hook
+    git('config', 'core.hooksPath', @directory.join('shared').to_s)
+    install_hook
+    git('config', '--unset', 'core.hooksPath')
+    # Worktrees can switch back to the old hook file before anyone reinstalls.
+    assert run_hook.success?, @hook_output
+    assert_equal %w[i18n:check styles:check], calls
+    @calls.unlink
+    2.times { install_hook }
+
+    git('commit', '--quiet', '-m', 'Check once')
+    assert_equal %w[i18n:check styles:check], calls
+  end
+
+  def test_switching_from_a_shared_path_preserves_an_unrelated_private_hook
+    skip 'Git lacks configurable hooks' unless configurable_hooks?
+    git('config', 'core.hooksPath', @directory.join('shared').to_s)
+    install_hook
+    git('config', '--unset', 'core.hooksPath')
+    @hook.dirname.mkpath
+    script = "#!/bin/sh\necho custom >> \"$CHECK_CALLS\"\n"
+    @hook.write(script)
+    @hook.chmod(0o755)
+    install_hook(answer: "y\n")
+
+    git('commit', '--quiet', '-m', 'Keep custom hook')
+    assert_equal %w[custom i18n:check styles:check], calls.sort
+    assert_equal script, @hook.read
+  end
+
   def test_an_existing_hook_is_only_replaced_on_explicit_confirmation
     @hook.dirname.mkpath
     @hook.write('existing hook')
@@ -159,6 +191,54 @@ class I18nCheckTaskTest < Minitest::Test
     assert_equal 'deprecated', git('show', ':src/style.scss')
   end
 
+  def test_commit_omits_intent_to_add_files_and_preserves_the_marker
+    rails = @repository.join('src/bin/rails')
+    rails.write("#!/bin/sh\ntest ! -e proposed.scss\n")
+    git('add', 'src/bin/rails')
+    proposed = @repository.join('src/proposed.scss')
+    proposed.write('work in progress')
+    git('add', '--intent-to-add', 'src/proposed.scss')
+    install_hook
+
+    git('commit', '--quiet', '-m', 'Tracked files only')
+    assert_empty git('ls-tree', 'HEAD', 'src/proposed.scss')
+    assert_equal " A src/proposed.scss\n", git('status', '--short', '--', 'src/proposed.scss')
+    assert_equal 'work in progress', proposed.read
+  end
+
+  def test_staged_bundle_honors_the_checkouts_effective_frozen_setting
+    config = @repository.join('src/.bundle/config')
+    config.dirname.mkpath
+    @repository.join('src/Gemfile.lock').write(<<~LOCKFILE)
+      GEM
+        specs:
+
+      PLATFORMS
+        ruby
+
+      DEPENDENCIES
+
+      BUNDLED WITH
+         #{Bundler::VERSION}
+    LOCKFILE
+    rails = @repository.join('src/bin/rails')
+    rails.write(<<~'RUBY')
+      #!/usr/bin/env ruby
+      require 'bundler'
+      abort 'Expected the staged lockfile' unless File.identical?(Bundler.default_lockfile, 'Gemfile.lock')
+      File.open(ENV.fetch('CHECK_CALLS'), 'a') { |log| log.puts(!!Bundler.frozen_bundle?) }
+    RUBY
+    git('add', 'src/bin/rails', 'src/Gemfile.lock')
+    install_hook
+
+    ['BUNDLE_FROZEN: "true"', 'BUNDLE_DEPLOYMENT: "true"',
+     "BUNDLE_DEPLOYMENT: \"true\"\nBUNDLE_FROZEN: \"false\""].each do |settings|
+      config.write("---\n#{settings}\n")
+      assert run_hook.success?, @hook_output
+    end
+    assert_equal %w[true true false], calls
+  end
+
   def test_ci_hook_keeps_deprecations_nonblocking
     install_hook
     assert run_hook(ci: 'true').success?
@@ -188,9 +268,8 @@ class I18nCheckTaskTest < Minitest::Test
   end
 
   def git(*args, repository: @repository)
-    output, error, status = Open3.capture3({ 'CHECK_CALLS' => @calls.to_s, 'CI' => nil },
-                                          'git', '-C', repository.to_s, *args)
-    assert status.success?, error
+    output, status = run_git(*args, repository: repository)
+    assert status.success?, output
     output
   end
 
@@ -212,8 +291,15 @@ class I18nCheckTaskTest < Minitest::Test
   end
 
   def run_hook(repository: @repository, ci: nil, failing: nil)
-    @hook_output, status = Open3.capture2e({ 'CHECK_CALLS' => @calls.to_s, 'CI' => ci, 'FAILING_CHECK' => failing },
-                                          'git', '-C', repository.to_s, 'hook', 'run', 'pre-commit')
+    @hook_output, status = run_git('hook', 'run', 'pre-commit', repository: repository, ci: ci, failing: failing)
     status
+  end
+
+  def run_git(*args, repository:, ci: nil, failing: nil)
+    # Start the fixture's Ruby as Git would from a shell outside the Rails test bundle.
+    env = { 'RUBYOPT' => nil, 'BUNDLE_GEMFILE' => nil, 'BUNDLE_APP_CONFIG' => nil,
+            'BUNDLE_LOCKFILE' => repository.join('src/Gemfile.lock').to_s,
+            'CHECK_CALLS' => @calls.to_s, 'CI' => ci, 'FAILING_CHECK' => failing }
+    Open3.capture2e(env, 'git', '-C', repository.to_s, *args)
   end
 end

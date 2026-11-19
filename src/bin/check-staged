@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler'
+require 'tmpdir'
+
+# Git runs pre-commit at the worktree root. checkout-index also honors the
+# temporary index Git supplies for path-limited and interactive commits.
+root = IO.popen(%w[git rev-parse --show-toplevel], &:read).chomp
+exit 1 unless $?.success?
+Dir.chdir(root)
+
+Dir.mktmpdir('schengen-checks-') do |snapshot|
+  system('git', 'checkout-index', '--all', '--ignore-skip-worktree-bits', "--prefix=#{snapshot}/") || exit(1)
+  app = File.join(snapshot, 'src')
+
+  # Keep the checkout's installed gems and selected groups when moving the
+  # Gemfile into the snapshot (including a relative bundle install --path).
+  settings = Dir.chdir('src') do
+    ENV['BUNDLE_GEMFILE'] = File.expand_path('Gemfile')
+    path = Bundler.settings.path
+    {
+      'BUNDLE_GEMFILE' => File.join(app, 'Gemfile'),
+      'BUNDLE_APP_CONFIG' => nil,
+      'BUNDLE_PATH' => path.use_system_gems? ? nil : File.expand_path(path.base_path),
+      'BUNDLE_PATH__SYSTEM' => path.use_system_gems? ? 'true' : nil,
+      'BUNDLE_WITH' => Bundler.settings[:with].join(':'),
+      'BUNDLE_WITHOUT' => Bundler.settings[:without].join(':')
+    }
+  end
+
+  tasks = ['i18n:check']
+  tasks << 'styles:check' unless ENV['CI'] == 'true'
+  system(settings, 'bin/rails', *tasks, chdir: app) || exit($?.exitstatus || 1)
+end

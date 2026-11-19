@@ -15,6 +15,14 @@ sys.path.insert(0, str(ROOT))
 import app
 
 
+def setUpModule():
+    if os.environ.get("MCP_REQUIRE_AWS_HANDLER") == "1":
+        from awslabs.mcp_lambda_handler import MCPLambdaHandler
+
+        if not isinstance(app.mcp, MCPLambdaHandler):
+            raise AssertionError("Expected the AWS Labs MCP handler used by the Lambda")
+
+
 class AppTest(unittest.TestCase):
     def setUp(self):
         os.environ.pop("SCHENGEN_API_BASE_URL", None)

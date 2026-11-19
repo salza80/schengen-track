@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'fileutils'
-require 'open3'
+require_relative '../pre_commit_hook'
 
 namespace :i18n do
   desc 'Check for missing, unused, and placeholder translations'
@@ -91,47 +90,7 @@ namespace :i18n do
 
   desc 'Install pre-commit hook for i18n and strict local Sass validation'
   task install_hook: :environment do
-    # Ask Git so worktrees and core.hooksPath use the same hook location as commits.
-    git_root = Rails.root.parent
-    hook_location, error, status = Open3.capture3(
-      'git', '-C', git_root.to_s, 'rev-parse', '--path-format=absolute', '--git-path', 'hooks/pre-commit'
-    )
-    abort "Cannot locate the Git pre-commit hook: #{error.strip}" unless status.success?
-    hook_path = Pathname.new(hook_location.strip)
-
-    if File.exist?(hook_path)
-      puts '⚠ Pre-commit hook already exists.'
-      print 'Overwrite? (y/N): '
-      next unless $stdin.gets.to_s.strip.casecmp?('y')
-    end
-
-    hook_content = <<~HOOK
-      #!/bin/bash
-      # Local translation and Sass validation. CI uses its normal asset build.
-
-      set -e
-      cd "$(git rev-parse --show-toplevel)/src"
-      echo "Running i18n translation check..."
-      bin/rails i18n:check
-
-      if [ "${CI:-}" != "true" ]; then
-        echo "Running strict local Sass check..."
-        bin/rails styles:check
-      fi
-
-      echo "✓ Pre-commit checks passed"
-      exit 0
-    HOOK
-
-    FileUtils.mkdir_p(hook_path.dirname)
-    File.write(hook_path, hook_content)
-    File.chmod(0o755, hook_path)
-
-    puts '✓ Pre-commit hook installed successfully'
-    puts "Location: #{hook_path}"
-    puts
-    puts 'The hook will run automatically before each commit.'
-    puts "To bypass the hook, use: git commit --no-verify"
+    PreCommitHook.new(Rails.root.parent).install
   end
 
   # Helper methods

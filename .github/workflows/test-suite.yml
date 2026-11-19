@@ -94,8 +94,15 @@ jobs:
           RAILS_ENV: test
           FACEBOOK_WEB_LOGIN_WORKAROUND: 'true'
 
-      - name: Run MCP server tests
-        run: python3 -m unittest discover -s mcp-server/tests
+      - name: Run MCP server tests with the Lambda dependencies
+        working-directory: mcp-server
+        env:
+          MCP_REQUIRE_AWS_HANDLER: '1'
+        run: |
+          python3.12 -m venv "$RUNNER_TEMP/mcp-tests"
+          python="$RUNNER_TEMP/mcp-tests/bin/python"
+          "$python" -m pip install -r requirements.txt
+          "$python" -m unittest discover -s tests
 
       - name: Compile production assets
         run: bundle exec rails country_catalog:generate assets:precompile

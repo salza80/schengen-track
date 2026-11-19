@@ -59,27 +59,6 @@ Bootstrap's gem sources.
 Keep the helper aliases in <tt>application.scss</tt>: module scoping otherwise
 prevents Bootstrap's <tt>@extend</tt> rules from reaching app component styles.
 
-Run <tt>bundle exec rails styles:check</tt> from <tt>src</tt> for the strict local
-check. It compiles the declared assets with the same Sprockets/Dart Sass setup,
-using a fresh in-memory cache and writing no precompiled files. App deprecations
-fail this check. Its only exceptions are the bridge's theme/Bootstrap imports
-and known import, global built-in, color-function and old <tt>if()</tt> warnings
-inside Bootstrap's Sass directory. New deprecation types still fail.
-
-Install or update the local pre-commit hook with
-<tt>bundle exec rails i18n:install_hook</tt>. It runs translation validation and
-the strict styles check against the tree Git will commit, including for
-partially staged files and linked worktrees. Files marked only with
-<tt>git add -N</tt> are omitted. The check honors Bundler's frozen lockfile
-setting from the checkout. The styles check is skipped
-when <tt>CI=true</tt>. The installer prompts before replacing a custom hook file.
-For shared hook paths it registers a repository-local check alongside existing
-hooks on Git versions supporting <tt>git hook list</tt>. Rerun the installer
-after changing hook paths to keep a single active check. On older Git, a shared
-hook manager can invoke <tt>src/bin/check-staged</tt> for this repository.
-Normal asset builds, including CI and deployment, continue to report
-deprecations as nonblocking warnings; compilation errors still fail.
-
 Keep Bootstrap data attributes namespaced as <tt>data-bs-*</tt>. jQuery and
 <tt>jquery_ujs</tt> remain in use for remote Rails forms and existing calculator
 interactions. Bootstrap's jQuery bridge is available, but component instances
@@ -231,7 +210,20 @@ Add English strings first, generate placeholders, translate every
 be detected statically are configured in <tt>src/config/i18n-tasks.yml</tt>.
 
 
-== Tests
+== Local lint and tests
+
+Run both translation validation and strict Sass checks from <tt>src</tt>:
+
+  bundle exec rails lint
+
+Lint checks the working tree. The Sass check compiles the declared assets with
+Sprockets and Dart Sass using a fresh in-memory cache. App deprecations fail
+lint. The check allows the Bootstrap compatibility file's theme and Bootstrap
+imports and known import, global built-in, color-function, and old <tt>if()</tt>
+warnings inside Bootstrap's Sass directory.
+
+CI runs translation validation and treats Sass deprecations as warnings in its
+asset build. Compilation errors fail the build.
 
 With PostgreSQL running, run the Rails suite from <tt>src</tt>:
 

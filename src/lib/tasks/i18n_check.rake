@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../pre_commit_hook'
-
 namespace :i18n do
   desc 'Check for missing, unused, and placeholder translations'
   task check: :environment do
@@ -40,7 +38,6 @@ namespace :i18n do
     puts "  rails i18n:normalize         - Normalize and sort YAML files"
     puts '========================================'
 
-    # Exit with error if there are issues (for pre-commit hook)
     exit 1 if exit_code != 0 || total_placeholders.positive?
   end
 
@@ -86,11 +83,6 @@ namespace :i18n do
     puts 'Normalizing YAML files...'
     system('bundle exec i18n-tasks normalize')
     puts '✓ YAML files normalized successfully'
-  end
-
-  desc 'Install pre-commit hook for i18n and strict local Sass validation'
-  task install_hook: :environment do
-    PreCommitHook.new(Rails.root.parent).install
   end
 
   # Helper methods

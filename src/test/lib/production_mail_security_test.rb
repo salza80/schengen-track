@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'mail'
 require 'open3'
 require 'net/smtp'
 require 'socket'

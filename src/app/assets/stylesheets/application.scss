@@ -11,48 +11,28 @@
  * file per style scope.
  */
 
-// import theme variables
-@import "_variables.scss";
-// import customisatons to theme
-@import "_bootstrap_custom.scss";
-
-// Selective Bootstrap imports to reduce bundle size
-@import "bootstrap/functions";
-@import "bootstrap/variables";
-@import "bootstrap/variables-dark";
-@import "bootstrap/maps";
-@import "bootstrap/mixins";
-@import "bootstrap/utilities";
-@import "bootstrap/root";
-@import "bootstrap/reboot";
-@import "bootstrap/type";
-@import "bootstrap/images";
-@import "bootstrap/containers";
-@import "bootstrap/grid";
-@import "bootstrap/tables";
-@import "bootstrap/forms";
-@import "bootstrap/buttons";
-@import "bootstrap/transitions";
-@import "bootstrap/dropdown";
-@import "bootstrap/button-group";
-@import "bootstrap/nav";
-@import "bootstrap/navbar";
-@import "bootstrap/card";
-@import "bootstrap/list-group";
-@import "bootstrap/badge";
-@import "bootstrap/alert";
-@import "bootstrap/modal";
-@import "bootstrap/tooltip";
-@import "bootstrap/close";
-@import "bootstrap/helpers";
-@import "bootstrap/utilities/api";
-@import "font_awesome";
+@use "sass:color";
+@use "bootstrap_compat" as *;
+@use "font_awesome";
 // Note: calendar.scss and blog.scss loaded conditionally per page (see application.html.erb)
-@import "about"; // Shared About and legal-page layout
-@import "responsive_table";
-@import "calendar_status_card";
-@import "country_picker";
-@import "calculator_forms";
+@use "about"; // Shared About and legal-page layout
+@use "responsive_table";
+@use "calendar_status_card";
+@use "country_picker";
+@use "calculator_forms";
+
+// Bootstrap's helper aliases must also extend app styles now that modules
+// isolate its internal @extend rules. Preserve the existing helper behavior.
+@for $level from 1 through 6 {
+  .h#{$level} { @extend h#{$level}; }
+}
+.small { @extend small; }
+.mark { @extend mark; }
+.btn-group-sm > .btn { @extend .btn-sm; }
+.btn-group-lg > .btn { @extend .btn-lg; }
+@each $breakpoint, $width in $container-max-widths {
+  .container-#{$breakpoint} { @extend .container-fluid; }
+}
 
 // Bootstrap 5 applies $btn-box-shadow to the base .btn. Previously only filled
 // variants had it; keep outline, link, and unstyled OAuth buttons flat.
@@ -292,7 +272,7 @@ $header-full-breakpoint: 1200px;
       color: $dark;
       font-weight: 500;
       border-radius: 0.25rem;
-      border-bottom: 3px solid darken($headerGreen, 15%);
+      border-bottom: 3px solid color.adjust($headerGreen, $lightness: -15%);
       
       i {
         color: $dark;
@@ -677,8 +657,8 @@ html[dir='rtl'] {
   cursor: pointer;
 
   &:hover {
-    color: darken($primary, 10%);
-    text-decoration-color: darken($primary, 10%);
+    color: color.adjust($primary, $lightness: -10%);
+    text-decoration-color: color.adjust($primary, $lightness: -10%);
   }
 
   &:visited {
@@ -688,8 +668,8 @@ html[dir='rtl'] {
 }
 
 .next-entry-item:hover .next-entry-link-text {
-  color: darken($primary, 10%);
-  text-decoration-color: darken($primary, 10%);
+  color: color.adjust($primary, $lightness: -10%);
+  text-decoration-color: color.adjust($primary, $lightness: -10%);
 }
 
 // Visited link color - scoped to content areas only (not nav/footer/buttons)
@@ -728,9 +708,9 @@ html[dir='rtl'] {
 }
 
 .delete-warning {
-  background-color: lighten($calendar-overstay, 6%);
+  background-color: color.adjust($calendar-overstay, $lightness: 6%);
   color: $calendar-overstay-text;
-  border-bottom: 1px solid darken($calendar-overstay, 5%);
+  border-bottom: 1px solid color.adjust($calendar-overstay, $lightness: -5%);
 }
 
 // Custom button for add/create actions using lime green theme
@@ -744,16 +724,16 @@ html[dir='rtl'] {
 
   &:hover,
   &:focus {
-    background-color: darken($headerGreen, 5%);
-    border-color: darken($headerGreen, 5%);
+    background-color: color.adjust($headerGreen, $lightness: -5%);
+    border-color: color.adjust($headerGreen, $lightness: -5%);
     color: #2d5016;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
   }
 
   &:active {
-    background-color: darken($headerGreen, 10%);
-    border-color: darken($headerGreen, 10%);
+    background-color: color.adjust($headerGreen, $lightness: -10%);
+    border-color: color.adjust($headerGreen, $lightness: -10%);
     color: #2d5016;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     transform: translateY(0);
@@ -804,7 +784,7 @@ html[dir='rtl'] {
 }
 
 .info-message {
-  background-color: lighten($headerGreen, 35%);
+  background-color: color.adjust($headerGreen, $lightness: 35%);
   border-left: 4px solid $headerGreen;
   padding: 1rem 1.25rem;
   margin-bottom: 1.5rem;

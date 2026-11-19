@@ -38,7 +38,6 @@ namespace :i18n do
     puts "  rails i18n:normalize         - Normalize and sort YAML files"
     puts '========================================'
 
-    # Exit with error if there are issues (for pre-commit hook)
     exit 1 if exit_code != 0 || total_placeholders.positive?
   end
 
@@ -84,47 +83,6 @@ namespace :i18n do
     puts 'Normalizing YAML files...'
     system('bundle exec i18n-tasks normalize')
     puts '✓ YAML files normalized successfully'
-  end
-
-  desc 'Install pre-commit hook for i18n validation'
-  task install_hook: :environment do
-    # Git root is parent of Rails root (schengen-track, not schengen-track/src)
-    git_root = Rails.root.parent
-    hook_path = git_root.join('.git', 'hooks', 'pre-commit')
-
-    if File.exist?(hook_path)
-      puts '⚠ Pre-commit hook already exists.'
-      print 'Overwrite? (y/N): '
-      return unless $stdin.gets.chomp.downcase == 'y'
-    end
-
-    hook_content = <<~HOOK
-      #!/bin/bash
-      # i18n translation validation pre-commit hook
-
-      echo "Running i18n translation check..."
-      cd "#{Rails.root}"
-      bin/rails i18n:check
-
-      if [ $? -ne 0 ]; then
-        echo
-        echo "❌ COMMIT BLOCKED: Translation issues found"
-        echo "Fix translations before committing or use 'git commit --no-verify' to bypass."
-        exit 1
-      fi
-
-      echo "✓ i18n check passed"
-      exit 0
-    HOOK
-
-    File.write(hook_path, hook_content)
-    File.chmod(0o755, hook_path)
-
-    puts '✓ Pre-commit hook installed successfully'
-    puts "Location: #{hook_path}"
-    puts
-    puts 'The hook will run automatically before each commit.'
-    puts "To bypass the hook, use: git commit --no-verify"
   end
 
   # Helper methods

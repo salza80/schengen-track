@@ -1,4 +1,4 @@
-@import "_variables.scss";
+@use "bootstrap_compat" as *;
 
 // Breakpoints
 $bp-maggie: 15em; 

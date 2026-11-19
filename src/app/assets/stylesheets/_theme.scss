@@ -1,4 +1,5 @@
 // Application theme, originally based on Bootswatch Materia.
+@use "sass:color";
 
 //
 // Color system
@@ -128,6 +129,44 @@ $progress-border-radius:        0 !default;
 $enable-shadows: true !default;
 $btn-box-shadow:         0 1px 4px rgba($black, .4) !default;
 $btn-active-box-shadow:  2px 2px 4px rgba($black, .4) !default;
-$btn-focus-box-shadow:   0 0 0 2px mix(rgba($white, .5), rgba($black, .5), 80%) !default;
-$input-box-shadow:       inset 0 -1px 0 mix($white, $black, 86.7%) !default;
+$btn-focus-box-shadow:   0 0 0 2px color.mix(rgba($white, .5), rgba($black, .5), 80%) !default;
+$input-box-shadow:       inset 0 -1px 0 color.mix($white, $black, 86.7%) !default;
 $input-focus-box-shadow: inset 0 -2px 0 $primary !default;
+
+// Custom theme colors and Bootstrap overrides.
+$headerGreen: #d8ffa2 !default;
+
+// Accessible navbar and link colors.
+$navbar-light-color: #495057 !default;
+$navbar-light-hover-color: #212529 !default;
+$navbar-light-active-color: #212529 !default;
+$navbar-light-disabled-color: #6c757d !default;
+$navbar-light-brand-color: #212529 !default;
+$navbar-light-brand-hover-color: #212529 !default;
+$link-color: $blue-dark !default;
+$link-hover-color: #003d82 !default;
+$body-secondary-color: #495057 !default;
+
+// Semantic calendar status colors.
+$calendar-outside: #e9ecef !default;
+$calendar-safe: #e8f5d9 !default;
+$calendar-warning: #fff3cd !default;
+$calendar-overstay: #f8d7da !default;
+$calendar-waiting: #fff3cd !default;
+$calendar-outside-text: #495057 !default;
+$calendar-safe-text: #3d5a1f !default;
+$calendar-warning-text: #856404 !default;
+$calendar-overstay-text: #721c24 !default;
+$calendar-waiting-text: #856404 !default;
+
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "header": $headerGreen
+);

@@ -1,3 +1,5 @@
+@use "theme" as *;
+
 // Editable controls and read-only information have distinct surfaces in dialogs.
 .visit-date-fields input[type="date"] {
   min-width: 0;
